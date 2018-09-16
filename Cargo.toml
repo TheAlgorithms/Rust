@@ -1,0 +1,6 @@
+[package]
+name = "the_algorithms_rust"
+version = "0.1.0"
+authors = ["Anshul Malik <malikanshul29@gmail.com>"]
+
+[dependencies]
