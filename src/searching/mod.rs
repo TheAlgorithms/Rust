@@ -7,7 +7,7 @@ pub fn binary_search<T>(item: T, arr: &[T]) -> i32
     let mut right = arr.len() - 1;
 
     while left < right {
-        let mid = (left + right) / 2;
+        let mid = left + (right - left) / 2;
 
         if arr[mid] > item {
             right = mid - 1;
