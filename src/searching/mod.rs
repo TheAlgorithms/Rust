@@ -1,7 +1,8 @@
 use std::cmp;
 
 pub fn binary_search<T>(item: T, arr: &[T]) -> i32
-    where T: cmp::PartialEq + cmp::PartialOrd + Sized
+where
+    T: cmp::PartialEq + cmp::PartialOrd + Sized,
 {
     let mut left = 0;
     let mut right = arr.len() - 1;
@@ -27,7 +28,8 @@ pub fn binary_search<T>(item: T, arr: &[T]) -> i32
 }
 
 pub fn linear_search<T>(item: T, arr: &[T]) -> i32
-    where T: cmp::PartialEq
+where
+    T: cmp::PartialEq,
 {
     let length = arr.len();
 
