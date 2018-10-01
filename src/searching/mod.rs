@@ -101,6 +101,35 @@ pub fn shellsort<H : ShellHs, T : Ord>(slice : &mut [T]){
     }
 }
 
+// another way of shell sort
+fn shellsort2(mut array: &mut [i32])
+{
+    let mut c = array.len()/2;
+    while c > 0
+        {
+            for s in 0..c
+                {
+                    insercion(&mut array, s, c);
+                }
+            c = c/2;
+        }
+}
+fn insercion(mut array: &mut [i32], i: usize, g: usize)
+{
+    let x = i+g;
+    let n = array.len();
+    for i in x..n
+        {
+            let valor=array[i];
+            let mut posicion=i;
+            while posicion>=g && array[posicion-g]>valor
+                {
+                    array[posicion] = array[posicion-g];
+                    posicion = posicion-g;
+                }
+            array[posicion]=valor;
+        }
+}
 
 #[cfg(test)]
 mod tests {
