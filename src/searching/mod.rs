@@ -31,9 +31,10 @@ pub fn linear_search<T>(item: &T, arr: &[T]) -> i32
 where
     T: cmp::PartialEq,
 {
-    for (pos, elem) in arr.iter().enumerate() {
-        if item == elem {
-            return pos as i32;
+    let len = arr.len();
+    for i in 0..len {
+        if item == &arr[i] {
+            return i as i32;
         }
     }
 
