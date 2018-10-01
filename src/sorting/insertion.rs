@@ -3,7 +3,7 @@ use std::cmp;
 #[allow(dead_code)]
 pub fn insertion_sort<T>(arr: &[T]) -> Vec<T>
 where
-    T: cmp::PartialEq + cmp::PartialOrd + Clone
+    T: cmp::PartialEq + cmp::PartialOrd + Clone,
 {
     // The resulting vector should contain the same amount of elements as
     // the slice that is being sorted, so enough room is preallocated
