@@ -1,9 +1,9 @@
 use std::cmp;
-use std::fmt;
 
+#[allow(dead_code)]
 pub fn insertion_sort<T>(arr: &[T]) -> Vec<T>
 where
-    T: cmp::PartialEq + cmp::PartialOrd + Clone + fmt::Debug,
+    T: cmp::PartialEq + cmp::PartialOrd + Clone
 {
     // The resulting vector should contain the same amount of elements as
     // the slice that is being sorted, so enough room is preallocated
