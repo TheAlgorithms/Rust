@@ -1,4 +1,5 @@
 mod searching;
+mod sorting;
 
 #[cfg(test)]
 mod tests {
