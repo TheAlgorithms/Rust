@@ -9,22 +9,20 @@ where
     // the slice that is being sorted, so enough room is preallocated
     let mut result: Vec<T> = Vec::with_capacity(arr.len());
 
-    // Iterate over the elements to sort, the current element to insert is elem.
-    for elem in arr.iter() {
+    // Iterate over the elements to sort and
+    // put a clone of the element to insert in elem.
+    for elem in arr.iter().cloned() {
         // How many elements have already been inserted?
         let n_inserted = result.len();
 
-        // Copy or Clone the current element:
-        let new_elem = elem.to_owned();
-
         // Loop over the inserted elements and one more index.
         for i in 0..n_inserted + 1 {
-            if i == n_inserted || // Last inserted element
-               &result[i] > elem
-            {
+            // If at the end or result[i] is larger than the current element,
+            // we have found the right spot:
+            if i == n_inserted || result[i] > elem {
                 // Insert the element at i,
-                // move the rest to higher indexes.
-                result.insert(i, new_elem);
+                // move the rest to higher indexes:
+                result.insert(i, elem);
                 break;
             }
         }
