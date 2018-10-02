@@ -61,4 +61,36 @@ mod tests {
             assert!(ve2[i] <= ve2[i + 1]);
         }
     }
+    #[test]
+    fn counting_sort() {
+        //descending
+        let mut ve1 = vec![6, 5, 4, 3, 2, 1];
+        sorting::counting_sort(&mut ve1, 6);
+        for i in 0..ve1.len() - 1 {
+            assert!(ve1[i] <= ve1[i + 1]);
+        }
+
+        //pre-sorted
+        let mut ve2 = vec![1, 2, 3, 4, 5, 6];
+        sorting::counting_sort(&mut ve2, 6);
+        for i in 0..ve2.len() - 1 {
+            assert!(ve2[i] <= ve2[i + 1]);
+        }
+    }
+    #[test]
+    fn generic_counting_sort() {
+        //descending u8
+        let mut ve1: Vec<u8> = vec![6, 5, 4, 3, 2, 1];
+        sorting::generic_counting_sort(&mut ve1, 6);
+        for i in 0..ve1.len() - 1 {
+            assert!(ve1[i] <= ve1[i + 1]);
+        }
+
+        //pre-sorted u64
+        let mut ve2: Vec<u64> = vec![1, 2, 3, 4, 5, 6];
+        sorting::generic_counting_sort(&mut ve2, 6);
+        for i in 0..ve2.len() - 1 {
+            assert!(ve2[i] <= ve2[i + 1]);
+        }
+    }
 }
