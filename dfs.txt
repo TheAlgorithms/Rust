@@ -1,0 +1,17 @@
+pub struct Tree<V> {
+    children: Vec<Tree<V>>,
+    value: V
+}
+
+impl<V> Tree<V> {
+    pub fn dfs<F: Fn(&V)>(&self, f: F) {
+        self.dfs_helper(&f);
+    }
+    fn dfs_helper<F: Fn(&V)>(&self, f: &F) {
+        (f)(&self.value);
+        for child in &self.children {
+            child.dfs_helper(f)
+        }
+    }
+    // ...
+}
