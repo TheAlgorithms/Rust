@@ -1,3 +1,4 @@
+pub mod dynamic_program;
 pub mod searching;
 pub mod sorting;
 
