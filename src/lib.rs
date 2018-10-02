@@ -1,3 +1,4 @@
+pub mod data_structure;
 pub mod searching;
 pub mod sorting;
 
