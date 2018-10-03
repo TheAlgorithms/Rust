@@ -1,9 +1,6 @@
-use std::cmp;
+use std::cmp::{PartialEq, PartialOrd};
 
-pub fn binary_search<T>(item: &T, arr: &[T]) -> i32
-where
-    T: cmp::PartialEq + cmp::PartialOrd + Sized,
-{
+pub fn binary_search<T: PartialEq + PartialOrd>(item: &T, arr: &[T]) -> Option<usize> {
     let mut left = 0;
     let mut right = arr.len() - 1;
 
@@ -21,47 +18,18 @@ where
     }
 
     if &arr[left] != item {
-        return -1;
+        return None
     }
 
-    left as i32
+    return Some(left);
 }
 
-pub fn linear_search<T>(item: &T, arr: &[T]) -> i32
-where
-    T: cmp::PartialEq,
-{
-    let len = arr.len();
-    for i in 0..len {
-        if item == &arr[i] {
-            return i as i32;
+pub fn linear_search<T: PartialEq>(item: &T, arr: &[T]) -> Option<usize> {
+    for (i, data) in arr.iter().enumerate() {
+        if item == data {
+            return Some(i);
         }
     }
 
-    -1
-}
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn linear() {
-        use searching;
-        let index = searching::linear_search(&"a", &vec!["a", "b", "c", "d", "google", "zoo"]);
-        assert_eq!(index, 0);
-
-        let mut index = searching::linear_search(&4, &vec![1, 2, 3, 4]);
-        assert_eq!(index, 3);
-
-        index = searching::linear_search(&3, &vec![1, 2, 3, 4]);
-        assert_eq!(index, 2);
-
-        index = searching::linear_search(&2, &vec![1, 2, 3, 4]);
-        assert_eq!(index, 1);
-
-        index = searching::linear_search(&1, &vec![1, 2, 3, 4]);
-        assert_eq!(index, 0);
-
-        index = searching::linear_search(&5, &vec![1, 2, 3, 4]);
-        assert_eq!(index, -1);
-    }
+    return None;
 }
