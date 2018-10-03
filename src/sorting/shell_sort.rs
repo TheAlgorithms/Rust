@@ -20,3 +20,32 @@ pub fn shell_sort<T: Ord + Copy>(values: &mut Vec<T>) {
         count_sublist /= 2;
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn shell_sort_test() {
+        // test for reverse array
+        let mut ve1 = vec![6, 5, 4, 3, 2, 1];
+        shell_sort(&mut ve1);
+        for i in 0..ve1.len() - 1 {
+            assert!(ve1[i] <= ve1[i + 1]);
+        }
+
+        // test for already sorted array
+        let mut ve2 = vec![1, 2, 3, 4, 5, 6];
+        shell_sort(&mut ve2);
+        for i in 0..ve2.len() - 1 {
+            assert!(ve2[i] <= ve2[i + 1]);
+        }
+
+        // test for unsorted
+        let mut ve3 = vec![3, 5, 6, 3, 1, 4];
+        shell_sort(&mut ve3);
+        for i in 0..ve3.len() - 1 {
+            assert!(ve3[i] <= ve3[i + 1]);
+        }
+    }
+}
