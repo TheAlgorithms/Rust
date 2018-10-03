@@ -4,10 +4,8 @@ pub mod sorting;
 #[cfg(test)]
 mod tests {
     use searching;
-
     #[test]
     fn linear() {
-        use searching;
         let index = searching::linear_search(&"a", &vec!["a", "b", "c", "d", "google", "zoo"]);
         assert_eq!(index, Some(0));
 
@@ -28,7 +26,6 @@ mod tests {
     }
     #[test]
     fn binary() {
-        use searching;
         let index = searching::binary_search(&"a", &vec!["a", "b", "c", "d", "google", "zoo"]);
         assert_eq!(index, Some(0));
 
