@@ -1,5 +1,5 @@
-pub fn shell_sort<T: Ord+Copy>(values: &mut Vec<T>) {
-    fn sort_gap_insertation<T: Ord+Copy>(values: &mut Vec<T>, start: usize, gap: usize) {
+pub fn shell_sort<T: Ord + Copy>(values: &mut Vec<T>) {
+    fn sort_gap_insertation<T: Ord + Copy>(values: &mut Vec<T>, start: usize, gap: usize) {
         for i in ((start + gap)..values.len()).step_by(gap) {
             let val_current = values[i];
             let mut pos = i;
@@ -19,5 +19,4 @@ pub fn shell_sort<T: Ord+Copy>(values: &mut Vec<T>) {
         }
         count_sublist /= 2;
     }
-
 }

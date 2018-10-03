@@ -28,7 +28,9 @@ mod tests {
         index = searching::binary_search(&"google", &vec!["a", "b", "c", "d", "google", "zoo"]);
         assert_eq!(index, 4);
     }
+
     use sorting;
+
     #[test]
     fn quick_sort() {
         //descending
@@ -45,6 +47,7 @@ mod tests {
             assert!(ve2[i] <= ve2[i + 1]);
         }
     }
+
     #[test]
     fn bubble_sort() {
         //descending
@@ -61,8 +64,9 @@ mod tests {
             assert!(ve2[i] <= ve2[i + 1]);
         }
     }
+
     #[test]
-    fn shell_sort(){
+    fn shell_sort() {
         let mut ve1 = vec![6, 5, 4, 3, 2, 1];
         sorting::shell_sort(&mut ve1);
         for i in 0..ve1.len() - 1 {
