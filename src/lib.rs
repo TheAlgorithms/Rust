@@ -3,48 +3,6 @@ pub mod sorting;
 
 #[cfg(test)]
 mod tests {
-    use searching;
-    #[test]
-    fn linear() {
-        let index = searching::linear_search(&"a", &vec!["a", "b", "c", "d", "google", "zoo"]);
-        assert_eq!(index, Some(0));
-
-        let mut index = searching::linear_search(&4, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(3));
-
-        index = searching::linear_search(&3, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(2));
-
-        index = searching::linear_search(&2, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(1));
-
-        index = searching::linear_search(&1, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(0));
-
-        index = searching::linear_search(&5, &vec![1, 2, 3, 4]);
-        assert_eq!(index, None);
-    }
-    #[test]
-    fn binary() {
-        let index = searching::binary_search(&"a", &vec!["a", "b", "c", "d", "google", "zoo"]);
-        assert_eq!(index, Some(0));
-
-        let mut index = searching::binary_search(&4, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(3));
-
-        index = searching::binary_search(&3, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(2));
-
-        index = searching::binary_search(&2, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(1));
-
-        index = searching::binary_search(&1, &vec![1, 2, 3, 4]);
-        assert_eq!(index, Some(0));
-
-        index = searching::binary_search(&5, &vec![1, 2, 3, 4]);
-        assert_eq!(index, None);
-    }
-
     use sorting;
     #[test]
     fn quick_sort() {
