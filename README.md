@@ -6,7 +6,6 @@ These are for demonstration purposes only.
 
 ## Sort Algorithms
 
-
 - Bubble
 - Insertion
 - Merge _(Not implemented yet)_
@@ -23,9 +22,6 @@ These are for demonstration purposes only.
 ## Ciphers
 
 - Caesar _(Not implemented yet)_
-
-###### Source: [Wikipedia](https://en.wikipedia.org/wiki/Caesar_cipher)
-
 - Vigenère _(Not implemented yet)_
 - Transposition _(Not implemented yet)_
 
