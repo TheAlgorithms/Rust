@@ -31,19 +31,19 @@ mod tests {
         let index = super::binary_search(&"a", &vec!["a", "b", "c", "d", "google", "zoo"]);
         assert_eq!(index, Some(0));
 
-        let mut index = super::binary_search(&4, &vec![1, 2, 3, 4]);
+        let index = super::binary_search(&4, &vec![1, 2, 3, 4]);
         assert_eq!(index, Some(3));
 
-        index = super::binary_search(&3, &vec![1, 2, 3, 4]);
+        let index = super::binary_search(&3, &vec![1, 2, 3, 4]);
         assert_eq!(index, Some(2));
 
-        index = super::binary_search(&2, &vec![1, 2, 3, 4]);
+        let index = super::binary_search(&2, &vec![1, 2, 3, 4]);
         assert_eq!(index, Some(1));
 
-        index = super::binary_search(&1, &vec![1, 2, 3, 4]);
+        let index = super::binary_search(&1, &vec![1, 2, 3, 4]);
         assert_eq!(index, Some(0));
 
-        index = super::binary_search(&5, &vec![1, 2, 3, 4]);
+        let index = super::binary_search(&5, &vec![1, 2, 3, 4]);
         assert_eq!(index, None);
     }
 }
