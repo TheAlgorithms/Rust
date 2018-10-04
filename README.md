@@ -25,4 +25,7 @@ These are for demonstration purposes only.
 - Vigenère _(Not implemented yet)_
 - Transposition _(Not implemented yet)_
 
+---
+### Contributing
 
+See [CONTRIBUTING.md](CONTRIBUTING.md)
