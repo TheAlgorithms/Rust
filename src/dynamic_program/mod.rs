@@ -1,3 +1,3 @@
-mod lcs;
+mod longest_common_subsequence;
 
-pub use self::lcs::lcs;
+pub use self::longest_common_subsequence::lcs;
