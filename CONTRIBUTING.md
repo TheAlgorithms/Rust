@@ -41,6 +41,8 @@ mod tests {
 
 ## Before submitting you PR
 
-Make sure you:
-  * ran `cargo fmt` and `cargo test`
-  * **squashed** your branch !
+Make sure you ran
+  * `cargo test` 
+  * `cargo fmt`
+  
+  And that's about it !
