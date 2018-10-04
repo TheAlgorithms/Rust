@@ -7,10 +7,12 @@ This project aims at showcasing common algorithms implemented in `Rust`, with an
 The project is organized as follow:
 
 `src/`
-  - `algo_category/`
+  - `my_algo_category/`
     - `mod.rs`
     - `my_algorithm.rs`
     - `some_other_algorithm.rs`
+  - `some_other_algo_category/`
+    - ...
 
 
 `mod.rs` contains the export:
@@ -31,7 +33,7 @@ pub fn my_algorithm() {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn my_algorithm() {
+    fn my_test() {
         // ...
     }
 }
@@ -39,8 +41,8 @@ mod tests {
 
 ## Before submitting you PR
 
-Make sure you ran:
+Make sure you ran
+  * `cargo test` 
   * `cargo fmt`
-  * `cargo test`
-
-and squashed your branch !
+  
+  And that's about it !
