@@ -1,12 +1,10 @@
 pub struct Stack<T> {
-    data: Vec<T>
+    data: Vec<T>,
 }
 
 impl<T> Stack<T> {
     pub fn new() -> Stack<T> {
-        Stack {
-            data: vec![]
-        }
+        Stack { data: vec![] }
     }
 
     pub fn push(&mut self, item: T) {
