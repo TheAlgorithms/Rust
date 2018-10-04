@@ -33,7 +33,7 @@ pub fn my_algorithm() {
 #[cfg(test)]
 mod tests {
     #[test]
-    fn my_algorithm() {
+    fn my_test() {
         // ...
     }
 }
