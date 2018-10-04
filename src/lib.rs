@@ -1,6 +1,6 @@
+pub mod data_structures;
 pub mod searching;
 pub mod sorting;
-pub mod data_structures;
 
 #[cfg(test)]
 mod tests {
