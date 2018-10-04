@@ -41,6 +41,8 @@ mod tests {
 
 ## Before submitting you PR
 
+Do **not** use acronyms: `DFS` should be `depth_first_search`.
+
 Make sure you ran
   * `cargo test` 
   * `cargo fmt`
