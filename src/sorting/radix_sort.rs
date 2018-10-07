@@ -1,11 +1,14 @@
 pub fn radix_sort(data: &mut [isize]) {
+    // radix is 256 for faster sort
     let mut buckets = vec![vec![]; 256];
 
     for n in 0..4 {
         for r in data as &[isize] {
             let val = *r;
-            let mut which = (val >> (8 * n)) & 0xFFisize;
+            // get the nth byte which has 256 possible values
+            let mut which = (val >> (8 * n)) & 0xFFisize; // It's a bit like (val / (256 to the power of n)) % 256
             if n == 3 {
+                //  The XOR instruction (^) is to flip the sign bit so that negative values work properly
                 which ^= 0x80;
             }
             buckets[which as usize].push(val);
