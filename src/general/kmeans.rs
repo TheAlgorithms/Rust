@@ -27,8 +27,7 @@ fn nearest_centroids(xs: &Vec<Vec<f64>>, centroids: &Vec<Vec<f64>>) -> Vec<usize
                 },
             );
             argmin
-        })
-        .collect()
+        }).collect()
 }
 
 /// Recompute the centroids given the current clustering
@@ -50,8 +49,7 @@ fn recompute_centroids(xs: &Vec<Vec<f64>>, clustering: &[usize], k: usize) -> Ve
                 }
             });
             centroid.iter().map(|&c_j| c_j / n_cluster).collect()
-        })
-        .collect()
+        }).collect()
 }
 
 /// Assign the N D-dimensional data, `xs`, to `k` clusters using K-Means clustering
