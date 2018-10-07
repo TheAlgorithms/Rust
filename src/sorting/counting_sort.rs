@@ -3,8 +3,21 @@
 /// O(maxval) in memory
 /// u32 is chosen arbitrarly, a counting sort probably should'nt be used on data that requires bigger types.
 
-pub fn counting_sort(arr: &mut [u32], maxval: usize) {
-    let mut occurences: Vec<usize> = vec![0; maxval + 1];
+fn get_max<T: Ord + Copy>(data: &[T]) -> T {
+    let mut max = data[0];
+
+    for i in data {
+        if *i > max {
+            max = *i;
+        }
+    }
+    max
+}
+
+pub fn counting_sort(arr: &mut [u32]) {
+    let maxval = get_max(arr);
+
+    let mut occurences: Vec<usize> = vec![0; maxval as usize + 1];
 
     for &data in arr.iter() {
         occurences[data as usize] += 1;
@@ -20,12 +33,12 @@ pub fn counting_sort(arr: &mut [u32], maxval: usize) {
 }
 
 use std::ops::AddAssign;
+
 /// Generic implementation of a counting sort for all usigned types
-pub fn generic_counting_sort<T: Into<u64> + From<u8> + AddAssign + Copy>(
-    arr: &mut [T],
-    maxval: usize,
-) {
-    let mut occurences: Vec<usize> = vec![0; maxval + 1];
+pub fn generic_counting_sort<T: Into<u64> + From<u8> + AddAssign + Copy + Ord>(arr: &mut [T]) {
+    let maxval = get_max(arr);
+
+    let mut occurences: Vec<usize> = vec![0; (maxval.into() as u64) as usize + 1];
 
     for &data in arr.iter() {
         occurences[data.into() as usize] += 1;
@@ -55,29 +68,30 @@ mod test {
     fn counting_sort() {
         //descending
         let mut ve1 = vec![6, 5, 4, 3, 2, 1];
-        super::counting_sort(&mut ve1, 6);
+        super::counting_sort(&mut ve1);
         for i in 0..ve1.len() - 1 {
             assert!(ve1[i] <= ve1[i + 1]);
         }
 
         //pre-sorted
         let mut ve2 = vec![1, 2, 3, 4, 5, 6];
-        super::counting_sort(&mut ve2, 6);
+        super::counting_sort(&mut ve2);
         for i in 0..ve2.len() - 1 {
             assert!(ve2[i] <= ve2[i + 1]);
         }
     }
+
     #[test]
     fn generic_counting_sort() {
         let mut ve1: Vec<u8> = vec![100, 30, 60, 10, 20, 120, 1];
-        super::generic_counting_sort(&mut ve1, 120);
+        super::generic_counting_sort(&mut ve1);
         for i in 0..ve1.len() - 1 {
             assert!(ve1[i] <= ve1[i + 1]);
         }
 
         //pre-sorted u64
         let mut ve2: Vec<u64> = vec![1, 2, 3, 4, 5, 6];
-        super::generic_counting_sort(&mut ve2, 6);
+        super::generic_counting_sort(&mut ve2);
         for i in 0..ve2.len() - 1 {
             assert!(ve2[i] <= ve2[i + 1]);
         }
