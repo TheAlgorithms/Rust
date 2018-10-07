@@ -5,7 +5,7 @@
 
 // lcs is case sensitive, and treats different cases as unique.
 
-pub fn lcs(str1: &str, str2: &str) -> Vec<char> {
+pub fn longest_common_subsequence(str1: &str, str2: &str) -> Vec<char> {
     let mut n = str1.len();
     let mut m = str2.len();
     let chr1: Vec<char> = str1.chars().collect();
@@ -66,7 +66,7 @@ pub fn lcs(str1: &str, str2: &str) -> Vec<char> {
 
 #[cfg(test)]
 mod test {
-    use dynamic_program::longest_common_subsequence::lcs;
+    use dynamic_program::longest_common_subsequence as lcs;
 
     #[test]
     fn simple_lcs() {
