@@ -19,7 +19,7 @@ impl<T> Queue<T> {
     // Adds the element to the circular queue
     // Once capacity is reached, new items will overwrite old ones.
     pub fn enqueue(&mut self, e: T) {
-        if self.len() < self.capacity() {
+        if self.len() < self.capacity {
             self.data.push(e);
         } else {
             self.data[self.index] = e;
