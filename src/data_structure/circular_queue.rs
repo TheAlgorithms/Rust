@@ -1,17 +1,24 @@
-pub struct Queue<T> {
+use std::marker::Copy;
+
+pub struct Queue<T: Copy> {
     data: Vec<T>,
     index: usize,
     front: usize,
+    len: usize,
     capacity: usize,
 }
 
-impl<T> Queue<T> {
+impl<T> Queue<T>
+where
+    T: Copy,
+{
     // Returns a new Queue object with given capacity
     pub fn with_capacity(capacity: usize) -> Self {
         Self {
             data: Vec::with_capacity(capacity),
             index: 0,
             front: 0,
+            len: 0,
             capacity,
         }
     }
@@ -19,12 +26,13 @@ impl<T> Queue<T> {
     // Adds the element to the circular queue
     // Once capacity is reached, new items will overwrite old ones.
     pub fn enqueue(&mut self, e: T) {
-        if self.len() < self.capacity {
+        if self.index < self.capacity {
             self.data.push(e);
         } else {
             self.data[self.index] = e;
         }
-        self.index = (self.index + 1) % self.capacity();
+        self.index = (self.index + 1) % self.capacity;
+        self.len += 1;
     }
 
     // Returns an Option with first element of the list,
@@ -33,18 +41,19 @@ impl<T> Queue<T> {
         if self.is_empty() {
             return None;
         }
-        let ele = self.data.swap_remove(self.front as usize);
+        let ele = &self.data[self.front];
         if self.len() == 0 {
             self.front = 0
         } else {
-            self.front = (self.front + 1) % self.len();
+            self.front = (self.front + 1) % self.capacity;
         }
-        Some(ele)
+        self.len -= 1;
+        Some(*ele)
     }
 
     // Returns true if queue is empty
     pub fn is_empty(&self) -> bool {
-        self.data.is_empty()
+        self.len == 0
     }
 
     // Returns an Option with the first element, if queue is empty gives None
@@ -58,7 +67,7 @@ impl<T> Queue<T> {
 
     // Returns the length of queue
     pub fn len(&self) -> usize {
-        self.data.len()
+        self.len
     }
 
     // Returns the capacity of the queue
@@ -80,6 +89,7 @@ mod tests {
     #[test]
     fn circular_queue_enqueue() {
         let mut queue: Queue<i32> = Queue::with_capacity(5);
+        assert_eq!(queue.peek(), None);
         queue.enqueue(1);
         assert!(!queue.is_empty());
         queue.enqueue(2);
@@ -100,6 +110,28 @@ mod tests {
         assert_eq!(queue.len(), 2);
         assert_eq!(queue.dequeue(), Some(1));
         assert_eq!(queue.dequeue(), Some(2));
+        assert!(queue.is_empty());
+    }
+
+    #[test]
+    fn circular_dequeue_enqueue() {
+        let mut queue: Queue<i32> = Queue::with_capacity(5);
+        assert!(queue.dequeue().is_none());
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+        assert_eq!(queue.len(), 4);
+        assert_eq!(queue.dequeue(), Some(1));
+        assert_eq!(queue.dequeue(), Some(2));
+        assert_eq!(queue.len(), 2);
+        queue.enqueue(5);
+        assert_eq!(queue.len(), 3);
+        assert_eq!(queue.dequeue(), Some(3));
+        assert_eq!(queue.dequeue(), Some(4));
+        assert_eq!(queue.len(), 1);
+        assert_eq!(queue.dequeue(), Some(5));
+        assert_eq!(queue.len(), 0);
         assert!(queue.is_empty());
     }
 }
