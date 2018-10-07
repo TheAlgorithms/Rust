@@ -98,8 +98,8 @@ mod tests {
         assert!(!queue.is_empty());
         queue.enqueue(2);
         assert_eq!(queue.len(), 2);
-        queue.dequeue();
-        queue.dequeue();
+        assert_eq!(queue.dequeue(), Some(1));
+        assert_eq!(queue.dequeue(), Some(2));
         assert!(queue.is_empty());
     }
 }
