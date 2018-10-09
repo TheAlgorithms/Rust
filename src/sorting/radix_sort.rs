@@ -65,7 +65,6 @@ fn count_sort(data: &mut [isize], exp: isize) {
 
         count[((data[z] / exp) % 10) as usize] -= 1;
     }
-
     for t in 0..n {
         data[t] = new_data[t];
     }
