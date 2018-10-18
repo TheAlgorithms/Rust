@@ -33,8 +33,7 @@ macro_rules! impl_kmeans {
                             },
                         );
                         argmin
-                    })
-                    .collect()
+                    }).collect()
             }
 
             /// Recompute the centroids given the current clustering
@@ -60,8 +59,7 @@ macro_rules! impl_kmeans {
                             }
                         });
                         centroid.iter().map(|&c_j| c_j / n_cluster).collect()
-                    })
-                    .collect()
+                    }).collect()
             }
 
             /// Assign the N D-dimensional data, `xs`, to `k` clusters using K-Means clustering
