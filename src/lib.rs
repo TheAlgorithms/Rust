@@ -1,3 +1,4 @@
+pub mod general;
 pub mod searching;
 pub mod sorting;
 
