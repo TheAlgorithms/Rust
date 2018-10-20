@@ -16,8 +16,8 @@ These are for demonstration purposes only.
 
 ## Search Algorithms
 
-- Linear _(Not implemented yet)_
-- Binary _(Not implemented yet)_
+- Linear
+- Binary
 
 ## Ciphers
 
