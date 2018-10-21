@@ -4,7 +4,7 @@
 
 These are for demonstration purposes only.
 
-## Sort Algorithms
+## [Sort Algorithms](./src/sorting)
 
 - [Bubble](./src/sorting/bubble_sort.rs)
 - [Counting](./src/sorting/counting_sort.rs)
@@ -21,7 +21,7 @@ These are for demonstration purposes only.
 - [Linear](./src/searching/linear_search.rs)
 - [Binary](./src/seraching/binary_search.rs)
 
-## Ciphers
+## [Ciphers](./src/ciphers)
 
 - Caesar _(Not implemented yet)_
 - Vigenère _(Not implemented yet)_
