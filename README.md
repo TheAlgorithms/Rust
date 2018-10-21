@@ -6,18 +6,20 @@ These are for demonstration purposes only.
 
 ## Sort Algorithms
 
-- Bubble
-- Insertion
+- [Bubble](./sorting/bubble_sort.rs)
+- [Counting](./sorting/counting_sort.rs)
+- [Insertion](./sorting/insertion_sort.rs)
 - Merge _(Not implemented yet)_
-- Quick
+- [Quick](./sorting/quick_sort.rs)
 - Selection _(Not implemented yet)_
-- Shell _(Not implemented yet)_
+- [Shell](./sorting/shell_sort.rs)
+- [Heap](./sorting/heap_sort.rs)
 
 
-## Search Algorithms
+## [Search Algorithms](./src/searching)
 
-- Linear
-- Binary
+- [Linear](./src/searching/linear_search.rs)
+- [Binary](./src/seraching/binary_search.rs)
 
 ## Ciphers
 
