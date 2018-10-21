@@ -1,6 +1,6 @@
 ## Search Algorithms
 
-### Linear
+### [Linear](./linear_search.rs)
 ![alt text][linear-image]
 
 From [Wikipedia][linear-wiki]: linear search or sequential search is a method for finding a target value within a list. It sequentially checks each element of the list for the target value until a match is found or until all the elements have been searched.
@@ -12,7 +12,7 @@ __Properties__
 * Average case performance	O(n)
 * Worst case space complexity	O(1) iterative
 
-### Binary
+### [Binary](./binary_search.rs)
 ![alt text][binary-image]
 
 From [Wikipedia][binary-wiki]: Binary search, also known as half-interval search or logarithmic search, is a search algorithm that finds the position of a target value within a sorted array. It compares the target value to the middle element of the array; if they are unequal, the half in which the target cannot lie is eliminated and the search continues on the remaining half until it is successful.
