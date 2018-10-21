@@ -6,14 +6,14 @@ These are for demonstration purposes only.
 
 ## Sort Algorithms
 
-- [Bubble](./sorting/bubble_sort.rs)
-- [Counting](./sorting/counting_sort.rs)
-- [Insertion](./sorting/insertion_sort.rs)
+- [Bubble](./src/sorting/bubble_sort.rs)
+- [Counting](./src/sorting/counting_sort.rs)
+- [Insertion](./src/sorting/insertion_sort.rs)
 - Merge _(Not implemented yet)_
-- [Quick](./sorting/quick_sort.rs)
+- [Quick](./src/sorting/quick_sort.rs)
 - Selection _(Not implemented yet)_
-- [Shell](./sorting/shell_sort.rs)
-- [Heap](./sorting/heap_sort.rs)
+- [Shell](./src/sorting/shell_sort.rs)
+- [Heap](./src/sorting/heap_sort.rs)
 
 
 ## [Search Algorithms](./src/searching)
