@@ -43,6 +43,7 @@ mod tests {
         assert!(is_sorted(&[] as &[isize]));
         assert!(is_sorted(&["a"]));
         assert!(is_sorted(&[1, 2, 3]));
+        assert!(is_sorted(&[0, 1, 1]));
 
         assert!(!is_sorted(&[1, 0]));
     }
