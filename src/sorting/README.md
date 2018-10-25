@@ -1,7 +1,7 @@
 ## Sort Algorithms
 
 
-### Bubble
+### [Bubble](./bubble_sort.rs)
 ![alt text][bubble-image]
 
 From [Wikipedia][bubble-wiki]: Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.
@@ -15,7 +15,7 @@ __Properties__
 
 
 
-### Insertion
+### [Insertion](./insertion_sort.rs)
 ![alt text][insertion-image]
 
 From [Wikipedia][insertion-wiki]: Insertion sort is a simple sorting algorithm that builds the final sorted array (or list) one item at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort.
@@ -41,7 +41,7 @@ __Properties__
 
 ###### View the algorithm in [action][merge-toptal]
 
-### Quick
+### [Quick](./quick_sort.rs)
 ![alt text][quick-image]
 
 From [Wikipedia][quick-wiki]: Quicksort (sometimes called partition-exchange sort) is an efficient sorting algorithm, serving as a systematic method for placing the elements of an array in order.
@@ -65,7 +65,7 @@ __Properties__
 
 ###### View the algorithm in [action][selection-toptal]
 
-### Shell _(Not implemented yet)_
+### [Shell](./shell_sort.rs)
 ![alt text][shell-image]
 
 From [Wikipedia][shell-wiki]:  Shellsort is a generalization of insertion sort that allows the exchange of items that are far apart.  The idea is to arrange the list of elements so that, starting anywhere, considering every nth element gives a sorted list.  Such a list is said to be h-sorted.  Equivalently, it can be thought of as h interleaved lists, each individually sorted.
