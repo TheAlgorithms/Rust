@@ -20,7 +20,7 @@ fn main() {
     if board_width == 0 || board_width < 2 {
         println!(
             "Running algorithm with 8 as a default. Specify an alternative Chess board size for \
-            N-Queens as a command line argument.\n"
+             N-Queens as a command line argument.\n"
         );
         board_width = 8;
     }
@@ -50,9 +50,9 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
             let left = board_rows[review_index] - (current_row as i64 - review_index as i64);
             let right = board_rows[review_index] + (current_row as i64 - review_index as i64);
 
-            if board_rows[current_row] == board_rows[review_index] ||
-                (left >= 0 && left == board_rows[current_row]) ||
-                (right < board_width as i64 && right == board_rows[current_row])
+            if board_rows[current_row] == board_rows[review_index]
+                || (left >= 0 && left == board_rows[current_row])
+                || (right < board_width as i64 && right == board_rows[current_row])
             {
                 conflict = true;
                 break;
@@ -82,8 +82,7 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
                     }
 
                     board_rows[current_row] == board_width
-                }
-                {}
+                } {}
             }
             (_, _) => {
                 current_row += 1;
@@ -127,9 +126,9 @@ mod test {
                 let left = board[review_index] - (current_row as i64 - review_index as i64);
                 let right = board[review_index] + (current_row as i64 - review_index as i64);
 
-                if board[current_row] == board[review_index] ||
-                    (left >= 0 && left == board[current_row]) ||
-                    (right < board.len() as i64 && right == board[current_row])
+                if board[current_row] == board[review_index]
+                    || (left >= 0 && left == board[current_row])
+                    || (right < board.len() as i64 && right == board[current_row])
                 {
                     return false;
                 }
