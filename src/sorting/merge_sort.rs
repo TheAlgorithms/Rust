@@ -15,7 +15,7 @@ where
 
     if l <= 1 as usize {
         // already sorted
-        return arr.to_vec()
+        return arr.to_vec();
     }
 
     let mut result: Vec<T> = Vec::with_capacity(arr.len());
