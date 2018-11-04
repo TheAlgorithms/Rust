@@ -4,13 +4,6 @@ pub fn merge_sort<T>(arr: &[T]) -> Vec<T>
 where
     T: cmp::PartialEq + cmp::PartialOrd + Clone,
 {
-    merge_sort_recur(arr)
-}
-
-pub fn merge_sort_recur<T>(arr: &[T]) -> Vec<T>
-where
-    T: cmp::PartialEq + cmp::PartialOrd + Clone,
-{
     let l: usize = arr.len();
 
     if l <= 1 as usize {
