@@ -9,7 +9,7 @@ These are for demonstration purposes only.
 - [Bubble](./src/sorting/bubble_sort.rs)
 - [Counting](./src/sorting/counting_sort.rs)
 - [Insertion](./src/sorting/insertion_sort.rs)
-- Merge _(Not implemented yet)_
+- [Merge](./src/sorting/merge_sort.rs)
 - [Quick](./src/sorting/quick_sort.rs)
 - Selection _(Not implemented yet)_
 - [Shell](./src/sorting/shell_sort.rs)

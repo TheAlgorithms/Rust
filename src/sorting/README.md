@@ -28,7 +28,7 @@ __Properties__
 ###### View the algorithm in [action][insertion-toptal]
 
 
-### Merge _(Not implemented yet)_
+### Merge _(./merge_sort.rs)_
 ![alt text][merge-image]
 
 From [Wikipedia][merge-wiki]: In computer science, merge sort (also commonly spelled mergesort) is an efficient, general-purpose, comparison-based sorting algorithm. Most implementations produce a stable sort, which means that the implementation preserves the input order of equal elements in the sorted output. Mergesort is a divide and conquer algorithm that was invented by John von Neumann in 1945.
