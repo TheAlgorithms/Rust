@@ -46,7 +46,6 @@ mod tests {
         assert!(is_sorted(&[0, 1, 1]));
 
         assert_eq!(is_sorted(&[1, 0]), false);
-        
         assert_eq!(is_sorted(&[2, 3, 1, -1, 5]), false);
     }
 }
