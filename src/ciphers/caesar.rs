@@ -18,7 +18,8 @@ pub fn caesar(cipher: &str, shift: u8) -> String {
             } else {
                 c
             }
-        }).collect()
+        })
+        .collect()
 }
 
 #[cfg(test)]
