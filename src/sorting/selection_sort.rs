@@ -1,13 +1,13 @@
 pub fn selection_sort<T: Ord>(arr: &mut [T]) {
     let len = arr.len();
-    for i in 0..len {
-        let mut smallest = i;
-        for j in (i + 1)..len {
-            if arr[j] < arr[smallest] {
-                smallest = j;
+    for left in 0..len {
+        let mut smallest = left;
+        for right in (left + 1)..len {
+            if arr[right] < arr[smallest] {
+                smallest = right;
             }
         }
-        arr.swap(smallest, i);
+        arr.swap(smallest, left);
     }
 }
 
