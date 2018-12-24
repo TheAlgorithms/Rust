@@ -11,7 +11,7 @@ These are for demonstration purposes only.
 - [Insertion](./src/sorting/insertion_sort.rs)
 - Merge _(Not implemented yet)_
 - [Quick](./src/sorting/quick_sort.rs)
-- Selection _(Not implemented yet)_
+- [Selection](./src/sorting/selection_sort.rs)
 - [Shell](./src/sorting/shell_sort.rs)
 - [Heap](./src/sorting/heap_sort.rs)
 - Radix _(Not implemented yet)_
