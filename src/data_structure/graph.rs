@@ -1,12 +1,12 @@
 use std::collections::HashMap;
-use std::collections::HashSet;
 use std::marker::PhantomData;
 
 /// 'Graph<N, E, Ty>' is a data structure for graphs with optionally
 /// weighted nodes and edges of arbitrary type. This implementation
-/// is inteded for educational purposes only. 
+/// is inteded for educational purposes only.
 /// See [petgraph](https://docs.rs/crate/petgraph/) for a full featured
 /// implementation.
+#[derive(Debug, PartialEq, Clone)]
 pub struct Graph<N, E, Ty = Directed> {
     nodes: HashMap<usize, Node<N>>,
     edges: HashMap<usize, Edge<E>>,
@@ -33,12 +33,33 @@ where
     /// Add node to graph and return its assigned index.
     fn add_node(&mut self, weight: N) -> usize {
         let node = Node { weight: weight };
-        let mut index = 0usize;
+        let mut index = self.nodes.len();
+
+        // There are at most self.nodes.len() many indices in use. Hence
+        // trying self.nodes.len()+1 many of them will always result
+        // in an available index. Most of the time, the first one
+        // (i.e. self.nodes.len() ) will work but if we delete and
+        // insert a bunch of nodes, this isn't necessarily true.
         while self.nodes.contains_key(&index) {
-            index += 1;
+            index -= 1;
         }
         self.nodes.insert(index, node);
         index
+    }
+
+    /// Remove node indexed at 'index' and all edges containing that
+    /// node. Optionally returns the weight of the removed node.
+    fn remove_node(&mut self, index: usize) -> Option<N> {
+        match self.nodes.remove(&index) {
+            Some(node) => {
+                // Only keep those edges that don't contain index as head or tail
+                self.edges.retain(|_, edge| edge.head != index && edge.tail != index);
+                return Some(node.weight);
+            }
+            None => {
+                return None;
+            }
+        }
     }
 
     /// Given two indices head and tail, attempt to add an edge whose
@@ -49,10 +70,17 @@ where
         if !self.nodes.contains_key(&head) || !self.nodes.contains_key(&head) {
             None
         } else {
-            let mut index = 0usize;
+            let mut index = self.edges.len();
+
+            // There are at most self.edges.len() many indices in use. Hence
+            // trying self.edges.len()+1 many of them will always result
+            // in an available index. Most of the time, the first one
+            // (i.e. self.edges.len() ) will work but if we delete and
+            // insert a bunch of edges, this isn't necessarily true.
             while self.edges.contains_key(&index) {
-                index += 1;
+                index -= 1;
             }
+
             self.edges.insert(
                 index,
                 Edge {
@@ -65,33 +93,44 @@ where
         }
     }
 
+    /// Remove edge indexed at 'index' 
+    fn remove_edge(&mut self, index: usize) {
+        self.edges.remove(&index);
+    }
+
     /// Return first index of an edge of the form head --> tail.  This
     /// is not necessarily the unique index since we explicitly allow
     /// multiple edges between two nodes.
     fn find_edge(&self, head: usize, tail: usize) -> Option<usize> {
-        for (index, edge) in self.edges.iter() {
-            // The latter part of the following disjunction is needed
-            // to identify [head,tail] with [tail,head] in undirected
-            // graphs.
-            if [edge.head, edge.tail] == [head, tail]
-                || (self.is_directed() && [edge.head, edge.tail] == [tail, head])
-            {
-                return Some(*index);
-            }
+        let edges: Vec<usize> = self.find_n_edges(1,head,tail);
+        if edges.len() == 0 {
+            return None;
         }
-        None
+        else {
+            return Some(edges[0]);
+        }
     }
 
     /// Return the indices of all edges of the form head --> tail
-    fn find_edges(&self, head: usize, tail: usize) -> HashSet<usize> {
-        let mut result: HashSet<usize> = HashSet::new();
+    fn find_edges(&self, head: usize, tail: usize) -> Vec<usize> {
+        self.find_n_edges(0, head, tail)
+    }
+
+    /// Returns up to the first n edges of the form head --> tail. If
+    /// n == 0, it returns all available edges.
+    fn find_n_edges(&self, n: usize, head: usize, tail: usize) -> Vec<usize> {
+        let mut result: Vec<usize> = Vec::new();
         for (index, edge) in self.edges.iter() {
             if [edge.head, edge.tail] == [head, tail]
                 || (self.is_directed() && [edge.head, edge.tail] == [tail, head])
             {
-                result.insert(*index);
+                result.push(*index);
+            }
+            if n != 0 && result.len() == n {
+                break;
             }
         }
+        result.sort();
         result
     }
 
@@ -105,13 +144,14 @@ where
 }
 
 /// The graph's node type.
+#[derive(Debug, PartialEq, Clone)]
 pub struct Node<N> {
     // node data
     pub weight: N,
 }
 
 /// The graph's edge type.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Edge<E> {
     // edge data
     pub weight: E,
@@ -181,7 +221,7 @@ mod tests {
         assert_eq!(graph.edges.get(&0).unwrap().weight, String::from("edge"));
 
         // Test if adding an illegal edge results in None
-        assert_eq!(graph.add_edge(String::from("None"),2,3), None);
+        assert_eq!(graph.add_edge(String::from("None"), 2, 3), None);
     }
 
     #[test]
@@ -211,11 +251,29 @@ mod tests {
         let index_0 = graph.add_edge(String::from("edge 0"), start, end).unwrap();
         let index_1 = graph.add_edge(String::from("edge 1"), start, end).unwrap();
 
-        // test if graph contains two distinct edges of the form 
+        // test if graph contains two distinct edges of the form
         // start --> end
-        let mut indices: HashSet<usize> = HashSet::new();
-        indices.insert(index_0);
-        indices.insert(index_1);
+        let mut indices: Vec<usize> = Vec::new();
+        indices.push(index_0);
+        indices.push(index_1);
         assert_eq!(graph.find_edges(start, end), indices);
+    }
+
+    #[test]
+    fn remove_node() {
+        let mut graph: Graph<u32, String> = Graph::new();
+        let start = graph.add_node(2);
+        let end = graph.add_node(3);
+        graph.add_edge(String::from("start --> end"), start, end).unwrap();
+        graph.add_edge(String::from("end --> start"), start, end).unwrap();
+        graph.add_edge(String::from("start --> start"), start, start).unwrap();
+        let index = graph.add_edge(String::from("end --> end"), end, end).unwrap();
+        
+        // Test if the weight of the removed node has been returned
+        assert_eq!(graph.remove_node(start).unwrap(),2);
+        // Test if there is a unique remaining edge.
+        assert_eq!(graph.edges.len(), 1);
+        // Test if the unique remaining edge is the correct one.
+        assert_eq!(*graph.edges.get(&index).unwrap(), Edge{ weight: String::from("end --> end"), head: end, tail: end });
     }
 }
