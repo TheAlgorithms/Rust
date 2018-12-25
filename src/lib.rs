@@ -1,3 +1,4 @@
+pub mod data_structure;
 pub mod ciphers;
 pub mod general;
 pub mod searching;
