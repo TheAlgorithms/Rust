@@ -53,7 +53,8 @@ where
         match self.nodes.remove(&index) {
             Some(node) => {
                 // Only keep those edges that don't contain index as head or tail
-                self.edges.retain(|_, edge| edge.head != index && edge.tail != index);
+                self.edges
+                    .retain(|_, edge| edge.head != index && edge.tail != index);
                 return Some(node.weight);
             }
             None => {
@@ -93,7 +94,7 @@ where
         }
     }
 
-    /// Remove edge indexed at 'index' 
+    /// Remove edge indexed at 'index'
     pub fn remove_edge(&mut self, index: usize) {
         self.edges.remove(&index);
     }
@@ -102,11 +103,10 @@ where
     /// is not necessarily the unique index since we explicitly allow
     /// multiple edges between two nodes.
     pub fn find_edge(&self, head: usize, tail: usize) -> Option<usize> {
-        let edges: Vec<usize> = self.find_n_edges(1,head,tail);
+        let edges: Vec<usize> = self.find_n_edges(1, head, tail);
         if edges.len() == 0 {
             return None;
-        }
-        else {
+        } else {
             return Some(edges[0]);
         }
     }
@@ -264,16 +264,31 @@ mod tests {
         let mut graph: Graph<u32, String> = Graph::new();
         let start = graph.add_node(2);
         let end = graph.add_node(3);
-        graph.add_edge(String::from("start --> end"), start, end).unwrap();
-        graph.add_edge(String::from("end --> start"), start, end).unwrap();
-        graph.add_edge(String::from("start --> start"), start, start).unwrap();
-        let index = graph.add_edge(String::from("end --> end"), end, end).unwrap();
-        
+        graph
+            .add_edge(String::from("start --> end"), start, end)
+            .unwrap();
+        graph
+            .add_edge(String::from("end --> start"), start, end)
+            .unwrap();
+        graph
+            .add_edge(String::from("start --> start"), start, start)
+            .unwrap();
+        let index = graph
+            .add_edge(String::from("end --> end"), end, end)
+            .unwrap();
+
         // Test if the weight of the removed node has been returned
-        assert_eq!(graph.remove_node(start).unwrap(),2);
+        assert_eq!(graph.remove_node(start).unwrap(), 2);
         // Test if there is a unique remaining edge.
         assert_eq!(graph.edges.len(), 1);
         // Test if the unique remaining edge is the correct one.
-        assert_eq!(*graph.edges.get(&index).unwrap(), Edge{ weight: String::from("end --> end"), head: end, tail: end });
+        assert_eq!(
+            *graph.edges.get(&index).unwrap(),
+            Edge {
+                weight: String::from("end --> end"),
+                head: end,
+                tail: end
+            }
+        );
     }
 }
