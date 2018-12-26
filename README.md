@@ -65,7 +65,7 @@ These are for demonstration purposes only.
 
 ## [Ciphers](./src/ciphers)
 
-- Caesar _(Not implemented yet)_
+- [Caesar](./src/ciphers/caesar.rs)
 - Vigenère _(Not implemented yet)_
 - Transposition _(Not implemented yet)_
 
