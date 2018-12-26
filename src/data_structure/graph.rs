@@ -17,7 +17,7 @@ impl<N, E, Ty> Graph<N, E, Ty>
 where
     Ty: EdgeType,
 {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Graph {
             nodes: HashMap::new(),
             edges: HashMap::new(),
@@ -26,12 +26,12 @@ where
     }
 
     /// Returns true iff graph is directed.
-    fn is_directed(&self) -> bool {
+    pub fn is_directed(&self) -> bool {
         Ty::is_directed()
     }
 
     /// Add node to graph and return its assigned index.
-    fn add_node(&mut self, weight: N) -> usize {
+    pub fn add_node(&mut self, weight: N) -> usize {
         let node = Node { weight: weight };
         let mut index = self.nodes.len();
 
@@ -49,7 +49,7 @@ where
 
     /// Remove node indexed at 'index' and all edges containing that
     /// node. Optionally returns the weight of the removed node.
-    fn remove_node(&mut self, index: usize) -> Option<N> {
+    pub fn remove_node(&mut self, index: usize) -> Option<N> {
         match self.nodes.remove(&index) {
             Some(node) => {
                 // Only keep those edges that don't contain index as head or tail
@@ -66,7 +66,7 @@ where
     /// starting node has index head and whose ending node has index
     /// tail to the graph. If this succeeds, return index assigned to
     /// that edge. Otherwise return None.
-    fn add_edge(&mut self, weight: E, head: usize, tail: usize) -> Option<usize> {
+    pub fn add_edge(&mut self, weight: E, head: usize, tail: usize) -> Option<usize> {
         if !self.nodes.contains_key(&head) || !self.nodes.contains_key(&head) {
             None
         } else {
@@ -94,14 +94,14 @@ where
     }
 
     /// Remove edge indexed at 'index' 
-    fn remove_edge(&mut self, index: usize) {
+    pub fn remove_edge(&mut self, index: usize) {
         self.edges.remove(&index);
     }
 
     /// Return first index of an edge of the form head --> tail.  This
     /// is not necessarily the unique index since we explicitly allow
     /// multiple edges between two nodes.
-    fn find_edge(&self, head: usize, tail: usize) -> Option<usize> {
+    pub fn find_edge(&self, head: usize, tail: usize) -> Option<usize> {
         let edges: Vec<usize> = self.find_n_edges(1,head,tail);
         if edges.len() == 0 {
             return None;
@@ -112,13 +112,13 @@ where
     }
 
     /// Return the indices of all edges of the form head --> tail
-    fn find_edges(&self, head: usize, tail: usize) -> Vec<usize> {
+    pub fn find_edges(&self, head: usize, tail: usize) -> Vec<usize> {
         self.find_n_edges(0, head, tail)
     }
 
     /// Returns up to the first n edges of the form head --> tail. If
     /// n == 0, it returns all available edges.
-    fn find_n_edges(&self, n: usize, head: usize, tail: usize) -> Vec<usize> {
+    pub fn find_n_edges(&self, n: usize, head: usize, tail: usize) -> Vec<usize> {
         let mut result: Vec<usize> = Vec::new();
         for (index, edge) in self.edges.iter() {
             if [edge.head, edge.tail] == [head, tail]
@@ -134,11 +134,11 @@ where
         result
     }
 
-    fn node_count(&self) -> usize {
+    pub fn node_count(&self) -> usize {
         self.nodes.len()
     }
 
-    fn edge_count(&self) -> usize {
+    pub fn edge_count(&self) -> usize {
         self.edges.len()
     }
 }
