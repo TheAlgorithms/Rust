@@ -1,4 +1,4 @@
-# The Algorithms - Rust [![Gitter](https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square)](https://gitter.im/the-algorithms/rust)
+# The Algorithms - Rust [![Gitter](https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square)](https://gitter.im/the-algorithms/rust) [![Build Status](https://travis-ci.org/TheAlgorithms/Rust.svg?branch=master)](https://travis-ci.org/TheAlgorithms/Rust)
 
 ### All algorithms implemented in Rust (for educational purposes)
 
