@@ -25,12 +25,12 @@ where
 
     let mut prev = &arr[0];
 
-    for idx in 1..arr.len() {
-        if prev > &arr[idx] {
+    for item in arr.iter().skip(1) {
+        if prev > &item {
             return false;
         }
 
-        prev = &arr[idx];
+        prev = &item;
     }
 
     true

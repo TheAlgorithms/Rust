@@ -16,7 +16,7 @@ macro_rules! impl_kmeans {
 
             /// Returns a vector containing the indices z<sub>i</sub> in {0, ..., K-1} of
             /// the centroid nearest to each datum.
-            fn nearest_centroids(xs: &Vec<Vec<$kind>>, centroids: &Vec<Vec<$kind>>) -> Vec<usize> {
+            fn nearest_centroids(xs: &[Vec<$kind>], centroids: &[Vec<$kind>]) -> Vec<usize> {
                 xs.iter()
                     .map(|xi| {
                         // Find the argmin by folding using a tuple containing the argmin
@@ -39,7 +39,7 @@ macro_rules! impl_kmeans {
 
             /// Recompute the centroids given the current clustering
             fn recompute_centroids(
-                xs: &Vec<Vec<$kind>>,
+                xs: &[Vec<$kind>],
                 clustering: &[usize],
                 k: usize,
             ) -> Vec<Vec<$kind>> {
