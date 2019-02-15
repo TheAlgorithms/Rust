@@ -17,11 +17,11 @@ pub fn binary_search<T: PartialEq + PartialOrd>(item: &T, arr: &[T]) -> Option<u
         }
     }
 
-    if &arr[left] != item {
-        return None;
+    if &arr[left] == item {
+        Some(left)
+    } else {
+        None
     }
-
-    return Some(left);
 }
 
 #[cfg(test)]

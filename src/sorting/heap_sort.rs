@@ -62,7 +62,7 @@ pub fn heap_sort<T: Ord>(arr: &mut [T]) {
 /// Convert `arr` into a max heap.
 fn heapify<T: Ord>(arr: &mut [T]) {
     let last_parent = (arr.len() - 2) / 2;
-    for i in (0..last_parent + 1).rev() {
+    for i in (0..=last_parent).rev() {
         move_down(arr, i);
     }
 }

@@ -7,7 +7,7 @@ pub fn linear_search<T: PartialEq>(item: &T, arr: &[T]) -> Option<usize> {
         }
     }
 
-    return None;
+    None
 }
 
 #[cfg(test)]
