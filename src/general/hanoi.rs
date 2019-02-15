@@ -8,7 +8,7 @@ pub fn hanoi(n: i32, from: i32, to: i32, via: i32, moves: &mut Vec<(i32, i32)>) 
 
 #[cfg(test)]
 mod tests {
-    use super::hanoi;
+    use super::*;
 
     #[test]
     fn hanoi_simple() {
