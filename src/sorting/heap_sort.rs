@@ -143,4 +143,11 @@ mod tests {
         heap_sort(&mut arr);
         assert_eq!(&arr, &[1, 2, 3, 4, 7, 8888]);
     }
+
+    #[test]
+    fn repeated_elements() {
+        let mut arr = vec![542, 542, 542, 542];
+        heap_sort(&mut arr);
+        assert_eq!(&arr, &vec![542, 542, 542, 542]);
+    }
 }
