@@ -24,13 +24,20 @@ pub fn caesar(cipher: &str, shift: u8) -> String {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
+    #[test]
+    fn empty() {
+        assert_eq!(caesar("", 13), "");
+    }
+
     #[test]
     fn caesar_rot_13() {
-        assert_eq!(super::caesar("rust", 13), "ehfg");
+        assert_eq!(caesar("rust", 13), "ehfg");
     }
 
     #[test]
     fn caesar_unicode() {
-        assert_eq!(super::caesar("attack at dawn 攻", 5), "fyyfhp fy ifbs 攻");
+        assert_eq!(caesar("attack at dawn 攻", 5), "fyyfhp fy ifbs 攻");
     }
 }
