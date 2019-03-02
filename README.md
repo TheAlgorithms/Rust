@@ -32,7 +32,7 @@ These are for demonstration purposes only.
 - [K-Means Clustering](./src/general/kmeans.rs)
 - Coin Change _(Not implemented yet)_
 - Rod cut _(Not implemented yet)_
-- Egg Dropping Puzzle _(Not implemented yet)_
+- [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 
 ## Data Structures
 
