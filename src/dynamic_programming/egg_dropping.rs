@@ -19,8 +19,7 @@ pub fn egg_drop(eggs: u32, floors: u32) -> u32 {
     // Store solutions to subproblems in 2D Vec,
     // where egg_drops[i][j] represents the solution to the egg dropping
     // problem with i eggs and j floors
-    let mut egg_drops: Vec<Vec<u32>> =
-        vec![vec![0; floors_index + 1]; eggs_index + 1];
+    let mut egg_drops: Vec<Vec<u32>> = vec![vec![0; floors_index + 1]; eggs_index + 1];
 
     // Assign solutions for egg_drop(n, 0) = 0, egg_drop(n, 1) = 1
     for egg_drop in egg_drops.iter_mut().skip(1) {
@@ -39,9 +38,7 @@ pub fn egg_drop(eggs: u32, floors: u32) -> u32 {
             egg_drops[i][j] = std::u32::MAX;
 
             for k in 1..=j {
-                let res = 1 + std::cmp::max(
-                    egg_drops[i - 1][k - 1],
-                    egg_drops[i][j - k]);
+                let res = 1 + std::cmp::max(egg_drops[i - 1][k - 1], egg_drops[i][j - k]);
 
                 if res < egg_drops[i][j] {
                     egg_drops[i][j] = res;
