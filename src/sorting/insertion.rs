@@ -66,18 +66,6 @@ mod tests {
     }
 
     #[test]
-    fn unusual_element_at_end() {
-        let res = insertion_sort(&vec![1, 5, 22, 1, 6, 2222]);
-        assert_eq!(res, vec![1, 1, 5, 6, 22, 2222]);
-    }
-
-    #[test]
-    fn unusual_element_at_start() {
-        let res = insertion_sort(&vec![2222, 1, 5, 22, 1, 6]);
-        assert_eq!(res, vec![1, 1, 5, 6, 22, 2222]);
-    }
-
-    #[test]
     fn repeated_elements() {
         let res = insertion_sort(&vec![542, 542, 542, 542]);
         assert_eq!(res, vec![542, 542, 542, 542]);
