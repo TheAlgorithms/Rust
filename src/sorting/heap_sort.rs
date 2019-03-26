@@ -122,4 +122,18 @@ mod tests {
         heap_sort(&mut arr);
         assert_eq!(&arr, &[1, 2, 3, 4]);
     }
+
+    #[test]
+    fn odd_number_of_elements() {
+        let mut arr = vec![3, 4, 2, 1, 7];
+        heap_sort(&mut arr);
+        assert_eq!(&arr, &[1, 2, 3, 4, 7]);
+    }
+
+    #[test]
+    fn repeated_elements() {
+        let mut arr = vec![542, 542, 542, 542];
+        heap_sort(&mut arr);
+        assert_eq!(&arr, &vec![542, 542, 542, 542]);
+    }
 }
