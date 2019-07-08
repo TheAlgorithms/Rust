@@ -67,37 +67,70 @@ impl<'a, T> BinarySearchTree<'a, T>
             }
         }
     }
+
+    /// Returns the smallest value in this tree
+    pub fn minimum(&self) -> &Option<&'a T> {
+        match &self.left {
+            Some(node) => node.minimum(),
+            None => &self.value,
+        }
+    }
+
+    /// Returns the largest value in this tree
+    pub fn maximum(&self) -> &Option<&'a T> {
+        match &self.right {
+            Some(node) => node.maximum(),
+            None => &self.value,
+        }
+    }
 }
 
 #[cfg(test)]
 mod test {
     use super::BinarySearchTree;
 
+    fn prequel_memes_tree() -> BinarySearchTree<'static, &'static str> {
+        let mut tree = BinarySearchTree::new();
+        tree.insert(&"hello there");
+        tree.insert(&"general kenobi");
+        tree.insert(&"you are a bold one");
+        tree.insert(&"kill him");
+        tree.insert(&"back away...I will deal with this jedi slime myself");
+        tree.insert(&"your move");
+        tree.insert(&"you fool");
+        tree
+    }
+
     #[test]
     fn test_insert_and_search() {
-        let s1 = String::from("hello there");
-        let s2 = String::from("general kenobi");
-        let s3 = String::from("you are a bold one");
-        let s4 = String::from("kill him");
-        let s5 = String::from("back away...I will deal with this jedi slime myself");
-        let s6 = String::from("your move");
-        let s7 = String::from("you fool");
-        let mut tree: BinarySearchTree<String> = BinarySearchTree::new();
-        tree.insert(&s1);
-        tree.insert(&s2);
-        tree.insert(&s3);
-        tree.insert(&s4);
-        tree.insert(&s5);
-        tree.insert(&s6);
-        tree.insert(&s7);
-        assert!(tree.search(&String::from("hello there")));
-        assert!(tree.search(&String::from("you are a bold one")));
-        assert!(tree.search(&String::from("general kenobi")));
-        assert!(tree.search(&String::from("you fool")));
-        assert!(tree.search(&String::from("kill him")));
-        assert!(!tree.search(&String::from("but i was going to tosche station to pick up some power converters")));
-        assert!(!tree.search(&String::from("only a sith deals in absolutes")));
-        assert!(!tree.search(&String::from("you underestimate my power")));
+        let tree = prequel_memes_tree();
+        assert!(tree.search(&"hello there"));
+        assert!(tree.search(&"you are a bold one"));
+        assert!(tree.search(&"general kenobi"));
+        assert!(tree.search(&"you fool"));
+        assert!(tree.search(&"kill him"));
+        assert!(!tree.search(&"but i was going to tosche station to pick up some power converters"));
+        assert!(!tree.search(&"only a sith deals in absolutes"));
+        assert!(!tree.search(&"you underestimate my power"));
+    }
+
+    #[test]
+    fn test_maximum_and_minimum() {
+        let tree = prequel_memes_tree();
+        assert_eq!(*tree.maximum().unwrap(), "your move");
+        assert_eq!(*tree.minimum().unwrap(), "back away...I will deal with this jedi slime myself");
+        let mut tree2: BinarySearchTree<i32> = BinarySearchTree::new();
+        assert!(tree2.maximum().is_none());
+        assert!(tree2.minimum().is_none());
+        tree2.insert(&0);
+        assert_eq!(*tree2.minimum().unwrap(), 0);
+        assert_eq!(*tree2.maximum().unwrap(), 0);
+        tree2.insert(&-5);
+        assert_eq!(*tree2.minimum().unwrap(), -5);
+        assert_eq!(*tree2.maximum().unwrap(), 0);
+        tree2.insert(&5);
+        assert_eq!(*tree2.minimum().unwrap(), -5);
+        assert_eq!(*tree2.maximum().unwrap(), 5);
     }
 }
 
