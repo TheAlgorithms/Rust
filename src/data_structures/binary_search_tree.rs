@@ -68,6 +68,37 @@ impl<'a, T> BinarySearchTree<'a, T>
         }
     }
 
+    /// Deletes a given value from this tree.
+    /// Returns true iff the value to be removed was found in the tree.
+    pub fn delete(&mut self, value: &T) -> bool {
+        if self.value.is_none() {
+            false
+        } else {
+            if self.value.unwrap() == value {
+                match &mut self.left {
+                    Some(node) => {
+                        self.value = *node.maximum();
+                        node.delete(value);
+                    },
+                    None => {
+                        self.value = None;
+                    },
+                }
+                true
+            } else if self.value.unwrap() > value {
+                match &mut self.left {
+                    Some(node) => node.delete(value),
+                    None => false,
+                }
+            } else {
+                match &mut self.right {
+                    Some(node) => node.delete(value),
+                    None => true,
+                }
+            }
+        }
+    }
+
     /// Returns the smallest value in this tree
     pub fn minimum(&self) -> &Option<&'a T> {
         match &self.left {
@@ -131,6 +162,20 @@ mod test {
         tree2.insert(&5);
         assert_eq!(*tree2.minimum().unwrap(), -5);
         assert_eq!(*tree2.maximum().unwrap(), 5);
+    }
+
+    #[test]
+    fn test_delete() {
+        let mut tree = prequel_memes_tree();
+        assert!(tree.search(&"you fool"));
+        assert!(tree.delete(&"you fool"));
+        assert!(!tree.search(&"you fool"));
+        assert!(!tree.delete(&"you fool"));
+        assert!(tree.search(&"hello there"));
+        assert!(tree.delete(&"hello there"));
+        assert!(!tree.search(&"hello there"));
+        assert!(tree.search(&"general kenobi"));
+        assert!(tree.search(&"your move"));
     }
 }
 
