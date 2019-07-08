@@ -1,6 +1,6 @@
+/// This struct implements as Binary Search Tree (BST), which is a
+/// simple data structure for storing sorted data
 pub struct BinarySearchTree<'a, T>
-    /// This struct implements as Binary Search Tree (BST), which is a
-    /// simple data structure for storing sorted data
     where T: Ord
 {
     value: Option<&'a T>,
@@ -11,14 +11,14 @@ pub struct BinarySearchTree<'a, T>
 impl<'a, T> BinarySearchTree<'a, T>
     where T: Ord
 {
+    /// Create a new, empty BST
     pub fn new<'b>() -> BinarySearchTree<'b, T> {
-        /// Create a new, empty BST
         BinarySearchTree { value: None, left: None, right: None }
     }
 
+    /// Find a value in this tree. Returns True iff value is in this
+    /// tree, and false otherwise
     pub fn search(&self, value: &T) -> bool {
-        /// Find a value in this tree. Returns True iff value is in this
-        /// tree, and false otherwise
         match &self.value {
             Some(key) => {
                 if *key == value {
@@ -39,11 +39,11 @@ impl<'a, T> BinarySearchTree<'a, T>
         }
     }
 
+    /// Insert a value into the appropriate location in this tree.
+    /// Returns true if the tree was updated (value was inserted) or
+    /// false if the tree was not updated (because value was already
+    /// present).
     pub fn insert(&mut self, value: &'a T) -> bool {
-        /// Insert a value into the appropriate location in this tree.
-        /// Returns true if the tree was updated (value was inserted) or
-        /// false if the tree was not updated (because value was already
-        /// present).
         if self.value.is_none() {
             self.value = Some(value);
             true
