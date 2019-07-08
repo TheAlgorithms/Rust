@@ -114,6 +114,62 @@ impl<'a, T> BinarySearchTree<'a, T>
             None => &self.value,
         }
     }
+
+    /// Returns the largest value in this tree smaller than value
+    pub fn floor(&self, value: &T) -> &Option<&'a T> {
+        match &self.value {
+            Some(key) => {
+                if *key > value {
+                    match &self.left {
+                        Some(node) => node.floor(value),
+                        None => &None,
+                    }
+                } else if *key < value {
+                    match &self.right {
+                        Some(node) => {
+                            let val = node.floor(value);
+                            match &val {
+                                Some(_) => &val,
+                                None => &self.value,
+                            }
+                        },
+                        None => &self.value,
+                    }
+                } else {
+                    &self.value
+                }
+            },
+            None => &self.value,
+        }
+    }
+
+    /// Returns the smallest value in this tree larger than value
+    pub fn ceil(&self, value: &T) -> &Option<&'a T> {
+        match &self.value {
+            Some(key) => {
+                if *key < value {
+                    match &self.right {
+                        Some(node) => node.ceil(value),
+                        None => &None,
+                    }
+                } else if *key > value {
+                    match &self.left {
+                        Some(node) => {
+                            let val = node.ceil(value);
+                            match &val {
+                                Some(_) => &val,
+                                None => &self.value,
+                            }
+                        },
+                        None => &self.value,
+                    }
+                } else {
+                    &self.value
+                }
+            },
+            None => &self.value,
+        }
+    }
 }
 
 #[cfg(test)]
@@ -176,6 +232,25 @@ mod test {
         assert!(!tree.search(&"hello there"));
         assert!(tree.search(&"general kenobi"));
         assert!(tree.search(&"your move"));
+    }
+
+    #[test]
+    fn test_floor_and_ceil() {
+        let tree = prequel_memes_tree();
+        assert_eq!(*tree.floor(&"hello there").unwrap(), "hello there");
+        assert_eq!(*tree.floor(&"these are not the droids you're looking for").unwrap(), "kill him");
+        assert!(tree.floor(&"another death star").is_none());
+        assert_eq!(*tree.floor(&"you fool").unwrap(), "you fool");
+        assert_eq!(*tree.floor(&"but i was going to tasche station").unwrap(), "back away...I will deal with this jedi slime myself");
+        assert_eq!(*tree.floor(&"you underestimate my power").unwrap(), "you fool");
+        assert_eq!(*tree.floor(&"your new empire").unwrap(), "your move");
+        assert_eq!(*tree.ceil(&"hello there").unwrap(), "hello there");
+        assert_eq!(*tree.ceil(&"these are not the droids you're looking for").unwrap(), "you are a bold one");
+        assert_eq!(*tree.ceil(&"another death star").unwrap(), "back away...I will deal with this jedi slime myself");
+        assert_eq!(*tree.ceil(&"you fool").unwrap(), "you fool");
+        assert_eq!(*tree.ceil(&"but i was going to tasche station").unwrap(), "general kenobi");
+        assert_eq!(*tree.ceil(&"you underestimate my power").unwrap(), "your move");
+        assert!(tree.ceil(&"your new empire").is_none());
     }
 }
 
