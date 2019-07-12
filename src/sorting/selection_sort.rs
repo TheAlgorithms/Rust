@@ -13,24 +13,33 @@ pub fn selection_sort<T: Ord>(arr: &mut [T]) {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
     #[test]
-    fn sort_numbers() {
-        use sorting::selection_sort;
-
-        let mut res = Vec::<u8>::new();
-        selection_sort(&mut res);
-        assert_eq!(res, vec![]);
-
-        let mut res = vec!["a"];
-        selection_sort(&mut res);
-        assert_eq!(res, vec!["a"]);
-
-        let mut res = vec!["a", "b", "c"];
-        selection_sort(&mut res);
-        assert_eq!(res, vec!["a", "b", "c"]);
-
+    fn basic() {
         let mut res = vec!["d", "a", "c", "b"];
         selection_sort(&mut res);
         assert_eq!(res, vec!["a", "b", "c", "d"]);
+    }
+
+    #[test]
+    fn empty() {
+        let mut res = Vec::<u8>::new();
+        selection_sort(&mut res);
+        assert_eq!(res, vec![]);
+    }
+
+    #[test]
+    fn one_element() {
+        let mut res = vec!["a"];
+        selection_sort(&mut res);
+        assert_eq!(res, vec!["a"]);
+    }
+
+    #[test]
+    fn pre_sorted() {
+        let mut res = vec!["a", "b", "c"];
+        selection_sort(&mut res);
+        assert_eq!(res, vec!["a", "b", "c"]);
     }
 }

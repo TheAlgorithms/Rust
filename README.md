@@ -61,7 +61,7 @@ These are for demonstration purposes only.
 ## [Search Algorithms](./src/searching)
 
 - [Linear](./src/searching/linear_search.rs)
-- [Binary](./src/seraching/binary_search.rs)
+- [Binary](./src/searching/binary_search.rs)
 
 ## [Ciphers](./src/ciphers)
 
