@@ -12,7 +12,7 @@ pub fn fibonacci(n: u32) -> u128 {
     for i in 0..n {
         // As we iterate through, move b's value into a and the new computed
         // value into b.
-        let c = a+b;
+        let c = a + b;
         a = b;
         b = c;
     }
@@ -31,7 +31,7 @@ mod tests {
         assert_eq!(fibonacci(3), 3);
         assert_eq!(fibonacci(4), 5);
         assert_eq!(fibonacci(5), 8);
-        assert_eq!(fibonacci(10), 55);
+        assert_eq!(fibonacci(10), 89);
         assert_eq!(fibonacci(20), 10946);
         assert_eq!(fibonacci(100), 573147844013817084101);
         assert_eq!(fibonacci(184), 205697230343233228174223751303346572685);
