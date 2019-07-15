@@ -3,7 +3,8 @@ use std::ops::Deref;
 /// This struct implements as Binary Search Tree (BST), which is a
 /// simple data structure for storing sorted data
 pub struct BinarySearchTree<T>
-    where T: Ord
+where
+    T: Ord,
 {
     value: Option<T>,
     left: Option<Box<BinarySearchTree<T>>>,
@@ -11,11 +12,16 @@ pub struct BinarySearchTree<T>
 }
 
 impl<T> BinarySearchTree<T>
-    where T: Ord
+where
+    T: Ord,
 {
     /// Create a new, empty BST
     pub fn new() -> BinarySearchTree<T> {
-        BinarySearchTree { value: None, left: None, right: None }
+        BinarySearchTree {
+            value: None,
+            left: None,
+            right: None,
+        }
     }
 
     /// Find a value in this tree. Returns True iff value is in this
@@ -36,11 +42,11 @@ impl<T> BinarySearchTree<T>
                         None => false,
                     }
                 }
-            },
+            }
             None => false,
         }
     }
-    
+
     /// Returns a new iterator which iterates over this tree in order
     pub fn iter<'a>(&'a self) -> impl Iterator<Item = &'a T> {
         BinarySearchTreeIter::new(self)
@@ -62,14 +68,14 @@ impl<T> BinarySearchTree<T>
                     match target_node {
                         &mut Some(ref mut node) => {
                             node.insert(value);
-                        },
+                        }
                         &mut None => {
                             let mut node = BinarySearchTree::new();
                             node.insert(value);
                             *target_node = Some(Box::new(node));
-                        },
+                        }
                     }
-                },
+                }
             }
         }
     }
@@ -78,9 +84,11 @@ impl<T> BinarySearchTree<T>
     pub fn minimum(&self) -> Option<&T> {
         match &self.left {
             Some(node) => node.minimum(),
-            None => match &self.value {
-                Some(value) => Some(&value),
-                None => None,
+            None => {
+                match &self.value {
+                    Some(value) => Some(&value),
+                    None => None,
+                }
             }
         }
     }
@@ -89,9 +97,11 @@ impl<T> BinarySearchTree<T>
     pub fn maximum(&self) -> Option<&T> {
         match &self.right {
             Some(node) => node.maximum(),
-            None => match &self.value {
-                Some(value) => Some(&value),
-                None => None,
+            None => {
+                match &self.value {
+                    Some(value) => Some(&value),
+                    None => None,
+                }
             }
         }
     }
@@ -113,13 +123,13 @@ impl<T> BinarySearchTree<T>
                                 Some(_) => val,
                                 None => Some(&key),
                             }
-                        },
+                        }
                         None => Some(&key),
                     }
                 } else {
                     Some(&key)
                 }
-            },
+            }
             None => None,
         }
     }
@@ -141,26 +151,28 @@ impl<T> BinarySearchTree<T>
                                 Some(_) => val,
                                 None => Some(&key),
                             }
-                        },
+                        }
                         None => Some(&key),
                     }
                 } else {
                     Some(&key)
                 }
-            },
+            }
             None => None,
         }
     }
 }
 
 struct BinarySearchTreeIter<'a, T>
-    where T: Ord
+where
+    T: Ord,
 {
     stack: Vec<&'a BinarySearchTree<T>>,
 }
 
 impl<'a, T> BinarySearchTreeIter<'a, T>
-    where T: Ord
+where
+    T: Ord,
 {
     pub fn new(tree: &BinarySearchTree<T>) -> BinarySearchTreeIter<T> {
         let mut iter = BinarySearchTreeIter { stack: vec![tree] };
@@ -179,7 +191,8 @@ impl<'a, T> BinarySearchTreeIter<'a, T>
 }
 
 impl<'a, T> Iterator for BinarySearchTreeIter<'a, T>
-    where T: Ord
+where
+    T: Ord,
 {
     type Item = &'a T;
 
@@ -221,7 +234,9 @@ mod test {
         assert!(tree.search(&"general kenobi"));
         assert!(tree.search(&"you fool"));
         assert!(tree.search(&"kill him"));
-        assert!(!tree.search(&"but i was going to tosche station to pick up some power converters"));
+        assert!(!tree.search(
+            &"but i was going to tosche station to pick up some power converters",
+        ));
         assert!(!tree.search(&"only a sith deals in absolutes"));
         assert!(!tree.search(&"you underestimate my power"));
     }
@@ -230,7 +245,10 @@ mod test {
     fn test_maximum_and_minimum() {
         let tree = prequel_memes_tree();
         assert_eq!(*tree.maximum().unwrap(), "your move");
-        assert_eq!(*tree.minimum().unwrap(), "back away...I will deal with this jedi slime myself");
+        assert_eq!(
+            *tree.minimum().unwrap(),
+            "back away...I will deal with this jedi slime myself"
+        );
         let mut tree2: BinarySearchTree<i32> = BinarySearchTree::new();
         assert!(tree2.maximum().is_none());
         assert!(tree2.minimum().is_none());
@@ -249,18 +267,41 @@ mod test {
     fn test_floor_and_ceil() {
         let tree = prequel_memes_tree();
         assert_eq!(*tree.floor(&"hello there").unwrap(), "hello there");
-        assert_eq!(*tree.floor(&"these are not the droids you're looking for").unwrap(), "kill him");
+        assert_eq!(
+            *tree.floor(&"these are not the droids you're looking for")
+                .unwrap(),
+            "kill him"
+        );
         assert!(tree.floor(&"another death star").is_none());
         assert_eq!(*tree.floor(&"you fool").unwrap(), "you fool");
-        assert_eq!(*tree.floor(&"but i was going to tasche station").unwrap(), "back away...I will deal with this jedi slime myself");
-        assert_eq!(*tree.floor(&"you underestimate my power").unwrap(), "you fool");
+        assert_eq!(
+            *tree.floor(&"but i was going to tasche station").unwrap(),
+            "back away...I will deal with this jedi slime myself"
+        );
+        assert_eq!(
+            *tree.floor(&"you underestimate my power").unwrap(),
+            "you fool"
+        );
         assert_eq!(*tree.floor(&"your new empire").unwrap(), "your move");
         assert_eq!(*tree.ceil(&"hello there").unwrap(), "hello there");
-        assert_eq!(*tree.ceil(&"these are not the droids you're looking for").unwrap(), "you are a bold one");
-        assert_eq!(*tree.ceil(&"another death star").unwrap(), "back away...I will deal with this jedi slime myself");
+        assert_eq!(
+            *tree.ceil(&"these are not the droids you're looking for")
+                .unwrap(),
+            "you are a bold one"
+        );
+        assert_eq!(
+            *tree.ceil(&"another death star").unwrap(),
+            "back away...I will deal with this jedi slime myself"
+        );
         assert_eq!(*tree.ceil(&"you fool").unwrap(), "you fool");
-        assert_eq!(*tree.ceil(&"but i was going to tasche station").unwrap(), "general kenobi");
-        assert_eq!(*tree.ceil(&"you underestimate my power").unwrap(), "your move");
+        assert_eq!(
+            *tree.ceil(&"but i was going to tasche station").unwrap(),
+            "general kenobi"
+        );
+        assert_eq!(
+            *tree.ceil(&"you underestimate my power").unwrap(),
+            "your move"
+        );
         assert!(tree.ceil(&"your new empire").is_none());
     }
 
@@ -268,7 +309,10 @@ mod test {
     fn test_iterator() {
         let tree = prequel_memes_tree();
         let mut iter = tree.iter();
-        assert_eq!(iter.next().unwrap(), &"back away...I will deal with this jedi slime myself");
+        assert_eq!(
+            iter.next().unwrap(),
+            &"back away...I will deal with this jedi slime myself"
+        );
         assert_eq!(iter.next().unwrap(), &"general kenobi");
         assert_eq!(iter.next().unwrap(), &"hello there");
         assert_eq!(iter.next().unwrap(), &"kill him");
@@ -279,4 +323,3 @@ mod test {
         assert_eq!(iter.next(), None);
     }
 }
-
