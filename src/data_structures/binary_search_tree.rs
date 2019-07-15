@@ -1,3 +1,5 @@
+use std::ops::Deref;
+
 /// This struct implements as Binary Search Tree (BST), which is a
 /// simple data structure for storing sorted data
 pub struct BinarySearchTree<T>
@@ -39,6 +41,11 @@ impl<T> BinarySearchTree<T>
         }
     }
     
+    /// Returns a new iterator which iterates over this tree in order
+    pub fn iter<'a>(&'a self) -> impl Iterator<Item = &'a T> {
+        BinarySearchTreeIter::new(self)
+    }
+
     /// Insert a value into the appropriate location in this tree.
     pub fn insert(&mut self, value: T) {
         if self.value.is_none() {
@@ -144,7 +151,51 @@ impl<T> BinarySearchTree<T>
             None => None,
         }
     }
-}   
+}
+
+struct BinarySearchTreeIter<'a, T>
+    where T: Ord
+{
+    stack: Vec<&'a BinarySearchTree<T>>,
+}
+
+impl<'a, T> BinarySearchTreeIter<'a, T>
+    where T: Ord
+{
+    pub fn new(tree: &BinarySearchTree<T>) -> BinarySearchTreeIter<T> {
+        let mut iter = BinarySearchTreeIter { stack: vec![tree] };
+        iter.stack_push_left();
+        iter
+    }
+
+    fn stack_push_left(&mut self) {
+        loop {
+            match &self.stack.last().unwrap().left {
+                Some(child) => self.stack.push(child),
+                None => break,
+            }
+        }
+    }
+}
+
+impl<'a, T> Iterator for BinarySearchTreeIter<'a, T>
+    where T: Ord
+{
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<&'a T> {
+        if self.stack.is_empty() {
+            None
+        } else {
+            let node = self.stack.pop().unwrap();
+            if node.right.is_some() {
+                self.stack.push(node.right.as_ref().unwrap().deref());
+                self.stack_push_left();
+            }
+            node.value.as_ref()
+        }
+    }
+}
 
 #[cfg(test)]
 mod test {
@@ -211,6 +262,21 @@ mod test {
         assert_eq!(*tree.ceil(&"but i was going to tasche station").unwrap(), "general kenobi");
         assert_eq!(*tree.ceil(&"you underestimate my power").unwrap(), "your move");
         assert!(tree.ceil(&"your new empire").is_none());
+    }
+
+    #[test]
+    fn test_iterator() {
+        let tree = prequel_memes_tree();
+        let mut iter = tree.iter();
+        assert_eq!(iter.next().unwrap(), &"back away...I will deal with this jedi slime myself");
+        assert_eq!(iter.next().unwrap(), &"general kenobi");
+        assert_eq!(iter.next().unwrap(), &"hello there");
+        assert_eq!(iter.next().unwrap(), &"kill him");
+        assert_eq!(iter.next().unwrap(), &"you are a bold one");
+        assert_eq!(iter.next().unwrap(), &"you fool");
+        assert_eq!(iter.next().unwrap(), &"your move");
+        assert_eq!(iter.next(), None);
+        assert_eq!(iter.next(), None);
     }
 }
 
