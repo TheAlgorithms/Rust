@@ -1,18 +1,18 @@
 /// This struct implements as Binary Search Tree (BST), which is a
 /// simple data structure for storing sorted data
-pub struct BinarySearchTree<'a, T>
+pub struct BinarySearchTree<T>
     where T: Ord
 {
-    value: Option<&'a T>,
-    left: Option<Box<BinarySearchTree<'a, T>>>,
-    right: Option<Box<BinarySearchTree<'a, T>>>,
+    value: Option<T>,
+    left: Option<Box<BinarySearchTree<T>>>,
+    right: Option<Box<BinarySearchTree<T>>>,
 }
 
-impl<'a, T> BinarySearchTree<'a, T>
+impl<T> BinarySearchTree<T>
     where T: Ord
 {
     /// Create a new, empty BST
-    pub fn new<'b>() -> BinarySearchTree<'b, T> {
+    pub fn new() -> BinarySearchTree<T> {
         BinarySearchTree { value: None, left: None, right: None }
     }
 
@@ -21,9 +21,9 @@ impl<'a, T> BinarySearchTree<'a, T>
     pub fn search(&self, value: &T) -> bool {
         match &self.value {
             Some(key) => {
-                if *key == value {
+                if key == value {
                     true
-                } else if *key > value {
+                } else if key > value {
                     match &self.left {
                         Some(node) => node.search(value),
                         None => false,
@@ -38,158 +38,132 @@ impl<'a, T> BinarySearchTree<'a, T>
             None => false,
         }
     }
-
+    
     /// Insert a value into the appropriate location in this tree.
-    /// Returns true if the tree was updated (value was inserted) or
-    /// false if the tree was not updated (because value was already
-    /// present).
-    pub fn insert(&mut self, value: &'a T) -> bool {
+    pub fn insert(&mut self, value: T) {
         if self.value.is_none() {
             self.value = Some(value);
-            true
         } else {
-            let key = self.value.unwrap();
-            let target_node = if value < key {
-                &mut self.left
-            } else {
-                &mut self.right
-            };
-            match target_node {
-                &mut Some(ref mut node) => {
-                    node.insert(value)
+            match &self.value {
+                None => (),
+                Some(key) => {
+                    let target_node = if value < *key {
+                        &mut self.left
+                    } else {
+                        &mut self.right
+                    };
+                    match target_node {
+                        &mut Some(ref mut node) => {
+                            node.insert(value);
+                        },
+                        &mut None => {
+                            let mut node = BinarySearchTree::new();
+                            node.insert(value);
+                            *target_node = Some(Box::new(node));
+                        },
+                    }
                 },
-                &mut None => {
-                    let mut node = BinarySearchTree::new();
-                    node.insert(value);
-                    *target_node = Some(Box::new(node));
-                    true
-                },
-            }
-        }
-    }
-
-    /// Deletes a given value from this tree.
-    /// Returns true iff the value to be removed was found in the tree.
-    pub fn delete(&mut self, value: &T) -> bool {
-        if self.value.is_none() {
-            false
-        } else {
-            if self.value.unwrap() == value {
-                match &mut self.left {
-                    Some(node) => {
-                        self.value = *node.maximum();
-                        node.delete(value);
-                    },
-                    None => {
-                        self.value = None;
-                    },
-                }
-                true
-            } else if self.value.unwrap() > value {
-                match &mut self.left {
-                    Some(node) => node.delete(value),
-                    None => false,
-                }
-            } else {
-                match &mut self.right {
-                    Some(node) => node.delete(value),
-                    None => true,
-                }
             }
         }
     }
 
     /// Returns the smallest value in this tree
-    pub fn minimum(&self) -> &Option<&'a T> {
+    pub fn minimum(&self) -> Option<&T> {
         match &self.left {
             Some(node) => node.minimum(),
-            None => &self.value,
+            None => match &self.value {
+                Some(value) => Some(&value),
+                None => None,
+            }
         }
     }
 
     /// Returns the largest value in this tree
-    pub fn maximum(&self) -> &Option<&'a T> {
+    pub fn maximum(&self) -> Option<&T> {
         match &self.right {
             Some(node) => node.maximum(),
-            None => &self.value,
+            None => match &self.value {
+                Some(value) => Some(&value),
+                None => None,
+            }
         }
     }
 
     /// Returns the largest value in this tree smaller than value
-    pub fn floor(&self, value: &T) -> &Option<&'a T> {
+    pub fn floor(&self, value: &T) -> Option<&T> {
         match &self.value {
             Some(key) => {
-                if *key > value {
+                if key > value {
                     match &self.left {
                         Some(node) => node.floor(value),
-                        None => &None,
+                        None => None,
                     }
-                } else if *key < value {
+                } else if key < value {
                     match &self.right {
                         Some(node) => {
                             let val = node.floor(value);
-                            match &val {
-                                Some(_) => &val,
-                                None => &self.value,
+                            match val {
+                                Some(_) => val,
+                                None => Some(&key),
                             }
                         },
-                        None => &self.value,
+                        None => Some(&key),
                     }
                 } else {
-                    &self.value
+                    Some(&key)
                 }
             },
-            None => &self.value,
+            None => None,
         }
     }
 
     /// Returns the smallest value in this tree larger than value
-    pub fn ceil(&self, value: &T) -> &Option<&'a T> {
+    pub fn ceil(&self, value: &T) -> Option<&T> {
         match &self.value {
             Some(key) => {
-                if *key < value {
+                if key < value {
                     match &self.right {
                         Some(node) => node.ceil(value),
-                        None => &None,
+                        None => None,
                     }
-                } else if *key > value {
+                } else if key > value {
                     match &self.left {
                         Some(node) => {
                             let val = node.ceil(value);
-                            match &val {
-                                Some(_) => &val,
-                                None => &self.value,
+                            match val {
+                                Some(_) => val,
+                                None => Some(&key),
                             }
                         },
-                        None => &self.value,
+                        None => Some(&key),
                     }
                 } else {
-                    &self.value
+                    Some(&key)
                 }
             },
-            None => &self.value,
+            None => None,
         }
     }
-}
+}   
 
 #[cfg(test)]
 mod test {
     use super::BinarySearchTree;
 
-    fn prequel_memes_tree() -> BinarySearchTree<'static, &'static str> {
+    fn prequel_memes_tree() -> BinarySearchTree<&'static str> {
         let mut tree = BinarySearchTree::new();
-        tree.insert(&"hello there");
-        tree.insert(&"general kenobi");
-        tree.insert(&"you are a bold one");
-        tree.insert(&"kill him");
-        tree.insert(&"back away...I will deal with this jedi slime myself");
-        tree.insert(&"your move");
-        tree.insert(&"you fool");
+        tree.insert("hello there");
+        tree.insert("general kenobi");
+        tree.insert("you are a bold one");
+        tree.insert("kill him");
+        tree.insert("back away...I will deal with this jedi slime myself");
+        tree.insert("your move");
+        tree.insert("you fool");
         tree
     }
 
     #[test]
-    fn test_insert_and_search() {
+    fn test_search() {
         let tree = prequel_memes_tree();
         assert!(tree.search(&"hello there"));
         assert!(tree.search(&"you are a bold one"));
@@ -209,29 +183,15 @@ mod test {
         let mut tree2: BinarySearchTree<i32> = BinarySearchTree::new();
         assert!(tree2.maximum().is_none());
         assert!(tree2.minimum().is_none());
-        tree2.insert(&0);
+        tree2.insert(0);
         assert_eq!(*tree2.minimum().unwrap(), 0);
         assert_eq!(*tree2.maximum().unwrap(), 0);
-        tree2.insert(&-5);
+        tree2.insert(-5);
         assert_eq!(*tree2.minimum().unwrap(), -5);
         assert_eq!(*tree2.maximum().unwrap(), 0);
-        tree2.insert(&5);
+        tree2.insert(5);
         assert_eq!(*tree2.minimum().unwrap(), -5);
         assert_eq!(*tree2.maximum().unwrap(), 5);
-    }
-
-    #[test]
-    fn test_delete() {
-        let mut tree = prequel_memes_tree();
-        assert!(tree.search(&"you fool"));
-        assert!(tree.delete(&"you fool"));
-        assert!(!tree.search(&"you fool"));
-        assert!(!tree.delete(&"you fool"));
-        assert!(tree.search(&"hello there"));
-        assert!(tree.delete(&"hello there"));
-        assert!(!tree.search(&"hello there"));
-        assert!(tree.search(&"general kenobi"));
-        assert!(tree.search(&"your move"));
     }
 
     #[test]
