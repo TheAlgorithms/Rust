@@ -27,7 +27,7 @@ These are for demonstration purposes only.
 ## [Dynamic Programming](./src/general)
 
 - 0-1 Knapsack _(Not implemented yet)_
-- Longest common subsequence _(Not implemented yet)_
+- [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
 - Longest increasing subsequence _(Not implemented yet)_
 - [K-Means Clustering](./src/general/kmeans.rs)
 - Coin Change _(Not implemented yet)_
