@@ -22,7 +22,7 @@ These are for demonstration purposes only.
 - Kruskal's Minimum Spanning Tree _(Not implemented yet)_
 - Prim's Minimum Spanning Tree _(Not implemented yet)_
 - BFS _(Not implemented yet)_
-- DFS  _(Not implemented yet)_
+- DFS _(Not implemented yet)_
 
 ## [Dynamic Programming](./src/general)
 
@@ -62,6 +62,7 @@ These are for demonstration purposes only.
 
 - [Linear](./src/searching/linear_search.rs)
 - [Binary](./src/searching/binary_search.rs)
+- [Peak Finder](./src/searching/peak_finder.rs)
 
 ## [Ciphers](./src/ciphers)
 
