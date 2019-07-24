@@ -12,14 +12,14 @@ pub fn edit_distance(str_a: &str, str_b: &str) -> u32 {
     // distances[i][j] = distance between a[..i] and b[..j]
     let mut distances = vec![vec![0; str_b.len() + 1]; str_a.len() + 1];
     // Initialize cases in which one string is empty
-    for j in 0..str_b.len() + 1 {
+    for j in 0..=str_b.len() {
         distances[0][j] = j as u32;
     }
-    for i in 0..str_a.len() + 1 {
-        distances[i][0] = i as u32;
+    for (i, item) in distances.iter_mut().enumerate() {
+        item[0] = i as u32;
     }
-    for i in 1..str_a.len() + 1 {
-        for j in 1..str_b.len() + 1 {
+    for i in 1..=str_a.len() {
+        for j in 1..=str_b.len() {
             distances[i][j] = min(distances[i - 1][j] + 1, distances[i][j - 1] + 1);
             if str_a.as_bytes()[i - 1] == str_b.as_bytes()[j - 1] {
                 distances[i][j] = min(distances[i][j], distances[i - 1][j - 1]);
