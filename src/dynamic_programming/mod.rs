@@ -1,5 +1,7 @@
 mod egg_dropping;
 mod fibonacci;
+mod edit_distance;
 
+pub use self::edit_distance::edit_distance;
 pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::fibonacci;
