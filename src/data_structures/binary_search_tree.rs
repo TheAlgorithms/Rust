@@ -84,12 +84,10 @@ where
     pub fn minimum(&self) -> Option<&T> {
         match &self.left {
             Some(node) => node.minimum(),
-            None => {
-                match &self.value {
-                    Some(value) => Some(&value),
-                    None => None,
-                }
-            }
+            None => match &self.value {
+                Some(value) => Some(&value),
+                None => None,
+            },
         }
     }
 
@@ -97,12 +95,10 @@ where
     pub fn maximum(&self) -> Option<&T> {
         match &self.right {
             Some(node) => node.maximum(),
-            None => {
-                match &self.value {
-                    Some(value) => Some(&value),
-                    None => None,
-                }
-            }
+            None => match &self.value {
+                Some(value) => Some(&value),
+                None => None,
+            },
         }
     }
 
@@ -234,9 +230,9 @@ mod test {
         assert!(tree.search(&"general kenobi"));
         assert!(tree.search(&"you fool"));
         assert!(tree.search(&"kill him"));
-        assert!(!tree.search(
-            &"but i was going to tosche station to pick up some power converters",
-        ));
+        assert!(
+            !tree.search(&"but i was going to tosche station to pick up some power converters",)
+        );
         assert!(!tree.search(&"only a sith deals in absolutes"));
         assert!(!tree.search(&"you underestimate my power"));
     }
@@ -268,7 +264,8 @@ mod test {
         let tree = prequel_memes_tree();
         assert_eq!(*tree.floor(&"hello there").unwrap(), "hello there");
         assert_eq!(
-            *tree.floor(&"these are not the droids you're looking for")
+            *tree
+                .floor(&"these are not the droids you're looking for")
                 .unwrap(),
             "kill him"
         );
@@ -285,7 +282,8 @@ mod test {
         assert_eq!(*tree.floor(&"your new empire").unwrap(), "your move");
         assert_eq!(*tree.ceil(&"hello there").unwrap(), "hello there");
         assert_eq!(
-            *tree.ceil(&"these are not the droids you're looking for")
+            *tree
+                .ceil(&"these are not the droids you're looking for")
                 .unwrap(),
             "you are a bold one"
         );
