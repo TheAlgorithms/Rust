@@ -34,19 +34,23 @@ fn main() {
     print_board(&board);
 }
 
+/*
+The n-Queens search is a backtracking algorithm. Each row of the Chess board where a Queen is
+placed is dependent on all earlier rows. As only one Queen can fit per row, a one-dimensional
+integer array is used to represent the Queen's offset on each row.
+*/
 pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
     let mut board_rows = vec![0; board_width as usize];
     let mut conflict;
     let mut current_row = 0;
 
-    loop
-    //Process by row
-    {
+    //Process by row up to the current active row
+    loop {
         conflict = false;
-        for review_index in 0..current_row
-        //Column review
-        {
-            //Look for any conflict.
+
+        //Column review of previous rows
+        for review_index in 0..current_row {
+            //Calculate the diagonals of earlier rows where a Queen would be a conflict
             let left = board_rows[review_index] - (current_row as i64 - review_index as i64);
             let right = board_rows[review_index] + (current_row as i64 - review_index as i64);
 
@@ -68,8 +72,8 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
                     return Err("No solution exists for specificed board size.");
                 }
 
+                //Run in while's condition evaluation to create a "do while"
                 while {
-                    //Run in while's condition evaluation to create a "do while"
                     if board_rows[current_row] == board_width {
                         board_rows[current_row] = 0;
 
@@ -119,9 +123,8 @@ mod test {
 
     fn check_board(board: &Vec<i64>) -> bool {
         for current_row in 0..board.len() {
-            for review_index in 0..current_row
             //Column review
-            {
+            for review_index in 0..current_row {
                 //Look for any conflict.
                 let left = board[review_index] - (current_row as i64 - review_index as i64);
                 let right = board[review_index] + (current_row as i64 - review_index as i64);
