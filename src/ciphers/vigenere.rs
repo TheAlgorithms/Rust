@@ -9,10 +9,7 @@
 /// Vigenère cipher to rotate plain_text text by key and return an owned String.
 pub fn vigenere(plain_text: &str, key: &str) -> String {
     // Remove all unicode and non-ascii characters from key
-    let key: String = key
-        .chars()
-        .filter(|&c| c.is_ascii_alphabetic())
-        .collect();
+    let key: String = key.chars().filter(|&c| c.is_ascii_alphabetic()).collect();
     key.to_ascii_lowercase();
 
     let key_len = key.len();
@@ -49,22 +46,37 @@ mod tests {
 
     #[test]
     fn vigenere_base() {
-        assert_eq!(vigenere("LoremIpsumDolorSitAmet", "base"), "MojinIhwvmVsmojWjtSqft");
+        assert_eq!(
+            vigenere("LoremIpsumDolorSitAmet", "base"),
+            "MojinIhwvmVsmojWjtSqft"
+        );
     }
 
     #[test]
     fn vigenere_with_spaces() {
-        assert_eq!(vigenere("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "spaces"), "Ddrgq ahhuo hgddr uml sbev, ggfheexwljr chahxsemfy tlkx.");
+        assert_eq!(
+            vigenere(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                "spaces"
+            ),
+            "Ddrgq ahhuo hgddr uml sbev, ggfheexwljr chahxsemfy tlkx."
+        );
     }
 
     #[test]
     fn vigenere_unicode_and_numbers() {
-        assert_eq!(vigenere("1 Lorem ⏳ ipsum dolor sit amet Ѡ", "unicode"), "1 Fbzga ⏳ ltmhu fcosl fqv opin Ѡ");
+        assert_eq!(
+            vigenere("1 Lorem ⏳ ipsum dolor sit amet Ѡ", "unicode"),
+            "1 Fbzga ⏳ ltmhu fcosl fqv opin Ѡ"
+        );
     }
 
     #[test]
     fn vigenere_unicode_key() {
-        assert_eq!(vigenere("Lorem ipsum dolor sit amet", "😉 key!"), "Vspoq gzwsw hmvsp cmr kqcd");
+        assert_eq!(
+            vigenere("Lorem ipsum dolor sit amet", "😉 key!"),
+            "Vspoq gzwsw hmvsp cmr kqcd"
+        );
     }
 
     #[test]
