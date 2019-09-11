@@ -1,3 +1,6 @@
+/// Sort a slice using "merge sort" algorithm. `T` must impl `Ord`.
+///
+/// If `T` has zero sized, nothing happened.
 pub fn merge_sort<T>(slice: &mut [T])
 where
     T: Ord,
@@ -5,6 +8,11 @@ where
     merge_sort_cmp(slice, |a, b| a.lt(b));
 }
 
+/// Sort a slice using "merge sort" algorithm. `less` is a `FnMut(&T, &T) -> bool`, `less(&lhs,
+/// &rhs)` means called defined that `lhs` is less than `rhs`. The result order is undefined if
+/// this `less` function not define a total ordering for elements in the slice.
+///
+/// If `T` has zero sized, nothing happened.
 pub fn merge_sort_cmp<T, F>(v: &mut [T], mut less: F)
 where
     F: FnMut(&T, &T) -> bool,
@@ -16,25 +24,27 @@ where
     // Create a buffer with size `v.len() * size_of::<T>()` contains uninitialized data.
     let mut buf = Vec::with_capacity(v.len());
 
-    sort_range(v, 0, v.len(), buf.as_mut_ptr(), &mut less);
+    sort_range(v, buf.as_mut_ptr(), &mut less);
 }
 
-fn sort_range<T, F>(v: &mut [T], begin: usize, end: usize, buf: *mut T, less: &mut F)
+fn sort_range<T, F>(v: &mut [T], buf: *mut T, less: &mut F)
 where
     F: FnMut(&T, &T) -> bool,
 {
-    if end - begin <= 1 {
+    if v.len() <= 1 {
         return;
     }
 
-    let middle = (begin + end) / 2;
-
-    sort_range(v, begin, middle, buf, less);
-    sort_range(v, middle, end, buf, less);
-    merge(v, begin, middle, end, buf, less);
+    let middle = v.len() / 2;
+    {
+        let (vl, vr) = v.split_at_mut(middle);
+        sort_range(vl, buf, less);
+        sort_range(vr, buf, less);
+    }
+    merge(v, middle, buf, less);
 }
 
-fn merge<T, F>(v: &mut [T], begin: usize, middle: usize, end: usize, buf: *mut T, mut less: F)
+fn merge<T, F>(v: &mut [T], middle: usize, buf: *mut T, mut less: F)
 where
     F: FnMut(&T, &T) -> bool,
 {
@@ -44,14 +54,14 @@ where
     }
 
     let mut l = Range {
-        begin: begin,
+        begin: 0,
         end: middle,
     };
     let mut r = Range {
         begin: middle,
-        end: end,
+        end: v.len(),
     };
-    let mut top = unsafe { buf.add(begin) };
+    let mut top = buf;
 
     unsafe fn push<T>(top: &mut *mut T, data: *const T) {
         std::ptr::copy_nonoverlapping(data, *top, 1);
@@ -75,9 +85,7 @@ where
         unsafe { push(&mut top, &v[i]) };
     }
 
-    unsafe {
-        std::ptr::copy_nonoverlapping(buf.add(begin), v.as_mut_ptr().add(begin), end - begin)
-    };
+    unsafe { std::ptr::copy_nonoverlapping(buf, v.as_mut_ptr(), v.len()) };
 }
 
 #[cfg(test)]
