@@ -129,4 +129,29 @@ mod tests {
         merge_sort(&mut v);
         assert_eq!(v, answer);
     }
+
+    #[test]
+    fn no_clone() {
+        #[derive(Debug, PartialEq, Eq)]
+        struct Point {
+            x: u32,
+            y: u32,
+        }
+
+        let mut v = vec![];
+
+        v.push(Point { x: 10, y: 9 });
+        v.push(Point { x: 3, y: 8 });
+        v.push(Point { x: 8, y: 7 });
+
+        merge_sort_cmp(&mut v, |l, r| l.x < r.x);
+        assert_eq!(v[0], Point { x: 3, y: 8 });
+        assert_eq!(v[1], Point { x: 8, y: 7 });
+        assert_eq!(v[2], Point { x: 10, y: 9 });
+
+        merge_sort_cmp(&mut v, |l, r| l.y < r.y);
+        assert_eq!(v[0], Point { x: 8, y: 7 });
+        assert_eq!(v[1], Point { x: 3, y: 8 });
+        assert_eq!(v[2], Point { x: 10, y: 9 });
+    }
 }
