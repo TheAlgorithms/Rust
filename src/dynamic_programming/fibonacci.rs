@@ -9,7 +9,7 @@ pub fn fibonacci(n: u32) -> u128 {
     // Use a and b to store the previous two values in the sequence
     let mut a = 0;
     let mut b = 1;
-    for i in 0..n {
+    for _i in 0..n {
         // As we iterate through, move b's value into a and the new computed
         // value into b.
         let c = a + b;
