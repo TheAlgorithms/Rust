@@ -19,7 +19,7 @@ fn _partition<T: Ord>(arr: &mut [T], lo: isize, hi: isize) -> isize {
         }
     }
     arr.swap(i as usize, pivot as usize);
-    return i;
+    i
 }
 fn _quick_sort<T: Ord>(arr: &mut [T], lo: isize, hi: isize) {
     if lo < hi {
