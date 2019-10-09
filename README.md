@@ -37,6 +37,7 @@ These are for demonstration purposes only.
 ## Data Structures
 
 - Queue _(Not implemented yet)_
+- [Queue](./src/data_structures/queue.rs)
 - Heap _(Not implemented yet)_
 - Linked List _(Not implemented yet)_
 - Graph _(Not implemented yet)_
