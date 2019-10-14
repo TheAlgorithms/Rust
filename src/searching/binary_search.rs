@@ -1,6 +1,10 @@
 use std::cmp::{PartialEq, PartialOrd};
 
 pub fn binary_search<T: PartialEq + PartialOrd>(item: &T, arr: &[T]) -> Option<usize> {
+    if arr.is_empty(){
+        return None
+    }
+
     let mut left = 0;
     let mut right = arr.len() - 1;
 
@@ -28,12 +32,17 @@ pub fn binary_search<T: PartialEq + PartialOrd>(item: &T, arr: &[T]) -> Option<u
 mod tests {
     use super::*;
 
-    // TODO: Fix this test; currently fails due to underflow
-    // #[test]
-    // fn empty() {
-    //     let index = binary_search(&"a", &vec![]);
-    //     assert_eq!(index, None);
-    // }
+    #[test]
+    fn empty() {
+        let index = binary_search(&"a", &vec![]);
+        assert_eq!(index, None);
+    }
+
+    #[test]
+    fn one_item(){
+        let index = binary_search(&"a", &vec!["a"]);
+        assert_eq!(index, Some(0));
+    }
 
     #[test]
     fn search_strings() {
