@@ -1,8 +1,8 @@
 use std::cmp::{PartialEq, PartialOrd};
 
 pub fn binary_search<T: PartialEq + PartialOrd>(item: &T, arr: &[T]) -> Option<usize> {
-    if arr.is_empty(){
-        return None
+    if arr.is_empty() {
+        return None;
     }
 
     let mut left = 0;
@@ -39,7 +39,7 @@ mod tests {
     }
 
     #[test]
-    fn one_item(){
+    fn one_item() {
         let index = binary_search(&"a", &vec!["a"]);
         assert_eq!(index, Some(0));
     }
