@@ -5,7 +5,7 @@
 
 // lcs is case sensitive, and treats different cases as unique.
 
-pub fn longest_common_subsequence(str1: &str, str2: &str) -> Vec<char> {
+pub fn longest_common_subsequence(str1: &str, str2: &str) -> String {
     let mut n = str1.len();
     let mut m = str2.len();
     let chr1: Vec<char> = str1.chars().collect();
@@ -70,17 +70,18 @@ mod test {
 
     #[test]
     fn simple_lcs() {
-        assert_eq!(lcs("ABBADE", "ABCDEF"), ['A', 'B', 'D', 'E']);
+        // assert_eq!(lcs("ABBADE", "ABCDEF"), ['A', 'B', 'D', 'E']);
+        assert_eq!(lcs("ABBADE", "ABCDEF"), "ABDE");
     }
 
     #[test]
     fn uneven_string_lcs() {
-        assert_eq!(lcs("ABDE", "ABCDF"), ['A', 'B', 'D']);
-        assert_eq!(lcs("", "ABC"), []);
+        assert_eq!(lcs("ABDE", "ABCDF"), "ABD");
+        assert_eq!(lcs("", "ABC"), "");
     }
 
     #[test]
     fn different_case_lcs() {
-        assert_eq!(lcs("ABcd", "AbCd"), ['A', 'd']);
+        assert_eq!(lcs("ABcd", "AbCd"), "Ad");
     }
 }

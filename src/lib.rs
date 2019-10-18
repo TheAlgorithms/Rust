@@ -1,5 +1,5 @@
-pub mod dynamic_program;
 pub mod ciphers;
+pub mod dynamic_program;
 pub mod general;
 pub mod searching;
 pub mod sorting;
