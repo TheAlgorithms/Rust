@@ -62,7 +62,7 @@ pub fn heap_sort<T: Ord>(arr: &mut [T]) {
 /// Convert `arr` into a max heap.
 fn heapify<T: Ord>(arr: &mut [T]) {
     let last_parent = (arr.len() - 2) / 2;
-    for i in (0..last_parent + 1).rev() {
+    for i in (0..=last_parent).rev() {
         move_down(arr, i);
     }
 }
@@ -121,5 +121,19 @@ mod tests {
         let mut arr = vec![3, 4, 2, 1];
         heap_sort(&mut arr);
         assert_eq!(&arr, &[1, 2, 3, 4]);
+    }
+
+    #[test]
+    fn odd_number_of_elements() {
+        let mut arr = vec![3, 4, 2, 1, 7];
+        heap_sort(&mut arr);
+        assert_eq!(&arr, &[1, 2, 3, 4, 7]);
+    }
+
+    #[test]
+    fn repeated_elements() {
+        let mut arr = vec![542, 542, 542, 542];
+        heap_sort(&mut arr);
+        assert_eq!(&arr, &vec![542, 542, 542, 542]);
     }
 }

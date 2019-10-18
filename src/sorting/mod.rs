@@ -3,6 +3,7 @@ mod counting_sort;
 mod heap_sort;
 mod insertion;
 mod quick_sort;
+mod selection_sort;
 
 use std::cmp;
 
@@ -12,6 +13,7 @@ pub use self::counting_sort::generic_counting_sort;
 pub use self::heap_sort::heap_sort;
 pub use self::insertion::insertion_sort;
 pub use self::quick_sort::quick_sort;
+pub use self::selection_sort::selection_sort;
 
 pub fn is_sorted<T>(arr: &[T]) -> bool
 where
@@ -23,12 +25,12 @@ where
 
     let mut prev = &arr[0];
 
-    for idx in 1..arr.len() {
-        if prev > &arr[idx] {
+    for item in arr.iter().skip(1) {
+        if prev > &item {
             return false;
         }
 
-        prev = &arr[idx];
+        prev = &item;
     }
 
     true
