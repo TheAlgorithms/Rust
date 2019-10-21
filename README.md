@@ -43,7 +43,7 @@ These are for demonstration purposes only.
   - Directed _(Not implemented yet)_
   - Undirected _(Not implemented yet)_
 - Trie _(Not implemented yet)_
-- Binary Tree _(Not implemented yet)_
+- [Binary Tree](./src/data_structures/binary_search_tree.rs)
 - B-Tree _(Not implemented yet)_
 - AVL Tree _(Not implemented yet)_
 
@@ -56,7 +56,7 @@ These are for demonstration purposes only.
 
 - N-Queensp _(Not implemented yet)_
 - Graph Coloringp _(Not implemented yet)_
-- Tower of Hanoip _(Not implemented yet)_
+- [Tower of Hanoi](./src/general/hanoi.rs)
 
 ## [Search Algorithms](./src/searching)
 
