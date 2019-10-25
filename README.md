@@ -30,7 +30,7 @@ These are for demonstration purposes only.
 - Longest common subsequence _(Not implemented yet)_
 - Longest increasing subsequence _(Not implemented yet)_
 - [K-Means Clustering](./src/general/kmeans.rs)
-- Coin Change _(Not implemented yet)_
+- [Coin Change](./src/dynamic_programming/coin_change.rs)
 - Rod cut _(Not implemented yet)_
 - [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 
