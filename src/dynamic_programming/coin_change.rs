@@ -1,6 +1,6 @@
 /// Coin Change Problem
 /// The Coin Change Problem is a classic dynamic programming in which
-/// you are given a target value and a list of possible coin values, 
+/// you are given a target value and a list of possible coin values,
 /// and you are tasked with finding the number of possible ways to use
 /// the coins to generate the target value amount.
 /// You can find the problem at https://www.hackerrank.com/challenges/coin-change/problem
@@ -38,7 +38,13 @@ pub fn coin_change_iterative(total: usize, coins: &Vec<usize>) -> usize {
 type Memo = Vec<Vec<Option<usize>>>;
 /// solve_recursive(total, coins, memo, coin) is a helper method to
 /// solve the Coin Change Problem in a recursive approach.
-fn solve_recursive(total: usize, coins: &Vec<usize>, memo: &mut Memo, coin: usize, indent: usize) -> usize {
+fn solve_recursive(
+    total: usize,
+    coins: &Vec<usize>,
+    memo: &mut Memo,
+    coin: usize,
+    indent: usize,
+) -> usize {
     if total == 0 {
         return 1;
     }
