@@ -6,7 +6,7 @@ determined by the Branching Factor/Degree of that tree.
 Btrees will always have sorted keys.
 
 - Branching Factor(B) / Degree (D):
-  If B = n, 2 <= Children per Node < 2(n), 1 <= Keys per Node < 2(n) - 1
+  If B = n, n <= Children per Node < 2(n), n-1 <= Keys per Node < 2(n) - 1
 
 __Properties__
 * Worst/Average case performance for all operations	O(log n)

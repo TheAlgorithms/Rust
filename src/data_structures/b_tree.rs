@@ -1,6 +1,6 @@
-use std::mem;
-use std::fmt::Debug;
 use std::convert::TryFrom;
+use std::fmt::Debug;
+use std::mem;
 
 struct Node<T> {
     keys: Vec<T>,
@@ -22,17 +22,17 @@ struct BTreeProps {
 
 impl<T> Node<T>
 where
-    T: Ord
+    T: Ord,
 {
     fn new(degree: usize, _keys: Option<Vec<T>>, _children: Option<Vec<Node<T>>>) -> Self {
         Node {
             keys: match _keys {
                 Some(_keys) => _keys,
-                None => Vec::with_capacity(degree - 1)
+                None => Vec::with_capacity(degree - 1),
             },
             children: match _children {
                 Some(_children) => _children,
-                None => Vec::with_capacity(degree)
+                None => Vec::with_capacity(degree),
             },
         }
     }
@@ -47,7 +47,7 @@ impl BTreeProps {
         BTreeProps {
             degree,
             max_keys: degree - 1,
-            mid_key_index: (degree - 1) / 2
+            mid_key_index: (degree - 1) / 2,
         }
     }
 
@@ -61,14 +61,13 @@ impl BTreeProps {
     fn split_child<T: Ord + Copy + Default>(&self, parent: &mut Node<T>, child_index: usize) {
         let child = &mut parent.children[child_index];
         let middle_key = child.keys[self.mid_key_index];
-        let right_keys = match child.keys
-            .split_off(self.mid_key_index).split_first() {
-                Some((_first, _others)) => {
-                    // We don't need _first, as it will move to parent node.
-                    _others.to_vec()
-                },
-                None => Vec::with_capacity(self.max_keys),
-            };
+        let right_keys = match child.keys.split_off(self.mid_key_index).split_first() {
+            Some((_first, _others)) => {
+                // We don't need _first, as it will move to parent node.
+                _others.to_vec()
+            }
+            None => Vec::with_capacity(self.max_keys),
+        };
         let mut right_children = None;
         if !child.is_leaf() {
             right_children = Some(child.children.split_off(self.mid_key_index + 1));
@@ -76,8 +75,7 @@ impl BTreeProps {
         let new_child_node: Node<T> = Node::new(self.degree, Some(right_keys), right_children);
 
         parent.keys.insert(child_index, middle_key);
-        parent.children.insert(child_index+1, new_child_node);
-
+        parent.children.insert(child_index + 1, new_child_node);
     }
 
     fn insert_non_full<T: Ord + Copy + Default>(&mut self, node: &mut Node<T>, key: T) {
@@ -120,7 +118,7 @@ impl BTreeProps {
 
 impl<T> BTree<T>
 where
-    T: Ord + Copy + Debug + Default
+    T: Ord + Copy + Debug + Default,
 {
     pub fn new(branch_factor: usize) -> Self {
         let degree = 2 * branch_factor;
@@ -144,5 +142,46 @@ where
     pub fn traverse(&self) {
         self.props.traverse_node(&self.root, 0);
         println!("");
+    }
+
+    pub fn search(&self, key: T) -> bool {
+        let mut current_node = &self.root;
+        let mut index: isize;
+        loop {
+            index = isize::try_from(current_node.keys.len()).ok().unwrap() - 1;
+            while index >= 0 && current_node.keys[index as usize] > key {
+                index -= 1;
+            }
+
+            let u_index: usize = usize::try_from(index + 1).ok().unwrap();
+            if index >= 0 && current_node.keys[u_index - 1] == key {
+                break true;
+            } else if current_node.is_leaf() {
+                break false;
+            } else {
+                current_node = &current_node.children[u_index];
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::BTree;
+
+    #[test]
+    fn test_search() {
+        let mut tree = BTree::new(2);
+        tree.insert(10);
+        tree.insert(20);
+        tree.insert(30);
+        tree.insert(5);
+        tree.insert(6);
+        tree.insert(7);
+        tree.insert(11);
+        tree.insert(12);
+        tree.insert(15);
+        assert!(tree.search(15));
+        assert_eq!(tree.search(16), false);
     }
 }
