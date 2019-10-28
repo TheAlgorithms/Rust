@@ -1,6 +1,6 @@
 fn main() {
-    let nums = vec![1, 3, 5, 7, 9];
-    let ele = 5;
+    let nums = vec![1, 3, 5, 7, 9]; //Change the values of array here
+    let ele = 5; #Element to be searched
     println!("Sample input list: {:?}", nums);
     println!("Searched for {} and found index {}", ele, ternary_search(&nums, 0, nums.len(), ele));
 }
