@@ -39,7 +39,7 @@ These are for demonstration purposes only.
 
 - Queue _(Not implemented yet)_
 - [Heap](.src/data_structures/heap.rs)
-- Linked List _(Not implemented yet)_
+- [Linked List](./src/data_structures/linked_list.rs)
 - Graph _(Not implemented yet)_
   - Directed _(Not implemented yet)_
   - Undirected _(Not implemented yet)_
