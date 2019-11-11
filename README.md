@@ -10,7 +10,7 @@ These are for demonstration purposes only.
 - [Counting](./src/sorting/counting_sort.rs)
 - [Heap](./src/sorting/heap_sort.rs)
 - [Insertion](./src/sorting/insertion_sort.rs)
-- [Merge] _(.src/sorting/merge_sort.rs)_
+- [Merge](.src/sorting/merge_sort.rs)_
 - [Quick](./src/sorting/quick_sort.rs)
 - Radix _(Not implemented yet)_
 - [Selection](./src/sorting/selection_sort.rs)
