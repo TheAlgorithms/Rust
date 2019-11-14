@@ -44,7 +44,7 @@ These are for demonstration purposes only.
   - Undirected _(Not implemented yet)_
 - Trie _(Not implemented yet)_
 - Binary Tree _(Not implemented yet)_
-- B-Tree _(Not implemented yet)_
+- [B-Tree](./src/data_structures/b_tree.rs)
 - AVL Tree _(Not implemented yet)_
 
 ## Strings
