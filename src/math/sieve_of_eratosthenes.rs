@@ -6,13 +6,13 @@ pub fn sieve_of_eratosthenes(n: usize) -> Vec<i32> {
     for i in 2..limit {
         if is_prime[i] {
             let mut j = i * i;
-            while j <= n+1 {
+            while j <= n + 1 {
                 is_prime[j] = false;
                 j += i;
             }
         }
     }
-    for i in 2..n+1 {
+    for i in 2..(n + 1) {
         if is_prime[i] {
             primes.push(i as i32);
         }
