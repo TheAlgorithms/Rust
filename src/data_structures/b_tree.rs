@@ -26,14 +26,8 @@ where
 {
     fn new(degree: usize, _keys: Option<Vec<T>>, _children: Option<Vec<Node<T>>>) -> Self {
         Node {
-            keys: match _keys {
-                Some(_keys) => _keys,
-                None => Vec::with_capacity(degree - 1),
-            },
-            children: match _children {
-                Some(_children) => _children,
-                None => Vec::with_capacity(degree),
-            },
+            keys: _keys.unwrap_or_else(|| { Vec::with_capacity(degree - 1) }),
+            children: _children.unwrap_or_else(|| { Vec::with_capacity(degree) } ),
         }
     }
 
