@@ -1,33 +1,37 @@
 use std::collections::HashMap;
 
 // This trait defines what Graphs should DO.
-trait _Graph {
+trait _Graph<T> {
     // Static method signature; `Self` refers to the implementor type.
     fn new() -> Self;
 
     // Instance function to add new nodes to the Graph.
     // @param &mut  self     Reference for instance
     // @param Tuple nodes    Tuple with edge values.
-    fn add(&mut self, src: usize, des: usize);
+    fn add(&mut self, src: T, dest: T);
 
     // Returns number of Nodes added to the Graph.
-    fn get_number_of_nodes(&mut self) -> usize;
+    fn get_number_of_nodes(&self) -> usize;
 
     // Returns number of Edges added to the Graph.
-    fn get_number_of_edges(&mut self) -> usize;
+    fn get_number_of_edges(&self) -> usize;
 }
 
-// This struct defines what Graphs should BE.
-pub struct Graph {
+// These structs defines what Graphs should BE.
+pub struct Graph<T> {
     number_of_nodes: usize,
     number_of_edges: usize,
-    nodes: HashMap<usize, Vec<usize>>,
+    nodes: HashMap<T, Vec<T>>,
+}
+
+pub struct DiGraph<T> {
+    number_of_nodes: usize,
+    number_of_edges: usize,
+    nodes: HashMap<T, Vec<T>>,
 }
 
 // Here we define an Undirected Graph
-// pub struct UnGraph;
-
-impl _Graph for Graph {
+impl _Graph<usize> for Graph<usize> {
     fn new() -> Self {
         Self {
             number_of_nodes: 0,
@@ -53,24 +57,18 @@ impl _Graph for Graph {
         self.number_of_edges += 2;
     }
 
-    fn get_number_of_nodes(&mut self) -> usize {
+    fn get_number_of_nodes(&self) -> usize {
         self.number_of_nodes
     }
 
-    fn get_number_of_edges(&mut self) -> usize {
+    fn get_number_of_edges(&self) -> usize {
         self.number_of_edges
     }
 }
 
-pub struct DiGraph {
-    number_of_nodes: usize,
-    number_of_edges: usize,
-    nodes: HashMap<usize, Vec<usize>>,
-}
-
 // A directed graph has the same funcionality as a graph,
 // the only difference being the insert method.
-impl _Graph for DiGraph {
+impl _Graph<usize> for DiGraph<usize> {
     fn new() -> Self {
         Self {
             number_of_nodes: 0,
@@ -86,18 +84,19 @@ impl _Graph for DiGraph {
         }
         if self.nodes.contains_key(&dest) == false {
             self.number_of_nodes += 1;
+            self.nodes.insert(dest, Vec::new());
         }
 
-        // As it is a Digraph, we only inser one edge
+        // As it is a Digraph, we only insert one edge
         self.number_of_edges += 1;
         self.nodes.entry(src).or_insert(Vec::new()).push(dest);
     }
 
-    fn get_number_of_nodes(&mut self) -> usize {
+    fn get_number_of_nodes(&self) -> usize {
         self.number_of_nodes
     }
 
-    fn get_number_of_edges(&mut self) -> usize {
+    fn get_number_of_edges(&self) -> usize {
         self.number_of_edges
     }
 }
