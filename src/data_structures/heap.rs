@@ -34,7 +34,7 @@ where
     }
 
     pub fn is_empty(&self) -> bool {
-        self.len() > 0
+        self.len() == 0
     }
 
     pub fn add(&mut self, value: T) {
@@ -135,6 +135,7 @@ where
 pub struct MinHeap;
 
 impl MinHeap {
+    #[allow(clippy::new_ret_no_self)]
     pub fn new<T>() -> Heap<T>
     where
         T: Default + Ord,
@@ -146,6 +147,7 @@ impl MinHeap {
 pub struct MaxHeap;
 
 impl MaxHeap {
+    #[allow(clippy::new_ret_no_self)]
     pub fn new<T>() -> Heap<T>
     where
         T: Default + Ord,
