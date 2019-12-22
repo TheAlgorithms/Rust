@@ -1,6 +1,6 @@
 use std::cmp::Ordering::Equal;
 
-fn sort_by_min_angle(pts: &Vec<(f64, f64)>, min: &(f64, f64)) -> Vec<(f64, f64)> {
+fn sort_by_min_angle(pts: &[(f64, f64)], min: &(f64, f64)) -> Vec<(f64, f64)> {
     let mut points: Vec<(f64, f64, (f64, f64))> = pts
         .iter()
         .map(|x| {
@@ -14,10 +14,11 @@ fn sort_by_min_angle(pts: &Vec<(f64, f64)>, min: &(f64, f64)) -> Vec<(f64, f64)>
         })
         .collect();
     points.sort_by(|a, b| a.partial_cmp(b).unwrap_or(Equal));
-    return points.into_iter().map(|x| x.2).collect();
+    points.into_iter().map(|x| x.2).collect()
 }
 
-fn produit_vectoriel(a: &(f64, f64), b: &(f64, f64), c: &(f64, f64)) -> f64 {
+// calculates the z coordinate of the vector product of vectors ab and ac
+fn calc_z_coord_vector_product(a: &(f64, f64), b: &(f64, f64), c: &(f64, f64)) -> f64 {
     (b.0 - a.0) * (c.1 - a.1) - (c.0 - a.0) * (b.1 - a.1)
 }
 
@@ -28,7 +29,7 @@ fn produit_vectoriel(a: &(f64, f64), b: &(f64, f64), c: &(f64, f64)) -> f64 {
     The first point is the one with the lowest y-coordinate and the lowest x-coordinate.
     Points are then given counter-clockwise, and the closest one is given first if needed.
 */
-pub fn convex_hull_graham(pts: &Vec<(f64, f64)>) -> Vec<(f64, f64)> {
+pub fn convex_hull_graham(pts: &[(f64, f64)]) -> Vec<(f64, f64)> {
     if pts.is_empty() {
         return vec![];
     }
@@ -52,14 +53,15 @@ pub fn convex_hull_graham(pts: &Vec<(f64, f64)>) -> Vec<(f64, f64)> {
 
     for point in points {
         while stack.len() > 1
-            && produit_vectoriel(&stack[stack.len() - 2], &stack[stack.len() - 1], &point) < 0.
+            && calc_z_coord_vector_product(&stack[stack.len() - 2], &stack[stack.len() - 1], &point)
+                < 0.
         {
             stack.pop();
         }
         stack.push(point);
     }
 
-    return stack;
+    stack
 }
 
 #[cfg(test)]
