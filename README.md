@@ -49,7 +49,7 @@ These are for demonstration purposes only.
 
 ## Strings
 
-- Knuth Morris Pratt _(Not implemented yet)_
+- [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - Rabin Carp _(Not implemented yet)_
 
 ## General
