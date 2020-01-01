@@ -1,4 +1,4 @@
-# The Algorithms - Rust [![Gitter](https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square)](https://gitter.im/the-algorithms/rust) [![Build Status](https://travis-ci.org/TheAlgorithms/Rust.svg?branch=master)](https://travis-ci.org/TheAlgorithms/Rust)
+# The Algorithms - Rust [![Gitter](https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square)](https://gitter.im/the-algorithms/rust) [![Build Status](https://travis-ci.com/TheAlgorithms/Rust.svg?branch=master)](https://travis-ci.com/TheAlgorithms/Rust)
 
 ### All algorithms implemented in Rust (for educational purposes)
 
@@ -27,6 +27,7 @@ These are for demonstration purposes only.
 ## [Dynamic Programming](./src/general)
 
 - 0-1 Knapsack _(Not implemented yet)_
+- [Edit Distance](./src/dynamic_programming/edit_distance.rs)
 - Longest common subsequence _(Not implemented yet)_
 - Longest increasing subsequence _(Not implemented yet)_
 - [K-Means Clustering](./src/general/kmeans.rs)
@@ -37,14 +38,14 @@ These are for demonstration purposes only.
 ## Data Structures
 
 - Queue _(Not implemented yet)_
-- Heap _(Not implemented yet)_
+- [Heap](.src/data_structures/heap.rs)
 - Linked List _(Not implemented yet)_
 - Graph _(Not implemented yet)_
   - Directed _(Not implemented yet)_
   - Undirected _(Not implemented yet)_
 - Trie _(Not implemented yet)_
 - Binary Tree _(Not implemented yet)_
-- B-Tree _(Not implemented yet)_
+- [B-Tree](./src/data_structures/b_tree.rs)
 - AVL Tree _(Not implemented yet)_
 
 ## Strings
@@ -54,6 +55,7 @@ These are for demonstration purposes only.
 
 ## General
 
+- [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
 - N-Queensp _(Not implemented yet)_
 - Graph Coloringp _(Not implemented yet)_
 - Tower of Hanoip _(Not implemented yet)_
@@ -66,7 +68,7 @@ These are for demonstration purposes only.
 ## [Ciphers](./src/ciphers)
 
 - [Caesar](./src/ciphers/caesar.rs)
-- Vigenère _(Not implemented yet)_
+- [Vigenère](./src/ciphers/vigenere.rs)
 - Transposition _(Not implemented yet)_
 
 ---
