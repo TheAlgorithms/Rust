@@ -44,15 +44,20 @@ where
     merge(v, middle, buf, less);
 }
 
+struct Range {
+    begin: usize,
+    end: usize,
+}
+
+unsafe fn push_top<T>(top: &mut *mut T, data: *const T) {
+    std::ptr::copy_nonoverlapping(data, *top, 1);
+    *top = top.add(1);
+}
+
 fn merge<T, F>(v: &mut [T], middle: usize, buf: *mut T, mut less: F)
 where
     F: FnMut(&T, &T) -> bool,
 {
-    struct Range {
-        begin: usize,
-        end: usize,
-    }
-
     let mut l = Range {
         begin: 0,
         end: middle,
@@ -63,26 +68,21 @@ where
     };
     let mut top = buf;
 
-    unsafe fn push<T>(top: &mut *mut T, data: *const T) {
-        std::ptr::copy_nonoverlapping(data, *top, 1);
-        *top = top.add(1);
-    }
-
     while l.begin < l.end && r.begin < r.end {
         if less(&v[l.begin], &v[r.begin]) {
-            unsafe { push(&mut top, &v[l.begin]) };
+            unsafe { push_top(&mut top, &v[l.begin]) };
             l.begin += 1;
         } else {
-            unsafe { push(&mut top, &v[r.begin]) };
+            unsafe { push_top(&mut top, &v[r.begin]) };
             r.begin += 1;
         }
     }
 
     for i in l.begin..l.end {
-        unsafe { push(&mut top, &v[i]) };
+        unsafe { push_top(&mut top, &v[i]) };
     }
     for i in r.begin..r.end {
-        unsafe { push(&mut top, &v[i]) };
+        unsafe { push_top(&mut top, &v[i]) };
     }
 
     unsafe { std::ptr::copy_nonoverlapping(buf, v.as_mut_ptr(), v.len()) };
@@ -130,14 +130,14 @@ mod tests {
         assert_eq!(v, answer);
     }
 
+    #[derive(Debug, PartialEq, Eq)]
+    struct Point {
+        x: u32,
+        y: u32,
+    }
+
     #[test]
     fn no_clone() {
-        #[derive(Debug, PartialEq, Eq)]
-        struct Point {
-            x: u32,
-            y: u32,
-        }
-
         let mut v = vec![];
 
         v.push(Point { x: 10, y: 9 });
