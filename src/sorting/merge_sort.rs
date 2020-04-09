@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 fn _merge<T: Ord + Copy>(arr: &mut [T], lo: usize, mid: usize, hi: usize) {
     // create temporary arrays to support merge
     let mut left_half = Vec::new();
@@ -59,6 +61,43 @@ pub fn merge_sort<T: Ord + Copy>(arr: &mut [T]) {
     }
 }
 
+pub fn merge_sort2<T: Ord>(mut v: Vec<T>) -> Vec<T> {
+    if v.len() <= 1 {
+        return v;
+    }
+
+    let mid = v.len() / 2;
+    let u = v.split_off(mid);
+    let mut u = merge_sort2(u).into_iter();
+    let mut v = merge_sort2(v).into_iter();
+    let mut res = Vec::new();
+    let mut x = u.next();
+    let mut y = v.next();
+    loop {
+        if x.is_some() && y.is_some() {
+            match x.cmp(&y) {
+                Ordering::Less => {
+                    res.push(x.unwrap());
+                    x = u.next();
+                }
+                _ => {
+                    res.push(y.unwrap());
+                    y = v.next();
+                }
+            }
+        } else if x.is_some() {
+            res.push(x.unwrap());
+            x = u.next();
+        } else if y.is_some() {
+            res.push(y.unwrap());
+            y = v.next();
+        } else {
+            break;
+        }
+    }
+    res
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -68,12 +107,20 @@ mod tests {
         let mut res = vec![10, 8, 4, 3, 1, 9, 2, 7, 5, 6];
         merge_sort(&mut res);
         assert_eq!(res, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+        let res = vec![10, 8, 4, 3, 1, 9, 2, 7, 5, 6];
+        let res = merge_sort2(res);
+        assert_eq!(res, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     }
 
     #[test]
     fn basic_string() {
         let mut res = vec!["a", "bb", "d", "cc"];
         merge_sort(&mut res);
+        assert_eq!(res, vec!["a", "bb", "cc", "d"]);
+
+        let res = vec!["a", "bb", "d", "cc"];
+        let res = merge_sort2(res);
         assert_eq!(res, vec!["a", "bb", "cc", "d"]);
     }
 
@@ -82,12 +129,20 @@ mod tests {
         let mut res = Vec::<u8>::new();
         merge_sort(&mut res);
         assert_eq!(res, vec![]);
+
+        let res = Vec::<u8>::new();
+        let res = merge_sort2(res);
+        assert_eq!(res, vec![]);
     }
 
     #[test]
     fn one_element() {
         let mut res = vec![1];
         merge_sort(&mut res);
+        assert_eq!(res, vec![1]);
+
+        let res = vec![1];
+        let res = merge_sort2(res);
         assert_eq!(res, vec![1]);
     }
 
@@ -96,12 +151,20 @@ mod tests {
         let mut res = vec![1, 2, 3, 4];
         merge_sort(&mut res);
         assert_eq!(res, vec![1, 2, 3, 4]);
+
+        let res = vec![1, 2, 3, 4];
+        let res = merge_sort2(res);
+        assert_eq!(res, vec![1, 2, 3, 4]);
     }
 
     #[test]
     fn reverse_sorted() {
         let mut res = vec![4, 3, 2, 1];
         merge_sort(&mut res);
+        assert_eq!(res, vec![1, 2, 3, 4]);
+
+        let res = vec![4, 3, 2, 1];
+        let res = merge_sort2(res);
         assert_eq!(res, vec![1, 2, 3, 4]);
     }
 }
