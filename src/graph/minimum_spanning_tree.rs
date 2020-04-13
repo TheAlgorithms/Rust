@@ -114,4 +114,48 @@ mod tests {
         assert_eq!(actual_total_cost, expected_total_cost);
         assert_eq!(actual_final_edges, expected_used_edges);
     }
+
+    #[test]
+    fn test_ten_vertices_twenty_edges() {
+        let mut edges: Vec<Edge> = Vec::new();
+        edges.push(Edge::new(0, 1, 3));
+        edges.push(Edge::new(0, 3, 6));
+        edges.push(Edge::new(0, 4, 9));
+        edges.push(Edge::new(1, 2, 2));
+        edges.push(Edge::new(1, 3, 4));
+        edges.push(Edge::new(1, 4, 9));
+        edges.push(Edge::new(2, 3, 2));
+        edges.push(Edge::new(2, 5, 8));
+        edges.push(Edge::new(2, 6, 9));
+        edges.push(Edge::new(3, 6, 9));
+        edges.push(Edge::new(4, 5, 8));
+        edges.push(Edge::new(4, 9, 18));
+        edges.push(Edge::new(5, 6, 7));
+        edges.push(Edge::new(5, 8, 9));
+        edges.push(Edge::new(5, 9, 10));
+        edges.push(Edge::new(6, 7, 4));
+        edges.push(Edge::new(6, 8, 5));
+        edges.push(Edge::new(7, 8, 1));
+        edges.push(Edge::new(7, 9, 4));
+        edges.push(Edge::new(8, 9, 3));
+
+        let number_of_vertices: i64 = 10;
+
+        let expected_total_cost = 38;
+        let mut expected_used_edges = Vec::new();
+        expected_used_edges.push(Edge::new(7, 8, 1));
+        expected_used_edges.push(Edge::new(1, 2, 2));
+        expected_used_edges.push(Edge::new(2, 3, 2));
+        expected_used_edges.push(Edge::new(0, 1, 3));
+        expected_used_edges.push(Edge::new(8, 9, 3));
+        expected_used_edges.push(Edge::new(6, 7, 4));
+        expected_used_edges.push(Edge::new(5, 6, 7));
+        expected_used_edges.push(Edge::new(2, 5, 8));
+        expected_used_edges.push(Edge::new(4, 5, 8));
+
+        let (actual_total_cost, actual_final_edges) = kruskal(edges, number_of_vertices);
+
+        assert_eq!(actual_total_cost, expected_total_cost);
+        assert_eq!(actual_final_edges, expected_used_edges);
+    }
 }
