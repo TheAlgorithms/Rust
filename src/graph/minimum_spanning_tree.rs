@@ -1,18 +1,17 @@
 use std::vec::Vec;
-use std::fmt;
 
 #[derive(Debug)]
 pub struct Edge {
     source: i64,
     destination: i64,
-    cost: i64
+    cost: i64,
 }
 
 impl PartialEq for Edge {
     fn eq(&self, other: &Self) -> bool {
-        return self.source == other.source &&
-               self.destination == other.destination &&
-               self.cost == other.cost;
+        return self.source == other.source
+            && self.destination == other.destination
+            && self.cost == other.cost;
     }
 }
 
@@ -23,14 +22,8 @@ impl Edge {
         return Self {
             source: source,
             destination: destination,
-            cost: cost
+            cost: cost,
         };
-    }
-}
-
-impl fmt::Display for Edge {
-    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-        return write!(formatter, "{} {} {}", self.source, self.destination, self.cost);
     }
 }
 
@@ -104,7 +97,7 @@ mod tests {
         edges.push(Edge::new(4, 5, 8));
         edges.push(Edge::new(4, 6, 9));
         edges.push(Edge::new(5, 6, 11));
-        
+
         let number_of_vertices: i64 = 7;
 
         let expected_total_cost = 39;
