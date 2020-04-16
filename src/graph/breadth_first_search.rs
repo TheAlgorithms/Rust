@@ -1,20 +1,17 @@
-use std::vec::Vec;
-use std::collections::{LinkedList, HashSet};
 use std::cmp::PartialEq;
+use std::collections::{HashSet, LinkedList};
 use std::hash::{Hash, Hasher};
+use std::vec::Vec;
 
 #[derive(Eq, Debug)]
 pub struct Point {
     r: usize,
-    c: usize
+    c: usize,
 }
 
 impl Point {
     fn new(r: usize, c: usize) -> Point {
-        Point {
-            r: r,
-            c: c
-        }
+        Point { r: r, c: c }
     }
 }
 
@@ -39,7 +36,11 @@ fn is_inside_maze(r: i64, c: i64, number_of_rows: i64, number_of_columns: i64) -
     r >= 0 && r < number_of_rows && c >= 0 && c < number_of_columns
 }
 
-pub fn breadth_first_search(maze: Vec<Vec<char>>, entry: Point, exit: Point) -> Result<u64, &'static str> {
+pub fn breadth_first_search(
+    maze: Vec<Vec<char>>,
+    entry: Point,
+    exit: Point,
+) -> Result<u64, &'static str> {
     let neighbors_row: [i64; 4] = [-1, 0, 0, 1];
     let neighbors_column: [i64; 4] = [0, -1, 1, 0];
     let neighbors_size: usize = 4;
@@ -117,17 +118,14 @@ mod tests {
         maze.push("#     #   #".chars().collect());
         maze.push("#########E#".chars().collect());
 
-        let entry_point = Point {
-            r: 10,
-            c: 9,
-        };
+        let entry_point = Point { r: 10, c: 9 };
 
-        let exit_point = Point {
-            r: 0,
-            c: 1,
-        };
+        let exit_point = Point { r: 0, c: 1 };
 
-        assert_eq!(26, breadth_first_search(maze, entry_point, exit_point).unwrap());
+        assert_eq!(
+            26,
+            breadth_first_search(maze, entry_point, exit_point).unwrap()
+        );
     }
 
     #[test]
@@ -155,15 +153,12 @@ mod tests {
         maze.push("#             #   # #".chars().collect());
         maze.push("################### E".chars().collect());
 
-        let entry_point = Point {
-            r: 20,
-            c: 20,
-        };
+        let entry_point = Point { r: 20, c: 20 };
 
-        let exit_point = Point {
-            r: 0,
-            c: 1,
-        };
-        assert_eq!(75, breadth_first_search(maze, entry_point, exit_point).unwrap());
+        let exit_point = Point { r: 0, c: 1 };
+        assert_eq!(
+            75,
+            breadth_first_search(maze, entry_point, exit_point).unwrap()
+        );
     }
 }

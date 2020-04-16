@@ -1,8 +1,8 @@
 pub mod ciphers;
 pub mod data_structures;
 pub mod dynamic_programming;
-pub mod graph;
 pub mod general;
+pub mod graph;
 pub mod searching;
 pub mod sorting;
 pub mod string;
