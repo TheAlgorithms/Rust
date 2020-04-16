@@ -50,7 +50,7 @@ fn merge(parent: &mut Vec<i64>, x: i64, y: i64) {
 }
 
 fn is_same_set(parent: &mut Vec<i64>, x: i64, y: i64) -> bool {
-    return find(parent, x) == find(parent, y);
+    find(parent, x) == find(parent, y)
 }
 
 pub fn kruskal(mut edges: Vec<Edge>, number_of_vertices: i64) -> (i64, Vec<Edge>) {
@@ -67,7 +67,7 @@ pub fn kruskal(mut edges: Vec<Edge>, number_of_vertices: i64) -> (i64, Vec<Edge>
 
         let source: i64 = edge.source;
         let destination: i64 = edge.destination;
-        if is_same_set(&mut parent, source, destination) != true {
+        if !is_same_set(&mut parent, source, destination) {
             merge(&mut parent, source, destination);
             merge_count += 1;
             let cost: i64 = edge.cost;
