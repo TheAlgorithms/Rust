@@ -9,9 +9,9 @@ pub struct Edge {
 
 impl PartialEq for Edge {
     fn eq(&self, other: &Self) -> bool {
-        return self.source == other.source
+        self.source == other.source
             && self.destination == other.destination
-            && self.cost == other.cost;
+            && self.cost == other.cost
     }
 }
 
@@ -19,11 +19,11 @@ impl Eq for Edge {}
 
 impl Edge {
     fn new(source: i64, destination: i64, cost: i64) -> Self {
-        return Self {
-            source: source,
-            destination: destination,
-            cost: cost,
-        };
+        Self {
+            source,
+            destination,
+            cost,
+        }
     }
 }
 
@@ -32,7 +32,7 @@ fn make_sets(number_of_vertices: i64) -> Vec<i64> {
     for i in 0..number_of_vertices {
         parent.push(i);
     }
-    return parent;
+    parent
 }
 
 fn find(parent: &mut Vec<i64>, x: i64) -> i64 {
@@ -40,7 +40,7 @@ fn find(parent: &mut Vec<i64>, x: i64) -> i64 {
     if parent[idx] != x {
         parent[idx] = find(parent, parent[idx]);
     }
-    return parent[idx];
+    parent[idx]
 }
 
 fn merge(parent: &mut Vec<i64>, x: i64, y: i64) {
@@ -76,7 +76,7 @@ pub fn kruskal(mut edges: Vec<Edge>, number_of_vertices: i64) -> (i64, Vec<Edge>
             final_edges.push(final_edge);
         }
     }
-    return (total_cost, final_edges);
+    (total_cost, final_edges)
 }
 
 #[cfg(test)]
