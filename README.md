@@ -52,6 +52,7 @@ These are for demonstration purposes only.
 
 - [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - Rabin Carp _(Not implemented yet)_
+- [Palindromic Tree](./src/string/palindromic_tree.rs)
 
 ## General
 

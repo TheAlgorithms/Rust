@@ -9,3 +9,6 @@ __Properties__
 * Case space complexity  O(w)
 
 [kmp-wiki]: https://en.wikipedia.org/wiki/Knuth–Morris–Pratt_algorithm
+
+### [Palindromic Tree](./src/string/palindromic_tree.rs)
+An algorithm that solves the maximum length of palindromic substrings, the number of palindromic substrings and some other palindromic problems.
