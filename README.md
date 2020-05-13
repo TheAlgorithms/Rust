@@ -51,6 +51,7 @@ These are for demonstration purposes only.
 ## Strings
 
 - [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
+- [Aho–Corasick algorithm](./src/string/aho_corasick.rs)
 - Rabin Carp _(Not implemented yet)_
 
 ## General
