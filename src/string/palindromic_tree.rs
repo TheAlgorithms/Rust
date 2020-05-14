@@ -6,50 +6,50 @@ use std::rc::{Rc, Weak};
 pub struct PalindromicTree {
     s: Vec<char>,
     tree: Tree,
-    cur: Weak<RefCell<Node>>,
+    cur: Rc<RefCell<Node>>,
 }
 
 impl PalindromicTree {
     pub fn new() -> PalindromicTree {
-        let mut res = PalindromicTree {
+        let tree = Tree::new();
+        let cur = Rc::clone(&tree.odd_root);
+        PalindromicTree {
             s: Vec::new(),
-            tree: Tree::new(),
-            cur: Weak::new(),
-        };
-        res.cur = Rc::downgrade(&res.tree.odd_root);
-        res
+            tree,
+            cur,
+        }
     }
 
     pub fn input(&mut self, c: char) {
-        let len = self.s.len();
-        self.s.push(c);
-        let mut idx = len as isize - self.cur().borrow().len - 1;
-        while idx < 0 || self.s[idx as usize] != c {
-            self.cur = self.cur().borrow().suffix.clone().unwrap();
-            idx = len as isize - self.cur().borrow().len - 1;
+        while !self.accept_char(c) {
+            let cur = self.cur.borrow().suffix();
+            self.cur = cur;
         }
-        if self.cur().borrow().children.contains_key(&c) {
-            self.cur = Rc::downgrade(&self.cur().borrow().children[&c]);
+        self.s.push(c);
+        if self.cur.borrow().children.contains_key(&c) {
+            let cur = Rc::clone(&self.cur.borrow().children[&c]);
+            self.cur = cur;
             return;
         }
-        let mut suffix_node = self.cur().borrow().suffix.clone();
-        let suffix = loop {
-            match suffix_node.map(|suffix| suffix.upgrade().unwrap()) {
-                Some(suf) if !suf.borrow().children.contains_key(&c) => {
-                    suffix_node = suf.borrow().suffix.clone();
-                }
-                Some(suf) => break suf.borrow().children[&c].clone(),
-                None => break self.tree.even_root.clone(),
-            }
-        };
-        let leaf = Rc::new(RefCell::new(Node {
-            len: self.cur().borrow().len + 2,
-            suffix: Some(Rc::downgrade(&suffix)),
+        let parent = Rc::clone(&self.cur);
+        let mut child = Node {
+            len: parent.borrow().len + 2,
+            suffix: Rc::downgrade(&self.tree.even_root),
             children: HashMap::new(),
-        }));
-        self.cur().borrow_mut().children.insert(c, Rc::clone(&leaf));
-        self.cur = Rc::downgrade(&leaf);
+        };
+        let mut suffix_node = parent.borrow().suffix.clone();
+        while let Some(suffix) = suffix_node.upgrade() {
+            let suffix = suffix.borrow();
+            if self.s[(self.s.len() as isize - suffix.len - 2) as usize] == c {
+                child.suffix = Rc::downgrade(&suffix.children[&c]);
+                break;
+            }
+            suffix_node = suffix.suffix.clone();
+        }
+        let child = Rc::new(RefCell::new(child));
+        parent.borrow_mut().children.insert(c, Rc::clone(&child));
         self.tree.len += 1;
+        self.cur = child;
     }
 
     pub fn longest_suffix_palindrome(&self) -> String {
@@ -59,7 +59,7 @@ impl PalindromicTree {
     }
 
     pub fn longest_suffix_palindrome_length(&self) -> usize {
-        match self.cur().borrow().len {
+        match self.cur.borrow().len {
             res if res < 0 => 0,
             res => res as usize,
         }
@@ -69,8 +69,15 @@ impl PalindromicTree {
         self.tree.len()
     }
 
-    fn cur(&self) -> Rc<RefCell<Node>> {
-        self.cur.upgrade().unwrap()
+    fn accept_char(&self, c: char) -> bool {
+        let idx = self.s.len() as isize - self.cur.borrow().len - 1;
+        idx >= 0 && (idx as usize == self.s.len() || self.s[idx as usize] == c)
+    }
+}
+
+impl Default for PalindromicTree {
+    fn default() -> PalindromicTree {
+        PalindromicTree::new()
     }
 }
 
@@ -100,7 +107,7 @@ impl Tree {
 #[derive(Clone, Debug)]
 struct Node {
     len: isize,
-    suffix: Option<Weak<RefCell<Node>>>,
+    suffix: Weak<RefCell<Node>>,
     children: HashMap<char, Rc<RefCell<Node>>>,
 }
 
@@ -108,7 +115,7 @@ impl Node {
     fn odd_root() -> Rc<RefCell<Node>> {
         Rc::new(RefCell::new(Node {
             len: -1,
-            suffix: None,
+            suffix: Weak::new(),
             children: HashMap::new(),
         }))
     }
@@ -116,9 +123,13 @@ impl Node {
     fn even_root(odd_root: Weak<RefCell<Node>>) -> Rc<RefCell<Node>> {
         Rc::new(RefCell::new(Node {
             len: 0,
-            suffix: Some(odd_root),
+            suffix: odd_root,
             children: HashMap::new(),
         }))
+    }
+
+    fn suffix(&self) -> Rc<RefCell<Node>> {
+        self.suffix.upgrade().unwrap()
     }
 }
 
@@ -146,6 +157,7 @@ mod tests {
         assert_eq!(test_str(""), (0, String::from("")));
         assert_eq!(test_str("abba"), (4, String::from("abba")));
         assert_eq!(test_str("abbba"), (5, String::from("abbba")));
+        assert_eq!(test_str("ababa"), (5, String::from("ababa")));
         assert_eq!(test_str("ccdaabba"), (8, String::from("abba")));
         assert_eq!(test_str("xxyyzz"), (6, String::from("xx")));
         assert_eq!(test_str("xxyyzzxxzzyy"), (10, String::from("yyzzxxzzyy")));
