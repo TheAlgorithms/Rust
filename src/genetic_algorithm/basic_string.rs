@@ -191,4 +191,10 @@ mod tests {
             )
         );
     }
+
+    #[test]
+    #[should_panic]
+    fn empty_genes() {
+        super::genetic_string("This is should panic", "");
+    }
 }
