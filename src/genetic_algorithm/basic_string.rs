@@ -2,6 +2,10 @@
 Simple multithreaded algorithm to show how the 4 phases of a genetic
 algorithm works (Evaluation, Selection, Crossover and Mutation)
 https://en.wikipedia.org/wiki/Genetic_algorithm
+
+Link to the same algorithm implemented in python:
+https://github.com/TheAlgorithms/Python/blob/master/genetic_algorithm/basic_string.py
+
 Author: D4rkia
 */
 
