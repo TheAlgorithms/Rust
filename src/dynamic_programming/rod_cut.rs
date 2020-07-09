@@ -10,11 +10,10 @@
 pub fn rod_cut(rope_len: usize, lengths_vector: Vec<usize>, prices_vector: Vec<usize>) -> usize
 {
     //both vectors have to be the same size
-    if prices_vector.len()!=lengths_vector.len(){
+    if prices_vector.len()!=lengths_vector.len() {
         return 0;
     }
-    //both vectors have to have at least one element
-    else if prices_vector.len()<=0 {
+    if prices_vector.len()==0 {
         return 0;
     }
 
