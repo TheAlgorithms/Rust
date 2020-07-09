@@ -58,5 +58,6 @@ mod tests {
         assert_eq!(rod_cut(4,vec![1,2,3,4,5,6,7,8],vec![1,5,8,9,10,17,17,20]),10);
         assert_eq!(rod_cut(105,vec![1,2,3,5,6,7],vec![1,5,9,10,17,17]),315);
         assert_eq!(rod_cut(8,vec![7],vec![17]),17);
+        assert_eq!(rod_cut(1,vec![1,2,3,4],vec![1,2,3,4]),1);
     }
 }
