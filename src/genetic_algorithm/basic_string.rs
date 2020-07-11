@@ -39,8 +39,6 @@ impl PopItem {
 
 pub fn genetic_string(target: &str, genes_str: &str) -> String {
     // Define parameters
-    let target_string = target;
-    let char_string = genes_str;
     // Maximum size of the population.  bigger could be faster but is more memory expensive
     let pop_num = 200;
     // Number of elements selected in every generation for evolution the selection takes
@@ -58,15 +56,15 @@ pub fn genetic_string(target: &str, genes_str: &str) -> String {
             .subsec_nanos() as usize,
     );
 
-    // Convert char_string in vector
-    let genes: Vec<char> = char_string.chars().collect();
+    // Convert genes_str in vector
+    let genes: Vec<char> = genes_str.chars().collect();
 
     // Verify if 'pop_num' s bigger than 'selection_num'
     if pop_num < selection_num {
         panic!("{} must be bigger than {}", pop_num, selection_num);
     }
     // Verify that the target contains no genes besides the ones inside genes variable.
-    let target: Vec<char> = target_string.chars().collect();
+    let target: Vec<char> = target.chars().collect();
     for c in target.iter() {
         if !genes.contains(&c) {
             panic!("char {} is not part of the genes", &c)
