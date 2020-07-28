@@ -66,6 +66,16 @@ __Properties__
 
 ###### View the algorithm in [action][quick-toptal]
 
+### [Radix](./radix_sort.rs)
+![alt text][radix-image]
+
+From [Wikipedia][radix-wiki]: Radix sort is a non-comparative sorting algorithm. It avoids comparison by creating and distributing elements into buckets according to their radix. For elements with more than one significant digit, this bucketing process is repeated for each digit, while preserving the ordering of the prior step, until all digits have been considered.
+
+__Properties__
+* Worst case performance O(w*n)
+
+where w is the number of bits required to store each key.
+
 ### [Selection](./selection_sort.rs)
 ![alt text][selection-image]
 
@@ -107,6 +117,9 @@ __Properties__
 [merge-toptal]: https://www.toptal.com/developers/sorting-algorithms/merge-sort
 [merge-wiki]: https://en.wikipedia.org/wiki/Merge_sort
 [merge-image]: https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif "Merge Sort"
+
+[radix-wiki]: https://en.wikipedia.org/wiki/Radix_sort
+[radix-image]: https://ds055uzetaobb.cloudfront.net/brioche/uploads/IEZs8xJML3-radixsort_ed.png?width=400 "Radix Sort"
 
 [selection-toptal]: https://www.toptal.com/developers/sorting-algorithms/selection-sort
 [selection-wiki]: https://en.wikipedia.org/wiki/Selection_sort
