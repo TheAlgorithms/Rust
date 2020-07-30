@@ -10,7 +10,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_something() {
+    fn test_estimate_pi_leibniz() {
         let epsilon = 0.0001;
         let s = estimate_pi_leibniz(10000);
         assert!((s - std::f64::consts::PI) <= epsilon);
