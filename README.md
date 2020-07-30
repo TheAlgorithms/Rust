@@ -72,6 +72,9 @@ These are for demonstration purposes only.
 - [XOR](./src/ciphers/xor.rs)
 - Transposition _(Not implemented yet)_
 
+## [Maths](./src/maths)
+- [π Leibniz estimation](./src/maths/pi_leibniz_estimation.rs)
+
 ---
 ### Contributing
 

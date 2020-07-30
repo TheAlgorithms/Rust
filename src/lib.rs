@@ -5,6 +5,7 @@ pub mod general;
 pub mod searching;
 pub mod sorting;
 pub mod string;
+pub mod maths;
 
 #[cfg(test)]
 mod tests {
