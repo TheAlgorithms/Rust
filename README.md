@@ -69,6 +69,7 @@ These are for demonstration purposes only.
 
 - [Caesar](./src/ciphers/caesar.rs)
 - [Vigenère](./src/ciphers/vigenere.rs)
+- [SHA-2](./src/ciphers/sha256.rs)
 - Transposition _(Not implemented yet)_
 
 ---
