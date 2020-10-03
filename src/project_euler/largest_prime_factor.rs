@@ -1,6 +1,10 @@
+//! Larget Prime Factor
+//! 
+//! Problem #3.
+//! https://projecteuler.net/problem=3
 
 /// Get the largest prime factor of the (unsigned) integer `n`
-fn largest_prime_factor(mut n: u64) -> u64 {
+pub fn largest_prime_factor(mut n: u64) -> u64 {
     // Largest prime factor
     let mut lpf = 2;
     while n > lpf {
