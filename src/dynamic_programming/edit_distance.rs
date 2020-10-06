@@ -40,6 +40,10 @@ pub fn edit_distance(str_a: &str, str_b: &str) -> u32 {
 
 /// The space efficient version of the above algorithm.
 ///
+/// Instead of storing the `m * n` matrix expicitly, only one row (of length `n`) is stored.
+/// It keeps overwriting itself based on its previous values with the help of two scalars,
+/// gradually reaching the last row. Then, the score is `matrix[n]`.
+///
 /// # Complexity
 ///
 /// - time complexity: O(nm),
@@ -48,23 +52,23 @@ pub fn edit_distance(str_a: &str, str_b: &str) -> u32 {
 /// where n and m are lengths of `str_a` and `str_b`
 pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
     let (str_a, str_b) = (str_a.as_bytes(), str_b.as_bytes());
-    let (m, n) = (str_a.len() + 1, str_b.len() + 1);
-    let mut dp_matrix: Vec<u32> = vec![0; n]; // the dynamic programming matrix (only 1 row stored)
+    let (m, n) = (str_a.len(), str_b.len());
+    let mut dp_matrix: Vec<u32> = vec![0; n + 1]; // the dynamic programming matrix (only 1 row stored)
     let mut s: u32; // dp_matrix[i - 1][j - 1] or dp_matrix[i - 1][j]
     let mut c: u32; // dp_matrix[i][j - 1] or dp_matrix[i][j]
     let mut a: u8; // str_a[i - 1]
     let mut b: u8; // str_b[j - 1]
 
     // 0th row
-    for j in 1..n {
+    for j in 1..=n {
         dp_matrix[j] = j as u32;
     }
     // rows 1 to m
-    for i in 1..m {
+    for i in 1..=m {
         s = (i - 1) as u32;
         c = i as u32;
         a = str_a[i - 1];
-        for j in 1..n {
+        for j in 1..=n {
             b = str_b[j - 1];
             c = min(s + if a == b { 0 } else { 1 }, min(c + 1, dp_matrix[j] + 1)); // c becomes dp_matrix[i][j]
             s = dp_matrix[j]; // s becomes dp_matrix[i - 1][j]
@@ -72,7 +76,7 @@ pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
         }
     }
 
-    dp_matrix[n - 1]
+    dp_matrix[n]
 }
 
 #[cfg(test)]
