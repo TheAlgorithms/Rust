@@ -7,15 +7,15 @@ here.
 
 Please put your solution in a folder, following the `_<problem_id>` format.
 Add `pub mod _<problem_id>;` into the `mod.rs` in the `project_euler`
-directory. it as a rust module. If there is only one solution, feel free to
-keep the solution in `mod.rs`. Format if one solution:
+directory. If there is only one solution, feel free to keep the solution in
+`mod.rs`. The structure if there's one solution:
 
 ```
 _3:
  mod.rs 
 ```
 
-A structure for multiple solutions:
+The structure for multiple solutions:
 ```
 _3:
  mod.rs 
