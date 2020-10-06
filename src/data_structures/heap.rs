@@ -10,14 +10,14 @@ where
 {
     count: usize,
     items: Vec<T>,
-    comparator: Box<dyn Fn(&T, &T) -> bool>,
+    comparator: fn(&T, &T) -> bool,
 }
 
 impl<T> Heap<T>
 where
     T: Default,
 {
-    pub fn new(comparator: Box<dyn Fn(&T, &T) -> bool>) -> Self {
+    pub fn new(comparator: fn(&T, &T) -> bool) -> Self {
         Self {
             count: 0,
             // Add a default in the first spot to offset indexes
@@ -113,8 +113,7 @@ impl MinHeap {
     where
         T: Default + Ord,
     {
-        let comparator = |a: &T, b: &T| a < b;
-        Heap::new(Box::new(comparator))
+        Heap::new(|a, b| a < b)
     }
 }
 
@@ -125,8 +124,7 @@ impl MaxHeap {
     where
         T: Default + Ord,
     {
-        let comparator = |a: &T, b: &T| a > b;
-        Heap::new(Box::new(comparator))
+        Heap::new(|a, b| a > b)
     }
 }
 
@@ -173,7 +171,7 @@ mod tests {
 
     #[test]
     fn test_key_heap() {
-        let mut heap: Heap<Point> = Heap::new(Box::new(|a, b| a.0 < b.0));
+        let mut heap: Heap<Point> = Heap::new(|a, b| a.0 < b.0);
         heap.add(Point(1, 5));
         heap.add(Point(3, 10));
         heap.add(Point(-2, 4));
