@@ -5,8 +5,30 @@ here.
 
 # Guidelines
 
-Please provide a link and the number of the problem in a module level doc 
-comment. For example:
+Please put your solution in a folder, following the `_<problem_id>` format.
+Add `pub mod _<problem_id>;` into the `mod.rs` in the `project_euler`
+directory. it as a rust module. If there is only one solution, feel free to
+keep the solution in `mod.rs`. Format if one solution:
+
+```
+_3:
+ mod.rs 
+```
+
+A structure for multiple solutions:
+```
+_3:
+ mod.rs 
+ <solution_name>.rs
+ <other_solution_name>.rs
+ <other_solution_name>.rs
+```
+
+If there are multiple solutions, also make sure to include them in the
+respective `mod.rs` files.
+
+Also provide a link and the number of the problem in a module level doc 
+comment. (in the respective `mod.rs`) For example:
 
 ```rust
 //! Larget Prime Factor
@@ -14,4 +36,3 @@ comment. For example:
 //! Problem #3.
 //! https://projecteuler.net/problem=3
 ```
-
