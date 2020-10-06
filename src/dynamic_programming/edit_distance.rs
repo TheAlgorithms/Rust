@@ -53,15 +53,15 @@ pub fn edit_distance(str_a: &str, str_b: &str) -> u32 {
 pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
     let (str_a, str_b) = (str_a.as_bytes(), str_b.as_bytes());
     let (m, n) = (str_a.len(), str_b.len());
-    let mut dp_matrix: Vec<u32> = vec![0; n + 1]; // the dynamic programming matrix (only 1 row stored)
-    let mut s: u32; // dp_matrix[i - 1][j - 1] or dp_matrix[i - 1][j]
-    let mut c: u32; // dp_matrix[i][j - 1] or dp_matrix[i][j]
-    let mut a: u8; // str_a[i - 1]
-    let mut b: u8; // str_b[j - 1]
+    let mut distances: Vec<u32> = vec![0; n + 1]; // the dynamic programming matrix (only 1 row stored)
+    let mut s: u32; // distances[i - 1][j - 1] or distances[i - 1][j]
+    let mut c: u32; // distances[i][j - 1] or distances[i][j]
+    let mut a: u8; // str_a[i - 1] the i-th character in str_a; only needs to be computed once per row
+    let mut b: u8; // str_b[j - 1] the j-th character in str_b
 
     // 0th row
     for j in 1..=n {
-        dp_matrix[j] = j as u32;
+        distances[j] = j as u32;
     }
     // rows 1 to m
     for i in 1..=m {
@@ -69,14 +69,17 @@ pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
         c = i as u32;
         a = str_a[i - 1];
         for j in 1..=n {
+            // c is distances[i][j-1] and s is distances[i-1][j-1] at the beginning of each round of iteration
             b = str_b[j - 1];
-            c = min(s + if a == b { 0 } else { 1 }, min(c + 1, dp_matrix[j] + 1)); // c becomes dp_matrix[i][j]
-            s = dp_matrix[j]; // s becomes dp_matrix[i - 1][j]
-            dp_matrix[j] = c;
+            c = min(s + if a == b { 0 } else { 1 }, min(c + 1, distances[j] + 1));
+            // c is updated to distances[i][j], and will thus become distances[i][j-1] for the next cell
+            s = distances[j]; // here distances[j] means distances[i-1][j] becuase it has not been overwritten yet
+            // s is updated to distances[i-1][j], and will thus become distances[i-1][j-1] for the next cell
+            distances[j] = c; // now distances[j] is updated to distances[i][j], and will thus become distances[i-1][j] for the next ROW
         }
     }
 
-    dp_matrix[n]
+    distances[n]
 }
 
 #[cfg(test)]
