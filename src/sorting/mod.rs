@@ -4,6 +4,7 @@ mod heap_sort;
 mod insertion;
 mod merge_sort;
 mod quick_sort;
+mod radix_sort;
 mod selection_sort;
 
 use std::cmp;
@@ -15,6 +16,7 @@ pub use self::heap_sort::heap_sort;
 pub use self::insertion::insertion_sort;
 pub use self::merge_sort::merge_sort;
 pub use self::quick_sort::quick_sort;
+pub use self::radix_sort::radix_sort;
 pub use self::selection_sort::selection_sort;
 
 pub fn is_sorted<T>(arr: &[T]) -> bool
