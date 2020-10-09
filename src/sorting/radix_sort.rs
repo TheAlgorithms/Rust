@@ -11,13 +11,7 @@ pub fn radix_sort(arr: &mut [u64]) {
         None => return,
     };
     // Make radix a power of 2 close to arr.len() for optimal runtime
-    let radix = {
-        let mut r = 2;
-        while r < arr.len() {
-            r *= 2;
-        }
-        r
-    };
+    let radix = arr.len().next_power_of_two();
     // Counting sort by each digit from least to most significant
     let mut place = 1;
     while place <= max {
