@@ -12,7 +12,10 @@ where
     right: Option<Box<BinarySearchTree<T>>>,
 }
 
-impl<T> Default for BinarySearchTree<T> where T: Ord{
+impl<T> Default for BinarySearchTree<T>
+where
+    T: Ord,
+{
     fn default() -> Self {
         Self::new()
     }
