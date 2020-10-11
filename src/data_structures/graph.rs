@@ -61,7 +61,7 @@ pub struct UnDiGraph<Node, ValueType> {
 /// graph.add_edge("B", "C");
 ///
 /// assert!(graph.adjacent("A", "B"));
-/// assert!(graph.adjacent("B", "A"));
+/// assert!(!graph.adjacent("B", "A"));
 /// assert!(!graph.adjacent("A", "C"));
 /// ```
 ///
@@ -85,7 +85,7 @@ pub trait Graph<Node, ValueType> {
 
     /// Lists all vertices y such that there is an edge from the vertex
     /// source to the vertex y
-    fn neighbours(&self, source: Node) -> Vec<&Node>;
+    fn neighbours(&self, source: Node) -> Vec<Node>;
 
     /// Add a vertex to the graph
     fn add_vertex(&mut self, node: Node, value: ValueType);
@@ -164,13 +164,45 @@ impl<Node, ValueType> Graph<Node, ValueType> for UnDiGraph<Node, ValueType>
         false
     }
 
-    fn neighbours(&self, source: Node) -> Vec<&Node> {
-        let mut neighbours = Vec::new();
-        if let Some(edges) = self.edges.get(&source) {
-            neighbours.extend(edges);
+    /// Check if a vertex source has an edge to the vertex target
+    ///
+    /// ```
+    /// use the_algorithms_rust::data_structures::{UnDiGraph,Graph};
+    ///
+    /// let mut graph = UnDiGraph::<i32, i32>::default();
+    /// graph.add_vertex(1, 10);
+    /// graph.add_vertex(2, 11);
+    /// graph.add_vertex(3, 9);
+    /// graph.add_edge(1, 2);
+    /// graph.add_edge(2, 3);
+    ///
+    /// let mut neighbours = graph.neighbours(2);
+    /// let mut check_node;
+    ///
+    /// assert_eq!(neighbours.len(), 2);
+    /// check_node = 1;
+    /// assert!(neighbours.contains(&&check_node));
+    /// check_node = 3;
+    /// assert!(neighbours.contains(&&check_node));
+    /// ```
+    fn neighbours(&self, source: Node) -> Vec<Node> {
+        let mut neighbours = HashSet::<Node>::new();
+        for (src_vert, target_verts) in &self.edges {
+            if *src_vert == source {
+                for target in target_verts {
+                    neighbours.insert(target.clone());
+                }
+            } else {
+                for target in target_verts {
+                    if *target == source {
+                        neighbours.insert(src_vert.clone());
+                    }
+                }
+            }
         }
-        // TODO: other direction
-        neighbours
+        let mut ret = Vec::new();
+        ret.extend(neighbours);
+        ret
     }
 
     fn add_vertex(&mut self, node: Node, value: ValueType) {
@@ -236,41 +268,92 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
         ValueType: Copy + Clone,
 {
     fn adjacent(&self, source: Node, target: Node) -> bool {
-        unimplemented!()
+        for (vert_source, vert_targets) in &self.edges {
+            if *vert_source != source && *vert_source != target {
+                continue;
+            }
+            for vert_target in vert_targets {
+                if *vert_source == source && *vert_target == target
+                {
+                    return true;
+                }
+            }
+        }
+        false
     }
 
-    fn neighbours(&self, source: Node) -> Vec<&Node> {
-        unimplemented!()
+    fn neighbours(&self, source: Node) -> Vec<Node> {
+        let mut neighbours = Vec::<Node>::new();
+        if let Some(edges) = self.edges.get(&source) {
+            for edge in edges {
+                neighbours.push(edge.clone());
+            }
+        }
+        neighbours
     }
 
     fn add_vertex(&mut self, node: Node, value: ValueType) {
-        unimplemented!()
+        self.vertices.insert(node, value);
     }
 
     fn remove_vertex(&mut self, node: Node) {
-        unimplemented!()
+        self.vertices.remove(&node);
     }
 
     fn add_edge(&mut self, source: Node, target: Node) {
-        unimplemented!()
+        let s = source.clone();
+        if !self.edges.contains_key(&source) {
+            self.edges.insert(s, HashSet::new());
+        }
+        if let Some(edges) = &mut self.edges.get_mut(&source) {
+            edges.insert(target);
+        }
     }
 
     fn remove_edge(&mut self, source: Node, target: Node) {
-        unimplemented!()
+        if let Some(edges) = self.edges.get_mut(&source)
+        {
+            edges.remove(&target);
+        }
     }
 
     fn get_vertex_value(&self, node: Node) -> Option<ValueType> {
-        unimplemented!()
+        if !self.vertices.contains_key(&node) {
+            None
+        } else {
+            Some(self.vertices[&node])
+        }
     }
 
     fn set_vertex_value(&mut self, node: Node, value: ValueType) {
-        unimplemented!()
+        if let Some(vert_value) = self.vertices.get_mut(&node) {
+            *vert_value = value;
+        }
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::{DiGraph, Graph, UnDiGraph};
+
+    #[test]
+    fn test_digraph_adjacent() {
+        let mut graph = UnDiGraph::<i32, i32>::default();
+        graph.add_vertex(1, 10);
+        graph.add_vertex(2, 11);
+        graph.add_vertex(3, 9);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 3);
+
+        let neighbours = graph.neighbours(2);
+        let mut check_node;
+
+        assert_eq!(neighbours.len(), 2);
+        check_node = 1;
+        assert!(neighbours.contains(&check_node));
+        check_node = 3;
+        assert!(neighbours.contains(&check_node));
+    }
 }
 
 
