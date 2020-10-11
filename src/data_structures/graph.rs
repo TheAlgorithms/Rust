@@ -267,6 +267,21 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
         Node: Ord + Hash + Clone,
         ValueType: Copy + Clone,
 {
+    /// Check if a vertex source has an edge to the vertex target
+    ///
+    /// ```
+    /// use the_algorithms_rust::data_structures::{DiGraph,Graph};
+    ///
+    /// let mut graph = DiGraph::<i32, i32>::default();
+    /// graph.add_vertex(1, 10);
+    /// graph.add_vertex(2, 11);
+    /// graph.add_vertex(3, 9);
+    /// graph.add_edge(1, 2);
+    ///
+    /// assert!(graph.adjacent(1, 2));
+    /// assert!(!graph.adjacent(2, 1));
+    /// assert!(!graph.adjacent(1, 3));
+    /// ```
     fn adjacent(&self, source: Node, target: Node) -> bool {
         for (vert_source, vert_targets) in &self.edges {
             if *vert_source != source && *vert_source != target {
@@ -282,6 +297,35 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
         false
     }
 
+    /// Fetch all neighbouring/adjacent vertices
+    ///
+    /// ```
+    /// use the_algorithms_rust::data_structures::{DiGraph,Graph};
+    ///
+    /// let mut graph = DiGraph::<i32, i32>::default();
+    /// graph.add_vertex(1, 10);
+    /// graph.add_vertex(2, 11);
+    /// graph.add_vertex(3, 9);
+    /// graph.add_edge(1, 2);
+    /// graph.add_edge(2, 3);
+    ///
+    /// let mut neighbours = graph.neighbours(2);
+    /// let mut check_node;
+    ///
+    /// assert_eq!(neighbours.len(), 1);
+    /// check_node = 3;
+    /// assert!(neighbours.contains(&&check_node));
+    ///
+    /// graph.add_edge(2, 1);
+    ///
+    /// neighbours = graph.neighbours(2);
+    ///
+    /// assert_eq!(neighbours.len(), 2);
+    /// check_node = 1;
+    /// assert!(neighbours.contains(&&check_node));
+    /// check_node = 3;
+    /// assert!(neighbours.contains(&&check_node));
+    /// ```
     fn neighbours(&self, source: Node) -> Vec<Node> {
         let mut neighbours = Vec::<Node>::new();
         if let Some(edges) = self.edges.get(&source) {
@@ -292,14 +336,28 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
         neighbours
     }
 
+    /// Add a vertex to the graph
+    ///
+    /// Params:
+    /// * node - Identifier
+    /// * value - associated value
     fn add_vertex(&mut self, node: Node, value: ValueType) {
         self.vertices.insert(node, value);
     }
 
+    /// Remove a vertex from the graph
+    ///
+    /// Params:
+    /// * node - Identifier of the vertex, which shall be removed
     fn remove_vertex(&mut self, node: Node) {
         self.vertices.remove(&node);
     }
 
+    /// Add an edge between two vertices
+    ///
+    /// Params:
+    /// * source - Identifier of the source vertex
+    /// * target - Identifier of the target vertex
     fn add_edge(&mut self, source: Node, target: Node) {
         let s = source.clone();
         if !self.edges.contains_key(&source) {
@@ -310,6 +368,11 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
         }
     }
 
+    /// Remove an edge between two vertices
+    ///
+    /// Params:
+    /// * source - Identifier of the source vertex
+    /// * target - Identifier of the target vertex
     fn remove_edge(&mut self, source: Node, target: Node) {
         if let Some(edges) = self.edges.get_mut(&source)
         {
@@ -317,6 +380,7 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
         }
     }
 
+    /// Fetch the associated value of a vertex
     fn get_vertex_value(&self, node: Node) -> Option<ValueType> {
         if !self.vertices.contains_key(&node) {
             None
@@ -325,6 +389,7 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
         }
     }
 
+    /// Set the associated value of a vertex
     fn set_vertex_value(&mut self, node: Node, value: ValueType) {
         if let Some(vert_value) = self.vertices.get_mut(&node) {
             *vert_value = value;
@@ -337,13 +402,57 @@ mod test {
     use super::{DiGraph, Graph, UnDiGraph};
 
     #[test]
-    fn test_digraph_adjacent() {
-        let mut graph = UnDiGraph::<i32, i32>::default();
+    fn test_digraph_neighbours() {
+        let mut graph = DiGraph::<i32, i32>::default();
         graph.add_vertex(1, 10);
         graph.add_vertex(2, 11);
         graph.add_vertex(3, 9);
         graph.add_edge(1, 2);
         graph.add_edge(2, 3);
+
+        let mut neighbours = graph.neighbours(2);
+        let mut check_node;
+
+        assert_eq!(neighbours.len(), 1);
+        check_node = 3;
+        assert!(neighbours.contains(&check_node));
+
+        graph.add_edge(2, 1);
+
+        neighbours = graph.neighbours(2);
+        check_node;
+
+        assert_eq!(neighbours.len(), 2);
+        check_node = 1;
+        assert!(neighbours.contains(&check_node));
+        check_node = 3;
+        assert!(neighbours.contains(&check_node));
+
+    }
+
+    #[test]
+    fn test_digraph_adjacent() {
+        let mut graph = DiGraph::<i32, i32>::default();
+        graph.add_vertex(1, 10);
+        graph.add_vertex(2, 11);
+        graph.add_vertex(3, 9);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 3);
+
+        assert!(graph.adjacent(1, 2));
+        assert!(!graph.adjacent(2, 1));
+    }
+
+    #[test]
+    fn test_graph_neighbours() {
+        let mut graph = UnDiGraph::<i32, i32>::default();
+        graph.add_vertex(1, 10);
+        graph.add_vertex(2, 11);
+        graph.add_vertex(3, 9);
+        graph.add_vertex(4, 8);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 3);
+        graph.add_edge(3, 4);
 
         let neighbours = graph.neighbours(2);
         let mut check_node;
@@ -353,6 +462,23 @@ mod test {
         assert!(neighbours.contains(&check_node));
         check_node = 3;
         assert!(neighbours.contains(&check_node));
+    }
+
+    #[test]
+    fn test_graph_adjacent() {
+        let mut graph = UnDiGraph::<i32, i32>::default();
+        graph.add_vertex(1, 10);
+        graph.add_vertex(2, 11);
+        graph.add_vertex(3, 9);
+        graph.add_vertex(4, 8);
+        graph.add_edge(1, 2);
+        graph.add_edge(2, 3);
+        graph.add_edge(3, 4);
+
+        assert!(graph.adjacent(1, 2));
+        assert!(graph.adjacent(2, 1));
+        assert!(graph.adjacent(3, 2));
+        assert!(graph.adjacent(2, 3));
     }
 }
 
