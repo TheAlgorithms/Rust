@@ -177,11 +177,8 @@ where
     }
 
     fn stack_push_left(&mut self) {
-        loop {
-            match &self.stack.last().unwrap().left {
-                Some(child) => self.stack.push(child),
-                None => break,
-            }
+        while let Some(child) = &self.stack.last().unwrap().left {
+            self.stack.push(child);
         }
     }
 }

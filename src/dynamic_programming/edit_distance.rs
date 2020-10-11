@@ -60,8 +60,8 @@ pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
     let mut b: u8; // str_b[j - 1] the j-th character in str_b
 
     // 0th row
-    for j in 1..=n {
-        distances[j] = j as u32;
+    for (j, v) in distances.iter_mut().enumerate().take(n + 1).skip(1) {
+        *v = j as u32;
     }
     // rows 1 to m
     for i in 1..=m {

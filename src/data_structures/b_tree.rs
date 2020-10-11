@@ -141,7 +141,7 @@ where
 
     pub fn traverse(&self) {
         self.props.traverse_node(&self.root, 0);
-        println!("");
+        println!();
     }
 
     pub fn search(&self, key: T) -> bool {

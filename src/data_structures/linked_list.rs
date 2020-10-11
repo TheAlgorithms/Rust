@@ -23,16 +23,22 @@ pub struct LinkedList<T> {
     end: Option<NonNull<Node<T>>>,
 }
 
+impl<T> Default for LinkedList<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<T> LinkedList<T> {
-    pub fn new() -> LinkedList<T> {
-        LinkedList {
+    pub fn new() -> Self {
+        Self {
             length: 0,
             start: None,
             end: None,
         }
     }
 
-    pub fn add(&mut self, obj: T) -> () {
+    pub fn add(&mut self, obj: T) {
         let mut node = Box::new(Node::new(obj));
         unsafe {
             // Since we are adding node at the end, next will always be None
@@ -48,11 +54,11 @@ impl<T> LinkedList<T> {
 
             self.end = node_ptr;
         }
-        self.length = self.length + 1;
+        self.length += 1;
     }
 
     pub fn get<'a>(&'a mut self, index: i32) -> Option<&'a T> {
-        return self.get_ith_node(self.start, index);
+        self.get_ith_node(self.start, index)
     }
 
     fn get_ith_node<'a>(&'a mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&'a T> {

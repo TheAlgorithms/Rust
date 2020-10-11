@@ -2,11 +2,11 @@ fn _merge<T: Ord + Copy>(arr: &mut [T], lo: usize, mid: usize, hi: usize) {
     // create temporary arrays to support merge
     let mut left_half = Vec::new();
     let mut right_half = Vec::new();
-    for i in lo..mid + 1 {
-        left_half.push(arr[i]);
+    for v in arr.iter().take(mid + 1).skip(lo) {
+        left_half.push(*v);
     }
-    for i in mid + 1..hi + 1 {
-        right_half.push(arr[i]);
+    for v in arr.iter().take(hi + 1).skip(mid + 1) {
+        right_half.push(*v);
     }
 
     let lsize = left_half.len();

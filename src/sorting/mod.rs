@@ -28,7 +28,7 @@ where
     let mut prev = &arr[0];
 
     for item in arr.iter().skip(1) {
-        if prev > &item {
+        if prev > item {
             return false;
         }
 
