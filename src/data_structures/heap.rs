@@ -83,6 +83,21 @@ where
     }
 }
 
+impl<T> Heap<T>
+where
+    T: Default + Ord,
+{
+    /// Create a new MinHeap
+    pub fn new_min() -> Self {
+        Self::new(|a, b| a < b)
+    }
+
+    /// Create a new MaxHeap
+    pub fn new_max() -> Self {
+        Self::new(|a, b| a > b)
+    }
+}
+
 impl<T> Iterator for Heap<T>
 where
     T: Default,
