@@ -129,9 +129,9 @@ impl<Node, ValueType> Default for UnDiGraph<Node, ValueType> {
 }
 
 impl<Node, ValueType> Graph<Node, ValueType> for UnDiGraph<Node, ValueType>
-    where
-        Node: Ord + Hash + Clone,
-        ValueType: Copy + Clone,
+where
+    Node: Ord + Hash + Clone,
+    ValueType: Copy + Clone,
 {
     /// Check if a vertex source has an edge to the vertex target
     ///
@@ -224,8 +224,7 @@ impl<Node, ValueType> Graph<Node, ValueType> for UnDiGraph<Node, ValueType>
     }
 
     fn remove_edge(&mut self, source: Node, target: Node) {
-        if let Some(edges) = self.edges.get_mut(&source)
-        {
+        if let Some(edges) = self.edges.get_mut(&source) {
             edges.remove(&target);
         }
     }
@@ -263,9 +262,9 @@ impl<Node, ValueType> Default for DiGraph<Node, ValueType> {
 }
 
 impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
-    where
-        Node: Ord + Hash + Clone,
-        ValueType: Copy + Clone,
+where
+    Node: Ord + Hash + Clone,
+    ValueType: Copy + Clone,
 {
     /// Check if a vertex source has an edge to the vertex target
     ///
@@ -288,8 +287,7 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
                 continue;
             }
             for vert_target in vert_targets {
-                if *vert_source == source && *vert_target == target
-                {
+                if *vert_source == source && *vert_target == target {
                     return true;
                 }
             }
@@ -374,8 +372,7 @@ impl<Node, ValueType> Graph<Node, ValueType> for DiGraph<Node, ValueType>
     /// * source - Identifier of the source vertex
     /// * target - Identifier of the target vertex
     fn remove_edge(&mut self, source: Node, target: Node) {
-        if let Some(edges) = self.edges.get_mut(&source)
-        {
+        if let Some(edges) = self.edges.get_mut(&source) {
             edges.remove(&target);
         }
     }
@@ -427,7 +424,6 @@ mod test {
         assert!(neighbours.contains(&check_node));
         check_node = 3;
         assert!(neighbours.contains(&check_node));
-
     }
 
     #[test]
@@ -481,5 +477,3 @@ mod test {
         assert!(graph.adjacent(2, 3));
     }
 }
-
-
