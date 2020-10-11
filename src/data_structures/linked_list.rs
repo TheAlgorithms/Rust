@@ -57,7 +57,7 @@ impl<T> LinkedList<T> {
         self.length += 1;
     }
 
-    pub fn get<'a>(&'a mut self, index: i32) -> Option<&'a T> {
+    pub fn get(&mut self, index: i32) -> Option<&T> {
         self.get_ith_node(self.start, index)
     }
 
