@@ -60,6 +60,11 @@ These are for demonstration purposes only.
 - Graph Coloringp _(Not implemented yet)_
 - Tower of Hanoip _(Not implemented yet)_
 
+## Project Euler
+
+- [Project Euler Solutions](./src/project_euler)
+[Project Euler homepage](https://projecteuler.net/) 
+
 ## [Search Algorithms](./src/searching)
 
 - [Linear](./src/searching/linear_search.rs)
