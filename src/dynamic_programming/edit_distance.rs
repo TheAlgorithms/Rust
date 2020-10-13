@@ -56,22 +56,25 @@ pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
     let mut distances: Vec<u32> = vec![0; n + 1]; // the dynamic programming matrix (only 1 row stored)
     let mut s: u32; // distances[i - 1][j - 1] or distances[i - 1][j]
     let mut c: u32; // distances[i][j - 1] or distances[i][j]
-    let mut a: u8; // str_a[i - 1] the i-th character in str_a; only needs to be computed once per row
-    let mut b: u8; // str_b[j - 1] the j-th character in str_b
+    let mut char_a: u8; // str_a[i - 1] the i-th character in str_a; only needs to be computed once per row
+    let mut char_b: u8; // str_b[j - 1] the j-th character in str_b
 
     // 0th row
-    for j in 1..=n {
-        distances[j] = j as u32;
+    for (j, v) in distances.iter_mut().enumerate().take(n + 1).skip(1) {
+        *v = j as u32;
     }
     // rows 1 to m
     for i in 1..=m {
         s = (i - 1) as u32;
         c = i as u32;
-        a = str_a[i - 1];
+        char_a = str_a[i - 1];
         for j in 1..=n {
             // c is distances[i][j-1] and s is distances[i-1][j-1] at the beginning of each round of iteration
-            b = str_b[j - 1];
-            c = min(s + if a == b { 0 } else { 1 }, min(c + 1, distances[j] + 1));
+            char_b = str_b[j - 1];
+            c = min(
+                s + if char_a == char_b { 0 } else { 1 },
+                min(c + 1, distances[j] + 1),
+            );
             // c is updated to distances[i][j], and will thus become distances[i][j-1] for the next cell
             s = distances[j]; // here distances[j] means distances[i-1][j] becuase it has not been overwritten yet
                               // s is updated to distances[i-1][j], and will thus become distances[i-1][j-1] for the next cell

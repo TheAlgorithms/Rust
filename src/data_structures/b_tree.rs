@@ -38,7 +38,7 @@ where
     }
 
     fn is_leaf(&self) -> bool {
-        self.children.len() == 0
+        self.children.is_empty()
     }
 }
 
@@ -141,7 +141,7 @@ where
 
     pub fn traverse(&self) {
         self.props.traverse_node(&self.root, 0);
-        println!("");
+        println!();
     }
 
     pub fn search(&self, key: T) -> bool {
