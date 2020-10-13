@@ -15,6 +15,10 @@ Though the cipher is easy to understand and implement, for three centuries it re
 Many people have tried to implement encryption schemes that are essentially Vigenère ciphers. Friedrich Kasiski was the first to publish a general method of deciphering a Vigenère cipher in 1863.
 ###### Source: [Wikipedia](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher)
 
+### [xtea](./xtea.rs)
+In cryptography, XTEA (eXtended TEA) is a block cipher designed to correct weaknesses in TEA. The cipher's designers were David Wheeler and Roger Needham of the Cambridge Computer Laboratory, and the algorithm was presented in an unpublished technical report in 1997 (Needham and Wheeler, 1997). It is not subject to any patents.
+###### Source: [Wikipedia](https://en.wikipedia.org/wiki/XTEA)
+
 ### Transposition _(Not implemented yet)_
 In cryptography, a **transposition cipher** is a method of encryption by which the positions held by units of plaintext (which are commonly characters or groups of characters) are shifted according to a regular system, so that the ciphertext constitutes a permutation of the plaintext. That is, the order of the units is changed (the plaintext is reordered).<br> 
 Mathematically a bijective function is used on the characters' positions to encrypt and an inverse function to decrypt.
