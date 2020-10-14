@@ -44,7 +44,7 @@ These are for demonstration purposes only.
   - Directed _(Not implemented yet)_
   - Undirected _(Not implemented yet)_
 - Trie _(Not implemented yet)_
-- [Binary Tree](./src/data_structures/binary_search_tree.rs)
+- [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [B-Tree](./src/data_structures/b_tree.rs)
 - AVL Tree _(Not implemented yet)_
 
