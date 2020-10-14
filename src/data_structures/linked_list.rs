@@ -76,7 +76,7 @@ where
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         match self.start {
             Some(node) => write!(f, "{}", unsafe { node.as_ref() }),
-            None => write!(f, ""),
+            None => Ok(()),
         }
     }
 }
