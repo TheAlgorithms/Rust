@@ -1,7 +1,0 @@
-[package]
-name = "pe1"
-version = "0.1.0"
-authors = ["Jon Moroney <darakian@gmail.com>"]
-edition = "2018"
-
-[dependencies]

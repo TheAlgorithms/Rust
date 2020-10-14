@@ -1,3 +1,5 @@
+pub mod _1;
+
 fn main() {
     let mut the_sum = 0;
     for i in 1..1000{
