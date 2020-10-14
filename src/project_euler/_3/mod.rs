@@ -6,7 +6,7 @@
 /// Get the largest prime factor of the (unsigned) integer `n`
 pub fn largest_prime_factor(mut n: u64) -> u64 {
     // Largest prime factor
-    let mut lpf = 2;
+    let mut lpf = 1;
     while n > lpf {
         if n % lpf == 0 {
             n /= lpf;
@@ -33,4 +33,14 @@ fn two() {
 #[test]
 fn ten() {
     assert_eq!(largest_prime_factor(10), 5);
+}
+
+#[test]
+fn five() {
+    assert_eq!(largest_prime_factor(5), 5);
+}
+
+#[test]
+fn one() {
+    assert_eq!(largest_prime_factor(1), 1);
 }
