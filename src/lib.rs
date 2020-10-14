@@ -4,6 +4,7 @@ pub mod dynamic_programming;
 pub mod general;
 pub mod searching;
 pub mod sorting;
+pub mod string;
 
 #[cfg(test)]
 mod tests {
