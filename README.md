@@ -23,6 +23,7 @@ These are for demonstration purposes only.
 - Prim's Minimum Spanning Tree _(Not implemented yet)_
 - BFS _(Not implemented yet)_
 - DFS  _(Not implemented yet)_
+- [Ullmann's Subgraph Isomorphism](./src/graphs/ullmann.rs) 
 
 ## [Dynamic Programming](./src/general)
 
