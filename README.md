@@ -12,7 +12,7 @@ These are for demonstration purposes only.
 - [Insertion](./src/sorting/insertion_sort.rs)
 - [Merge](./src/sorting/merge_sort.rs)
 - [Quick](./src/sorting/quick_sort.rs)
-- Radix _(Not implemented yet)_
+- [Radix](./src/sorting/radix_sort.rs)
 - [Selection](./src/sorting/selection_sort.rs)
 - [Shell](./src/sorting/shell_sort.rs)
 
