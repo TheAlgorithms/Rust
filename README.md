@@ -20,7 +20,7 @@ RESTART BUILD
 
 ## Graphs
 
-- [ ] Dijkstra
+- [x] [Dijkstra](./src/graph/dijkstra.rs)
 - [ ] Kruskal's Minimum Spanning Tree
 - [x] [Prim's Minimum Spanning Tree](./src/graph/prim.rs)
 - [ ] BFS
