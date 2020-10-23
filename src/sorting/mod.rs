@@ -6,6 +6,7 @@ mod merge_sort;
 mod quick_sort;
 mod radix_sort;
 mod selection_sort;
+mod stooge_sort;
 
 use std::cmp;
 
@@ -18,6 +19,7 @@ pub use self::merge_sort::merge_sort;
 pub use self::quick_sort::quick_sort;
 pub use self::radix_sort::radix_sort;
 pub use self::selection_sort::selection_sort;
+pub use self::stooge_sort::stooge_sort;
 
 pub fn is_sorted<T>(arr: &[T]) -> bool
 where
