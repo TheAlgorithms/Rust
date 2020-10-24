@@ -20,12 +20,12 @@ These are for demonstration purposes only.
 - [x] [Shell](./src/sorting/shell_sort.rs)
 
 ## Graphs
-
 - [ ] Dijkstra
 - [ ] Kruskal's Minimum Spanning Tree
 - [x] [Prim's Minimum Spanning Tree](./src/graph/prim.rs)
 - [ ] BFS
 - [ ] DFS
+- [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
