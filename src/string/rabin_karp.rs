@@ -1,4 +1,5 @@
-pub fn rabin_karp(txt: String, pat: String, q: i64) -> Vec<usize> {
+/// Rabin-Karp algorithm for pattern searching
+pub fn rabin_karp(txt: String, pat: String, prime_number: i64) -> Vec<usize> {
     let mut res = Vec::<usize>::new();
 
     // Rust strings are utf8 compatible and hence they can store all the 1,112,064 characters and not just the 256 ASCII characters
@@ -14,12 +15,12 @@ pub fn rabin_karp(txt: String, pat: String, q: i64) -> Vec<usize> {
 
     if m != 0 && n != 0 {
         for _i in 0..m - 1 {
-            h = (h * d) % q;
+            h = (h * d) % prime_number;
         }
 
         for i in 0..m {
-            p = ((d * p + pat.chars().nth(i).unwrap() as i64) % q).into();
-            t = ((d * t + txt.chars().nth(i).unwrap() as i64) % q).into();
+            p = ((d * p + pat.chars().nth(i).unwrap() as i64) % prime_number).into();
+            t = ((d * t + txt.chars().nth(i).unwrap() as i64) % prime_number).into();
         }
 
         for i in 0..=(n - m) {
@@ -38,10 +39,10 @@ pub fn rabin_karp(txt: String, pat: String, q: i64) -> Vec<usize> {
             if i < n - m {
                 t = (d * (t - txt.chars().nth(i).unwrap() as i64 * h)
                     + (txt.chars().nth(i + m).unwrap() as i64))
-                    % q;
+                    % prime_number;
 
                 if t < 0 {
-                    t = t + q;
+                    t = t + prime_number;
                 }
             }
         }
