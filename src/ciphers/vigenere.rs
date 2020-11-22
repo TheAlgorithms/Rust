@@ -9,8 +9,8 @@
 /// Vigenère cipher to rotate plain_text text by key and return an owned String.
 pub fn vigenere(plain_text: &str, key: &str) -> String {
     // Remove all unicode and non-ascii characters from key
-    let key: String = key.chars().filter(|&c| c.is_ascii_alphabetic()).collect();
-    key.to_ascii_lowercase();
+    let mut key: String = key.chars().filter(|&c| c.is_ascii_alphabetic()).collect();
+    key.make_ascii_lowercase();
 
     let key_len = key.len();
     if key_len == 0 {
