@@ -21,8 +21,8 @@ These are for demonstration purposes only.
 - Dijkstra _(Not implemented yet)_
 - Kruskal's Minimum Spanning Tree _(Not implemented yet)_
 - Prim's Minimum Spanning Tree _(Not implemented yet)_
-- [BFS](./src/graphs/breadth_first_search)
-- [DFS](./src/graphs/depth_first_search)
+- [BFS](./src/graphs/breadth_first_search.rs)
+- [DFS](./src/graphs/depth_first_search.rs)
 
 ## [Dynamic Programming](./src/general)
 
