@@ -32,4 +32,5 @@ impl<T: PartialOrd + From<usize>> SearchableGraph for MatrixGraph<T> {
     }
 }
 
+// TODO: implement weighted graph and flow graph
 // TODO: implement ListGraph, a graph stored as an adjacency list
