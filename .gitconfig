@@ -1,0 +1,2 @@
+[core]
+    hooksPath = git_hooks
