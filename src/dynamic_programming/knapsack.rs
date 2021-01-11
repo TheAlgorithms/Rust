@@ -1,15 +1,14 @@
 //! Solves the knapsack problem
 use std::cmp::max;
 
-
 /// knapsack_table(n, w, weights, values) returns the knapsack table (`n`, `m`) with maximum values
 ///
-/// # Arguments:
+/// Arguments:
 ///     * `n` - number of items
 ///     * `w` - knapsack capacity
 ///     * `weights` - set of weights for each item
 ///     * `values` - set of values for each item
-fn knapsack_table(n: &usize, w: &usize, weights: &Vec<usize>, values: &Vec<usize>) -> Vec<Vec<usize>> {
+fn knapsack_table(n: &usize, w: &usize, weights: &[usize], values: &[usize]) -> Vec<Vec<usize>> {
 	// Initialize `m`
 	// m[i, w] - the maximum value that can be attained with weight less that or equal to `w` using items up to `i`
 	let mut m: Vec<Vec<usize>> = vec![vec![0; w + 1]; n + 1];
@@ -31,22 +30,22 @@ fn knapsack_table(n: &usize, w: &usize, weights: &Vec<usize>, values: &Vec<usize
 			}
 		}
 	}
-	return m;
+	m
 }
 
 
 /// knapsack_items(weights, m, i, j) returns the indices of the items of the optimal knapsack (from 1 to n)
 ///
-/// # Arguments:
+/// Arguments:
 ///     * `weights` - set of weights for each item
 ///     * `m` - knapsack table with maximum values
 ///     * `i` - include items 1 through `i` in knapsack (for the initial value, use `n`)
 ///     * `j` - maximum weight of the knapsack
-fn knapsack_items(weights: &Vec<usize>, m: &Vec<Vec<usize>>, i: &usize, j: &usize) -> Vec<usize> {
+fn knapsack_items(weights: &[usize], m: &[Vec<usize>], i: &usize, j: &usize) -> Vec<usize> {
 	if *i == 0 {
 		return vec![];
 	}
-	return if m[*i][*j] > m[*i - 1][*j] {
+	if m[*i][*j] > m[*i - 1][*j] {
 		let mut knap: Vec<usize> = knapsack_items(weights, m, &(i - 1), &(j - (weights[i - 1])));
 		knap.push(*i);
 		knap
@@ -59,13 +58,13 @@ fn knapsack_items(weights: &Vec<usize>, m: &Vec<Vec<usize>>, i: &usize, j: &usiz
 /// knapsack(n, w, weights, values) returns the tuple where first value is `optimal profit`,
 /// second value is `knapsack optimal weight` and the last value is `indices of items`, that we got (from 1 to n)
 ///
-/// # Arguments:
+/// Arguments:
 ///     * `n` - number of items
 ///     * `w` - knapsack capacity
 ///     * `weights` - set of weights for each item
 ///     * `values` - set of values for each item
 ///
-/// # Complexity
+/// Complexity
 ///     - time complexity: O(nw),
 ///     - space complexity: O(nw),
 ///
@@ -80,15 +79,17 @@ pub fn knapsack(n: usize, w: usize, weights: Vec<usize>, values: Vec<usize>) -> 
 	// Find the total weight of optimal knapsack
 	let mut total_weight: usize = 0;
 	for i in items.iter() { total_weight += weights[i - 1]; }
-	return (m[n][w], total_weight, items)
+	// Return result
+	(m[n][w], total_weight, items)
 }
 
 
 #[cfg(test)]
 mod tests {
+	use std::io;
+
 	// Took test datasets from https://people.sc.fsu.edu/~jburkardt/datasets/bin_packing/bin_packing.html
 	use super::*;
-	use std::io;
 
 	#[test]
 	fn test_p02() {
@@ -104,7 +105,6 @@ mod tests {
 		                                               190,
 		                                               vec![56, 59, 80, 64, 75, 17],
 		                                               vec![50, 50, 64, 46, 50, 5]));
-
 	}
 
 	#[test]
