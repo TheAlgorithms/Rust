@@ -5,7 +5,7 @@ pub fn binary_search<T: Ord>(item: &T, arr: &[T]) -> Option<usize> {
     let mut right = arr.len();
 
     while left < right {
-        let mid = (left + right) / 2;
+        let mid = left + (right - left) / 2;
 
         match item.cmp(&arr[mid]) {
             Ordering::Less => right = mid,
