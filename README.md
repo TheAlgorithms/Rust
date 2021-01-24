@@ -24,9 +24,9 @@ These are for demonstration purposes only.
 - BFS _(Not implemented yet)_
 - DFS  _(Not implemented yet)_
 
-## [Dynamic Programming](./src/general)
+## [Dynamic Programming](./src/dynamic_programming)
 
-- 0-1 Knapsack _(Not implemented yet)_
+- [0-1 Knapsack](./src/dynamic_programming/knapsack.rs)
 - [Edit Distance](./src/dynamic_programming/edit_distance.rs)
 - [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
 - Longest increasing subsequence _(Not implemented yet)_
