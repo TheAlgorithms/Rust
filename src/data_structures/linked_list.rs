@@ -58,7 +58,7 @@ impl<T> LinkedList<T> {
         self.get_ith_node(self.start, index)
     }
 
-    fn get_ith_node<'a>(&'a mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&'a T> {
+    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
         match node {
             None => None,
             Some(next_ptr) => match index {

@@ -30,12 +30,12 @@ pub fn longest_common_subsequence(a: &str, b: &str) -> String {
     while i > 0 && j > 0 {
         if a[i - 1] == b[j - 1] {
             result.push(a[i - 1]);
-            i = i - 1;
-            j = j - 1;
+            i -= 1;
+            j -= 1;
         } else if solutions[i - 1][j] > solutions[i][j - 1] {
-            i = i - 1;
+            i -= 1;
         } else {
-            j = j - 1;
+            j -= 1;
         }
     }
 
