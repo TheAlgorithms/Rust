@@ -11,7 +11,7 @@ impl fmt::Display for NodeNotInGraph {
 }
 
 pub struct UndirectedGraph {
-    adjacency_table: HashMap<String, HashMap<String, i32>>,
+    adjacency_table: HashMap<String, Vec<(String, i32)>>,
 }
 
 impl UndirectedGraph {
@@ -22,7 +22,7 @@ impl UndirectedGraph {
     fn add_node(&mut self, node: &str) -> bool {
         match self.adjacency_table.get(node) {
             None => {
-                self.adjacency_table.insert((*node).to_string(), HashMap::new());
+                self.adjacency_table.insert((*node).to_string(), Vec::new());
                 return true
             },
             _ => {
@@ -38,54 +38,35 @@ impl UndirectedGraph {
         self.adjacency_table
         .entry(edge.0.to_string())
         .and_modify(|e| {
-            e.insert(edge.1.to_string(), edge.2);
+            e.push((edge.1.to_string(), edge.2));
         });
         self.adjacency_table
         .entry(edge.1.to_string())
         .and_modify(|e| {
-            e.insert(edge.0.to_string(), edge.2);
+            e.push((edge.0.to_string(), edge.2));
         });
     }
 
-    fn neighbours(&self, node: &str) -> Result<Vec<(&str, i32)>, NodeNotInGraph>{
+    fn neighbours(&self, node: &str) -> Result<&Vec<(String, i32)>, NodeNotInGraph>{
         match self.adjacency_table.get(node) {
             None => {
                 return Err(NodeNotInGraph)
             },
-            Some(i) => {
-                let mut neighbours: Vec<(&str, i32)> = Vec::new();
-                for (key, value) in i {
-                    neighbours.push((key, *value))
-                }
-                Ok(neighbours)
-            }
+            Some(i) => { Ok(i) }
         }
     }
 
-    fn contains(&self, node: &str) -> bool {
-        match self.adjacency_table.get(node) {
-            None => {
-                return false
-            },
-            _ => {
-                return true
-            }
-        }
-    }
+    fn contains(&self, node: &str) -> bool {self.adjacency_table.get(node).is_some()}
 
     fn nodes(&self) -> HashSet<&String> {
-        let mut nodes = HashSet::new();
-        for (key, _) in &self.adjacency_table {
-            nodes.insert(key);
-        }
-        nodes
+        self.adjacency_table.keys().collect()
     }
 
-    fn edges(&self) -> HashSet<(&String, &String, i32)> {
-        let mut edges = HashSet::new();
+    fn edges(&self) -> Vec<(&String, &String, i32)> {
+        let mut edges = Vec::new();
         for (from_node, from_node_neighbours) in &self.adjacency_table {
             for (to_node, weight) in from_node_neighbours {
-                edges.insert((from_node, to_node, *weight));
+                edges.push((from_node, to_node, *weight));
             }
         }
         edges
@@ -114,14 +95,17 @@ mod test {
         ugraph.add_edge(("b", "c", 10));
         ugraph.add_edge(("c", "a", 7));
 
-        assert_eq!(ugraph.edges(), [
+        let expected_edges = [
             (&String::from("a"), &String::from("b"), 5),
             (&String::from("b"), &String::from("a"), 5),
+            (&String::from("c"), &String::from("a"), 7),
+            (&String::from("a"), &String::from("c"), 7),
             (&String::from("b"), &String::from("c"), 10),
             (&String::from("c"), &String::from("b"), 10),
-            (&String::from("c"), &String::from("a"), 7),
-            (&String::from("a"), &String::from("c"), 7)
-        ].iter().cloned().collect());
+        ];
+        for edge in expected_edges.iter() {
+            assert_eq!(ugraph.edges().contains(edge), true);
+        }
     }
 
     #[test]
@@ -132,7 +116,7 @@ mod test {
         ugraph.add_edge(("b", "c", 10));
         ugraph.add_edge(("c", "a", 7));
 
-        assert_eq!(ugraph.neighbours("a").unwrap(), vec![("b", 5), ("c", 7)]);
+        assert_eq!(ugraph.neighbours("a").unwrap(), &vec![(String::from("b"), 5), (String::from("c"), 7)]);
     }
 
     #[test]
