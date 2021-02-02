@@ -10,13 +10,13 @@ impl fmt::Display for NodeNotInGraph {
     }
 }
 
-pub struct UndirectedGraph {
+pub struct Graph {
     adjacency_table: HashMap<String, Vec<(String, i32)>>,
 }
 
-impl UndirectedGraph {
-    fn new() -> UndirectedGraph {
-        UndirectedGraph {adjacency_table: HashMap::new()}
+impl Graph {
+    fn new() -> Graph {
+        Graph {adjacency_table: HashMap::new()}
     }
 
     fn add_node(&mut self, node: &str) -> bool {
@@ -76,24 +76,24 @@ impl UndirectedGraph {
 
 #[cfg(test)]
 mod test {
-    use super::UndirectedGraph;
+    use super::Graph;
 
     #[test]
     fn test_add_node() {
-        let mut ugraph = UndirectedGraph::new();
-        ugraph.add_node("a");
-        ugraph.add_node("b");
-        ugraph.add_node("c");
-        assert_eq!(ugraph.nodes(), [&String::from("a"), &String::from("b"), &String::from("c")].iter().cloned().collect());
+        let mut graph = Graph::new();
+        graph.add_node("a");
+        graph.add_node("b");
+        graph.add_node("c");
+        assert_eq!(graph.nodes(), [&String::from("a"), &String::from("b"), &String::from("c")].iter().cloned().collect());
     }
 
     #[test]
     fn test_add_edge() {
-        let mut ugraph = UndirectedGraph::new();
+        let mut graph = Graph::new();
         
-        ugraph.add_edge(("a", "b", 5));
-        ugraph.add_edge(("b", "c", 10));
-        ugraph.add_edge(("c", "a", 7));
+        graph.add_edge(("a", "b", 5));
+        graph.add_edge(("b", "c", 10));
+        graph.add_edge(("c", "a", 7));
 
         let expected_edges = [
             (&String::from("a"), &String::from("b"), 5),
@@ -104,30 +104,30 @@ mod test {
             (&String::from("c"), &String::from("b"), 10),
         ];
         for edge in expected_edges.iter() {
-            assert_eq!(ugraph.edges().contains(edge), true);
+            assert_eq!(graph.edges().contains(edge), true);
         }
     }
 
     #[test]
     fn test_neighbours() {
-        let mut ugraph = UndirectedGraph::new();
+        let mut graph = Graph::new();
 
-        ugraph.add_edge(("a", "b", 5));
-        ugraph.add_edge(("b", "c", 10));
-        ugraph.add_edge(("c", "a", 7));
+        graph.add_edge(("a", "b", 5));
+        graph.add_edge(("b", "c", 10));
+        graph.add_edge(("c", "a", 7));
 
-        assert_eq!(ugraph.neighbours("a").unwrap(), &vec![(String::from("b"), 5), (String::from("c"), 7)]);
+        assert_eq!(graph.neighbours("a").unwrap(), &vec![(String::from("b"), 5), (String::from("c"), 7)]);
     }
 
     #[test]
     fn test_contains() {
-        let mut ugraph = UndirectedGraph::new();
-        ugraph.add_node("a");
-        ugraph.add_node("b");
-        ugraph.add_node("c");
-        assert_eq!(ugraph.contains("a"), true);
-        assert_eq!(ugraph.contains("b"), true);
-        assert_eq!(ugraph.contains("c"), true);
-        assert_eq!(ugraph.contains("d"), false);
+        let mut graph = Graph::new();
+        graph.add_node("a");
+        graph.add_node("b");
+        graph.add_node("c");
+        assert_eq!(graph.contains("a"), true);
+        assert_eq!(graph.contains("b"), true);
+        assert_eq!(graph.contains("c"), true);
+        assert_eq!(graph.contains("d"), false);
     }
 }
