@@ -10,23 +10,29 @@ impl fmt::Display for NodeNotInGraph {
     }
 }
 
-pub struct Graph {
+pub struct UndirectedGraph {
     adjacency_table: HashMap<String, Vec<(String, i32)>>,
 }
 
-impl BasicGraph for Graph {
-    fn new() -> Graph {
-        Graph {adjacency_table: HashMap::new()}
+impl UndirectedGraph {
+    fn new() -> UndirectedGraph {
+        UndirectedGraph {adjacency_table: HashMap::new()}
     }
 }
 
-trait BasicGraph {
-    fn new() -> Self;
+impl Graph for UndirectedGraph {
+    fn adjacency_table_mutable(&mut self) -> &mut HashMap<String, Vec<(String, i32)>>{&mut self.adjacency_table}
+    fn adjacency_table(&self) -> &HashMap<String, Vec<(String, i32)>>{&self.adjacency_table}
+}
+
+trait Graph {
+    fn adjacency_table_mutable(&mut self) -> &mut HashMap<String, Vec<(String, i32)>>;
+    fn adjacency_table(&self) -> &HashMap<String, Vec<(String, i32)>>;
 
     fn add_node(&mut self, node: &str) -> bool {
-        match self.adjacency_table.get(node) {
+        match self.adjacency_table().get(node) {
             None => {
-                self.adjacency_table.insert((*node).to_string(), Vec::new());
+                self.adjacency_table_mutable().insert((*node).to_string(), Vec::new());
                 return true
             },
             _ => {
@@ -39,7 +45,7 @@ trait BasicGraph {
         self.add_node(edge.0);
         self.add_node(edge.1);
 
-        self.adjacency_table
+        self.adjacency_table_mutable()
         .entry(edge.0.to_string())
         .and_modify(|e| {
             e.push((edge.1.to_string(), edge.2));
@@ -47,7 +53,7 @@ trait BasicGraph {
     }
 
     fn neighbours(&self, node: &str) -> Result<&Vec<(String, i32)>, NodeNotInGraph>{
-        match self.adjacency_table.get(node) {
+        match self.adjacency_table().get(node) {
             None => {
                 return Err(NodeNotInGraph)
             },
@@ -55,15 +61,15 @@ trait BasicGraph {
         }
     }
 
-    fn contains(&self, node: &str) -> bool {self.adjacency_table.get(node).is_some()}
+    fn contains(&self, node: &str) -> bool {self.adjacency_table().get(node).is_some()}
 
     fn nodes(&self) -> HashSet<&String> {
-        self.adjacency_table.keys().collect()
+        self.adjacency_table().keys().collect()
     }
 
     fn edges(&self) -> Vec<(&String, &String, i32)> {
         let mut edges = Vec::new();
-        for (from_node, from_node_neighbours) in &self.adjacency_table {
+        for (from_node, from_node_neighbours) in self.adjacency_table() {
             for (to_node, weight) in from_node_neighbours {
                 edges.push((from_node, to_node, *weight));
             }
@@ -75,11 +81,11 @@ trait BasicGraph {
 
 #[cfg(test)]
 mod test {
-    use super::Graph;
+    use super::UndirectedGraph;
 
     #[test]
     fn test_add_node() {
-        let mut graph = Graph::new();
+        let mut graph = UndirectedGraph::new();
         graph.add_node("a");
         graph.add_node("b");
         graph.add_node("c");
@@ -88,7 +94,7 @@ mod test {
 
     #[test]
     fn test_add_edge() {
-        let mut graph = Graph::new();
+        let mut graph = UndirectedGraph::new();
         
         graph.add_edge(("a", "b", 5));
         graph.add_edge(("c", "a", 7));
@@ -106,7 +112,7 @@ mod test {
 
     #[test]
     fn test_neighbours() {
-        let mut graph = Graph::new();
+        let mut graph = UndirectedGraph::new();
 
         graph.add_edge(("a", "b", 5));
         graph.add_edge(("b", "c", 10));
@@ -117,7 +123,7 @@ mod test {
 
     #[test]
     fn test_contains() {
-        let mut graph = Graph::new();
+        let mut graph = UndirectedGraph::new();
         graph.add_node("a");
         graph.add_node("b");
         graph.add_node("c");
