@@ -82,6 +82,7 @@ trait Graph {
 #[cfg(test)]
 mod test {
     use super::UndirectedGraph;
+    use super::Graph;
 
     #[test]
     fn test_add_node() {
@@ -132,4 +133,5 @@ mod test {
         assert_eq!(graph.contains("c"), true);
         assert_eq!(graph.contains("d"), false);
     }
+
 }
