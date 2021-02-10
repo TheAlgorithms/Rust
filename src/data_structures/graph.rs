@@ -58,10 +58,10 @@ pub trait Graph {
         match self.adjacency_table().get(node) {
             None => {
                 self.adjacency_table_mutable().insert((*node).to_string(), Vec::new());
-                return true
+                true
             },
             _ => {
-                return false
+                false
             }
         }
     }
@@ -80,7 +80,7 @@ pub trait Graph {
     fn neighbours(&self, node: &str) -> Result<&Vec<(String, i32)>, NodeNotInGraph>{
         match self.adjacency_table().get(node) {
             None => {
-                return Err(NodeNotInGraph)
+                Err(NodeNotInGraph)
             },
             Some(i) => { Ok(i) }
         }
