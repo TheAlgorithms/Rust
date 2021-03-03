@@ -13,6 +13,7 @@ impl<T> Node<T> {
     }
 }
 
+#[derive(Default)]
 pub struct Stack<T> {
     head: Option<NonNull<Node<T>>>,
     top: usize,
@@ -56,6 +57,10 @@ impl<T> Stack<T> {
 
     pub fn len(&self) -> usize {
         self.top
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.top == 0
     }
 }
 
