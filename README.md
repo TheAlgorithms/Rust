@@ -22,7 +22,7 @@ These are for demonstration purposes only.
 - Kruskal's Minimum Spanning Tree _(Not implemented yet)_
 - Prim's Minimum Spanning Tree _(Not implemented yet)_
 - BFS _(Not implemented yet)_
-- DFS  _(Not implemented yet)_
+- DFS _(Not implemented yet)_
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -37,6 +37,7 @@ These are for demonstration purposes only.
 
 ## Data Structures
 
+- [Stack](./src/data_structures/stack.rs)
 - Queue _(Not implemented yet)_
 - [Heap](./src/data_structures/heap.rs)
 - [Linked List](./src/data_structures/linked_list.rs)
@@ -72,6 +73,7 @@ These are for demonstration purposes only.
 - Transposition _(Not implemented yet)_
 
 ---
+
 ### Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
