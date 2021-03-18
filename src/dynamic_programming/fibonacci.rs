@@ -4,7 +4,7 @@
 /// This function uses the definition of Fibonacci where:
 /// F(0) = F(1) = 1 and F(n+1) = F(n) + F(n-1) for n>0
 ///
-/// Warning: This will overflow the 128-bit unsigned integer at n=186
+/// Warning: This will overflow the 128-bit unsigned integer at n=188
 pub fn fibonacci(n: u32) -> u128 {
     // Use a and b to store the previous two values in the sequence
     let mut a = 0;
@@ -23,7 +23,7 @@ pub fn fibonacci(n: u32) -> u128 {
 /// This function uses the definition of Fibonacci where:
 /// F(0) = F(1) = 1 and F(n+1) = F(n) + F(n-1) for n>0
 ///
-/// Warning: This will overflow the 128-bit unsigned integer at n=186
+/// Warning: This will overflow the 128-bit unsigned integer at n=188
 pub fn recursive_fibonacci(n: u32) -> u128 {
     // Call the actual tail recursive implementation, with the extra
     // arguments set up.
