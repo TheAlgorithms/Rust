@@ -79,6 +79,11 @@ impl<T: Ord> AVLTree<T> {
         self.length
     }
 
+    /// Returns `true` if the tree contains no values.
+    pub fn is_empty(&self) -> bool {
+        self.length == 0
+    }
+
     /// Returns an iterator that visits the nodes in the tree in order.
     fn node_iter(&self) -> NodeIter<T> {
         let cap = self.root.as_ref().map_or(0, |n| n.height);
@@ -243,6 +248,12 @@ impl<T: Ord> AVLNode<T> {
         }
         // Rotate in opposite direction of heavy side
         self.rotate(!side);
+    }
+}
+
+impl<T: Ord> Default for AVLTree<T> {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
