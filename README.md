@@ -46,7 +46,7 @@ These are for demonstration purposes only.
 - Trie _(Not implemented yet)_
 - [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [B-Tree](./src/data_structures/b_tree.rs)
-- AVL Tree _(Not implemented yet)_
+- [AVL Tree](./src/data_structures/avl_tree.rs)
 
 ## Strings
 
