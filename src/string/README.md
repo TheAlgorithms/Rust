@@ -9,3 +9,9 @@ __Properties__
 * Case space complexity  O(w)
 
 [kmp-wiki]: https://en.wikipedia.org/wiki/Knuth–Morris–Pratt_algorithm
+
+### [Rabin Karp](./rabin_karp.rs)
+From [Wikipedia][rabin-karp-wiki]: a string-searching algorithm created by Richard M. Karp and Michael O. Rabin that uses hashing
+to find an exact match of a pattern string in a text.
+
+[rabin-karp-wiki]: https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm

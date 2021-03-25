@@ -51,7 +51,7 @@ These are for demonstration purposes only.
 ## Strings
 
 - [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
-- Rabin Carp _(Not implemented yet)_
+- [Rabin-Karp](./src/string/rabin_karp.rs)
 
 ## General
 
