@@ -73,8 +73,7 @@ mod tests {
 
     #[test]
     fn one_match() {
-        let index =
-            rabin_karp("ABC ABCDAB ABCDABCDABDE".to_string(), "ABCDABD".to_string());
+        let index = rabin_karp("ABC ABCDAB ABCDABCDABDE".to_string(), "ABCDABD".to_string());
         assert_eq!(index, vec![15]);
     }
 
