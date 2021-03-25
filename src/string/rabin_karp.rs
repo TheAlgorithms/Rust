@@ -59,6 +59,7 @@ mod tests {
         assert_eq!(hash_result, 30);
     }
 
+    // Attribution to @pgimalac for his tests from Knuth-Morris-Pratt
     #[test]
     fn each_letter_matches() {
         let index = rabin_karp("aaa".to_string(), "a".to_string());
