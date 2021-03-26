@@ -11,10 +11,8 @@ pub fn rabin_karp(target: String, pattern: String) -> Vec<usize> {
         let s = (&target[i..(i + pattern.len())]).to_string();
         let string_hash = hash(s.clone());
 
-        if string_hash == hash_pattern {
-            if s == string {
-                ret.push(i);
-            }
+        if string_hash == hash_pattern && s == string {
+            ret.push(i);
         }
     }
     ret
