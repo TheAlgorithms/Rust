@@ -22,7 +22,7 @@ fn hash(mut s: String) -> u16 {
     let prime: u16 = 101;
     let last_char = s
         .drain(s.len() - 1..)
-        .nth(0)
+        .next()
         .expect("Failed to get the last char of the string");
     let mut res: u16 = 0;
     for (i, &c) in s.as_bytes().iter().enumerate() {
