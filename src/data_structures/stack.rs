@@ -1,21 +1,19 @@
 use std::fmt::{self, Display, Formatter};
-use std::ptr;
-use std::ptr::NonNull;
 
 struct Node<T> {
     val: T,
-    next: Option<NonNull<Node<T>>>,
+    next: Option<Box<Node<T>>>,
 }
 
 impl<T> Node<T> {
-    fn new(t: T) -> Node<T> {
-        Node { val: t, next: None }
+    fn new(t: T, next: Option<Box<Node<T>>>) -> Node<T> {
+        Node { val: t, next }
     }
 }
 
 #[derive(Default)]
 pub struct Stack<T> {
-    head: Option<NonNull<Node<T>>>,
+    head: Option<Box<Node<T>>>,
     top: usize,
 }
 
@@ -26,10 +24,8 @@ impl<T> Stack<T> {
 
     /// Push an item to the top of a stack.
     pub fn push(&mut self, value: T) {
-        let mut node = Box::new(Node::new(value));
-        node.next = self.head;
-        let node_ptr = Some(unsafe { NonNull::new_unchecked(Box::into_raw(node)) });
-        self.head = node_ptr;
+        let node = Box::new(Node::new(value, std::mem::replace(&mut self.head, None)));
+        self.head = Some(node);
         self.top += 1;
     }
 
@@ -38,11 +34,14 @@ impl<T> Stack<T> {
         if self.top == 0 {
             return None;
         }
-        let head = unsafe { ptr::read(self.head.unwrap().as_ptr()) };
-        let value = head.val;
-        self.head = head.next;
-        self.top -= 1;
-        Some(value)
+        match std::mem::replace(&mut self.head, None) {
+            None => None,
+            Some(node) => {
+                self.top -= 1;
+                self.head = node.next;
+                Some(node.val)
+            }
+        }
     }
 
     /// Returns reference of the last item from a stack, or `None` if it is empty.
@@ -50,7 +49,7 @@ impl<T> Stack<T> {
         if self.top == 0 {
             return None;
         }
-        let head = unsafe { &*self.head.unwrap().as_ptr() };
+        let head = self.head.as_ref().unwrap();
         let value = &head.val;
         Some(value)
     }
@@ -89,8 +88,8 @@ where
     T: Display,
 {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        match self.next {
-            Some(node) => write!(f, "{}, {}", self.val, unsafe { node.as_ref() }),
+        match &self.next {
+            Some(node) => write!(f, "{}, {}", self.val, node.as_ref()),
             None => write!(f, "{}", self.val),
         }
     }
@@ -101,8 +100,8 @@ where
     T: Display,
 {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        match self.head {
-            Some(node) => write!(f, "{}", unsafe { node.as_ref() }),
+        match &self.head {
+            Some(node) => write!(f, "{}", node.as_ref()),
             None => Ok(()),
         }
     }
@@ -126,21 +125,11 @@ mod test {
     }
 
     #[test]
-    fn create_numeric_stack() {
-        let mut stack = Stack::<usize>::new();
-        stack.push(18);
-        stack.push(1);
-        stack.push(7);
-        stack.push(11);
-        println!("{}", stack);
-    }
-
-    #[test]
     fn create_string_stack() {
         let mut stack = Stack::<String>::new();
         stack.push("World!".to_string());
         stack.push("Hello".to_string());
-        println!("{}", stack);
+        assert_eq!(format!("{:}", stack), "Hello, World!");
     }
 
     #[test]
