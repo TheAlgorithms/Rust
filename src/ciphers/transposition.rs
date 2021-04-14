@@ -49,8 +49,7 @@ pub fn transposition(key: &str, input: &str) -> String {
         let s: String = value.iter().collect();
         enc.push_str(&s);
     }
-
-    return enc;
+    enc
 }
 
 #[cfg(test)]
