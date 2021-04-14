@@ -45,8 +45,8 @@ pub fn transposition(key: &str, input: &str) -> String {
 
     let mut enc = String::from("");
 
-    for (_key, value) in &treemap {
-        let s: String = value.into_iter().collect();
+    for value in treemap.values() {
+        let s: String = value.iter().collect();
         enc.push_str(&s);
     }
 
