@@ -21,7 +21,7 @@ pub fn rod_cutting(price: &mut Vec<u32>) -> u32 {
         }
     }
 
-    val[length as usize];
+    val[length as usize]
 }
 
 pub fn rod_cutting_recursive(price: &mut Vec<u32>, length: u32) -> u32 {
@@ -38,7 +38,7 @@ pub fn rod_cutting_recursive(price: &mut Vec<u32>, length: u32) -> u32 {
         );
     }
 
-    max_val;
+    max_val
 }
 
 #[cfg(test)]
