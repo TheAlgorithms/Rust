@@ -5,7 +5,7 @@ use std::cmp;
 pub fn rod_cutting(price: &mut Vec<u32>) -> u32 {
     let length = price.len();
 
-    if length <= 0 {
+    if length == 0 {
         return 0;
     }
 
@@ -21,11 +21,11 @@ pub fn rod_cutting(price: &mut Vec<u32>) -> u32 {
         }
     }
 
-    return val[length as usize];
+    val[length as usize];
 }
 
 pub fn rod_cutting_recursive(price: &mut Vec<u32>, length: u32) -> u32 {
-    if length <= 0 {
+    if length == 0 {
         return 0;
     }
 
@@ -38,7 +38,7 @@ pub fn rod_cutting_recursive(price: &mut Vec<u32>, length: u32) -> u32 {
         );
     }
 
-    return max_val;
+    max_val;
 }
 
 #[cfg(test)]
