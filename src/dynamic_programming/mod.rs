@@ -1,9 +1,11 @@
+mod coin_problem;
 mod edit_distance;
 mod egg_dropping;
 mod fibonacci;
 mod knapsack;
 mod longest_common_subsequence;
 
+pub use self::coin_problem::coin_problem;
 pub use self::edit_distance::{edit_distance, edit_distance_se};
 pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::fibonacci;
