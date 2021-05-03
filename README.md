@@ -32,7 +32,7 @@ These are for demonstration purposes only.
 - Longest increasing subsequence _(Not implemented yet)_
 - [K-Means Clustering](./src/general/kmeans.rs)
 - Coin Change _(Not implemented yet)_
-- Rod cut _(Not implemented yet)_
+- [Rod Cutting](./src/dynamic_programming/rod_cutting.rs)
 - [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 
 ## Data Structures
