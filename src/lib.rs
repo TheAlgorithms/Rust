@@ -5,7 +5,7 @@ pub mod general;
 pub mod searching;
 pub mod sorting;
 pub mod string;
-
+pub mod graphs;
 #[cfg(test)]
 mod tests {
     use sorting;
