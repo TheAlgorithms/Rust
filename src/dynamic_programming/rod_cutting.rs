@@ -1,7 +1,27 @@
-//! Compute the length of cuts that have the highest value
-
 use std::cmp;
 
+/// Compute the length of cuts that have the highest value
+///
+/// See [Rod Cutting Problem](https://en.wikipedia.org/wiki/Cutting_stock_problem) for the theoretical background
+///
+/// # Arguments
+///
+/// * `price` - Vector of u32 numbers which represent the prices
+///
+/// # Returns
+///
+/// * `val` - the max value that can be achieved
+///
+/// # Panic
+///
+/// This function won't panic
+///
+/// # Examples
+/// 
+/// use std::cmp;
+///
+/// let max_val = rod_cutting(&mut vec![1, 2, 3, 4, 5, 6, 7, 8]);
+/// 
 pub fn rod_cutting(price: &mut Vec<u32>) -> u32 {
     let length = price.len();
 
@@ -23,6 +43,30 @@ pub fn rod_cutting(price: &mut Vec<u32>) -> u32 {
 
     val[length as usize]
 }
+
+/// Compute the length of cuts that have the highest value (recursive)
+///
+/// See [Rod Cutting Problem](https://en.wikipedia.org/wiki/Cutting_stock_problem) for the theoretical background
+///
+/// # Arguments
+///
+/// * `price` - Vector of u32 numbers which represent the prices
+/// * `length` - length of the given price vector
+///
+/// # Returns
+///
+/// * `max_val` - the max value that can be achieved
+///
+/// # Panic
+///
+/// This function won't panic
+///
+/// # Examples
+/// 
+/// use std::cmp;
+///
+/// let max_val = rod_cutting_recursive(&mut vec![1, 2, 3, 4, 5, 6, 7, 8], 8);
+/// 
 
 pub fn rod_cutting_recursive(price: &mut Vec<u32>, length: u32) -> u32 {
     if length == 0 {
