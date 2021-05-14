@@ -1,18 +1,39 @@
 //! Transpositon Cipher
 //!
 //! # Algorithm
-//!
-//! For each character of the keyword string a new column inside a table is created.
-//! Each column receives the corresponding character of the keyword string.
-//! Every character of the input string will then be put in the fields from left to right.
-//! Empty fields will be filled with the character 'X'.
-//! The keyword string and its corresponding column is then sorted by its alphanumeric values.
-//! To get the encrypted String every character inside the table will be added from
-//! top to bottom and left to right.
 
 use std::collections::BTreeMap;
 use std::str;
 
+/// Encrypts a given String with the Transposition cipher
+/// 
+/// For each character of the keyword string a new column inside a table is created.
+/// Each column receives the corresponding character of the keyword string.
+/// Every character of the input string will then be put in the fields from left to right.
+/// Empty fields will be filled with the character 'X'.
+/// The keyword string and its corresponding column is then sorted by its alphanumeric values.
+/// To get the encrypted String every character inside the table will be added from
+/// top to bottom and left to right.
+/// 
+/// See [Transposition Cipher](https://en.wikipedia.org/wiki/Transposition_cipher) for the theoretical background.
+/// 
+/// # Arguments
+/// 
+/// * `key` - string that functions as encryption key
+/// * `input` - string that is encrypted
+/// 
+/// # Returns
+/// 
+/// * `enc` - encrypted string
+/// 
+/// # Panic
+/// 
+/// This function won't panic
+/// 
+/// # Examples
+/// ```
+/// let encrypted = transposition("lorem", "ipsum")
+/// ```
 pub fn transposition(key: &str, input: &str) -> String {
     let mut to_enc = input.to_uppercase();
     let keyword = key.to_uppercase();
