@@ -101,10 +101,7 @@ where
     pub fn minimum(&self) -> Option<&T> {
         match &self.left {
             Some(node) => node.minimum(),
-            None => match &self.value {
-                Some(value) => Some(&value),
-                None => None,
-            },
+            None => self.value.as_ref(),
         }
     }
 
@@ -112,10 +109,7 @@ where
     pub fn maximum(&self) -> Option<&T> {
         match &self.right {
             Some(node) => node.maximum(),
-            None => match &self.value {
-                Some(value) => Some(&value),
-                None => None,
-            },
+            None => self.value.as_ref(),
         }
     }
 
