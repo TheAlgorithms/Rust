@@ -1,16 +1,4 @@
-const N: usize = 4;
-
-pub fn print_solution(board: &mut [[char; N]; N]) {
-
-    for i in 0..N {
-        for j in 0..N {
-            print!("{}  ", board[i][j]);
-        }
-        print!("\n");
-    }
-}
-
-pub fn is_safe(board: &mut [[char; N]; N], row: usize, col: usize) -> bool {
+pub fn is_safe(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
 
     for i in 0..col {
         if board[row][i] == 'Q' {
@@ -32,7 +20,7 @@ pub fn is_safe(board: &mut [[char; N]; N], row: usize, col: usize) -> bool {
     i = row + 1;
     j = col + 1;
 
-    while i < N && j > 0 {
+    while i < board.len() && j > 0 {
         if board[i - 1][j - 1] == 'Q' {
             return false;
         }
@@ -43,13 +31,13 @@ pub fn is_safe(board: &mut [[char; N]; N], row: usize, col: usize) -> bool {
     return true;
 }
 
-pub fn solve_nq_util(board: &mut [[char; N]; N], col: usize)-> bool {
+pub fn solve_nq_util(board: &mut Vec<Vec<char>>, col: usize)-> bool {
 
-    if col >= N {
+    if col >= board.len() {
         return true;
     }
 
-    for i in 0..N {
+    for i in 0..board.len() {
 
         if is_safe(board, i, col) {
 
@@ -66,15 +54,24 @@ pub fn solve_nq_util(board: &mut [[char; N]; N], col: usize)-> bool {
     return false;
 }
 
-pub fn nqueens() -> bool{
+pub fn nqueens(n: usize) -> Vec<Vec<char>> {
 
-    let mut board = [['-'; N]; N];
+    let mut board = vec![vec!['-'; n]; n];
 
     if solve_nq_util(&mut board, 0) == false {
         println!("Solution doesn't exist!");
-        return false;
+        return board;
     }
 
-    print_solution(&mut board);
-    return true;
+    return board;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_board() {
+        assert_eq!(vec![vec!['-', '-', 'Q', '-'], vec!['Q', '-', '-', '-'], vec!['-', '-', '-', 'Q'], vec!['-', 'Q', '-', '-']], nqueens(4))
+    }
 }
