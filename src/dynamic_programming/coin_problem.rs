@@ -7,28 +7,28 @@
 //! The function returns the amount of combinations that are possible.
 
 /// Solves the coin change problem
-/// 
+///
 /// Returns the amount of combinations a price can be composed with a differently weighted coins.
-/// 
+///
 /// See [coin change problem](https://en.wikipedia.org/wiki/Change-making_problem) for the theoretical background.
-/// 
+///
 /// # Arguments
-/// 
+///
 /// `n` - the price as usize
 /// `coins` - the different coins as Vector of usize
-/// 
+///
 /// # Returns
-/// 
+///
 /// `combinations` - the amount of combinations as usize
-/// 
+///
 /// # Panic
 ///
 /// This function won't panic
 ///
 /// # Examples
-/// 
+///
 /// let combinations = coin_problem(12, &mut vec![1, 5, 10]);
-/// 
+///
 pub fn coin_problem(n: usize, coins: &mut Vec<usize>) -> usize {
     // create the combinations vector
     let mut combinations = vec![0; n + 1];
@@ -42,7 +42,7 @@ pub fn coin_problem(n: usize, coins: &mut Vec<usize>) -> usize {
         for j in 0..combinations.len() {
             if coins[i] <= j {
                 // update the combinations array
-                combinations[j] = combinations[j] + combinations[(j - coins[i])];
+                combinations[j] += combinations[(j - coins[i])];
             }
         }
     }
