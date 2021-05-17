@@ -6,8 +6,7 @@ mod merge_sort;
 mod quick_sort;
 mod radix_sort;
 mod selection_sort;
-
-use std::cmp;
+mod shell_sort;
 
 pub use self::bubble_sort::bubble_sort;
 pub use self::counting_sort::counting_sort;
@@ -18,6 +17,9 @@ pub use self::merge_sort::merge_sort;
 pub use self::quick_sort::quick_sort;
 pub use self::radix_sort::radix_sort;
 pub use self::selection_sort::selection_sort;
+pub use self::shell_sort::shell_sort;
+
+use std::cmp;
 
 pub fn is_sorted<T>(arr: &[T]) -> bool
 where
