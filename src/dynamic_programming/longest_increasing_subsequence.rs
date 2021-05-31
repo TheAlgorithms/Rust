@@ -1,4 +1,4 @@
-pub fn longest_increasing_subsequence<'a>(input_array: &'a[i32]) -> &'a[i32] {
+pub fn longest_increasing_subsequence< 'a, T: Ord>(input_array: &'a[T]) -> &'a[T] {
     let length: usize = input_array.len();
 
     //Handle the base cases
@@ -36,13 +36,18 @@ mod tests {
     #[test]
     fn test_longest_increasing_subsequence() {
         //Base Cases
-        assert_eq!(&longest_increasing_subsequence(&[]), &[]);
+        let base_case_array: [i32; 0] = [];
+        assert_eq!(&longest_increasing_subsequence(&base_case_array), &[]);
         assert_eq!(&longest_increasing_subsequence(&[1]), &[1]);
 
-        //Normal Cases
+        //Normal i32 Cases
         assert_eq!(&longest_increasing_subsequence(&[1, 2, 3, 4]), &[1, 2, 3, 4]);
         assert_eq!(&longest_increasing_subsequence(&[1, 2, 2, 3, 4, 2]), &[2, 3, 4]);
         assert_eq!(&longest_increasing_subsequence(&[5, 4, 3, 2, 1]), &[5]);
         assert_eq!(&longest_increasing_subsequence(&[5, 4, 3, 4, 2, 1]), &[3, 4]);
+
+        //Non-Numeric case
+        assert_eq!(&longest_increasing_subsequence(&['a', 'b', 'c']), &['a', 'b', 'c']);
+        assert_eq!(&longest_increasing_subsequence(&['d', 'c', 'd']), &['c', 'd']);
     }
 }
