@@ -29,6 +29,7 @@
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Linear Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/linear_search.rs)
+    * [Jump Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/jump_search.rs)
     * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/mod.rs)
   * Sorting
     * [Bubble Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bubble_sort.rs)
