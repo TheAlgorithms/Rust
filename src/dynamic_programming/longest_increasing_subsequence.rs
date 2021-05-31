@@ -2,7 +2,7 @@ pub fn longest_increasing_subsequence< 'a, T: Ord>(input_array: &'a[T]) -> &'a[T
     let length: usize = input_array.len();
 
     //Handle the base cases
-    if length == 1 || length == 0 {
+    if length <= 1 {
         return input_array;
     }
 
