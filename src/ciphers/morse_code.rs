@@ -52,7 +52,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn encrypt_message_1() {
+    fn encrypt_only_letters() {
         let message = "Hello Morse";
         let cipher = morse_code(message);
         assert_eq!(
@@ -62,7 +62,7 @@ mod tests {
     }
 
     #[test]
-    fn encrypt_message_2() {
+    fn encrypt_letters_and_special_characters() {
         let message = "What's a great day!";
         let cipher = morse_code(message);
         assert_eq!(
@@ -72,7 +72,7 @@ mod tests {
     }
 
     #[test]
-    fn encrypt_message_3() {
+    fn encrypt_message_with_unsupported_character() {
         let message = "Error?? {}";
         let cipher = morse_code(message);
         assert_eq!(
