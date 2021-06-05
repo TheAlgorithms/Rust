@@ -52,12 +52,32 @@ mod tests {
     use super::*;
 
     #[test]
-    fn encrypt_message() {
+    fn encrypt_message_1() {
         let message = "Hello Morse";
         let cipher = morse_code(message);
         assert_eq!(
             cipher,
             ".... . .-.. .-.. --- / -- --- .-. ... .".to_string()
+        )
+    }
+
+    #[test]
+    fn encrypt_message_2() {
+        let message = "What's a great day!";
+        let cipher = morse_code(message);
+        assert_eq!(
+            cipher,
+            ".-- .... .- - .----. ... / .- / --. .-. . .- - / -.. .- -.-- -.-.--".to_string()
+        )
+    }
+
+    #[test]
+    fn encrypt_message_3() {
+        let message = "Error?? {}";
+        let cipher = morse_code(message);
+        assert_eq!(
+            cipher,
+            ". .-. .-. --- .-. ..--.. ..--.. / ........ ........".to_string()
         )
     }
 }
