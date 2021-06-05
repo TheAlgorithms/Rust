@@ -7,7 +7,7 @@ pub fn morse_code(message: &str) -> String {
     message
         .chars()
         .into_iter()
-        .map(|char | char.to_uppercase().to_string())
+        .map(|char| char.to_uppercase().to_string())
         .map(|letter| dictionary.get(letter.as_str()))
         .map(|option| option.unwrap_or(&UNKNOWN_CHARACTER).to_string())
         .collect::<Vec<String>>()
@@ -54,6 +54,9 @@ mod tests {
     fn encrypt_message() {
         let message = "Hello Morse";
         let cipher = morse_code(message);
-        assert_eq!(cipher, ".... . .-.. .-.. --- / -- --- .-. ... .".to_string())
+        assert_eq!(
+            cipher,
+            ".... . .-.. .-.. --- / -- --- .-. ... .".to_string()
+        )
     }
 }
