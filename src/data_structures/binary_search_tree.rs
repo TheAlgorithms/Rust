@@ -102,7 +102,7 @@ where
         match &self.left {
             Some(node) => node.minimum(),
             None => match &self.value {
-                Some(value) => Some(&value),
+                Some(value) => Some(value),
                 None => None,
             },
         }
@@ -113,7 +113,7 @@ where
         match &self.right {
             Some(node) => node.maximum(),
             None => match &self.value {
-                Some(value) => Some(&value),
+                Some(value) => Some(value),
                 None => None,
             },
         }
