@@ -6,15 +6,15 @@ These are for demonstration purposes only.
 
 ## [Sort Algorithms](./src/sorting)
 
-- [Bubble](./src/sorting/bubble_sort.rs)
-- [Counting](./src/sorting/counting_sort.rs)
-- [Heap](./src/sorting/heap_sort.rs)
-- [Insertion](./src/sorting/insertion_sort.rs)
-- [Merge](./src/sorting/merge_sort.rs)
-- [Quick](./src/sorting/quick_sort.rs)
-- [Radix](./src/sorting/radix_sort.rs)
-- [Selection](./src/sorting/selection_sort.rs)
-- [Shell](./src/sorting/shell_sort.rs)
+- [x] [Bubble](./src/sorting/bubble_sort.rs)
+- [x] [Counting](./src/sorting/counting_sort.rs)
+- [x] [Heap](./src/sorting/heap_sort.rs)
+- [x] [Insertion](./src/sorting/insertion_sort.rs)
+- [x] [Merge](./src/sorting/merge_sort.rs)
+- [x] [Quick](./src/sorting/quick_sort.rs)
+- [x] [Radix](./src/sorting/radix_sort.rs)
+- [x] [Selection](./src/sorting/selection_sort.rs)
+- [x] [Shell](./src/sorting/shell_sort.rs)
 
 ## Graphs
 
@@ -26,49 +26,49 @@ These are for demonstration purposes only.
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
-- [0-1 Knapsack](./src/dynamic_programming/knapsack.rs)
-- [Edit Distance](./src/dynamic_programming/edit_distance.rs)
-- [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
-- Longest increasing subsequence _(Not implemented yet)_
-- [K-Means Clustering](./src/general/kmeans.rs)
+- [x] [0-1 Knapsack](./src/dynamic_programming/knapsack.rs)
+- [x] [Edit Distance](./src/dynamic_programming/edit_distance.rs)
+- [x] [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
+- [x] Longest increasing subsequence _(Not implemented yet)_
+- [x] [K-Means Clustering](./src/general/kmeans.rs)
 - Coin Change _(Not implemented yet)_
 - Rod cut _(Not implemented yet)_
-- [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
+- [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 
 ## Data Structures
 
 - Queue _(Not implemented yet)_
-- [Heap](./src/data_structures/heap.rs)
-- [Linked List](./src/data_structures/linked_list.rs)
+- [x] [Heap](./src/data_structures/heap.rs)
+- [x] [Linked List](./src/data_structures/linked_list.rs)
 - Graph _(Not implemented yet)_
   - Directed _(Not implemented yet)_
   - Undirected _(Not implemented yet)_
 - Trie _(Not implemented yet)_
-- [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
-- [B-Tree](./src/data_structures/b_tree.rs)
+- [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
+- [x] [B-Tree](./src/data_structures/b_tree.rs)
 - AVL Tree _(Not implemented yet)_
 
 ## Strings
 
-- [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
+- [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - Rabin Carp _(Not implemented yet)_
 
 ## General
 
-- [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
+- [x] [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
 - N-Queensp _(Not implemented yet)_
 - Graph Coloringp _(Not implemented yet)_
-- [Tower of Hanoi](./src/general/hanoi.rs)
+- [x] [Tower of Hanoi](./src/general/hanoi.rs)
 
 ## [Search Algorithms](./src/searching)
 
-- [Linear](./src/searching/linear_search.rs)
-- [Binary](./src/searching/binary_search.rs)
+- [x] [Linear](./src/searching/linear_search.rs)
+- [x] [Binary](./src/searching/binary_search.rs)
 
 ## [Ciphers](./src/ciphers)
 
-- [Caesar](./src/ciphers/caesar.rs)
-- [Vigenère](./src/ciphers/vigenere.rs)
+- [x] [Caesar](./src/ciphers/caesar.rs)
+- [x] [Vigenère](./src/ciphers/vigenere.rs)
 - Transposition _(Not implemented yet)_
 
 ---
