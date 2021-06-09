@@ -18,46 +18,46 @@ These are for demonstration purposes only.
 
 ## Graphs
 
-- Dijkstra _(Not implemented yet)_
-- Kruskal's Minimum Spanning Tree _(Not implemented yet)_
-- Prim's Minimum Spanning Tree _(Not implemented yet)_
-- BFS _(Not implemented yet)_
-- DFS  _(Not implemented yet)_
+- [ ] Dijkstra
+- [ ] Kruskal's Minimum Spanning Tree
+- [ ] Prim's Minimum Spanning Tree
+- [ ] BFS
+- [ ] DFS
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
 - [x] [0-1 Knapsack](./src/dynamic_programming/knapsack.rs)
 - [x] [Edit Distance](./src/dynamic_programming/edit_distance.rs)
 - [x] [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
-- [x] Longest increasing subsequence _(Not implemented yet)_
+- [ ] Longest increasing subsequence
 - [x] [K-Means Clustering](./src/general/kmeans.rs)
-- Coin Change _(Not implemented yet)_
-- Rod cut _(Not implemented yet)_
+- [ ] Coin Change
+- [ ] Rod cut
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 
 ## Data Structures
 
-- Queue _(Not implemented yet)_
+- Queue
 - [x] [Heap](./src/data_structures/heap.rs)
 - [x] [Linked List](./src/data_structures/linked_list.rs)
-- Graph _(Not implemented yet)_
-  - Directed _(Not implemented yet)_
-  - Undirected _(Not implemented yet)_
-- Trie _(Not implemented yet)_
+- Graph
+  - [ ] Directed
+  - [ ] Undirected
+- [ ] Trie
 - [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
-- AVL Tree _(Not implemented yet)_
+- [ ] AVL Tree
 
 ## Strings
 
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
-- Rabin Carp _(Not implemented yet)_
+- [ ] Rabin Carp
 
 ## General
 
 - [x] [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
-- N-Queensp _(Not implemented yet)_
-- Graph Coloringp _(Not implemented yet)_
+- [ ] N-Queensp
+- [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 
 ## [Search Algorithms](./src/searching)
@@ -69,7 +69,7 @@ These are for demonstration purposes only.
 
 - [x] [Caesar](./src/ciphers/caesar.rs)
 - [x] [Vigenère](./src/ciphers/vigenere.rs)
-- Transposition _(Not implemented yet)_
+- [ ] Transposition
 
 ---
 ### Contributing
