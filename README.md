@@ -1,5 +1,9 @@
 # The Algorithms - Rust [![Gitter](https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square)](https://gitter.im/the-algorithms/rust) [![Build Status](https://travis-ci.com/TheAlgorithms/Rust.svg?branch=master)](https://travis-ci.com/TheAlgorithms/Rust)
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1024px-Rust_programming_language_black_logo.svg.png" width="200" height="200">
+
+
+
 ### All algorithms implemented in Rust (for educational purposes)
 
 These are for demonstration purposes only.
