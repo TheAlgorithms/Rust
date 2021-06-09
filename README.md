@@ -35,7 +35,7 @@ These are for demonstration purposes only.
 - [ ] Rod cut
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 
-## Data Structures
+## [Data Structures](./src/data_structures)
 
 - Queue
 - [x] [Heap](./src/data_structures/heap.rs)
@@ -48,12 +48,12 @@ These are for demonstration purposes only.
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
 - [ ] AVL Tree
 
-## Strings
+## [Strings](./src/string)
 
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - [ ] Rabin Carp
 
-## General
+## [General](./src/general)
 
 - [x] [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
 - [ ] N-Queensp
