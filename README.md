@@ -5,7 +5,6 @@
 
 
 ### All algorithms implemented in Rust (for educational purposes)
-
 These are for demonstration purposes only.
 
 ## [Sort Algorithms](./src/sorting)
@@ -76,6 +75,9 @@ These are for demonstration purposes only.
 - [ ] Transposition
 
 ---
+
+### All implemented Algos
+See [DIRECTORY.md](./DIRECTORY.md)
 ### Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
