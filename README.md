@@ -40,7 +40,7 @@ These are for demonstration purposes only.
 
 ## [Data Structures](./src/data_structures)
 
-- Queue
+- [ ] Queue
 - [x] [Heap](./src/data_structures/heap.rs)
 - [x] [Linked List](./src/data_structures/linked_list.rs)
 - Graph
