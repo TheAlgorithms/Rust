@@ -38,6 +38,9 @@ pub fn sort_in_three_way<T>(a: &mut [T])
 where 
     T: Clone + PartialOrd 
 {
+    if a.len() == 0 {
+        return;
+    }
     sort_in_three_way_core(a, 0, a.len() - 1);
 }
 pub fn sort_in_three_way_core<T>(a: &mut [T], start: usize, end: usize)
