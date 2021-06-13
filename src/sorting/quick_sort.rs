@@ -32,3 +32,40 @@ pub fn quick_sort<T: Ord>(arr: &mut [T]) {
     let len = arr.len();
     _quick_sort(arr, 0, (len - 1) as isize);
 }
+
+
+pub fn sort_in_three_way<T>(a: &mut [T]) 
+where 
+    T: Clone + PartialOrd 
+{
+    sort_in_three_way_core(a, 0, a.len() - 1);
+}
+pub fn sort_in_three_way_core<T>(a: &mut [T], start: usize, end: usize)
+where 
+    T: Clone + PartialOrd
+{
+    if start >= end {
+        return;
+    }
+    let (mut l, mut i, mut r) = (start, start, end);
+    let pivot_val = a[start].clone();
+    while i <= r {
+        if a[i] == pivot_val {
+            i += 1;
+        } else if a[i] > pivot_val {
+            a.swap(i, r);
+            if r == 0 {
+                break;
+            }
+            r -= 1;
+        } else if a[i] < pivot_val {
+            a.swap(i, l);
+            l += 1;
+            i += 1;
+        }
+    }
+    if l > 0 {
+        sort_three_way_range(a, start, l - 1);
+    } 
+    sort_three_way_range(a, r + 1, end);
+}
