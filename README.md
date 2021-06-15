@@ -56,7 +56,7 @@ These are for demonstration purposes only.
 ## General
 
 - [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
-- N-Queensp _(Not implemented yet)_
+- [N-Queensp](./src/general/nqueens.rs)_
 - Graph Coloringp _(Not implemented yet)_
 - [Tower of Hanoi](./src/general/hanoi.rs)
 
