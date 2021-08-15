@@ -112,7 +112,7 @@ impl BTreeProps {
                 // And https://stackoverflow.com/a/35280799/2849127
                 print!("{0:{<1$}{2:?}{0:}<1$}", "", depth, key);
             }
-            self.traverse_node(&node.children.last().unwrap(), _depth);
+            self.traverse_node(node.children.last().unwrap(), _depth);
         }
     }
 }

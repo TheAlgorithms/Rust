@@ -34,7 +34,7 @@ where
             return false;
         }
 
-        prev = &item;
+        prev = item;
     }
 
     true

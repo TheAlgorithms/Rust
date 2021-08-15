@@ -39,7 +39,7 @@ where
     pub fn search(&self, value: &T) -> bool {
         match &self.value {
             Some(key) => {
-                match key.cmp(&value) {
+                match key.cmp(value) {
                     Ordering::Equal => {
                         // key == value
                         true
@@ -123,7 +123,7 @@ where
     pub fn floor(&self, value: &T) -> Option<&T> {
         match &self.value {
             Some(key) => {
-                match key.cmp(&value) {
+                match key.cmp(value) {
                     Ordering::Greater => {
                         // key > value
                         match &self.left {
@@ -138,13 +138,13 @@ where
                                 let val = node.floor(value);
                                 match val {
                                     Some(_) => val,
-                                    None => Some(&key),
+                                    None => Some(key),
                                 }
                             }
-                            None => Some(&key),
+                            None => Some(key),
                         }
                     }
-                    Ordering::Equal => Some(&key),
+                    Ordering::Equal => Some(key),
                 }
             }
             None => None,
@@ -155,7 +155,7 @@ where
     pub fn ceil(&self, value: &T) -> Option<&T> {
         match &self.value {
             Some(key) => {
-                match key.cmp(&value) {
+                match key.cmp(value) {
                     Ordering::Less => {
                         // key < value
                         match &self.right {
@@ -170,15 +170,15 @@ where
                                 let val = node.ceil(value);
                                 match val {
                                     Some(_) => val,
-                                    None => Some(&key),
+                                    None => Some(key),
                                 }
                             }
-                            None => Some(&key),
+                            None => Some(key),
                         }
                     }
                     Ordering::Equal => {
                         // key == value
-                        Some(&key)
+                        Some(key)
                     }
                 }
             }
