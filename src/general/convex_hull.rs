@@ -45,7 +45,7 @@ pub fn convex_hull_graham(pts: &[(f64, f64)]) -> Vec<(f64, f64)> {
             }
         })
         .unwrap();
-    let points = sort_by_min_angle(pts, &min);
+    let points = sort_by_min_angle(pts, min);
 
     if points.len() <= 3 {
         return points;
