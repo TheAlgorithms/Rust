@@ -18,6 +18,7 @@
     * [Fibonacci](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/fibonacci.rs)
     * [Knapsack](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/knapsack.rs)
     * [Longest Common Subsequence](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/longest_common_subsequence.rs)
+    * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
     * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/mod.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
