@@ -9,7 +9,7 @@
 /// Complexity
 ///     - time complexity: O(amount * coins.length),
 ///     - space complexity: O(amount),
-pub fn coin_change(coins: &Vec<usize>, amount: usize) -> Option<usize> {
+pub fn coin_change(coins: &[usize], amount: usize) -> Option<usize> {
     let mut dp = vec![std::usize::MAX; amount + 1];
     dp[0] = 0;
 
@@ -24,8 +24,8 @@ pub fn coin_change(coins: &Vec<usize>, amount: usize) -> Option<usize> {
     }
 
     match dp[amount] {
-        std::usize::MAX => return None,
-        _ => return Some(dp[amount]),
+        std::usize::MAX => None,
+        _ => Some(dp[amount]),
     }
 }
 
@@ -39,9 +39,7 @@ mod tests {
         let coins = vec![1, 2, 5];
         assert_eq!(Some(3), coin_change(&coins, 11));
 
-        // 119 = 11 * 10 + 3 * 3
         // 119 = 11 * 10 + 7 * 1 + 2 * 1
-        // answer the fisrt is 13, the second is 12
         let coins = vec![2, 3, 5, 7, 11];
         assert_eq!(Some(12), coin_change(&coins, 119));
     }
