@@ -29,16 +29,6 @@ These are for demonstration purposes only.
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
-<<<<<<< HEAD
-- [0-1 Knapsack](./src/dynamic_programming/knapsack.rs)
-- [Edit Distance](./src/dynamic_programming/edit_distance.rs)
-- [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
-- Longest increasing subsequence _(Not implemented yet)_
-- [K-Means Clustering](./src/general/kmeans.rs)
-- [Coin Change](./src/dynamic_programming/coin_change.rs)
-- Rod cut _(Not implemented yet)_
-- [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
-=======
 - [x] [0-1 Knapsack](./src/dynamic_programming/knapsack.rs)
 - [x] [Edit Distance](./src/dynamic_programming/edit_distance.rs)
 - [x] [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
@@ -47,7 +37,6 @@ These are for demonstration purposes only.
 - [ ] Coin Change
 - [ ] Rod cut
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
->>>>>>> 7ec7a2bef947a5d7ff88ea5c51f94f484b8bfb16
 
 ## [Data Structures](./src/data_structures)
 
