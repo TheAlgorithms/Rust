@@ -37,6 +37,7 @@ These are for demonstration purposes only.
 - [ ] Coin Change
 - [ ] Rod cut
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
+- [x] [Maximum Subarray](./src/dynamic_programming/maximum_subarray.rs) 
 
 ## [Data Structures](./src/data_structures)
 
