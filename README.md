@@ -34,9 +34,10 @@ These are for demonstration purposes only.
 - [x] [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
 - [ ] Longest increasing subsequence
 - [x] [K-Means Clustering](./src/general/kmeans.rs)
-- [ ] Coin Change
+- [x] [Coin Change](./src/dynamic_programming/coin_change.rs)
 - [ ] Rod cut
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
+- [x] [Maximum Subarray](./src/dynamic_programming/maximum_subarray.rs)
 
 ## [Data Structures](./src/data_structures)
 
