@@ -55,7 +55,7 @@ These are for demonstration purposes only.
 ## [Strings](./src/string)
 
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
-- [x] Rabin Carp(./src/string/rabin_karp.rs)
+- [x] [Rabin Carp](./src/string/rabin_karp.rs)
 
 ## [General](./src/general)
 
