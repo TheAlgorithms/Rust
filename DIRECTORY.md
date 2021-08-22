@@ -34,7 +34,7 @@
     * [Bubble Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bubble_sort.rs)
     * [Counting Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/counting_sort.rs)
     * [Heap Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/heap_sort.rs)
-    * [Insertion](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion.rs)
+    * [Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion_sort.rs)
     * [Merge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort.rs)
     * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/mod.rs)
     * [Quick Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/quick_sort.rs)
