@@ -13,12 +13,13 @@
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
     * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/mod.rs)
   * Dynamic Programming
+    * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
     * [Edit Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/edit_distance.rs)
     * [Egg Dropping](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/egg_dropping.rs)
     * [Fibonacci](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/fibonacci.rs)
     * [Knapsack](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/knapsack.rs)
     * [Longest Common Subsequence](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/longest_common_subsequence.rs)
-    * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
+    * [Maximum Subarray](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/maximum_subarray.rs)
     * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/mod.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
