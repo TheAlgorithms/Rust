@@ -53,7 +53,7 @@ These are for demonstration purposes only.
 - [ ] AVL Tree
 
 ## [Strings](./src/string)
-
+restarting build
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
