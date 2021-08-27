@@ -10,6 +10,14 @@ __Properties__
 
 [kmp-wiki]: https://en.wikipedia.org/wiki/Knuth–Morris–Pratt_algorithm
 
+### [Manacher](./manacher.rs)
+From [Wikipedia][manacher-wiki]: find a longest palindrome in a string in linear time.
+
+__Properties__
+* Case performance  O(n)
+* Case space complexity  O(n)
+
+[manacher-wiki]: https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher's_algorithm
 ### [Rabin Karp](./rabin_karp.rs)
 From [Wikipedia][rabin-karp-wiki]: a string-searching algorithm created by Richard M. Karp and Michael O. Rabin that uses hashing
 to find an exact match of a pattern string in a text.
