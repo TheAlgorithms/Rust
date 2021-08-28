@@ -1,6 +1,8 @@
 use std::collections::HashMap;
+use std::io;
 
 const UNKNOWN_CHARACTER: &str = "........";
+const _UNKNOWN_MORSE_CHARACTER: &str = "_";
 
 pub fn morse_code(message: &str) -> String {
     let dictionary = morse_dictionary();
@@ -47,6 +49,82 @@ fn morse_dictionary() -> HashMap<&'static str, &'static str> {
     }
 }
 
+fn _morse_to_alphanumeric_dictionary() -> HashMap<&'static str, &'static str> {
+    map! {
+        ".-"   =>  "A",      "-..." => "B",    "-.-." => "C",
+        "-.."  =>  "D",      "."    => "E",       "..-." => "F",
+        "--."  =>  "G",      "...." => "H",    ".." => "I",
+        ".---" =>  "J",     "-.-" => "K",     ".-.." => "L",
+        "--"   =>  "M",       "-." => "N",      "---" => "O",
+        ".--." =>  "P",     "--.-" => "Q",    ".-." => "R",
+        "..."  =>  "S",      "-" => "T",       "..-" => "U",
+        "...-" =>  "V",     ".--" => "W",     "-..-" => "X",
+        "-.--" =>  "Y",     "--.." => "Z",
+
+        ".----" => "1",    "..---" => "2",   "...--" => "3",
+        "....-" => "4",    "....." => "5",   "-...." => "6",
+        "--..." => "7",    "---.." => "8",   "----." => "9",
+        "-----" => "0",
+
+        ".-..." => "&",    ".--.-." => "@",  "---..." => ":",
+        "--..--" => ",",   ".-.-.-" => ".",  ".----." => "'",
+        ".-..-." => "\"",  "..--.." => "?",  "-..-." => "/",
+        "-...-" => "=",   ".-.-." => "+",   "-....-" => "-",
+        "-.--." => "(",   "-.--.-" => ")",  "/" => " ",
+        "-.-.--" => "!",  " " => " ",       "" => ""
+    }
+}
+
+fn _check_part(string: &str) -> bool {
+    for c in string.chars() {
+        match c {
+            '.' | '-' | ' ' => (),
+            _ => return false,
+        }
+    }
+    true
+}
+
+fn _check_all_parts(string: &str) -> bool {
+    string.split("/").all(_check_part)
+}
+
+fn _decode_token(string: &str) -> String {
+    _morse_to_alphanumeric_dictionary()
+        .get(string)
+        .unwrap_or(&_UNKNOWN_MORSE_CHARACTER)
+        .to_string()
+}
+
+fn _decode_part(string: &str) -> String {
+    string
+        .split(" ")
+        .map(_decode_token)
+        .collect::<Vec<String>>()
+        .join("")
+}
+
+/// Convert morse code to ascii.
+///
+/// Given a morse code, return the corresponding message.
+/// If the code is invalid, the undecipherable part of the code is replaced by `_`.
+pub fn morse_decode(string: &str) -> Result<String, io::Error> {
+    if !_check_all_parts(string) {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidData,
+            "Invalid morse code",
+        ));
+    }
+
+    let mut partitions: Vec<String> = vec![];
+
+    for part in string.split("/") {
+        partitions.push(_decode_part(&part));
+    }
+
+    Ok(partitions.join(" "))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -79,5 +157,42 @@ mod tests {
             cipher,
             ". .-. .-. --- .-. ..--.. ..--.. / ........ ........".to_string()
         )
+    }
+
+    #[test]
+    fn decrypt_valid_morsecode_with_spaces() {
+        let expected = "Hello Morse! How's it goin, \"eh\"?"
+            .to_string()
+            .to_uppercase();
+        let encypted = morse_code(&expected);
+        let result = morse_decode(&encypted).unwrap();
+
+        assert_eq!(expected, result);
+    }
+
+    #[test]
+    fn decrypt_valid_character_set_invalid_morsecode() {
+        let expected = format!(
+            "{}{}{}{} {}",
+            _UNKNOWN_MORSE_CHARACTER,
+            _UNKNOWN_MORSE_CHARACTER,
+            _UNKNOWN_MORSE_CHARACTER,
+            _UNKNOWN_MORSE_CHARACTER,
+            _UNKNOWN_MORSE_CHARACTER,
+        );
+
+        let encypted = ".-.-.--.-.-. --------. ..---.-.-. .-.-.--.-.-. / .-.-.--.-.-.".to_string();
+        let result = morse_decode(&encypted).unwrap();
+
+        assert_eq!(expected, result);
+    }
+
+    #[test]
+    fn decrypt_invalid_morsecode_with_spaces() {
+        let encypted = "1... . .-.. .-.. --- / -- --- .-. ... .";
+        let result = morse_decode(encypted).map_err(|e| e.kind());
+        let expected = Err(io::ErrorKind::InvalidData);
+
+        assert_eq!(expected, result);
     }
 }
