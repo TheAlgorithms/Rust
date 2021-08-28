@@ -4,8 +4,8 @@ use std::io;
 const UNKNOWN_CHARACTER: &str = "........";
 const _UNKNOWN_MORSE_CHARACTER: &str = "_";
 
-pub fn morse_code(message: &str) -> String {
-    let dictionary = morse_dictionary();
+pub fn encode(message: &str) -> String {
+    let dictionary = _morse_dictionary();
     message
         .chars()
         .into_iter()
@@ -23,7 +23,7 @@ macro_rules! map {
     };
 }
 
-fn morse_dictionary() -> HashMap<&'static str, &'static str> {
+fn _morse_dictionary() -> HashMap<&'static str, &'static str> {
     map! {
         "A" => ".-",      "B" => "-...",    "C" => "-.-.",
         "D" => "-..",     "E" => ".",       "F" => "..-.",
@@ -86,7 +86,7 @@ fn _check_part(string: &str) -> bool {
 }
 
 fn _check_all_parts(string: &str) -> bool {
-    string.split("/").all(_check_part)
+    string.split('/').all(_check_part)
 }
 
 fn _decode_token(string: &str) -> String {
@@ -98,7 +98,7 @@ fn _decode_token(string: &str) -> String {
 
 fn _decode_part(string: &str) -> String {
     string
-        .split(" ")
+        .split(' ')
         .map(_decode_token)
         .collect::<Vec<String>>()
         .join("")
@@ -108,7 +108,7 @@ fn _decode_part(string: &str) -> String {
 ///
 /// Given a morse code, return the corresponding message.
 /// If the code is invalid, the undecipherable part of the code is replaced by `_`.
-pub fn morse_decode(string: &str) -> Result<String, io::Error> {
+pub fn decode(string: &str) -> Result<String, io::Error> {
     if !_check_all_parts(string) {
         return Err(io::Error::new(
             io::ErrorKind::InvalidData,
@@ -118,8 +118,8 @@ pub fn morse_decode(string: &str) -> Result<String, io::Error> {
 
     let mut partitions: Vec<String> = vec![];
 
-    for part in string.split("/") {
-        partitions.push(_decode_part(&part));
+    for part in string.split('/') {
+        partitions.push(_decode_part(part));
     }
 
     Ok(partitions.join(" "))
@@ -132,7 +132,7 @@ mod tests {
     #[test]
     fn encrypt_only_letters() {
         let message = "Hello Morse";
-        let cipher = morse_code(message);
+        let cipher = encode(message);
         assert_eq!(
             cipher,
             ".... . .-.. .-.. --- / -- --- .-. ... .".to_string()
@@ -142,7 +142,7 @@ mod tests {
     #[test]
     fn encrypt_letters_and_special_characters() {
         let message = "What's a great day!";
-        let cipher = morse_code(message);
+        let cipher = encode(message);
         assert_eq!(
             cipher,
             ".-- .... .- - .----. ... / .- / --. .-. . .- - / -.. .- -.-- -.-.--".to_string()
@@ -152,7 +152,7 @@ mod tests {
     #[test]
     fn encrypt_message_with_unsupported_character() {
         let message = "Error?? {}";
-        let cipher = morse_code(message);
+        let cipher = encode(message);
         assert_eq!(
             cipher,
             ". .-. .-. --- .-. ..--.. ..--.. / ........ ........".to_string()
@@ -164,8 +164,8 @@ mod tests {
         let expected = "Hello Morse! How's it goin, \"eh\"?"
             .to_string()
             .to_uppercase();
-        let encypted = morse_code(&expected);
-        let result = morse_decode(&encypted).unwrap();
+        let encypted = encode(&expected);
+        let result = decode(&encypted).unwrap();
 
         assert_eq!(expected, result);
     }
@@ -182,7 +182,7 @@ mod tests {
         );
 
         let encypted = ".-.-.--.-.-. --------. ..---.-.-. .-.-.--.-.-. / .-.-.--.-.-.".to_string();
-        let result = morse_decode(&encypted).unwrap();
+        let result = decode(&encypted).unwrap();
 
         assert_eq!(expected, result);
     }
@@ -190,7 +190,7 @@ mod tests {
     #[test]
     fn decrypt_invalid_morsecode_with_spaces() {
         let encypted = "1... . .-.. .-.. --- / -- --- .-. ... .";
-        let result = morse_decode(encypted).map_err(|e| e.kind());
+        let result = decode(encypted).map_err(|e| e.kind());
         let expected = Err(io::ErrorKind::InvalidData);
 
         assert_eq!(expected, result);
