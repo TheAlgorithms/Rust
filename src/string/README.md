@@ -14,8 +14,8 @@ __Properties__
 From [Wikipedia][manacher-wiki]: find a longest palindrome in a string in linear time.
 
 __Properties__
-* Case performance  O(n)
-* Case space complexity  O(n)
+* Worst-case time complexity is O(n)
+* Worst-case space complexity is O(n)
 
 [manacher-wiki]: https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher's_algorithm
 ### [Rabin Karp](./rabin_karp.rs)
