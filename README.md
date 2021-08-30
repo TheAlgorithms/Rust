@@ -74,7 +74,7 @@ These are for demonstration purposes only.
 
 - [x] [Caesar](./src/ciphers/caesar.rs)
 - [x] [Vigenère](./src/ciphers/vigenere.rs)
-- [ ] [Morse Code](./src/ciphers/morse_code.rs)
+- [x] [Morse Code](./src/ciphers/morse_code.rs)
 - [ ] Transposition
 
 ---
