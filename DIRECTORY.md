@@ -7,6 +7,7 @@
     * [Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rot13.rs)
     * [Vigenere](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/vigenere.rs)
   * Data Structures
+    * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
     * [Binary Search Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/binary_search_tree.rs)
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
