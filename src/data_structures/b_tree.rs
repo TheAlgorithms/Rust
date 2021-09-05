@@ -68,10 +68,11 @@ impl BTreeProps {
             }
             None => Vec::with_capacity(self.max_keys),
         };
-        let mut right_children = None;
-        if !child.is_leaf() {
-            right_children = Some(child.children.split_off(self.mid_key_index + 1));
-        }
+        let right_children = if !child.is_leaf() {
+            Some(child.children.split_off(self.mid_key_index + 1))
+        } else {
+            None
+        };
         let new_child_node: Node<T> = Node::new(self.degree, Some(right_keys), right_children);
 
         parent.keys.insert(child_index, middle_key);
@@ -111,7 +112,7 @@ impl BTreeProps {
                 // And https://stackoverflow.com/a/35280799/2849127
                 print!("{0:{<1$}{2:?}{0:}<1$}", "", depth, key);
             }
-            self.traverse_node(&node.children.last().unwrap(), _depth);
+            self.traverse_node(node.children.last().unwrap(), _depth);
         }
     }
 }
