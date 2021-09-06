@@ -50,7 +50,7 @@ These are for demonstration purposes only.
 - [ ] Trie
 - [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
-- [ ] AVL Tree
+- [x] [AVL Tree](./src/data_structures/avl_tree.rs)
 
 ## [Strings](./src/string)
 
