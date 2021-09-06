@@ -1,4 +1,4 @@
-pub fn longest_increasing_subsequence< 'a, T: Ord>(input_array: &'a[T]) -> &'a[T] {
+pub fn longest_increasing_subsequence<'a, T: Ord>(input_array: &'a [T]) -> &'a [T] {
     let length: usize = input_array.len();
 
     //Handle the base cases
@@ -10,7 +10,7 @@ pub fn longest_increasing_subsequence< 'a, T: Ord>(input_array: &'a[T]) -> &'a[T
     let mut tracking_vec = vec![1; length];
 
     //Iterate through the input and store longest subsequences at each location in the vector
-    for i in (0 .. length - 1).rev() {
+    for i in (0..length - 1).rev() {
         if input_array[i] < input_array[i + 1] {
             tracking_vec[i] = tracking_vec[i + 1] + 1;
         }
@@ -26,7 +26,7 @@ pub fn longest_increasing_subsequence< 'a, T: Ord>(input_array: &'a[T]) -> &'a[T
         }
     }
 
-    return &input_array[max_index .. max_index + max_value as usize];
+    return &input_array[max_index..max_index + max_value as usize];
 }
 
 #[cfg(test)]
@@ -41,13 +41,28 @@ mod tests {
         assert_eq!(&longest_increasing_subsequence(&[1]), &[1]);
 
         //Normal i32 Cases
-        assert_eq!(&longest_increasing_subsequence(&[1, 2, 3, 4]), &[1, 2, 3, 4]);
-        assert_eq!(&longest_increasing_subsequence(&[1, 2, 2, 3, 4, 2]), &[2, 3, 4]);
+        assert_eq!(
+            &longest_increasing_subsequence(&[1, 2, 3, 4]),
+            &[1, 2, 3, 4]
+        );
+        assert_eq!(
+            &longest_increasing_subsequence(&[1, 2, 2, 3, 4, 2]),
+            &[2, 3, 4]
+        );
         assert_eq!(&longest_increasing_subsequence(&[5, 4, 3, 2, 1]), &[5]);
-        assert_eq!(&longest_increasing_subsequence(&[5, 4, 3, 4, 2, 1]), &[3, 4]);
+        assert_eq!(
+            &longest_increasing_subsequence(&[5, 4, 3, 4, 2, 1]),
+            &[3, 4]
+        );
 
         //Non-Numeric case
-        assert_eq!(&longest_increasing_subsequence(&['a', 'b', 'c']), &['a', 'b', 'c']);
-        assert_eq!(&longest_increasing_subsequence(&['d', 'c', 'd']), &['c', 'd']);
+        assert_eq!(
+            &longest_increasing_subsequence(&['a', 'b', 'c']),
+            &['a', 'b', 'c']
+        );
+        assert_eq!(
+            &longest_increasing_subsequence(&['d', 'c', 'd']),
+            &['c', 'd']
+        );
     }
 }
