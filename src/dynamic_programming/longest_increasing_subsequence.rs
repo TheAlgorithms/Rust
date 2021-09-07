@@ -1,4 +1,4 @@
-pub fn longest_increasing_subsequence<'a, T: Ord>(input_array: &'a [T]) -> &'a [T] {
+pub fn longest_increasing_subsequence<T: Ord>(input_array: &[T]) -> &[T] {
     let length: usize = input_array.len();
 
     //Handle the base cases
@@ -26,7 +26,7 @@ pub fn longest_increasing_subsequence<'a, T: Ord>(input_array: &'a [T]) -> &'a [
         }
     }
 
-    return &input_array[max_index..max_index + max_value as usize];
+    &input_array[max_index..max_index + max_value as usize]
 }
 
 #[cfg(test)]
