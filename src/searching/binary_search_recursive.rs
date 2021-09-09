@@ -59,9 +59,9 @@ mod tests {
     #[test]
     fn fail_search_strings() {
         let say_hello_list = vec!["hi", "olá", "salut"];
-        for target in vec!["adiós", "你好"] {
+        for target in &["adiós", "你好"] {
             assert_eq!(
-                binary_search_rec(&say_hello_list, &target, &LEFT, &say_hello_list.len()),
+                binary_search_rec(&say_hello_list, target, &LEFT, &say_hello_list.len()),
                 None
             );
         }
@@ -81,9 +81,9 @@ mod tests {
     #[test]
     fn fail_search_integers() {
         let integers = vec![0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
-        for target in vec![100, 444, 336] {
+        for target in &[100, 444, 336] {
             assert_eq!(
-                binary_search_rec(&integers, &target, &LEFT, &integers.len()),
+                binary_search_rec(&integers, target, &LEFT, &integers.len()),
                 None
             );
         }
@@ -92,9 +92,9 @@ mod tests {
     #[test]
     fn fail_search_unsorted_strings_list() {
         let unsorted_strings = vec!["salut", "olá", "hi"];
-        for target in vec!["hi", "salut"] {
+        for target in &["hi", "salut"] {
             assert_eq!(
-                binary_search_rec(&unsorted_strings, &target, &LEFT, &unsorted_strings.len()),
+                binary_search_rec(&unsorted_strings, target, &LEFT, &unsorted_strings.len()),
                 None
             );
         }
@@ -103,9 +103,9 @@ mod tests {
     #[test]
     fn fail_search_unsorted_integers_list() {
         let unsorted_integers = vec![90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
-        for target in vec![0, 80, 90] {
+        for target in &[0, 80, 90] {
             assert_eq!(
-                binary_search_rec(&unsorted_integers, &target, &LEFT, &unsorted_integers.len()),
+                binary_search_rec(&unsorted_integers, target, &LEFT, &unsorted_integers.len()),
                 None
             );
         }
