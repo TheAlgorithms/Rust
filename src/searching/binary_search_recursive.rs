@@ -12,9 +12,9 @@ pub fn binary_search_rec<T: Ord>(
 
     let middle: usize = left + (right - left) / 2;
     match target.cmp(&list_of_items[middle]) {
-        Ordering::Less => binary_search_rec(&list_of_items, &target, &left, &middle),
-        Ordering::Greater => binary_search_rec(&list_of_items, &target, &(middle + 1), &right),
-        Ordering::Equal => return Some(middle),
+        Ordering::Less => binary_search_rec(list_of_items, target, left, &middle),
+        Ordering::Greater => binary_search_rec(list_of_items, target, &(middle + 1), right),
+        Ordering::Equal => Some(middle),
     }
 }
 
