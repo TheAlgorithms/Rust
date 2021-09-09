@@ -1,4 +1,4 @@
-pub fn longest_increasing_subsequence<T: Ord>(input_array: &[T]) -> &[T] {
+pub fn longest_continuous_increasing_subsequence<T: Ord>(input_array: &[T]) -> &[T] {
     let length: usize = input_array.len();
 
     //Handle the base cases
@@ -31,37 +31,43 @@ pub fn longest_increasing_subsequence<T: Ord>(input_array: &[T]) -> &[T] {
 
 #[cfg(test)]
 mod tests {
-    use super::longest_increasing_subsequence;
+    use super::longest_continuous_increasing_subsequence;
 
     #[test]
     fn test_longest_increasing_subsequence() {
         //Base Cases
         let base_case_array: [i32; 0] = [];
-        assert_eq!(&longest_increasing_subsequence(&base_case_array), &[]);
-        assert_eq!(&longest_increasing_subsequence(&[1]), &[1]);
+        assert_eq!(
+            &longest_continuous_increasing_subsequence(&base_case_array),
+            &[]
+        );
+        assert_eq!(&longest_continuous_increasing_subsequence(&[1]), &[1]);
 
         //Normal i32 Cases
         assert_eq!(
-            &longest_increasing_subsequence(&[1, 2, 3, 4]),
+            &longest_continuous_increasing_subsequence(&[1, 2, 3, 4]),
             &[1, 2, 3, 4]
         );
         assert_eq!(
-            &longest_increasing_subsequence(&[1, 2, 2, 3, 4, 2]),
+            &longest_continuous_increasing_subsequence(&[1, 2, 2, 3, 4, 2]),
             &[2, 3, 4]
         );
-        assert_eq!(&longest_increasing_subsequence(&[5, 4, 3, 2, 1]), &[5]);
         assert_eq!(
-            &longest_increasing_subsequence(&[5, 4, 3, 4, 2, 1]),
+            &longest_continuous_increasing_subsequence(&[5, 4, 3, 2, 1]),
+            &[5]
+        );
+        assert_eq!(
+            &longest_continuous_increasing_subsequence(&[5, 4, 3, 4, 2, 1]),
             &[3, 4]
         );
 
         //Non-Numeric case
         assert_eq!(
-            &longest_increasing_subsequence(&['a', 'b', 'c']),
+            &longest_continuous_increasing_subsequence(&['a', 'b', 'c']),
             &['a', 'b', 'c']
         );
         assert_eq!(
-            &longest_increasing_subsequence(&['d', 'c', 'd']),
+            &longest_continuous_increasing_subsequence(&['d', 'c', 'd']),
             &['c', 'd']
         );
     }
