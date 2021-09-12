@@ -24,10 +24,10 @@ exemptMilestones: false
 exemptAssignees: false
 
 # Label to use when marking as stale
-staleLabel: abandoned
+staleLabel: stale
 
 # Limit the number of actions per hour, from 1-30. Default is 30
-limitPerRun: 1
+limitPerRun: 5
 
 # Comment to post when removing the stale label.
 # unmarkComment: >
@@ -45,8 +45,8 @@ pulls:
   closeComment: >
     Please ping one of the maintainers once you commit the changes requested
     or make improvements on the code. If this is not the case and you need
-    some help, feel free to ask for help in our [Gitter](https://gitter.im/TheAlgorithms)
-    channel. Thank you for your contributions!
+    some help, feel free to ask for help on our [Discord](https://discord.gg/c7MnfGFGa6)
+    server. Thank you for your contributions!
 
 issues:
   # Comment to post when marking as stale. Set to `false` to disable
@@ -59,4 +59,4 @@ issues:
   closeComment: >
     Please ping one of the maintainers once you add more information and updates here.
     If this is not the case and you need some help, feel free to ask for help
-    in our [Gitter](https://gitter.im/TheAlgorithms) channel. Thank you for your contributions!
+    on our [Discord](https://discord.gg/c7MnfGFGa6) server. Thank you for your contributions!
