@@ -29,6 +29,7 @@
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
+    * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
     * [Linear Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/linear_search.rs)
   * Sorting
     * [Bubble Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bubble_sort.rs)
