@@ -33,7 +33,7 @@ These are for demonstration purposes only.
 - [x] [Edit Distance](./src/dynamic_programming/edit_distance.rs)
 - [x] [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
 - [x] [Longest continuous increasing subsequence](./src/dynamic_programming/longest_continuous_increasing_subsequence.rs)
-- [ ] Longest increasing subsequence
+- [x] [Longest increasing subsequence](./src/dynamic_programming/longest_increasing_subsequence.rs)
 - [x] [K-Means Clustering](./src/general/kmeans.rs)
 - [x] [Coin Change](./src/dynamic_programming/coin_change.rs)
 - [ ] Rod cut
