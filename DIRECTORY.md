@@ -26,6 +26,8 @@
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
     * [Hanoi](https://github.com/TheAlgorithms/Rust/blob/master/src/general/hanoi.rs)
     * [Kmeans](https://github.com/TheAlgorithms/Rust/blob/master/src/general/kmeans.rs)
+  * Graphs
+    * [Ullmann](https://github.com/TheAlgorithms/Rust/blob/master/src/graphs/ullmann.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
