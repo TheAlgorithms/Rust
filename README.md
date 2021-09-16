@@ -23,7 +23,7 @@ These are for demonstration purposes only.
 
 - [ ] Dijkstra
 - [ ] Kruskal's Minimum Spanning Tree
-- [ ] Prim's Minimum Spanning Tree
+- [x] [Prim's Minimum Spanning Tree](./src/graph/prim.rs)
 - [ ] BFS
 - [ ] DFS
 
