@@ -5,5 +5,5 @@ before_script:
   - rustup component add clippy
 script:
   - cargo fmt --all -- --check
-  - cargo clippy
+  - cargo clippy --all -- -D warnings
   - cargo test
