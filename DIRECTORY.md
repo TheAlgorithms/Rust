@@ -6,6 +6,7 @@
     * [Morse Code](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/morse_code.rs)
     * [Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rot13.rs)
     * [Vigenere](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/vigenere.rs)
+    * [Xtea](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/xtea.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
