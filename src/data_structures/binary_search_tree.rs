@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::ops::Deref;
 
 /// This struct implements as Binary Search Tree (BST), which is a
@@ -9,6 +10,15 @@ where
     value: Option<T>,
     left: Option<Box<BinarySearchTree<T>>>,
     right: Option<Box<BinarySearchTree<T>>>,
+}
+
+impl<T> Default for BinarySearchTree<T>
+where
+    T: Ord,
+{
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl<T> BinarySearchTree<T>
@@ -29,17 +39,24 @@ where
     pub fn search(&self, value: &T) -> bool {
         match &self.value {
             Some(key) => {
-                if key == value {
-                    true
-                } else if key > value {
-                    match &self.left {
-                        Some(node) => node.search(value),
-                        None => false,
+                match key.cmp(value) {
+                    Ordering::Equal => {
+                        // key == value
+                        true
                     }
-                } else {
-                    match &self.right {
-                        Some(node) => node.search(value),
-                        None => false,
+                    Ordering::Greater => {
+                        // key > value
+                        match &self.left {
+                            Some(node) => node.search(value),
+                            None => false,
+                        }
+                    }
+                    Ordering::Less => {
+                        // key < value
+                        match &self.right {
+                            Some(node) => node.search(value),
+                            None => false,
+                        }
                     }
                 }
             }
@@ -48,7 +65,7 @@ where
     }
 
     /// Returns a new iterator which iterates over this tree in order
-    pub fn iter<'a>(&'a self) -> impl Iterator<Item = &'a T> {
+    pub fn iter(&self) -> impl Iterator<Item = &T> {
         BinarySearchTreeIter::new(self)
     }
 
@@ -66,10 +83,10 @@ where
                         &mut self.right
                     };
                     match target_node {
-                        &mut Some(ref mut node) => {
+                        Some(ref mut node) => {
                             node.insert(value);
                         }
-                        &mut None => {
+                        None => {
                             let mut node = BinarySearchTree::new();
                             node.insert(value);
                             *target_node = Some(Box::new(node));
@@ -85,7 +102,7 @@ where
         match &self.left {
             Some(node) => node.minimum(),
             None => match &self.value {
-                Some(value) => Some(&value),
+                Some(value) => Some(value),
                 None => None,
             },
         }
@@ -96,7 +113,7 @@ where
         match &self.right {
             Some(node) => node.maximum(),
             None => match &self.value {
-                Some(value) => Some(&value),
+                Some(value) => Some(value),
                 None => None,
             },
         }
@@ -106,24 +123,28 @@ where
     pub fn floor(&self, value: &T) -> Option<&T> {
         match &self.value {
             Some(key) => {
-                if key > value {
-                    match &self.left {
-                        Some(node) => node.floor(value),
-                        None => None,
-                    }
-                } else if key < value {
-                    match &self.right {
-                        Some(node) => {
-                            let val = node.floor(value);
-                            match val {
-                                Some(_) => val,
-                                None => Some(&key),
-                            }
+                match key.cmp(value) {
+                    Ordering::Greater => {
+                        // key > value
+                        match &self.left {
+                            Some(node) => node.floor(value),
+                            None => None,
                         }
-                        None => Some(&key),
                     }
-                } else {
-                    Some(&key)
+                    Ordering::Less => {
+                        // key < value
+                        match &self.right {
+                            Some(node) => {
+                                let val = node.floor(value);
+                                match val {
+                                    Some(_) => val,
+                                    None => Some(key),
+                                }
+                            }
+                            None => Some(key),
+                        }
+                    }
+                    Ordering::Equal => Some(key),
                 }
             }
             None => None,
@@ -134,24 +155,31 @@ where
     pub fn ceil(&self, value: &T) -> Option<&T> {
         match &self.value {
             Some(key) => {
-                if key < value {
-                    match &self.right {
-                        Some(node) => node.ceil(value),
-                        None => None,
-                    }
-                } else if key > value {
-                    match &self.left {
-                        Some(node) => {
-                            let val = node.ceil(value);
-                            match val {
-                                Some(_) => val,
-                                None => Some(&key),
-                            }
+                match key.cmp(value) {
+                    Ordering::Less => {
+                        // key < value
+                        match &self.right {
+                            Some(node) => node.ceil(value),
+                            None => None,
                         }
-                        None => Some(&key),
                     }
-                } else {
-                    Some(&key)
+                    Ordering::Greater => {
+                        // key > value
+                        match &self.left {
+                            Some(node) => {
+                                let val = node.ceil(value);
+                                match val {
+                                    Some(_) => val,
+                                    None => Some(key),
+                                }
+                            }
+                            None => Some(key),
+                        }
+                    }
+                    Ordering::Equal => {
+                        // key == value
+                        Some(key)
+                    }
                 }
             }
             None => None,
@@ -177,11 +205,8 @@ where
     }
 
     fn stack_push_left(&mut self) {
-        loop {
-            match &self.stack.last().unwrap().left {
-                Some(child) => self.stack.push(child),
-                None => break,
-            }
+        while let Some(child) = &self.stack.last().unwrap().left {
+            self.stack.push(child);
         }
     }
 }

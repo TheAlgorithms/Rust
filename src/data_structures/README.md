@@ -18,3 +18,19 @@ __Sources to read:__
 * [Rust API Docs](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html)
 * [Keon Algorithms](https://github.com/keon/algorithms)
 * [MIT Open Course](https://www.youtube.com/watch?v=TOb1tuEZ2X4)
+
+### [AVL Tree](./avl_tree.rs)
+
+An AVL Tree is a self-balancing binary search tree. The heights of any two sibling
+nodes must differ by at most one; the tree may rebalance itself after insertion or
+deletion to uphold this property.
+
+__Properties__
+* Worst/Average time complexity for basic operations: O(log n)
+* Worst/Average space complexity: O(n)
+
+__Sources to read:__
+* [Wikipedia](https://en.wikipedia.org/wiki/AVL_tree)
+* Geeksforgeeks
+([Insertion](https://www.geeksforgeeks.org/avl-tree-set-1-insertion),
+[Deletion](https://www.geeksforgeeks.org/avl-tree-set-2-deletion))

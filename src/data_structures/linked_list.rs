@@ -23,47 +23,48 @@ pub struct LinkedList<T> {
     end: Option<NonNull<Node<T>>>,
 }
 
+impl<T> Default for LinkedList<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<T> LinkedList<T> {
-    pub fn new() -> LinkedList<T> {
-        LinkedList {
+    pub fn new() -> Self {
+        Self {
             length: 0,
             start: None,
             end: None,
         }
     }
 
-    pub fn add(&mut self, obj: T) -> () {
+    pub fn add(&mut self, obj: T) {
         let mut node = Box::new(Node::new(obj));
-        unsafe {
-            // Since we are adding node at the end, next will always be None
-            node.next = None;
-            node.prev = self.end;
-            // Get a pointer to node
-            let node_ptr = Some(NonNull::new_unchecked(Box::into_raw(node)));
-            match self.end {
-                // This is the case of empty list
-                None => self.start = node_ptr,
-                Some(end_ptr) => (*end_ptr.as_ptr()).next = node_ptr,
-            }
-
-            self.end = node_ptr;
+        // Since we are adding node at the end, next will always be None
+        node.next = None;
+        node.prev = self.end;
+        // Get a pointer to node
+        let node_ptr = Some(unsafe { NonNull::new_unchecked(Box::into_raw(node)) });
+        match self.end {
+            // This is the case of empty list
+            None => self.start = node_ptr,
+            Some(end_ptr) => unsafe { (*end_ptr.as_ptr()).next = node_ptr },
         }
-        self.length = self.length + 1;
+        self.end = node_ptr;
+        self.length += 1;
     }
 
-    pub fn get<'a>(&'a mut self, index: i32) -> Option<&'a T> {
-        return self.get_ith_node(self.start, index);
+    pub fn get(&mut self, index: i32) -> Option<&T> {
+        self.get_ith_node(self.start, index)
     }
 
-    fn get_ith_node<'a>(&'a mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&'a T> {
-        unsafe {
-            match node {
-                None => None,
-                Some(next_ptr) => match index {
-                    0 => Some(&(*next_ptr.as_ptr()).val),
-                    _ => self.get_ith_node((*next_ptr.as_ptr()).next, index - 1),
-                },
-            }
+    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
+        match node {
+            None => None,
+            Some(next_ptr) => match index {
+                0 => Some(unsafe { &(*next_ptr.as_ptr()).val }),
+                _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
+            },
         }
     }
 }
@@ -73,11 +74,9 @@ where
     T: Display,
 {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        unsafe {
-            match self.start {
-                Some(node) => write!(f, "{}", node.as_ref()),
-                None => write!(f, ""),
-            }
+        match self.start {
+            Some(node) => write!(f, "{}", unsafe { node.as_ref() }),
+            None => Ok(()),
         }
     }
 }
@@ -87,11 +86,9 @@ where
     T: Display,
 {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        unsafe {
-            match self.next {
-                Some(node) => write!(f, "{}, {}", self.val, node.as_ref()),
-                None => write!(f, "{}", self.val),
-            }
+        match self.next {
+            Some(node) => write!(f, "{}, {}", self.val, unsafe { node.as_ref() }),
+            None => write!(f, "{}", self.val),
         }
     }
 }
