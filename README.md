@@ -71,6 +71,10 @@ These are for demonstration purposes only.
 - [x] [Linear](./src/searching/linear_search.rs)
 - [x] [Binary](./src/searching/binary_search.rs)
 
+## [Geometry](./src/geometry)
+
+- [x] [Closest pair of 2D points](./src/searching/closest_points.rs)
+
 ## [Ciphers](./src/ciphers)
 
 - [x] [Caesar](./src/ciphers/caesar.rs)
