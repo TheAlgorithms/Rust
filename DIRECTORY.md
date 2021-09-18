@@ -2,6 +2,7 @@
 
 ## Src
   * Ciphers
+    * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
     * [Morse Code](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/morse_code.rs)
     * [Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rot13.rs)
