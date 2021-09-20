@@ -14,6 +14,7 @@ These are for demonstration purposes only.
 - [x] [Heap](./src/sorting/heap_sort.rs)
 - [x] [Insertion](./src/sorting/insertion_sort.rs)
 - [x] [Merge](./src/sorting/merge_sort.rs)
+- [x] [Odd-even](./src/sorting/odd_even_sort.rs)
 - [x] [Quick](./src/sorting/quick_sort.rs)
 - [x] [Radix](./src/sorting/radix_sort.rs)
 - [x] [Selection](./src/sorting/selection_sort.rs)

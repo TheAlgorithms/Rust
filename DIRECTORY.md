@@ -42,6 +42,7 @@
     * [Heap Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/heap_sort.rs)
     * [Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion_sort.rs)
     * [Merge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort.rs)
+    * [Odd-even Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/odd_even_sort.rs)
     * [Quick Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/quick_sort.rs)
     * [Radix Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/radix_sort.rs)
     * [Selection Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/selection_sort.rs)
