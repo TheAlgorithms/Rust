@@ -27,6 +27,9 @@ These are for demonstration purposes only.
 - [ ] BFS
 - [ ] DFS
 
+## Math
+- [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
+
 ## [Dynamic Programming](./src/dynamic_programming)
 
 - [x] [0-1 Knapsack](./src/dynamic_programming/knapsack.rs)
