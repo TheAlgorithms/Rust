@@ -67,6 +67,24 @@ mod tests {
     }
 
     #[test]
+    fn special_characters() {
+        assert_eq!(
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("!.!.!??.=::".to_string())),
+            "!.!.!??.=::"
+        );
+        assert_eq!(
+            inv_burrows_wheeler_transform(burrows_wheeler_transform(
+                "!{}{}(((&&%%!??.=::".to_string()
+            )),
+            "!{}{}(((&&%%!??.=::"
+        );
+        assert_eq!(
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("//&$[]".to_string())),
+            "//&$[]"
+        );
+    }
+
+    #[test]
     fn empty() {
         assert_eq!(
             inv_burrows_wheeler_transform(burrows_wheeler_transform("".to_string())),
