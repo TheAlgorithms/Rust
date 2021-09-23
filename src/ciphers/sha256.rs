@@ -8,7 +8,7 @@ struct BufState {
     total: bool,
 }
 
-pub fn sha256(data: &Vec<u8>) -> [u8; 32] {
+pub fn sha256(data: &[u8]) -> [u8; 32] {
     let mut hash: [u8; 32] = [0; 32];
 
     let mut h: [u32; 8] = [
@@ -32,7 +32,7 @@ pub fn sha256(data: &Vec<u8>) -> [u8; 32] {
     let mut chunk: [u8; 64] = [0; 64];
 
     let mut state: BufState = BufState {
-        data: (*data.clone()).to_owned(),
+        data: (*data).to_owned(),
         len: data.len(),
         total_len: data.len(),
         single: false,
@@ -40,7 +40,7 @@ pub fn sha256(data: &Vec<u8>) -> [u8; 32] {
     };
 
     while calc_chunk(&mut chunk, &mut state) {
-        let mut ah: [u32; 8] = h.clone();
+        let mut ah: [u32; 8] = h;
         let mut w: [u32; 16] = [0; 16];
         for i in 0..4 {
             for j in 0..16 {
@@ -95,20 +95,20 @@ pub fn sha256(data: &Vec<u8>) -> [u8; 32] {
         hash[i * 4] = (h[i] >> 24) as u8;
         hash[i * 4 + 1] = (h[i] >> 16) as u8;
         hash[i * 4 + 2] = (h[i] >> 8) as u8;
-        hash[i * 4 + 3] = (h[i] >> 0) as u8;
+        hash[i * 4 + 3] = h[i] as u8;
     }
 
-    return hash;
+    hash
 }
 
 fn calc_chunk(chunk: &mut [u8; 64], state: &mut BufState) -> bool {
-    if state.total == true {
+    if state.total {
         return false;
     }
 
     if state.len >= 64 {
-        for i in 0..64 {
-            chunk[i] = state.data[0];
+        for x in chunk {
+            *x = state.data[0];
             state.data.remove(0);
         }
         state.len -= 64;
@@ -117,12 +117,12 @@ fn calc_chunk(chunk: &mut [u8; 64], state: &mut BufState) -> bool {
 
     let remaining: usize = state.data.len();
     let space: usize = 64 - remaining;
-    for i in 0..remaining {
-        chunk[i] = state.data[0];
+    for x in chunk.iter_mut().take(state.data.len()) {
+        *x = state.data[0];
         state.data.remove(0);
     }
 
-    if state.single == false {
+    if !state.single {
         chunk[remaining] = 0x80;
         state.single = true;
     }
@@ -130,15 +130,15 @@ fn calc_chunk(chunk: &mut [u8; 64], state: &mut BufState) -> bool {
     if space >= 8 {
         let mut len = state.total_len;
         chunk[63] = (len << 3) as u8;
-        len = len >> 5;
+        len >>= 5;
         for i in 1..8 {
             chunk[(63 - i)] = len as u8;
-            len = len >> 8;
+            len >>= 8;
         }
         state.total = true;
     }
 
-    return true;
+    true
 }
 
 #[cfg(test)]

@@ -81,7 +81,7 @@ These are for demonstration purposes only.
 - [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [Morse Code](./src/ciphers/morse_code.rs)
 - [ ] Transposition
-- [ ] [SHA-2](./src/ciphers/sha256.rs)
+- [x] [SHA-2](./src/ciphers/sha256.rs)
 
 ---
 
