@@ -10,14 +10,14 @@ where
 {
     count: usize,
     items: Vec<T>,
-    comparator: Box<dyn Fn(&T, &T) -> bool>,
+    comparator: fn(&T, &T) -> bool,
 }
 
 impl<T> Heap<T>
 where
     T: Default,
 {
-    pub fn new(comparator: Box<dyn Fn(&T, &T) -> bool>) -> Self {
+    pub fn new(comparator: fn(&T, &T) -> bool) -> Self {
         Self {
             count: 0,
             // Add a default in the first spot to offset indexes
@@ -33,6 +33,10 @@ where
         self.count
     }
 
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
     pub fn add(&mut self, value: T) {
         self.count += 1;
         self.items.push(value);
@@ -46,33 +50,6 @@ where
             }
             idx = pdx;
         }
-    }
-
-    pub fn next(&mut self) -> Option<T> {
-        let next = if self.count == 0 {
-            None
-        } else {
-            // This feels like a function built for heap impl :)
-            // Removes an item at an index and fills in with the last item
-            // of the Vec
-            let next = self.items.swap_remove(1);
-            Some(next)
-        };
-        self.count -= 1;
-
-        if self.count > 0 {
-            // Heapify Down
-            let mut idx = 1;
-            while self.children_present(idx) {
-                let cdx = self.smallest_child_idx(idx);
-                if !(self.comparator)(&self.items[idx], &self.items[cdx]) {
-                    self.items.swap(idx, cdx);
-                }
-                idx = cdx;
-            }
-        }
-
-        next
     }
 
     fn parent_idx(&self, idx: usize) -> usize {
@@ -106,33 +83,85 @@ where
     }
 }
 
+impl<T> Heap<T>
+where
+    T: Default + Ord,
+{
+    /// Create a new MinHeap
+    pub fn new_min() -> Self {
+        Self::new(|a, b| a < b)
+    }
+
+    /// Create a new MaxHeap
+    pub fn new_max() -> Self {
+        Self::new(|a, b| a > b)
+    }
+}
+
+impl<T> Iterator for Heap<T>
+where
+    T: Default,
+{
+    type Item = T;
+
+    fn next(&mut self) -> Option<T> {
+        if self.count == 0 {
+            return None;
+        }
+        // This feels like a function built for heap impl :)
+        // Removes an item at an index and fills in with the last item
+        // of the Vec
+        let next = Some(self.items.swap_remove(1));
+        self.count -= 1;
+
+        if self.count > 0 {
+            // Heapify Down
+            let mut idx = 1;
+            while self.children_present(idx) {
+                let cdx = self.smallest_child_idx(idx);
+                if !(self.comparator)(&self.items[idx], &self.items[cdx]) {
+                    self.items.swap(idx, cdx);
+                }
+                idx = cdx;
+            }
+        }
+
+        next
+    }
+}
+
 pub struct MinHeap;
 
 impl MinHeap {
+    #[allow(clippy::new_ret_no_self)]
     pub fn new<T>() -> Heap<T>
     where
         T: Default + Ord,
     {
-        let comparator = |a: &T, b: &T| a < b;
-        Heap::new(Box::new(comparator))
+        Heap::new(|a, b| a < b)
     }
 }
 
 pub struct MaxHeap;
 
 impl MaxHeap {
+    #[allow(clippy::new_ret_no_self)]
     pub fn new<T>() -> Heap<T>
     where
         T: Default + Ord,
     {
-        let comparator = |a: &T, b: &T| a > b;
-        Heap::new(Box::new(comparator))
+        Heap::new(|a, b| a > b)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn test_empty_heap() {
+        let mut heap = MaxHeap::new::<i32>();
+        assert_eq!(heap.next(), None);
+    }
 
     #[test]
     fn test_min_heap() {
@@ -173,7 +202,7 @@ mod tests {
 
     #[test]
     fn test_key_heap() {
-        let mut heap: Heap<Point> = Heap::new(Box::new(|a, b| a.0 < b.0));
+        let mut heap: Heap<Point> = Heap::new(|a, b| a.0 < b.0);
         heap.add(Point(1, 5));
         heap.add(Point(3, 10));
         heap.add(Point(-2, 4));

@@ -25,7 +25,7 @@ pub fn vigenere(plain_text: &str, key: &str) -> String {
             if c.is_ascii_alphabetic() {
                 let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
                 let shift = key.as_bytes()[index % key_len] - b'a';
-                index = index + 1;
+                index += 1;
                 // modulo the distance to keep character range
                 (first + (c as u8 + shift - first) % 26) as char
             } else {
