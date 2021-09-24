@@ -15,6 +15,7 @@
     * [Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/graph.rs)
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
+    * [Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/trie.rs)
   * Dynamic Programming
     * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
     * [Edit Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/edit_distance.rs)
