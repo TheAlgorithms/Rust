@@ -5,7 +5,7 @@
 ### All algorithms implemented in Rust (for educational purposes)
 
 These are for demonstration purposes only.
-
+RESTART BUILD
 ## [Sort Algorithms](./src/sorting)
 
 - [x] [Bubble](./src/sorting/bubble_sort.rs)
