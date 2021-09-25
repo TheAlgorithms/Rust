@@ -2,9 +2,8 @@
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1024px-Rust_programming_language_black_logo.svg.png" width="200" height="200">
 
-
-
 ### All algorithms implemented in Rust (for educational purposes)
+
 These are for demonstration purposes only.
 
 ## [Sort Algorithms](./src/sorting)
@@ -20,6 +19,7 @@ These are for demonstration purposes only.
 - [x] [Shell](./src/sorting/shell_sort.rs)
 
 ## Graphs
+
 - [ ] Dijkstra
 - [ ] Kruskal's Minimum Spanning Tree
 - [x] [Prim's Minimum Spanning Tree](./src/graph/prim.rs)
@@ -73,7 +73,7 @@ These are for demonstration purposes only.
 
 ## [Geometry](./src/geometry)
 
-- [x] [Closest pair of 2D points](./src/searching/closest_points.rs)
+- [x] [Closest pair of 2D points](./src/geometry/closest_points.rs)
 
 ## [Ciphers](./src/ciphers)
 
@@ -86,7 +86,9 @@ These are for demonstration purposes only.
 ---
 
 ### All implemented Algos
+
 See [DIRECTORY.md](./DIRECTORY.md)
+
 ### Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
