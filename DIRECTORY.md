@@ -32,6 +32,7 @@
     * [Closest Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/closest_points.rs)
   * Graph
     * [Bellman Ford](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/bellman_ford.rs)
+    * [Dijkstra](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dijkstra.rs)
     * [Prim](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prim.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Searching
