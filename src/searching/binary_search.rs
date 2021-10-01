@@ -1,39 +1,36 @@
-use std::cmp::{PartialEq, PartialOrd};
+use std::cmp::Ordering;
 
-pub fn binary_search<T: PartialEq + PartialOrd>(item: &T, arr: &[T]) -> Option<usize> {
+pub fn binary_search<T: Ord>(item: &T, arr: &[T]) -> Option<usize> {
     let mut left = 0;
-    let mut right = arr.len() - 1;
+    let mut right = arr.len();
 
     while left < right {
         let mid = left + (right - left) / 2;
 
-        if &arr[mid] > item {
-            right = mid - 1;
-        } else if &arr[mid] < item {
-            left = mid + 1;
-        } else {
-            left = mid;
-            break;
+        match item.cmp(&arr[mid]) {
+            Ordering::Less => right = mid,
+            Ordering::Equal => return Some(mid),
+            Ordering::Greater => left = mid + 1,
         }
     }
-
-    if &arr[left] == item {
-        Some(left)
-    } else {
-        None
-    }
+    None
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    // TODO: Fix this test; currently fails due to underflow
-    // #[test]
-    // fn empty() {
-    //     let index = binary_search(&"a", &vec![]);
-    //     assert_eq!(index, None);
-    // }
+    #[test]
+    fn empty() {
+        let index = binary_search(&"a", &vec![]);
+        assert_eq!(index, None);
+    }
+
+    #[test]
+    fn one_item() {
+        let index = binary_search(&"a", &vec!["a"]);
+        assert_eq!(index, Some(0));
+    }
 
     #[test]
     fn search_strings() {
