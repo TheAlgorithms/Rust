@@ -3,15 +3,15 @@ pub fn burrows_wheeler_transform(input: String) -> (String, usize) {
 
     let mut table = Vec::<String>::with_capacity(len);
     for i in 0..len {
-        table.push(String::from(input[i..].to_owned() + &input[..i]));
+        table.push(input[i..].to_owned() + &input[..i]);
     }
-    table.sort_by(|a, b| a.to_lowercase().cmp(&b.to_lowercase()));
+    table.sort_by_key(|a| a.to_lowercase());
 
     let mut encoded = String::new();
     let mut index: usize = 0;
-    for i in 0..len {
-        encoded.push(table[i].chars().last().unwrap());
-        if table[i].eq(&input) {
+    for (i, item) in table.iter().enumerate().take(len) {
+        encoded.push(item.chars().last().unwrap());
+        if item.eq(&input) {
             index = i;
         }
     }
