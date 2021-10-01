@@ -102,7 +102,7 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
 }
 
 #[cfg(not(test))]
-fn print_board(board: &Vec<i64>) {
+fn print_board(board: &[i64]) {
     for row in 0..board.len() {
         print!("{}\t", board[row as usize]);
 
