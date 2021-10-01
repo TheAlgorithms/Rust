@@ -1,20 +1,20 @@
 fn update_step(a: &mut i32, old_a: &mut i32, quotient: i32) {
-    let temp = a.clone();
+    let temp = *a;
     *a = *old_a - quotient * temp;
     *old_a = temp;
 }
 
 pub fn extended_euclidean_algorithm(a: i32, b: i32) -> (i32, i32, i32) {
-    let (mut old_r, mut r) = (a, b);
-    let (mut old_s, mut s) = (1, 0);
-    let (mut old_t, mut t) = (0, 1);
+    let (mut old_r, mut rem) = (a, b);
+    let (mut old_s, mut coeff_s) = (1, 0);
+    let (mut old_t, mut coeff_t) = (0, 1);
 
-    while r != 0 {
-        let quotient = old_r / r;
+    while rem != 0 {
+        let quotient = old_r / rem;
 
-        update_step(&mut r, &mut old_r, quotient);
-        update_step(&mut s, &mut old_s, quotient);
-        update_step(&mut t, &mut old_t, quotient);
+        update_step(&mut rem, &mut old_r, quotient);
+        update_step(&mut coeff_s, &mut old_s, quotient);
+        update_step(&mut coeff_t, &mut old_t, quotient);
     }
 
     (old_r, old_s, old_t)
