@@ -15,6 +15,18 @@ __Properties__
 
 
 
+### [Cocktail-Shaker](./cocktail_shaker_sort.rs)
+![alt text][shaker-image]
+
+From [Wikipedia][shaker-wiki]: Cocktail shaker sort, also known as bidirectional bubble sort, cocktail sort, shaker sort (which can also refer to a variant of selection sort), ripple sort, shuffle sort, or shuttle sort, is an extension of bubble sort. The algorithm extends bubble sort by operating in two directions. While it improves on bubble sort by more quickly moving items to the beginning of the list, it provides only marginal performance improvements.
+
+__Properties__
+* Worst case performance	O(n^2)
+* Best case performance	O(n)
+* Average case performance	O(n^2)
+
+
+
 ### [Counting](./counting_sort.rs)
 
 From [Wikipedia][counting-wiki]: In computer science, counting sort is an algorithm for sorting a collection of objects according to keys that are small integers; that is, it is an integer sorting algorithm. It operates by counting the number of objects that have each distinct key value, and using arithmetic on those counts to determine the positions of each key value in the output sequence. Its running time is linear in the number of items and the difference between the maximum and minimum key values, so it is only suitable for direct use in situations where the variation in keys is not significantly greater than the number of items. However, it is often used as a subroutine in another sorting algorithm, radix sort, that can handle larger keys more efficiently.
@@ -111,6 +123,9 @@ __Properties__
 [bubble-toptal]: https://www.toptal.com/developers/sorting-algorithms/bubble-sort
 [bubble-wiki]: https://en.wikipedia.org/wiki/Bubble_sort
 [bubble-image]: https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Bubblesort-edited-color.svg/220px-Bubblesort-edited-color.svg.png "Bubble Sort"
+
+[shaker-wiki]: https://en.wikipedia.org/wiki/Cocktail_shaker_sort
+[shaker-image]: https://upload.wikimedia.org/wikipedia/commons/e/ef/Sorting_shaker_sort_anim.gif
 
 [counting-wiki]: https://en.wikipedia.org/wiki/Counting_sort
 

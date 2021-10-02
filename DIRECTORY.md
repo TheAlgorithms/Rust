@@ -42,6 +42,7 @@
     * [Linear Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/linear_search.rs)
   * Sorting
     * [Bubble Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bubble_sort.rs)
+    * [Cocktail-Shaker Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/cocktail_shaker_sort.rs)
     * [Counting Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/counting_sort.rs)
     * [Heap Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/heap_sort.rs)
     * [Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion_sort.rs)
