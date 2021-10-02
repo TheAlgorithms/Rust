@@ -17,6 +17,7 @@ RESTART BUILD
 - [x] [Radix](./src/sorting/radix_sort.rs)
 - [x] [Selection](./src/sorting/selection_sort.rs)
 - [x] [Shell](./src/sorting/shell_sort.rs)
+- [x] [Stooge](./src/sorting/stooge_sort.rs)
 
 ## Graphs
 
