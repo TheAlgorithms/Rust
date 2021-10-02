@@ -1,4 +1,5 @@
 mod bubble_sort;
+mod cocktail_shaker_sort;
 mod counting_sort;
 mod heap_sort;
 mod insertion_sort;
@@ -7,8 +8,10 @@ mod quick_sort;
 mod radix_sort;
 mod selection_sort;
 mod shell_sort;
+mod stooge_sort;
 
 pub use self::bubble_sort::bubble_sort;
+pub use self::cocktail_shaker_sort::cocktail_shaker_sort;
 pub use self::counting_sort::counting_sort;
 pub use self::counting_sort::generic_counting_sort;
 pub use self::heap_sort::heap_sort;
@@ -18,6 +21,7 @@ pub use self::quick_sort::quick_sort;
 pub use self::radix_sort::radix_sort;
 pub use self::selection_sort::selection_sort;
 pub use self::shell_sort::shell_sort;
+pub use self::stooge_sort::stooge_sort;
 
 use std::cmp;
 
