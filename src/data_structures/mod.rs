@@ -4,8 +4,8 @@ mod binary_search_tree;
 mod graph;
 mod heap;
 mod linked_list;
-mod trie;
 mod queue;
+mod trie;
 
 pub use self::avl_tree::AVLTree;
 pub use self::b_tree::BTree;
@@ -14,5 +14,5 @@ pub use self::graph::DirectedGraph;
 pub use self::graph::UndirectedGraph;
 pub use self::heap::{Heap, MaxHeap, MinHeap};
 pub use self::linked_list::LinkedList;
-pub use self::trie::Trie;
 pub use self::queue::Queue;
+pub use self::trie::Trie;

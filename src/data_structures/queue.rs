@@ -1,11 +1,13 @@
 #[derive(Debug)]
 pub struct Queue<T> {
-    elements: Vec<T>
+    elements: Vec<T>,
 }
 
-impl<T> Queue<T> {
+impl<T: Clone> Queue<T> {
     pub fn new() -> Queue<T> {
-        Queue { elements: Vec::new() }
+        Queue {
+            elements: Vec::new(),
+        }
     }
 
     pub fn enqueue(&mut self, value: T) {
@@ -13,7 +15,7 @@ impl<T> Queue<T> {
     }
 
     pub fn dequeue(&mut self) -> Result<T, &str> {
-        if self.elements.len() > 0 {
+        if !self.elements.is_empty() {
             Ok(self.elements.remove(0usize))
         } else {
             Err("Queue is empty")
@@ -22,7 +24,7 @@ impl<T> Queue<T> {
 
     pub fn peek(&self) -> Result<&T, &str> {
         match self.elements.first() {
-            Some(value) => Ok(value.clone()),
+            Some(value) => Ok(value),
             None => Err("Queue is emptry"),
         }
     }
@@ -38,7 +40,9 @@ impl<T> Queue<T> {
 
 impl<T> Default for Queue<T> {
     fn default() -> Queue<T> {
-        Queue { elements: Vec::new() }
+        Queue {
+            elements: Vec::new(),
+        }
     }
 }
 
