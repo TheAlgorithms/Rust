@@ -8,6 +8,7 @@
     * [Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rot13.rs)
     * [Sha256](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/sha256.rs)
     * [Vigenere](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/vigenere.rs)
+    * [Xor](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/xor.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)

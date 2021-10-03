@@ -88,6 +88,7 @@ RESTART BUILD
 - [x] [Caesar](./src/ciphers/caesar.rs)
 - [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [Morse Code](./src/ciphers/morse_code.rs)
+- [x] [XOR](./src/ciphers/xor.rs)
 - Rot13
   - [x] [Rot13](./src/ciphers/rot13.rs)
   - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
