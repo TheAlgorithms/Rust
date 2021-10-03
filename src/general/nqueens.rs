@@ -17,7 +17,7 @@ fn main() {
         }
     }
 
-    if board_width == 0 || board_width < 2 {
+    if board_width < 4 {
         println!(
             "Running algorithm with 8 as a default. Specify an alternative Chess board size for \
              N-Queens as a command line argument.\n"
