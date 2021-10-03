@@ -9,6 +9,7 @@ RESTART BUILD
 ## [Sort Algorithms](./src/sorting)
 
 - [x] [Bubble](./src/sorting/bubble_sort.rs)
+- [x] [Cocktail-Shaker](./src/sorting/cocktail_shaker_sort.rs)
 - [x] [Counting](./src/sorting/counting_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
 - [x] [Insertion](./src/sorting/insertion_sort.rs)
@@ -17,6 +18,7 @@ RESTART BUILD
 - [x] [Radix](./src/sorting/radix_sort.rs)
 - [x] [Selection](./src/sorting/selection_sort.rs)
 - [x] [Shell](./src/sorting/shell_sort.rs)
+- [x] [Stooge](./src/sorting/stooge_sort.rs)
 
 ## Graphs
 
@@ -26,6 +28,9 @@ RESTART BUILD
 - [ ] BFS
 - [ ] DFS
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
+
+## Math
+- [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -55,6 +60,7 @@ RESTART BUILD
 
 ## [Strings](./src/string)
 
+- [x] [Burrows-Wheeler transform](./src/string/burrows_wheeler_transform.rs)
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
@@ -65,11 +71,13 @@ RESTART BUILD
 - [ ] N-Queensp
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
+- [x] [Kmeans](./src/general/kmeans.rs)
 
 ## [Search Algorithms](./src/searching)
 
 - [x] [Linear](./src/searching/linear_search.rs)
 - [x] [Binary](./src/searching/binary_search.rs)
+- [x] [Recursive Binary](./src/searching/binary_search_recursive.rs)
 
 ## [Geometry](./src/geometry)
 
@@ -80,6 +88,10 @@ RESTART BUILD
 - [x] [Caesar](./src/ciphers/caesar.rs)
 - [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [Morse Code](./src/ciphers/morse_code.rs)
+- [x] [XOR](./src/ciphers/xor.rs)
+- Rot13
+  - [x] [Rot13](./src/ciphers/rot13.rs)
+  - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
 - [ ] Transposition
 - [x] [SHA-2](./src/ciphers/sha256.rs)
 
