@@ -15,6 +15,10 @@ Though the cipher is easy to understand and implement, for three centuries it re
 Many people have tried to implement encryption schemes that are essentially Vigenère ciphers. Friedrich Kasiski was the first to publish a general method of deciphering a Vigenère cipher in 1863.
 ###### Source: [Wikipedia](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher)
 
+### [SHA-2](./sha256.rs)
+SHA-2 (Secure Hash Algorithm 2) is a set of cryptographic hash functions designed by the United States National Security Agency (NSA) and first published in 2001. They are built using the Merkle–Damgård structure, from a one-way compression function itself built using the Davies–Meyer structure from a (classified) specialized block cipher. 
+###### Source: [Wikipedia](https://en.wikipedia.org/wiki/SHA-2)
+
 ### Transposition _(Not implemented yet)_
 In cryptography, a **transposition cipher** is a method of encryption by which the positions held by units of plaintext (which are commonly characters or groups of characters) are shifted according to a regular system, so that the ciphertext constitutes a permutation of the plaintext. That is, the order of the units is changed (the plaintext is reordered).<br> 
 Mathematically a bijective function is used on the characters' positions to encrypt and an inverse function to decrypt.
