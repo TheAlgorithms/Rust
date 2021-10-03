@@ -71,11 +71,13 @@ RESTART BUILD
 - [ ] N-Queensp
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
+- [x] [Kmeans](./src/general/kmeans.rs)
 
 ## [Search Algorithms](./src/searching)
 
 - [x] [Linear](./src/searching/linear_search.rs)
 - [x] [Binary](./src/searching/binary_search.rs)
+- [x] [Recursive Binary](./src/searching/binary_search_recursive.rs)
 
 ## [Geometry](./src/geometry)
 
@@ -86,6 +88,9 @@ RESTART BUILD
 - [x] [Caesar](./src/ciphers/caesar.rs)
 - [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [Morse Code](./src/ciphers/morse_code.rs)
+- Rot13
+  - [x] [Rot13](./src/ciphers/rot13.rs)
+  - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
 - [ ] Transposition
 - [x] [SHA-2](./src/ciphers/sha256.rs)
 
