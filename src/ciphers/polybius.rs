@@ -46,10 +46,7 @@ pub fn decode_ascii(string: &str) -> String {
         .as_bytes()
         .chunks(2)
         .map(|s| match std::str::from_utf8(s) {
-            Ok(v) => match v.parse::<i32>() {
-                Ok(x) => x,
-                Err(_) => 0,
-            },
+            Ok(v) => v.parse::<i32>().unwrap_or(0),
             Err(_) => 0,
         })
         .map(|i| match i {
