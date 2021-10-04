@@ -16,6 +16,7 @@
     * [Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/graph.rs)
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
+    * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
     * [Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/trie.rs)
   * Dynamic Programming
     * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
@@ -51,6 +52,7 @@
     * [Heap Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/heap_sort.rs)
     * [Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion_sort.rs)
     * [Merge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort.rs)
+    * [Odd Even Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/odd_even_sort.rs)
     * [Quick Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/quick_sort.rs)
     * [Radix Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/radix_sort.rs)
     * [Selection Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/selection_sort.rs)

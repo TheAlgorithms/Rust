@@ -66,6 +66,18 @@ __Properties__
 
 ###### View the algorithm in [action][merge-toptal]
 
+### [Odd-even](./odd_even_sort.rs)
+![alt text][odd-even-image]
+
+From [Wikipedia][odd-even-wiki]: In computing, an odd–even sort or odd–even transposition sort (also known as brick sort or parity sort) is a relatively simple sorting algorithm, developed originally for use on parallel processors with local interconnections. It is a comparison sort related to bubble sort, with which it shares many characteristics. It functions by comparing all odd/even indexed pairs of adjacent elements in the list and, if a pair is in the wrong order (the first is larger than the second) the elements are switched. The next step repeats this for even/odd indexed pairs (of adjacent elements). Then it alternates between odd/even and even/odd steps until the list is sorted. 
+
+NOTE: The implementation is an adaptation of the algorithm for a single-processor machine, while the original algorithm was devised to be executed on many processors simultaneously.
+__Properties__
+* Worst case performance	O(n^2)
+* Best case performance	O(n)
+* Average case performance	O(n^2)
+
+
 ### [Quick](./quick_sort.rs)
 ![alt text][quick-image]
 
@@ -140,6 +152,9 @@ __Properties__
 [merge-toptal]: https://www.toptal.com/developers/sorting-algorithms/merge-sort
 [merge-wiki]: https://en.wikipedia.org/wiki/Merge_sort
 [merge-image]: https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif "Merge Sort"
+
+[odd-even-image]: https://upload.wikimedia.org/wikipedia/commons/1/1b/Odd_even_sort_animation.gif
+[odd-even-wiki]: https://en.wikipedia.org/wiki/Odd%E2%80%93even_sort
 
 [radix-wiki]: https://en.wikipedia.org/wiki/Radix_sort
 [radix-image]: https://ds055uzetaobb.cloudfront.net/brioche/uploads/IEZs8xJML3-radixsort_ed.png?width=400 "Radix Sort"
