@@ -15,9 +15,21 @@ __Properties__
 
 
 
+### [Cocktail-Shaker](./cocktail_shaker_sort.rs)
+![alt text][shaker-image]
+
+From [Wikipedia][shaker-wiki]: Cocktail shaker sort, also known as bidirectional bubble sort, cocktail sort, shaker sort (which can also refer to a variant of selection sort), ripple sort, shuffle sort, or shuttle sort, is an extension of bubble sort. The algorithm extends bubble sort by operating in two directions. While it improves on bubble sort by more quickly moving items to the beginning of the list, it provides only marginal performance improvements.
+
+__Properties__
+* Worst case performance	O(n^2)
+* Best case performance	O(n)
+* Average case performance	O(n^2)
+
+
+
 ### [Counting](./counting_sort.rs)
 
-From [Wikipedia][selection-wiki]: In computer science, counting sort is an algorithm for sorting a collection of objects according to keys that are small integers; that is, it is an integer sorting algorithm. It operates by counting the number of objects that have each distinct key value, and using arithmetic on those counts to determine the positions of each key value in the output sequence. Its running time is linear in the number of items and the difference between the maximum and minimum key values, so it is only suitable for direct use in situations where the variation in keys is not significantly greater than the number of items. However, it is often used as a subroutine in another sorting algorithm, radix sort, that can handle larger keys more efficiently.
+From [Wikipedia][counting-wiki]: In computer science, counting sort is an algorithm for sorting a collection of objects according to keys that are small integers; that is, it is an integer sorting algorithm. It operates by counting the number of objects that have each distinct key value, and using arithmetic on those counts to determine the positions of each key value in the output sequence. Its running time is linear in the number of items and the difference between the maximum and minimum key values, so it is only suitable for direct use in situations where the variation in keys is not significantly greater than the number of items. However, it is often used as a subroutine in another sorting algorithm, radix sort, that can handle larger keys more efficiently.
 
 __Properties__
 * Worst case performance	O(n+k)
@@ -54,6 +66,18 @@ __Properties__
 
 ###### View the algorithm in [action][merge-toptal]
 
+### [Odd-even](./odd_even_sort.rs)
+![alt text][odd-even-image]
+
+From [Wikipedia][odd-even-wiki]: In computing, an odd–even sort or odd–even transposition sort (also known as brick sort or parity sort) is a relatively simple sorting algorithm, developed originally for use on parallel processors with local interconnections. It is a comparison sort related to bubble sort, with which it shares many characteristics. It functions by comparing all odd/even indexed pairs of adjacent elements in the list and, if a pair is in the wrong order (the first is larger than the second) the elements are switched. The next step repeats this for even/odd indexed pairs (of adjacent elements). Then it alternates between odd/even and even/odd steps until the list is sorted. 
+
+NOTE: The implementation is an adaptation of the algorithm for a single-processor machine, while the original algorithm was devised to be executed on many processors simultaneously.
+__Properties__
+* Worst case performance	O(n^2)
+* Best case performance	O(n)
+* Average case performance	O(n^2)
+
+
 ### [Quick](./quick_sort.rs)
 ![alt text][quick-image]
 
@@ -65,6 +89,16 @@ __Properties__
 * Average case performance	O(n log n)
 
 ###### View the algorithm in [action][quick-toptal]
+
+### [Radix](./radix_sort.rs)
+![alt text][radix-image]
+
+From [Wikipedia][radix-wiki]: Radix sort is a non-comparative sorting algorithm. It avoids comparison by creating and distributing elements into buckets according to their radix. For elements with more than one significant digit, this bucketing process is repeated for each digit, while preserving the ordering of the prior step, until all digits have been considered.
+
+__Properties__
+* Worst case performance O(w*n)
+
+where w is the number of bits required to store each key.
 
 ### [Selection](./selection_sort.rs)
 ![alt text][selection-image]
@@ -90,9 +124,20 @@ __Properties__
 
 ###### View the algorithm in [action][shell-toptal]
 
+### [Stooge](./stooge_sort.rs)
+![alt text][stooge-image]
+
+From [Wikipedia][stooge-wiki]:  Stooge sort is a recursive sorting algorithm. It is notable for its exceptionally bad time complexity of O(n^(log 3 / log 1.5)) = O(n^2.7095...). The running time of the algorithm is thus slower compared to reasonable sorting algorithms, and is slower than Bubble sort, a canonical example of a fairly inefficient sort. It is however more efficient than Slowsort. The name comes from The Three Stooges.
+
+__Properties__
+* Worst case performance O(n^(log(3) / log(1.5)))
+
 [bubble-toptal]: https://www.toptal.com/developers/sorting-algorithms/bubble-sort
 [bubble-wiki]: https://en.wikipedia.org/wiki/Bubble_sort
 [bubble-image]: https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Bubblesort-edited-color.svg/220px-Bubblesort-edited-color.svg.png "Bubble Sort"
+
+[shaker-wiki]: https://en.wikipedia.org/wiki/Cocktail_shaker_sort
+[shaker-image]: https://upload.wikimedia.org/wikipedia/commons/e/ef/Sorting_shaker_sort_anim.gif
 
 [counting-wiki]: https://en.wikipedia.org/wiki/Counting_sort
 
@@ -108,6 +153,12 @@ __Properties__
 [merge-wiki]: https://en.wikipedia.org/wiki/Merge_sort
 [merge-image]: https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif "Merge Sort"
 
+[odd-even-image]: https://upload.wikimedia.org/wikipedia/commons/1/1b/Odd_even_sort_animation.gif
+[odd-even-wiki]: https://en.wikipedia.org/wiki/Odd%E2%80%93even_sort
+
+[radix-wiki]: https://en.wikipedia.org/wiki/Radix_sort
+[radix-image]: https://ds055uzetaobb.cloudfront.net/brioche/uploads/IEZs8xJML3-radixsort_ed.png?width=400 "Radix Sort"
+
 [selection-toptal]: https://www.toptal.com/developers/sorting-algorithms/selection-sort
 [selection-wiki]: https://en.wikipedia.org/wiki/Selection_sort
 [selection-image]: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Selection_sort_animation.gif/250px-Selection_sort_animation.gif "Selection Sort Sort"
@@ -115,3 +166,6 @@ __Properties__
 [shell-toptal]: https://www.toptal.com/developers/sorting-algorithms/shell-sort
 [shell-wiki]: https://en.wikipedia.org/wiki/Shellsort
 [shell-image]: https://upload.wikimedia.org/wikipedia/commons/d/d8/Sorting_shellsort_anim.gif "Shell Sort"
+
+[stooge-image]: https://upload.wikimedia.org/wikipedia/commons/f/f8/Sorting_stoogesort_anim.gif
+[stooge-wiki]: https://en.wikipedia.org/wiki/Stooge_sort
