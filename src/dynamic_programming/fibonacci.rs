@@ -82,9 +82,9 @@ fn _logarithmic_fibonacci(n: u32) -> (u128, u128) {
     match n {
         0 => (0, 1),
         _ => {
-            let (a, b) = _logarithmic_fibonacci(n / 2);
-            let c = a * (b * 2 - a);
-            let d = a * a + b * b;
+            let (current, next) = _logarithmic_fibonacci(n / 2);
+            let c = current * (next * 2 - current);
+            let d = current * current + next * next;
 
             match n % 2 {
                 0 => (c, d),
