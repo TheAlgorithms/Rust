@@ -64,7 +64,7 @@ impl From<u32> for Vertex {
 
 impl Vertex {
     pub fn value(&self) -> u32 {
-        return self.0.into();
+        self.0
     }
 
     pub fn neighbors(&self, graph: &Graph) -> VecDeque<Vertex> {
