@@ -35,7 +35,7 @@ pub fn depth_first_search(graph: &Graph, root: Vertex, objective: Vertex) -> Opt
 
     // If all vertex is visited and the objective is not found
     // return a Optional with None value
-    return None;
+    None
 }
 
 // Data Structures
@@ -64,7 +64,7 @@ impl From<u32> for Vertex {
 
 impl Vertex {
     pub fn value(&self) -> u32 {
-        return self.0;
+        return self.0.into();
     }
 
     pub fn neighbors(&self, graph: &Graph) -> VecDeque<Vertex> {
