@@ -4,6 +4,7 @@ pub mod dynamic_programming;
 pub mod general;
 pub mod graph;
 pub mod math;
+pub mod project_euler;
 pub mod searching;
 pub mod sorting;
 pub mod string;
