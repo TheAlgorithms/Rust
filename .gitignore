@@ -6,3 +6,4 @@
 **/*.rs.bk
 Cargo.lock
 /.idea/
+.vscode

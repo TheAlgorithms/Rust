@@ -105,15 +105,13 @@ where
     type Item = T;
 
     fn next(&mut self) -> Option<T> {
-        let next = if self.count == 0 {
-            None
-        } else {
-            // This feels like a function built for heap impl :)
-            // Removes an item at an index and fills in with the last item
-            // of the Vec
-            let next = self.items.swap_remove(1);
-            Some(next)
-        };
+        if self.count == 0 {
+            return None;
+        }
+        // This feels like a function built for heap impl :)
+        // Removes an item at an index and fills in with the last item
+        // of the Vec
+        let next = Some(self.items.swap_remove(1));
         self.count -= 1;
 
         if self.count > 0 {
@@ -159,6 +157,11 @@ impl MaxHeap {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn test_empty_heap() {
+        let mut heap = MaxHeap::new::<i32>();
+        assert_eq!(heap.next(), None);
+    }
 
     #[test]
     fn test_min_heap() {
