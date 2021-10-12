@@ -6,6 +6,7 @@ mod knapsack;
 mod longest_common_subsequence;
 mod longest_continuous_increasing_subsequence;
 mod maximum_subarray;
+mod rod_cutting;
 
 pub use self::coin_change::coin_change;
 pub use self::edit_distance::{edit_distance, edit_distance_se};
@@ -16,3 +17,4 @@ pub use self::knapsack::knapsack;
 pub use self::longest_common_subsequence::longest_common_subsequence;
 pub use self::longest_continuous_increasing_subsequence::longest_continuous_increasing_subsequence;
 pub use self::maximum_subarray::maximum_subarray;
+pub use self::rod_cutting::rod_cut;
