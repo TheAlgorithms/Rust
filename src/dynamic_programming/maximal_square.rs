@@ -11,7 +11,7 @@ use std::cmp::min;
 ///     - time complexity: O(n^2),
 ///     - space complexity: O(n),
 pub fn maximal_square(matrix: &mut Vec<Vec<i32>>) -> i32 {
-    if matrix.len() == 0 {
+    if matrix.is_empty() {
         return 0;
     }
 
@@ -25,14 +25,11 @@ pub fn maximal_square(matrix: &mut Vec<Vec<i32>>) -> i32 {
                 if row == 0 || col == 0 {
                     result = max(result, 1);
                 } else {
-                    let temp = min(
-                        matrix[row - 1][col - 1],
-                        matrix[row - 1][col]
-                    );
+                    let temp = min(matrix[row - 1][col - 1], matrix[row - 1][col]);
 
                     let count: i32 = min(temp, matrix[row][col - 1]) + 1;
                     result = max(result, count);
-                    
+
                     matrix[row][col] = count;
                 }
             }
@@ -50,10 +47,15 @@ mod tests {
     fn test() {
         assert_eq!(maximal_square(&mut vec![]), 0);
 
-        let mut matrix = vec![vec![0,1], vec![1,0]];
+        let mut matrix = vec![vec![0, 1], vec![1, 0]];
         assert_eq!(maximal_square(&mut matrix), 1);
 
-        let mut matrix = vec![vec![1,0,1,0,0],vec![1,0,1,1,1],vec![1,1,1,1,1],vec![1,0,0,1,0]];
+        let mut matrix = vec![
+            vec![1, 0, 1, 0, 0],
+            vec![1, 0, 1, 1, 1],
+            vec![1, 1, 1, 1, 1],
+            vec![1, 0, 0, 1, 0],
+        ];
         assert_eq!(maximal_square(&mut matrix), 4);
 
         let mut matrix = vec![vec![0]];
