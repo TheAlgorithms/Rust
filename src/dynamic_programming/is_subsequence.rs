@@ -18,11 +18,7 @@ pub fn is_subsequence(str1: String, str2: String) -> bool {
         it2 += 1;
     }
 
-    if it1 == str1.len() {
-        true
-    } else {
-        false
-    }
+    it1 == str1.len()
 }
 
 #[cfg(test)]
