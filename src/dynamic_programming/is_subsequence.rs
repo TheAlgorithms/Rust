@@ -1,26 +1,28 @@
-// Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+// Given two strings str1 and str2, return true if s is a subsequence of t, or false otherwise.
 // A subsequence of a string is a new string that is formed from the original string
 // by deleting some (can be none) of the characters without disturbing the relative
 // positions of the remaining characters.
 // (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
-pub fn is_subsequence(s: String, t: String) -> bool {
-    let m = s.len();
-    let n = t.len();
-    let mut i = 0;
-    let mut j = 0;
+pub fn is_subsequence(str1: String, str2: String) -> bool {
+    let mut it1 = 0;
+    let mut it2 = 0;
 
-    let s = s.as_bytes();
-    let t = t.as_bytes();
+    let byte1 = str1.as_bytes();
+    let byte2 = str2.as_bytes();
 
-    while i < m && j < n {
-        if s[i] == t[j] {
-            i += 1;
+    while it1 < str1.len() && it2 < str2.len() {
+        if byte1[it1] == byte2[it2] {
+            it1 += 1;
         }
 
-        j += 1;
+        it2 += 1;
     }
 
-    if i == m { true } else { false }
+    if it1 == str1.len() {
+        true
+    } else {
+        false
+    }
 }
 
 #[cfg(test)]
@@ -29,7 +31,13 @@ mod tests {
 
     #[test]
     fn test() {
-        assert_eq!(is_subsequence(String::from("abc"), String::from("ahbgdc")), true);
-        assert_eq!(is_subsequence(String::from("axc"), String::from("ahbgdc")), false);
+        assert_eq!(
+            is_subsequence(String::from("abc"), String::from("ahbgdc")),
+            true
+        );
+        assert_eq!(
+            is_subsequence(String::from("axc"), String::from("ahbgdc")),
+            false
+        );
     }
 }
