@@ -25,7 +25,7 @@ RESTART BUILD
 ## Graphs
 
 - [x] [Dijkstra](./src/graph/dijkstra.rs)
-- [ ] Kruskal's Minimum Spanning Tree
+- [x] [Kruskal's Minimum Spanning Tree](./src/graph/minimum_spanning_tree.rs)
 - [x] [Prim's Minimum Spanning Tree](./src/graph/prim.rs)
 - [ ] BFS
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
@@ -43,7 +43,7 @@ RESTART BUILD
 - [ ] Longest increasing subsequence
 - [x] [K-Means Clustering](./src/general/kmeans.rs)
 - [x] [Coin Change](./src/dynamic_programming/coin_change.rs)
-- [ ] Rod cut
+- [x] [Rod Cutting](./src/dynamic_programming/rod_cutting.rs)
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 - [x] [Maximum Subarray](./src/dynamic_programming/maximum_subarray.rs)
 
