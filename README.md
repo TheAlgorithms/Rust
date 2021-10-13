@@ -28,7 +28,7 @@ RESTART BUILD
 - [x] [Kruskal's Minimum Spanning Tree](./src/graph/minimum_spanning_tree.rs)
 - [x] [Prim's Minimum Spanning Tree](./src/graph/prim.rs)
 - [ ] BFS
-- [ ] DFS
+- [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 
 ## Math
