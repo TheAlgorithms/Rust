@@ -75,6 +75,8 @@ RESTART BUILD
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
+- [x] [Kmeans](./src/general/kmeans.rs)
+- [x] [Two Sum](./src/general/two_sum.rs)
 
 ## [Search Algorithms](./src/searching)
 
