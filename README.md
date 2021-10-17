@@ -40,7 +40,7 @@ RESTART BUILD
 - [x] [Edit Distance](./src/dynamic_programming/edit_distance.rs)
 - [x] [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
 - [x] [Longest continuous increasing subsequence](./src/dynamic_programming/longest_continuous_increasing_subsequence.rs)
-- [ ] Longest increasing subsequence
+- [x] [Longest increasing subsequence](./src/dynamic_programming/longest_increasing_subsequence.rs)
 - [x] [K-Means Clustering](./src/general/kmeans.rs)
 - [x] [Coin Change](./src/dynamic_programming/coin_change.rs)
 - [x] [Rod Cutting](./src/dynamic_programming/rod_cutting.rs)
@@ -53,9 +53,9 @@ RESTART BUILD
 - [x] [Queue](./src/data_stuctures/queue.rs)
 - [x] [Heap](./src/data_structures/heap.rs)
 - [x] [Linked List](./src/data_structures/linked_list.rs)
-- Graph
-  - [ ] Directed
-  - [ ] Undirected
+- [x] [Graph](./src/data_structures/graph.rs)
+  - [x] [Directed](./src/data_structures/graph.rs)
+  - [x] [Undirected](./src/data_structures/graph.rs)
 - [x] [Trie](./src/data_structures/trie.rs)
 - [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
@@ -76,6 +76,7 @@ RESTART BUILD
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
+- [x] [Two Sum](./src/general/two_sum.rs)
 
 ## [Search Algorithms](./src/searching)
 
