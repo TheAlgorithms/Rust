@@ -33,6 +33,7 @@ RESTART BUILD
 
 ## Math
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
+- [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -46,7 +47,6 @@ RESTART BUILD
 - [x] [Rod Cutting](./src/dynamic_programming/rod_cutting.rs)
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 - [x] [Maximum Subarray](./src/dynamic_programming/maximum_subarray.rs)
-- [x] Pascal's triangle
 
 ## [Data Structures](./src/data_structures)
 
