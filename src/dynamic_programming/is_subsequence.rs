@@ -1,4 +1,4 @@
-// Given two strings str1 and str2, return true if s is a subsequence of t, or false otherwise.
+// Given two strings str1 and str2, return true if str1 is a subsequence of str2, or false otherwise.
 // A subsequence of a string is a new string that is formed from the original string
 // by deleting some (can be none) of the characters without disturbing the relative
 // positions of the remaining characters.
