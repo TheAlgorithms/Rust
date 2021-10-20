@@ -33,6 +33,7 @@ RESTART BUILD
 
 ## Math
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
+- [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -46,15 +47,16 @@ RESTART BUILD
 - [x] [Rod Cutting](./src/dynamic_programming/rod_cutting.rs)
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 - [x] [Maximum Subarray](./src/dynamic_programming/maximum_subarray.rs)
+- [x] [Is Subsequence](./src/dynamic_programming/is_subsequence.rs)
 
 ## [Data Structures](./src/data_structures)
 
 - [x] [Queue](./src/data_stuctures/queue.rs)
 - [x] [Heap](./src/data_structures/heap.rs)
 - [x] [Linked List](./src/data_structures/linked_list.rs)
-- Graph
-  - [ ] Directed
-  - [ ] Undirected
+- [x] [Graph](./src/data_structures/graph.rs)
+  - [x] [Directed](./src/data_structures/graph.rs)
+  - [x] [Undirected](./src/data_structures/graph.rs)
 - [x] [Trie](./src/data_structures/trie.rs)
 - [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
@@ -75,6 +77,7 @@ RESTART BUILD
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
+- [x] [Two Sum](./src/general/two_sum.rs)
 
 ## [Search Algorithms](./src/searching)
 
