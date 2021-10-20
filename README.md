@@ -48,6 +48,8 @@ RESTART BUILD
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 - [x] [Maximum Subarray](./src/dynamic_programming/maximum_subarray.rs)
 - [x] [Maximal Square](./src/dynamic_programming/maximal_square.rs)
+- [x] [Is Subsequence](./src/dynamic_programming/is_subsequence.rs)
+
 
 ## [Data Structures](./src/data_structures)
 
