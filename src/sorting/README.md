@@ -53,6 +53,18 @@ __Properties__
 ###### View the algorithm in [action][insertion-toptal]
 
 
+### [Gnome](./gnome_sort.rs)
+![alt text][gnome-image]
+
+From [Wikipedia][gnome-wiki]: The gnome sort is a sorting algorithm which is similar to insertion sort in that it works with one item at a time but gets the item to the proper place by a series of swaps, similar to a bubble sort. It is conceptually simple, requiring no nested loops. The average running time is O(n^2) but tends towards O(n) if the list is initially almost sorted
+
+__Properties__
+* Worst case performance	O(n^2)
+* Best case performance	O(n)
+* Average case performance	O(n^2)
+
+
+
 ### [Merge](./merge_sort.rs)
 ![alt text][merge-image]
 
@@ -144,6 +156,9 @@ __Properties__
 [insertion-toptal]: https://www.toptal.com/developers/sorting-algorithms/insertion-sort
 [insertion-wiki]: https://en.wikipedia.org/wiki/Insertion_sort
 [insertion-image]: https://upload.wikimedia.org/wikipedia/commons/7/7e/Insertionsort-edited.png "Insertion Sort"
+
+[gnome-wiki]: https://en.wikipedia.org/wiki/Gnome_sort
+[gnome-image]: https://upload.wikimedia.org/wikipedia/commons/3/37/Sorting_gnomesort_anim.gif "Insertion Sort"
 
 [quick-toptal]: https://www.toptal.com/developers/sorting-algorithms/quick-sort
 [quick-wiki]: https://en.wikipedia.org/wiki/Quicksort

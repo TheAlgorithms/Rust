@@ -13,6 +13,7 @@ RESTART BUILD
 - [x] [Counting](./src/sorting/counting_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
 - [x] [Insertion](./src/sorting/insertion_sort.rs)
+- [x] [Gnome](./src/sorting/gnome_sort.rs)
 - [x] [Merge](./src/sorting/merge_sort.rs)
 - [x] [Odd-even](./src/sorting/odd_even_sort.rs)
 - [x] [Quick](./src/sorting/quick_sort.rs)
