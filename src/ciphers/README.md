@@ -8,6 +8,21 @@ The method is named after **Julius Caesar**, who used it in his private correspo
 The encryption step performed by a Caesar cipher is often incorporated as part of more complex schemes, such as the Vigenère cipher, and still has modern application in the ROT13 system. As with all single-alphabet substitution ciphers, the Caesar cipher is easily broken and in modern practice offers essentially no communication security.
 ###### Source: [Wikipedia](https://en.wikipedia.org/wiki/Caesar_cipher)
 
+### [Polybius](./polybius.rs)
+The **Polybius square**, also known as the Polybius checkerboard, is a device invented by the ancient Greeks Cleoxenus and Democleitus, and made famous by the historian and scholar Polybius.<br>
+The device is used for fractionating plaintext characters so that they can be represented by a smaller set of symbols, which is useful for telegraphy, steganography, and cryptography.<br>
+The **Polybius square** is also used as a basic cipher called the Polybius cipher. This cipher is a **substitution cipher** with characters being substituted for pairs of digits.
+
+#### Example cipher
+ Δ | 1 | 2 | 3 |  4  | 5
+---|---|---|---| --- |---
+1  | a | b | c |  d  | e
+2  | f | g | h | i/j | k
+3  | l | m | n |  o  | p
+4  | q | r | s |  t  | u
+5  | v | w | x |  y  | z
+###### Source: [Wikipedia](https://en.wikipedia.org/wiki/Polybius_square)
+
 ### [Vigenère](./vigenere.rs)
 The **Vigenère cipher** is a method of encrypting alphabetic text by using a series of **interwoven Caesar ciphers** based on the letters of a keyword. It is **a form of polyalphabetic substitution**.<br>
 The Vigenère cipher has been reinvented many times. The method was originally described by Giovan Battista Bellaso in his 1553 book La cifra del. Sig. Giovan Battista Bellaso; however, the scheme was later misattributed to Blaise de Vigenère in the 19th century, and is now widely known as the "Vigenère cipher".<br>
