@@ -14,14 +14,14 @@ where
             j = i + 1;
         } else {
             arr.swap(i - 1, i);
-            i = i - 1;
+            i -= 1;
             if i == 0 {
                 i = j;
-                j = j + 1;
+                j += 1;
             }
         }
     }
-    return arr;
+    arr
 }
 
 #[cfg(test)]
