@@ -20,18 +20,20 @@ RESTART BUILD
 - [x] [Selection](./src/sorting/selection_sort.rs)
 - [x] [Shell](./src/sorting/shell_sort.rs)
 - [x] [Stooge](./src/sorting/stooge_sort.rs)
+- [x] [Comb](./src/sorting/comb_sort.rs)
 
 ## Graphs
 
 - [x] [Dijkstra](./src/graph/dijkstra.rs)
-- [ ] Kruskal's Minimum Spanning Tree
+- [x] [Kruskal's Minimum Spanning Tree](./src/graph/minimum_spanning_tree.rs)
 - [x] [Prim's Minimum Spanning Tree](./src/graph/prim.rs)
-- [ ] BFS
-- [ ] DFS
+- [x] [Breadth-First Search (BFS)](./src/graph/breadth_first_search.rs)
+- [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 
 ## Math
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
+- [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -39,21 +41,23 @@ RESTART BUILD
 - [x] [Edit Distance](./src/dynamic_programming/edit_distance.rs)
 - [x] [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
 - [x] [Longest continuous increasing subsequence](./src/dynamic_programming/longest_continuous_increasing_subsequence.rs)
-- [ ] Longest increasing subsequence
+- [x] [Longest increasing subsequence](./src/dynamic_programming/longest_increasing_subsequence.rs)
 - [x] [K-Means Clustering](./src/general/kmeans.rs)
 - [x] [Coin Change](./src/dynamic_programming/coin_change.rs)
-- [ ] Rod cut
+- [x] [Rod Cutting](./src/dynamic_programming/rod_cutting.rs)
 - [x] [Egg Dropping Puzzle](./src/dynamic_programming/egg_dropping.rs)
 - [x] [Maximum Subarray](./src/dynamic_programming/maximum_subarray.rs)
+- [x] [Is Subsequence](./src/dynamic_programming/is_subsequence.rs)
+- [x] [Maximal Square](./src/dynamic_programming/maximal_square.rs)
 
 ## [Data Structures](./src/data_structures)
 
 - [x] [Queue](./src/data_stuctures/queue.rs)
 - [x] [Heap](./src/data_structures/heap.rs)
 - [x] [Linked List](./src/data_structures/linked_list.rs)
-- Graph
-  - [ ] Directed
-  - [ ] Undirected
+- [x] [Graph](./src/data_structures/graph.rs)
+  - [x] [Directed](./src/data_structures/graph.rs)
+  - [x] [Undirected](./src/data_structures/graph.rs)
 - [x] [Trie](./src/data_structures/trie.rs)
 - [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
@@ -74,6 +78,7 @@ RESTART BUILD
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
+- [x] [Two Sum](./src/general/two_sum.rs)
 
 ## [Search Algorithms](./src/searching)
 
