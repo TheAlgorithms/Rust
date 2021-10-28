@@ -52,7 +52,7 @@ RESTART BUILD
 
 ## [Data Structures](./src/data_structures)
 
-- [x] [Queue](./src/data_stuctures/queue.rs)
+- [x] [Queue](./src/data_structures/queue.rs)
 - [x] [Heap](./src/data_structures/heap.rs)
 - [x] [Linked List](./src/data_structures/linked_list.rs)
 - [x] [Graph](./src/data_structures/graph.rs)
