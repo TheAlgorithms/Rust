@@ -34,7 +34,7 @@ where
         }
     }
 
-    /// Find a value in this tree. Returns True iff value is in this
+    /// Find a value in this tree. Returns True if value is in this
     /// tree, and false otherwise
     pub fn search(&self, value: &T) -> bool {
         match &self.value {
@@ -69,7 +69,7 @@ where
         BinarySearchTreeIter::new(self)
     }
 
-    /// Insert a value into the appropriate location in this tree.
+    /// Insert a value into the appropriate location in this tree
     pub fn insert(&mut self, value: T) {
         if self.value.is_none() {
             self.value = Some(value);
