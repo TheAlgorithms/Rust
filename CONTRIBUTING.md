@@ -43,8 +43,9 @@ mod tests {
 
 Do **not** use acronyms: `DFS` should be `depth_first_search`.
 
-Make sure you ran
+Make sure you run
   * `cargo test` 
   * `cargo fmt`
-  
+  * `cargo clippy`
+
   And that's about it !
