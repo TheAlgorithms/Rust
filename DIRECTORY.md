@@ -51,6 +51,10 @@
   * Math
     * [Extended Euclidean Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/extended_euclidean_algorithm.rs)
     * [Pascal Triangle](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pascal_triangle.rs)
+    * [Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_numbers.rs)
+    * [Prime Check](https://github.com/TheAlgorithms/Rust/blob/master/src/math/prime_check.rs)
+    * [Prime Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/prime_numbers.rs)
+    * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
@@ -60,6 +64,7 @@
     * [Cocktail Shaker Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/cocktail_shaker_sort.rs)
     * [Comb Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/comb_sort.rs)
     * [Counting Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/counting_sort.rs)
+    * [Gnome Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/gnome_sort.rs)
     * [Heap Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/heap_sort.rs)
     * [Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion_sort.rs)
     * [Merge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort.rs)

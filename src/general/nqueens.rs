@@ -2,7 +2,6 @@
 use std::env::args;
 
 #[allow(dead_code)]
-#[cfg(not(test))]
 fn main() {
     let mut board_width = 0;
 
@@ -73,20 +72,16 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
                 }
 
                 //Run in while's condition evaluation to create a "do while"
-                while {
-                    if board_rows[current_row] == board_width {
-                        board_rows[current_row] = 0;
+                while board_rows[current_row] == board_width {
+                    board_rows[current_row] = 0;
 
-                        if current_row == 0 {
-                            return Err("No solution exists for specificed board size.");
-                        }
-
-                        current_row -= 1;
-                        board_rows[current_row] += 1;
+                    if current_row == 0 {
+                        return Err("No solution exists for specificed board size.");
                     }
 
-                    board_rows[current_row] == board_width
-                } {}
+                    current_row -= 1;
+                    board_rows[current_row] += 1;
+                }
             }
             (_, _) => {
                 current_row += 1;
@@ -101,7 +96,6 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
     Ok(board_rows)
 }
 
-#[cfg(not(test))]
 fn print_board(board: &[i64]) {
     for row in 0..board.len() {
         print!("{}\t", board[row as usize]);
@@ -119,7 +113,7 @@ fn print_board(board: &[i64]) {
 
 #[cfg(test)]
 mod test {
-    use self::super::*;
+    use super::*;
 
     fn check_board(board: &Vec<i64>) -> bool {
         for current_row in 0..board.len() {

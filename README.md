@@ -13,6 +13,7 @@ RESTART BUILD
 - [x] [Counting](./src/sorting/counting_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
 - [x] [Insertion](./src/sorting/insertion_sort.rs)
+- [x] [Gnome](./src/sorting/gnome_sort.rs)
 - [x] [Merge](./src/sorting/merge_sort.rs)
 - [x] [Odd-even](./src/sorting/odd_even_sort.rs)
 - [x] [Quick](./src/sorting/quick_sort.rs)
@@ -52,7 +53,7 @@ RESTART BUILD
 
 ## [Data Structures](./src/data_structures)
 
-- [x] [Queue](./src/data_stuctures/queue.rs)
+- [x] [Queue](./src/data_structures/queue.rs)
 - [x] [Heap](./src/data_structures/heap.rs)
 - [x] [Linked List](./src/data_structures/linked_list.rs)
 - [x] [Graph](./src/data_structures/graph.rs)
