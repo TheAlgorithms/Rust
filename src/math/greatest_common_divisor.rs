@@ -65,6 +65,7 @@ mod tests {
     #[test]
     fn mix_recursive() {
         assert_eq!(greatest_common_divisor_recursive(0, -5), 5);
+        assert_eq!(greatest_common_divisor_recursive(-5, 0), 5);
         assert_eq!(greatest_common_divisor_recursive(-64, 32), 32);
         assert_eq!(greatest_common_divisor_recursive(-32, 64), 32);
         assert_eq!(greatest_common_divisor_recursive(-40, 40), 40);
@@ -74,6 +75,7 @@ mod tests {
     #[test]
     fn mix_iterative() {
         assert_eq!(greatest_common_divisor_iterative(0, -5), 5);
+        assert_eq!(greatest_common_divisor_iterative(-5, 0), 5);
         assert_eq!(greatest_common_divisor_iterative(-64, 32), 32);
         assert_eq!(greatest_common_divisor_iterative(-32, 64), 32);
         assert_eq!(greatest_common_divisor_iterative(-40, 40), 40);
