@@ -50,6 +50,7 @@
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math
     * [Extended Euclidean Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/extended_euclidean_algorithm.rs)
+    * [Greatest Common Divisor](https://github.com/TheAlgorithms/Rust/blob/master/src/math/greatest_common_divisor.rs)
     * [Pascal Triangle](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pascal_triangle.rs)
     * [Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_numbers.rs)
     * [Prime Check](https://github.com/TheAlgorithms/Rust/blob/master/src/math/prime_check.rs)
