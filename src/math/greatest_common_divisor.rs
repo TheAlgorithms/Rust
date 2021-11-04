@@ -14,10 +14,10 @@ pub fn greatest_common_divisor_recursive(a: i64, b: i64) -> i64 {
 }
 
 pub fn greatest_common_divisor_iterative(mut a: i64, mut b: i64) -> i64 {
-    while a % b != 0 {
-        let remainder = a % b;
-        a = b;
-        b = remainder;
+    while a != 0 {
+        let remainder = b % a;
+        b = a;
+        a = remainder;
     }
     b.abs()
 }
