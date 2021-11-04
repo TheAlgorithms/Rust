@@ -76,7 +76,7 @@ RESTART BUILD
 ## [General](./src/general)
 
 - [x] [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
-- [ ] N-Queensp
+- [x] [N-Queens Problem](./src/general/nqueens.rs)
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)

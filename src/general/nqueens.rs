@@ -62,16 +62,14 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
             }
         }
 
-        match (current_row, conflict) {
-            (0, false) => current_row = 1,
-            (_, true) => {
+        match conflict {
+            true => {
                 board_rows[current_row] += 1;
 
                 if current_row == 0 && board_rows[current_row] == board_width {
                     return Err("No solution exists for specificed board size.");
                 }
 
-                //Run in while's condition evaluation to create a "do while"
                 while board_rows[current_row] == board_width {
                     board_rows[current_row] = 0;
 
@@ -83,7 +81,7 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
                     board_rows[current_row] += 1;
                 }
             }
-            (_, _) => {
+            _ => {
                 current_row += 1;
 
                 if current_row as i64 == board_width {
