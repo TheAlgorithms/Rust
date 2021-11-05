@@ -34,6 +34,7 @@ RESTART BUILD
 
 ## Math
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
+- [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
@@ -75,7 +76,7 @@ RESTART BUILD
 ## [General](./src/general)
 
 - [x] [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
-- [ ] N-Queensp
+- [x] [N-Queens Problem](./src/general/nqueens.rs)
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
