@@ -74,7 +74,10 @@ fn main() {
         let mut move_position: Option<Position> = None;
         input.make_ascii_lowercase();
         let bytes = input.trim().trim_start().as_bytes();
-        if bytes.len() as u32 == 2 && (bytes[0] as char).is_alphabetic() && (bytes[1] as char).is_numeric() {
+        if bytes.len() as u32 == 2
+            && (bytes[0] as char).is_alphabetic()
+            && (bytes[1] as char).is_numeric()
+        {
             let column: u8 = bytes[0] - b'a';
             let row: u8 = bytes[1] - b'1';
 
@@ -84,17 +87,16 @@ fn main() {
         }
 
         //Take the validated user input coordinate and use it.
-        if move_position.is_some() {
+        if let Some(move_pos) = move_position {
             let open_positions = available_positions(&board);
 
             let mut search = open_positions.iter();
-            let result = search.find(|&&x| x == move_position.unwrap());
+            let result = search.find(|&&x| x == move_pos);
             if result.is_none() {
                 println!("Not a valid empty coordinate.");
                 continue;
             } else {
-                board[move_position.unwrap().x as usize][move_position.unwrap().y as usize] =
-                    Players::PlayerX;
+                board[move_pos.y as usize][move_pos.x as usize] = Players::PlayerX;
 
                 if win_check(Players::PlayerX, &board) {
                     display_board(&board);
@@ -113,7 +115,7 @@ fn main() {
                     let random_selection = 0;
 
                     let response_pos = x.positions[random_selection];
-                    board[response_pos.x as usize][response_pos.y as usize] = Players::PlayerO;
+                    board[response_pos.y as usize][response_pos.x as usize] = Players::PlayerO;
                     if win_check(Players::PlayerO, &board) {
                         display_board(&board);
                         println!("Player O Wins!");
@@ -132,12 +134,12 @@ fn main() {
 }
 
 #[allow(dead_code)]
-fn display_board(board: &Vec<Vec<Players>>) {
+fn display_board(board: &[Vec<Players>]) {
     println!();
-    for y in 0..3 {
+    for (y, board_row) in board.iter().enumerate() {
         print!("{} ", (y + 1));
-        for x in 0..3 {
-            match board[x][y] {
+        for board_cell in board_row {
+            match board_cell {
                 Players::PlayerX => print!("X "),
                 Players::PlayerO => print!("O "),
                 Players::Blank => print!("_ "),
@@ -148,11 +150,11 @@ fn display_board(board: &Vec<Vec<Players>>) {
     println!("  a b c");
 }
 
-fn available_positions(board: &Vec<Vec<Players>>) -> Vec<Position> {
+fn available_positions(board: &[Vec<Players>]) -> Vec<Position> {
     let mut available: Vec<Position> = Vec::new();
-    for y in 0..3 {
-        for x in 0..3 {
-            if board[x][y] == Players::Blank {
+    for (y, board_row) in board.iter().enumerate() {
+        for (x, board_cell) in board_row.iter().enumerate() {
+            if *board_cell == Players::Blank {
                 available.push(Position {
                     x: x as u8,
                     y: y as u8,
@@ -163,7 +165,7 @@ fn available_positions(board: &Vec<Vec<Players>>) -> Vec<Position> {
     available
 }
 
-fn win_check(player: Players, board: &Vec<Vec<Players>>) -> bool {
+fn win_check(player: Players, board: &[Vec<Players>]) -> bool {
     if player == Players::Blank {
         return false;
     }
@@ -177,12 +179,12 @@ fn win_check(player: Players, board: &Vec<Vec<Players>>) -> bool {
 
     for i in 0..3 {
         //Check for a win on the horizontals.
-        if (board[0][i] == board[1][i]) && (board[1][i] == board[2][i]) && (board[2][i] == player) {
+        if (board[i][0] == board[i][1]) && (board[i][1] == board[i][2]) && (board[i][2] == player) {
             return true;
         }
 
         //Check for a win on the verticals.
-        if (board[i][0] == board[i][1]) && (board[i][1] == board[i][2]) && (board[i][2] == player) {
+        if (board[0][i] == board[1][i]) && (board[1][i] == board[2][i]) && (board[2][i] == player) {
             return true;
         }
     }
@@ -191,7 +193,7 @@ fn win_check(player: Players, board: &Vec<Vec<Players>>) -> bool {
 }
 
 //Minimize the actions of the opponent while maximizing the game state of the current player.
-pub fn minimax(side: Players, board: &Vec<Vec<Players>>) -> Option<PlayActions> {
+pub fn minimax(side: Players, board: &[Vec<Players>]) -> Option<PlayActions> {
     //Check that board is in a valid state.
     if win_check(Players::PlayerX, board) || win_check(Players::PlayerO, board) {
         return None;
@@ -212,8 +214,8 @@ pub fn minimax(side: Players, board: &Vec<Vec<Players>>) -> Option<PlayActions> 
     let mut best_move: Option<PlayActions> = None;
 
     for pos in positions {
-        let mut board_next = board.clone();
-        board_next[pos.x as usize][pos.y as usize] = side;
+        let mut board_next = board.to_owned();
+        board_next[pos.y as usize][pos.x as usize] = side;
 
         //Check for a win condition before recursion to determine if this node is terminal.
         if win_check(Players::PlayerX, &board_next) {
@@ -282,11 +284,11 @@ fn append_playaction(
         (Players::PlayerX, Players::PlayerX, Players::PlayerX) => {
             play_actions.positions.push(appendee.position);
         }
-        (Players::PlayerX, Players::PlayerX, _) => {},
+        (Players::PlayerX, Players::PlayerX, _) => {}
         (Players::PlayerO, Players::PlayerO, Players::PlayerO) => {
             play_actions.positions.push(appendee.position);
         }
-        (Players::PlayerO, Players::PlayerO, _) => {},
+        (Players::PlayerO, Players::PlayerO, _) => {}
 
         //Non-winning to Winning scores
         (Players::PlayerX, _, Players::PlayerX) => {
@@ -314,8 +316,8 @@ fn append_playaction(
         }
 
         //Ignoring lower scored plays
-        (Players::PlayerX, Players::Blank, Players::PlayerO) => {},
-        (Players::PlayerO, Players::Blank, Players::PlayerX) => {},
+        (Players::PlayerX, Players::Blank, Players::PlayerO) => {}
+        (Players::PlayerO, Players::Blank, Players::PlayerX) => {}
 
         //No change hence append only
         (_, _, _) => {
@@ -333,8 +335,8 @@ mod test {
     fn win_state_check() {
         let mut board = vec![vec![Players::Blank; 3]; 3];
         board[0][0] = Players::PlayerX;
-        board[1][0] = Players::PlayerX;
-        board[2][0] = Players::PlayerX;
+        board[0][1] = Players::PlayerX;
+        board[0][2] = Players::PlayerX;
         let responses = minimax(Players::PlayerO, &board);
         assert_eq!(responses, None);
     }
@@ -343,10 +345,10 @@ mod test {
     fn win_state_check2() {
         let mut board = vec![vec![Players::Blank; 3]; 3];
         board[0][0] = Players::PlayerX;
-        board[1][0] = Players::PlayerO;
-        board[0][1] = Players::PlayerX;
+        board[0][1] = Players::PlayerO;
+        board[1][0] = Players::PlayerX;
         board[1][1] = Players::PlayerO;
-        board[1][2] = Players::PlayerO;
+        board[2][1] = Players::PlayerO;
         let responses = minimax(Players::PlayerO, &board);
         assert_eq!(responses, None);
     }
@@ -355,8 +357,8 @@ mod test {
     fn block_win_move() {
         let mut board = vec![vec![Players::Blank; 3]; 3];
         board[0][0] = Players::PlayerX;
-        board[1][0] = Players::PlayerX;
-        board[2][1] = Players::PlayerO;
+        board[0][1] = Players::PlayerX;
+        board[1][2] = Players::PlayerO;
         board[2][2] = Players::PlayerO;
         let responses = minimax(Players::PlayerX, &board);
         assert_eq!(
@@ -371,9 +373,9 @@ mod test {
     #[test]
     fn block_move() {
         let mut board = vec![vec![Players::Blank; 3]; 3];
-        board[1][0] = Players::PlayerX;
-        board[2][0] = Players::PlayerO;
+        board[0][1] = Players::PlayerX;
         board[0][2] = Players::PlayerO;
+        board[2][0] = Players::PlayerO;
         let responses = minimax(Players::PlayerX, &board);
         assert_eq!(
             responses,
@@ -388,9 +390,9 @@ mod test {
     fn expected_loss() {
         let mut board = vec![vec![Players::Blank; 3]; 3];
         board[0][0] = Players::PlayerX;
-        board[2][0] = Players::PlayerO;
-        board[0][1] = Players::PlayerX;
         board[0][2] = Players::PlayerO;
+        board[1][0] = Players::PlayerX;
+        board[2][0] = Players::PlayerO;
         board[2][2] = Players::PlayerO;
         let responses = minimax(Players::PlayerX, &board);
         assert_eq!(
