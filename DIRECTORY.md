@@ -44,6 +44,7 @@
     * [Bellman Ford](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/bellman_ford.rs)
     * [Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/breadth_first_search.rs)
     * [Depth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/depth_first_search.rs)
+    * [Depth First Search Tic Tac Toe](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/depth_first_search_tic_tac_toe.rs)
     * [Dijkstra](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dijkstra.rs)
     * [Minimum Spanning Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/minimum_spanning_tree.rs)
     * [Prim](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prim.rs)
