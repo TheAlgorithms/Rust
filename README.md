@@ -22,6 +22,7 @@ RESTART BUILD
 - [x] [Shell](./src/sorting/shell_sort.rs)
 - [x] [Stooge](./src/sorting/stooge_sort.rs)
 - [x] [Comb](./src/sorting/comb_sort.rs)
+- [x] [Bucket](./src/sorting/bucket_sort.rs)
 
 ## Graphs
 

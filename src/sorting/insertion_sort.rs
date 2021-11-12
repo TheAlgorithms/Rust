@@ -1,10 +1,12 @@
+use std::cmp;
+
 /// Sorts a mutable slice using in-place insertion sort algorithm.
 ///
 /// Time complexity is `O(n^2)`, where `n` is the number of elements.
 /// Space complexity is `O(1)` as it sorts elements in-place.
 pub fn insertion_sort<T>(arr: &mut [T])
 where
-    T: Ord + Copy,
+    T: cmp::PartialOrd + Copy,
 {
     for i in 1..arr.len() {
         let cur = arr[i];
