@@ -1,4 +1,5 @@
 mod bubble_sort;
+mod bucket_sort;
 mod cocktail_shaker_sort;
 mod comb_sort;
 mod counting_sort;
@@ -14,6 +15,7 @@ mod shell_sort;
 mod stooge_sort;
 
 pub use self::bubble_sort::bubble_sort;
+pub use self::bucket_sort::bucket_sort;
 pub use self::cocktail_shaker_sort::cocktail_shaker_sort;
 pub use self::comb_sort::comb_sort;
 pub use self::counting_sort::counting_sort;
