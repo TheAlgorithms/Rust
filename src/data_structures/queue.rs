@@ -25,7 +25,7 @@ impl<T: Clone> Queue<T> {
     pub fn peek(&self) -> Result<&T, &str> {
         match self.elements.first() {
             Some(value) => Ok(value),
-            None => Err("Queue is emptry"),
+            None => Err("Queue is empty"),
         }
     }
 
