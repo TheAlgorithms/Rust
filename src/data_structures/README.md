@@ -60,4 +60,24 @@ __Source to read:__
 * [Rust API Docs](https://doc.rust-lang.org/std/collections/struct.LinkedList.html)
 
 
+### [Stack Using Singly Linked List](./stack_using_singly_linked_list.rs)
+![][stack]
+
+From Wikipedia, a stack is an abstract data type that serves as a collection of elements, with two main principal operations, `Push` and `Pop`.
+
+__Properties__
+* Push O(1)
+* Pop head.data O(1) tail.data O(n)
+* Peek O(1)
+
+
+__Source to read:__
+* [Wikipedia](https://en.wikipedia.org/wiki/Linked_list)
+* [rust-unofficial](https://rust-unofficial.github.io/too-many-lists/index.html)
+* [Stack Implementation and complexity](https://medium.com/@kaichimomose/stack-implementation-and-complexity-c176924e6a6b)
+
+
+
 [doubly-linked-list]: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Doubly-linked-list.svg/610px-Doubly-linked-list.svg.png
+
+[stack]: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Lifo_stack.png/700px-Lifo_stack.png
