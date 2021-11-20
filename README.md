@@ -88,6 +88,7 @@ RESTART BUILD
 - [x] [Linear](./src/searching/linear_search.rs)
 - [x] [Binary](./src/searching/binary_search.rs)
 - [x] [Recursive Binary](./src/searching/binary_search_recursive.rs)
+- [x] [Kth Smallest](./src/searching/kth_smallest.rs)
 
 ## [Geometry](./src/geometry)
 
