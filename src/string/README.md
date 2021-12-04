@@ -1,5 +1,11 @@
 ## String Algorithms
 
+### [Aho-Corasick Algorithm](./aho_corasick.rs)
+From [Wikipedia][aho-corasick-wiki]: a string-searching algorithm invented by Alfred V. Aho and Margaret J. Corasick in 1975.[1] It is a kind of dictionary-matching algorithm that locates elements of a finite set of strings (the "dictionary") within an input text. It matches all strings simultaneously.
+
+[aho-corasick-wiki]: https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm
+
+
 ### [Burrows-Wheeler transform](./burrows_wheeler_transform.rs)
 From [Wikipedia][burrows-wheeler-wiki]: The Burrows–Wheeler transform (BWT, also called block-sorting compression) rearranges a character string into runs of similar characters. This is useful for compression, since it tends to be easy to compress a string that has runs of repeated characters by techniques such as move-to-front transform and run-length encoding. More importantly, the transformation is reversible, without needing to store any additional data except the position of the first original character. The BWT is thus a "free" method of improving the efficiency of text compression algorithms, costing only some extra computation. 
 
