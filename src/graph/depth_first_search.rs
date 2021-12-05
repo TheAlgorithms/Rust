@@ -46,6 +46,7 @@ pub struct Vertex(u32);
 pub struct Edge(u32, u32);
 #[derive(Clone)]
 pub struct Graph {
+    #[allow(dead_code)]
     vertices: Vec<Vertex>,
     edges: Vec<Edge>,
 }
