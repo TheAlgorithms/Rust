@@ -77,6 +77,7 @@
     * [Shell Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/shell_sort.rs)
     * [Stooge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/stooge_sort.rs)
   * String
+    * [Aho-Corasick Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/string/aho_corasick.rs)
     * [Burrows Wheeler Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/string/burrows_wheeler_transform.rs)
     * [Knuth Morris Pratt](https://github.com/TheAlgorithms/Rust/blob/master/src/string/knuth_morris_pratt.rs)
     * [Manacher](https://github.com/TheAlgorithms/Rust/blob/master/src/string/manacher.rs)
