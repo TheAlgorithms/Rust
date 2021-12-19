@@ -2,7 +2,7 @@
 //!
 //! The Transposition Cipher is a method of encryption by which a message is shifted
 //! according to a regular system, so that the ciphertext is a rearrangement of the
-//! original message. The most commonly reffered to Transposition Cipher is the
+//! original message. The most commonly referred to Transposition Cipher is the
 //! COLUMNAR TRANSPOSITION cipher, which is demonstrated below.
 
 use std::ops::Range;
