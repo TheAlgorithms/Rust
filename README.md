@@ -6,6 +6,7 @@
 
 These are for demonstration purposes only.
 RESTART BUILD
+
 ## [Sort Algorithms](./src/sorting)
 
 - [x] [Bubble](./src/sorting/bubble_sort.rs)
@@ -34,6 +35,7 @@ RESTART BUILD
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 
 ## Math
+
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
@@ -104,7 +106,7 @@ RESTART BUILD
 - Rot13
   - [x] [Rot13](./src/ciphers/rot13.rs)
   - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
-- [ ] Transposition
+- [x] [Transposition](./src/ciphers/transposition.rs)
 - [x] [SHA-2](./src/ciphers/sha256.rs)
 
 ---
