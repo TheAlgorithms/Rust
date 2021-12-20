@@ -70,6 +70,7 @@ RESTART BUILD
 
 ## [Strings](./src/string)
 
+- [x] [Aho-Corasick Algorithm](./src/aho_corasick.rs)
 - [x] [Burrows-Wheeler transform](./src/string/burrows_wheeler_transform.rs)
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - [x] [Manacher](./src/string/manacher.rs)
