@@ -67,6 +67,7 @@ RESTART BUILD
 - [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
 - [x] [AVL Tree](./src/data_structures/avl_tree.rs)
+- [x] [RB Tree](./src/data_structures/rb_tree.rs)
 
 ## [Strings](./src/string)
 
