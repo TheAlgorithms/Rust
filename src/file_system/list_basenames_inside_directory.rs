@@ -52,4 +52,17 @@ mod tests {
 
         assert_eq!(actual_result, expected_result);
     }
+
+    #[test]
+    fn test_listing_not_equal() {
+        use crate::file_system::list_basenames;
+
+        let unexpected_result: Vec<String> = vec![
+            String::from("non_existant zhdjdbkadladkg.txt"),
+            String::from("non_existant gibrihdjgagdag"),
+        ];
+        let actual_result: Vec<String> = list_basenames("src/file_system/dummy_directory").unwrap();
+
+        assert_ne!(actual_result, unexpected_result);
+    }
 }
