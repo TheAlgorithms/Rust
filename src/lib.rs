@@ -1,6 +1,7 @@
 pub mod ciphers;
 pub mod data_structures;
 pub mod dynamic_programming;
+pub mod file_system;
 pub mod general;
 pub mod graph;
 pub mod math;
