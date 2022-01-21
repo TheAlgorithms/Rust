@@ -1,4 +1,5 @@
 use std::fmt::{self, Display, Formatter};
+use std::marker::PhantomData;
 use std::ptr::NonNull;
 
 struct Node<T> {
@@ -21,6 +22,8 @@ pub struct LinkedList<T> {
     length: u32,
     start: Option<NonNull<Node<T>>>,
     end: Option<NonNull<Node<T>>>,
+    // Act like we own boxed nodes since we construct and leak them
+    marker: PhantomData<Box<Node<T>>>,
 }
 
 impl<T> Default for LinkedList<T> {
@@ -35,6 +38,7 @@ impl<T> LinkedList<T> {
             length: 0,
             start: None,
             end: None,
+            marker: PhantomData,
         }
     }
 
@@ -81,6 +85,13 @@ impl<T> LinkedList<T> {
                 _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
             },
         }
+    }
+}
+
+impl<T> Drop for LinkedList<T> {
+    fn drop(&mut self) {
+        // Pop items until there are none left
+        while self.pop_front().is_some() {}
     }
 }
 
