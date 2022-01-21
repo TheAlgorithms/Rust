@@ -1,4 +1,5 @@
 use std::fmt::{self, Display, Formatter};
+use std::marker::PhantomData;
 use std::ptr::NonNull;
 
 struct Node<T> {
@@ -21,6 +22,8 @@ pub struct LinkedList<T> {
     length: u32,
     start: Option<NonNull<Node<T>>>,
     end: Option<NonNull<Node<T>>>,
+    // Act like we own boxed nodes since we construct and leak them
+    marker: PhantomData<Box<Node<T>>>,
 }
 
 impl<T> Default for LinkedList<T> {
@@ -35,6 +38,7 @@ impl<T> LinkedList<T> {
             length: 0,
             start: None,
             end: None,
+            marker: PhantomData,
         }
     }
 
@@ -54,6 +58,21 @@ impl<T> LinkedList<T> {
         self.length += 1;
     }
 
+    pub fn pop_front(&mut self) -> Option<T> {
+        // Safety: start_ptr points to a leaked boxed node managed by this list
+        // We reassign pointers that pointed to the start node
+        self.start.map(|start_ptr| unsafe {
+            let old_start = Box::from_raw(start_ptr.as_ptr());
+            match old_start.next {
+                Some(mut next_ptr) => next_ptr.as_mut().prev = None,
+                None => self.end = None,
+            }
+            self.start = old_start.next;
+            self.length -= 1;
+            old_start.val
+        })
+    }
+
     pub fn get(&mut self, index: i32) -> Option<&T> {
         self.get_ith_node(self.start, index)
     }
@@ -66,6 +85,13 @@ impl<T> LinkedList<T> {
                 _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
             },
         }
+    }
+}
+
+impl<T> Drop for LinkedList<T> {
+    fn drop(&mut self) {
+        // Pop items until there are none left
+        while self.pop_front().is_some() {}
     }
 }
 
