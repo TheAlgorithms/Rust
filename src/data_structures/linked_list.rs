@@ -54,6 +54,21 @@ impl<T> LinkedList<T> {
         self.length += 1;
     }
 
+    pub fn pop_front(&mut self) -> Option<T> {
+        // Safety: start_ptr points to a leaked boxed node managed by this list
+        // We reassign pointers that pointed to the start node
+        self.start.map(|start_ptr| unsafe {
+            let old_start = Box::from_raw(start_ptr.as_ptr());
+            match old_start.next {
+                Some(mut next_ptr) => next_ptr.as_mut().prev = None,
+                None => self.end = None,
+            }
+            self.start = old_start.next;
+            self.length -= 1;
+            old_start.val
+        })
+    }
+
     pub fn get(&mut self, index: i32) -> Option<&T> {
         self.get_ith_node(self.start, index)
     }
