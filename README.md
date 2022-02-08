@@ -101,14 +101,16 @@ RESTART BUILD
 ## [Ciphers](./src/ciphers)
 
 - [x] [Caesar](./src/ciphers/caesar.rs)
-- [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [Morse Code](./src/ciphers/morse_code.rs)
+- [x] [Polybius](./src/ciphers/polybius.rs)
+- [x] [SHA-2](./src/ciphers/sha256.rs)
+- [x] [TEA](./src/ciphers/tea.rs)
+- [x] [Transposition](./src/ciphers/transposition.rs)
+- [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [XOR](./src/ciphers/xor.rs)
 - Rot13
-  - [x] [Rot13](./src/ciphers/rot13.rs)
   - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
-- [x] [Transposition](./src/ciphers/transposition.rs)
-- [x] [SHA-2](./src/ciphers/sha256.rs)
+  - [x] [Rot13](./src/ciphers/rot13.rs)
 
 ---
 
