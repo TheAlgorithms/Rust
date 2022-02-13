@@ -1,4 +1,5 @@
 /// Fibonacci via Dynamic Programming
+use std::collections::HashMap;
 
 /// fibonacci(n) returns the nth fibonacci number
 /// This function uses the definition of Fibonacci where:
@@ -94,11 +95,40 @@ fn _logarithmic_fibonacci(n: u32) -> (u128, u128) {
     }
 }
 
+/// Memoized fibonacci.
+pub fn memoized_fibonacci(n: u32) -> u128 {
+    let mut cache: HashMap<u32, u128> = HashMap::new();
+
+    _memoized_fibonacci(n, &mut cache)
+}
+
+fn _memoized_fibonacci(n: u32, cache: &mut HashMap<u32, u128>) -> u128 {
+    if n == 0 {
+        return 0;
+    }
+    if n == 1 {
+        return 1;
+    }
+
+    let f = match cache.get(&n) {
+        Some(f) => f,
+        None => {
+            let f1 = _memoized_fibonacci(n - 1, cache);
+            let f2 = _memoized_fibonacci(n - 2, cache);
+            cache.insert(n, f1 + f2);
+            cache.get(&n).unwrap()
+        }
+    };
+
+    *f
+}
+
 #[cfg(test)]
 mod tests {
     use super::classical_fibonacci;
     use super::fibonacci;
     use super::logarithmic_fibonacci;
+    use super::memoized_fibonacci;
     use super::recursive_fibonacci;
 
     #[test]
@@ -201,5 +231,23 @@ mod tests {
         assert_eq!(classical_fibonacci(21), fibonacci(20));
         assert_eq!(classical_fibonacci(101), fibonacci(100));
         assert_eq!(classical_fibonacci(185), fibonacci(184));
+    }
+
+    #[test]
+    fn test_memoized_fibonacci() {
+        assert_eq!(memoized_fibonacci(0), 0);
+        assert_eq!(memoized_fibonacci(1), 1);
+        assert_eq!(memoized_fibonacci(2), 1);
+        assert_eq!(memoized_fibonacci(3), 2);
+        assert_eq!(memoized_fibonacci(4), 3);
+        assert_eq!(memoized_fibonacci(5), 5);
+        assert_eq!(memoized_fibonacci(10), 55);
+        assert_eq!(memoized_fibonacci(20), 6765);
+        assert_eq!(memoized_fibonacci(21), 10946);
+        assert_eq!(memoized_fibonacci(100), 354224848179261915075);
+        assert_eq!(
+            memoized_fibonacci(184),
+            127127879743834334146972278486287885163
+        );
     }
 }
