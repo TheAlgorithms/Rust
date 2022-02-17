@@ -225,6 +225,8 @@ where
 
 #[cfg(test)]
 mod tests {
+    use std::convert::TryInto;
+
     use super::LinkedList;
 
     #[test]
@@ -295,6 +297,41 @@ mod tests {
         match list.get(2) {
             Some(val) => assert_eq!(*val, second_value),
             None => panic!("Expected to find {} at index 1", second_value),
+        }
+    }
+
+    #[test]
+    fn insert_at_ith_and_pop_ith_work_over_many_iterations() {
+        let mut list = LinkedList::<i32>::new();
+        for i in 0..100 {
+            list.insert_at_ith(i, i.try_into().unwrap());
+        }
+
+        // Pop even numbers
+        for i in 0..50 {
+            println!("Popping {}", i);
+            println!("list.length {}", list.length);
+            if i % 2 == 0 {
+                list.pop_ith(i);
+            }
+        }
+
+        assert_eq!(list.length, 75);
+
+        // Insert even numbers back
+        for i in 0..50 {
+            if i % 2 == 0 {
+                list.insert_at_ith(i, i.try_into().unwrap());
+            }
+        }
+
+        assert_eq!(list.length, 100);
+
+        // Ensure numbers were restored and we're able to traverse nodes
+        if let Some(val) = list.get(78) {
+            assert_eq!(*val, 78);
+        } else {
+            panic!("Expected to find 78 at index 78");
         }
     }
 
