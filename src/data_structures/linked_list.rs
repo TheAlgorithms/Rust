@@ -307,9 +307,8 @@ mod tests {
             list.insert_at_ith(i, i.try_into().unwrap());
         }
 
-        // Pop even numbers
+        // Pop even numbers to 50
         for i in 0..50 {
-            println!("Popping {}", i);
             println!("list.length {}", list.length);
             if i % 2 == 0 {
                 list.delete_ith(i);
@@ -327,7 +326,7 @@ mod tests {
 
         assert_eq!(list.length, 100);
 
-        // Ensure numbers were restored and we're able to traverse nodes
+        // Ensure numbers were adderd back and we're able to traverse nodes
         if let Some(val) = list.get(78) {
             assert_eq!(*val, 78);
         } else {
