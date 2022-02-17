@@ -5,7 +5,7 @@ static MIN_MERGE: usize = 32;
 fn min_run_length(mut n: usize) -> usize {
     let mut r = 0;
     while n >= MIN_MERGE {
-        r |= (n & 1);
+        r |= n & 1;
         n >>= 1;
     }
     n + r
@@ -14,16 +14,13 @@ fn min_run_length(mut n: usize) -> usize {
 fn insertion_sort(arr: &mut Vec<i32>, left: usize, right: usize) -> &Vec<i32> {
     for i in (left + 1)..(right + 1) {
         let temp = arr[i];
-        let mut j = i - 1;
+        let mut j = (i - 1) as i32;
 
-        while j >= left && arr[j] > temp {
-            arr[j + 1] = arr[j];
-            if j == 0 {
-                break;
-            }
+        while j >= (left as i32) && arr[j as usize] > temp {
+            arr[(j + 1) as usize] = arr[j as usize];
             j -= 1;
         }
-        arr[j + 1] = temp;
+        arr[(j + 1) as usize] = temp;
     }
     arr
 }
@@ -100,13 +97,36 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_1() {
+    fn basic() {
         let mut array = vec![-2, 7, 15, -14, 0, 15, 0, 7, -7, -4, -13, 5, 8, -14, 12];
-        let array_len = array.len();
-        tim_sort(&mut array, array_len);
-        print!("{:?}", array);
+        let arr_len = array.len();
+        tim_sort(&mut array, arr_len);
         for i in 0..array.len() - 1 {
             assert!(array[i] <= array[i + 1]);
         }
+    }
+
+    #[test]
+    fn empty() {
+        let mut array = Vec::<i32>::new();
+        let arr_len = array.len();
+        tim_sort(&mut array, arr_len);
+        assert_eq!(array, vec![]);
+    }
+
+    #[test]
+    fn one_element() {
+        let mut array = vec![3];
+        let arr_len = array.len();
+        tim_sort(&mut array, arr_len);
+        assert_eq!(array, vec![3]);
+    }
+
+    #[test]
+    fn pre_sorted() {
+        let mut array = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        let arr_len = array.len();
+        tim_sort(&mut array, arr_len);
+        assert_eq!(array, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     }
 }
