@@ -107,7 +107,7 @@ impl<T> LinkedList<T> {
         }
     }
 
-    pub fn pop_head(&mut self) -> Option<T> {
+    pub fn delete_head(&mut self) -> Option<T> {
         // Safety: head_ptr points to a leaked boxed node managed by this list
         // We reassign pointers that pointed to the head node
         self.head.map(|head_ptr| unsafe {
@@ -122,7 +122,7 @@ impl<T> LinkedList<T> {
         })
     }
 
-    pub fn pop_tail(&mut self) -> Option<T> {
+    pub fn delete_tail(&mut self) -> Option<T> {
         // Safety: tail_ptr points to a leaked boxed node managed by this list
         // We reassign pointers that pointed to the tail node
         self.tail.map(|tail_ptr| unsafe {
@@ -137,17 +137,17 @@ impl<T> LinkedList<T> {
         })
     }
 
-    pub fn pop_ith(&mut self, index: u32) -> Option<T> {
+    pub fn delete_ith(&mut self, index: u32) -> Option<T> {
         if self.length < index {
             panic!("Index out of bounds");
         }
 
         if index == 0 || self.head == None {
-            return self.pop_head();
+            return self.delete_head();
         }
 
         if self.length == index {
-            return self.pop_tail();
+            return self.delete_tail();
         }
 
         if let Some(mut ith_node) = self.head {
@@ -195,7 +195,7 @@ impl<T> LinkedList<T> {
 impl<T> Drop for LinkedList<T> {
     fn drop(&mut self) {
         // Pop items until there are none left
-        while self.pop_head().is_some() {}
+        while self.delete_head().is_some() {}
     }
 }
 
@@ -301,7 +301,7 @@ mod tests {
     }
 
     #[test]
-    fn insert_at_ith_and_pop_ith_work_over_many_iterations() {
+    fn insert_at_ith_and_delete_ith_work_over_many_iterations() {
         let mut list = LinkedList::<i32>::new();
         for i in 0..100 {
             list.insert_at_ith(i, i.try_into().unwrap());
@@ -312,7 +312,7 @@ mod tests {
             println!("Popping {}", i);
             println!("list.length {}", list.length);
             if i % 2 == 0 {
-                list.pop_ith(i);
+                list.delete_ith(i);
             }
         }
 
@@ -336,13 +336,13 @@ mod tests {
     }
 
     #[test]
-    fn pop_tail_works() {
+    fn delete_tail_works() {
         let mut list = LinkedList::<i32>::new();
         let first_value = 1;
         let second_value = 2;
         list.insert_at_tail(first_value);
         list.insert_at_tail(second_value);
-        match list.pop_tail() {
+        match list.delete_tail() {
             Some(val) => assert_eq!(val, 2),
             None => panic!("Expected to remove {} at tail", second_value),
         }
@@ -355,13 +355,13 @@ mod tests {
     }
 
     #[test]
-    fn pop_head_works() {
+    fn delete_head_works() {
         let mut list = LinkedList::<i32>::new();
         let first_value = 1;
         let second_value = 2;
         list.insert_at_tail(first_value);
         list.insert_at_tail(second_value);
-        match list.pop_head() {
+        match list.delete_head() {
             Some(val) => assert_eq!(val, 1),
             None => panic!("Expected to remove {} at head", first_value),
         }
@@ -374,13 +374,13 @@ mod tests {
     }
 
     #[test]
-    fn pop_ith_can_pop_at_tail() {
+    fn delete_ith_can_delete_at_tail() {
         let mut list = LinkedList::<i32>::new();
         let first_value = 1;
         let second_value = 2;
         list.insert_at_tail(first_value);
         list.insert_at_tail(second_value);
-        match list.pop_ith(1) {
+        match list.delete_ith(1) {
             Some(val) => assert_eq!(val, 2),
             None => panic!("Expected to remove {} at tail", second_value),
         }
@@ -389,13 +389,13 @@ mod tests {
     }
 
     #[test]
-    fn pop_ith_can_pop_at_head() {
+    fn delete_ith_can_delete_at_head() {
         let mut list = LinkedList::<i32>::new();
         let first_value = 1;
         let second_value = 2;
         list.insert_at_tail(first_value);
         list.insert_at_tail(second_value);
-        match list.pop_ith(0) {
+        match list.delete_ith(0) {
             Some(val) => assert_eq!(val, 1),
             None => panic!("Expected to remove {} at tail", first_value),
         }
@@ -404,7 +404,7 @@ mod tests {
     }
 
     #[test]
-    fn pop_ith_can_pop_in_middle() {
+    fn delete_ith_can_delete_in_middle() {
         let mut list = LinkedList::<i32>::new();
         let first_value = 1;
         let second_value = 2;
@@ -412,7 +412,7 @@ mod tests {
         list.insert_at_tail(first_value);
         list.insert_at_tail(second_value);
         list.insert_at_tail(third_value);
-        match list.pop_ith(1) {
+        match list.delete_ith(1) {
             Some(val) => assert_eq!(val, 2),
             None => panic!("Expected to remove {} at tail", second_value),
         }
