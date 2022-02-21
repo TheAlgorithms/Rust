@@ -31,9 +31,8 @@ fn merge(arr: &mut Vec<i32>, l: usize, m: usize, r: usize) -> &Vec<i32> {
     let mut left = vec![0; len1 as usize];
     let mut right = vec![0; len2 as usize];
 
-    for x in 0..len1 {
-        left[x] = arr[l + x]
-    }
+    left[..len1].clone_from_slice(&arr[l..(len1 + l)]);
+    
     for x in 0..len2 {
         right[x] = arr[m + 1 + x];
     }
@@ -88,7 +87,7 @@ pub fn tim_sort(arr: &mut Vec<i32>, n: usize) {
 
             left += 2 * size;
         }
-        size = 2 * size;
+        size *= 2;
     }
 }
 
