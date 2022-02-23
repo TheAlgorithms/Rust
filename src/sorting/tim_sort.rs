@@ -32,7 +32,7 @@ fn merge(arr: &mut Vec<i32>, l: usize, m: usize, r: usize) -> &Vec<i32> {
     let mut right = vec![0; len2 as usize];
 
     left[..len1].clone_from_slice(&arr[l..(len1 + l)]);
-    
+
     for x in 0..len2 {
         right[x] = arr[m + 1 + x];
     }
