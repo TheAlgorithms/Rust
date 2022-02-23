@@ -17,6 +17,7 @@ pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::classical_fibonacci;
 pub use self::fibonacci::fibonacci;
 pub use self::fibonacci::logarithmic_fibonacci;
+pub use self::fibonacci::memoized_fibonacci;
 pub use self::fibonacci::recursive_fibonacci;
 pub use self::is_subsequence::is_subsequence;
 pub use self::knapsack::knapsack;
