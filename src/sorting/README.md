@@ -158,6 +158,15 @@ From [Wikipedia][stooge-wiki]:  Stooge sort is a recursive sorting algorithm. It
 __Properties__
 * Worst case performance O(n^(log(3) / log(1.5)))
 
+### [Tim](./tim_sort.rs)
+![alt text][tim-image]
+
+From [Wikipedia][tim-wiki]:  Timsort is a hybrid stable sorting algorithm, derived from merge sort and insertion sort, designed to perform well on many kinds of real-world data. It was implemented by Tim Peters in 2002 for use in the Python programming language. The algorithm finds subsequences of the data that are already ordered (runs) and uses them to sort the remainder more efficiently. This is done by merging runs until certain criteria are fulfilled. Timsort has been Python's standard sorting algorithm since version 2.3. It is also used to sort arrays of non-primitive type in Java SE 7, on the Android platform, in GNU Octave, on V8, Swift, and Rust.
+
+__Properties__
+* Worst-case performance O(n log n)
+* Best-case performance	O(n)
+
 [bubble-toptal]: https://www.toptal.com/developers/sorting-algorithms/bubble-sort
 [bubble-wiki]: https://en.wikipedia.org/wiki/Bubble_sort
 [bubble-image]: https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Bubblesort-edited-color.svg/220px-Bubblesort-edited-color.svg.png "Bubble Sort"
@@ -198,6 +207,9 @@ __Properties__
 
 [stooge-image]: https://upload.wikimedia.org/wikipedia/commons/f/f8/Sorting_stoogesort_anim.gif
 [stooge-wiki]: https://en.wikipedia.org/wiki/Stooge_sort
+
+[tim-image]: https://thumbs.gfycat.com/BruisedFrigidBlackrhino-size_restricted.gif
+[tim-wiki]: https://en.wikipedia.org/wiki/Timsort
 
 [comb-sort]: https://upload.wikimedia.org/wikipedia/commons/4/46/Comb_sort_demo.gif
 [comb-sort-wiki]: https://en.wikipedia.org/wiki/Comb_sort
