@@ -28,10 +28,10 @@ fn check_prime_base(number: u64, base: u64, two_power: u64, odd_power: u64) -> b
             return true;
         }
     }
-    return false;
+    false
 }
 
-pub fn miller_rabin(number: u64, bases: &Vec<u64>) -> u64 {
+pub fn miller_rabin(number: u64, bases: &[u64]) -> u64 {
     // returns zero on a probable prime, and a witness if number is not prime
     // A base set for deterministic performance on 64 bit numbers is:
     // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
@@ -55,7 +55,7 @@ pub fn miller_rabin(number: u64, bases: &Vec<u64>) -> u64 {
             return *base;
         }
     }
-    return 0;
+    0
 }
 
 #[cfg(test)]
@@ -64,7 +64,7 @@ mod tests {
 
     #[test]
     fn basic() {
-        let default_bases: Vec<u64> = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37];
+        let default_bases= vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37];
         // these bases make miller rabin deterministic for any number < 2 ^ 64
         // can use smaller number of bases for deterministic performance for numbers < 2 ^ 32
 
