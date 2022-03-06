@@ -64,7 +64,7 @@ mod tests {
 
     #[test]
     fn basic() {
-        let default_bases= vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37];
+        let default_bases = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37];
         // these bases make miller rabin deterministic for any number < 2 ^ 64
         // can use smaller number of bases for deterministic performance for numbers < 2 ^ 32
 
