@@ -1,9 +1,11 @@
+mod aho_corasick;
 mod burrows_wheeler_transform;
 mod knuth_morris_pratt;
 mod manacher;
 mod rabin_karp;
 mod reverse;
 
+pub use self::aho_corasick::AhoCorasick;
 pub use self::burrows_wheeler_transform::{
     burrows_wheeler_transform, inv_burrows_wheeler_transform,
 };

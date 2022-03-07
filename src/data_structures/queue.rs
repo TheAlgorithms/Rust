@@ -1,35 +1,30 @@
+use std::collections::LinkedList;
+
 #[derive(Debug)]
 pub struct Queue<T> {
-    elements: Vec<T>,
+    elements: LinkedList<T>,
 }
 
-impl<T: Clone> Queue<T> {
+impl<T> Queue<T> {
     pub fn new() -> Queue<T> {
         Queue {
-            elements: Vec::new(),
+            elements: LinkedList::new(),
         }
     }
 
     pub fn enqueue(&mut self, value: T) {
-        self.elements.push(value)
+        self.elements.push_back(value)
     }
 
-    pub fn dequeue(&mut self) -> Result<T, &str> {
-        if !self.elements.is_empty() {
-            Ok(self.elements.remove(0usize))
-        } else {
-            Err("Queue is empty")
-        }
+    pub fn dequeue(&mut self) -> Option<T> {
+        self.elements.pop_front()
     }
 
-    pub fn peek(&self) -> Result<&T, &str> {
-        match self.elements.first() {
-            Some(value) => Ok(value),
-            None => Err("Queue is emptry"),
-        }
+    pub fn peek_front(&self) -> Option<&T> {
+        self.elements.front()
     }
 
-    pub fn size(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.elements.len()
     }
 
@@ -40,9 +35,7 @@ impl<T: Clone> Queue<T> {
 
 impl<T> Default for Queue<T> {
     fn default() -> Queue<T> {
-        Queue {
-            elements: Vec::new(),
-        }
+        Queue::new()
     }
 }
 
@@ -63,18 +56,16 @@ mod tests {
         queue.enqueue(32);
         queue.enqueue(64);
         let retrieved_dequeue = queue.dequeue();
-        assert!(retrieved_dequeue.is_ok());
-        assert_eq!(32, retrieved_dequeue.unwrap());
+        assert_eq!(retrieved_dequeue, Some(32));
     }
 
     #[test]
-    fn test_peek() {
+    fn test_peek_front() {
         let mut queue: Queue<u8> = Queue::new();
         queue.enqueue(8);
         queue.enqueue(16);
-        let retrieved_peek = queue.peek();
-        assert!(retrieved_peek.is_ok());
-        assert_eq!(8, *retrieved_peek.unwrap());
+        let retrieved_peek = queue.peek_front();
+        assert_eq!(retrieved_peek, Some(&8));
     }
 
     #[test]
@@ -82,6 +73,6 @@ mod tests {
         let mut queue: Queue<u8> = Queue::new();
         queue.enqueue(8);
         queue.enqueue(16);
-        assert_eq!(2, queue.size());
+        assert_eq!(2, queue.len());
     }
 }

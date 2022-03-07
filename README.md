@@ -1,4 +1,4 @@
-# The Algorithms - Rust [![Gitter](https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square)](https://gitter.im/the-algorithms/rust) [![Build Status](https://travis-ci.com/TheAlgorithms/Rust.svg?branch=master)](https://travis-ci.com/TheAlgorithms/Rust)
+# The Algorithms - Rust [![Gitter](https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square)](https://gitter.im/the-algorithms/rust) [![build](https://github.com/TheAlgorithms/Rust/actions/workflows/build.yml/badge.svg)](https://github.com/TheAlgorithms/Rust/actions/workflows/build.yml)
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1024px-Rust_programming_language_black_logo.svg.png" width="200" height="200">
 
@@ -6,6 +6,7 @@
 
 These are for demonstration purposes only.
 RESTART BUILD
+
 ## [Sort Algorithms](./src/sorting)
 
 - [x] [Bubble](./src/sorting/bubble_sort.rs)
@@ -22,6 +23,7 @@ RESTART BUILD
 - [x] [Shell](./src/sorting/shell_sort.rs)
 - [x] [Stooge](./src/sorting/stooge_sort.rs)
 - [x] [Comb](./src/sorting/comb_sort.rs)
+- [x] [Bucket](./src/sorting/bucket_sort.rs)
 
 ## Graphs
 
@@ -33,8 +35,12 @@ RESTART BUILD
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 
 ## Math
+
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
+- [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
+- [x] [Square root with Newton's method](./src/math/square_root.rs)
+- [x] [Fast power algorithm](./src/math/fast_power.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -63,9 +69,11 @@ RESTART BUILD
 - [x] [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
 - [x] [AVL Tree](./src/data_structures/avl_tree.rs)
+- [x] [RB Tree](./src/data_structures/rb_tree.rs)
 
 ## [Strings](./src/string)
 
+- [x] [Aho-Corasick Algorithm](./src/string/aho_corasick.rs)
 - [x] [Burrows-Wheeler transform](./src/string/burrows_wheeler_transform.rs)
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - [x] [Manacher](./src/string/manacher.rs)
@@ -75,7 +83,7 @@ RESTART BUILD
 ## [General](./src/general)
 
 - [x] [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
-- [ ] N-Queensp
+- [x] [N-Queens Problem](./src/general/nqueens.rs)
 - [ ] Graph Coloringp
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
@@ -86,6 +94,7 @@ RESTART BUILD
 - [x] [Linear](./src/searching/linear_search.rs)
 - [x] [Binary](./src/searching/binary_search.rs)
 - [x] [Recursive Binary](./src/searching/binary_search_recursive.rs)
+- [x] [Kth Smallest](./src/searching/kth_smallest.rs)
 
 ## [Geometry](./src/geometry)
 
@@ -94,14 +103,16 @@ RESTART BUILD
 ## [Ciphers](./src/ciphers)
 
 - [x] [Caesar](./src/ciphers/caesar.rs)
-- [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [Morse Code](./src/ciphers/morse_code.rs)
+- [x] [Polybius](./src/ciphers/polybius.rs)
+- [x] [SHA-2](./src/ciphers/sha256.rs)
+- [x] [TEA](./src/ciphers/tea.rs)
+- [x] [Transposition](./src/ciphers/transposition.rs)
+- [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [XOR](./src/ciphers/xor.rs)
 - Rot13
-  - [x] [Rot13](./src/ciphers/rot13.rs)
   - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
-- [ ] Transposition
-- [x] [SHA-2](./src/ciphers/sha256.rs)
+  - [x] [Rot13](./src/ciphers/rot13.rs)
 
 ---
 
