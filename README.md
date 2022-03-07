@@ -10,6 +10,7 @@ RESTART BUILD
 ## [Sort Algorithms](./src/sorting)
 
 - [x] [Bubble](./src/sorting/bubble_sort.rs)
+- [X] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Cocktail-Shaker](./src/sorting/cocktail_shaker_sort.rs)
 - [x] [Counting](./src/sorting/counting_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
@@ -17,6 +18,7 @@ RESTART BUILD
 - [x] [Gnome](./src/sorting/gnome_sort.rs)
 - [x] [Merge](./src/sorting/merge_sort.rs)
 - [x] [Odd-even](./src/sorting/odd_even_sort.rs)
+- [x] [Pancake](./src/sorting/pancake_sort.rs)
 - [x] [Quick](./src/sorting/quick_sort.rs)
 - [x] [Radix](./src/sorting/radix_sort.rs)
 - [x] [Selection](./src/sorting/selection_sort.rs)
@@ -24,6 +26,7 @@ RESTART BUILD
 - [x] [Stooge](./src/sorting/stooge_sort.rs)
 - [x] [Comb](./src/sorting/comb_sort.rs)
 - [x] [Bucket](./src/sorting/bucket_sort.rs)
+- [x] [Timsort](./src/sorting/tim_sort.rs)
 
 ## Graphs
 
@@ -41,6 +44,8 @@ RESTART BUILD
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
 - [x] [Fast power algorithm](./src/math/fast_power.rs)
+- [X] [Perfect number](./src/math/perfect_numbers.rs)
+- [X] [Prime number](./src/math/prime_numbers.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -70,6 +75,7 @@ RESTART BUILD
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
 - [x] [AVL Tree](./src/data_structures/avl_tree.rs)
 - [x] [RB Tree](./src/data_structures/rb_tree.rs)
+- [X] [Stack using Linked List](./src/data_structures/stack_using_singly_linked_list.rs)
 
 ## [Strings](./src/string)
 
