@@ -32,5 +32,48 @@ fn _quick_sort<T: Ord>(arr: &mut [T], lo: isize, hi: isize) {
 }
 pub fn quick_sort<T: Ord>(arr: &mut [T]) {
     let len = arr.len();
+    if len < 2 {
+        return;
+    }
     _quick_sort(arr, 0, (len - 1) as isize);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn basic() {
+        let mut v = vec![6, 5, -8, 3, 2, 3];
+        quick_sort(&mut v);
+        assert_eq!(v, vec![-8, 2, 3, 3, 5, 6]);
+    }
+
+    #[test]
+    fn already_sorted() {
+        let mut v = vec!["a", "b", "c"];
+        quick_sort(&mut v);
+        assert_eq!(v, vec!["a", "b", "c"]);
+    }
+
+    #[test]
+    fn odd_number_of_elements() {
+        let mut v = vec!["d", "a", "c", "e", "b"];
+        quick_sort(&mut v);
+        assert_eq!(v, vec!["a", "b", "c", "d", "e"]);
+    }
+
+    #[test]
+    fn one_element() {
+        let mut v = vec![3];
+        quick_sort(&mut v);
+        assert_eq!(v, vec![3]);
+    }
+
+    #[test]
+    fn empty() {
+        let mut v = Vec::<u8>::new();
+        quick_sort(&mut v);
+        assert_eq!(v, vec![]);
+    }
 }
