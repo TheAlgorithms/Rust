@@ -72,7 +72,7 @@ pub fn manacher(s: String) -> String {
     let answer = &chars[(center_of_max - radius_of_max)..(center_of_max + radius_of_max + 1)]
         .iter()
         .collect::<String>();
-    answer.replace("#", "")
+    answer.replace('#', "")
 }
 
 #[cfg(test)]
