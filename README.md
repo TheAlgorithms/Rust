@@ -70,6 +70,7 @@ RESTART BUILD
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
 - [x] [AVL Tree](./src/data_structures/avl_tree.rs)
 - [x] [RB Tree](./src/data_structures/rb_tree.rs)
+- [x] [Segment Tree](./src/data_structures/segment_tree.rs)
 
 ## [Strings](./src/string)
 
