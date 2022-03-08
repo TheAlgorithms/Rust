@@ -37,10 +37,11 @@ RESTART BUILD
 ## Math
 
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
-- [x] [Fast power algorithm](./src/math/fast_power.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
+- [x] [Square root with Newton's method](./src/math/square_root.rs)
+- [x] [Fast power algorithm](./src/math/fast_power.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
