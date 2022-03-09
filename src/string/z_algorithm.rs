@@ -27,7 +27,7 @@ fn match_with_z_array<T: Eq>(
         }
     }
     if !only_full_matches {
-		array
+        array
     } else {
         let mut answer: Vec<usize> = vec![];
         for (idx, number) in array.iter().enumerate() {
@@ -35,7 +35,7 @@ fn match_with_z_array<T: Eq>(
                 answer.push(idx);
             }
         }
-		answer
+        answer
     }
 }
 
