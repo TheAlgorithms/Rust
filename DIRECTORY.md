@@ -63,6 +63,7 @@
     * [Prime Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/prime_numbers.rs)
     * [Square Root](https://github.com/TheAlgorithms/Rust/blob/master/src/math/square_root.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
+    * [Miller Rabin](https://github.com/TheAlgorithms/Rust/blob/master/src/math/miller_rabin.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
@@ -94,3 +95,4 @@
     * [Manacher](https://github.com/TheAlgorithms/Rust/blob/master/src/string/manacher.rs)
     * [Rabin Karp](https://github.com/TheAlgorithms/Rust/blob/master/src/string/rabin_karp.rs)
     * [Reverse](https://github.com/TheAlgorithms/Rust/blob/master/src/string/reverse.rs)
+    * [Z Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/string/z_algorithm.rs)
