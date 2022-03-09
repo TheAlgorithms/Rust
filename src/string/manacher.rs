@@ -72,7 +72,7 @@ pub fn manacher(s: String) -> String {
     let answer = &chars[(center_of_max - radius_of_max)..(center_of_max + radius_of_max + 1)]
         .iter()
         .collect::<String>();
-    answer.replace("#", "")
+    answer.replace('#', "")
 }
 
 #[cfg(test)]
@@ -86,6 +86,6 @@ mod tests {
         assert_eq!(manacher("a".to_string()), "a".to_string());
 
         let ac_ans = manacher("ac".to_string());
-        assert!(ac_ans == "a".to_string() || ac_ans == "c".to_string());
+        assert!(ac_ans == *"a" || ac_ans == *"c");
     }
 }
