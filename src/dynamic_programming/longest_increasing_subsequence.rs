@@ -4,9 +4,7 @@
 /// subsequence which appeared first will be returned (see `test_example_1`).
 ///
 /// Inspired by [this LeetCode problem](https://leetcode.com/problems/longest-increasing-subsequence/).
-pub fn longest_increasing_subsequence<T: Ord + Clone>(
-    input_array: &[T],
-) -> Vec<T> {
+pub fn longest_increasing_subsequence<T: Ord + Clone>(input_array: &[T]) -> Vec<T> {
     let n = input_array.len();
     if n <= 1 {
         return input_array.to_vec();
@@ -90,15 +88,16 @@ mod tests {
                 0 => {
                     *num = idx as i64;
                     expected_result.push(*num);
-                },
-                1 => {
-                    *num = - (idx as i64)
-                },
-                _ => unreachable!()
+                }
+                1 => *num = -(idx as i64),
+                _ => unreachable!(),
             }
         }
         expected_result[0] = -1;
-        assert_eq!(longest_increasing_subsequence(&input_array), expected_result);
+        assert_eq!(
+            longest_increasing_subsequence(&input_array),
+            expected_result
+        );
         // should be [-1, 2, 4, 6, 8, ...]
         // the first number is not 0, it would be replaced by -1 before 2 is added
     }
