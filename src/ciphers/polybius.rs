@@ -78,7 +78,7 @@ pub fn decode_ascii(string: &str) -> String {
             _ => ' ',
         })
         .collect::<String>()
-        .replace(" ", "")
+        .replace(' ', "")
 }
 
 #[cfg(test)]
