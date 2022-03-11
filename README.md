@@ -25,7 +25,7 @@ RESTART BUILD
 - [x] [Comb](./src/sorting/comb_sort.rs)
 - [x] [Bucket](./src/sorting/bucket_sort.rs)
 
-## Graphs
+## [Graphs](./src/graph)
 
 - [x] [Dijkstra](./src/graph/dijkstra.rs)
 - [x] [Kruskal's Minimum Spanning Tree](./src/graph/minimum_spanning_tree.rs)
@@ -34,7 +34,7 @@ RESTART BUILD
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 
-## Math
+## [Math](./src/math)
 
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
