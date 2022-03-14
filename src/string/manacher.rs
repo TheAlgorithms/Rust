@@ -86,6 +86,6 @@ mod tests {
         assert_eq!(manacher("a".to_string()), "a".to_string());
 
         let ac_ans = manacher("ac".to_string());
-        assert!(ac_ans == "a".to_string() || ac_ans == "c".to_string());
+        assert!(ac_ans == *"a" || ac_ans == *"c");
     }
 }
