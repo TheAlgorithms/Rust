@@ -32,12 +32,7 @@ pub fn prufer_encode<V: Ord + Copy>(tree: &Graph<V>) -> Vec<V> {
 }
 
 fn add_directed_edge<V: Ord + Copy>(tree: &mut Graph<V>, a: V, b: V) {
-    match tree.get_mut(&a) {
-        Some(va) => va.push(b),
-        None => {
-            tree.insert(a, vec![b]);
-        }
-    }
+    tree.entry(a).or_insert(vec![]).push(b);
 }
 
 fn add_edge<V: Ord + Copy>(tree: &mut Graph<V>, a: V, b: V) {
@@ -51,12 +46,7 @@ pub fn prufer_decode<V: Ord + Copy>(code: &[V], vertex_list: &[V]) -> Graph<V> {
     let mut result = BTreeMap::new();
     let mut list_count: BTreeMap<V, usize> = BTreeMap::new();
     for vertex in code {
-        match list_count.get_mut(vertex) {
-            Some(cnt) => *cnt += 1,
-            None => {
-                list_count.insert(*vertex, 1);
-            }
-        }
+        *list_count.entry(*vertex).or_insert(0) += 1;
     }
     let mut queue = BinaryHeap::from(
         vertex_list
