@@ -43,6 +43,7 @@ RESTART BUILD
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
 - [x] [Fast power algorithm](./src/math/fast_power.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
+- [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
