@@ -2,14 +2,14 @@
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1024px-Rust_programming_language_black_logo.svg.png" width="200" height="200">
 
-### All algorithms implemented in Rust (for educational purposes)
+### All algorithms implemented in Rust
 
 These are for demonstration purposes only.
-RESTART BUILD
 
 ## [Sort Algorithms](./src/sorting)
 
 - [x] [Bubble](./src/sorting/bubble_sort.rs)
+- [X] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Cocktail-Shaker](./src/sorting/cocktail_shaker_sort.rs)
 - [x] [Counting](./src/sorting/counting_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
@@ -17,6 +17,7 @@ RESTART BUILD
 - [x] [Gnome](./src/sorting/gnome_sort.rs)
 - [x] [Merge](./src/sorting/merge_sort.rs)
 - [x] [Odd-even](./src/sorting/odd_even_sort.rs)
+- [x] [Pancake](./src/sorting/pancake_sort.rs)
 - [x] [Quick](./src/sorting/quick_sort.rs)
 - [x] [Radix](./src/sorting/radix_sort.rs)
 - [x] [Selection](./src/sorting/selection_sort.rs)
@@ -24,8 +25,9 @@ RESTART BUILD
 - [x] [Stooge](./src/sorting/stooge_sort.rs)
 - [x] [Comb](./src/sorting/comb_sort.rs)
 - [x] [Bucket](./src/sorting/bucket_sort.rs)
+- [x] [Timsort](./src/sorting/tim_sort.rs)
 
-## Graphs
+## [Graphs](./src/graph)
 
 - [x] [Dijkstra](./src/graph/dijkstra.rs)
 - [x] [Kruskal's Minimum Spanning Tree](./src/graph/minimum_spanning_tree.rs)
@@ -34,7 +36,7 @@ RESTART BUILD
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 
-## Math
+## [Math](./src/math)
 
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
@@ -42,6 +44,8 @@ RESTART BUILD
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
 - [x] [Fast power algorithm](./src/math/fast_power.rs)
+- [X] [Perfect number](./src/math/perfect_numbers.rs)
+- [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
 
@@ -73,6 +77,7 @@ RESTART BUILD
 - [x] [B-Tree](./src/data_structures/b_tree.rs)
 - [x] [AVL Tree](./src/data_structures/avl_tree.rs)
 - [x] [RB Tree](./src/data_structures/rb_tree.rs)
+- [X] [Stack using Linked List](./src/data_structures/stack_using_singly_linked_list.rs)
 - [x] [Segment Tree](./src/data_structures/segment_tree.rs)
 
 ## [Strings](./src/string)
@@ -99,6 +104,9 @@ RESTART BUILD
 - [x] [Binary](./src/searching/binary_search.rs)
 - [x] [Recursive Binary](./src/searching/binary_search_recursive.rs)
 - [x] [Kth Smallest](./src/searching/kth_smallest.rs)
+- [x] [Exponential](./src/searching/exponential_search.rs)
+- [x] [Jump](./src/searching/jump_search.rs)
+- [x] [Fibonacci](./src/searching/fibonacci_search.rs)
 
 ## [Geometry](./src/geometry)
 

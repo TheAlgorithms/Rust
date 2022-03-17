@@ -104,6 +104,12 @@ __Properties__
 * Average case performance	O(n^2)
 
 
+### [Pancake](./pancake_sort.rs)
+![alt text][pancake-image]
+
+From [Wikipedia][pancake-wiki]: All sorting methods require pairs of elements to be compared. For the traditional sorting problem, the usual problem studied is to minimize the number of comparisons required to sort a list. The number of actual operations, such as swapping two elements, is then irrelevant. For pancake sorting problems, in contrast, the aim is to minimize the number of operations, where the only allowed operations are reversals of the elements of some prefix of the sequence. Now, the number of comparisons is irrelevant.
+
+
 ### [Quick](./quick_sort.rs)
 ![alt text][quick-image]
 
@@ -182,6 +188,9 @@ __Properties__
 
 [gnome-wiki]: https://en.wikipedia.org/wiki/Gnome_sort
 [gnome-image]: https://upload.wikimedia.org/wikipedia/commons/3/37/Sorting_gnomesort_anim.gif "Insertion Sort"
+
+[pancake-wiki]: https://en.wikipedia.org/wiki/Pancake_sorting
+[pancake-image]: https://upload.wikimedia.org/wikipedia/commons/0/0f/Pancake_sort_operation.png
 
 [quick-toptal]: https://www.toptal.com/developers/sorting-algorithms/quick-sort
 [quick-wiki]: https://en.wikipedia.org/wiki/Quicksort
