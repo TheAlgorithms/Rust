@@ -2,10 +2,9 @@
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/1024px-Rust_programming_language_black_logo.svg.png" width="200" height="200">
 
-### All algorithms implemented in Rust (for educational purposes)
+### All algorithms implemented in Rust
 
 These are for demonstration purposes only.
-RESTART BUILD
 
 ## [Sort Algorithms](./src/sorting)
 
@@ -47,6 +46,7 @@ RESTART BUILD
 - [x] [Fast power algorithm](./src/math/fast_power.rs)
 - [X] [Perfect number](./src/math/perfect_numbers.rs)
 - [X] [Prime number](./src/math/prime_numbers.rs)
+- [x] [Linear Sieve](./src/math/linear_sieve.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -77,6 +77,7 @@ RESTART BUILD
 - [x] [AVL Tree](./src/data_structures/avl_tree.rs)
 - [x] [RB Tree](./src/data_structures/rb_tree.rs)
 - [X] [Stack using Linked List](./src/data_structures/stack_using_singly_linked_list.rs)
+- [x] [Segment Tree](./src/data_structures/segment_tree.rs)
 
 ## [Strings](./src/string)
 
