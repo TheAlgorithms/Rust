@@ -122,19 +122,15 @@ pub fn fast_fourier_transform(input: &[f64], input_permutation: &[usize]) -> Vec
         segment_length <<= 1;
         let angle: f64 = std::f64::consts::TAU / segment_length as f64;
         let w_len = Complex64::new(angle.cos(), angle.sin());
-        let mut segment_start = 0_usize;
-        while segment_start < n {
+        for segment_start in (0..n).step_by(segment_length) {
             let mut w = Complex64::new(1.0, 0.0);
-            let mut position = 0_usize;
-            while position < (segment_length / 2) {
-                let a = result[segment_start + position];
-                let b = result[segment_start + position + segment_length / 2] * w;
-                result[segment_start + position] = a + b;
-                result[segment_start + position + segment_length / 2] = a - b;
+            for position in segment_start..(segment_start + segment_length / 2) {
+                let a = result[position];
+                let b = result[position + segment_length / 2] * w;
+                result[position] = a + b;
+                result[position + segment_length / 2] = a - b;
                 w *= w_len;
-                position += 1;
             }
-            segment_start += segment_length;
         }
     }
     result
@@ -155,19 +151,15 @@ pub fn inverse_fast_fourier_transform(
         segment_length <<= 1;
         let angle: f64 = -std::f64::consts::TAU / segment_length as f64;
         let w_len = Complex64::new(angle.cos(), angle.sin());
-        let mut segment_start = 0_usize;
-        while segment_start < n {
+        for segment_start in (0..n).step_by(segment_length) {
             let mut w = Complex64::new(1.0, 0.0);
-            let mut position = 0_usize;
-            while position < (segment_length / 2) {
-                let a = result[segment_start + position];
-                let b = result[segment_start + position + segment_length / 2] * w;
-                result[segment_start + position] = a + b;
-                result[segment_start + position + segment_length / 2] = a - b;
+            for position in segment_start..(segment_start + segment_length / 2) {
+                let a = result[position];
+                let b = result[position + segment_length / 2] * w;
+                result[position] = a + b;
+                result[position + segment_length / 2] = a - b;
                 w *= w_len;
-                position += 1;
             }
-            segment_start += segment_length;
         }
     }
     let scale = 1.0 / n as f64;
