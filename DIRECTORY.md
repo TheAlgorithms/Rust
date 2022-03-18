@@ -62,6 +62,7 @@
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
     * [Miller Rabin](https://github.com/TheAlgorithms/Rust/blob/master/src/math/miller_rabin.rs)
     * [Linear Sieve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/linear_sieve.rs)
+    * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
