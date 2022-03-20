@@ -36,6 +36,7 @@ These are for demonstration purposes only.
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
+- [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
 
 ## [Math](./src/math)
 
