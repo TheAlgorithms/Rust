@@ -1,5 +1,6 @@
 mod aho_corasick;
 mod burrows_wheeler_transform;
+mod hamming_distance;
 mod knuth_morris_pratt;
 mod manacher;
 mod rabin_karp;
