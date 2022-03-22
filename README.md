@@ -35,6 +35,7 @@ These are for demonstration purposes only.
 - [x] [Breadth-First Search (BFS)](./src/graph/breadth_first_search.rs)
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
+- [x] [Prufer Code](./src/graph/prufer_code.rs)
 
 ## [Math](./src/math)
 
