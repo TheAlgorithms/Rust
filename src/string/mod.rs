@@ -1,11 +1,11 @@
 mod aho_corasick;
 mod burrows_wheeler_transform;
-mod hamming_distance;
 mod knuth_morris_pratt;
 mod manacher;
 mod rabin_karp;
 mod reverse;
 mod z_algorithm;
+mod hamming_distance;
 
 pub use self::aho_corasick::AhoCorasick;
 pub use self::burrows_wheeler_transform::{
@@ -17,3 +17,4 @@ pub use self::rabin_karp::rabin_karp;
 pub use self::reverse::reverse;
 pub use self::z_algorithm::match_pattern;
 pub use self::z_algorithm::z_array;
+pub use self::hamming_distance::hamming_distance;
