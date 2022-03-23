@@ -10,8 +10,8 @@ runs slower than a well implemented sieve of Eratosthenes. Some use cases are:
  */
 pub struct LinearSieve {
     max_number: usize,
-    primes: Vec<usize>,
-    minimum_prime_factor: Vec<usize>,
+    pub primes: Vec<usize>,
+    pub minimum_prime_factor: Vec<usize>,
 }
 
 impl LinearSieve {
