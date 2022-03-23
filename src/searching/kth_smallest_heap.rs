@@ -2,7 +2,7 @@ use crate::data_structures::MaxHeap;
 use std::cmp::{Ord, Ordering};
 
 /// Returns k-th smallest element of an array.
-/// Time complexity is stably O((n + k)log(k)) in all cases
+/// Time complexity is stably O(nlog(k)) in all cases
 /// Extra space is required to maintain the heap, and it doesn't
 /// mutate the input list.
 ///
