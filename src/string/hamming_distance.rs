@@ -6,9 +6,10 @@ pub fn hamming_distance(string1: &str, string2: &str) -> usize {
     loop {
         match (string1.next(), string2.next()) {
             (Some(char1), Some(char2)) if char1 != char2 => distance += 1,
+            (Some(char1), Some(char2)) if char1 == char2 => continue,
             (None, Some(_)) | (Some(_), None) => panic!("Strings must have the same length"),
             (None, None) => break,
-            _ => continue,
+            _ => unreachable!(),
         }
     }
     distance
@@ -19,7 +20,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn empty() {
+    fn empty_strings() {
         let result = hamming_distance("", "");
         assert_eq!(result, 0);
     }
