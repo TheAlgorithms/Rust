@@ -2,6 +2,7 @@ mod extended_euclidean_algorithm;
 mod fast_power;
 mod greatest_common_divisor;
 mod linear_sieve;
+mod matrix_operations;
 mod miller_rabin;
 mod pascal_triangle;
 mod perfect_numbers;
@@ -17,6 +18,7 @@ pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
 };
 pub use self::linear_sieve::LinearSieve;
+pub use self::matrix_operations::matrix_transpose;
 pub use self::miller_rabin::miller_rabin;
 pub use self::pascal_triangle::pascal_triangle;
 pub use self::perfect_numbers::perfect_numbers;
