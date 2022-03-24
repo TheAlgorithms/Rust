@@ -9,8 +9,8 @@ time complexity and memory usage. It answers each query in O(lg(n)).
 - The offline algorithm was discovered by Robert Tarjan. At first each
 query should be determined and saved. Then, vertices are visited in
 Depth First Search order and queries are answered using Disjoint
-Set Union algorithm. The time complexity is O(n.alpha(n)) and
-memory usage is O(n), but time complexity can be considered to be O(n),
+Set Union algorithm. The time complexity is O(n.alpha(n) + q) and
+memory usage is O(n + q), but time complexity can be considered to be O(n + q),
 because alpha(n) < 5 for n < 10 ^ 600
  */
 
