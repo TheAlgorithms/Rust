@@ -49,6 +49,7 @@ These are for demonstration purposes only.
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
+- [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
