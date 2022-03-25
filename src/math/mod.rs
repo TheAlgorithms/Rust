@@ -1,4 +1,5 @@
 mod extended_euclidean_algorithm;
+mod fast_fourier_transform;
 mod fast_power;
 mod greatest_common_divisor;
 mod linear_sieve;
@@ -12,6 +13,10 @@ mod square_root;
 mod trial_division;
 
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
+pub use self::fast_fourier_transform::{
+    fast_fourieir_transform_input_permutation, fast_fourier_transform,
+    inverse_fast_fourier_transform,
+};
 pub use self::fast_power::fast_power;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
