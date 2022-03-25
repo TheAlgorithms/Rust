@@ -35,6 +35,7 @@ These are for demonstration purposes only.
 - [x] [Breadth-First Search (BFS)](./src/graph/breadth_first_search.rs)
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
+- [x] [Prufer Code](./src/graph/prufer_code.rs)
 
 ## [Math](./src/math)
 
@@ -47,6 +48,7 @@ These are for demonstration purposes only.
 - [X] [Perfect number](./src/math/perfect_numbers.rs)
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
+- [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
