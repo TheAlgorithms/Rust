@@ -1,6 +1,11 @@
 use std::cmp::Ordering;
 
-pub fn ternary_search<T: Ord>(target: &T, list: &[T], mut start: usize, mut end: usize) -> Option<usize> {
+pub fn ternary_search<T: Ord>(
+    target: &T,
+    list: &[T],
+    mut start: usize,
+    mut end: usize,
+) -> Option<usize> {
     if list.is_empty() {
         return None;
     }
