@@ -1,26 +1,23 @@
 use std::cmp::Ordering;
 
-pub fn ternary_search<T: Ord>(target: &T, list: &[T], start: usize, end: usize) -> Option<usize> {
+pub fn ternary_search<T: Ord>(target: &T, list: &[T], mut start: usize, mut end: usize) -> Option<usize> {
     if list.is_empty() {
         return None;
     }
 
-    let mut _start = start;
-    let mut _end = end;
-
-    while _start <= _end {
-        let mid1: usize = _start + (_end - _start) / 3;
-        let mid2: usize = _end - (_end - _start) / 3;
+    while start <= end {
+        let mid1: usize = start + (end - start) / 3;
+        let mid2: usize = end - (end - start) / 3;
 
         match target.cmp(&list[mid1]) {
-            Ordering::Less => _end = mid1 - 1,
+            Ordering::Less => end = mid1 - 1,
             Ordering::Equal => return Some(mid1),
             Ordering::Greater => match target.cmp(&list[mid2]) {
-                Ordering::Greater => _start = mid2 + 1,
+                Ordering::Greater => start = mid2 + 1,
                 Ordering::Equal => return Some(mid2),
                 Ordering::Less => {
-                    _start = mid1 + 1;
-                    _end = mid2 - 1;
+                    start = mid1 + 1;
+                    end = mid2 - 1;
                 }
             },
         }
