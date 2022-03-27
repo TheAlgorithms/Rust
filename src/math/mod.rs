@@ -4,6 +4,7 @@ mod fast_power;
 mod greatest_common_divisor;
 mod linear_sieve;
 mod miller_rabin;
+mod nthprime;
 mod pascal_triangle;
 mod perfect_numbers;
 mod pollard_rho;
@@ -23,6 +24,7 @@ pub use self::greatest_common_divisor::{
 };
 pub use self::linear_sieve::LinearSieve;
 pub use self::miller_rabin::miller_rabin;
+pub use self::nthprime::nthprime;
 pub use self::pascal_triangle::pascal_triangle;
 pub use self::perfect_numbers::perfect_numbers;
 pub use self::pollard_rho::{pollard_rho_factorize, pollard_rho_get_one_factor};
