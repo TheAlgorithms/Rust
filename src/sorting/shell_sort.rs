@@ -1,6 +1,6 @@
-pub fn shell_sort<T: Ord + Copy>(values: &mut Vec<T>) {
+pub fn shell_sort<T: Ord + Copy>(values: &mut [T]) {
     // shell sort works by swiping the value at a given gap and decreasing the gap to 1
-    fn insertion<T: Ord + Copy>(values: &mut Vec<T>, start: usize, gap: usize) {
+    fn insertion<T: Ord + Copy>(values: &mut [T], start: usize, gap: usize) {
         for i in ((start + gap)..values.len()).step_by(gap) {
             let val_current = values[i];
             let mut pos = i;

@@ -46,6 +46,6 @@ Do **not** use acronyms: `DFS` should be `depth_first_search`.
 Make sure you run
   * `cargo test` 
   * `cargo fmt`
-  * `cargo clippy`
+  * `cargo clippy --all -- -D warnings`
 
   And that's about it !
