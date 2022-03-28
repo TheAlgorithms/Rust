@@ -11,6 +11,7 @@ mod perfect_numbers;
 mod pollard_rho;
 mod prime_check;
 mod prime_numbers;
+mod sieve_of_eratosthenes;
 mod square_root;
 mod trial_division;
 
@@ -32,5 +33,6 @@ pub use self::perfect_numbers::perfect_numbers;
 pub use self::pollard_rho::{pollard_rho_factorize, pollard_rho_get_one_factor};
 pub use self::prime_check::prime_check;
 pub use self::prime_numbers::prime_numbers;
+pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
 pub use self::square_root::square_root;
 pub use self::trial_division::trial_division;
