@@ -25,17 +25,20 @@ impl DisjointSetUnion {
         self.nodes[v].parent = self.find_set(self.nodes[v].parent);
         self.nodes[v].parent
     }
-    pub fn merge(&mut self, u: usize, v: usize) {
+    // Returns the new component of the merged sets,
+    // or zero if they were the same.
+    pub fn merge(&mut self, u: usize, v: usize) -> usize {
         let mut a = self.find_set(u);
         let mut b = self.find_set(v);
         if a == b {
-            return;
+            return 0;
         }
         if self.nodes[a].size < self.nodes[b].size {
             std::mem::swap(&mut a, &mut b);
         }
         self.nodes[b].parent = a;
         self.nodes[a].size += self.nodes[b].size;
+        a
     }
 }
 
@@ -76,10 +79,11 @@ mod tests {
         ];
         let mut added_edges: Vec<(usize, usize)> = Vec::new();
         for (u, v) in edges {
-            if dsu.find_set(u) != dsu.find_set(v) {
-                dsu.merge(u, v);
+            if dsu.merge(u, v) > 0 {
                 added_edges.push((u, v));
             }
+            // Now they should be the same
+            assert!(dsu.merge(u, v) == 0);
         }
         assert_eq!(added_edges, expected_edges);
         let comp_1 = dsu.find_set(1);
