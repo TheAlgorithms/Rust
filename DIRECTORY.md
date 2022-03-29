@@ -64,6 +64,7 @@
     * [Miller Rabin](https://github.com/TheAlgorithms/Rust/blob/master/src/math/miller_rabin.rs)
     * [Linear Sieve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/linear_sieve.rs)
     * [Pollard's Rho algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pollard_rho.rs)
+    * [Quadratic Residue](https://github.com/TheAlgorithms/Rust/blob/master/src/math/quadratic_residue.rs)
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
