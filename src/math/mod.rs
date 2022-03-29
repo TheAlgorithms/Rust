@@ -16,7 +16,7 @@ mod trial_division;
 
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::fast_fourier_transform::{
-    fast_fourier_transform_input_permutation, fast_fourier_transform,
+    fast_fourier_transform, fast_fourier_transform_input_permutation,
     inverse_fast_fourier_transform,
 };
 pub use self::fast_power::fast_power;
