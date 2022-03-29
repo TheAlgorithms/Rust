@@ -5,6 +5,7 @@ mod depth_first_search_tic_tac_toe;
 mod dijkstra;
 mod disjoint_set_union;
 mod lowest_common_ancestor;
+mod graph_enumeration;
 mod minimum_spanning_tree;
 mod prim;
 mod prufer_code;
@@ -19,3 +20,4 @@ pub use self::lowest_common_ancestor::{LowestCommonAncestorOffline, LowestCommon
 pub use self::minimum_spanning_tree::kruskal;
 pub use self::prim::{prim, prim_with_start};
 pub use self::prufer_code::{prufer_decode, prufer_encode};
+pub use self::graph_enumeration::enumerate_graph;
