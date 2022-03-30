@@ -41,6 +41,7 @@ These are for demonstration purposes only.
 
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
+- [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
