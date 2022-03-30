@@ -94,3 +94,4 @@
     * [Rabin Karp](https://github.com/TheAlgorithms/Rust/blob/master/src/string/rabin_karp.rs)
     * [Reverse](https://github.com/TheAlgorithms/Rust/blob/master/src/string/reverse.rs)
     * [Z Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/string/z_algorithm.rs)
+    * [Hamming Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/hamming_distance.rs)

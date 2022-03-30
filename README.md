@@ -90,6 +90,7 @@ These are for demonstration purposes only.
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
 - [x] [Reverse](./src/string/reverse.rs)
+- [x] [Hamming Distance](./src/string/hamming_distance.rs)
 
 ## [General](./src/general)
 
