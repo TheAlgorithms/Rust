@@ -68,6 +68,10 @@
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
+    * [Ternary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search.rs)
+    * [Ternary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_recursive.rs)
+    * [Ternary Minimum Maximum Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_min_max.rs)
+    * [Ternary Minimum Maximum Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_min_max_recursive.rs)
     * [Kth Smallest](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/kth_smallest.rs)
     * [Kth Smallest Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/kth_smallest_heap.rs)
     * [Linear Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/linear_search.rs)
