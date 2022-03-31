@@ -49,6 +49,7 @@ These are for demonstration purposes only.
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
+- [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -89,6 +90,7 @@ These are for demonstration purposes only.
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
 - [x] [Reverse](./src/string/reverse.rs)
+- [x] [Hamming Distance](./src/string/hamming_distance.rs)
 
 ## [General](./src/general)
 
