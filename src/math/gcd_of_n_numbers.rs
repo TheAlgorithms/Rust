@@ -1,16 +1,18 @@
 /// returns the greatest common divisor of n numbers
 pub fn gcd(nums: &[usize]) -> usize {
-    assert!(!nums.is_empty());
-    let mut j = 1;
-    let mut gcd = nums[0];
-    while j < nums.len() {
-        if nums[j] % gcd == 0 {
-            j += 1;
-        } else {
-            gcd = nums[j] % gcd;
-        }
+    if nums.len() == 1 {
+        return nums[0];
     }
-    gcd
+    let a = nums[0];
+    let b = gcd(&nums[1..]);
+    gcd_of_two_numbers(a, b)
+}
+
+fn gcd_of_two_numbers(a: usize, b: usize) -> usize {
+    if b == 0 {
+        return a;
+    }
+    gcd_of_two_numbers(b, a % b)
 }
 
 #[cfg(test)]
@@ -22,5 +24,6 @@ mod tests {
         assert_eq!(gcd(&[2, 4, 6, 8, 10]), 2);
         assert_eq!(gcd(&[3, 6, 9, 12, 15]), 3);
         assert_eq!(gcd(&[10]), 10);
+        assert_eq!(gcd(&[21, 110]), 1);
     }
 }
