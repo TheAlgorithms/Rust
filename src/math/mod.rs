@@ -1,3 +1,4 @@
+mod armstrong_number;
 mod extended_euclidean_algorithm;
 mod fast_fourier_transform;
 mod fast_power;
@@ -14,6 +15,7 @@ mod sieve_of_eratosthenes;
 mod square_root;
 mod trial_division;
 
+pub use self::armstrong_number::is_armstrong_number;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::fast_fourier_transform::{
     fast_fourieir_transform_input_permutation, fast_fourier_transform,
