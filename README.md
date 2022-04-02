@@ -38,7 +38,7 @@ These are for demonstration purposes only.
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
 
 ## [Math](./src/math)
-
+- [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)

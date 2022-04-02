@@ -1,3 +1,4 @@
+mod baby_step_giant_step;
 mod extended_euclidean_algorithm;
 mod fast_fourier_transform;
 mod fast_power;
@@ -15,6 +16,7 @@ mod simpson_integration;
 mod square_root;
 mod trial_division;
 
+pub use self::baby_step_giant_step::baby_step_giant_step;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::fast_fourier_transform::{
     fast_fourieir_transform_input_permutation, fast_fourier_transform,
