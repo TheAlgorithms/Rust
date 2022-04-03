@@ -3,13 +3,13 @@ use std::collections::BTreeMap;
 type Graph<Vertex> = BTreeMap<Vertex, Vec<Vertex>>;
 
 /*
- This function creates a graph with vertices numbered from 1 to n for any input
- `Graph<V>`. The result is in the form of Vec<Vec<usize> to make implementing
- other algorithms on the graph easier and help with performance.
+This function creates a graph with vertices numbered from 1 to n for any input
+`Graph<V>`. The result is in the form of Vec<Vec<usize> to make implementing
+other algorithms on the graph easier and help with performance.
 
- We expect that all vertices, even the isolated ones, to have an entry in `adj`
- (possibly an empty vector)
- */
+We expect that all vertices, even the isolated ones, to have an entry in `adj`
+(possibly an empty vector)
+*/
 pub fn enumerate_graph<V: Ord + Clone>(adj: &Graph<V>) -> Vec<Vec<usize>> {
     let mut result = vec![vec![]; adj.len() + 1];
     let ordering: Vec<V> = adj.keys().cloned().collect();

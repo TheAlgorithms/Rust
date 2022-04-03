@@ -1,7 +1,8 @@
 /*
  Note: We will assume that here tree vertices are numbered from 1 to n.
 If a tree is not enumerated that way or its vertices are not represented
-using numbers, it can trivially be converted using Depth First Search.
+using numbers, it can trivially be converted using Depth First Search
+manually or by using `src/graph/graph_enumeration.rs`
 
  Here we implement two different algorithms:
 - The online one is implemented using Sparse Table and has O(n.lg(n))
