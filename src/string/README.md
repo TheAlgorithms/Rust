@@ -42,3 +42,9 @@ From [Wikipedia][rabin-karp-wiki]: a string-searching algorithm created by Richa
 to find an exact match of a pattern string in a text.
 
 [rabin-karp-wiki]: https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm
+
+
+### [Hamming Distance](./hamming_distance.rs)
+From [Wikipedia][hamming-distance-wiki]: In information theory, the Hamming distance between two strings of equal length is the number of positions at which the corresponding symbols are different. In other words, it measures the minimum number of substitutions required to change one string into the other, or the minimum number of errors that could have transformed one string into the other. In a more general context, the Hamming distance is one of several string metrics for measuring the edit distance between two sequences. It is named after the American mathematician Richard Hamming.
+
+[hamming-distance-wiki]: https://en.wikipedia.org/wiki/Hamming_distance

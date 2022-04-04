@@ -1,3 +1,4 @@
+mod baby_step_giant_step;
 mod extended_euclidean_algorithm;
 mod fast_fourier_transform;
 mod fast_power;
@@ -11,9 +12,11 @@ mod pollard_rho;
 mod prime_check;
 mod prime_numbers;
 mod sieve_of_eratosthenes;
+mod simpson_integration;
 mod square_root;
 mod trial_division;
 
+pub use self::baby_step_giant_step::baby_step_giant_step;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::fast_fourier_transform::{
     fast_fourier_transform, fast_fourier_transform_input_permutation,
@@ -32,5 +35,6 @@ pub use self::pollard_rho::{pollard_rho_factorize, pollard_rho_get_one_factor};
 pub use self::prime_check::prime_check;
 pub use self::prime_numbers::prime_numbers;
 pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
+pub use self::simpson_integration::simpson_integration;
 pub use self::square_root::square_root;
 pub use self::trial_division::trial_division;
