@@ -38,7 +38,7 @@ These are for demonstration purposes only.
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
 
 ## [Math](./src/math)
-
+- [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)
@@ -49,6 +49,7 @@ These are for demonstration purposes only.
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
+- [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 - [x] [Armstrong Number](./src/math/armstrong_number.rs)
 
