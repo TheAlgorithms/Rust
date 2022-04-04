@@ -5,6 +5,7 @@ mod fast_power;
 mod greatest_common_divisor;
 mod linear_sieve;
 mod miller_rabin;
+mod newton_raphson;
 mod nthprime;
 mod pascal_triangle;
 mod perfect_numbers;
@@ -28,6 +29,7 @@ pub use self::greatest_common_divisor::{
 };
 pub use self::linear_sieve::LinearSieve;
 pub use self::miller_rabin::miller_rabin;
+pub use self::newton_raphson::find_root;
 pub use self::nthprime::nthprime;
 pub use self::pascal_triangle::pascal_triangle;
 pub use self::perfect_numbers::perfect_numbers;
