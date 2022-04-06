@@ -36,6 +36,7 @@ These are for demonstration purposes only.
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
+- [x] [Topological sorting](./src/graph/topological_sort.rs)
 
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
