@@ -1,17 +1,14 @@
-use std::{
-    collections::{BTreeMap, VecDeque},
-    fmt::Debug,
-};
+use std::collections::{BTreeMap, VecDeque};
 
-type Graph<V, E> = BTreeMap<V, BTreeMap<V, E>>;
+type Graph<V, E> = BTreeMap<V, Vec<(V, E)>>;
 
 /// returns topological sort of the graph using Kahn's algorithm
-pub fn topological_sort<V: Ord + Copy + Debug, E: Ord>(graph: &Graph<V, E>) -> Vec<V> {
+pub fn topological_sort<V: Ord + Copy, E: Ord>(graph: &Graph<V, E>) -> Vec<V> {
     let mut visited = BTreeMap::new();
     let mut degree = BTreeMap::new();
     for u in graph.keys() {
         degree.insert(*u, 0);
-        for v in graph.get(u).unwrap().keys() {
+        for (v, _) in graph.get(u).unwrap() {
             let entry = degree.entry(*v).or_insert(0);
             *entry += 1;
         }
@@ -27,7 +24,7 @@ pub fn topological_sort<V: Ord + Copy + Debug, E: Ord>(graph: &Graph<V, E>) -> V
     while let Some(u) = queue.pop_front() {
         ret.push(u);
         if let Some(from_u) = graph.get(&u) {
-            for v in from_u.keys() {
+            for (v, _) in from_u {
                 *degree.get_mut(v).unwrap() -= 1;
                 if *degree.get(v).unwrap() == 0 {
                     queue.push_back(*v);
@@ -45,8 +42,8 @@ mod tests {
 
     use super::{topological_sort, Graph};
     fn add_edge<V: Ord + Copy, E: Ord>(graph: &mut Graph<V, E>, from: V, to: V, weight: E) {
-        let edges = graph.entry(from).or_insert(BTreeMap::new());
-        edges.insert(to, weight);
+        let edges = graph.entry(from).or_insert(Vec::new());
+        edges.push((to, weight));
     }
 
     #[test]
