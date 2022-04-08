@@ -85,7 +85,7 @@ impl MulAssign<Complex64> for Complex64 {
     }
 }
 
-pub fn fast_fourieir_transform_input_permutation(length: usize) -> Vec<usize> {
+pub fn fast_fourier_transform_input_permutation(length: usize) -> Vec<usize> {
     let mut result = Vec::new();
     result.reserve_exact(length);
     for i in 0..length {
@@ -178,7 +178,7 @@ mod tests {
     #[test]
     fn small_polynomial_returns_self() {
         let polynomial = vec![1.0f64, 1.0, 0.0, 2.5];
-        let permutation = fast_fourieir_transform_input_permutation(polynomial.len());
+        let permutation = fast_fourier_transform_input_permutation(polynomial.len());
         let fft = fast_fourier_transform(&polynomial, &permutation);
         let ifft = inverse_fast_fourier_transform(&fft, &permutation);
         for (x, y) in ifft.iter().zip(polynomial.iter()) {
@@ -190,7 +190,7 @@ mod tests {
     fn square_small_polynomial() {
         let mut polynomial = vec![1.0f64, 1.0, 0.0, 2.0];
         polynomial.append(&mut vec![0.0; 4]);
-        let permutation = fast_fourieir_transform_input_permutation(polynomial.len());
+        let permutation = fast_fourier_transform_input_permutation(polynomial.len());
         let mut fft = fast_fourier_transform(&polynomial, &permutation);
         fft.iter_mut().for_each(|num| *num *= *num);
         let ifft = inverse_fast_fourier_transform(&fft, &permutation);
@@ -208,7 +208,7 @@ mod tests {
         let n = 1 << 17; // ~100_000
         let mut polynomial = vec![1.0f64; n];
         polynomial.append(&mut vec![0.0f64; n]);
-        let permutation = fast_fourieir_transform_input_permutation(polynomial.len());
+        let permutation = fast_fourier_transform_input_permutation(polynomial.len());
         let mut fft = fast_fourier_transform(&polynomial, &permutation);
         fft.iter_mut().for_each(|num| *num *= *num);
         let ifft = inverse_fast_fourier_transform(&fft, &permutation);
