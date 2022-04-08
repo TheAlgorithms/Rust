@@ -1,16 +1,10 @@
-use std::vec::Vec;
+use super::DisjointSetUnion;
 
 #[derive(Debug)]
 pub struct Edge {
     source: i64,
     destination: i64,
     cost: i64,
-}
-
-#[derive(Debug)]
-struct DSUNode {
-    parent: i64,
-    subtree_size: i64,
 }
 
 impl PartialEq for Edge {
@@ -33,47 +27,8 @@ impl Edge {
     }
 }
 
-fn make_sets(number_of_vertices: i64) -> Vec<DSUNode> {
-    let mut dsu_nodes: Vec<DSUNode> = Vec::with_capacity(number_of_vertices as usize);
-    for i in 0..number_of_vertices {
-        dsu_nodes.push(DSUNode {
-            parent: i,
-            subtree_size: 1,
-        });
-    }
-    dsu_nodes
-}
-
-fn find(dsu_nodes: &mut Vec<DSUNode>, x: i64) -> i64 {
-    let idx: usize = x as usize;
-    if dsu_nodes[idx].parent != x {
-        dsu_nodes[idx].parent = find(dsu_nodes, dsu_nodes[idx].parent);
-        // subtree_size of this vertex might become invalid, but only size of
-        // roots are important and used, so it doesn't matter
-    }
-    dsu_nodes[idx].parent
-}
-
-fn merge(dsu_nodes: &mut Vec<DSUNode>, x: i64, y: i64) {
-    let mut idx_x: usize = find(dsu_nodes, x) as usize;
-    let mut idx_y: usize = find(dsu_nodes, y) as usize;
-
-    // We should make the smaller root a child of the other
-    // We assume idx_x is the bigger one, and swap it if it is not
-    if dsu_nodes[idx_y].subtree_size > dsu_nodes[idx_x].subtree_size {
-        std::mem::swap(&mut idx_y, &mut idx_x);
-    }
-
-    dsu_nodes[idx_y].parent = idx_x as i64;
-    dsu_nodes[idx_x].subtree_size += dsu_nodes[idx_y].subtree_size;
-}
-
-fn is_same_set(dsu_nodes: &mut Vec<DSUNode>, x: i64, y: i64) -> bool {
-    find(dsu_nodes, x) == find(dsu_nodes, y)
-}
-
 pub fn kruskal(mut edges: Vec<Edge>, number_of_vertices: i64) -> (i64, Vec<Edge>) {
-    let mut dsu_nodes: Vec<DSUNode> = make_sets(number_of_vertices);
+    let mut dsu = DisjointSetUnion::new(number_of_vertices as usize);
 
     edges.sort_unstable_by(|a, b| a.cost.cmp(&b.cost));
     let mut total_cost: i64 = 0;
@@ -86,8 +41,7 @@ pub fn kruskal(mut edges: Vec<Edge>, number_of_vertices: i64) -> (i64, Vec<Edge>
 
         let source: i64 = edge.source;
         let destination: i64 = edge.destination;
-        if !is_same_set(&mut dsu_nodes, source, destination) {
-            merge(&mut dsu_nodes, source, destination);
+        if dsu.merge(source as usize, destination as usize) < std::usize::MAX {
             merge_count += 1;
             let cost: i64 = edge.cost;
             total_cost += cost;
