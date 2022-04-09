@@ -52,6 +52,8 @@
     * [Minimum Spanning Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/minimum_spanning_tree.rs)
     * [Prim](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prim.rs)
     * [Prufer Code](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prufer_code.rs)
+    * [Lowest Common Ancestor](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lowest_common_ancestor.rs)
+    * [Disjoint Set Union](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/disjoint_set_union.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math
     * [Baby-Step Giant-Step Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/baby_step_giant_step.rs)
@@ -67,6 +69,7 @@
     * [Pollard's Rho algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pollard_rho.rs)
     * [Simpson's Rule](https://github.com/TheAlgorithms/Rust/blob/master/src/math/simpson_integration.rs)
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
+    * [Armstrong Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/armstrong_number.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)

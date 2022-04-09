@@ -36,6 +36,7 @@ These are for demonstration purposes only.
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
+- [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
 - [x] [Topological sorting](./src/graph/topological_sort.rs)
 
 ## [Math](./src/math)
@@ -53,6 +54,7 @@ These are for demonstration purposes only.
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
 - [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
+- [x] [Armstrong Number](./src/math/armstrong_number.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
