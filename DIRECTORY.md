@@ -69,6 +69,7 @@
     * [Pollard's Rho algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pollard_rho.rs)
     * [Simpson's Rule](https://github.com/TheAlgorithms/Rust/blob/master/src/math/simpson_integration.rs)
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
+    * [Armstrong Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/armstrong_number.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
