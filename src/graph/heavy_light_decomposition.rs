@@ -113,10 +113,17 @@ mod tests {
         }
     }
 
-    fn get_num_paths(hld: &HeavyLightDecomposition, mut v: usize, parent: &[usize]) -> usize {
+    fn get_num_paths(
+        hld: &HeavyLightDecomposition,
+        mut v: usize,
+        parent: &[usize],
+    ) -> (usize, usize) {
+        // Return height and number of paths
         let mut ans = 0usize;
+        let mut height = 0usize;
         let mut prev_head = 0usize;
         loop {
+            height += 1;
             let head = hld.head[v];
             if head != prev_head {
                 ans += 1;
@@ -127,7 +134,7 @@ mod tests {
                 break;
             }
         }
-        ans
+        (ans, height)
     }
 
     #[test]
@@ -162,7 +169,10 @@ mod tests {
         for i in 3..=n {
             // randomly determine the parent of each vertex.
             // There will be modulus bias, but it isn't important
-            let par = (lcg.next() as usize % (i - 1)) + 1;
+            let par_max = i - 1;
+            let par_min = (10 * par_max + 1) / 11;
+            // Bring par_min closer to par_max to increase expected tree height
+            let par = (lcg.next() as usize % (par_max - par_min + 1)) + par_min;
             adj[par].push(i);
             parent[i] = par;
         }
@@ -174,7 +184,8 @@ mod tests {
             .collect();
         hld.decompose(1, &adj);
         for l in leaves {
-            assert!(get_num_paths(&hld, l, &parent) <= threshold);
+            let (p, _h) = get_num_paths(&hld, l, &parent);
+            assert!(p <= threshold);
         }
     }
 }
