@@ -36,11 +36,13 @@ These are for demonstration purposes only.
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
+- [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
 
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
+- [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
