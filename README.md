@@ -55,6 +55,7 @@ These are for demonstration purposes only.
 - [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 - [x] [Armstrong Number](./src/math/armstrong_number.rs)
+- [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
