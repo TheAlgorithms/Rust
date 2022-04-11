@@ -9,6 +9,7 @@ mod lowest_common_ancestor;
 mod minimum_spanning_tree;
 mod prim;
 mod prufer_code;
+mod strongly_connected_components;
 mod topological_sort;
 
 pub use self::bellman_ford::bellman_ford;
@@ -22,4 +23,5 @@ pub use self::lowest_common_ancestor::{LowestCommonAncestorOffline, LowestCommon
 pub use self::minimum_spanning_tree::kruskal;
 pub use self::prim::{prim, prim_with_start};
 pub use self::prufer_code::{prufer_decode, prufer_encode};
+pub use self::strongly_connected_components::StronglyConnectedComponents;
 pub use self::topological_sort::topological_sort;
