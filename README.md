@@ -38,6 +38,7 @@ These are for demonstration purposes only.
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
 - [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
 - [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
+- [x] [Topological sorting](./src/graph/topological_sort.rs)
 
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
@@ -54,6 +55,8 @@ These are for demonstration purposes only.
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
 - [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
+- [x] [Armstrong Number](./src/math/armstrong_number.rs)
+- [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
