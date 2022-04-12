@@ -89,6 +89,7 @@ These are for demonstration purposes only.
 - [x] [RB Tree](./src/data_structures/rb_tree.rs)
 - [X] [Stack using Linked List](./src/data_structures/stack_using_singly_linked_list.rs)
 - [x] [Segment Tree](./src/data_structures/segment_tree.rs)
+- [x] [Fenwick Tree](./src/data_structures/fenwick_tree.rs)
 
 ## [Strings](./src/string)
 
