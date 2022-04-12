@@ -37,6 +37,8 @@ These are for demonstration purposes only.
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
 - [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
+- [x] [Heavy Light Decomposition](./src/graph/heavy_light_decomposition.rs)
+- [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
 - [x] [Topological sorting](./src/graph/topological_sort.rs)
 
 ## [Math](./src/math)
@@ -55,6 +57,7 @@ These are for demonstration purposes only.
 - [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 - [x] [Armstrong Number](./src/math/armstrong_number.rs)
+- [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
