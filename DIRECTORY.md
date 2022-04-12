@@ -54,6 +54,7 @@
     * [Prufer Code](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prufer_code.rs)
     * [Lowest Common Ancestor](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lowest_common_ancestor.rs)
     * [Disjoint Set Union](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/disjoint_set_union.rs)
+    * [Heavy Light Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/heavy_light_decomposition.rs)
     * [Tarjan's Strongly Connected Components](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/strongly_connected_components.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math

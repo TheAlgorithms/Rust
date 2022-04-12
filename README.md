@@ -37,6 +37,7 @@ These are for demonstration purposes only.
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
 - [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
+- [x] [Heavy Light Decomposition](./src/graph/heavy_light_decomposition.rs)
 - [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
 - [x] [Topological sorting](./src/graph/topological_sort.rs)
 
