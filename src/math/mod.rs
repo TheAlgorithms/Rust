@@ -5,6 +5,7 @@ mod fast_fourier_transform;
 mod fast_power;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
+mod lcm_of_n_numbers;
 mod linear_sieve;
 mod miller_rabin;
 mod nthprime;
@@ -31,6 +32,7 @@ pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
 };
+pub use self::lcm_of_n_numbers::lcm;
 pub use self::linear_sieve::LinearSieve;
 pub use self::miller_rabin::miller_rabin;
 pub use self::nthprime::nthprime;
