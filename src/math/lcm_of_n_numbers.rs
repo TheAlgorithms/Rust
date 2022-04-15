@@ -6,10 +6,6 @@ pub fn lcm(nums: &[usize]) -> usize {
     }
     let a = nums[0];
     let b = lcm(&nums[1..]);
-    lcm_of_two_numbers(a, b)
-}
-
-fn lcm_of_two_numbers(a: usize, b: usize) -> usize {
     a * b / gcd_of_two_numbers(a, b)
 }
 
