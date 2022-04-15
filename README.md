@@ -36,11 +36,16 @@ These are for demonstration purposes only.
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
+- [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
+- [x] [Heavy Light Decomposition](./src/graph/heavy_light_decomposition.rs)
+- [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
+- [x] [Topological sorting](./src/graph/topological_sort.rs)
 
 ## [Math](./src/math)
-
+- [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
+- [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
@@ -49,8 +54,14 @@ These are for demonstration purposes only.
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
+<<<<<<< HEAD
 - [x] [Quadratic Residue](./src/math/quadratic_residue.rs)
+=======
+- [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
+>>>>>>> 98ad004c2a223bd1962c35cb60cb8853aa76c509
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
+- [x] [Armstrong Number](./src/math/armstrong_number.rs)
+- [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -82,6 +93,7 @@ These are for demonstration purposes only.
 - [x] [RB Tree](./src/data_structures/rb_tree.rs)
 - [X] [Stack using Linked List](./src/data_structures/stack_using_singly_linked_list.rs)
 - [x] [Segment Tree](./src/data_structures/segment_tree.rs)
+- [x] [Fenwick Tree](./src/data_structures/fenwick_tree.rs)
 
 ## [Strings](./src/string)
 
@@ -91,6 +103,7 @@ These are for demonstration purposes only.
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
 - [x] [Reverse](./src/string/reverse.rs)
+- [x] [Hamming Distance](./src/string/hamming_distance.rs)
 
 ## [General](./src/general)
 

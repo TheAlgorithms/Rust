@@ -10,32 +10,7 @@
 use std::rc::Rc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use super::fast_power;
-
-// Just copy the LCG implementation from pollard_rho.rs
-struct LinearCongruenceGenerator {
-    // modulus as 2 ^ 32
-    multiplier: u32,
-    increment: u32,
-    state: u32,
-}
-
-impl LinearCongruenceGenerator {
-    fn new(multiplier: u32, increment: u32, state: u32) -> Self {
-        Self {
-            multiplier,
-            increment,
-            state,
-        }
-    }
-    fn next(&mut self) -> u32 {
-        self.state = (self.multiplier as u64 * self.state as u64 + self.increment as u64) as u32;
-        self.state
-    }
-    fn get_64bits(&mut self) -> u64 {
-        ((self.next() as u64) << 32) | (self.next() as u64)
-    }
-}
+use super::{fast_power, PCG32};
 
 #[derive(Debug)]
 struct CustomFiniteFiled {
@@ -111,10 +86,10 @@ pub fn cipolla(a: u32, p: u32) -> Option<(u32, u32)> {
     let seed = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap()
-        .as_secs() as u32;
-    let mut rng = LinearCongruenceGenerator::new(1103515245, 12345, seed);
+        .as_secs();
+    let mut rng = PCG32::new_default(seed);
     let r = loop {
-        let r = rng.get_64bits() % p;
+        let r = rng.get_u64() % p;
         if r == 0 || !is_residue((p + r * r - a) % p, p) {
             break r;
         }

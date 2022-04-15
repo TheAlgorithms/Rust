@@ -46,13 +46,13 @@ impl<K: Ord, V> RBTree<K, V> {
         RBTree::<K, V> { root: null_mut() }
     }
 
-    pub fn find(&self, key: &K) -> Option<&mut V> {
+    pub fn find(&self, key: &K) -> Option<&V> {
         unsafe {
             let mut node = self.root;
             while !node.is_null() {
                 node = match (*node).key.cmp(key) {
                     Ordering::Less => (*node).right,
-                    Ordering::Equal => return Some(&mut (*node).value),
+                    Ordering::Equal => return Some(&(*node).value),
                     Ordering::Greater => (*node).left,
                 }
             }
@@ -619,10 +619,10 @@ mod tests {
         for (k, v) in String::from("hello, world!").chars().enumerate() {
             tree.insert(k, v);
         }
-        assert_eq!(*tree.find(&3).unwrap_or(&mut '*'), 'l');
-        assert_eq!(*tree.find(&6).unwrap_or(&mut '*'), ' ');
-        assert_eq!(*tree.find(&8).unwrap_or(&mut '*'), 'o');
-        assert_eq!(*tree.find(&12).unwrap_or(&mut '*'), '!');
+        assert_eq!(*tree.find(&3).unwrap_or(&'*'), 'l');
+        assert_eq!(*tree.find(&6).unwrap_or(&'*'), ' ');
+        assert_eq!(*tree.find(&8).unwrap_or(&'*'), 'o');
+        assert_eq!(*tree.find(&12).unwrap_or(&'*'), '!');
     }
 
     #[test]
