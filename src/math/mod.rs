@@ -19,6 +19,7 @@ mod sieve_of_eratosthenes;
 mod simpson_integration;
 mod square_root;
 mod trial_division;
+mod zellers_congruence_algorithm;
 
 pub use self::armstrong_number::is_armstrong_number;
 pub use self::baby_step_giant_step::baby_step_giant_step;
@@ -46,3 +47,4 @@ pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
 pub use self::simpson_integration::simpson_integration;
 pub use self::square_root::square_root;
 pub use self::trial_division::trial_division;
+pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
