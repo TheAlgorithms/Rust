@@ -37,10 +37,12 @@ impl CentroidDecomposition {
             vert_size: vec![0; num_vertices],
         }
     }
+    #[inline]
     fn put_in_decomposition(&mut self, v: usize, parent: usize) {
         self.decomposition[v] = parent;
         self.vert_state[v] |= IN_DECOMPOSITION;
     }
+    #[inline]
     fn is_in_decomposition(&self, v: usize) -> bool {
         (self.vert_state[v] & IN_DECOMPOSITION) != 0
     }
@@ -65,9 +67,8 @@ impl CentroidDecomposition {
     fn dfs_centroid(&self, v: usize, size_thr: usize) -> usize {
         // recurse until big child's size is <= `size_thr`
         match self.vert_state[v] as usize {
-            0 => v,
-            u if self.vert_size[u] > size_thr => self.dfs_centroid(u, size_thr),
-            _ => v,
+            u if self.vert_size[u] <= size_thr => v,
+            u => self.dfs_centroid(u, size_thr),
         }
     }
     fn decompose_subtree(
