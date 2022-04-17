@@ -5,6 +5,7 @@ mod fast_fourier_transform;
 mod fast_power;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
+mod karatsuba_multiplication;
 mod lcm_of_n_numbers;
 mod linear_sieve;
 mod miller_rabin;
