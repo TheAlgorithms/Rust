@@ -2,8 +2,10 @@
 Finds the product of two numbers using Karatsuba Algorithm
  */
 use std::cmp::max;
-
+#[allow(dead_code)]
 const TEN: i128 = 10;
+
+#[allow(dead_code)]
 pub fn multiply(num1: i128, num2: i128) -> i128 {
     _multiply(num1, num2)
 }
@@ -34,17 +36,16 @@ fn _multiply(num1: i128, num2: i128) -> i128 {
     (TEN.pow(2 * m as u32) * ac) + (TEN.pow(m as u32) * ad_bc) + (bd)
 }
 
+#[allow(dead_code)]
 fn normalize(mut a: String, n: usize) -> String {
-    let mut counter = 0;
-    for _ in a.len()..n {
+    for (counter, _) in (a.len()..n).enumerate() {
         a.insert(counter, '0');
-        counter += 1;
     }
     a
 }
 #[cfg(test)]
-mod tests {
-    use crate::math::karatsuba_multiplication::multiply;
+mod test {
+    use super::*;
 
     #[test]
     fn test_1() {
