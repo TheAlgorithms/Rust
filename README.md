@@ -41,6 +41,7 @@ These are for demonstration purposes only.
 - [x] [Heavy Light Decomposition](./src/graph/heavy_light_decomposition.rs)
 - [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
 - [x] [Topological sorting](./src/graph/topological_sort.rs)
+- [x] [Centroid Decomposition](./src/graph/centroid_decomposition.rs)
 
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
