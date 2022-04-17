@@ -60,6 +60,7 @@ These are for demonstration purposes only.
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 - [x] [Armstrong Number](./src/math/armstrong_number.rs)
 - [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
+- [x] [Zeller's Congruence Algorithm](./src/math/zellers_congruence_algorithm.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
