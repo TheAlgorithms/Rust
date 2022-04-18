@@ -12,6 +12,7 @@ These are for demonstration purposes only.
 - [X] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Cocktail-Shaker](./src/sorting/cocktail_shaker_sort.rs)
 - [x] [Counting](./src/sorting/counting_sort.rs)
+- [x] [Cycle](./src/sorting/cycle_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
 - [x] [Insertion](./src/sorting/insertion_sort.rs)
 - [x] [Gnome](./src/sorting/gnome_sort.rs)
