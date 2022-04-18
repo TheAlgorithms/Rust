@@ -61,6 +61,7 @@ These are for demonstration purposes only.
 - [x] [Armstrong Number](./src/math/armstrong_number.rs)
 - [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
 - [x] [Zeller's Congruence Algorithm](./src/math/zellers_congruence_algorithm.rs)
+- [x] [Karatsuba Multiplication Algorithm](./src/math/karatsuba_multiplication.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
