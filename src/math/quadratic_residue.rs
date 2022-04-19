@@ -72,7 +72,7 @@ fn is_residue(x: u64, modulus: u64) -> bool {
 
 // return two solutions (x1, x2) for Quadratic Residue problem x^2 = a (mod p), where p is an odd prime
 // if a is Quadratic Nonresidues, return None
-pub fn cipolla(a: u32, p: u32) -> Option<(u32, u32)> {
+pub fn cipolla(a: u32, p: u32, seed: Option<u64>) -> Option<(u32, u32)> {
     // The params should be kept in u32 range for multiplication overflow issue
     // But inside we use u64 for convenience
     let a = a as u64;
@@ -83,10 +83,13 @@ pub fn cipolla(a: u32, p: u32) -> Option<(u32, u32)> {
     if !is_residue(a, p) {
         return None;
     }
-    let seed = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .unwrap()
-        .as_secs();
+    let seed = match seed {
+        Some(seed) => seed,
+        None => SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_secs(),
+    };
     let mut rng = PCG32::new_default(seed);
     let r = loop {
         let r = rng.get_u64() % p;
@@ -112,22 +115,34 @@ mod tests {
 
     #[test]
     fn small_numbers() {
-        assert_eq!(cipolla(1, 43), Some((1, 42)));
-        assert_eq!(cipolla(2, 23), Some((5, 18)));
-        assert_eq!(cipolla(17, 83), Some((10, 73)));
+        assert_eq!(cipolla(1, 43, None), Some((1, 42)));
+        assert_eq!(cipolla(2, 23, None), Some((5, 18)));
+        assert_eq!(cipolla(17, 83, Some(42)), Some((10, 73)));
     }
 
     #[test]
     fn random_numbers() {
-        assert_eq!(cipolla(392203, 852167), Some((413252, 438915)));
-        assert_eq!(cipolla(379606557, 425172197), Some((143417827, 281754370)));
-        assert_eq!(cipolla(585251669, 892950901,), Some((192354555, 700596346)));
-        assert_eq!(cipolla(404690348, 430183399), Some((57227138, 372956261)));
-        assert_eq!(cipolla(210205747, 625380647), Some((76810367, 548570280)));
+        assert_eq!(cipolla(392203, 852167, None), Some((413252, 438915)));
+        assert_eq!(
+            cipolla(379606557, 425172197, None),
+            Some((143417827, 281754370))
+        );
+        assert_eq!(
+            cipolla(585251669, 892950901, None),
+            Some((192354555, 700596346))
+        );
+        assert_eq!(
+            cipolla(404690348, 430183399, Some(19260817)),
+            Some((57227138, 372956261))
+        );
+        assert_eq!(
+            cipolla(210205747, 625380647, Some(998244353)),
+            Some((76810367, 548570280))
+        );
     }
 
     #[test]
     fn no_answer() {
-        assert_eq!(cipolla(650927, 852167), None);
+        assert_eq!(cipolla(650927, 852167, None), None);
     }
 }
