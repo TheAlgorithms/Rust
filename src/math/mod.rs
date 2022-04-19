@@ -5,6 +5,8 @@ mod fast_fourier_transform;
 mod fast_power;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
+mod karatsuba_multiplication;
+mod lcm_of_n_numbers;
 mod linear_sieve;
 mod miller_rabin;
 mod nthprime;
@@ -19,6 +21,7 @@ mod sieve_of_eratosthenes;
 mod simpson_integration;
 mod square_root;
 mod trial_division;
+mod zellers_congruence_algorithm;
 
 pub use self::armstrong_number::is_armstrong_number;
 pub use self::baby_step_giant_step::baby_step_giant_step;
@@ -32,6 +35,8 @@ pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
 };
+pub use self::karatsuba_multiplication::multiply;
+pub use self::lcm_of_n_numbers::lcm;
 pub use self::linear_sieve::LinearSieve;
 pub use self::miller_rabin::miller_rabin;
 pub use self::nthprime::nthprime;
@@ -46,3 +51,4 @@ pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
 pub use self::simpson_integration::simpson_integration;
 pub use self::square_root::square_root;
 pub use self::trial_division::trial_division;
+pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;

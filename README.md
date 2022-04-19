@@ -12,6 +12,7 @@ These are for demonstration purposes only.
 - [X] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Cocktail-Shaker](./src/sorting/cocktail_shaker_sort.rs)
 - [x] [Counting](./src/sorting/counting_sort.rs)
+- [x] [Cycle](./src/sorting/cycle_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
 - [x] [Insertion](./src/sorting/insertion_sort.rs)
 - [x] [Gnome](./src/sorting/gnome_sort.rs)
@@ -40,12 +41,14 @@ These are for demonstration purposes only.
 - [x] [Heavy Light Decomposition](./src/graph/heavy_light_decomposition.rs)
 - [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
 - [x] [Topological sorting](./src/graph/topological_sort.rs)
+- [x] [Centroid Decomposition](./src/graph/centroid_decomposition.rs)
 
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
+- [x] [Least common multiple of n numbers](./src/math/lcm_of_n_numbers.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
@@ -62,6 +65,8 @@ These are for demonstration purposes only.
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 - [x] [Armstrong Number](./src/math/armstrong_number.rs)
 - [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
+- [x] [Zeller's Congruence Algorithm](./src/math/zellers_congruence_algorithm.rs)
+- [x] [Karatsuba Multiplication Algorithm](./src/math/karatsuba_multiplication.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
