@@ -70,6 +70,7 @@
     * [Miller Rabin](https://github.com/TheAlgorithms/Rust/blob/master/src/math/miller_rabin.rs)
     * [Linear Sieve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/linear_sieve.rs)
     * [Pollard's Rho algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pollard_rho.rs)
+    * [Quadratic Residue](https://github.com/TheAlgorithms/Rust/blob/master/src/math/quadratic_residue.rs)
     * [Simpson's Rule](https://github.com/TheAlgorithms/Rust/blob/master/src/math/simpson_integration.rs)
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
     * [Armstrong Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/armstrong_number.rs)
