@@ -8,6 +8,7 @@ mod tea;
 mod transposition;
 mod vigenere;
 mod xor;
+mod aes;
 
 pub use self::another_rot13::another_rot13;
 pub use self::caesar::caesar;
@@ -19,3 +20,4 @@ pub use self::tea::{tea_decrypt, tea_encrypt};
 pub use self::transposition::transposition;
 pub use self::vigenere::vigenere;
 pub use self::xor::xor;
+pub use self::aes::{AesKey, aes_encrypt, aes_decrypt};
