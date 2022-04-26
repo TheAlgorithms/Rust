@@ -58,6 +58,7 @@ These are for demonstration purposes only.
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
+- [x] [Quadratic Residue](./src/math/quadratic_residue.rs)
 - [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
 - [x] [Armstrong Number](./src/math/armstrong_number.rs)
