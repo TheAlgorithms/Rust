@@ -116,6 +116,7 @@ These are for demonstration purposes only.
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
 - [x] [Two Sum](./src/general/two_sum.rs)
+- [x] [Huffman Encoding](./src/general/huffman_encoding.rs)
 
 ## [Search Algorithms](./src/searching)
 
