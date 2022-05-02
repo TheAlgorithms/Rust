@@ -1,4 +1,8 @@
+// Matrix operations using row vectors wrapped in column vectors as matrices.
+// Supports i32, should be interchangeable for other types.
+
 pub fn matrix_add(summand0: &Vec<Vec<i32>>, summand1: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    // Add two matrices of identical dimensions
     let mut result: Vec<Vec<i32>> = vec![];
     if summand0.len() != summand1.len() {
         panic!("Matrix dimensions do not match");
@@ -16,6 +20,7 @@ pub fn matrix_add(summand0: &Vec<Vec<i32>>, summand1: &Vec<Vec<i32>>) -> Vec<Vec
 }
 
 pub fn matrix_subtract(minuend: &Vec<Vec<i32>>, subtrahend: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    // Subtract one matrix from another. They need to have identical dimensions.
     let mut result: Vec<Vec<i32>> = vec![];
     if minuend.len() != subtrahend.len() {
         panic!("Matrix dimensions do not match");
@@ -33,8 +38,12 @@ pub fn matrix_subtract(minuend: &Vec<Vec<i32>>, subtrahend: &Vec<Vec<i32>>) -> V
 }
 
 pub fn matrix_multiply(multiplier: &Vec<Vec<i32>>, multiplicand: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    // Multiply two matching matrices. The multiplier needs to have the same amount
+    // of columns as the multiplicand has rows.
     let mut result: Vec<Vec<i32>> = vec![];
     let mut temp;
+    // Using variable to compare lenghts of rows in multiplicand later
+    let row_right_length = multiplicand[0].len();
     for row_left in 0..multiplier.len() {
         if multiplier[row_left].len() != multiplicand.len() {
             panic!("Matrix dimensions do not match");
@@ -43,12 +52,14 @@ pub fn matrix_multiply(multiplier: &Vec<Vec<i32>>, multiplicand: &Vec<Vec<i32>>)
         for column_right in 0..multiplicand[0].len() {
             temp = 0;
             for row_right in 0..multiplicand.len() {
+                if row_right_length != multiplicand[row_right].len() {
+                    panic!("Matrix dimensions do not match");
+                }
                 temp += multiplier[row_left][row_right] * multiplicand[row_right][column_right];
             }
             result[row_left].push(temp);
         }
     }
-    println!("{:?}", result);
     return result;
 }
 
@@ -99,8 +110,11 @@ mod tests {
         let input0: Vec<Vec<i32>> =
             vec![vec![1, 2, 3], vec![4, 2, 6], vec![3, 4, 1], vec![2, 4, 8]];
         let input1: Vec<Vec<i32>> = vec![vec![1, 3, 3, 2], vec![7, 6, 2, 1], vec![3, 4, 2, 1]];
-        let input_wrong0: Vec<Vec<i32>> =
-            vec![vec![1, 3, 3, 2, 4], vec![7, 6, 2, 1], vec![3, 4, 2, 1]];
+        let input_wrong0: Vec<Vec<i32>> = vec![
+            vec![1, 3, 3, 2, 4, 6, 6],
+            vec![7, 6, 2, 1],
+            vec![3, 4, 2, 1],
+        ];
         let input_wrong1: Vec<Vec<i32>> = vec![
             vec![1, 3, 3, 2],
             vec![7, 6, 2, 1],
