@@ -43,6 +43,7 @@ These are for demonstration purposes only.
 - [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
 - [x] [Topological sorting](./src/graph/topological_sort.rs)
 - [x] [Centroid Decomposition](./src/graph/centroid_decomposition.rs)
+- [x] [Dinic's Max Flow](./src/graph/dinic_maxflow.rs)
 
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
