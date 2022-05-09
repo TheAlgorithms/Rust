@@ -77,7 +77,7 @@ impl AhoCorasick {
                 }
             }
             for &len in &cur.borrow().lengths {
-                ans.push(&s[i - len + 1..=i]);
+                ans.push(&s[i + 1 - len..=i]);
             }
         }
         ans
