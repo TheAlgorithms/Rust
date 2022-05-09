@@ -4,6 +4,7 @@ mod fast_fourier_transform;
 mod fast_power;
 mod greatest_common_divisor;
 mod linear_sieve;
+mod matrix_ops;
 mod miller_rabin;
 mod newton_raphson;
 mod nthprime;
@@ -28,6 +29,9 @@ pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
 };
 pub use self::linear_sieve::LinearSieve;
+pub use self::matrix_ops::{
+    matrix_add, matrix_multiply, matrix_scalar_multiplication, matrix_subtract, matrix_transpose,
+};
 pub use self::miller_rabin::miller_rabin;
 pub use self::newton_raphson::find_root;
 pub use self::nthprime::nthprime;
