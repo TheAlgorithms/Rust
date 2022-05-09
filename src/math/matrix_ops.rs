@@ -1,7 +1,7 @@
 // Matrix operations using row vectors wrapped in column vectors as matrices.
 // Supports i32, should be interchangeable for other types.
 
-pub fn matrix_add(summand0: &Vec<Vec<i32>>, summand1: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+pub fn matrix_add(summand0: &[Vec<i32>], summand1: &[Vec<i32>]) -> Vec<Vec<i32>> {
     // Add two matrices of identical dimensions
     let mut result: Vec<Vec<i32>> = vec![];
     if summand0.len() != summand1.len() {
@@ -16,10 +16,10 @@ pub fn matrix_add(summand0: &Vec<Vec<i32>>, summand1: &Vec<Vec<i32>>) -> Vec<Vec
             result[row].push(summand0[row][column] + summand1[row][column]);
         }
     }
-    return result;
+    result
 }
 
-pub fn matrix_subtract(minuend: &Vec<Vec<i32>>, subtrahend: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+pub fn matrix_subtract(minuend: &[Vec<i32>], subtrahend: &[Vec<i32>]) -> Vec<Vec<i32>> {
     // Subtract one matrix from another. They need to have identical dimensions.
     let mut result: Vec<Vec<i32>> = vec![];
     if minuend.len() != subtrahend.len() {
@@ -34,10 +34,14 @@ pub fn matrix_subtract(minuend: &Vec<Vec<i32>>, subtrahend: &Vec<Vec<i32>>) -> V
             result[row].push(minuend[row][column] - subtrahend[row][column]);
         }
     }
-    return result;
+    result
 }
 
-pub fn matrix_multiply(multiplier: &Vec<Vec<i32>>, multiplicand: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+// Disable cargo clippy warnings about needless range loops.
+// As the iterating variable is used as index while multiplying,
+// using the item itself would defeat the variables purpose.
+#[allow(clippy::needless_range_loop)]
+pub fn matrix_multiply(multiplier: &[Vec<i32>], multiplicand: &[Vec<i32>]) -> Vec<Vec<i32>> {
     // Multiply two matching matrices. The multiplier needs to have the same amount
     // of columns as the multiplicand has rows.
     let mut result: Vec<Vec<i32>> = vec![];
@@ -53,6 +57,7 @@ pub fn matrix_multiply(multiplier: &Vec<Vec<i32>>, multiplicand: &Vec<Vec<i32>>)
             temp = 0;
             for row_right in 0..multiplicand.len() {
                 if row_right_length != multiplicand[row_right].len() {
+                    // If row is longer than a previous row cancel operation with error
                     panic!("Matrix dimensions do not match");
                 }
                 temp += multiplier[row_left][row_right] * multiplicand[row_right][column_right];
@@ -60,10 +65,10 @@ pub fn matrix_multiply(multiplier: &Vec<Vec<i32>>, multiplicand: &Vec<Vec<i32>>)
             result[row_left].push(temp);
         }
     }
-    return result;
+    result
 }
 
-pub fn matrix_transpose(matrix: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+pub fn matrix_transpose(matrix: &[Vec<i32>]) -> Vec<Vec<i32>> {
     // Transpose a matrix of any size
     let mut result: Vec<Vec<i32>> = vec![Vec::with_capacity(matrix.len()); matrix[0].len()];
     for row in matrix {
@@ -71,7 +76,7 @@ pub fn matrix_transpose(matrix: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
             result[col].push(row[col]);
         }
     }
-    return result;
+    result
 }
 
 #[cfg(test)]
