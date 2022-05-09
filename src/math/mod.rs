@@ -10,7 +10,6 @@ mod lcm_of_n_numbers;
 mod linear_sieve;
 mod matrix_ops;
 mod miller_rabin;
-mod newton_raphson;
 mod nthprime;
 mod pascal_triangle;
 mod perfect_numbers;
