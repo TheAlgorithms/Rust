@@ -12,6 +12,8 @@ These are for demonstration purposes only.
 - [X] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Cocktail-Shaker](./src/sorting/cocktail_shaker_sort.rs)
 - [x] [Counting](./src/sorting/counting_sort.rs)
+- [x] [Cycle](./src/sorting/cycle_sort.rs)
+- [x] [Exchange](./src/sorting/exchange_sort.rs)
 - [x] [Heap](./src/sorting/heap_sort.rs)
 - [x] [Insertion](./src/sorting/insertion_sort.rs)
 - [x] [Gnome](./src/sorting/gnome_sort.rs)
@@ -36,11 +38,19 @@ These are for demonstration purposes only.
 - [x] [Depth First Search (DFS)](./src/graph/depth_first_search.rs)
 - [x] [Bellman-Ford](./src/graph/bellman_ford.rs)
 - [x] [Prufer Code](./src/graph/prufer_code.rs)
+- [x] [Lowest Common Ancestor](./src/graph/lowest_common_ancestor.rs)
+- [x] [Heavy Light Decomposition](./src/graph/heavy_light_decomposition.rs)
+- [x] [Tarjan's Strongly Connected Components](./src/graph/strongly_connected_components.rs)
+- [x] [Topological sorting](./src/graph/topological_sort.rs)
+- [x] [Centroid Decomposition](./src/graph/centroid_decomposition.rs)
+- [x] [Dinic's Max Flow](./src/graph/dinic_maxflow.rs)
 
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
+- [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
+- [x] [Least common multiple of n numbers](./src/math/lcm_of_n_numbers.rs)
 - [x] [Miller Rabin primality test](./src/math/miller_rabin.rs)
 - [x] [Pascal's triangle](./src/math/pascal_triangle.rs)
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
@@ -49,8 +59,13 @@ These are for demonstration purposes only.
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
+- [x] [Quadratic Residue](./src/math/quadratic_residue.rs)
 - [x] [Simpson's Rule for Integration](./src/math/simpson_integration.rs)
 - [x] [Fast Fourier Transform](./src/math/fast_fourier_transform.rs)
+- [x] [Armstrong Number](./src/math/armstrong_number.rs)
+- [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
+- [x] [Zeller's Congruence Algorithm](./src/math/zellers_congruence_algorithm.rs)
+- [x] [Karatsuba Multiplication Algorithm](./src/math/karatsuba_multiplication.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
@@ -82,6 +97,7 @@ These are for demonstration purposes only.
 - [x] [RB Tree](./src/data_structures/rb_tree.rs)
 - [X] [Stack using Linked List](./src/data_structures/stack_using_singly_linked_list.rs)
 - [x] [Segment Tree](./src/data_structures/segment_tree.rs)
+- [x] [Fenwick Tree](./src/data_structures/fenwick_tree.rs)
 
 ## [Strings](./src/string)
 
@@ -101,6 +117,7 @@ These are for demonstration purposes only.
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
 - [x] [Two Sum](./src/general/two_sum.rs)
+- [x] [Huffman Encoding](./src/general/huffman_encoding.rs)
 
 ## [Search Algorithms](./src/searching)
 
