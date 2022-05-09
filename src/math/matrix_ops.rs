@@ -1,5 +1,6 @@
-// Matrix operations using row vectors wrapped in column vectors as matrices.
+// Basic matrix operations using row vectors wrapped in column vectors as matrices.
 // Supports i32, should be interchangeable for other types.
+// Wikipedia reference: https://www.wikiwand.com/en/Matrix_(mathematics)
 
 pub fn matrix_add(summand0: &[Vec<i32>], summand1: &[Vec<i32>]) -> Vec<Vec<i32>> {
     // Add two matrices of identical dimensions
@@ -79,10 +80,22 @@ pub fn matrix_transpose(matrix: &[Vec<i32>]) -> Vec<Vec<i32>> {
     result
 }
 
+pub fn matrix_scalar_multiplication(matrix: &[Vec<i32>], scalar: i32) -> Vec<Vec<i32>> {
+    // Multiply a matrix of any size with a scalar
+    let mut result: Vec<Vec<i32>> = vec![Vec::with_capacity(matrix.len()); matrix[0].len()];
+    for row in 0..matrix.len() {
+        for column in 0..matrix[row].len() {
+            result[row].push(scalar * matrix[row][column]);
+        }
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::matrix_add;
     use super::matrix_multiply;
+    use super::matrix_scalar_multiplication;
     use super::matrix_subtract;
     use super::matrix_transpose;
 
@@ -159,5 +172,15 @@ mod tests {
         let exp_result2: Vec<Vec<i32>> = vec![vec![3, 0, 3], vec![4, 1, 1], vec![2, 3, 1]];
         assert_eq!(matrix_transpose(&input0), exp_result1);
         assert_eq!(matrix_transpose(&input1), exp_result2);
+    }
+
+    #[test]
+    fn test_matrix_scalar_multiplication() {
+        let input0: Vec<Vec<i32>> = vec![vec![3, 2, 2], vec![0, 2, 0], vec![5, 4, 1]];
+        let input1: Vec<Vec<i32>> = vec![vec![1, 0, 0], vec![0, 1, 0], vec![0, 0, 1]];
+        let exp_result1: Vec<Vec<i32>> = vec![vec![9, 6, 6], vec![0, 6, 0], vec![15, 12, 3]];
+        let exp_result2: Vec<Vec<i32>> = vec![vec![3, 0, 0], vec![0, 3, 0], vec![0, 0, 3]];
+        assert_eq!(matrix_scalar_multiplication(&input0, 3), exp_result1);
+        assert_eq!(matrix_scalar_multiplication(&input1, 3), exp_result2);
     }
 }
