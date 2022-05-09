@@ -63,11 +63,23 @@ pub fn matrix_multiply(multiplier: &Vec<Vec<i32>>, multiplicand: &Vec<Vec<i32>>)
     return result;
 }
 
+pub fn matrix_transpose(matrix: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    // Transpose a matrix of any size
+    let mut result: Vec<Vec<i32>> = vec![Vec::with_capacity(matrix.len()); matrix[0].len()];
+    for row in matrix {
+        for col in 0..row.len() {
+            result[col].push(row[col]);
+        }
+    }
+    return result;
+}
+
 #[cfg(test)]
 mod tests {
     use super::matrix_add;
     use super::matrix_multiply;
     use super::matrix_subtract;
+    use super::matrix_transpose;
 
     #[test]
     fn test_add() {
@@ -132,5 +144,15 @@ mod tests {
         assert!(result0.is_err());
         let result1 = std::panic::catch_unwind(|| matrix_multiply(&input0, &input_wrong1));
         assert!(result1.is_err());
+    }
+
+    #[test]
+    fn test_transpose() {
+        let input0: Vec<Vec<i32>> = vec![vec![1, 0, 1], vec![0, 2, 0], vec![5, 0, 1]];
+        let input1: Vec<Vec<i32>> = vec![vec![3, 4, 2], vec![0, 1, 3], vec![3, 1, 1]];
+        let exp_result1: Vec<Vec<i32>> = vec![vec![1, 0, 5], vec![0, 2, 0], vec![1, 0, 1]];
+        let exp_result2: Vec<Vec<i32>> = vec![vec![3, 0, 3], vec![4, 1, 1], vec![2, 3, 1]];
+        assert_eq!(matrix_transpose(&input0), exp_result1);
+        assert_eq!(matrix_transpose(&input1), exp_result2);
     }
 }
