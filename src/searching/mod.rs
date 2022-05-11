@@ -20,6 +20,7 @@ pub use self::jump_search::jump_search;
 pub use self::kth_smallest::kth_smallest;
 pub use self::kth_smallest_heap::kth_smallest_heap;
 pub use self::linear_search::linear_search;
+pub use self::quick_select::quick_select;
 pub use self::ternary_search::ternary_search;
 pub use self::ternary_search_min_max::ternary_search_max;
 pub use self::ternary_search_min_max::ternary_search_min;
