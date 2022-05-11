@@ -22,12 +22,10 @@ pub fn quick_select(list: &mut [i32], left: usize, right: usize, index: usize) -
     let mut pivot_index = ((left + right) / 2) + 1; // select a pivotIndex between left and right
     pivot_index = partition(list, left, right, pivot_index);
     // The pivot is in its final sorted position
-    if index == pivot_index {
-        return list[index];
-    } else if index < pivot_index {
-        return quick_select(list, left, pivot_index - 1, index);
-    } else {
-        return quick_select(list, pivot_index + 1, right, index);
+    match index {
+        x if x == pivot_index => return list[index],
+        x if x < pivot_index => return quick_select(list, left, pivot_index - 1, index),
+        _ => return quick_select(list, pivot_index + 1, right, index),
     }
 }
 
