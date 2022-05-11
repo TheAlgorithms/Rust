@@ -11,7 +11,7 @@ fn partition(list: &mut [i32], left: usize, right: usize, pivot_index: usize) ->
         }
         list.swap(right, store_index); // Move pivot to its final place
     }
-    return store_index;
+    store_index
 }
 
 pub fn quick_select(list: &mut [i32], left: usize, right: usize, index: usize) -> i32 {
@@ -23,9 +23,9 @@ pub fn quick_select(list: &mut [i32], left: usize, right: usize, index: usize) -
     pivot_index = partition(list, left, right, pivot_index);
     // The pivot is in its final sorted position
     match index {
-        x if x == pivot_index => return list[index],
-        x if x < pivot_index => return quick_select(list, left, pivot_index - 1, index),
-        _ => return quick_select(list, pivot_index + 1, right, index),
+        x if x == pivot_index => list[index],
+        x if x < pivot_index => quick_select(list, left, pivot_index - 1, index),
+        _ => quick_select(list, pivot_index + 1, right, index),
     }
 }
 
