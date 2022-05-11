@@ -6,6 +6,7 @@ mod jump_search;
 mod kth_smallest;
 mod kth_smallest_heap;
 mod linear_search;
+mod quick_select;
 mod ternary_search;
 mod ternary_search_min_max;
 mod ternary_search_min_max_recursive;
