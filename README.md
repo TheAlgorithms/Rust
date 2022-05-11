@@ -129,6 +129,7 @@ These are for demonstration purposes only.
 - [x] [Exponential](./src/searching/exponential_search.rs)
 - [x] [Jump](./src/searching/jump_search.rs)
 - [x] [Fibonacci](./src/searching/fibonacci_search.rs)
+- [x] [Quick Select](./src/searching/quick_select.rs)
 
 ## [Geometry](./src/geometry)
 
