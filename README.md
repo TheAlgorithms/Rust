@@ -98,6 +98,7 @@ These are for demonstration purposes only.
 - [X] [Stack using Linked List](./src/data_structures/stack_using_singly_linked_list.rs)
 - [x] [Segment Tree](./src/data_structures/segment_tree.rs)
 - [x] [Fenwick Tree](./src/data_structures/fenwick_tree.rs)
+- [x] [Union-find](./src/data_structures/union_find.rs)
 
 ## [Strings](./src/string)
 
@@ -128,6 +129,7 @@ These are for demonstration purposes only.
 - [x] [Exponential](./src/searching/exponential_search.rs)
 - [x] [Jump](./src/searching/jump_search.rs)
 - [x] [Fibonacci](./src/searching/fibonacci_search.rs)
+- [x] [Quick Select](./src/searching/quick_select.rs)
 
 ## [Geometry](./src/geometry)
 

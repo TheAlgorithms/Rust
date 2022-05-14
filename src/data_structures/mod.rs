@@ -10,6 +10,7 @@ mod rb_tree;
 mod segment_tree;
 mod stack_using_singly_linked_list;
 mod trie;
+mod union_find;
 
 pub use self::avl_tree::AVLTree;
 pub use self::b_tree::BTree;
@@ -24,3 +25,4 @@ pub use self::rb_tree::RBTree;
 pub use self::segment_tree::SegmentTree;
 pub use self::stack_using_singly_linked_list::Stack;
 pub use self::trie::Trie;
+pub use self::union_find::UnionFind;
