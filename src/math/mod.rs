@@ -8,6 +8,7 @@ mod greatest_common_divisor;
 mod karatsuba_multiplication;
 mod lcm_of_n_numbers;
 mod linear_sieve;
+mod matrix_ops;
 mod miller_rabin;
 mod nthprime;
 mod pascal_triangle;
@@ -38,6 +39,9 @@ pub use self::greatest_common_divisor::{
 pub use self::karatsuba_multiplication::multiply;
 pub use self::lcm_of_n_numbers::lcm;
 pub use self::linear_sieve::LinearSieve;
+pub use self::matrix_ops::{
+    matrix_add, matrix_multiply, matrix_scalar_multiplication, matrix_subtract, matrix_transpose,
+};
 pub use self::miller_rabin::miller_rabin;
 pub use self::nthprime::nthprime;
 pub use self::pascal_triangle::pascal_triangle;
