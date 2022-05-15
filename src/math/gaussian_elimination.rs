@@ -18,16 +18,11 @@ pub fn gaussian_elimination(matrix: &mut [Vec<f32>]) -> Vec<f32> {
     }
 
     // Disable cargo clippy warnings about needless range loops.
-    // As the iterating variable is used as index while dividing,
-    // using the item itself would defeat the variables purpose.
+    // Checking the diagonal like this is simpler than any alternative.
     #[allow(clippy::needless_range_loop)]
     for i in 0..size {
         if matrix[i][i] == 0f32 {
             println!("Infnitely many solutions");
-        } else {
-            matrix[i][size] /= matrix[i][i] as f32;
-            matrix[i][i] = 1f32;
-            println!("X{} = {}", i + 1, matrix[i][size]);
         }
     }
 
