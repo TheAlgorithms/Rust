@@ -22,7 +22,7 @@ pub fn gaussian_elimination(matrix: &mut [Vec<f32>]) -> Vec<f32> {
     #[allow(clippy::needless_range_loop)]
     for i in 0..size {
         if matrix[i][i] == 0f32 {
-            println!("Infnitely many solutions");
+            println!("Infinitely many solutions");
         }
     }
 
