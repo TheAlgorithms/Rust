@@ -3,6 +3,7 @@ mod baby_step_giant_step;
 mod extended_euclidean_algorithm;
 mod fast_fourier_transform;
 mod fast_power;
+mod gaussian_elimination;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
 mod karatsuba_multiplication;
@@ -33,6 +34,7 @@ pub use self::fast_fourier_transform::{
     inverse_fast_fourier_transform,
 };
 pub use self::fast_power::fast_power;
+pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
