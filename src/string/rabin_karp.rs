@@ -1,38 +1,67 @@
+const MODULUS: u16 = 101;
+const BASE: u16 = 256;
+
 pub fn rabin_karp(target: String, pattern: String) -> Vec<usize> {
     // Quick exit
     if target.is_empty() || pattern.is_empty() || pattern.len() > target.len() {
         return vec![];
     }
 
-    let string: String = (&pattern[0..pattern.len()]).to_string();
-    let hash_pattern = hash(string.clone());
-    let mut ret = vec![];
-    for i in 0..(target.len() - pattern.len() + 1) {
-        let s = (&target[i..(i + pattern.len())]).to_string();
-        let string_hash = hash(s.clone());
+    let pattern_hash = hash(&pattern.as_str());
 
-        if string_hash == hash_pattern && s == string {
+    // Pre-calculate BASE^(n-1)
+    let mut pow_rem: u16 = 1;
+    for _ in 0..pattern.len() - 1 {
+        pow_rem *= BASE;
+        pow_rem %= MODULUS;
+    }
+
+    let mut rolling_hash = 0;
+    let mut ret = vec![];
+    for i in 0..=target.len() - pattern.len() {
+        rolling_hash = if i == 0 {
+            hash(&target[0..pattern.len()])
+        } else {
+            recalculate_hash(
+                target.as_str(),
+                i - 1,
+                i + pattern.len() - 1,
+                rolling_hash,
+                pow_rem,
+            )
+        };
+        if rolling_hash == pattern_hash && pattern[..] == target[i..i + pattern.len()] {
             ret.push(i);
         }
     }
     ret
 }
 
-fn hash(mut s: String) -> u16 {
-    let prime: u16 = 101;
-    let last_char = s
-        .drain(s.len() - 1..)
-        .next()
-        .expect("Failed to get the last char of the string");
+// hash(s) is defined as BASE^(n-1) * s_0 + BASE^(n-2) * s_1 + ... + BASE^0 * s_(n-1)
+fn hash(s: &str) -> u16 {
     let mut res: u16 = 0;
-    for (i, &c) in s.as_bytes().iter().enumerate() {
-        if i == 0 {
-            res = (c as u16 * 256) % prime;
-        } else {
-            res = (((res + c as u16) % 101) * 256) % 101;
-        }
+    for &c in s.as_bytes().iter() {
+        res = (res * BASE % MODULUS + c as u16) % MODULUS;
     }
-    (res + last_char as u16) % prime
+    res
+}
+
+// new_hash = (old_hash - BASE^(n-1) * s_(i-n)) * BASE + s_i
+fn recalculate_hash(
+    s: &str,
+    old_index: usize,
+    new_index: usize,
+    old_hash: u16,
+    pow_rem: u16,
+) -> u16 {
+    let mut new_hash = old_hash;
+    let (old_ch, new_ch) = (
+        s.as_bytes()[old_index] as u16,
+        s.as_bytes()[new_index] as u16,
+    );
+    new_hash = (new_hash + MODULUS - pow_rem * old_ch % MODULUS) % MODULUS;
+    new_hash = (new_hash * BASE + new_ch) % MODULUS;
+    new_hash
 }
 
 #[cfg(test)]
@@ -41,19 +70,19 @@ mod tests {
 
     #[test]
     fn hi_hash() {
-        let hash_result = hash("hi".to_string());
+        let hash_result = hash("hi");
         assert_eq!(hash_result, 65);
     }
 
     #[test]
     fn abr_hash() {
-        let hash_result = hash("abr".to_string());
+        let hash_result = hash("abr");
         assert_eq!(hash_result, 4);
     }
 
     #[test]
     fn bra_hash() {
-        let hash_result = hash("bra".to_string());
+        let hash_result = hash("bra");
         assert_eq!(hash_result, 30);
     }
 
