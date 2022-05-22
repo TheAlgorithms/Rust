@@ -7,7 +7,7 @@ pub fn rabin_karp(target: String, pattern: String) -> Vec<usize> {
         return vec![];
     }
 
-    let pattern_hash = hash(&pattern.as_str());
+    let pattern_hash = hash(pattern.as_str());
 
     // Pre-calculate BASE^(n-1)
     let mut pow_rem: u16 = 1;
