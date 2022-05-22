@@ -48,6 +48,7 @@ These are for demonstration purposes only.
 ## [Math](./src/math)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
+- [x] [Gaussian Elimination](./src/math/gaussian_elimination.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
 - [x] [Least common multiple of n numbers](./src/math/lcm_of_n_numbers.rs)
