@@ -57,6 +57,7 @@ These are for demonstration purposes only.
 - [x] [Square root with Newton's method](./src/math/square_root.rs)
 - [x] [Fast power algorithm](./src/math/fast_power.rs)
 - [X] [Perfect number](./src/math/perfect_numbers.rs)
+- [X] [Prime factors](./src/math/prime_factors.rs)
 - [X] [Prime number](./src/math/prime_numbers.rs)
 - [x] [Linear Sieve](./src/math/linear_sieve.rs)
 - [x] [Pollard's Rho algorithm](./src/math/pollard_rho.rs)
