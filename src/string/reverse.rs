@@ -12,7 +12,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assymentric() {
+    fn test_assymetric() {
         assert_eq!(reverse("abcdef"), "fedcba")
     }
 
