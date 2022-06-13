@@ -1,5 +1,15 @@
 ## Sort Algorithms
 
+### [Bogo-sort](./bogo_sort.rs)
+![alt text][bogo-image]
+
+From [Wikipedia][bogo-wiki]: In computer science, bogosort is a sorting algorithm based on the generate and test paradigm. The function successively generates permutations of its input until it finds one that is sorted. It is not considered useful for sorting, but may be used for educational purposes, to contrast it with more efficient algorithms.
+
+__Properties__
+* Worst case performance (unbounded in randomized version)
+* Best case performance O(n)
+* Average case performance O((n+1)!)
+
 
 ### [Bubble](./bubble_sort.rs)
 ![alt text][bubble-image]
@@ -172,6 +182,9 @@ From [Wikipedia][tim-wiki]:  Timsort is a hybrid stable sorting algorithm, deriv
 __Properties__
 * Worst-case performance O(n log n)
 * Best-case performance	O(n)
+
+[bogo-wiki]: https://en.wikipedia.org/wiki/Bogosort
+[bogo-image]: https://upload.wikimedia.org/wikipedia/commons/7/7b/Bogo_sort_animation.gif
 
 [bubble-toptal]: https://www.toptal.com/developers/sorting-algorithms/bubble-sort
 [bubble-wiki]: https://en.wikipedia.org/wiki/Bubble_sort
