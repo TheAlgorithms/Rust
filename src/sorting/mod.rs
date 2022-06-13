@@ -1,3 +1,4 @@
+mod bogo_sort;
 mod bubble_sort;
 mod bucket_sort;
 mod cocktail_shaker_sort;
@@ -18,6 +19,7 @@ mod shell_sort;
 mod stooge_sort;
 mod tim_sort;
 
+pub use self::bogo_sort::bogo_sort;
 pub use self::bubble_sort::bubble_sort;
 pub use self::bucket_sort::bucket_sort;
 pub use self::cocktail_shaker_sort::cocktail_shaker_sort;
