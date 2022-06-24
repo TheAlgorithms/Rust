@@ -28,7 +28,7 @@ mod tests {
     }
     #[test]
     fn test_bunch_of_letters() {
-        assert_eq!("nop", theoretical_rot13("abc"));
+        assert_eq!("nop op", theoretical_rot13("abc bc"));
     }
 
     #[test]
