@@ -1,3 +1,4 @@
+mod aes;
 mod another_rot13;
 mod caesar;
 mod morse_code;
@@ -10,6 +11,7 @@ mod transposition;
 mod vigenere;
 mod xor;
 
+pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
 pub use self::another_rot13::another_rot13;
 pub use self::caesar::caesar;
 pub use self::morse_code::{decode, encode};

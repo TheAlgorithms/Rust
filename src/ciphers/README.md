@@ -41,3 +41,9 @@ Mathematically a bijective function is used on the characters' positions to encr
 
 [caesar]: https://upload.wikimedia.org/wikipedia/commons/4/4a/Caesar_cipher_left_shift_of_3.svg
 
+### [AES](./aes.rs)
+The Advanced Encryption Standard (AES), also known by its original name Rijndael (Dutch pronunciation: [ˈrɛindaːl]), is a specification for the encryption of electronic data established by the U.S. National Institute of Standards and Technology (NIST) in 2001.
+
+###### Source: [Wikipedia](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+
+![aes](https://upload.wikimedia.org/wikipedia/commons/5/50/AES_%28Rijndael%29_Round_Function.png)

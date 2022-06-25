@@ -12,6 +12,11 @@ mod tests {
     }
 
     #[test]
+    fn test_assymetric() {
+        assert_eq!(reverse("abcdef"), "fedcba")
+    }
+
+    #[test]
     fn test_sentence() {
         assert_eq!(reverse("step on no pets"), "step on no pets");
     }
