@@ -18,7 +18,7 @@ pub fn transposition(decrypt_mode: bool, msg: &str, key: &str) -> String {
         true => key_uppercase.split_whitespace().rev().collect(),
     };
 
-    for cipher_key in &keys {
+    for cipher_key in keys.iter() {
         let mut key_order: Vec<usize> = Vec::new();
         let mut counter: u8 = 0;
 
