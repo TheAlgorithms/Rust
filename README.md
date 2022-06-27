@@ -20,6 +20,7 @@ These are for demonstration purposes only.
 - [x] [Merge](./src/sorting/merge_sort.rs)
 - [x] [Odd-even](./src/sorting/odd_even_sort.rs)
 - [x] [Pancake](./src/sorting/pancake_sort.rs)
+- [x] [Pigeonhole](./src/sorting/pigeonhole_sort.rs)
 - [x] [Quick](./src/sorting/quick_sort.rs)
 - [x] [Radix](./src/sorting/radix_sort.rs)
 - [x] [Selection](./src/sorting/selection_sort.rs)
