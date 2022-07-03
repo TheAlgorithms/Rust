@@ -14,6 +14,7 @@ mod prim;
 mod prufer_code;
 mod strongly_connected_components;
 mod topological_sort;
+mod two_satisfiability;
 
 pub use self::bellman_ford::bellman_ford;
 pub use self::breadth_first_search::breadth_first_search;
@@ -31,3 +32,4 @@ pub use self::prim::{prim, prim_with_start};
 pub use self::prufer_code::{prufer_decode, prufer_encode};
 pub use self::strongly_connected_components::StronglyConnectedComponents;
 pub use self::topological_sort::topological_sort;
+pub use self::two_satisfiability::solve_two_satisfiability;
