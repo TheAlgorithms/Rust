@@ -70,7 +70,7 @@ mod tests {
         }
         ok
     }
-	#[test]
+    #[test]
     fn basic_test() {
         let conds = vec![(1, 1), (2, 2)];
         let res = solve_two_satisfiability(&conds, 2);
@@ -92,26 +92,27 @@ mod tests {
         assert!(res.is_err());
     }
 
-	#[test]
-	#[ignore]
-	fn big_test() {
-		// We should spawn a new thread and set its stack size to something
-		// big (256MB in this case), because doing DFS (for finding SCCs) is
-		// a stack-intensive operation. 256MB should be enough for 3e5
-		// variables though.
-		let builder = thread::Builder::new()
-			.stack_size(256 * 1024 * 1024);
-		let handler = builder.spawn(|| {
-			let num_conds = 3e5 as i64;
-			let mut conds = vec![];
-			for i in 1..num_conds {
-				conds.push((i, -(i+1)));
-			}
-			conds.push((num_conds, num_conds));
-			let res = solve_two_satisfiability(&conds, num_conds as usize);
-			assert!(res.is_ok());
-			assert!(check_answer(&conds, &res.unwrap()));
-		}).unwrap();
-		handler.join().unwrap();
-	}
+    #[test]
+    #[ignore]
+    fn big_test() {
+        // We should spawn a new thread and set its stack size to something
+        // big (256MB in this case), because doing DFS (for finding SCCs) is
+        // a stack-intensive operation. 256MB should be enough for 3e5
+        // variables though.
+        let builder = thread::Builder::new().stack_size(256 * 1024 * 1024);
+        let handler = builder
+            .spawn(|| {
+                let num_conds = 3e5 as i64;
+                let mut conds = vec![];
+                for i in 1..num_conds {
+                    conds.push((i, -(i + 1)));
+                }
+                conds.push((num_conds, num_conds));
+                let res = solve_two_satisfiability(&conds, num_conds as usize);
+                assert!(res.is_ok());
+                assert!(check_answer(&conds, &res.unwrap()));
+            })
+            .unwrap();
+        handler.join().unwrap();
+    }
 }
