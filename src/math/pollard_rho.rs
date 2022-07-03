@@ -73,7 +73,7 @@ fn pollard_rho_customizable(
             {
                 small_iteration += 1;
                 x = advance(x, c, number);
-                let diff = (x as i128 - y as i128).abs() as u128;
+                let diff = x.abs_diff(y);
                 remainder = (remainder * diff) % number as u128;
             }
             current_gcd = gcd(remainder as u64, number);
@@ -87,7 +87,7 @@ fn pollard_rho_customizable(
     if current_gcd == number {
         while current_gcd == 1 {
             x_start = advance(x_start, c, number);
-            current_gcd = gcd((x_start as i128 - y as i128).abs() as u64, number);
+            current_gcd = gcd(x_start.abs_diff(y) as u64, number);
         }
     }
     current_gcd
