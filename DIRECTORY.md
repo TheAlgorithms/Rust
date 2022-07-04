@@ -59,6 +59,7 @@
     * [Tarjan's Strongly Connected Components](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/strongly_connected_components.rs)
     * [Centroid Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/centroid_decomposition.rs)
     * [Dinic's Max Flow](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dinic_maxflow.rs)
+    * [2-SAT Problem](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math
     * [Baby-Step Giant-Step Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/baby_step_giant_step.rs)
