@@ -10,6 +10,7 @@ mod longest_increasing_subsequence;
 mod maximal_square;
 mod maximum_subarray;
 mod rod_cutting;
+mod snail;
 
 pub use self::coin_change::coin_change;
 pub use self::edit_distance::{edit_distance, edit_distance_se};
@@ -27,3 +28,4 @@ pub use self::longest_increasing_subsequence::longest_increasing_subsequence;
 pub use self::maximal_square::maximal_square;
 pub use self::maximum_subarray::maximum_subarray;
 pub use self::rod_cutting::rod_cut;
+pub use self::snail::snail;
