@@ -4,7 +4,7 @@ This project aims at showcasing common algorithms implemented in `Rust`, with an
 
 ## Project structure
 
-The project is organized as follow:
+The project is organized as follows:
 
 `src/`
   - `my_algo_category/`
