@@ -13,11 +13,19 @@ where
         let mut j = i - 1;
 
         while arr[j] > cur {
-            arr.swap(j + 1, j);
+            arr[j + 1] = arr[j];
             if j == 0 {
                 break;
             }
             j -= 1;
+        }
+
+        // we exit the loop from that break statement
+        if j == 0 && arr[0] > cur {
+            arr[0] = cur;
+        } else {
+            // `arr[j] > cur` is not satsified, exit from condition judgement
+            arr[j + 1] = cur;
         }
     }
 }
