@@ -10,6 +10,7 @@ mod theoretical_rot13;
 mod transposition;
 mod vigenere;
 mod xor;
+mod hashing_traits;
 
 pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
 pub use self::another_rot13::another_rot13;
@@ -23,3 +24,5 @@ pub use self::theoretical_rot13::theoretical_rot13;
 pub use self::transposition::transposition;
 pub use self::vigenere::vigenere;
 pub use self::xor::xor;
+pub use self::hashing_traits::Hasher;
+pub use self::hashing_traits::HMAC;
