@@ -76,7 +76,7 @@ pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
                 min(c + 1, distances[j] + 1),
             );
             // c is updated to distances[i][j], and will thus become distances[i][j-1] for the next cell
-            s = distances[j]; // here distances[j] means distances[i-1][j] becuase it has not been overwritten yet
+            s = distances[j]; // here distances[j] means distances[i-1][j] because it has not been overwritten yet
                               // s is updated to distances[i-1][j], and will thus become distances[i-1][j-1] for the next cell
             distances[j] = c; // now distances[j] is updated to distances[i][j], and will thus become distances[i-1][j] for the next ROW
         }
