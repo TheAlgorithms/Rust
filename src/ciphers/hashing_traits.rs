@@ -5,13 +5,9 @@ pub trait Hasher<const DIGEST_BYTES: usize> {
     /// Add new data
     fn update(&mut self, data: &[u8]);
 
-    /// Use this to finish this block and start another one. If this block is
-    /// already full, nothing should be done
-    fn pad_buffer(&mut self);
-
-    /// Returns the hash of current data. Calls `pad_buffer` on it and if
-    /// necessary does finalization work on the instance, thus it may no longer
-    /// make sense to do `update` after calling this.
+    /// Returns the hash of current data. If it is necessary does finalization
+    /// work on the instance, thus it may no longer make sense to do `update`
+    /// after calling this.
     fn get_hash(&mut self) -> [u8; DIGEST_BYTES];
 }
 
@@ -34,9 +30,9 @@ impl<const KEY_BYTES: usize, const DIGEST_BYTES: usize, H: Hasher<DIGEST_BYTES>>
     /// Note that `key` must be no longer than `KEY_BYTES`. According to RFC,
     /// if it is so, you should replace it with its hash. We do not do this
     /// automatically due to fear of `DIGEST_BYTES` not being the same as
-    /// `KEY_BYTES`
+    /// `KEY_BYTES` or even being longer than it
     pub fn add_key(&mut self, key: &[u8]) -> Result<(), &'static str> {
-        match key.len().cmp(&DIGEST_BYTES) {
+        match key.len().cmp(&KEY_BYTES) {
             std::cmp::Ordering::Less | std::cmp::Ordering::Equal => {
                 let mut tmp_key = [0u8; KEY_BYTES];
                 for (d, s) in tmp_key.iter_mut().zip(key.iter()) {
@@ -68,5 +64,26 @@ impl<const KEY_BYTES: usize, const DIGEST_BYTES: usize, H: Hasher<DIGEST_BYTES>>
         self.outer_internal_state
             .update(&self.inner_internal_state.get_hash());
         self.outer_internal_state.get_hash()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::super::sha256::get_hash_string;
+    use super::super::SHA256;
+    use super::HMAC;
+
+    #[test]
+    fn sha256_basic() {
+        // To test this, use the following command on linux:
+        // echo -n "Hello World" | openssl sha256 -hex -mac HMAC -macopt hexkey:"deadbeef"
+        let mut hmac: HMAC<64, 32, SHA256> = HMAC::new_default();
+        hmac.add_key(&[0xde, 0xad, 0xbe, 0xef]).unwrap();
+        hmac.update(&b"Hello World".to_vec());
+        let hash = hmac.finalize();
+        assert_eq!(
+            get_hash_string(&hash),
+            "f585fc4536e8e7f378437465b65b6c2eb79036409b18a7d28b6d4c46d3a156f8"
+        );
     }
 }

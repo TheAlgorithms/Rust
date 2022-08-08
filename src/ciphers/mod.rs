@@ -20,7 +20,7 @@ pub use self::hashing_traits::HMAC;
 pub use self::morse_code::{decode, encode};
 pub use self::polybius::{decode_ascii, encode_ascii};
 pub use self::rot13::rot13;
-pub use self::sha256::sha256;
+pub use self::sha256::SHA256;
 pub use self::tea::{tea_decrypt, tea_encrypt};
 pub use self::theoretical_rot13::theoretical_rot13;
 pub use self::transposition::transposition;
