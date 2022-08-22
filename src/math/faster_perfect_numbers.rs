@@ -1,4 +1,4 @@
-use super::{mersenne_numbers::is_mersenne_number, prime_numbers::prime_numbers};
+use super::{mersenne_primes::is_mersenne_prime, prime_numbers::prime_numbers};
 use std::convert::TryInto;
 
 /*
@@ -11,7 +11,7 @@ pub fn generate_perfect_numbers(num: usize) -> Vec<usize> {
 
     for i in prime_numbers(prime_limit).iter() {
         let prime = *i;
-        if is_mersenne_number(prime) {
+        if is_mersenne_prime(prime) {
             results.push(
                 (2_usize.pow(prime.try_into().unwrap()) - 1)
                     * (2_usize.pow((prime - 1).try_into().unwrap())),

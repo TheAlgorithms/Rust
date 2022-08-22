@@ -11,7 +11,7 @@ mod karatsuba_multiplication;
 mod lcm_of_n_numbers;
 mod linear_sieve;
 mod matrix_ops;
-mod mersenne_numbers;
+mod mersenne_primes;
 mod miller_rabin;
 mod newton_raphson;
 mod nthprime;
@@ -49,7 +49,7 @@ pub use self::linear_sieve::LinearSieve;
 pub use self::matrix_ops::{
     matrix_add, matrix_multiply, matrix_scalar_multiplication, matrix_subtract, matrix_transpose,
 };
-pub use self::mersenne_numbers::{get_mersenne_numbers, is_mersenne_number};
+pub use self::mersenne_primes::{get_mersenne_primes, is_mersenne_prime};
 pub use self::miller_rabin::miller_rabin;
 pub use self::newton_raphson::find_root;
 pub use self::nthprime::nthprime;
