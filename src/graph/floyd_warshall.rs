@@ -33,10 +33,9 @@ pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
     let keys = map.iter().map(|(k, _)| *k).collect::<Vec<_>>();
     for &k in &keys {
         for &i in &keys {
-            match map[&i].get(&k) {
-                Some(_) => {}
-                None => continue,
-            };
+            if map[&i].get(&k).is_none() {
+                continue;
+            }
             for &j in &keys {
                 if i == j {
                     continue;
