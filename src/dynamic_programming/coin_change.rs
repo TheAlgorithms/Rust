@@ -16,9 +16,9 @@ pub fn coin_change(coins: &[usize], amount: usize) -> Option<usize> {
     // Assume dp[i] is the fewest number of coins making up amount i,
     // then for every coin in coins, dp[i] = min(dp[i - coin] + 1).
     for i in 0..=amount {
-        for j in 0..coins.len() {
-            if i >= coins[j] && dp[i - coins[j]] != std::usize::MAX {
-                dp[i] = dp[i].min(dp[i - coins[j]] + 1);
+        for &coin in coins {
+            if i >= coin && dp[i - coin] != std::usize::MAX {
+                dp[i] = dp[i].min(dp[i - coin] + 1);
             }
         }
     }
