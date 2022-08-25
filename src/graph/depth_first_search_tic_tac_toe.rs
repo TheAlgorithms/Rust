@@ -36,7 +36,7 @@ struct Position {
     y: u8,
 }
 
-#[derive(Copy, Clone, PartialEq, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum Players {
     Blank,
     PlayerX,
