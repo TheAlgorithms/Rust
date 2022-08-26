@@ -11,7 +11,7 @@ pub fn interpolation_search<Ordering>(nums: &[i32], item: &i32) -> Result<usize,
         }
         let offset: usize = low
             + (((high - low) / (nums[high] - nums[low]) as usize) * (*item - nums[low]) as usize);
-        match nums[offset].cmp(&*item) {
+        match nums[offset].cmp(item) {
             std::cmp::Ordering::Equal => return Ok(offset),
             std::cmp::Ordering::Less => low = offset + 1,
             std::cmp::Ordering::Greater => high = offset - 1,
