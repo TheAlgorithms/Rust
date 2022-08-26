@@ -1,6 +1,7 @@
 mod aes;
 mod another_rot13;
 mod caesar;
+mod chacha;
 mod hashing_traits;
 mod morse_code;
 mod polybius;
@@ -16,6 +17,7 @@ mod xor;
 pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
 pub use self::another_rot13::another_rot13;
 pub use self::caesar::caesar;
+pub use self::chacha::chacha20;
 pub use self::hashing_traits::Hasher;
 pub use self::hashing_traits::HMAC;
 pub use self::morse_code::{decode, encode};
