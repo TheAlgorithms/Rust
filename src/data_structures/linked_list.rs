@@ -101,6 +101,7 @@ impl<T> LinkedList<T> {
                     let node_ptr = Some(NonNull::new_unchecked(Box::into_raw(node)));
                     println!("{:?}", (*p.as_ptr()).next);
                     (*p.as_ptr()).next = node_ptr;
+                    (*ith_node.as_ptr()).prev = node_ptr;
                     self.length += 1;
                 }
             }
@@ -297,6 +298,36 @@ mod tests {
         match list.get(2) {
             Some(val) => assert_eq!(*val, second_value),
             None => panic!("Expected to find {} at index 1", second_value),
+        }
+    }
+
+   #[test]
+    fn insert_at_ith_and_delete_at_ith_in_the_middle() {
+        // Insert and delete in the middle of the list to ensure pointers are updated correctly
+        let mut list = LinkedList::<i32>::new();
+        let first_value = 0;
+        let second_value = 1;
+        let third_value = 2;
+        let fourth_value = 3;
+
+        list.insert_at_ith(0, first_value);
+        list.insert_at_ith(1, fourth_value);
+        list.insert_at_ith(1, third_value);
+        list.insert_at_ith(1, second_value);
+
+        list.delete_ith(2);
+        list.insert_at_ith(2, third_value);
+
+        for (i, expected) in [
+            (0, first_value),
+            (1, second_value),
+            (2, third_value),
+            (3, fourth_value),
+        ] {
+            match list.get(i) {
+                Some(val) => assert_eq!(*val, expected),
+                None => panic!("Expected to find {} at index {}", expected, i),
+            }
         }
     }
 
