@@ -10,7 +10,8 @@ pub fn prime_numbers(max: usize) -> Vec<usize> {
 
         for j in (3..stop).step_by(2) {
             if i % j == 0 {
-                status = false
+                status = false;
+                break;
             }
         }
         if status {
