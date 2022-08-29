@@ -10,23 +10,26 @@
 ///     - time complexity: O(amount * coins.length),
 ///     - space complexity: O(amount),
 pub fn coin_change(coins: &[usize], amount: usize) -> Option<usize> {
-    let mut dp = vec![std::usize::MAX; amount + 1];
-    dp[0] = 0;
+    let mut dp = vec![None; amount + 1];
+    dp[0] = Some(0);
 
     // Assume dp[i] is the fewest number of coins making up amount i,
     // then for every coin in coins, dp[i] = min(dp[i - coin] + 1).
     for i in 0..=amount {
-        for j in 0..coins.len() {
-            if i >= coins[j] && dp[i - coins[j]] != std::usize::MAX {
-                dp[i] = dp[i].min(dp[i - coins[j]] + 1);
+        for &coin in coins {
+            if i >= coin {
+                dp[i] = match dp[i - coin] {
+                    Some(prev_coins) => match dp[i] {
+                        Some(curr_coins) => Some(curr_coins.min(prev_coins + 1)),
+                        None => Some(prev_coins + 1),
+                    },
+                    None => dp[i],
+                };
             }
         }
     }
 
-    match dp[amount] {
-        std::usize::MAX => None,
-        _ => Some(dp[amount]),
-    }
+    dp[amount]
 }
 
 #[cfg(test)]
