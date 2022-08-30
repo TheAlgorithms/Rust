@@ -22,11 +22,11 @@ pub fn closest_points(points: &[Point]) -> Option<(Point, Point)> {
     closest_points_aux(&points, 0, points.len())
 }
 
-fn dist((x1, y1): &Point, (x2, y2): &Point) -> f64 {
+fn sqr_dist((x1, y1): &Point, (x2, y2): &Point) -> f64 {
     let dx = *x1 - *x2;
     let dy = *y1 - *y2;
 
-    (dx * dx + dy * dy).sqrt()
+    dx * dx + dy * dy
 }
 
 fn closest_points_aux(
@@ -42,12 +42,12 @@ fn closest_points_aux(
 
     if n <= 3 {
         // bruteforce
-        let mut min = dist(&points[0], &points[1]);
+        let mut min = sqr_dist(&points[0], &points[1]);
         let mut pair = (points[0], points[1]);
 
-        for i in 0..n {
+        for i in 1..n {
             for j in (i + 1)..n {
-                let new = dist(&points[i], &points[j]);
+                let new = sqr_dist(&points[i], &points[j]);
                 if new < min {
                     min = new;
                     pair = (points[i], points[j]);
@@ -61,26 +61,27 @@ fn closest_points_aux(
     let left = closest_points_aux(points, start, mid);
     let right = closest_points_aux(points, mid, end);
 
-    let (mut min_dist, mut pair) = match (left, right) {
+    let (mut min_sqr_dist, mut pair) = match (left, right) {
         (Some((l1, l2)), Some((r1, r2))) => {
-            let dl = dist(&l1, &l2);
-            let dr = dist(&r1, &r2);
+            let dl = sqr_dist(&l1, &l2);
+            let dr = sqr_dist(&r1, &r2);
             if dl < dr {
                 (dl, (l1, l2))
             } else {
                 (dr, (r1, r2))
             }
         }
-        (Some((a, b)), None) => (dist(&a, &b), (a, b)),
-        (None, Some((a, b))) => (dist(&a, &b), (a, b)),
+        (Some((a, b)), None) => (sqr_dist(&a, &b), (a, b)),
+        (None, Some((a, b))) => (sqr_dist(&a, &b), (a, b)),
         (None, None) => unreachable!(),
     };
 
     let mid_x = points[mid].0;
-    while points[start].0 < mid_x - min_dist {
+    let dist = min_sqr_dist.sqrt();
+    while points[start].0 < mid_x - dist {
         start += 1;
     }
-    while points[end - 1].0 > mid_x + min_dist {
+    while points[end - 1].0 > mid_x + dist {
         end -= 1;
     }
 
@@ -93,9 +94,9 @@ fn closest_points_aux(
                 break;
             }
 
-            let new = dist(e, mids[i + k]);
-            if new < min_dist {
-                min_dist = new;
+            let new = sqr_dist(e, mids[i + k]);
+            if new < min_sqr_dist {
+                min_sqr_dist = new;
                 pair = (**e, *mids[i + k]);
             }
         }

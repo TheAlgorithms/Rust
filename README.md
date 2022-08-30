@@ -118,7 +118,7 @@ These are for demonstration purposes only.
 
 - [x] [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
 - [x] [N-Queens Problem](./src/general/nqueens.rs)
-- [ ] Graph Coloringp
+- [ ] Graph Coloring
 - [x] [Tower of Hanoi](./src/general/hanoi.rs)
 - [x] [Kmeans](./src/general/kmeans.rs)
 - [x] [Two Sum](./src/general/two_sum.rs)
