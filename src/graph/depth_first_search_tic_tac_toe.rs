@@ -30,7 +30,7 @@ use std::io;
 //#[cfg(not(test))]
 //use rand::Rng;
 
-#[derive(Copy, Clone, PartialEq, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 struct Position {
     x: u8,
     y: u8,
@@ -43,13 +43,13 @@ pub enum Players {
     PlayerO,
 }
 
-#[derive(Copy, Clone, PartialEq, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 struct SinglePlayAction {
     position: Position,
     side: Players,
 }
 
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone, PartialEq, Eq, Debug)]
 pub struct PlayActions {
     positions: Vec<Position>,
     side: Players,
