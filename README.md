@@ -149,6 +149,8 @@ These are for demonstration purposes only.
 - [x] [Transposition](./src/ciphers/transposition.rs)
 - [x] [Vigenère](./src/ciphers/vigenere.rs)
 - [x] [XOR](./src/ciphers/xor.rs)
+- [x] [Salsa20](./src/ciphers/salsa.rs)
+- [x] [HMAC](./src/ciphers/hashing_traits.rs)
 - Rot13
   - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
   - [x] [Rot13](./src/ciphers/rot13.rs)
