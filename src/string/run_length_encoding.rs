@@ -3,7 +3,6 @@ pub fn run_length_encoding(target: String) -> String {
         return "String is Empty!".to_string();
     }
     let mut count: i32 = 0;
-    // start : a
     let mut base_character: String = "".to_string();
     let mut encoded_target = String::new();
 
