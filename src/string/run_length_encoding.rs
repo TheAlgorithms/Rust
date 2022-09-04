@@ -19,7 +19,6 @@ pub fn run_length_encoding(target: String) -> String {
             base_character = c.to_string();
         }
     }
-
     encoded_target.push_str(&count.to_string());
     encoded_target.push_str(&base_character);
 
