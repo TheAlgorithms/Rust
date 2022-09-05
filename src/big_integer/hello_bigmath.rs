@@ -22,7 +22,8 @@ mod tests {
         assert_eq!(factorial(10), BigUint::from_str("3628800").unwrap());
         assert_eq!(
             factorial(50),
-            BigUint::from_str("30414093201713378043612608166064768844377641568960512000000000000").unwrap()
+            BigUint::from_str("30414093201713378043612608166064768844377641568960512000000000000")
+                .unwrap()
         );
     }
 }
