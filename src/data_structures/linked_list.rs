@@ -73,7 +73,7 @@ impl<T> LinkedList<T> {
             panic!("Index out of bounds");
         }
 
-        if index == 0 || self.head == None {
+        if index == 0 || self.head.is_none() {
             self.insert_at_head(obj);
             return;
         }
@@ -142,7 +142,7 @@ impl<T> LinkedList<T> {
             panic!("Index out of bounds");
         }
 
-        if index == 0 || self.head == None {
+        if index == 0 || self.head.is_none() {
             return self.delete_head();
         }
 
