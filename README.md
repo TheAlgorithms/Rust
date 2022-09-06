@@ -46,8 +46,10 @@ These are for demonstration purposes only.
 - [x] [Centroid Decomposition](./src/graph/centroid_decomposition.rs)
 - [x] [Dinic's Max Flow](./src/graph/dinic_maxflow.rs)
 - [x] [2-SAT Problem](./src/graph/two_satisfiability.rs)
+- [x] [Floyd-Warshall](./src/graph/floyd_warshall.rs)
 
 ## [Math](./src/math)
+
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Gaussian Elimination](./src/math/gaussian_elimination.rs)

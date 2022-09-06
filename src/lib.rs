@@ -1,3 +1,4 @@
+pub mod big_integer;
 pub mod ciphers;
 pub mod data_structures;
 pub mod dynamic_programming;
@@ -10,7 +11,7 @@ pub mod string;
 
 #[cfg(test)]
 mod tests {
-    use sorting;
+    use super::sorting;
     #[test]
     fn quick_sort() {
         //descending

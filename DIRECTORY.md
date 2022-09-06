@@ -1,6 +1,7 @@
 # List of all files
 
 ## Src
+
   * Ciphers
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
@@ -62,6 +63,8 @@
     * [Centroid Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/centroid_decomposition.rs)
     * [Dinic's Max Flow](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dinic_maxflow.rs)
     * [2-SAT Problem](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
+    * [Floyd-Warshall](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/floyd_warshall.rs)
+
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math
     * [Baby-Step Giant-Step Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/baby_step_giant_step.rs)
