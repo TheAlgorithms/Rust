@@ -215,7 +215,7 @@ impl<K: Ord, V> RBTree<K, V> {
             }
 
             /* release resource */
-            Box::from_raw(node);
+            drop(Box::from_raw(node));
             if matches!(deleted_color, Color::Black) {
                 delete_fixup(self, parent);
             }
