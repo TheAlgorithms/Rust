@@ -301,7 +301,7 @@ mod tests {
         }
     }
 
-   #[test]
+    #[test]
     fn insert_at_ith_and_delete_at_ith_in_the_middle() {
         // Insert and delete in the middle of the list to ensure pointers are updated correctly
         let mut list = LinkedList::<i32>::new();
