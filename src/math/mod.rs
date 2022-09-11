@@ -65,6 +65,6 @@ pub use self::quadratic_residue::cipolla;
 pub use self::random::PCG32;
 pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
 pub use self::simpson_integration::simpson_integration;
-pub use self::square_root::square_root;
+pub use self::square_root::{fast_inv_sqrt, square_root};
 pub use self::trial_division::trial_division;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
