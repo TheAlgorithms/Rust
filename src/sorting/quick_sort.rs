@@ -1,10 +1,5 @@
 use std::cmp::PartialOrd;
 
-// Partition uses the last element as a pivot.
-// Compares elements with pivot in each iteration.
-// Swaps the values whenever an element smaller than pivot is encountered.
-// After iterating, it places the pivot in correct position.
-// Returns the correct position of pivot 
 pub fn partition<T: PartialOrd>(arr: &mut [T], lo: isize, hi: isize) -> isize {
     let pivot = hi as usize;
     let mut i = lo - 1;
@@ -29,8 +24,6 @@ pub fn partition<T: PartialOrd>(arr: &mut [T], lo: isize, hi: isize) -> isize {
     i
 }
 
-// Divides array based on a partition index
-// All consequent partitions are sorted in a divide and conquer fashion
 fn _quick_sort<T: Ord>(arr: &mut [T], lo: isize, hi: isize) {
     if lo < hi {
         let p = partition(arr, lo, hi);
@@ -45,7 +38,6 @@ pub fn quick_sort<T: Ord>(arr: &mut [T]) {
         _quick_sort(arr, 0, (len - 1) as isize);
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -93,4 +85,3 @@ mod tests {
         assert_eq!(res, vec![1, 2, 3, 4]);
     }
 }
-
