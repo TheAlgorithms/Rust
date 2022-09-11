@@ -17,6 +17,8 @@ pub use self::knuth_morris_pratt::knuth_morris_pratt;
 pub use self::manacher::manacher;
 pub use self::rabin_karp::rabin_karp;
 pub use self::reverse::reverse;
-pub use self::run_length_encoding::run_length_encoding;
+pub use self::run_length_encoding::{
+    run_length_encoding, run_length_decoding,
+};
 pub use self::z_algorithm::match_pattern;
 pub use self::z_algorithm::z_array;
