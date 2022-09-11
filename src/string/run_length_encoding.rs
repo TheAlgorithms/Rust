@@ -25,12 +25,41 @@ pub fn run_length_encoding(target: String) -> String {
     encoded_target
 }
 
+pub fn run_length_decoding(target: String) -> String {
+    if target.trim().is_empty() {
+        return "String is Empty!".to_string();
+    }
+
+    let mut character_count: String = String::new();
+    let mut encoded_target = String::new();
+
+    for c in target.as_str().chars() {
+        character_count.push(c);
+        let is_numeric: bool = match character_count.parse::<i32>() {
+            Ok(_) => true,
+            Err(_) => false,
+        };
+
+        if !is_numeric {
+            let pop_char: char = character_count.pop().unwrap();
+            encoded_target.push_str(
+                &pop_char
+                    .to_string()
+                    .repeat(character_count.parse().unwrap()),
+            );
+            character_count = "".to_string();
+        }
+    }
+
+    encoded_target
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn empty() {
+    fn encode_empty() {
         assert_eq!(
             (run_length_encoding("".to_string())),
             "String is Empty!".to_string()
@@ -38,14 +67,14 @@ mod tests {
     }
 
     #[test]
-    fn identical_character() {
+    fn encode_identical_character() {
         assert_eq!(
             (run_length_encoding("aaaaaaaaaa".to_string())),
             "10a".to_string()
         )
     }
     #[test]
-    fn continuous_character() {
+    fn encode_continuous_character() {
         assert_eq!(
             (run_length_encoding("abcdefghijk".to_string())),
             "1a1b1c1d1e1f1g1h1i1j1k".to_string()
@@ -53,7 +82,7 @@ mod tests {
     }
 
     #[test]
-    fn random_character() {
+    fn encode_random_character() {
         assert_eq!(
             (run_length_encoding("aaaaabbbcccccdddddddddd".to_string())),
             "5a3b5c10d".to_string()
@@ -61,12 +90,52 @@ mod tests {
     }
 
     #[test]
-    fn long_character() {
+    fn encode_long_character() {
         assert_eq!(
             (run_length_encoding(
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbcccccdddddddddd".to_string()
             )),
             "200a3b5c10d".to_string()
+        )
+    }
+    #[test]
+    fn decode_empty() {
+        assert_eq!(
+            (run_length_decoding("".to_string())),
+            "String is Empty!".to_string()
+        )
+    }
+
+    #[test]
+    fn decode_identical_character() {
+        assert_eq!(
+            (run_length_decoding("10a".to_string())),
+            "aaaaaaaaaa".to_string()
+        )
+    }
+    #[test]
+    fn decode_continuous_character() {
+        assert_eq!(
+            (run_length_decoding("1a1b1c1d1e1f1g1h1i1j1k".to_string())),
+            "abcdefghijk".to_string()
+        )
+    }
+
+    #[test]
+    fn decode_random_character() {
+        assert_eq!(
+            (run_length_decoding("5a3b5c10d".to_string())),
+            "aaaaabbbcccccdddddddddd".to_string()
+        )
+    }
+
+    #[test]
+    fn decode_long_character() {
+        assert_eq!(
+            (run_length_decoding(
+                "200a3b5c10d".to_string()
+            )),
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbcccccdddddddddd".to_string()
         )
     }
 }
