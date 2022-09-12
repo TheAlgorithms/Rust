@@ -35,10 +35,7 @@ pub fn run_length_decoding(target: String) -> String {
 
     for c in target.as_str().chars() {
         character_count.push(c);
-        let is_numeric: bool = match character_count.parse::<i32>() {
-            Ok(_) => true,
-            Err(_) => false,
-        };
+        let is_numeric: bool = character_count.parse::<i32>().is_ok();
 
         if !is_numeric {
             let pop_char: char = character_count.pop().unwrap();
