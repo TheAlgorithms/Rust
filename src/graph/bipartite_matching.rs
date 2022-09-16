@@ -38,7 +38,7 @@ impl BipartiteMatching {
                 return true;
             }
         }
-        return false;
+        false
     }
     pub fn khun(&mut self) {
         self.mt = vec![-1; self.num_vertices_grp2 + 1];
@@ -58,8 +58,6 @@ impl BipartiteMatching {
 }
 #[cfg(test)]
 mod tests {
-    use std::borrow::Borrow;
-
     use super::*;
     #[test]
     fn small_graph() {
