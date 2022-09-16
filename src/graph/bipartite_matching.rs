@@ -40,7 +40,7 @@ impl BipartiteMatching {
         }
         false
     }
-    pub fn khun(&mut self) {
+    pub fn kuhn(&mut self) {
         self.mt = vec![-1; self.num_vertices_grp2 + 1];
         for v in 1..self.num_vertices_grp1 + 1 {
             self.used = vec![false; self.num_vertices_grp1 + 1];
@@ -75,7 +75,7 @@ mod tests {
         g.add_edge(5, 3);
         g.add_edge(5, 4);
         g.add_edge(6, 6);
-        g.khun();
+        g.kuhn();
         g.print_matching();
         let answer: Vec<i32> = vec![-1, 2, -1, 1, 3, 4, 6];
         for i in 1..g.mt.len() {
@@ -95,7 +95,7 @@ mod tests {
         let n2 = 1;
         let mut g = BipartiteMatching::new(n1, n2);
         g.add_edge(1, 1);
-        g.khun();
+        g.kuhn();
         g.print_matching();
         assert_eq!(g.mt[1], 1);
     }
@@ -114,7 +114,7 @@ mod tests {
         g.add_edge(8, 1);
         g.add_edge(9, 1);
         g.add_edge(10, 1);
-        g.khun();
+        g.kuhn();
         g.print_matching();
         assert_eq!(g.mt[1], 1);
         for i in 2..g.mt.len() {
