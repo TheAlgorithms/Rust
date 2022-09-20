@@ -1,5 +1,6 @@
 mod armstrong_number;
 mod baby_step_giant_step;
+mod chinese_remainder_theorem;
 mod extended_euclidean_algorithm;
 mod fast_fourier_transform;
 mod fast_power;
@@ -28,10 +29,10 @@ mod simpson_integration;
 mod square_root;
 mod trial_division;
 mod zellers_congruence_algorithm;
-mod chinese_remainder_theorem;
 
 pub use self::armstrong_number::is_armstrong_number;
 pub use self::baby_step_giant_step::baby_step_giant_step;
+pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::fast_fourier_transform::{
     fast_fourier_transform, fast_fourier_transform_input_permutation,
@@ -64,7 +65,6 @@ pub use self::quadratic_residue::cipolla;
 pub use self::random::PCG32;
 pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
 pub use self::simpson_integration::simpson_integration;
-pub use self::square_root::square_root;
+pub use self::square_root::{fast_inv_sqrt, square_root};
 pub use self::trial_division::trial_division;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
-pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
