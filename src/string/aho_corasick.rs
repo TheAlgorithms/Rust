@@ -64,7 +64,8 @@ impl AhoCorasick {
     pub fn search<'a>(&self, s: &'a str) -> Vec<&'a str> {
         let mut ans = vec![];
         let mut cur = Rc::clone(&self.root);
-        for (i, c) in s.chars().enumerate() {
+        let mut position: usize = 0;
+        for (_, c) in s.chars().enumerate() {
             loop {
                 if let Some(child) = Rc::clone(&cur).borrow().trans.get(&c) {
                     cur = Rc::clone(child);
@@ -76,8 +77,9 @@ impl AhoCorasick {
                     None => break,
                 }
             }
+            position += c.len_utf8();
             for &len in &cur.borrow().lengths {
-                ans.push(&s[i + 1 - len..=i]);
+                ans.push(&s[position - len..position]);
             }
         }
         ans
@@ -94,5 +96,13 @@ mod tests {
         let ac = AhoCorasick::new(&dict);
         let res = ac.search("ababcxyzacxy12678acxy6543");
         assert_eq!(res, ["abc", "xyz", "acxy", "678", "acxy", "6543",]);
+    }
+
+    #[test]
+    fn test_aho_corasick_with_utf8() {
+        let dict = ["abc", "中文", "abc中", "abcd", "xyz", "acxy", "efg", "123", "678", "6543", "ハンバーガー"];
+        let ac = AhoCorasick::new(&dict);
+        let res = ac.search("ababc中xyzacxy12678acxyハンバーガー6543中文");
+        assert_eq!(res, ["abc", "abc中", "xyz", "acxy", "678", "acxy", "ハンバーガー", "6543", "中文"]);
     }
 }
