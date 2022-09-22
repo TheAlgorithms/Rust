@@ -118,6 +118,7 @@ These are for demonstration purposes only.
 - [x] [Reverse](./src/string/reverse.rs)
 - [x] [Run Length Encoding](.src/string/run_length_encoding.rs)
 - [x] [Hamming Distance](./src/string/hamming_distance.rs)
+- [x] [Suffix Tree](./src/string/suffix_tree.rs)
 
 ## [General](./src/general)
 
