@@ -43,7 +43,35 @@ mod tests {
     use super::*;
 
     #[test]
-    fn basic() {
+    //Ensure function stand-alone legitimacy
+    fn stand_alone_function() {
+        assert_eq!(
+            burrows_wheeler_transform("CARROT".to_string()),
+            ("CTRRAO".to_string(), 1usize)
+        );
+        assert_eq!(
+            inv_burrows_wheeler_transform(("CTRRAO".to_string(), 1usize)),
+            ("CARROT".to_string())
+        );
+        assert_eq!(
+            burrows_wheeler_transform("THEALGORITHMS".to_string()),
+            ("EHLTTRAHGOMSI".to_string(), 11usize)
+        );
+        assert_eq!(
+            inv_burrows_wheeler_transform(("EHLTTRAHGOMSI".to_string(), 11usize)),
+            ("THEALGORITHMS".to_string())
+        );
+        assert_eq!(
+            burrows_wheeler_transform("!.!.!??.=::".to_string()),
+            (":..!!?:=.?!".to_string(), 0usize)
+        );
+        assert_eq!(
+            inv_burrows_wheeler_transform((":..!!?:=.?!".to_string(), 0usize)),
+            "!.!.!??.=::"
+        );
+    }
+    #[test]
+    fn basic_characters() {
         assert_eq!(
             inv_burrows_wheeler_transform(burrows_wheeler_transform("CARROT".to_string())),
             "CARROT"
