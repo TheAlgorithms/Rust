@@ -100,9 +100,34 @@ mod tests {
 
     #[test]
     fn test_aho_corasick_with_utf8() {
-        let dict = ["abc", "中文", "abc中", "abcd", "xyz", "acxy", "efg", "123", "678", "6543", "ハンバーガー"];
+        let dict = [
+            "abc",
+            "中文",
+            "abc中",
+            "abcd",
+            "xyz",
+            "acxy",
+            "efg",
+            "123",
+            "678",
+            "6543",
+            "ハンバーガー",
+        ];
         let ac = AhoCorasick::new(&dict);
         let res = ac.search("ababc中xyzacxy12678acxyハンバーガー6543中文");
-        assert_eq!(res, ["abc", "abc中", "xyz", "acxy", "678", "acxy", "ハンバーガー", "6543", "中文"]);
+        assert_eq!(
+            res,
+            [
+                "abc",
+                "abc中",
+                "xyz",
+                "acxy",
+                "678",
+                "acxy",
+                "ハンバーガー",
+                "6543",
+                "中文"
+            ]
+        );
     }
 }
