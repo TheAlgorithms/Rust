@@ -17,7 +17,7 @@ impl Suffix {
                 } else {
                     Ordering::Greater
                 }
-            },
+            }
             o => o,
         }
     }
@@ -34,8 +34,7 @@ pub fn generate_suffix_array(txt: &str) -> Vec<usize> {
     ];
     for (i, suf) in suffixes.iter_mut().enumerate() {
         suf.index = i;
-        suf.rank.0 =
-            (txt.chars().nth(i).expect("this should exist") as u32 - 'a' as u32) as i32;
+        suf.rank.0 = (txt.chars().nth(i).expect("this should exist") as u32 - 'a' as u32) as i32;
         suf.rank.1 = if (i + 1) < n {
             (txt.chars().nth(i + 1).expect("this should exist") as u32 - 'a' as u32) as i32
         } else {
