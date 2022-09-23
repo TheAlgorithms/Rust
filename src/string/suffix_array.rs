@@ -10,16 +10,15 @@ impl Suffix {
     fn cmp(&self, b: &Self) -> Ordering {
         let a = self;
         let ((a1, a2), (b1, b2)) = (a.rank, b.rank);
-        if a1 == b1 {
-            if a2 < b2 {
-                Ordering::Less
-            } else {
-                Ordering::Greater
-            }
-        } else if a1 < b1 {
-            Ordering::Less
-        } else {
-            Ordering::Greater
+        match a1.cmp(&b1) {
+            Ordering::Equal => {
+                if a2 < b2 {
+                    Ordering::Less
+                } else {
+                    Ordering::Greater
+                }
+            },
+            o => o,
         }
     }
 }
@@ -33,11 +32,11 @@ pub fn generate_suffix_array(txt: &str) -> Vec<usize> {
         };
         n
     ];
-    for i in 0..n {
-        suffixes[i].index = i;
-        suffixes[i].rank.0 =
+    for (i, suf) in suffixes.iter_mut().enumerate() {
+        suf.index = i;
+        suf.rank.0 =
             (txt.chars().nth(i).expect("this should exist") as u32 - 'a' as u32) as i32;
-        suffixes[i].rank.1 = if (i + 1) < n {
+        suf.rank.1 = if (i + 1) < n {
             (txt.chars().nth(i + 1).expect("this should exist") as u32 - 'a' as u32) as i32
         } else {
             -1
@@ -75,8 +74,8 @@ pub fn generate_suffix_array(txt: &str) -> Vec<usize> {
         k *= 2;
     }
     let mut suffix_arr = Vec::new();
-    for i in 0..n {
-        suffix_arr.push(suffixes[i].index);
+    for suf in suffixes {
+        suffix_arr.push(suf.index);
     }
     suffix_arr
 }
