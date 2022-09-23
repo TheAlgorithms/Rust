@@ -183,6 +183,14 @@ __Properties__
 * Worst-case performance O(n log n)
 * Best-case performance	O(n)
 
+### [Sleep](./sleep_sort.rs)
+![alt text][sleep-image]
+
+From [Wikipedia][bucket-sort-wiki]: This is an idea that was originally posted on the message board 4chan, replacing the bucket in bucket sort with time instead of memory space.
+It is actually possible to sort by "maximum of all elements x unit time to sleep". The only case where this would be useful would be in examples.
+
+
+
 [bogo-wiki]: https://en.wikipedia.org/wiki/Bogosort
 [bogo-image]: https://upload.wikimedia.org/wikipedia/commons/7/7b/Bogo_sort_animation.gif
 
@@ -235,3 +243,6 @@ __Properties__
 
 [comb-sort]: https://upload.wikimedia.org/wikipedia/commons/4/46/Comb_sort_demo.gif
 [comb-sort-wiki]: https://en.wikipedia.org/wiki/Comb_sort
+
+[sleep-sort]: <no image>
+[sleep-sort-wiki]https://ja.m.wikipedia.org/wiki/バケットソート#.E3.82.B9.E3.83.AA.E3.83.BC.E3.83.97.E3.82.BD.E3.83.BC.E3.83.88
