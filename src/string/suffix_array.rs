@@ -7,7 +7,7 @@ struct Suffix {
 }
 
 impl Suffix {
-    fn cmp (&self, b: &Self) -> Ordering {
+    fn cmp(&self, b: &Self) -> Ordering {
         let a = self;
         let ((a1, a2), (b1, b2)) = (a.rank, b.rank);
         if a1 == b1 {
@@ -26,10 +26,17 @@ impl Suffix {
 
 pub fn generate_suffix_array(txt: &str) -> Vec<usize> {
     let n = txt.len();
-    let mut suffixes: Vec<Suffix> = vec![Suffix { index: 0, rank: (-1, -1) }; n];
+    let mut suffixes: Vec<Suffix> = vec![
+        Suffix {
+            index: 0,
+            rank: (-1, -1)
+        };
+        n
+    ];
     for i in 0..n {
         suffixes[i].index = i;
-        suffixes[i].rank.0 = (txt.chars().nth(i).expect("this should exist") as u32 - 'a' as u32) as i32;
+        suffixes[i].rank.0 =
+            (txt.chars().nth(i).expect("this should exist") as u32 - 'a' as u32) as i32;
         suffixes[i].rank.1 = if (i + 1) < n {
             (txt.chars().nth(i + 1).expect("this should exist") as u32 - 'a' as u32) as i32
         } else {
@@ -39,7 +46,7 @@ pub fn generate_suffix_array(txt: &str) -> Vec<usize> {
     suffixes.sort_by(|a, b| a.cmp(b));
     let mut ind = vec![0; n];
     let mut k = 4;
-    while k < 2*n {
+    while k < 2 * n {
         let mut rank = 0;
         let mut prev_rank = suffixes[0].rank.0;
         suffixes[0].rank.0 = rank;
@@ -58,7 +65,11 @@ pub fn generate_suffix_array(txt: &str) -> Vec<usize> {
         }
         for i in 0..n {
             let next_index = suffixes[i].index + (k / 2);
-            suffixes[i].rank.1 = if next_index < n { suffixes[ind[next_index]].rank.0 } else { -1 }
+            suffixes[i].rank.1 = if next_index < n {
+                suffixes[ind[next_index]].rank.0
+            } else {
+                -1
+            }
         }
         suffixes.sort_by(|a, b| a.cmp(b));
         k *= 2;
