@@ -74,7 +74,7 @@ These are for demonstration purposes only.
 - [x] [Permuted Congruential Random Number Generator](./src/math/random.rs)
 - [x] [Zeller's Congruence Algorithm](./src/math/zellers_congruence_algorithm.rs)
 - [x] [Karatsuba Multiplication Algorithm](./src/math/karatsuba_multiplication.rs)
-- [x] [Financial Interest](./src/master/src/math/interest.rs)
+- [x] [Financial Interest](./src/math/interest.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
