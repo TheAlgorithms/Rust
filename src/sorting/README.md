@@ -180,16 +180,14 @@ __Properties__
 From [Wikipedia][tim-wiki]:  Timsort is a hybrid stable sorting algorithm, derived from merge sort and insertion sort, designed to perform well on many kinds of real-world data. It was implemented by Tim Peters in 2002 for use in the Python programming language. The algorithm finds subsequences of the data that are already ordered (runs) and uses them to sort the remainder more efficiently. This is done by merging runs until certain criteria are fulfilled. Timsort has been Python's standard sorting algorithm since version 2.3. It is also used to sort arrays of non-primitive type in Java SE 7, on the Android platform, in GNU Octave, on V8, Swift, and Rust.
 
 __Properties__
-* Worst-case performance O(n log n)
-* Best-case performance	O(n)
+* Worst-case performance O(max element size(ms))
+* Best-case performance	O(max element size(ms))
 
 ### [Sleep](./sleep_sort.rs)
 ![alt text][sleep-image]
 
 From [Wikipedia][bucket-sort-wiki]: This is an idea that was originally posted on the message board 4chan, replacing the bucket in bucket sort with time instead of memory space.
 It is actually possible to sort by "maximum of all elements x unit time to sleep". The only case where this would be useful would be in examples.
-
-
 
 [bogo-wiki]: https://en.wikipedia.org/wiki/Bogosort
 [bogo-image]: https://upload.wikimedia.org/wikipedia/commons/7/7b/Bogo_sort_animation.gif
