@@ -1,8 +1,8 @@
-#[allow(path_statements, unused_must_use)]
-//Bakhshali Sqrt Algorithm
+//Bakhshali Square Root Algorithm
 
 //support f32 so please use 10.0 instead of 10
 //this is an ancient indian way to calculate square root, so don't wait very exact result
+
 pub fn bakhshali_sqrt(x: f32) -> f32 {
     let mut res: f32;
     let mut a: f32;
