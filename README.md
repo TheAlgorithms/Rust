@@ -29,6 +29,7 @@ These are for demonstration purposes only.
 - [x] [Comb](./src/sorting/comb_sort.rs)
 - [x] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Timsort](./src/sorting/tim_sort.rs)
+- [x] [Sleep](./src/sorting/sleep_sort.rs)
 
 ## [Graphs](./src/graph)
 
