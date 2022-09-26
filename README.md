@@ -76,6 +76,7 @@ These are for demonstration purposes only.
 - [x] [Zeller's Congruence Algorithm](./src/math/zellers_congruence_algorithm.rs)
 - [x] [Karatsuba Multiplication Algorithm](./src/math/karatsuba_multiplication.rs)
 - [x] [Financial Interest](./src/math/interest.rs)
+- [x] [Bakhshali Sqrt](./src/master/src/math/bakhshali_sqrt.rs)
 
 ## [Dynamic Programming](./src/dynamic_programming)
 
