@@ -31,6 +31,7 @@ mod simpson_integration;
 mod square_root;
 mod trial_division;
 mod zellers_congruence_algorithm;
+mod bakhshali_sqrt;
 
 pub use self::amicable_numbers::amicable_pairs_under_n;
 pub use self::armstrong_number::is_armstrong_number;
@@ -72,3 +73,4 @@ pub use self::simpson_integration::simpson_integration;
 pub use self::square_root::{fast_inv_sqrt, square_root};
 pub use self::trial_division::trial_division;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
+pub use self::bakhshali_sqrt::bakhshali_sqrt;
