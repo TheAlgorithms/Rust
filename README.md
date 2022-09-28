@@ -121,6 +121,7 @@ These are for demonstration purposes only.
 - [x] [Reverse](./src/string/reverse.rs)
 - [x] [Run Length Encoding](.src/string/run_length_encoding.rs)
 - [x] [Hamming Distance](./src/string/hamming_distance.rs)
+- [x] [Jaro-Winkler Distance](./src/string/jaro_winkler_distance.rs)
 - [x] [Suffix Tree](./src/string/suffix_tree.rs)
 - [x] [Suffix Array](./src/string/suffix_array.rs)
 
