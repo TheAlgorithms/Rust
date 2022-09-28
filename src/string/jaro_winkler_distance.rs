@@ -1,8 +1,8 @@
-// In computer science and statistics, 
-// the Jaro–Winkler distance is a string metric measuring an edit distance 
-// between two sequences. 
-// It is a variant proposed in 1990 by William E. Winkler 
-// of the Jaro distance metric (1989, Matthew A. Jaro). 
+// In computer science and statistics,
+// the Jaro–Winkler distance is a string metric measuring an edit distance
+// between two sequences.
+// It is a variant proposed in 1990 by William E. Winkler
+// of the Jaro distance metric (1989, Matthew A. Jaro).
 
 pub fn jaro_winkler_distance(str1: &str, str2: &str) -> f64 {
     if str1.is_empty() || str2.is_empty() {
@@ -23,9 +23,8 @@ pub fn jaro_winkler_distance(str1: &str, str2: &str) -> f64 {
             }
         }
         matched.iter().collect::<String>()
-        
     }
-    
+
     let matching_1 = get_matched_characters(str1, str2);
     let matching_2 = get_matched_characters(str2, str1);
     let match_count = matching_1.len();
@@ -38,19 +37,19 @@ pub fn jaro_winkler_distance(str1: &str, str2: &str) -> f64 {
                 count += 1;
             }
         }
-        count / 2 
+        count / 2
     };
 
-    let jaro: f64 = { if match_count == 0 {
-        return 0.0;
-    } else {
+    let jaro: f64 = {
+        if match_count == 0 {
+            return 0.0;
+        } else {
             (1_f64 / 3_f64)
-            * (
-                match_count as f64 / str1.len() as f64
-                + match_count as f64 / str2.len() as f64
-                + (match_count - transpositions) as f64 / match_count as f64
-            )
-    }};
+                * (match_count as f64 / str1.len() as f64
+                    + match_count as f64 / str2.len() as f64
+                    + (match_count - transpositions) as f64 / match_count as f64)
+        }
+    };
 
     let mut prefix_len = 0.0;
     let bound = std::cmp::min(std::cmp::min(str1.len(), str2.len()), 4);
