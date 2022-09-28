@@ -53,6 +53,7 @@ These are for demonstration purposes only.
 
 - [x] [Amicable numbers below N](./src/math/amicable_numbers.rs)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
+- [x] [Chinese Remainder Theorem](./src/math/chinese_remainder_theorem.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Fast Inverse Square Root 'Quake' Algorithm](./src/math/square_root.rs)
 - [x] [Gaussian Elimination](./src/math/gaussian_elimination.rs)
