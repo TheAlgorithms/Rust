@@ -1,4 +1,5 @@
 mod aho_corasick;
+mod anagram;
 mod burrows_wheeler_transform;
 mod hamming_distance;
 mod knuth_morris_pratt;
@@ -9,6 +10,7 @@ mod run_length_encoding;
 mod z_algorithm;
 
 pub use self::aho_corasick::AhoCorasick;
+pub use self::anagram::check_anagram;
 pub use self::burrows_wheeler_transform::{
     burrows_wheeler_transform, inv_burrows_wheeler_transform,
 };
