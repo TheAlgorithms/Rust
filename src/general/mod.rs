@@ -1,4 +1,5 @@
 mod convex_hull;
+mod doomsday;
 mod hanoi;
 mod huffman_encoding;
 mod kmeans;
@@ -6,6 +7,7 @@ mod nqueens;
 mod two_sum;
 
 pub use self::convex_hull::convex_hull_graham;
+pub use self::doomsday::get_week_day;
 pub use self::hanoi::hanoi;
 pub use self::huffman_encoding::{HuffmanDictionary, HuffmanEncoding};
 pub use self::kmeans::f32::kmeans as kmeans_f32;
