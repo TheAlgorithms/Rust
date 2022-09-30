@@ -53,6 +53,7 @@ These are for demonstration purposes only.
 
 - [x] [Amicable numbers below N](./src/math/amicable_numbers.rs)
 - [x] [Baby-Step Giant-Step Algorithm](./src/math/baby_step_giant_step.rs)
+- [x] [Chinese Remainder Theorem](./src/math/chinese_remainder_theorem.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Fast Inverse Square Root 'Quake' Algorithm](./src/math/square_root.rs)
 - [x] [Gaussian Elimination](./src/math/gaussian_elimination.rs)
@@ -114,6 +115,7 @@ These are for demonstration purposes only.
 ## [Strings](./src/string)
 
 - [x] [Aho-Corasick Algorithm](./src/string/aho_corasick.rs)
+- [x] [Boyer-Moore String Search Algorithm](./src/string/boyer_moore_search.rs)
 - [x] [Burrows-Wheeler transform](./src/string/burrows_wheeler_transform.rs)
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - [x] [Manacher](./src/string/manacher.rs)
@@ -121,6 +123,7 @@ These are for demonstration purposes only.
 - [x] [Reverse](./src/string/reverse.rs)
 - [x] [Run Length Encoding](.src/string/run_length_encoding.rs)
 - [x] [Hamming Distance](./src/string/hamming_distance.rs)
+- [x] [Jaro-Winkler Distance](./src/string/jaro_winkler_distance.rs)
 - [x] [Suffix Tree](./src/string/suffix_tree.rs)
 - [x] [Suffix Array](./src/string/suffix_array.rs)
 
