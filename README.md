@@ -114,6 +114,7 @@ These are for demonstration purposes only.
 ## [Strings](./src/string)
 
 - [x] [Aho-Corasick Algorithm](./src/string/aho_corasick.rs)
+- [x] [Boyer-Moore String Search Algorithm](./src/string/boyer_moore_search.rs)
 - [x] [Burrows-Wheeler transform](./src/string/burrows_wheeler_transform.rs)
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
 - [x] [Manacher](./src/string/manacher.rs)
