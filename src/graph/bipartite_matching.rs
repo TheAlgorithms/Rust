@@ -58,17 +58,17 @@ impl BipartiteMatching {
             println!("Vertex {} in grp1 matched with {} grp2", self.mt2[i], i)
         }
     }
-    fn bfs(&self, dist: &mut Vec<i32>) -> bool {
+    fn bfs(&self, dist: &mut [i32]) -> bool {
         let mut q = VecDeque::new();
         for u in 1..self.num_vertices_grp1 + 1 {
             if self.mt1[u] == 0 {
                 // u is not matched
                 dist[u] = 0;
                 q.push_back(u);
-            }
-            // else set the vertex distance as infinite because it is matched
-            // this will be considered the next time
-            else {
+            } else {
+                // else set the vertex distance as infinite because it is matched
+                // this will be considered the next time
+
                 dist[u] = i32::max_value();
             }
         }
@@ -94,12 +94,10 @@ impl BipartiteMatching {
         }
         for i in 0..self.adj[u as usize].len() {
             let v = self.adj[u as usize][i];
-            if dist[self.mt2[v] as usize] == dist[u as usize] + 1 {
-                if self.dfs(self.mt2[v], dist) == true {
-                    self.mt2[v] = u;
-                    self.mt1[u as usize] = v as i32;
-                    return true;
-                }
+            if dist[self.mt2[v] as usize] == dist[u as usize] + 1 && self.dfs(self.mt2[v], dist) {
+                self.mt2[v] = u;
+                self.mt1[u as usize] = v as i32;
+                return true;
             }
         }
         dist[u as usize] = i32::max_value();
