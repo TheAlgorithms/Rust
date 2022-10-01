@@ -17,6 +17,7 @@ mod quick_sort;
 mod radix_sort;
 mod selection_sort;
 mod shell_sort;
+mod sleep_sort;
 mod stooge_sort;
 mod tim_sort;
 
@@ -41,6 +42,7 @@ pub use self::quick_sort::{partition, quick_sort};
 pub use self::radix_sort::radix_sort;
 pub use self::selection_sort::selection_sort;
 pub use self::shell_sort::shell_sort;
+pub use self::sleep_sort::sleep_sort;
 pub use self::stooge_sort::stooge_sort;
 pub use self::tim_sort::tim_sort;
 
