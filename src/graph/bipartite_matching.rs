@@ -60,16 +60,21 @@ impl BipartiteMatching {
     }
     fn bfs(&self, dist: &mut [i32]) -> bool {
         let mut q = VecDeque::new();
-        for u in 1..self.num_vertices_grp1 + 1 {
+        for (u, d_i) in dist
+            .iter_mut()
+            .enumerate()
+            .skip(1)
+            .take(self.num_vertices_grp1)
+        {
             if self.mt1[u] == 0 {
                 // u is not matched
-                dist[u] = 0;
+                *d_i = 0;
                 q.push_back(u);
             } else {
                 // else set the vertex distance as infinite because it is matched
                 // this will be considered the next time
 
-                dist[u] = i32::max_value();
+                *d_i = i32::max_value();
             }
         }
         dist[0] = i32::max_value();
