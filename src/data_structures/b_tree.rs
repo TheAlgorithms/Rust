@@ -100,7 +100,7 @@ impl BTreeProps {
             self.insert_non_full(&mut node.children[u_index], key);
         }
     }
-
+    #[allow(clippy::only_used_in_recursion)]
     fn traverse_node<T: Ord + Debug>(&self, node: &Node<T>, depth: usize) {
         if node.is_leaf() {
             print!(" {0:{<1$}{2:?}{0:}<1$} ", "", depth, node.keys);

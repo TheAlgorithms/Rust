@@ -182,7 +182,8 @@ impl<T> LinkedList<T> {
         self.get_ith_node(self.head, index)
     }
 
-    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
+    #[allow(clippy::only_used_in_recursion)]
+    fn get_ith_node(&self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
         match node {
             None => None,
             Some(next_ptr) => match index {
