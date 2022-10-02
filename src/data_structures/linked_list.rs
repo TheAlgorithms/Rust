@@ -178,11 +178,11 @@ impl<T> LinkedList<T> {
         }
     }
 
-    pub fn get(&mut self, index: i32) -> Option<& 'static T> {
+    pub fn get(&mut self, index: i32) -> Option<&'static T> {
         Self::get_ith_node(self.head, index)
     }
 
-    fn get_ith_node(node: Option<NonNull<Node<T>>>, index: i32) -> Option<& 'static T> {
+    fn get_ith_node(node: Option<NonNull<Node<T>>>, index: i32) -> Option<&'static T> {
         match node {
             None => None,
             Some(next_ptr) => match index {
