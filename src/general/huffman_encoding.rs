@@ -43,7 +43,6 @@ impl<T> Ord for HuffmanNode<T> {
 impl<T: Clone + Copy + Ord> HuffmanNode<T> {
     /// Turn the tree into the map that can be used in encoding
     pub fn get_alphabet(
-        &self,
         height: u32,
         path: u64,
         node: &HuffmanNode<T>,
@@ -60,8 +59,8 @@ impl<T: Clone + Copy + Ord> HuffmanNode<T> {
                 );
             }
             None => {
-                self.get_alphabet(height + 1, path, node.left.as_ref().unwrap(), map);
-                self.get_alphabet(
+                Self::get_alphabet(height + 1, path, node.left.as_ref().unwrap(), map);
+                Self::get_alphabet(
                     height + 1,
                     path | (1 << height),
                     node.right.as_ref().unwrap(),
@@ -103,7 +102,7 @@ impl<T: Clone + Copy + Ord> HuffmanDictionary<T> {
             });
         }
         let root = queue.pop().unwrap();
-        root.get_alphabet(0, 0, &root, &mut alph);
+        HuffmanNode::get_alphabet(0, 0, &root, &mut alph);
         HuffmanDictionary {
             alphabet: alph,
             root,
