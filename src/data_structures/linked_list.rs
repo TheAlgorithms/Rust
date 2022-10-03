@@ -178,16 +178,16 @@ impl<T> LinkedList<T> {
         }
     }
 
-    pub fn get(&mut self, index: i32) -> Option<&T> {
-        self.get_ith_node(self.head, index)
+    pub fn get(&mut self, index: i32) -> Option<&'static T> {
+        Self::get_ith_node(self.head, index)
     }
 
-    fn get_ith_node(&mut self, node: Option<NonNull<Node<T>>>, index: i32) -> Option<&T> {
+    fn get_ith_node(node: Option<NonNull<Node<T>>>, index: i32) -> Option<&'static T> {
         match node {
             None => None,
             Some(next_ptr) => match index {
                 0 => Some(unsafe { &(*next_ptr.as_ptr()).val }),
-                _ => self.get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
+                _ => Self::get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
             },
         }
     }
