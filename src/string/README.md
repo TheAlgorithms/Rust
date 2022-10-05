@@ -49,7 +49,7 @@ From [Wikipedia][hamming-distance-wiki]: In information theory, the Hamming dist
 
 [run-length-encoding-wiki]: https://en.wikipedia.org/wiki/Run-length_encoding
 
-### [Run Length Encoding](./run_lentgh_encoding.rs)
+### [Run Length Encoding](./run_length_encoding.rs)
 From [Wikipedia][run-length-encoding-wiki]: a form of lossless data compression in which runs of data (sequences in which the same data value occurs in many consecutive data elements) are stored as a single data value and count, rather than as the original run.
 
 [hamming-distance-wiki]: https://en.wikipedia.org/wiki/Hamming_distance
