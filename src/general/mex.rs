@@ -75,4 +75,3 @@ mod tests {
         tests.test_function(mex_using_sort);
     }
 }
-// Find minimum excluded number from a set of given numbers using sort
