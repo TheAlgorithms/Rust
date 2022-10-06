@@ -1,3 +1,4 @@
+#![feature(map_first_last)]
 pub mod big_integer;
 pub mod ciphers;
 pub mod data_structures;
