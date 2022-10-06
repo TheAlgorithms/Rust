@@ -15,12 +15,12 @@ pub fn mex_using_set(arr: &[i64]) -> i64 {
         s.remove(x);
     }
     // TODO: change the next 10 lines to *s.first().unwrap() when merged into stable
-    // loop should never have 0 elements
-    for x in s {
-        return x;
+    // set should never have 0 elements
+    if let Some(x) = s.into_iter().next() {
+        x
+    } else {
+        panic!("Some unknown error in mex_using_set")
     }
-    // -100 should never be returned
-    -100
 }
 // NOTE: Don't remove allow, else clippy error: function not used
 #[allow(dead_code)]
