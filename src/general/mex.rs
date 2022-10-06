@@ -14,7 +14,13 @@ pub fn mex_using_set(arr: &[i64]) -> i64 {
     for x in arr {
         s.remove(x);
     }
-    return *s.first().unwrap();
+    // TODO: change the next 10 lines to *s.first().unwrap() when merged into stable
+    // loop should never have 0 elements
+    for x in s {
+        return x;
+    }
+    // -100 should never be returned
+    -100
 }
 // NOTE: Don't remove allow, else clippy error: function not used
 #[allow(dead_code)]
