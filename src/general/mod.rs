@@ -2,6 +2,7 @@ mod convex_hull;
 mod hanoi;
 mod huffman_encoding;
 mod kmeans;
+mod mex;
 mod nqueens;
 mod two_sum;
 
