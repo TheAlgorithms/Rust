@@ -6,7 +6,7 @@ use std::collections::BTreeSet;
 /// Uses [`BTreeSet`](std::collections::BTreeSet)
 /// O(nlog(n)) implementation
 #[allow(dead_code)]
-fn mex_using_set(arr: &[i64]) -> i64 {
+pub fn mex_using_set(arr: &[i64]) -> i64 {
     let mut s: BTreeSet<i64> = BTreeSet::new();
     for i in 0..arr.len() + 1 {
         s.insert(i as i64);
@@ -21,7 +21,7 @@ fn mex_using_set(arr: &[i64]) -> i64 {
 /// Finds the MEX of the values provided in `arr`
 /// Uses sorting
 /// O(nlog(n)) implementation
-fn mex_using_sort(arr: &[i64]) -> i64 {
+pub fn mex_using_sort(arr: &[i64]) -> i64 {
     let mut arr = arr.to_vec();
     arr.sort();
     let mut mex = 0;
