@@ -1,11 +1,9 @@
 use std::collections::BTreeSet;
 
 // Find minimum excluded number from a set of given numbers using a set
-// NOTE: Don't remove allow, else clippy error: function not used
 /// Finds the MEX of the values provided in `arr`
 /// Uses [`BTreeSet`](std::collections::BTreeSet)
 /// O(nlog(n)) implementation
-#[allow(dead_code)]
 pub fn mex_using_set(arr: &[i64]) -> i64 {
     let mut s: BTreeSet<i64> = BTreeSet::new();
     for i in 0..arr.len() + 1 {
@@ -22,8 +20,6 @@ pub fn mex_using_set(arr: &[i64]) -> i64 {
         panic!("Some unknown error in mex_using_set")
     }
 }
-// NOTE: Don't remove allow, else clippy error: function not used
-#[allow(dead_code)]
 /// Finds the MEX of the values provided in `arr`
 /// Uses sorting
 /// O(nlog(n)) implementation
