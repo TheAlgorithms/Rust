@@ -4,6 +4,7 @@ mod burrows_wheeler_transform;
 mod hamming_distance;
 mod jaro_winkler_distance;
 mod knuth_morris_pratt;
+mod levenshtein_distance;
 mod manacher;
 mod rabin_karp;
 mod reverse;
@@ -20,6 +21,7 @@ pub use self::burrows_wheeler_transform::{
 pub use self::hamming_distance::hamming_distance;
 pub use self::jaro_winkler_distance::jaro_winkler_distance;
 pub use self::knuth_morris_pratt::knuth_morris_pratt;
+pub use self::levenshtein_distance::levenshtein_distance;
 pub use self::manacher::manacher;
 pub use self::rabin_karp::rabin_karp;
 pub use self::reverse::reverse;
