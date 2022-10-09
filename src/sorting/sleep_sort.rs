@@ -9,7 +9,7 @@ pub fn sleep_sort(vec: &[usize]) -> Vec<usize> {
     for &x in vec.iter() {
         let tx: mpsc::Sender<usize> = tx.clone();
         thread::spawn(move || {
-            thread::sleep(Duration::from_millis((10 * x) as u64));
+            thread::sleep(Duration::from_millis((20 * x) as u64));
             tx.send(x).expect("panic");
         });
     }
@@ -42,16 +42,16 @@ mod tests {
 
     #[test]
     fn sorted_array() {
-        let mut arr = vec![0, 2, 4, 6];
+        let mut arr = vec![1, 2, 3, 4];
         let res = sleep_sort(&mut arr);
-        assert_eq!(res, &[0, 2, 4, 6]);
+        assert_eq!(res, &[1, 2, 3, 4]);
     }
 
     #[test]
     fn unsorted_array() {
-        let mut arr = vec![4, 6, 2, 0];
+        let mut arr = vec![3, 4, 2, 1];
         let res = sleep_sort(&mut arr);
-        assert_eq!(res, &[0, 2, 4, 6]);
+        assert_eq!(res, &[1, 2, 3, 4]);
     }
 
     #[test]
@@ -70,8 +70,8 @@ mod tests {
 
     #[test]
     fn random_elements() {
-        let mut arr = vec![11, 7, 14, 20, 2, 0, 17];
+        let mut arr = vec![5, 3, 7, 10, 1, 0, 8];
         let res = sleep_sort(&mut arr);
-        assert_eq!(res, &[0, 2, 7, 11, 14, 17, 20]);
+        assert_eq!(res, &[0, 1, 3, 5, 7, 8, 10]);
     }
 }
