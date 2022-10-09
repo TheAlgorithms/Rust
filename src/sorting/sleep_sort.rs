@@ -42,47 +42,36 @@ mod tests {
 
     #[test]
     fn sorted_array() {
-        let mut arr = vec![1, 2, 3, 4];
+        let mut arr = vec![0, 2, 4, 6];
         let res = sleep_sort(&mut arr);
-        assert_eq!(res, &[1, 2, 3, 4]);
+        assert_eq!(res, &[0, 2, 4, 6]);
     }
 
     #[test]
     fn unsorted_array() {
-        let mut arr = vec![3, 4, 2, 1];
+        let mut arr = vec![4, 6, 2, 0];
         let res = sleep_sort(&mut arr);
-        assert_eq!(res, &[1, 2, 3, 4]);
+        assert_eq!(res, &[0, 2, 4, 6]);
     }
 
     #[test]
     fn odd_number_of_elements() {
-        let mut arr = vec![3, 4, 2, 1, 7];
+        let mut arr = vec![3, 1, 7];
         let res = sleep_sort(&mut arr);
-        assert_eq!(res, &[1, 2, 3, 4, 7]);
+        assert_eq!(res, &[1, 3, 7]);
     }
 
     #[test]
     fn repeated_elements() {
-        let mut arr = vec![542, 542, 542, 542];
+        let mut arr = vec![1, 1, 1, 1];
         let res = sleep_sort(&mut arr);
-        assert_eq!(res, &[542, 542, 542, 542]);
+        assert_eq!(res, &[1, 1, 1, 1]);
     }
 
     #[test]
     fn random_elements() {
-        let mut arr = vec![
-            52, 958, 385, 130, 687, 86, 480, 329, 269, 648, 112, 286, 222, 844, 463, 982, 571, 104,
-            491, 223, 791, 90, 43, 884, 518, 680, 347, 822, 505, 778, 62, 743, 775, 8, 357, 532,
-            53, 680, 32, 271, 267, 306, 20, 915, 374, 477, 272, 638, 18, 299,
-        ];
+        let mut arr = vec![11, 7, 14, 20, 2, 0, 17];
         let res = sleep_sort(&mut arr);
-        assert_eq!(
-            res,
-            &[
-                8, 18, 20, 32, 43, 52, 53, 62, 86, 90, 104, 112, 130, 222, 223, 267, 269, 271, 272,
-                286, 299, 306, 329, 347, 357, 374, 385, 463, 477, 480, 491, 505, 518, 532, 571,
-                638, 648, 680, 680, 687, 743, 775, 778, 791, 822, 844, 884, 915, 958, 982
-            ]
-        );
+        assert_eq!(res, &[0, 2, 7, 11, 14, 17, 20]);
     }
 }
