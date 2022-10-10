@@ -1,4 +1,4 @@
-use crate::data_structures::MaxHeap;
+use crate::data_structures::Heap;
 use std::cmp::{Ord, Ordering};
 
 /// Returns k-th smallest element of an array.
@@ -28,7 +28,7 @@ where
     // than it
     // otherwise, E_large cannot be the kth smallest, and should
     // be removed from the heap and E_new should be added
-    let mut heap = MaxHeap::new();
+    let mut heap = Heap::new_max();
 
     // first k elements goes to the heap as the baseline
     for &val in input.iter().take(k) {
