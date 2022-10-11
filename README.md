@@ -117,6 +117,7 @@ These are for demonstration purposes only.
 - [x] [Boyer-Moore String Search Algorithm](./src/string/boyer_moore_search.rs)
 - [x] [Burrows-Wheeler transform](./src/string/burrows_wheeler_transform.rs)
 - [x] [Knuth Morris Pratt](./src/string/knuth_morris_pratt.rs)
+- [x] [Levenshtein Distance](./src/string/levenshtein_distance.rs)
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
 - [x] [Reverse](./src/string/reverse.rs)
