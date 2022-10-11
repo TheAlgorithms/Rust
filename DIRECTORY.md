@@ -1,7 +1,8 @@
 # List of all files
 
 ## Src
-
+  * Backtracking
+    * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Ciphers
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
