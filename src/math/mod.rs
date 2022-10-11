@@ -1,8 +1,8 @@
 mod amicable_numbers;
 mod armstrong_number;
 mod baby_step_giant_step;
-mod doomsday;
 mod chinese_remainder_theorem;
+mod doomsday;
 mod extended_euclidean_algorithm;
 mod fast_fourier_transform;
 mod fast_power;
@@ -36,8 +36,8 @@ mod zellers_congruence_algorithm;
 pub use self::amicable_numbers::amicable_pairs_under_n;
 pub use self::armstrong_number::is_armstrong_number;
 pub use self::baby_step_giant_step::baby_step_giant_step;
-pub use self::doomsday::get_week_day;
 pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
+pub use self::doomsday::get_week_day;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::fast_fourier_transform::{
     fast_fourier_transform, fast_fourier_transform_input_permutation,
