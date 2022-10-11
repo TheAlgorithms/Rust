@@ -33,7 +33,7 @@ pub fn prufer_encode<V: Ord + Copy>(tree: &Graph<V>) -> Vec<V> {
 
 #[inline]
 fn add_directed_edge<V: Ord + Copy>(tree: &mut Graph<V>, a: V, b: V) {
-    tree.entry(a).or_insert(vec![]).push(b);
+    tree.entry(a).or_default().push(b);
 }
 
 #[inline]

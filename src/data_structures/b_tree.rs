@@ -100,19 +100,18 @@ impl BTreeProps {
             self.insert_non_full(&mut node.children[u_index], key);
         }
     }
-
-    fn traverse_node<T: Ord + Debug>(&self, node: &Node<T>, depth: usize) {
+    fn traverse_node<T: Ord + Debug>(node: &Node<T>, depth: usize) {
         if node.is_leaf() {
             print!(" {0:{<1$}{2:?}{0:}<1$} ", "", depth, node.keys);
         } else {
             let _depth = depth + 1;
             for (index, key) in node.keys.iter().enumerate() {
-                self.traverse_node(&node.children[index], _depth);
+                Self::traverse_node(&node.children[index], _depth);
                 // Check https://doc.rust-lang.org/std/fmt/index.html
                 // And https://stackoverflow.com/a/35280799/2849127
                 print!("{0:{<1$}{2:?}{0:}<1$}", "", depth, key);
             }
-            self.traverse_node(node.children.last().unwrap(), _depth);
+            Self::traverse_node(node.children.last().unwrap(), _depth);
         }
     }
 }
@@ -141,7 +140,7 @@ where
     }
 
     pub fn traverse(&self) {
-        self.props.traverse_node(&self.root, 0);
+        BTreeProps::traverse_node(&self.root, 0);
         println!();
     }
 
