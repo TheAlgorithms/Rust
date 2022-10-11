@@ -1,4 +1,5 @@
 mod aho_corasick;
+mod anagram;
 mod boyer_moore_search;
 mod burrows_wheeler_transform;
 mod hamming_distance;
@@ -14,6 +15,7 @@ mod suffix_tree;
 mod z_algorithm;
 
 pub use self::aho_corasick::AhoCorasick;
+pub use self::anagram::check_anagram;
 pub use self::boyer_moore_search::boyer_moore_search;
 pub use self::burrows_wheeler_transform::{
     burrows_wheeler_transform, inv_burrows_wheeler_transform,
