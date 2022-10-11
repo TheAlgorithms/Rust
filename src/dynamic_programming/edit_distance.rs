@@ -72,7 +72,7 @@ pub fn edit_distance_se(str_a: &str, str_b: &str) -> u32 {
             // c is distances[i][j-1] and s is distances[i-1][j-1] at the beginning of each round of iteration
             char_b = str_b[j - 1];
             c = min(
-                s + if char_a == char_b { 0 } else { 1 },
+                s + u32::from(char_a != char_b),
                 min(c + 1, distances[j] + 1),
             );
             // c is updated to distances[i][j], and will thus become distances[i][j-1] for the next cell
