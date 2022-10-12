@@ -5,8 +5,6 @@
  * integer multiple of 8
  */
 
-use std::fmt::Write;
-
 // The constants are tested to make sure they are correct
 pub const H0: [u32; 8] = [
     0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19,
@@ -98,17 +96,6 @@ fn process_block(h: &mut [u32; 8], w: &mut [u32; 64], round: &mut [u32; 8], buf:
     for i in 0..h.len() {
         h[i] = h[i].wrapping_add(round[i]);
     }
-}
-
-#[allow(dead_code)]
-// Let's keep this utility function
-pub fn get_hash_string(hash: &[u8; 32]) -> String {
-    let mut result = String::new();
-    result.reserve(64);
-    for &ch in hash {
-        write!(&mut result, "{ch:02x}").unwrap();
-    }
-    result
 }
 
 impl SHA256 {
@@ -219,9 +206,20 @@ impl super::Hasher<32> for SHA256 {
 }
 
 #[cfg(test)]
-mod tests {
+pub mod tests {
     use super::*;
     use crate::math::LinearSieve;
+    use std::fmt::Write;
+
+    // Let's keep this utility function
+    pub fn get_hash_string(hash: &[u8; 32]) -> String {
+        let mut result = String::new();
+        result.reserve(64);
+        for &ch in hash {
+            write!(&mut result, "{ch:02x}").unwrap();
+        }
+        result
+    }
 
     #[test]
     fn test_constants() {
