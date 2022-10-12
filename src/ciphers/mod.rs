@@ -1,5 +1,6 @@
 mod aes;
 mod another_rot13;
+mod base64;
 mod caesar;
 mod chacha;
 mod hashing_traits;
@@ -16,6 +17,7 @@ mod xor;
 
 pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
 pub use self::another_rot13::another_rot13;
+pub use self::base64::{base64_decode, base64_encode};
 pub use self::caesar::caesar;
 pub use self::chacha::chacha20;
 pub use self::hashing_traits::Hasher;

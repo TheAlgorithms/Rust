@@ -69,7 +69,7 @@ impl<const KEY_BYTES: usize, const DIGEST_BYTES: usize, H: Hasher<DIGEST_BYTES>>
 
 #[cfg(test)]
 mod tests {
-    use super::super::sha256::get_hash_string;
+    use super::super::sha256::tests::get_hash_string;
     use super::super::SHA256;
     use super::HMAC;
 

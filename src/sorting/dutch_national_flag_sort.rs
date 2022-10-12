@@ -24,17 +24,19 @@ pub fn dutch_national_flag_sort(mut sequence: Vec<Colors>) -> Vec<Colors> {
     let mut mid = 0;
     let mut high = length - 1;
     while mid <= high {
-        if sequence[mid] == Red {
-            sequence.swap(low, mid);
-            low += 1;
-            mid += 1;
-        } else if sequence[mid] == White {
-            mid += 1;
-        } else {
-            // Equivalent to `else if sequence[mid] == Blue`,
-            // because `Red`, `White`, and `Blue` are the only members of the Colors enum
-            sequence.swap(mid, high);
-            high -= 1;
+        match sequence[mid] {
+            Red => {
+                sequence.swap(low, mid);
+                low += 1;
+                mid += 1;
+            }
+            White => {
+                mid += 1;
+            }
+            Blue => {
+                sequence.swap(mid, high);
+                high -= 1;
+            }
         }
     }
     sequence
