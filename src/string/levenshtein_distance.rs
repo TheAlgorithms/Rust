@@ -1,3 +1,5 @@
+use std::cmp::{min};
+
 pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
     if string1.is_empty() {
         return string2.len();
@@ -77,14 +79,7 @@ mod levenshtein_distance_should {
 }
 
 fn min3(a: usize, b: usize, c: usize) -> usize {
-    if a < b
-    {
-        if c < a { c } else { a }
-    }
-    else
-    {
-        if c < b { c } else { b }
-    }
+    min(a, min(b, c))
 }
 
 #[cfg(test)]
