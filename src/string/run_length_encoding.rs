@@ -31,7 +31,7 @@ pub fn run_length_decoding(target: String) -> String {
     }
 
     let mut character_count: String = String::new();
-    let mut encoded_target = String::new();
+    let mut decoded_target = String::new();
 
     for c in target.as_str().chars() {
         character_count.push(c);
@@ -39,7 +39,7 @@ pub fn run_length_decoding(target: String) -> String {
 
         if !is_numeric {
             let pop_char: char = character_count.pop().unwrap();
-            encoded_target.push_str(
+            decoded_target.push_str(
                 &pop_char
                     .to_string()
                     .repeat(character_count.parse().unwrap()),
@@ -48,7 +48,7 @@ pub fn run_length_decoding(target: String) -> String {
         }
     }
 
-    encoded_target
+    decoded_target
 }
 
 #[cfg(test)]
