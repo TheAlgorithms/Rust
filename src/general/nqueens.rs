@@ -1,38 +1,3 @@
-#[allow(unused_imports)]
-use std::env::args;
-
-#[allow(dead_code)]
-fn main() {
-    let mut board_width = 0;
-
-    for arg in args() {
-        board_width = match arg.parse() {
-            Ok(x) => x,
-            _ => 0,
-        };
-
-        if board_width != 0 {
-            break;
-        }
-    }
-
-    if board_width < 4 {
-        println!(
-            "Running algorithm with 8 as a default. Specify an alternative Chess board size for \
-             N-Queens as a command line argument.\n"
-        );
-        board_width = 8;
-    }
-
-    let board = match nqueens(board_width) {
-        Ok(success) => success,
-        Err(err) => panic!("{}", err),
-    };
-
-    println!("N-Queens {} by {} board result:", board_width, board_width);
-    print_board(&board);
-}
-
 /*
 The n-Queens search is a backtracking algorithm. Each row of the Chess board where a Queen is
 placed is dependent on all earlier rows. As only one Queen can fit per row, a one-dimensional
@@ -92,21 +57,6 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
     }
 
     Ok(board_rows)
-}
-
-fn print_board(board: &[i64]) {
-    for row in 0..board.len() {
-        print!("{}\t", board[row as usize]);
-
-        for column in 0..board.len() as i64 {
-            if board[row as usize] == column {
-                print!("Q");
-            } else {
-                print!(".");
-            }
-        }
-        println!();
-    }
 }
 
 #[cfg(test)]
