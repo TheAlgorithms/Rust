@@ -1,3 +1,4 @@
+pub mod backtracking;
 pub mod big_integer;
 pub mod ciphers;
 pub mod data_structures;
