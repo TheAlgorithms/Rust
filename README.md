@@ -167,6 +167,9 @@ These are for demonstration purposes only.
   - [x] [Another Rot13](./src/ciphers/another_rot13.rs)
   - [x] [Rot13](./src/ciphers/rot13.rs)
 
+## [Backtracking](./src/backtracking)
+
+- [x] [Sudoku](./src/backtracking/sudoku.rs)
 ---
 
 ### All implemented Algos
