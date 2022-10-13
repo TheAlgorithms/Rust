@@ -1,4 +1,4 @@
-use std::cmp::{min};
+use std::cmp::min;
 
 pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
     if string1.is_empty() {
@@ -24,10 +24,10 @@ pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
             previous_substitution_cost = d[i];
             d[i] = min3(deletion_cost, insertion_cost, substitution_cost);
 
-            i = i + 1;
+            i += 1;
         }
 
-        j = j + 1;
+        j += 1;
     }
 
     d[d.len() - 1]
