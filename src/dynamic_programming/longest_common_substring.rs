@@ -23,7 +23,7 @@ pub fn longest_common_substring(text1: String, text2: String) -> i32 {
         }
     }
 
-    return ans;
+    ans
 }
 
 #[cfg(test)]
