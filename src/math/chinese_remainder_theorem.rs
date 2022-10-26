@@ -26,7 +26,7 @@ fn modinverse(x: u64, n: u64) -> Option<u64> {
         None
     }
 }
-
+#[allow(dead_code)]
 fn xmodinverse(x: &BigInt, n: &BigInt) -> Option<BigInt> {
     let g = x.gcd(n);
     if g == BigInt::one() {
@@ -47,6 +47,7 @@ pub fn chinese_remainder_theorem(residues: &[u64], modulli: &[u64]) -> Option<u6
     }
     Some(sum % prod)
 }
+#[allow(dead_code)]
 pub fn xchinese_remainder_theorem(residues: &[BigInt], modulli: &[BigInt]) -> Option<BigInt> {
     let prod: BigInt = modulli.iter().product();
 
@@ -54,7 +55,7 @@ pub fn xchinese_remainder_theorem(residues: &[BigInt], modulli: &[BigInt]) -> Op
 
     for (residue, modulus) in residues.iter().zip(modulli) {
         let p = prod.to_owned() / modulus;
-        let d = xmodinverse(&p, &*modulus)?;
+        let d = xmodinverse(&p, modulus)?;
         sum += residue * d * p
     }
     Some(sum % prod)
