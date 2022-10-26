@@ -7,7 +7,7 @@ authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 [dependencies]
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
-
+num-integer = { version = "0.1.44", optional = true }
 [features]
 default = ["big-math"]
-big-math = ["dep:num-bigint", "dep:num-traits"]
+big-math = ["dep:num-bigint", "dep:num-traits", "dep:num-integer"]
