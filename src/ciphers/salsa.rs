@@ -14,9 +14,6 @@ macro_rules! quarter_round {
     };
 }
 
-#[allow(dead_code)]
-pub const C: [u32; 4] = [0x65787061, 0x6e642033, 0x322d6279, 0x7465206b];
-
 /**
  * `salsa20` function takes as input an array of 16 32-bit integers (512 bits)
  * of which 128 bits is the constant 'expand 32-byte k', 256 bits is the key,
@@ -85,6 +82,8 @@ pub fn salsa20(input: &[u32; 16], output: &mut [u32; 16]) {
 mod tests {
     use super::*;
     use std::fmt::Write;
+
+    const C: [u32; 4] = [0x65787061, 0x6e642033, 0x322d6279, 0x7465206b];
 
     fn output_hex(inp: &[u32; 16]) -> String {
         let mut res = String::new();

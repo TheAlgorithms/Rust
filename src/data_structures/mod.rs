@@ -18,7 +18,7 @@ pub use self::binary_search_tree::BinarySearchTree;
 pub use self::fenwick_tree::FenwickTree;
 pub use self::graph::DirectedGraph;
 pub use self::graph::UndirectedGraph;
-pub use self::heap::{Heap, MaxHeap, MinHeap};
+pub use self::heap::Heap;
 pub use self::linked_list::LinkedList;
 pub use self::queue::Queue;
 pub use self::rb_tree::RBTree;

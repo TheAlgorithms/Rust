@@ -1,7 +1,8 @@
 # List of all files
 
 ## Src
-
+  * Backtracking
+    * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Ciphers
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
@@ -86,6 +87,7 @@
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
     * [Armstrong Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/armstrong_number.rs)
     * [Permuted Congruential Random Number Generator](https://github.com/TheAlgorithms/Rust/blob/master/src/math/random.rs)
+    * [Financial Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interest.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
@@ -116,6 +118,7 @@
     * [Aho Corasick](https://github.com/TheAlgorithms/Rust/blob/master/src/string/aho_corasick.rs)
     * [Burrows Wheeler Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/string/burrows_wheeler_transform.rs)
     * [Knuth Morris Pratt](https://github.com/TheAlgorithms/Rust/blob/master/src/string/knuth_morris_pratt.rs)
+    * [Levenshtein Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/levenshtein_distance.rs)
     * [Manacher](https://github.com/TheAlgorithms/Rust/blob/master/src/string/manacher.rs)
     * [Rabin Karp](https://github.com/TheAlgorithms/Rust/blob/master/src/string/rabin_karp.rs)
     * [Reverse](https://github.com/TheAlgorithms/Rust/blob/master/src/string/reverse.rs)
