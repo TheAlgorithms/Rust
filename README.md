@@ -172,6 +172,7 @@ These are for demonstration purposes only.
 ## [Backtracking](./src/backtracking)
 
 - [x] [Sudoku](./src/backtracking/sudoku.rs)
+- [x] [All Combination of Size k](./src/backtracking/all_combination_of_size_k.rs)
 ---
 
 ### All implemented Algos
