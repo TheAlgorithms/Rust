@@ -2,6 +2,7 @@ mod aho_corasick;
 mod anagram;
 mod boyer_moore_search;
 mod burrows_wheeler_transform;
+mod duval_algorithm;
 mod hamming_distance;
 mod jaro_winkler_distance;
 mod knuth_morris_pratt;
@@ -21,6 +22,7 @@ pub use self::boyer_moore_search::boyer_moore_search;
 pub use self::burrows_wheeler_transform::{
     burrows_wheeler_transform, inv_burrows_wheeler_transform,
 };
+pub use self::duval_algorithm::duval_algorithm;
 pub use self::hamming_distance::hamming_distance;
 pub use self::jaro_winkler_distance::jaro_winkler_distance;
 pub use self::knuth_morris_pratt::knuth_morris_pratt;
