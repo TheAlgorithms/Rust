@@ -1,5 +1,6 @@
 mod aho_corasick;
 mod anagram;
+mod autocomplete_using_trie;
 mod boyer_moore_search;
 mod burrows_wheeler_transform;
 mod duval_algorithm;
@@ -18,6 +19,7 @@ mod z_algorithm;
 
 pub use self::aho_corasick::AhoCorasick;
 pub use self::anagram::check_anagram;
+pub use self::autocomplete_using_trie::Autocomplete;
 pub use self::boyer_moore_search::boyer_moore_search;
 pub use self::burrows_wheeler_transform::{
     burrows_wheeler_transform, inv_burrows_wheeler_transform,
