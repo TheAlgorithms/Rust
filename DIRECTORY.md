@@ -124,3 +124,4 @@
     * [Reverse](https://github.com/TheAlgorithms/Rust/blob/master/src/string/reverse.rs)
     * [Z Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/string/z_algorithm.rs)
     * [Hamming Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/hamming_distance.rs)
+    * [Autocomplete using Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/string/autocomplete_using_trie.rs)

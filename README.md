@@ -127,6 +127,7 @@ These are for demonstration purposes only.
 - [x] [Jaro-Winkler Distance](./src/string/jaro_winkler_distance.rs)
 - [x] [Suffix Tree](./src/string/suffix_tree.rs)
 - [x] [Suffix Array](./src/string/suffix_array.rs)
+- [x] [Autocomplete using Trie](./src/string/autocomplete_using_trie.rs)
 
 ## [General](./src/general)
 
