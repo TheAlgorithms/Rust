@@ -1,3 +1,4 @@
+mod aliquot_sum;
 mod amicable_numbers;
 mod armstrong_number;
 mod baby_step_giant_step;
@@ -35,6 +36,7 @@ mod square_root;
 mod trial_division;
 mod zellers_congruence_algorithm;
 
+pub use self::aliquot_sum::aliquot_sum;
 pub use self::amicable_numbers::amicable_pairs_under_n;
 pub use self::armstrong_number::is_armstrong_number;
 pub use self::baby_step_giant_step::baby_step_giant_step;
