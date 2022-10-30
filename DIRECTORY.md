@@ -3,6 +3,7 @@
 ## Src
   * Backtracking
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
+    * [All Combination of Size k](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
   * Ciphers
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
