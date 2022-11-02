@@ -7,7 +7,7 @@ pub fn fractional_knapsack(mut capacity: f64, weights: Vec<f64>, values: Vec<f64
         .collect();
 
     // sort in decreasing order by value/weight ratio
-    weights.sort_by(|a, b| b.1.partial_cmp(&a.1).expect("Encountered NaN"));
+    weights.sort_unstable_by(|a, b| b.1.partial_cmp(&a.1).expect("Encountered NaN"));
     dbg!(&weights);
 
     // value to compute
