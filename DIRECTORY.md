@@ -89,6 +89,7 @@
     * [Armstrong Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/armstrong_number.rs)
     * [Permuted Congruential Random Number Generator](https://github.com/TheAlgorithms/Rust/blob/master/src/math/random.rs)
     * [Financial Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interest.rs)
+    * [Bakhshali Sqrt](https://github.com/TheAlgorithms/Rust/blob/master/src/math/bakhshali_sqrt.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
