@@ -20,6 +20,7 @@ pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::classical_fibonacci;
 pub use self::fibonacci::fibonacci;
 pub use self::fibonacci::logarithmic_fibonacci;
+pub use self::fibonacci::matrix_fibonacci;
 pub use self::fibonacci::memoized_fibonacci;
 pub use self::fibonacci::recursive_fibonacci;
 pub use self::fractional_knapsack::fractional_knapsack;
