@@ -26,6 +26,7 @@
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
     * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
     * [Stack Using Singly Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/stack_using_singly_linked_list.rs)
+    * [Treap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/treap.rs)
     * [Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/trie.rs)
   * Dynamic Programming
     * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
