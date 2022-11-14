@@ -2,7 +2,8 @@ use std::cmp::PartialOrd;
 
 pub fn partition<T: PartialOrd>(arr: &mut [T], lo: isize, hi: isize) -> isize {
     let pivot = hi as usize;
-    let mut i = lo - 1;
+    let mut i = lo;
+    i = i.saturating_sub(1);
     let mut j = hi;
 
     loop {
