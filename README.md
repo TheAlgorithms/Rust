@@ -111,6 +111,7 @@ These are for demonstration purposes only.
 - [x] [Segment Tree](./src/data_structures/segment_tree.rs)
 - [x] [Fenwick Tree](./src/data_structures/fenwick_tree.rs)
 - [x] [Union-find](./src/data_structures/union_find.rs)
+- [x] [Treap](./src/data_structures/treap.rs)
 
 ## [Strings](./src/string)
 
