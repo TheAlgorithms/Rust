@@ -16,7 +16,7 @@ mod tests {
 
     #[test]
     fn positive_decimal() {
-        let num = 1.10;
+        let num = 3.01;
         assert_eq!(ceil(num), num.ceil());
     }
 
@@ -28,7 +28,7 @@ mod tests {
 
     #[test]
     fn negative_decimal() {
-        let num = -1.10;
+        let num = -1.01;
         assert_eq!(ceil(num), num.ceil());
     }
 
