@@ -2,11 +2,11 @@
 // Source: https://en.wikipedia.org/wiki/Floor_and_ceiling_functions
 
 pub fn ceil(x: f64) -> f64 {
-    let x_round = x.round();
-    if (x_round * 10.0).round() < (x * 10.0).round() {
-        x_round + 1.0
+    let x_rounded_towards_zero = x as i32 as f64;
+    if x < 0. || x_rounded_towards_zero == x {
+        x_rounded_towards_zero
     } else {
-        x_round
+        x_rounded_towards_zero + 1_f64
     }
 }
 
