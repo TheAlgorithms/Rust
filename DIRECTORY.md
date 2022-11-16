@@ -122,6 +122,7 @@
     * [Quadratic Residue](https://github.com/TheAlgorithms/Rust/blob/master/src/math/quadratic_residue.rs)
     * [Random](https://github.com/TheAlgorithms/Rust/blob/master/src/math/random.rs)
     * [Sieve Of Eratosthenes](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sieve_of_eratosthenes.rs)
+    * [Signum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/signum.rs)
     * [Simpson Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/simpson_integration.rs)
     * [Square Root](https://github.com/TheAlgorithms/Rust/blob/master/src/math/square_root.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
