@@ -12,19 +12,25 @@ where
         let cur = arr[i];
         let mut j = i - 1;
 
+        // This loop has two exit points, and needs to be handled differently.
+        // Exit point1
         while arr[j] > cur {
             arr[j + 1] = arr[j];
             if j == 0 {
+                // Exit point2
                 break;
             }
             j -= 1;
         }
 
-        // we exit the loop from that break statement
+        // Exits from "Exit point2"
+        // This `&& arr[0] > cur` is needed here as there is a possibility that
+        // after executing `j -= 1;`, `j` becomes 0 and then `arr[j] > cur` is
+        // not satisfied so that we exit from "Exit point1" with `j` equals 0.
         if j == 0 && arr[0] > cur {
             arr[0] = cur;
         } else {
-            // `arr[j] > cur` is not satsified, exit from condition judgement
+            // Exits from "exit point1" with condition not satisfied
             arr[j + 1] = cur;
         }
     }
