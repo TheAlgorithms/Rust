@@ -1,186 +1,569 @@
-// Basic matrix operations using row vectors wrapped in column vectors as matrices.
-// Supports i32, should be interchangeable for other types.
+// Basic matrix operations using a Matrix type with internally uses
+// a vector representation to store matrix elements.
+// Generic using the MatrixElement trait, which can be implemented with
+// the matrix_element_type_def macro.
 // Wikipedia reference: https://www.wikiwand.com/en/Matrix_(mathematics)
+use std::ops::{Add, AddAssign, Index, IndexMut, Mul, Sub};
 
-pub fn matrix_add(summand0: &[Vec<i32>], summand1: &[Vec<i32>]) -> Vec<Vec<i32>> {
-    // Add two matrices of identical dimensions
-    let mut result: Vec<Vec<i32>> = vec![];
-    if summand0.len() != summand1.len() {
-        panic!("Matrix dimensions do not match");
-    }
-    for row in 0..summand0.len() {
-        if summand0[row].len() != summand1[row].len() {
-            panic!("Matrix dimensions do not match");
-        }
-        result.push(vec![]);
-        for column in 0..summand1[0].len() {
-            result[row].push(summand0[row][column] + summand1[row][column]);
-        }
-    }
-    result
+// Define macro to build a matrix idiomatically
+#[macro_export]
+macro_rules! matrix {
+    [$([$($x:expr),* $(,)*]),* $(,)*] => {{
+        Matrix::from(vec![$(vec![$($x,)*],)*])
+    }};
 }
 
-pub fn matrix_subtract(minuend: &[Vec<i32>], subtrahend: &[Vec<i32>]) -> Vec<Vec<i32>> {
-    // Subtract one matrix from another. They need to have identical dimensions.
-    let mut result: Vec<Vec<i32>> = vec![];
-    if minuend.len() != subtrahend.len() {
-        panic!("Matrix dimensions do not match");
-    }
-    for row in 0..minuend.len() {
-        if minuend[row].len() != subtrahend[row].len() {
-            panic!("Matrix dimensions do not match");
-        }
-        result.push(vec![]);
-        for column in 0..subtrahend[0].len() {
-            result[row].push(minuend[row][column] - subtrahend[row][column]);
-        }
-    }
-    result
+// Define a trait "alias" for suitable matrix elements
+pub trait MatrixElement:
+    Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + AddAssign + Copy + From<u8>
+{
 }
 
-// Disable cargo clippy warnings about needless range loops.
-// As the iterating variable is used as index while multiplying,
-// using the item itself would defeat the variables purpose.
-#[allow(clippy::needless_range_loop)]
-pub fn matrix_multiply(multiplier: &[Vec<i32>], multiplicand: &[Vec<i32>]) -> Vec<Vec<i32>> {
-    // Multiply two matching matrices. The multiplier needs to have the same amount
-    // of columns as the multiplicand has rows.
-    let mut result: Vec<Vec<i32>> = vec![];
-    let mut temp;
-    // Using variable to compare lenghts of rows in multiplicand later
-    let row_right_length = multiplicand[0].len();
-    for row_left in 0..multiplier.len() {
-        if multiplier[row_left].len() != multiplicand.len() {
-            panic!("Matrix dimensions do not match");
-        }
-        result.push(vec![]);
-        for column_right in 0..multiplicand[0].len() {
-            temp = 0;
-            for row_right in 0..multiplicand.len() {
-                if row_right_length != multiplicand[row_right].len() {
-                    // If row is longer than a previous row cancel operation with error
-                    panic!("Matrix dimensions do not match");
-                }
-                temp += multiplier[row_left][row_right] * multiplicand[row_right][column_right];
+// Define a macro to implement the MatrixElement trait for desired types
+#[macro_export]
+macro_rules! matrix_element_type_def {
+    ($T: ty) => {
+        // Implement trait for type
+        impl MatrixElement for $T {}
+
+        // Defining left-hand multiplication in this form
+        // prevents errors for uncovered types
+        impl Mul<&Matrix<$T>> for $T {
+            type Output = Matrix<$T>;
+
+            fn mul(self, rhs: &Matrix<$T>) -> Self::Output {
+                rhs * self
             }
-            result[row_left].push(temp);
         }
-    }
-    result
+    };
+
+    ($T: ty, $($Ti: ty),+) => {
+        // Decompose type definitions recursively
+        matrix_element_type_def!($T);
+        matrix_element_type_def!($($Ti),+);
+    };
 }
 
-pub fn matrix_transpose(matrix: &[Vec<i32>]) -> Vec<Vec<i32>> {
-    // Transpose a matrix of any size
-    let mut result: Vec<Vec<i32>> = vec![Vec::with_capacity(matrix.len()); matrix[0].len()];
-    for row in matrix {
-        for col in 0..row.len() {
-            result[col].push(row[col]);
-        }
-    }
-    result
+matrix_element_type_def!(i16, i32, i64, i128, u8, u16, u32, u128, f32, f64);
+
+#[derive(PartialEq, Eq, Debug)]
+pub struct Matrix<T: MatrixElement> {
+    data: Vec<T>,
+    rows: usize,
+    cols: usize,
 }
 
-pub fn matrix_scalar_multiplication(matrix: &[Vec<i32>], scalar: i32) -> Vec<Vec<i32>> {
-    // Multiply a matrix of any size with a scalar
-    let mut result: Vec<Vec<i32>> = vec![Vec::with_capacity(matrix.len()); matrix[0].len()];
-    for row in 0..matrix.len() {
-        for column in 0..matrix[row].len() {
-            result[row].push(scalar * matrix[row][column]);
+impl<T: MatrixElement> Matrix<T> {
+    pub fn new(data: Vec<T>, rows: usize, cols: usize) -> Self {
+        // Build a matrix from the internal vector representation
+        if data.len() != rows * cols {
+            panic!("Inconsistent data and dimensions combination for matrix")
+        }
+        Matrix { data, rows, cols }
+    }
+
+    pub fn zero(rows: usize, cols: usize) -> Self {
+        // Build a matrix of zeros
+        Matrix {
+            data: vec![0.into(); rows * cols],
+            rows,
+            cols,
         }
     }
-    result
+
+    pub fn identity(len: usize) -> Self {
+        // Build an identity matrix
+        let mut identity = Matrix::zero(len, len);
+        // Diagonal of ones
+        for i in 0..len {
+            identity[[i, i]] = 1.into();
+        }
+        identity
+    }
+
+    pub fn transpose(&self) -> Self {
+        // Transpose a matrix of any size
+        let mut result = Matrix::zero(self.cols, self.rows);
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                result[[i, j]] = self[[j, i]];
+            }
+        }
+        result
+    }
+}
+
+impl<T: MatrixElement> Index<[usize; 2]> for Matrix<T> {
+    type Output = T;
+
+    fn index(&self, index: [usize; 2]) -> &Self::Output {
+        let [i, j] = index;
+        if i >= self.rows || j >= self.cols {
+            panic!("Matrix index out of bounds");
+        }
+
+        &self.data[(self.cols * i) + j]
+    }
+}
+
+impl<T: MatrixElement> IndexMut<[usize; 2]> for Matrix<T> {
+    fn index_mut(&mut self, index: [usize; 2]) -> &mut Self::Output {
+        let [i, j] = index;
+        if i >= self.rows || j >= self.cols {
+            panic!("Matrix index out of bounds");
+        }
+
+        &mut self.data[(self.cols * i) + j]
+    }
+}
+
+impl<T: MatrixElement> Add<&Matrix<T>> for &Matrix<T> {
+    type Output = Matrix<T>;
+
+    fn add(self, rhs: &Matrix<T>) -> Self::Output {
+        // Add two matrices. They need to have identical dimensions.
+        if self.rows != rhs.rows || self.cols != rhs.cols {
+            panic!("Matrix dimensions do not match");
+        }
+
+        let mut result = Matrix::zero(self.rows, self.cols);
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                result[[i, j]] = self[[i, j]] + rhs[[i, j]];
+            }
+        }
+        result
+    }
+}
+
+impl<T: MatrixElement> Sub for &Matrix<T> {
+    type Output = Matrix<T>;
+
+    fn sub(self, rhs: Self) -> Self::Output {
+        // Subtract one matrix from another. They need to have identical dimensions.
+        if self.rows != rhs.rows || self.cols != rhs.cols {
+            panic!("Matrix dimensions do not match");
+        }
+
+        let mut result = Matrix::zero(self.rows, self.cols);
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                result[[i, j]] = self[[i, j]] - rhs[[i, j]];
+            }
+        }
+        result
+    }
+}
+
+impl<T: MatrixElement> Mul for &Matrix<T> {
+    type Output = Matrix<T>;
+
+    fn mul(self, rhs: Self) -> Self::Output {
+        // Multiply two matrices. The multiplier needs to have the same amount
+        // of columns as the multiplicand has rows.
+        if self.cols != rhs.rows {
+            panic!("Matrix dimensions do not match");
+        }
+
+        let mut result = Matrix::zero(self.rows, rhs.cols);
+        for i in 0..self.rows {
+            for j in 0..rhs.cols {
+                result[[i, j]] = {
+                    let mut sum = 0.into();
+                    for k in 0..self.cols {
+                        sum += self[[i, k]] * rhs[[k, j]];
+                    }
+                    sum
+                };
+            }
+        }
+        result
+    }
+}
+
+impl<T: MatrixElement> Mul<T> for &Matrix<T> {
+    type Output = Matrix<T>;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        // Multiply a matrix of any size with a scalar
+        let mut result = Matrix::zero(self.rows, self.cols);
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                result[[i, j]] = rhs * self[[i, j]];
+            }
+        }
+        result
+    }
+}
+
+impl<T: MatrixElement> From<Vec<Vec<T>>> for Matrix<T> {
+    fn from(v: Vec<Vec<T>>) -> Self {
+        let rows = v.len();
+        let cols = v.first().map_or(0, |row| row.len());
+
+        // Ensure consistent dimensions
+        for row in v.iter().skip(1) {
+            if row.len() != cols {
+                panic!("Invalid matrix dimensions. Columns must be consistent.");
+            }
+        }
+        if rows != 0 && cols == 0 {
+            panic!("Invalid matrix dimensions. Multiple empty rows");
+        }
+
+        let data = v.into_iter().flat_map(|row| row.into_iter()).collect();
+        Self::new(data, rows, cols)
+    }
 }
 
 #[cfg(test)]
+// rustfmt skipped to prevent unformatting matrix definitions to a single line
+#[rustfmt::skip] 
 mod tests {
-    use super::matrix_add;
-    use super::matrix_multiply;
-    use super::matrix_scalar_multiplication;
-    use super::matrix_subtract;
-    use super::matrix_transpose;
+    use super::Matrix;
+    use std::panic;
 
-    #[test]
-    fn test_add() {
-        let input0: Vec<Vec<i32>> = vec![vec![1, 0, 1], vec![0, 2, 0], vec![5, 0, 1]];
-        let input1: Vec<Vec<i32>> = vec![vec![1, 0, 0], vec![0, 1, 0], vec![0, 0, 1]];
-        let input_wrong0: Vec<Vec<i32>> = vec![vec![1, 0, 0, 4], vec![0, 1, 0], vec![0, 0, 1]];
-        let input_wrong1: Vec<Vec<i32>> =
-            vec![vec![1, 0, 0], vec![0, 1, 0], vec![0, 0, 1], vec![1, 1, 1]];
-        let input_wrong2: Vec<Vec<i32>> = vec![vec![]];
-        let exp_result: Vec<Vec<i32>> = vec![vec![2, 0, 1], vec![0, 3, 0], vec![5, 0, 2]];
-        assert_eq!(matrix_add(&input0, &input1), exp_result);
-        let result0 = std::panic::catch_unwind(|| matrix_add(&input0, &input_wrong0));
-        assert!(result0.is_err());
-        let result1 = std::panic::catch_unwind(|| matrix_add(&input0, &input_wrong1));
-        assert!(result1.is_err());
-        let result2 = std::panic::catch_unwind(|| matrix_add(&input0, &input_wrong2));
-        assert!(result2.is_err());
+    const DELTA: f64 = 1e-3;
+
+    macro_rules! assert_f64_eq {
+        ($a:expr, $b:expr) => {
+            assert_eq!($a.data.len(), $b.data.len());
+            if !$a
+                .data
+                .iter()
+                .zip($b.data.iter())
+                .all(|(x, y)| (*x as f64 - *y as f64).abs() < DELTA)
+            {
+                panic!();
+            }
+        };
     }
 
     #[test]
-    fn test_subtract() {
-        let input0: Vec<Vec<i32>> = vec![vec![1, 0, 1], vec![0, 2, 0], vec![5, 0, 1]];
-        let input1: Vec<Vec<i32>> = vec![vec![1, 0, 0], vec![0, 1, 3], vec![0, 0, 1]];
-        let input_wrong0: Vec<Vec<i32>> = vec![vec![1, 0, 0, 4], vec![0, 1, 0], vec![0, 0, 1]];
-        let input_wrong1: Vec<Vec<i32>> =
-            vec![vec![1, 0, 0], vec![0, 1, 0], vec![0, 0, 1], vec![1, 1, 1]];
-        let input_wrong2: Vec<Vec<i32>> = vec![vec![]];
-        let exp_result: Vec<Vec<i32>> = vec![vec![0, 0, 1], vec![0, 1, -3], vec![5, 0, 0]];
-        assert_eq!(matrix_subtract(&input0, &input1), exp_result);
-        let result0 = std::panic::catch_unwind(|| matrix_subtract(&input0, &input_wrong0));
-        assert!(result0.is_err());
-        let result1 = std::panic::catch_unwind(|| matrix_subtract(&input0, &input_wrong1));
-        assert!(result1.is_err());
-        let result2 = std::panic::catch_unwind(|| matrix_subtract(&input0, &input_wrong2));
-        assert!(result2.is_err());
+    fn test_invalid_matrix() {
+        let result = panic::catch_unwind(|| matrix![
+            [1, 0, 0, 4],
+            [0, 1, 0],
+            [0, 0, 1],
+        ]);
+        assert!(result.is_err());
     }
 
     #[test]
-    fn test_multiply() {
-        let input0: Vec<Vec<i32>> =
-            vec![vec![1, 2, 3], vec![4, 2, 6], vec![3, 4, 1], vec![2, 4, 8]];
-        let input1: Vec<Vec<i32>> = vec![vec![1, 3, 3, 2], vec![7, 6, 2, 1], vec![3, 4, 2, 1]];
-        let input_wrong0: Vec<Vec<i32>> = vec![
-            vec![1, 3, 3, 2, 4, 6, 6],
-            vec![7, 6, 2, 1],
-            vec![3, 4, 2, 1],
+    fn test_empty_matrix() {
+        let a: Matrix<i32> = matrix![];
+
+        let result = panic::catch_unwind(|| a[[0, 0]]);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_zero_matrix() {
+        let a: Matrix<f64> = Matrix::zero(3, 5);
+
+        let z = matrix![
+            [0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0],
         ];
-        let input_wrong1: Vec<Vec<i32>> = vec![
-            vec![1, 3, 3, 2],
-            vec![7, 6, 2, 1],
-            vec![3, 4, 2, 1],
-            vec![3, 4, 2, 1],
-        ];
-        let exp_result: Vec<Vec<i32>> = vec![
-            vec![24, 27, 13, 7],
-            vec![36, 48, 28, 16],
-            vec![34, 37, 19, 11],
-            vec![54, 62, 30, 16],
-        ];
-        assert_eq!(matrix_multiply(&input0, &input1), exp_result);
-        let result0 = std::panic::catch_unwind(|| matrix_multiply(&input0, &input_wrong0));
-        assert!(result0.is_err());
-        let result1 = std::panic::catch_unwind(|| matrix_multiply(&input0, &input_wrong1));
-        assert!(result1.is_err());
+
+        assert_f64_eq!(a, z);
     }
 
     #[test]
-    fn test_transpose() {
-        let input0: Vec<Vec<i32>> = vec![vec![1, 0, 1], vec![0, 2, 0], vec![5, 0, 1]];
-        let input1: Vec<Vec<i32>> = vec![vec![3, 4, 2], vec![0, 1, 3], vec![3, 1, 1]];
-        let exp_result1: Vec<Vec<i32>> = vec![vec![1, 0, 5], vec![0, 2, 0], vec![1, 0, 1]];
-        let exp_result2: Vec<Vec<i32>> = vec![vec![3, 0, 3], vec![4, 1, 1], vec![2, 3, 1]];
-        assert_eq!(matrix_transpose(&input0), exp_result1);
-        assert_eq!(matrix_transpose(&input1), exp_result2);
+    fn test_identity_matrix() {
+        let a: Matrix<f64> = Matrix::identity(5);
+
+        let id = matrix![
+            [1.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 1.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 1.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 1.0],
+        ];
+
+        assert_f64_eq!(a, id);
     }
 
     #[test]
-    fn test_matrix_scalar_multiplication() {
-        let input0: Vec<Vec<i32>> = vec![vec![3, 2, 2], vec![0, 2, 0], vec![5, 4, 1]];
-        let input1: Vec<Vec<i32>> = vec![vec![1, 0, 0], vec![0, 1, 0], vec![0, 0, 1]];
-        let exp_result1: Vec<Vec<i32>> = vec![vec![9, 6, 6], vec![0, 6, 0], vec![15, 12, 3]];
-        let exp_result2: Vec<Vec<i32>> = vec![vec![3, 0, 0], vec![0, 3, 0], vec![0, 0, 3]];
-        assert_eq!(matrix_scalar_multiplication(&input0, 3), exp_result1);
-        assert_eq!(matrix_scalar_multiplication(&input1, 3), exp_result2);
+    fn test_invalid_add() {
+        let a = matrix![
+            [1, 0, 1],
+            [0, 2, 0],
+            [5, 0, 1]
+        ];
+
+        let err = matrix![
+            [1, 2],
+            [2, 4],
+        ];
+
+        let result = panic::catch_unwind(|| &a + &err);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_add_i32() {
+        let a = matrix![
+            [1, 0, 1],
+            [0, 2, 0],
+            [5, 0, 1]
+        ];
+
+        let b = matrix![
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1],
+        ];
+
+        let add = matrix![
+            [2, 0, 1],
+            [0, 3, 0],
+            [5, 0, 2],
+        ];
+
+        assert_eq!(&a + &b, add);
+    }
+
+    #[test]
+    fn test_add_f64() {
+        let a = matrix![
+            [1.0, 2.0, 1.0],
+            [3.0, 2.0, 0.0],
+            [5.0, 0.0, 1.0],
+        ];
+
+        let b = matrix![
+            [1.0, 10.0, 0.0],
+            [0.0, 1.0, 0.0],
+            [0.0, 0.0, 1.0],
+        ];
+
+        let add = matrix![
+            [2.0, 12.0, 1.0],
+            [3.0, 3.0, 0.0],
+            [5.0, 0.0, 2.0],
+        ];
+
+        assert_f64_eq!(&a + &b, add);
+    }
+
+    #[test]
+    fn test_invalid_sub() {
+        let a = matrix![
+            [2, 3],
+            [10, 2],
+        ];
+
+        let err = matrix![
+            [5, 6, 10],
+            [7, 2, 2],
+            [12, 0, 1],
+        ];
+
+        let result = panic::catch_unwind(|| &a - &err);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_subtract_i32() {
+        let a = matrix![
+            [1, 0, 1],
+            [0, 2, 0],
+            [5, 0, 1],
+        ];
+
+        let b = matrix![
+            [1, 0, 0],
+            [0, 1, 3],
+            [0, 0, 1],
+        ];
+
+        let sub = matrix![
+            [0, 0, 1],
+            [0, 1, -3],
+            [5, 0, 0],
+        ];
+
+        assert_eq!(&a - &b, sub);
+    }
+
+    #[test]
+    fn test_subtract_f64() {
+        let a = matrix![
+            [7.0, 2.0, 1.0],
+            [0.0, 3.0, 2.0],
+            [5.3, 8.8, std::f64::consts::PI],
+        ];
+
+        let b = matrix![
+            [1.0, 0.0, 5.0],
+            [-2.0, 1.0, 3.0],
+            [0.0, 2.2, std::f64::consts::PI],
+        ];
+
+        let sub = matrix![
+            [6.0, 2.0, -4.0],
+            [2.0, 2.0, -1.0],
+            [5.3, 6.6, 0.0],
+        ];
+
+        assert_f64_eq!(&a - &b, sub);
+    }
+
+    #[test]
+    fn test_invalid_mul() {
+        let a = matrix![
+            [1, 2, 3],
+            [4, 2, 6],
+            [3, 4, 1],
+            [2, 4, 8],
+        ];
+
+        let err = matrix![
+            [1, 3, 3, 2],
+            [7, 6, 2, 1],
+            [3, 4, 2, 1],
+            [3, 4, 2, 1],
+        ];
+
+        let result = panic::catch_unwind(|| &a * &err);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_mul_i32() {
+        let a = matrix![
+            [1, 2, 3],
+            [4, 2, 6],
+            [3, 4, 1],
+            [2, 4, 8],
+        ];
+
+        let b = matrix![
+            [1, 3, 3, 2],
+            [7, 6, 2, 1],
+            [3, 4, 2, 1],
+        ];
+
+        let mul = matrix![
+            [24, 27, 13, 7],
+            [36, 48, 28, 16],
+            [34, 37, 19, 11],
+            [54, 62, 30, 16],
+        ];
+
+        assert_eq!(&a * &b, mul);
+    }
+
+    #[test]
+    fn test_mul_f64() {
+        let a = matrix![
+            [5.5, 2.9, 1.13, 9.0],
+            [0.0, 3.0, 11.0, 17.2],
+            [5.3, 8.8, 2.76, 3.3],
+        ];
+
+        let b = matrix![
+            [1.0, 0.3, 5.0],
+            [-2.0, 1.0, 3.0],
+            [-3.6, 1.5, 3.0],
+            [0.0, 2.2, 2.0],
+        ];
+
+        let mul = matrix![
+            [-4.368, 26.045, 57.59],
+            [-45.6, 57.34, 76.4],
+            [-22.236, 21.79, 67.78],
+        ];
+
+        assert_f64_eq!(&a * &b, mul);
+    }
+
+    #[test]
+    fn test_transpose_i32() {
+        let a = matrix![
+            [1, 0, 1],
+            [0, 2, 0],
+            [5, 0, 1],
+        ];
+
+        let t = matrix![
+            [1, 0, 5],
+            [0, 2, 0],
+            [1, 0, 1],
+        ];
+
+        assert_eq!(a.transpose(), t);
+    }
+
+    #[test]
+    fn test_transpose_f64() {
+        let a = matrix![
+            [3.0, 4.0, 2.0],
+            [0.0, 1.0, 3.0],
+            [3.0, 1.0, 1.0],
+        ];
+
+        let t = matrix![
+            [3.0, 0.0, 3.0],
+            [4.0, 1.0, 1.0],
+            [2.0, 3.0, 1.0],
+        ];
+
+        assert_eq!(a.transpose(), t);
+    }
+
+    #[test]
+    fn test_matrix_scalar_zero_mul() {
+        let a = matrix![
+            [3, 2, 2],
+            [0, 2, 0],
+            [5, 4, 1],
+        ];
+
+        let scalar = 0;
+
+        let scalar_mul = Matrix::zero(3, 3);
+
+        assert_eq!(scalar * &a, scalar_mul);
+    }
+
+    #[test]
+    fn test_matrix_scalar_mul_i32() {
+        let a = matrix![
+            [3, 2, 2],
+            [0, 2, 0],
+            [5, 4, 1],
+        ];
+
+        let scalar = 3;
+
+        let scalar_mul = matrix![
+            [9, 6, 6],
+            [0, 6, 0],
+            [15, 12, 3],
+        ];
+
+        assert_eq!(scalar * &a, scalar_mul);
+    }
+
+    #[test]
+    fn test_matrix_scalar_mul_f64() {
+        let a = matrix![
+            [3.2, 5.5, 9.2],
+            [1.1, 0.0, 2.3],
+            [0.3, 4.2, 0.0],
+        ];
+
+        let scalar = 1.5_f64;
+
+        let scalar_mul = matrix![
+            [4.8, 8.25, 13.8],
+            [1.65, 0.0, 3.45],
+            [0.45, 6.3, 0.0],
+        ];
+
+        assert_f64_eq!(scalar * &a, scalar_mul);
     }
 }
