@@ -1,3 +1,4 @@
+use num_traits::Zero;
 use std::collections::BTreeMap;
 use std::ops::Add;
 
@@ -13,7 +14,7 @@ type Graph<V, E> = BTreeMap<V, BTreeMap<V, E>>;
 ///
 /// For a key v, if map[v].len() == 0, then v cannot reach any other vertex, but is in the graph
 /// (island node, or sink in the case of a directed graph)
-pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
+pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E> + num_traits::Zero>(
     graph: &Graph<V, E>,
 ) -> BTreeMap<V, BTreeMap<V, E>> {
     let mut map: BTreeMap<V, BTreeMap<V, E>> = BTreeMap::new();
@@ -21,10 +22,12 @@ pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
         if !map.contains_key(u) {
             map.insert(*u, BTreeMap::new());
         }
+        map.entry(*u).or_default().insert(*u, Zero::zero());
         for (v, weight) in edges.iter() {
             if !map.contains_key(v) {
                 map.insert(*v, BTreeMap::new());
             }
+            map.entry(*v).or_default().insert(*v, Zero::zero());
             map.entry(*u).and_modify(|mp| {
                 mp.insert(*v, *weight);
             });
@@ -83,7 +86,7 @@ mod tests {
 
         let mut dists = BTreeMap::new();
         dists.insert(0, BTreeMap::new());
-
+        dists.get_mut(&0).unwrap().insert(0, 0);
         assert_eq!(floyd_warshall(&graph), dists);
     }
 
@@ -94,9 +97,12 @@ mod tests {
         bi_add_edge(&mut graph, 1, 2, 3);
 
         let mut dists_0 = BTreeMap::new();
+        dists_0.insert(0, BTreeMap::new());
         dists_0.insert(1, BTreeMap::new());
         dists_0.insert(2, BTreeMap::new());
-        dists_0.insert(0, BTreeMap::new());
+        dists_0.get_mut(&0).unwrap().insert(0, 0);
+        dists_0.get_mut(&1).unwrap().insert(1, 0);
+        dists_0.get_mut(&2).unwrap().insert(2, 0);
         dists_0.get_mut(&1).unwrap().insert(0, 2);
         dists_0.get_mut(&0).unwrap().insert(1, 2);
         dists_0.get_mut(&1).unwrap().insert(2, 3);
@@ -120,6 +126,11 @@ mod tests {
         let mut dists_a = BTreeMap::new();
         dists_a.insert('d', BTreeMap::new());
 
+        dists_a.entry('a').or_insert(BTreeMap::new()).insert('a', 0);
+        dists_a.entry('b').or_insert(BTreeMap::new()).insert('b', 0);
+        dists_a.entry('c').or_insert(BTreeMap::new()).insert('c', 0);
+        dists_a.entry('d').or_insert(BTreeMap::new()).insert('d', 0);
+        dists_a.entry('e').or_insert(BTreeMap::new()).insert('e', 0);
         dists_a
             .entry('a')
             .or_insert(BTreeMap::new())
