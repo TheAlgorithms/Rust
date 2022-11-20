@@ -56,6 +56,7 @@ pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
+    greatest_common_divisor_stein,
 };
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::karatsuba_multiplication::multiply;

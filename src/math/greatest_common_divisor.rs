@@ -4,6 +4,7 @@
 ///
 /// Wikipedia reference: https://en.wikipedia.org/wiki/Greatest_common_divisor
 /// gcd(a, b) = gcd(a, -b) = gcd(-a, b) = gcd(-a, -b) by definition of divisibility
+use std::cmp::{max, min};
 
 pub fn greatest_common_divisor_recursive(a: i64, b: i64) -> i64 {
     if a == 0 {
@@ -20,6 +21,28 @@ pub fn greatest_common_divisor_iterative(mut a: i64, mut b: i64) -> i64 {
         a = remainder;
     }
     b.abs()
+}
+
+pub fn greatest_common_divisor_stein(a: u64, b: u64) -> u64 {
+    match ((a, b), (a & 1, b & 1)) {
+        // gcd(x, x) = x
+        ((x, y), _) if x == y => y,
+        // gcd(x, 0) = gcd(0, x) = x
+        ((0, x), _) | ((x, 0), _) => x,
+        // gcd(x, y) = gcd(x / 2, y) if x is even and y is odd
+        // gcd(x, y) = gcd(x, y / 2) if y is even and x is odd
+        ((x, y), (0, 1)) | ((y, x), (1, 0)) => greatest_common_divisor_stein(x >> 1, y),
+        // gcd(x, y) = 2 * gcd(x / 2, y / 2) if x and y are both even
+        ((x, y), (0, 0)) => greatest_common_divisor_stein(x >> 1, y >> 1) << 1,
+        // if x and y are both odd
+        ((x, y), (1, 1)) => {
+            // then gcd(x, y) = gcd((x - y) / 2, y)  if x >= y
+            //      gcd(x, y) = gcd((y - x) / 2, x)  otherwise
+            let (x, y) = (min(x, y), max(x, y));
+            greatest_common_divisor_stein((y - x) >> 1, x)
+        }
+        _ => unreachable!(),
+    }
 }
 
 #[cfg(test)]
@@ -42,6 +65,15 @@ mod tests {
         assert_eq!(greatest_common_divisor_iterative(3, 5), 1);
         assert_eq!(greatest_common_divisor_iterative(40, 40), 40);
         assert_eq!(greatest_common_divisor_iterative(27, 12), 3);
+    }
+
+    #[test]
+    fn positive_number_stein() {
+        assert_eq!(greatest_common_divisor_stein(4, 16), 4);
+        assert_eq!(greatest_common_divisor_stein(16, 4), 4);
+        assert_eq!(greatest_common_divisor_stein(3, 5), 1);
+        assert_eq!(greatest_common_divisor_stein(40, 40), 40);
+        assert_eq!(greatest_common_divisor_stein(27, 12), 3);
     }
 
     #[test]
