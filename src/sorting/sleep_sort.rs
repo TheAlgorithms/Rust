@@ -3,20 +3,20 @@ use std::thread;
 use std::time::Duration;
 
 pub fn sleep_sort(vec: &[usize]) -> Vec<usize> {
-    let len = vec.len();
     let (tx, rx) = mpsc::channel();
 
     for &x in vec.iter() {
-        let tx: mpsc::Sender<usize> = tx.clone();
+        let tx = tx.clone();
         thread::spawn(move || {
             thread::sleep(Duration::from_millis((20 * x) as u64));
             tx.send(x).expect("panic");
         });
     }
+    drop(tx);
+    
     let mut sorted_list: Vec<usize> = Vec::new();
-
-    for _ in 0..len {
-        sorted_list.push(rx.recv().unwrap())
+    while let Ok(x) = rx.recv() {
+        sorted_list.push(x)
     }
 
     sorted_list
