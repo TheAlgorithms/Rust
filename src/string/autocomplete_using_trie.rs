@@ -55,9 +55,9 @@ impl Trie {
                 sub_result.push("".to_owned())
             } else {
                 Self::_elements(v)
-                .iter()
-                .map(|s| sub_result.push(c.to_string() + s))
-                .collect()
+                    .iter()
+                    .map(|s| sub_result.push(c.to_string() + s))
+                    .collect()
             }
 
             results.extend(sub_result)
