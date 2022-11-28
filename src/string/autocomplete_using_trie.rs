@@ -40,13 +40,13 @@ impl Trie {
             }
         }
 
-        self._elements(trie)
+        Self::_elements(trie)
             .iter()
             .map(|s| prefix.clone() + s)
             .collect()
     }
 
-    fn _elements(&self, map: &Trie) -> Vec<String> {
+    fn _elements(map: &Trie) -> Vec<String> {
         let mut results = vec![];
 
         for (c, v) in map.0.iter() {
@@ -54,10 +54,10 @@ impl Trie {
             if c == &END {
                 sub_result.push("".to_owned())
             } else {
-                for s in self._elements(v) {
-                    let res_string = c.to_string() + &s;
-                    sub_result.push(res_string);
-                }
+                Self::_elements(v)
+                .iter()
+                .map(|s| sub_result.push(c.to_string() + s))
+                .collect()
             }
 
             results.extend(sub_result)
