@@ -13,7 +13,7 @@ pub fn sleep_sort(vec: &[usize]) -> Vec<usize> {
         });
     }
     drop(tx);
-    
+
     let mut sorted_list: Vec<usize> = Vec::new();
     while let Ok(x) = rx.recv() {
         sorted_list.push(x)
