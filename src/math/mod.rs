@@ -7,6 +7,7 @@ mod chinese_remainder_theorem;
 mod collatz_sequence;
 mod doomsday;
 mod extended_euclidean_algorithm;
+mod factors;
 mod fast_fourier_transform;
 mod fast_power;
 mod faster_perfect_numbers;
@@ -46,6 +47,7 @@ pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
 pub use self::collatz_sequence::sequence;
 pub use self::doomsday::get_week_day;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
+pub use self::factors::factors;
 pub use self::fast_fourier_transform::{
     fast_fourier_transform, fast_fourier_transform_input_permutation,
     inverse_fast_fourier_transform,
