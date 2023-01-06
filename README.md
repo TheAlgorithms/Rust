@@ -57,6 +57,7 @@ These are for demonstration purposes only.
 - [x] [Chinese Remainder Theorem](./src/math/chinese_remainder_theorem.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Fast Inverse Square Root 'Quake' Algorithm](./src/math/square_root.rs)
+- [x] [Factors](./src/math/factors.rs)
 - [x] [Gaussian Elimination](./src/math/gaussian_elimination.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
@@ -111,6 +112,7 @@ These are for demonstration purposes only.
 - [x] [Segment Tree](./src/data_structures/segment_tree.rs)
 - [x] [Fenwick Tree](./src/data_structures/fenwick_tree.rs)
 - [x] [Union-find](./src/data_structures/union_find.rs)
+- [x] [Treap](./src/data_structures/treap.rs)
 
 ## [Strings](./src/string)
 
@@ -128,6 +130,7 @@ These are for demonstration purposes only.
 - [x] [Jaro-Winkler Distance](./src/string/jaro_winkler_distance.rs)
 - [x] [Suffix Tree](./src/string/suffix_tree.rs)
 - [x] [Suffix Array](./src/string/suffix_array.rs)
+- [x] [Autocomplete using Trie](./src/string/autocomplete_using_trie.rs)
 
 ## [General](./src/general)
 
@@ -173,6 +176,7 @@ These are for demonstration purposes only.
 ## [Backtracking](./src/backtracking)
 
 - [x] [Sudoku](./src/backtracking/sudoku.rs)
+- [x] [All Combination of Size k](./src/backtracking/all_combination_of_size_k.rs)
 ---
 
 ### All implemented Algos

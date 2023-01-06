@@ -1,3 +1,4 @@
+mod aliquot_sum;
 mod amicable_numbers;
 mod armstrong_number;
 mod baby_step_giant_step;
@@ -6,6 +7,7 @@ mod chinese_remainder_theorem;
 mod collatz_sequence;
 mod doomsday;
 mod extended_euclidean_algorithm;
+mod factors;
 mod fast_fourier_transform;
 mod fast_power;
 mod faster_perfect_numbers;
@@ -30,11 +32,13 @@ mod prime_numbers;
 mod quadratic_residue;
 mod random;
 mod sieve_of_eratosthenes;
+mod signum;
 mod simpson_integration;
 mod square_root;
 mod trial_division;
 mod zellers_congruence_algorithm;
 
+pub use self::aliquot_sum::aliquot_sum;
 pub use self::amicable_numbers::amicable_pairs_under_n;
 pub use self::armstrong_number::is_armstrong_number;
 pub use self::baby_step_giant_step::baby_step_giant_step;
@@ -43,6 +47,7 @@ pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
 pub use self::collatz_sequence::sequence;
 pub use self::doomsday::get_week_day;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
+pub use self::factors::factors;
 pub use self::fast_fourier_transform::{
     fast_fourier_transform, fast_fourier_transform_input_permutation,
     inverse_fast_fourier_transform,
@@ -53,6 +58,7 @@ pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
+    greatest_common_divisor_stein,
 };
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::karatsuba_multiplication::multiply;
@@ -74,6 +80,7 @@ pub use self::prime_numbers::prime_numbers;
 pub use self::quadratic_residue::cipolla;
 pub use self::random::PCG32;
 pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
+pub use self::signum::signum;
 pub use self::simpson_integration::simpson_integration;
 pub use self::square_root::{fast_inv_sqrt, square_root};
 pub use self::trial_division::trial_division;

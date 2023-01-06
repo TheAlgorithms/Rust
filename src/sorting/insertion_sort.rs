@@ -1,32 +1,18 @@
-use std::cmp;
-
 /// Sorts a mutable slice using in-place insertion sort algorithm.
 ///
 /// Time complexity is `O(n^2)`, where `n` is the number of elements.
 /// Space complexity is `O(1)` as it sorts elements in-place.
-pub fn insertion_sort<T>(arr: &mut [T])
-where
-    T: cmp::PartialOrd + Copy,
-{
+pub fn insertion_sort<T: Ord + Copy>(arr: &mut [T]) {
     for i in 1..arr.len() {
+        let mut j = i;
         let cur = arr[i];
-        let mut j = i - 1;
 
-        while arr[j] > cur {
-            arr[j + 1] = arr[j];
-            if j == 0 {
-                break;
-            }
+        while j > 0 && cur < arr[j - 1] {
+            arr[j] = arr[j - 1];
             j -= 1;
         }
 
-        // we exit the loop from that break statement
-        if j == 0 && arr[0] > cur {
-            arr[0] = cur;
-        } else {
-            // `arr[j] > cur` is not satsified, exit from condition judgement
-            arr[j + 1] = cur;
-        }
+        arr[j] = cur;
     }
 }
 

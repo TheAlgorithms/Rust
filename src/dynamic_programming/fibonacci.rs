@@ -123,11 +123,69 @@ fn _memoized_fibonacci(n: u32, cache: &mut HashMap<u32, u128>) -> u128 {
     *f
 }
 
+/// matrix_fibonacci(n) returns the nth fibonacci number
+/// This function uses the definition of Fibonacci where:
+/// F(0) = 0, F(1) = 1 and F(n+1) = F(n) + F(n-1) for n>0
+///
+/// Matrix formula:
+/// [F(n + 2)]  =  [1, 1] * [F(n + 1)]
+/// [F(n + 1)]     [1, 0]   [F(n)    ]
+///
+/// Warning: This will overflow the 128-bit unsigned integer at n=186
+pub fn matrix_fibonacci(n: u32) -> u128 {
+    let multiplier: Vec<Vec<u128>> = vec![vec![1, 1], vec![1, 0]];
+
+    let multiplier = matrix_power(&multiplier, n);
+    let initial_fib_matrix: Vec<Vec<u128>> = vec![vec![1], vec![0]];
+
+    let res = matrix_multiply(&multiplier, &initial_fib_matrix);
+
+    res[1][0]
+}
+
+fn matrix_power(base: &Vec<Vec<u128>>, power: u32) -> Vec<Vec<u128>> {
+    let identity_matrix: Vec<Vec<u128>> = vec![vec![1, 0], vec![0, 1]];
+
+    vec![base; power as usize]
+        .iter()
+        .fold(identity_matrix, |acc, x| matrix_multiply(&acc, x))
+}
+
+// Copied from matrix_ops since u128 is required instead of i32
+#[allow(clippy::needless_range_loop)]
+fn matrix_multiply(multiplier: &[Vec<u128>], multiplicand: &[Vec<u128>]) -> Vec<Vec<u128>> {
+    // Multiply two matching matrices. The multiplier needs to have the same amount
+    // of columns as the multiplicand has rows.
+    let mut result: Vec<Vec<u128>> = vec![];
+    let mut temp;
+    // Using variable to compare lenghts of rows in multiplicand later
+    let row_right_length = multiplicand[0].len();
+    for row_left in 0..multiplier.len() {
+        if multiplier[row_left].len() != multiplicand.len() {
+            panic!("Matrix dimensions do not match");
+        }
+        result.push(vec![]);
+        for column_right in 0..multiplicand[0].len() {
+            temp = 0;
+            for row_right in 0..multiplicand.len() {
+                if row_right_length != multiplicand[row_right].len() {
+                    // If row is longer than a previous row cancel operation with error
+                    panic!("Matrix dimensions do not match");
+                }
+                temp += multiplier[row_left][row_right] * multiplicand[row_right][column_right];
+            }
+            result[row_left].push(temp);
+        }
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::classical_fibonacci;
     use super::fibonacci;
     use super::logarithmic_fibonacci;
+    use super::matrix_fibonacci;
     use super::memoized_fibonacci;
     use super::recursive_fibonacci;
 
@@ -247,6 +305,24 @@ mod tests {
         assert_eq!(memoized_fibonacci(100), 354224848179261915075);
         assert_eq!(
             memoized_fibonacci(184),
+            127127879743834334146972278486287885163
+        );
+    }
+
+    #[test]
+    fn test_matrix_fibonacci() {
+        assert_eq!(matrix_fibonacci(0), 0);
+        assert_eq!(matrix_fibonacci(1), 1);
+        assert_eq!(matrix_fibonacci(2), 1);
+        assert_eq!(matrix_fibonacci(3), 2);
+        assert_eq!(matrix_fibonacci(4), 3);
+        assert_eq!(matrix_fibonacci(5), 5);
+        assert_eq!(matrix_fibonacci(10), 55);
+        assert_eq!(matrix_fibonacci(20), 6765);
+        assert_eq!(matrix_fibonacci(21), 10946);
+        assert_eq!(matrix_fibonacci(100), 354224848179261915075);
+        assert_eq!(
+            matrix_fibonacci(184),
             127127879743834334146972278486287885163
         );
     }
