@@ -35,6 +35,7 @@ mod random;
 mod sieve_of_eratosthenes;
 mod signum;
 mod simpson_integration;
+mod sine;
 mod square_root;
 mod trial_division;
 mod zellers_congruence_algorithm;
@@ -60,6 +61,7 @@ pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
+    greatest_common_divisor_stein,
 };
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::karatsuba_multiplication::multiply;
@@ -83,6 +85,7 @@ pub use self::random::PCG32;
 pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
 pub use self::signum::signum;
 pub use self::simpson_integration::simpson_integration;
+pub use self::sine::sine;
 pub use self::square_root::{fast_inv_sqrt, square_root};
 pub use self::trial_division::trial_division;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;

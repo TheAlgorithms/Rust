@@ -125,7 +125,7 @@ These are for demonstration purposes only.
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
 - [x] [Reverse](./src/string/reverse.rs)
-- [x] [Run Length Encoding](.src/string/run_length_encoding.rs)
+- [x] [Run Length Encoding](./src/string/run_length_encoding.rs)
 - [x] [Hamming Distance](./src/string/hamming_distance.rs)
 - [x] [Jaro-Winkler Distance](./src/string/jaro_winkler_distance.rs)
 - [x] [Suffix Tree](./src/string/suffix_tree.rs)
