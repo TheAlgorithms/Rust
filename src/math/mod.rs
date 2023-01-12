@@ -1,3 +1,4 @@
+mod abs;
 mod aliquot_sum;
 mod amicable_numbers;
 mod armstrong_number;
@@ -39,6 +40,7 @@ mod square_root;
 mod trial_division;
 mod zellers_congruence_algorithm;
 
+pub use self::abs::abs;
 pub use self::aliquot_sum::aliquot_sum;
 pub use self::amicable_numbers::amicable_pairs_under_n;
 pub use self::armstrong_number::is_armstrong_number;
