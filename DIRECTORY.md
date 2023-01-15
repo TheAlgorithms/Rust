@@ -166,6 +166,7 @@
     * [Sleep Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/sleep_sort.rs)
     * [Stooge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/stooge_sort.rs)
     * [Tim Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tim_sort.rs)
+    * [Patience Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/patience_sort.rs)
   * String
     * [Aho Corasick](https://github.com/TheAlgorithms/Rust/blob/master/src/string/aho_corasick.rs)
     * [Anagram](https://github.com/TheAlgorithms/Rust/blob/master/src/string/anagram.rs)
