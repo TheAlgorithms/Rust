@@ -30,6 +30,7 @@ These are for demonstration purposes only.
 - [x] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Timsort](./src/sorting/tim_sort.rs)
 - [x] [Sleep](./src/sorting/sleep_sort.rs)
+- [x] [Patience](./src/sorting/patience_sort.rs)
 
 ## [Graphs](./src/graph)
 

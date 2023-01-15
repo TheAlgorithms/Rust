@@ -190,7 +190,8 @@ From [Wikipedia][bucket-sort-wiki]: This is an idea that was originally posted o
 It is actually possible to sort by "maximum of all elements x unit time to sleep". The only case where this would be useful would be in examples.
 
 ### [Patience](./patience_sort.rs)
-<video src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200906151444/Patience_Sorting.mp4">alt text</video>
+[patience-video]
+
 
 From [Wikipedia][patience-sort-wiki]: The algorithm's name derives from a simplified variant of the patience card game. The game begins with a shuffled deck of cards. The cards are dealt one by one into a sequence of piles on the table, according to the following rules.
 
@@ -261,4 +262,4 @@ __Properties__
 [sleep-sort-wiki]https://ja.m.wikipedia.org/wiki/バケットソート#.E3.82.B9.E3.83.AA.E3.83.BC.E3.83.97.E3.82.BD.E3.83.BC.E3.83.88
 
 [patience-sort-wiki]: https://en.wikipedia.org/wiki/Patience_sorting
-[patience-image]: https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200906151444/Patience_Sorting.mp4
+[patience-video]: https://user-images.githubusercontent.com/67539676/212542118-0c0ea0fd-91e9-4868-99a1-3f3a995f6ce1.mp4
