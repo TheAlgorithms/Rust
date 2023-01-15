@@ -21,6 +21,7 @@ mod shell_sort;
 mod sleep_sort;
 mod stooge_sort;
 mod tim_sort;
+mod patience_sort;
 
 pub use self::bogo_sort::bogo_sort;
 pub use self::bubble_sort::bubble_sort;
@@ -47,6 +48,7 @@ pub use self::shell_sort::shell_sort;
 pub use self::sleep_sort::sleep_sort;
 pub use self::stooge_sort::stooge_sort;
 pub use self::tim_sort::tim_sort;
+pub use self::patience_sort::patience_sort;
 
 use std::cmp;
 
