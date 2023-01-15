@@ -13,6 +13,7 @@ mod insertion_sort;
 mod merge_sort;
 mod odd_even_sort;
 mod pancake_sort;
+mod patience_sort;
 mod pigeonhole_sort;
 mod quick_sort;
 mod radix_sort;
@@ -21,7 +22,6 @@ mod shell_sort;
 mod sleep_sort;
 mod stooge_sort;
 mod tim_sort;
-mod patience_sort;
 
 pub use self::bogo_sort::bogo_sort;
 pub use self::bubble_sort::bubble_sort;
@@ -40,6 +40,7 @@ pub use self::merge_sort::bottom_up_merge_sort;
 pub use self::merge_sort::top_down_merge_sort;
 pub use self::odd_even_sort::odd_even_sort;
 pub use self::pancake_sort::pancake_sort;
+pub use self::patience_sort::patience_sort;
 pub use self::pigeonhole_sort::pigeonhole_sort;
 pub use self::quick_sort::{partition, quick_sort};
 pub use self::radix_sort::radix_sort;
@@ -48,7 +49,6 @@ pub use self::shell_sort::shell_sort;
 pub use self::sleep_sort::sleep_sort;
 pub use self::stooge_sort::stooge_sort;
 pub use self::tim_sort::tim_sort;
-pub use self::patience_sort::patience_sort;
 
 use std::cmp;
 
