@@ -262,4 +262,4 @@ __Properties__
 [sleep-sort-wiki]https://ja.m.wikipedia.org/wiki/バケットソート#.E3.82.B9.E3.83.AA.E3.83.BC.E3.83.97.E3.82.BD.E3.83.BC.E3.83.88
 
 [patience-sort-wiki]: https://en.wikipedia.org/wiki/Patience_sorting
-[patience-video]: https://user-images.githubusercontent.com/67539676/212542118-0c0ea0fd-91e9-4868-99a1-3f3a995f6ce1.mp4
+[patience-video]: https://user-images.githubusercontent.com/67539676/212542208-d3f7a824-60d8-467c-8097-841945514ae9.mp4
