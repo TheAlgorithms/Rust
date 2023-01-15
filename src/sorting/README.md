@@ -200,6 +200,10 @@ From [Wikipedia][patience-sort-wiki]: The algorithm's name derives from a simpli
 
 This card game is turned into a two-phase sorting algorithm, as follows. Given an array of n elements from some totally ordered domain, consider this array as a collection of cards and simulate the patience sorting game. When the game is over, recover the sorted sequence by repeatedly picking off the minimum visible card; in other words, perform a k-way merge of the p piles, each of which is internally sorted.
 
+__Properties__
+* Worst case performance O(n log n)
+* Best case performance	O(n)
+
 [bogo-wiki]: https://en.wikipedia.org/wiki/Bogosort
 [bogo-image]: https://upload.wikimedia.org/wikipedia/commons/7/7b/Bogo_sort_animation.gif
 
