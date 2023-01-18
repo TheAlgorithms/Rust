@@ -17,8 +17,8 @@ pub fn boyer_moore_search(text: &str, pattern: &str) -> Vec<usize> {
         collection.insert(c, i as i32);
     }
     let mut shift: i32 = 0;
-    while shift <= (n - m) as i32 {
-        let mut j = (m - 1) as i32;
+    while shift <= (n - m) {
+        let mut j = m - 1;
         while j >= 0 && pattern[j as usize] == text[(shift + j) as usize] {
             j -= 1;
         }

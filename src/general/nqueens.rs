@@ -20,7 +20,7 @@ pub fn nqueens(board_width: i64) -> Result<Vec<i64>, &'static str> {
 
             if board_rows[current_row] == board_rows[review_index]
                 || (left >= 0 && left == board_rows[current_row])
-                || (right < board_width as i64 && right == board_rows[current_row])
+                || (right < board_width && right == board_rows[current_row])
             {
                 conflict = true;
                 break;

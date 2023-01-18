@@ -189,6 +189,22 @@ __Properties__
 From [Wikipedia][bucket-sort-wiki]: This is an idea that was originally posted on the message board 4chan, replacing the bucket in bucket sort with time instead of memory space.
 It is actually possible to sort by "maximum of all elements x unit time to sleep". The only case where this would be useful would be in examples.
 
+### [Patience](./patience_sort.rs)
+[patience-video]
+
+
+From [Wikipedia][patience-sort-wiki]: The algorithm's name derives from a simplified variant of the patience card game. The game begins with a shuffled deck of cards. The cards are dealt one by one into a sequence of piles on the table, according to the following rules.
+
+1. Initially, there are no piles. The first card dealt forms a new pile consisting of the single card.
+2. Each subsequent card is placed on the leftmost existing pile whose top card has a value greater than or equal to the new card's value, or to the right of all of the existing piles, thus forming a new pile.
+3. When there are no more cards remaining to deal, the game ends.
+
+This card game is turned into a two-phase sorting algorithm, as follows. Given an array of n elements from some totally ordered domain, consider this array as a collection of cards and simulate the patience sorting game. When the game is over, recover the sorted sequence by repeatedly picking off the minimum visible card; in other words, perform a k-way merge of the p piles, each of which is internally sorted.
+
+__Properties__
+* Worst case performance O(n log n)
+* Best case performance	O(n)
+
 [bogo-wiki]: https://en.wikipedia.org/wiki/Bogosort
 [bogo-image]: https://upload.wikimedia.org/wikipedia/commons/7/7b/Bogo_sort_animation.gif
 
@@ -243,4 +259,7 @@ It is actually possible to sort by "maximum of all elements x unit time to sleep
 [comb-sort-wiki]: https://en.wikipedia.org/wiki/Comb_sort
 
 [sleep-sort]: <no image>
-[sleep-sort-wiki]https://ja.m.wikipedia.org/wiki/バケットソート#.E3.82.B9.E3.83.AA.E3.83.BC.E3.83.97.E3.82.BD.E3.83.BC.E3.83.88
+[sleep-sort-wiki]: https://ja.m.wikipedia.org/wiki/バケットソート#.E3.82.B9.E3.83.AA.E3.83.BC.E3.83.97.E3.82.BD.E3.83.BC.E3.83.88
+
+[patience-sort-wiki]: https://en.wikipedia.org/wiki/Patience_sorting
+[patience-video]: https://user-images.githubusercontent.com/67539676/212542208-d3f7a824-60d8-467c-8097-841945514ae9.mp4
