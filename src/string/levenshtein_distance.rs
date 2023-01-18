@@ -19,7 +19,7 @@ pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
         for c1 in string1.chars() {
             let deletion_cost = d[i - 1] + 1;
             let insertion_cost = d[i] + 1;
-            let substitution_cost = previous_substitution_cost + if c1 == c2 { 0 } else { 1 };
+            let substitution_cost = previous_substitution_cost + usize::from(c1 != c2);
 
             previous_substitution_cost = d[i];
             d[i] = min3(deletion_cost, insertion_cost, substitution_cost);
