@@ -30,6 +30,7 @@ These are for demonstration purposes only.
 - [x] [Bucket](./src/sorting/bucket_sort.rs)
 - [x] [Timsort](./src/sorting/tim_sort.rs)
 - [x] [Sleep](./src/sorting/sleep_sort.rs)
+- [x] [Patience](./src/sorting/patience_sort.rs)
 
 ## [Graphs](./src/graph)
 
@@ -57,6 +58,7 @@ These are for demonstration purposes only.
 - [x] [Chinese Remainder Theorem](./src/math/chinese_remainder_theorem.rs)
 - [x] [Extended euclidean algorithm](./src/math/extended_euclidean_algorithm.rs)
 - [x] [Fast Inverse Square Root 'Quake' Algorithm](./src/math/square_root.rs)
+- [x] [Factors](./src/math/factors.rs)
 - [x] [Gaussian Elimination](./src/math/gaussian_elimination.rs)
 - [x] [Greatest common divisor](./src/math/greatest_common_divisor.rs)
 - [x] [Greatest common divisor of n numbers](./src/math/gcd_of_n_numbers.rs)
@@ -124,7 +126,7 @@ These are for demonstration purposes only.
 - [x] [Manacher](./src/string/manacher.rs)
 - [x] [Rabin Carp](./src/string/rabin_karp.rs)
 - [x] [Reverse](./src/string/reverse.rs)
-- [x] [Run Length Encoding](.src/string/run_length_encoding.rs)
+- [x] [Run Length Encoding](./src/string/run_length_encoding.rs)
 - [x] [Hamming Distance](./src/string/hamming_distance.rs)
 - [x] [Jaro-Winkler Distance](./src/string/jaro_winkler_distance.rs)
 - [x] [Suffix Tree](./src/string/suffix_tree.rs)

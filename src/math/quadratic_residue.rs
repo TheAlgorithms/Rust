@@ -101,7 +101,7 @@ pub fn cipolla(a: u32, p: u32, seed: Option<u64>) -> Option<(u32, u32)> {
     let comp = CustomComplexNumber::new(r, 1, filed);
     let power = (p + 1) >> 1;
     let x0 = CustomComplexNumber::fast_power(comp, power).real as u32;
-    let x1 = p as u32 - x0 as u32;
+    let x1 = p as u32 - x0;
     if x0 < x1 {
         Some((x0, x1))
     } else {
