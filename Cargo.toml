@@ -5,6 +5,7 @@ version = "0.1.0"
 authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 
 [dependencies]
+lazy_static = "1.4.0"
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
 

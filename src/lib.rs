@@ -1,3 +1,5 @@
+#[macro_use]
+extern crate lazy_static;
 pub mod backtracking;
 pub mod big_integer;
 pub mod ciphers;
