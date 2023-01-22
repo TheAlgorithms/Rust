@@ -5,9 +5,9 @@ fn sort_by_min_angle(pts: &[(f64, f64)], min: &(f64, f64)) -> Vec<(f64, f64)> {
         .iter()
         .map(|x| {
             (
-                ((x.1 - min.1) as f64).atan2((x.0 - min.0) as f64),
+                (x.1 - min.1).atan2(x.0 - min.0),
                 // angle
-                ((x.1 - min.1) as f64).hypot((x.0 - min.0) as f64),
+                (x.1 - min.1).hypot(x.0 - min.0),
                 // distance (we want the closest to be first)
                 *x,
             )

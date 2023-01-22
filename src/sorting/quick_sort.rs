@@ -20,7 +20,7 @@ pub fn partition<T: PartialOrd>(arr: &mut [T], lo: isize, hi: isize) -> isize {
             arr.swap(i as usize, j as usize);
         }
     }
-    arr.swap(i as usize, pivot as usize);
+    arr.swap(i as usize, pivot);
     i
 }
 

@@ -1,3 +1,4 @@
+mod abs;
 mod aliquot_sum;
 mod amicable_numbers;
 mod armstrong_number;
@@ -34,10 +35,12 @@ mod random;
 mod sieve_of_eratosthenes;
 mod signum;
 mod simpson_integration;
+mod sine;
 mod square_root;
 mod trial_division;
 mod zellers_congruence_algorithm;
 
+pub use self::abs::abs;
 pub use self::aliquot_sum::aliquot_sum;
 pub use self::amicable_numbers::amicable_pairs_under_n;
 pub use self::armstrong_number::is_armstrong_number;
@@ -58,14 +61,13 @@ pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
+    greatest_common_divisor_stein,
 };
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::karatsuba_multiplication::multiply;
 pub use self::lcm_of_n_numbers::lcm;
 pub use self::linear_sieve::LinearSieve;
-pub use self::matrix_ops::{
-    matrix_add, matrix_multiply, matrix_scalar_multiplication, matrix_subtract, matrix_transpose,
-};
+pub use self::matrix_ops::Matrix;
 pub use self::mersenne_primes::{get_mersenne_primes, is_mersenne_prime};
 pub use self::miller_rabin::miller_rabin;
 pub use self::newton_raphson::find_root;
@@ -81,6 +83,7 @@ pub use self::random::PCG32;
 pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
 pub use self::signum::signum;
 pub use self::simpson_integration::simpson_integration;
+pub use self::sine::sine;
 pub use self::square_root::{fast_inv_sqrt, square_root};
 pub use self::trial_division::trial_division;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
