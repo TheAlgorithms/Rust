@@ -7,17 +7,30 @@ pub struct Outcome {
 }
 
 pub fn electric_power(voltage: f64, current: f64, power: f64) -> Result<Outcome, String> {
-
-    if [voltage, current, power].iter().filter(|&&x| x == 0.0).count() != 1 {
+    if [voltage, current, power]
+        .iter()
+        .filter(|&&x| x == 0.0)
+        .count()
+        != 1
+    {
         Err("Only one argument must be 0".to_string())
     } else if power < 0.0 {
         Err("Power cannot be negative in any electrical/electronics system".to_string())
     } else if voltage == 0.0 {
-        Ok(Outcome { name: "voltage", value: power / current })
+        Ok(Outcome {
+            name: "voltage",
+            value: power / current,
+        })
     } else if current == 0.0 {
-        Ok(Outcome { name: "current", value: power / voltage })
+        Ok(Outcome {
+            name: "current",
+            value: power / voltage,
+        })
     } else if power == 0.0 {
-        Ok(Outcome { name: "power", value: (voltage * current).abs() })
+        Ok(Outcome {
+            name: "power",
+            value: (voltage * current).abs(),
+        })
     } else {
         Err("Exactly one argument must be 0".to_string())
     }
