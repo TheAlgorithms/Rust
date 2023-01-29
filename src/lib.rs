@@ -5,6 +5,7 @@ pub mod big_integer;
 pub mod ciphers;
 pub mod data_structures;
 pub mod dynamic_programming;
+pub mod electronics;
 pub mod general;
 pub mod graph;
 pub mod math;
