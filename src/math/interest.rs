@@ -6,8 +6,8 @@ pub fn simple_interest(principal: f64, annual_rate: f64, years: f64) -> (f64, f6
     let interest = principal * annual_rate * years;
     let value = principal * (1.0 + (annual_rate * years));
 
-    println!("Interest earned: {:?}", interest);
-    println!("Future value: {:?}", value);
+    println!("Interest earned: {interest}");
+    println!("Future value: {value}");
 
     (interest, value)
 }
@@ -26,7 +26,7 @@ pub fn compound_interest(principal: f64, annual_rate: f64, years: f64, period: O
         }
         principal * (1.0 + (annual_rate / prim_period).powf(prim_period * years))
     };
-    println!("Future value: {:?}", value);
+    println!("Future value: {value}");
     value
 }
 
