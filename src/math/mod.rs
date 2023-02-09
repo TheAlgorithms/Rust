@@ -10,6 +10,7 @@ mod doomsday;
 mod extended_euclidean_algorithm;
 mod factors;
 mod fast_fourier_transform;
+mod fast_inverse_square_root;
 mod fast_power;
 mod faster_perfect_numbers;
 mod gaussian_elimination;
@@ -55,6 +56,7 @@ pub use self::fast_fourier_transform::{
     fast_fourier_transform, fast_fourier_transform_input_permutation,
     inverse_fast_fourier_transform,
 };
+pub use self::fast_inverse_square_root::q_rsqrt;
 pub use self::fast_power::fast_power;
 pub use self::faster_perfect_numbers::generate_perfect_numbers;
 pub use self::gaussian_elimination::gaussian_elimination;
