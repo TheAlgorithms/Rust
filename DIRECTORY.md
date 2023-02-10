@@ -13,6 +13,7 @@
     * [Base64](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base64.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
     * [Chacha](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/chacha.rs)
+    * [Diffie Hellman](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/diffie_hellman.rs)
     * [Hashing Traits](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/hashing_traits.rs)
     * [Kerninghan](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/kerninghan.rs)
     * [Morse Code](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/morse_code.rs)
@@ -25,6 +26,8 @@
     * [Transposition](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/transposition.rs)
     * [Vigenere](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/vigenere.rs)
     * [Xor](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/xor.rs)
+  * Compression
+    * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
@@ -89,6 +92,7 @@
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math
+    * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
     * [Aliquot Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/aliquot_sum.rs)
     * [Amicable Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/amicable_numbers.rs)
     * [Armstrong Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/armstrong_number.rs)
@@ -98,6 +102,7 @@
     * [Collatz Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/collatz_sequence.rs)
     * [Doomsday](https://github.com/TheAlgorithms/Rust/blob/master/src/math/doomsday.rs)
     * [Extended Euclidean Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/extended_euclidean_algorithm.rs)
+    * [Factors](https://github.com/TheAlgorithms/Rust/blob/master/src/math/factors.rs)
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
     * [Fast Power](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_power.rs)
     * [Faster Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/faster_perfect_numbers.rs)
@@ -124,6 +129,7 @@
     * [Sieve Of Eratosthenes](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sieve_of_eratosthenes.rs)
     * [Signum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/signum.rs)
     * [Simpson Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/simpson_integration.rs)
+    * [Sine](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sine.rs)
     * [Square Root](https://github.com/TheAlgorithms/Rust/blob/master/src/math/square_root.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
     * [Zellers Congruence Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/zellers_congruence_algorithm.rs)
@@ -158,6 +164,7 @@
     * [Merge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort.rs)
     * [Odd Even Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/odd_even_sort.rs)
     * [Pancake Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/pancake_sort.rs)
+    * [Patience Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/patience_sort.rs)
     * [Pigeonhole Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/pigeonhole_sort.rs)
     * [Quick Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/quick_sort.rs)
     * [Radix Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/radix_sort.rs)
@@ -166,7 +173,7 @@
     * [Sleep Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/sleep_sort.rs)
     * [Stooge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/stooge_sort.rs)
     * [Tim Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tim_sort.rs)
-    * [Patience Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/patience_sort.rs)
+    * [Wiggle Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wiggle_sort.rs)
   * String
     * [Aho Corasick](https://github.com/TheAlgorithms/Rust/blob/master/src/string/aho_corasick.rs)
     * [Anagram](https://github.com/TheAlgorithms/Rust/blob/master/src/string/anagram.rs)
