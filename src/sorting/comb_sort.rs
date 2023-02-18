@@ -42,4 +42,14 @@ mod tests {
             assert!(ve2[i] <= ve2[i + 1]);
         }
     }
+    
+    #[test]
+    fn duplicates() {
+        //pre-sorted
+        let mut ve2 = vec![2, 2, 2, 2, 2, 1];
+        comb_sort(&mut ve2);
+        for i in 0..ve2.len() - 1 {
+            assert!(ve2[i] <= ve2[i + 1]);
+        }
+    }
 }
