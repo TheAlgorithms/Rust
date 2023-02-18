@@ -46,10 +46,10 @@ mod tests {
     #[test]
     fn duplicates() {
         //pre-sorted
-        let mut ve2 = vec![2, 2, 2, 2, 2, 1];
-        comb_sort(&mut ve2);
-        for i in 0..ve2.len() - 1 {
-            assert!(ve2[i] <= ve2[i + 1]);
+        let mut ve3 = vec![2, 2, 2, 2, 2, 1];
+        comb_sort(&mut ve3);
+        for i in 0..ve3.len() - 1 {
+            assert!(ve3[i] <= ve3[i + 1]);
         }
     }
 }
