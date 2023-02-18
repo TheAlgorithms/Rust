@@ -39,7 +39,7 @@ mod tests {
         let mut ve2 = vec![1, 2, 3, 4, 5, 6];
         comb_sort(&mut ve2);
         for i in 0..ve2.len() - 1 {
-        	assert!(ve2[i] <= ve2[i + 1]);
+            assert!(ve2[i] <= ve2[i + 1]);
         }
     }
 
