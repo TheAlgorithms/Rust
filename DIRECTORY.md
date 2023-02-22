@@ -149,6 +149,7 @@
     * [Ternary Search Min Max Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_min_max_recursive.rs)
     * [Ternary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_recursive.rs)
   * Sorting
+    * [Bead Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bead_sort.rs)
     * [Bitonic Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bitonic_sort.rs)
     * [Bogo Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bogo_sort.rs)
     * [Bubble Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bubble_sort.rs)
