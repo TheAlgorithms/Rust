@@ -111,14 +111,19 @@ mod tests {
         let prefix = "app".to_owned();
         let mut auto_completed_words = auto_complete.find_words(prefix);
 
-        assert_eq!(auto_completed_words.sort(), vec!["apple".to_owned()].sort());
+        let mut apple = vec!["apple".to_owned()];
+        apple.sort();
+
+        auto_completed_words.sort();
+        assert_eq!(auto_completed_words, apple);
 
         let prefix = "or".to_owned();
         let mut auto_completed_words = auto_complete.find_words(prefix);
 
-        assert_eq!(
-            auto_completed_words.sort(),
-            vec!["orange".to_owned(), "oregano".to_owned()].sort()
-        );
+        let mut prefix_or = vec!["orange".to_owned(), "oregano".to_owned()];
+        prefix_or.sort();
+
+        auto_completed_words.sort();
+        assert_eq!(auto_completed_words, prefix_or);
     }
 }
