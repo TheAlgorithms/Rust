@@ -11,8 +11,7 @@ pub fn decimal_to_binary(base_num: u64) -> String {
     }
 
     let bits = binary_num.chars();
-    let result = bits.rev().collect();
-    result
+    bits.rev().collect()
 }
 
 #[cfg(test)]
@@ -21,7 +20,7 @@ mod tests {
 
     #[test]
     fn converting_decimal_to_binary() {
-        assert_eq!(decimal_to_binary(69030), "10000110110100110");
+        assert_eq!(decimal_to_binary(542), "1000011110");
         assert_eq!(decimal_to_binary(92), "1011100");
     }
 }
