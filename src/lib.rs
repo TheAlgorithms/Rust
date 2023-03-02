@@ -4,6 +4,7 @@ pub mod backtracking;
 pub mod big_integer;
 pub mod ciphers;
 pub mod compression;
+pub mod conversions;
 pub mod data_structures;
 pub mod dynamic_programming;
 pub mod general;
