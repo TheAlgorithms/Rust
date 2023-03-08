@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1 # v2 is broken for git diff
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
       - name: Setup Git Specs
         run: |
           git config --global user.name github-actions
