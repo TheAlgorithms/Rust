@@ -181,7 +181,7 @@ mod test_stack {
         list.push(4);
         list.push(5);
 
-        assert_eq!(list.is_empty(), false);
+        assert!(!list.is_empty());
 
         assert_eq!(list.pop(), Ok(5));
         assert_eq!(list.pop(), Ok(4));
@@ -189,7 +189,7 @@ mod test_stack {
         assert_eq!(list.pop(), Ok(1));
         assert_eq!(list.pop(), Err("Stack is empty"));
 
-        assert_eq!(list.is_empty(), true);
+        assert!(list.is_empty());
     }
 
     #[test]

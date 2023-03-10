@@ -27,13 +27,7 @@ mod tests {
 
     #[test]
     fn test() {
-        assert_eq!(
-            is_subsequence(String::from("abc"), String::from("ahbgdc")),
-            true
-        );
-        assert_eq!(
-            is_subsequence(String::from("axc"), String::from("ahbgdc")),
-            false
-        );
+        assert!(is_subsequence(String::from("abc"), String::from("ahbgdc")));
+        assert!(!is_subsequence(String::from("axc"), String::from("ahbgdc")));
     }
 }
