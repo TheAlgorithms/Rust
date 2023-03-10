@@ -79,7 +79,7 @@ mod tests {
         // echo -n "Hello World" | openssl sha256 -hex -mac HMAC -macopt hexkey:"deadbeef"
         let mut hmac: HMAC<64, 32, SHA256> = HMAC::new_default();
         hmac.add_key(&[0xde, 0xad, 0xbe, 0xef]).unwrap();
-        hmac.update(&b"Hello World".to_vec());
+        hmac.update(b"Hello World");
         let hash = hmac.finalize();
         assert_eq!(
             get_hash_string(&hash),
