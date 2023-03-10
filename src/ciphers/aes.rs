@@ -538,7 +538,7 @@ mod tests {
         let decrypted = aes_decrypt(&encrypted, AesKey::AesKey128(key));
         assert_eq!(
             str,
-            String::from_utf8(decrypted).unwrap().trim_end_matches("\0")
+            String::from_utf8(decrypted).unwrap().trim_end_matches('\0')
         );
     }
 }
