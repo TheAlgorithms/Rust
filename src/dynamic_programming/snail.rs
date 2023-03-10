@@ -111,7 +111,7 @@ mod test {
     #[test]
     fn test_empty() {
         let empty: &[Vec<i32>] = &[vec![]];
-        assert_eq!(snail(&empty), vec![]);
+        assert_eq!(snail(empty), vec![]);
     }
 
     #[test]
