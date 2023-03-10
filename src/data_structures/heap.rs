@@ -169,12 +169,8 @@ mod tests {
         assert_eq!(heap.next(), Some(2));
     }
 
+    #[derive(Default)]
     struct Point(/* x */ i32, /* y */ i32);
-    impl Default for Point {
-        fn default() -> Self {
-            Self(0, 0)
-        }
-    }
 
     #[test]
     fn test_key_heap() {
