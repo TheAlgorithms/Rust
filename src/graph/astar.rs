@@ -232,4 +232,31 @@ mod tests {
             Some((0, vec!['e']))
         );
     }
+
+    #[test]
+    fn test_heuristic() {
+        // make a grid
+        let mut graph = BTreeMap::new();
+        let rows = 100;
+        let cols = 100;
+        for row in 0..rows {
+            for col in 0..cols {
+                add_edge(&mut graph, (row, col), (row + 1, col), 1);
+                add_edge(&mut graph, (row, col), (row, col + 1), 1);
+                add_edge(&mut graph, (row, col), (row + 1, col + 1), 1);
+                add_edge(&mut graph, (row + 1, col), (row, col), 1);
+                add_edge(&mut graph, (row + 1, col + 1), (row, col), 1);
+            }
+        }
+
+        // Dijkstra would explore most of the 101 × 101 nodes
+        // the heuristic should allow exploring only about 200 nodes
+        let now = std::time::Instant::now();
+        let res = astar(&graph, (0, 0), (100, 90), |(i, j)| 100 - i + 90 - j);
+        assert!(now.elapsed() < std::time::Duration::from_millis(10));
+
+        let (weight, path) = res.unwrap();
+        assert_eq!(weight, 100);
+        assert_eq!(path.len(), 101);
+    }
 }
