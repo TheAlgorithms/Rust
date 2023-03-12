@@ -45,7 +45,7 @@ mod tests {
 
     #[test]
     fn test() {
-        assert_eq!(maximal_square(&mut vec![]), 0);
+        assert_eq!(maximal_square(&mut []), 0);
 
         let mut matrix = vec![vec![0, 1], vec![1, 0]];
         assert_eq!(maximal_square(&mut matrix), 1);

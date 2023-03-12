@@ -29,15 +29,15 @@ mod tests {
 
     #[test]
     fn basic() {
-        assert_eq!(is_perfect_number(6), true);
-        assert_eq!(is_perfect_number(28), true);
-        assert_eq!(is_perfect_number(496), true);
-        assert_eq!(is_perfect_number(8128), true);
+        assert!(is_perfect_number(6));
+        assert!(is_perfect_number(28));
+        assert!(is_perfect_number(496));
+        assert!(is_perfect_number(8128));
 
-        assert_eq!(is_perfect_number(5), false);
-        assert_eq!(is_perfect_number(86), false);
-        assert_eq!(is_perfect_number(497), false);
-        assert_eq!(is_perfect_number(8120), false);
+        assert!(!is_perfect_number(5));
+        assert!(!is_perfect_number(86));
+        assert!(!is_perfect_number(497));
+        assert!(!is_perfect_number(8120));
 
         assert_eq!(perfect_numbers(10), vec![6]);
         assert_eq!(perfect_numbers(100), vec![6, 28]);

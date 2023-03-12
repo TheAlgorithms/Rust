@@ -91,7 +91,7 @@ mod tests {
     fn test_nan() {
         let capacity = 36.0;
         // 2nd element is NaN
-        let values = vec![25.0, 0.0 / 0.0, 25.0, 6.0, 2.0];
+        let values = vec![25.0, f64::NAN, 25.0, 6.0, 2.0];
         let weights = vec![10.0, 10.0, 10.0, 4.0, 2.0];
         assert_eq!(fractional_knapsack(capacity, weights, values), 83.0);
     }

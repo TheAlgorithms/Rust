@@ -15,10 +15,10 @@ mod tests {
     use super::*;
 
     fn math_fn(x: f64) -> f64 {
-        return x.cos() - (x * x * x);
+        x.cos() - (x * x * x)
     }
     fn math_fnd(x: f64) -> f64 {
-        return -x.sin() - 3.0 * (x * x);
+        -x.sin() - 3.0 * (x * x)
     }
     #[test]
     fn basic() {
