@@ -8,7 +8,6 @@ pub fn encode(message: &str) -> String {
     let dictionary = _morse_dictionary();
     message
         .chars()
-        .into_iter()
         .map(|char| char.to_uppercase().to_string())
         .map(|letter| dictionary.get(letter.as_str()))
         .map(|option| option.unwrap_or(&UNKNOWN_CHARACTER).to_string())
