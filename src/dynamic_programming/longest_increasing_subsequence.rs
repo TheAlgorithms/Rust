@@ -52,13 +52,13 @@ mod tests {
     #[test]
     /// Need to specify generic type T in order to function
     fn test_empty_vec() {
-        assert_eq!(longest_increasing_subsequence::<i32>(&vec![]), vec![]);
+        assert_eq!(longest_increasing_subsequence::<i32>(&[]), vec![]);
     }
 
     #[test]
     fn test_example_1() {
         assert_eq!(
-            longest_increasing_subsequence(&vec![10, 9, 2, 5, 3, 7, 101, 18]),
+            longest_increasing_subsequence(&[10, 9, 2, 5, 3, 7, 101, 18]),
             vec![2, 3, 7, 18]
         );
     }
@@ -66,7 +66,7 @@ mod tests {
     #[test]
     fn test_example_2() {
         assert_eq!(
-            longest_increasing_subsequence(&vec![0, 1, 0, 3, 2, 3]),
+            longest_increasing_subsequence(&[0, 1, 0, 3, 2, 3]),
             vec![0, 1, 2, 3]
         );
     }
@@ -74,7 +74,7 @@ mod tests {
     #[test]
     fn test_example_3() {
         assert_eq!(
-            longest_increasing_subsequence(&vec![7, 7, 7, 7, 7, 7, 7]),
+            longest_increasing_subsequence(&[7, 7, 7, 7, 7, 7, 7]),
             vec![7]
         );
     }
@@ -104,6 +104,6 @@ mod tests {
 
     #[test]
     fn test_negative_elements() {
-        assert_eq!(longest_increasing_subsequence(&vec![-2, -1]), vec![-2, -1]);
+        assert_eq!(longest_increasing_subsequence(&[-2, -1]), vec![-2, -1]);
     }
 }

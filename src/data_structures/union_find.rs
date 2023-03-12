@@ -74,16 +74,16 @@ mod tests {
         assert_eq!(uf.find(8), 8);
         assert_eq!(uf.find(9), 9);
 
-        assert_eq!(uf.union(0, 1), true);
-        assert_eq!(uf.union(1, 2), true);
-        assert_eq!(uf.union(2, 3), true);
-        assert_eq!(uf.union(3, 4), true);
-        assert_eq!(uf.union(4, 5), true);
-        assert_eq!(uf.union(5, 6), true);
-        assert_eq!(uf.union(6, 7), true);
-        assert_eq!(uf.union(7, 8), true);
-        assert_eq!(uf.union(8, 9), true);
-        assert_eq!(uf.union(9, 0), false);
+        assert!(uf.union(0, 1));
+        assert!(uf.union(1, 2));
+        assert!(uf.union(2, 3));
+        assert!(uf.union(3, 4));
+        assert!(uf.union(4, 5));
+        assert!(uf.union(5, 6));
+        assert!(uf.union(6, 7));
+        assert!(uf.union(7, 8));
+        assert!(uf.union(8, 9));
+        assert!(!uf.union(9, 0));
 
         assert_eq!(1, uf.count());
     }

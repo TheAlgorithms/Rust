@@ -135,7 +135,7 @@ mod test_undirected_graph {
             (&String::from("c"), &String::from("b"), 10),
         ];
         for edge in expected_edges.iter() {
-            assert_eq!(graph.edges().contains(edge), true);
+            assert!(graph.edges().contains(edge));
         }
     }
 
@@ -188,7 +188,7 @@ mod test_directed_graph {
             (&String::from("b"), &String::from("c"), 10),
         ];
         for edge in expected_edges.iter() {
-            assert_eq!(graph.edges().contains(edge), true);
+            assert!(graph.edges().contains(edge));
         }
     }
 
@@ -212,9 +212,9 @@ mod test_directed_graph {
         graph.add_node("a");
         graph.add_node("b");
         graph.add_node("c");
-        assert_eq!(graph.contains("a"), true);
-        assert_eq!(graph.contains("b"), true);
-        assert_eq!(graph.contains("c"), true);
-        assert_eq!(graph.contains("d"), false);
+        assert!(graph.contains("a"));
+        assert!(graph.contains("b"));
+        assert!(graph.contains("c"));
+        assert!(!graph.contains("d"));
     }
 }

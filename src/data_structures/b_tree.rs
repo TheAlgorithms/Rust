@@ -182,6 +182,6 @@ mod test {
         tree.insert(12);
         tree.insert(15);
         assert!(tree.search(15));
-        assert_eq!(tree.search(16), false);
+        assert!(!tree.search(16));
     }
 }

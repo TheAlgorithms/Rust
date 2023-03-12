@@ -58,29 +58,31 @@ mod tests {
 
     #[test]
     fn test_seven_vertices_eleven_edges() {
-        let mut edges: Vec<Edge> = Vec::new();
-        edges.push(Edge::new(0, 1, 7));
-        edges.push(Edge::new(0, 3, 5));
-        edges.push(Edge::new(1, 2, 8));
-        edges.push(Edge::new(1, 3, 9));
-        edges.push(Edge::new(1, 4, 7));
-        edges.push(Edge::new(2, 4, 5));
-        edges.push(Edge::new(3, 4, 15));
-        edges.push(Edge::new(3, 5, 6));
-        edges.push(Edge::new(4, 5, 8));
-        edges.push(Edge::new(4, 6, 9));
-        edges.push(Edge::new(5, 6, 11));
+        let edges = vec![
+            Edge::new(0, 1, 7),
+            Edge::new(0, 3, 5),
+            Edge::new(1, 2, 8),
+            Edge::new(1, 3, 9),
+            Edge::new(1, 4, 7),
+            Edge::new(2, 4, 5),
+            Edge::new(3, 4, 15),
+            Edge::new(3, 5, 6),
+            Edge::new(4, 5, 8),
+            Edge::new(4, 6, 9),
+            Edge::new(5, 6, 11),
+        ];
 
         let number_of_vertices: i64 = 7;
 
         let expected_total_cost = 39;
-        let mut expected_used_edges: Vec<Edge> = Vec::new();
-        expected_used_edges.push(Edge::new(0, 3, 5));
-        expected_used_edges.push(Edge::new(2, 4, 5));
-        expected_used_edges.push(Edge::new(3, 5, 6));
-        expected_used_edges.push(Edge::new(0, 1, 7));
-        expected_used_edges.push(Edge::new(1, 4, 7));
-        expected_used_edges.push(Edge::new(4, 6, 9));
+        let expected_used_edges = vec![
+            Edge::new(0, 3, 5),
+            Edge::new(2, 4, 5),
+            Edge::new(3, 5, 6),
+            Edge::new(0, 1, 7),
+            Edge::new(1, 4, 7),
+            Edge::new(4, 6, 9),
+        ];
 
         let (actual_total_cost, actual_final_edges) = kruskal(edges, number_of_vertices);
 
@@ -90,41 +92,43 @@ mod tests {
 
     #[test]
     fn test_ten_vertices_twenty_edges() {
-        let mut edges: Vec<Edge> = Vec::new();
-        edges.push(Edge::new(0, 1, 3));
-        edges.push(Edge::new(0, 3, 6));
-        edges.push(Edge::new(0, 4, 9));
-        edges.push(Edge::new(1, 2, 2));
-        edges.push(Edge::new(1, 3, 4));
-        edges.push(Edge::new(1, 4, 9));
-        edges.push(Edge::new(2, 3, 2));
-        edges.push(Edge::new(2, 5, 8));
-        edges.push(Edge::new(2, 6, 9));
-        edges.push(Edge::new(3, 6, 9));
-        edges.push(Edge::new(4, 5, 8));
-        edges.push(Edge::new(4, 9, 18));
-        edges.push(Edge::new(5, 6, 7));
-        edges.push(Edge::new(5, 8, 9));
-        edges.push(Edge::new(5, 9, 10));
-        edges.push(Edge::new(6, 7, 4));
-        edges.push(Edge::new(6, 8, 5));
-        edges.push(Edge::new(7, 8, 1));
-        edges.push(Edge::new(7, 9, 4));
-        edges.push(Edge::new(8, 9, 3));
+        let edges = vec![
+            Edge::new(0, 1, 3),
+            Edge::new(0, 3, 6),
+            Edge::new(0, 4, 9),
+            Edge::new(1, 2, 2),
+            Edge::new(1, 3, 4),
+            Edge::new(1, 4, 9),
+            Edge::new(2, 3, 2),
+            Edge::new(2, 5, 8),
+            Edge::new(2, 6, 9),
+            Edge::new(3, 6, 9),
+            Edge::new(4, 5, 8),
+            Edge::new(4, 9, 18),
+            Edge::new(5, 6, 7),
+            Edge::new(5, 8, 9),
+            Edge::new(5, 9, 10),
+            Edge::new(6, 7, 4),
+            Edge::new(6, 8, 5),
+            Edge::new(7, 8, 1),
+            Edge::new(7, 9, 4),
+            Edge::new(8, 9, 3),
+        ];
 
         let number_of_vertices: i64 = 10;
 
         let expected_total_cost = 38;
-        let mut expected_used_edges = Vec::new();
-        expected_used_edges.push(Edge::new(7, 8, 1));
-        expected_used_edges.push(Edge::new(1, 2, 2));
-        expected_used_edges.push(Edge::new(2, 3, 2));
-        expected_used_edges.push(Edge::new(0, 1, 3));
-        expected_used_edges.push(Edge::new(8, 9, 3));
-        expected_used_edges.push(Edge::new(6, 7, 4));
-        expected_used_edges.push(Edge::new(5, 6, 7));
-        expected_used_edges.push(Edge::new(2, 5, 8));
-        expected_used_edges.push(Edge::new(4, 5, 8));
+        let expected_used_edges = vec![
+            Edge::new(7, 8, 1),
+            Edge::new(1, 2, 2),
+            Edge::new(2, 3, 2),
+            Edge::new(0, 1, 3),
+            Edge::new(8, 9, 3),
+            Edge::new(6, 7, 4),
+            Edge::new(5, 6, 7),
+            Edge::new(2, 5, 8),
+            Edge::new(4, 5, 8),
+        ];
 
         let (actual_total_cost, actual_final_edges) = kruskal(edges, number_of_vertices);
 

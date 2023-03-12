@@ -91,7 +91,7 @@ mod tests {
         mac.add_msg(&tmp_buffer, 2);
         let result = mac.get_tag();
         assert_eq!(
-            get_tag_hex(&result.as_slice()),
+            get_tag_hex(result.as_slice()),
             "a8061dc1305136c6c22b8baf0c0127a9"
         );
     }

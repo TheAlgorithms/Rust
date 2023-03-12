@@ -166,6 +166,7 @@ mod tests {
         let mut lcg = LinearCongruenceGenerator::new(1103515245, 12345, 314);
         parent[2] = 1;
         adj[1].push(2);
+        #[allow(clippy::needless_range_loop)]
         for i in 3..=n {
             // randomly determine the parent of each vertex.
             // There will be modulus bias, but it isn't important

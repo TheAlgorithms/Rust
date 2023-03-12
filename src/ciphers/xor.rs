@@ -35,7 +35,7 @@ mod tests {
     #[test]
     fn test_zero_byte() {
         let test_string = "The quick brown fox jumps over the lazy dog";
-        let key = ' ' as u8;
+        let key = b' ';
         let ciphered_text = xor(test_string, key);
         assert_eq!(test_string.as_bytes(), xor_bytes(&ciphered_text, key));
     }
@@ -43,7 +43,7 @@ mod tests {
     #[test]
     fn test_invalid_byte() {
         let test_string = "The quick brown fox jumps over the lazy dog";
-        let key = !0 as u8;
+        let key = !0;
         let ciphered_text = xor(test_string, key);
         assert_eq!(test_string.as_bytes(), xor_bytes(&ciphered_text, key));
     }
