@@ -18,41 +18,6 @@ macro_rules! iterate {
     };
 }
 
-fn h2b(h: &[u8], n: usize) -> Vec<bool> {
-    let mut bits = Vec::with_capacity(h.len() * U8BITS);
-
-    for byte in h {
-        for i in 0..u8::BITS {
-            let mask: u8 = 1 << i;
-
-            bits.push((byte & mask) != 0);
-        }
-    }
-
-    assert!(bits.len() == h.len() * U8BITS);
-
-    bits.truncate(n);
-    bits
-}
-
-fn b2h(s: &[bool]) -> Vec<u8> {
-    let m = if s.len() % U8BITS != 0 {
-        (s.len() / 8) + 1
-    } else {
-        s.len() / 8
-    };
-    let mut bytes = vec![0u8; m];
-
-    for (i, bit) in s.iter().enumerate() {
-        let byte_index = i / U8BITS;
-        let mask = (*bit as u8) << (i % U8BITS);
-
-        bytes[byte_index] |= mask;
-    }
-
-    bytes
-}
-
 type PadFn = fn(isize, isize) -> Vec<bool>;
 type SpongeFn = fn(&[bool]) -> [bool; B];
 
@@ -282,6 +247,40 @@ fn keccak(c: usize, n: &[bool], d: usize) -> Vec<bool> {
     sponge(keccak_f, pad101, B - c, n, d)
 }
 
+fn h2b(h: &[u8], n: usize) -> Vec<bool> {
+    let mut bits = Vec::with_capacity(h.len() * U8BITS);
+
+    for byte in h {
+        for i in 0..u8::BITS {
+            let mask: u8 = 1 << i;
+
+            bits.push((byte & mask) != 0);
+        }
+    }
+
+    assert!(bits.len() == h.len() * U8BITS);
+
+    bits.truncate(n);
+    bits
+}
+
+fn b2h(s: &[bool]) -> Vec<u8> {
+    let m = if s.len() % U8BITS != 0 {
+        (s.len() / 8) + 1
+    } else {
+        s.len() / 8
+    };
+    let mut bytes = vec![0u8; m];
+
+    for (i, bit) in s.iter().enumerate() {
+        let byte_index = i / U8BITS;
+        let mask = (*bit as u8) << (i % U8BITS);
+
+        bytes[byte_index] |= mask;
+    }
+
+    bytes
+}
 /// Macro to implement all sha3 hash functions as they only differ in digest size
 macro_rules! sha3 {
     ($name:ident, $n:literal) => {
