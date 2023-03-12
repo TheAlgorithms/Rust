@@ -18,16 +18,6 @@ macro_rules! iterate {
     };
 }
 
-const fn safe_mod(n: usize, amount: isize, modulus: usize) -> usize {
-    let n = n as isize;
-    let modulus = modulus as isize;
-    let mut amount = amount;
-    while amount < 0 {
-        amount += modulus;
-    }
-    ((n + amount) % modulus) as usize
-}
-
 fn h2b(h: &[u8], n: usize) -> Vec<bool> {
     let mut bits = Vec::with_capacity(h.len() * U8BITS);
 
@@ -120,7 +110,10 @@ fn theta(state: &mut State) {
     // Assign values of D[x,z]
     for x in 0..5 {
         for z in 0..W {
-            d[x][z] = c[safe_mod(x, -1, 5)][z] ^ c[(x + 1) % 5][safe_mod(z, -1, W)];
+            let x1 = (x as isize - 1).rem_euclid(5) as usize;
+            let z2 = (z as isize - 1).rem_euclid(W as isize) as usize;
+
+            d[x][z] = c[x1][z] ^ c[(x + 1) % 5][z2];
         }
     }
 
@@ -143,7 +136,8 @@ fn rho(state: &mut State) {
 
     for t in 0..=23isize {
         for z in 0..W {
-            let new_z = safe_mod(z, -((t + 1) * (t + 2)) / 2, W);
+            let z_offset: isize = ((t + 1) * (t + 2)) / 2;
+            let new_z = (z as isize - z_offset).rem_euclid(W as isize) as usize;
 
             new_state[x][y][z] = state[x][y][new_z];
         }
