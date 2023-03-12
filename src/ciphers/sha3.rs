@@ -101,6 +101,7 @@ fn state_dump(state: &State) -> [bool; B] {
     bits
 }
 
+/// XORs the state with the parities of two columns in the state array
 fn theta(state: &mut State) {
     let mut c = [[false; W]; 5];
     let mut d = [[false; W]; 5];
@@ -129,6 +130,7 @@ fn theta(state: &mut State) {
     });
 }
 
+/// Rotates each lane by an offset depending of the x and y indeces
 fn rho(state: &mut State) {
     let mut new_state = state_new();
 
@@ -154,6 +156,7 @@ fn rho(state: &mut State) {
     state_copy(state, &new_state);
 }
 
+/// Rearrange the positions of the lanes of the state array
 fn pi(state: &mut State) {
     let mut new_state = state_new();
 
@@ -174,6 +177,7 @@ fn chi(state: &mut State) {
     state_copy(state, &new_state);
 }
 
+/// Calculates the round constant depending on what the round number is
 fn rc(t: u8) -> bool {
     let mut b1: u16;
     let mut b2: u16;
@@ -204,6 +208,7 @@ fn rc(t: u8) -> bool {
     (r >> 7) != 0
 }
 
+/// Applies the round constant to the first lane of the state array
 fn iota(state: &mut State, i_r: u8) {
     let mut rc_arr = [false; W];
 
@@ -283,6 +288,7 @@ fn keccak(c: usize, n: &[bool], d: usize) -> Vec<bool> {
     sponge(keccak_f, pad101, B - c, n, d)
 }
 
+/// Macro to implement all sha3 hash functions as they only differ in digest size
 macro_rules! sha3 {
     ($name:ident, $n:literal) => {
         pub fn $name(m: &[u8]) -> [u8; ($n / U8BITS)] {
