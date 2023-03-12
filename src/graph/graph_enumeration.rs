@@ -31,10 +31,7 @@ mod tests {
             .entry(a.clone())
             .or_insert_with(Vec::new)
             .push(b.clone());
-        graph
-            .entry(b.clone())
-            .or_insert_with(Vec::new)
-            .push(a.clone());
+        graph.entry(b).or_insert_with(Vec::new).push(a);
     }
 
     #[test]

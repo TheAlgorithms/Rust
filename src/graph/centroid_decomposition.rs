@@ -123,6 +123,7 @@ mod tests {
         let mut adj: Vec<Vec<usize>> = vec![vec![]; len];
         adj[1].push(2);
         adj[15].push(14);
+        #[allow(clippy::needless_range_loop)]
         for i in 2..15 {
             adj[i].push(i + 1);
             adj[i].push(i - 1);

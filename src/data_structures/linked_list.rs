@@ -481,7 +481,7 @@ mod tests {
         println!("Linked List is {}", list);
         let retrived_item = list.get(1);
         assert!(retrived_item.is_some());
-        assert_eq!(2 as i32, *retrived_item.unwrap());
+        assert_eq!(2, *retrived_item.unwrap());
     }
 
     #[test]

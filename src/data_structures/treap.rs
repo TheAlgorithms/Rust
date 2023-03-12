@@ -337,7 +337,7 @@ mod tests {
     #[test]
     fn sorted() {
         let tree: Treap<_> = (1..8).rev().collect();
-        assert!((1..8).eq(tree.iter().map(|&x| x)));
+        assert!((1..8).eq(tree.iter().copied()));
     }
 
     #[test]

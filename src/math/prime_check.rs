@@ -20,14 +20,14 @@ mod tests {
 
     #[test]
     fn basic() {
-        assert_eq!(prime_check(3), true);
-        assert_eq!(prime_check(7), true);
-        assert_eq!(prime_check(11), true);
-        assert_eq!(prime_check(2003), true);
+        assert!(prime_check(3));
+        assert!(prime_check(7));
+        assert!(prime_check(11));
+        assert!(prime_check(2003));
 
-        assert_eq!(prime_check(4), false);
-        assert_eq!(prime_check(6), false);
-        assert_eq!(prime_check(21), false);
-        assert_eq!(prime_check(2004), false);
+        assert!(!prime_check(4));
+        assert!(!prime_check(6));
+        assert!(!prime_check(21));
+        assert!(!prime_check(2004));
     }
 }

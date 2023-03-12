@@ -273,7 +273,7 @@ mod test {
         for num in numbers {
             assert!(check_factorization(
                 num,
-                &pollard_rho_factorize(num, &mut seed, &vec![], &vec![])
+                &pollard_rho_factorize(num, &mut seed, &[], &[])
             ));
         }
     }

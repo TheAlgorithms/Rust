@@ -212,12 +212,9 @@ mod tests {
         let mut fft = fast_fourier_transform(&polynomial, &permutation);
         fft.iter_mut().for_each(|num| *num *= *num);
         let ifft = inverse_fast_fourier_transform(&fft, &permutation);
-        let mut expected = vec![0.0; n << 1];
-        for i in 0..((n << 1) - 1) {
-            expected[i] = std::cmp::min(i + 1, (n << 1) - 1 - i) as f64;
-        }
-        for (x, y) in ifft.iter().zip(expected.iter()) {
-            assert!(almost_equal(*x, *y, EPSILON));
+        let expected = (0..((n << 1) - 1)).map(|i| std::cmp::min(i + 1, (n << 1) - 1 - i) as f64);
+        for (&x, y) in ifft.iter().zip(expected) {
+            assert!(almost_equal(x, y, EPSILON));
         }
     }
 }
