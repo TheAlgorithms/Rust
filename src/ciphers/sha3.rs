@@ -1,3 +1,4 @@
+/// Size of the state array in bits
 const B: usize = 1600;
 
 const W: usize = B / 25;
@@ -18,6 +19,8 @@ macro_rules! iterate {
     };
 }
 
+/// A function that produces a padding string such that the length of the padding + the length of
+/// the string to be padded (2nd parameter) is divisible by the 1st parameter
 type PadFn = fn(isize, isize) -> Vec<bool>;
 type SpongeFn = fn(&[bool]) -> [bool; B];
 
@@ -217,6 +220,9 @@ fn pad101(x: isize, m: isize) -> Vec<bool> {
     ret
 }
 
+/// Sponge construction is a method of compression needing 1) a function on fixed-length bit
+/// strings( here we use keccak_f), 2) a padding function (pad10*1), and 3) a rate. The input and
+/// output of this method can be arbitrarily long
 fn sponge(f: SpongeFn, pad: PadFn, r: usize, n: &[bool], d: usize) -> Vec<bool> {
     let mut p = Vec::from(n);
     p.append(&mut pad(r as isize, n.len() as isize));
