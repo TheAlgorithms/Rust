@@ -11,28 +11,28 @@ type Graph<V, E> = BTreeMap<V, BTreeMap<V, E>>;
 // since the start has no predecessor but is reachable, map[start] will be None
 pub fn dijkstra<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
     graph: &Graph<V, E>,
-    start: &V,
+    start: V,
 ) -> BTreeMap<V, Option<(V, E)>> {
     let mut ans = BTreeMap::new();
     let mut prio = BinaryHeap::new();
 
     // start is the special case that doesn't have a predecessor
-    ans.insert(*start, None);
+    ans.insert(start, None);
 
-    for (new, weight) in &graph[start] {
-        ans.insert(*new, Some((*start, *weight)));
-        prio.push(Reverse((*weight, new, start)));
+    for (new, weight) in &graph[&start] {
+        ans.insert(*new, Some((start, *weight)));
+        prio.push(Reverse((*weight, *new, start)));
     }
 
     while let Some(Reverse((dist_new, new, prev))) = prio.pop() {
-        match ans[new] {
+        match ans[&new] {
             // what we popped is what is in ans, we'll compute it
-            Some((p, d)) if p == *prev && d == dist_new => {}
+            Some((p, d)) if p == prev && d == dist_new => {}
             // otherwise it's not interesting
             _ => continue,
         }
 
-        for (next, weight) in &graph[new] {
+        for (next, weight) in &graph[&new] {
             match ans.get(next) {
                 // if ans[next] is a lower dist than the alternative one, we do nothing
                 Some(Some((_, dist_next))) if dist_new + *weight >= *dist_next => {}
@@ -40,8 +40,8 @@ pub fn dijkstra<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
                 Some(None) => {}
                 // the new path is shorter, either new was not in ans or it was farther
                 _ => {
-                    ans.insert(*next, Some((*new, *weight + dist_new)));
-                    prio.push(Reverse((*weight + dist_new, next, new)));
+                    ans.insert(*next, Some((new, *weight + dist_new)));
+                    prio.push(Reverse((*weight + dist_new, *next, new)));
                 }
             }
         }
@@ -68,7 +68,7 @@ mod tests {
         let mut dists = BTreeMap::new();
         dists.insert(0, None);
 
-        assert_eq!(dijkstra(&graph, &0), dists);
+        assert_eq!(dijkstra(&graph, 0), dists);
     }
 
     #[test]
@@ -80,12 +80,12 @@ mod tests {
         dists_0.insert(0, None);
         dists_0.insert(1, Some((0, 2)));
 
-        assert_eq!(dijkstra(&graph, &0), dists_0);
+        assert_eq!(dijkstra(&graph, 0), dists_0);
 
         let mut dists_1 = BTreeMap::new();
         dists_1.insert(1, None);
 
-        assert_eq!(dijkstra(&graph, &1), dists_1);
+        assert_eq!(dijkstra(&graph, 1), dists_1);
     }
 
     #[test]
@@ -109,7 +109,7 @@ mod tests {
             }
         }
 
-        assert_eq!(dijkstra(&graph, &1), dists);
+        assert_eq!(dijkstra(&graph, 1), dists);
     }
 
     #[test]
@@ -127,25 +127,25 @@ mod tests {
         dists_a.insert('c', Some(('a', 12)));
         dists_a.insert('d', Some(('c', 44)));
         dists_a.insert('b', Some(('c', 32)));
-        assert_eq!(dijkstra(&graph, &'a'), dists_a);
+        assert_eq!(dijkstra(&graph, 'a'), dists_a);
 
         let mut dists_b = BTreeMap::new();
         dists_b.insert('b', None);
         dists_b.insert('a', Some(('b', 10)));
         dists_b.insert('c', Some(('a', 22)));
         dists_b.insert('d', Some(('c', 54)));
-        assert_eq!(dijkstra(&graph, &'b'), dists_b);
+        assert_eq!(dijkstra(&graph, 'b'), dists_b);
 
         let mut dists_c = BTreeMap::new();
         dists_c.insert('c', None);
         dists_c.insert('b', Some(('c', 20)));
         dists_c.insert('d', Some(('c', 32)));
         dists_c.insert('a', Some(('b', 30)));
-        assert_eq!(dijkstra(&graph, &'c'), dists_c);
+        assert_eq!(dijkstra(&graph, 'c'), dists_c);
 
         let mut dists_d = BTreeMap::new();
         dists_d.insert('d', None);
-        assert_eq!(dijkstra(&graph, &'d'), dists_d);
+        assert_eq!(dijkstra(&graph, 'd'), dists_d);
 
         let mut dists_e = BTreeMap::new();
         dists_e.insert('e', None);
@@ -153,6 +153,6 @@ mod tests {
         dists_e.insert('c', Some(('a', 19)));
         dists_e.insert('d', Some(('c', 51)));
         dists_e.insert('b', Some(('c', 39)));
-        assert_eq!(dijkstra(&graph, &'e'), dists_e);
+        assert_eq!(dijkstra(&graph, 'e'), dists_e);
     }
 }
