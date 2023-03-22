@@ -6,7 +6,7 @@ pub fn rail_fence_encrypt(plain_text: &str, key: usize) -> String {
         cipher[i].push(c);
     }
 
-    return cipher.iter().flat_map(|c| c).collect::<String>();
+    return cipher.iter().flatten().collect::<String>();
 }
 
 pub fn rail_fence_decrypt(cipher: &str, key: usize) -> String {
@@ -24,7 +24,7 @@ pub fn rail_fence_decrypt(cipher: &str, key: usize) -> String {
 }
 
 fn zigzag(n: usize) -> impl Iterator<Item = usize> {
-    return (0..n - 1).chain((1..n).rev()).cycle();
+    (0..n - 1).chain((1..n).rev()).cycle()
 }
 
 #[cfg(test)]
