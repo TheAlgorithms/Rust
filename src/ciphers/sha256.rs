@@ -270,7 +270,7 @@ pub mod tests {
     #[test]
     fn ascii() {
         let mut res = SHA256::new_default();
-        res.update(&b"The quick brown fox jumps over the lazy dog".to_vec());
+        res.update(b"The quick brown fox jumps over the lazy dog");
         assert_eq!(
             res.get_hash(),
             [
@@ -284,7 +284,7 @@ pub mod tests {
     #[test]
     fn ascii_avalanche() {
         let mut res = SHA256::new_default();
-        res.update(&b"The quick brown fox jumps over the lazy dog.".to_vec());
+        res.update(b"The quick brown fox jumps over the lazy dog.");
         assert_eq!(
             res.get_hash(),
             [
@@ -306,7 +306,7 @@ pub mod tests {
     #[test]
     fn long_ascii() {
         let mut res = SHA256::new_default();
-        let val = &b"The quick brown fox jumps over the lazy dog.".to_vec();
+        let val = b"The quick brown fox jumps over the lazy dog.";
         for _ in 0..1000 {
             res.update(val);
         }
@@ -316,7 +316,7 @@ pub mod tests {
             "c264fca077807d391df72fadf39dd63be21f1823f65ca530c9637760eabfc18c"
         );
         let mut res = SHA256::new_default();
-        let val = &b"a".to_vec();
+        let val = b"a";
         for _ in 0..999 {
             res.update(val);
         }
@@ -329,7 +329,7 @@ pub mod tests {
     #[test]
     fn short_ascii() {
         let mut res = SHA256::new_default();
-        let val = &b"a".to_vec();
+        let val = b"a";
         res.update(val);
         let hash = res.get_hash();
         assert_eq!(

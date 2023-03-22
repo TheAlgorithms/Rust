@@ -8,7 +8,6 @@ pub fn encode(message: &str) -> String {
     let dictionary = _morse_dictionary();
     message
         .chars()
-        .into_iter()
         .map(|char| char.to_uppercase().to_string())
         .map(|letter| dictionary.get(letter.as_str()))
         .map(|option| option.unwrap_or(&UNKNOWN_CHARACTER).to_string())
@@ -16,7 +15,7 @@ pub fn encode(message: &str) -> String {
         .join(" ")
 }
 
-// Declaritive macro for creating readable map declarations, for more info see https://doc.rust-lang.org/book/ch19-06-macros.html
+// Declarative macro for creating readable map declarations, for more info see https://doc.rust-lang.org/book/ch19-06-macros.html
 macro_rules! map {
     ($($key:expr => $value:expr),* $(,)?) => {
         std::iter::Iterator::collect(IntoIterator::into_iter([$(($key, $value),)*]))

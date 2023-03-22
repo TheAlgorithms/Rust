@@ -49,7 +49,7 @@ impl Sudoku {
 
         for i in (sec_row * 3)..(sec_row * 3 + 3) {
             for j in (sec_col * 3)..(sec_col * 3 + 3) {
-                if y != i && x != j && self.board[i][j] == value {
+                if self.board[i][j] == value {
                     return false;
                 }
             }

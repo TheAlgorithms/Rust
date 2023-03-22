@@ -83,7 +83,7 @@ mod tests {
         for adj in g2.values_mut() {
             adj.sort();
         }
-        return g1 == g2;
+        g1 == g2
     }
 
     #[test]

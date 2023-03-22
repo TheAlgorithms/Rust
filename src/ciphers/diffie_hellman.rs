@@ -296,24 +296,20 @@ mod tests {
     #[test]
     fn verify_invalid_pub_key() {
         let diffie = DiffieHellman::new(Some(14));
-        assert_eq!(diffie.is_valid_public_key("0000"), false);
+        assert!(!diffie.is_valid_public_key("0000"));
     }
 
     #[test]
     fn verify_valid_pub_key() {
         let diffie = DiffieHellman::new(Some(14));
-        assert_eq!(
-            diffie.is_valid_public_key("EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245"),
-            true
-        );
+        assert!(diffie.is_valid_public_key("EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245"));
     }
 
     #[test]
     fn verify_invalid_pub_key_same_as_prime() {
         let diffie = DiffieHellman::new(Some(14));
-        assert_eq!(
-            diffie.is_valid_public_key(
-                "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1\
+        assert!(!diffie.is_valid_public_key(
+            "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1\
         29024E088A67CC74020BBEA63B139B22514A08798E3404DD\
         EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245\
         E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7ED\
@@ -324,9 +320,7 @@ mod tests {
         E39E772C180E86039B2783A2EC07A28FB5C55DF06F4C52C9\
         DE2BCBF6955817183995497CEA956AE515D2261898FA0510\
         15728E5A8AACAA68FFFFFFFFFFFFFFFF"
-            ),
-            false
-        );
+        ));
     }
 
     #[test]
