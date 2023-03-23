@@ -21,6 +21,7 @@
     * [Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rot13.rs)
     * [Salsa](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/salsa.rs)
     * [Sha256](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/sha256.rs)
+    * [Sha3](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/sha3.rs)
     * [Tea](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/tea.rs)
     * [Theoretical Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/theoretical_rot13.rs)
     * [Transposition](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/transposition.rs)
@@ -28,6 +29,9 @@
     * [Xor](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/xor.rs)
   * Compression
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
+  * Conversions
+    * [Binary To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
+    * [Decimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
@@ -59,6 +63,7 @@
     * [Maximum Subarray](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/maximum_subarray.rs)
     * [Rod Cutting](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/rod_cutting.rs)
     * [Snail](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/snail.rs)
+    * [Subset Generation](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_generation.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
     * [Fisher Yates Shuffle](https://github.com/TheAlgorithms/Rust/blob/master/src/general/fisher_yates_shuffle.rs)
@@ -71,6 +76,7 @@
   * Geometry
     * [Closest Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/closest_points.rs)
   * Graph
+    * [Astar](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/astar.rs)
     * [Bellman Ford](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/bellman_ford.rs)
     * [Bipartite Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/bipartite_matching.rs)
     * [Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/breadth_first_search.rs)
@@ -133,6 +139,9 @@
     * [Square Root](https://github.com/TheAlgorithms/Rust/blob/master/src/math/square_root.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
     * [Zellers Congruence Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/zellers_congruence_algorithm.rs)
+  * Navigation
+    * [Bearing](https://github.com/TheAlgorithms/Rust/blob/master/src/navigation/bearing.rs)
+    * [Haversine](https://github.com/TheAlgorithms/Rust/blob/master/src/navigation/haversine.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
     * [Binary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search_recursive.rs)
