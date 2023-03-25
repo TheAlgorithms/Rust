@@ -39,7 +39,7 @@ mod tests {
 }
 ```
 
-## Before submitting you PR
+## Before submitting your PR
 
 Do **not** use acronyms: `DFS` should be `depth_first_search`.
 
