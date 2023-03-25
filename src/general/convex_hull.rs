@@ -70,7 +70,7 @@ mod tests {
 
     #[test]
     fn empty() {
-        assert_eq!(convex_hull_graham(&vec![]), vec![]);
+        assert_eq!(convex_hull_graham(&[]), vec![]);
     }
 
     #[test]

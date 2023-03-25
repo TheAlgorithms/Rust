@@ -30,25 +30,25 @@ mod tests {
 
     #[test]
     fn basic() {
-        let res = gnome_sort(&vec![6, 5, -8, 3, 2, 3]);
+        let res = gnome_sort(&[6, 5, -8, 3, 2, 3]);
         assert_eq!(res, vec![-8, 2, 3, 3, 5, 6]);
     }
 
     #[test]
     fn already_sorted() {
-        let res = gnome_sort(&vec!["a", "b", "c"]);
+        let res = gnome_sort(&["a", "b", "c"]);
         assert_eq!(res, vec!["a", "b", "c"]);
     }
 
     #[test]
     fn odd_number_of_elements() {
-        let res = gnome_sort(&vec!["d", "a", "c", "e", "b"]);
+        let res = gnome_sort(&["d", "a", "c", "e", "b"]);
         assert_eq!(res, vec!["a", "b", "c", "d", "e"]);
     }
 
     #[test]
     fn one_element() {
-        let res = gnome_sort(&vec![3]);
+        let res = gnome_sort(&[3]);
         assert_eq!(res, vec![3]);
     }
 

@@ -15,7 +15,7 @@ pub fn encode(message: &str) -> String {
         .join(" ")
 }
 
-// Declaritive macro for creating readable map declarations, for more info see https://doc.rust-lang.org/book/ch19-06-macros.html
+// Declarative macro for creating readable map declarations, for more info see https://doc.rust-lang.org/book/ch19-06-macros.html
 macro_rules! map {
     ($($key:expr => $value:expr),* $(,)?) => {
         std::iter::Iterator::collect(IntoIterator::into_iter([$(($key, $value),)*]))

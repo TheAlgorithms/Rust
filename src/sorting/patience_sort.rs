@@ -53,7 +53,7 @@ mod tests {
     #[test]
     fn basic() {
         let mut array = vec![
-            -2, 7, 15, -14, 0, 15, 0, 100_33, 7, -7, -4, -13, 5, 8, -14, 12,
+            -2, 7, 15, -14, 0, 15, 0, 10_033, 7, -7, -4, -13, 5, 8, -14, 12,
         ];
         patience_sort(&mut array);
         assert!(is_sorted(&array));

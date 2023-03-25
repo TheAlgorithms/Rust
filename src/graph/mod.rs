@@ -1,3 +1,4 @@
+mod astar;
 mod bellman_ford;
 mod bipartite_matching;
 mod breadth_first_search;
@@ -17,6 +18,7 @@ mod prufer_code;
 mod strongly_connected_components;
 mod topological_sort;
 mod two_satisfiability;
+pub use self::astar::astar;
 pub use self::bellman_ford::bellman_ford;
 pub use self::bipartite_matching::BipartiteMatching;
 pub use self::breadth_first_search::breadth_first_search;
