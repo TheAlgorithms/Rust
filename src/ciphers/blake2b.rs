@@ -43,7 +43,7 @@ const SIGMA: [[usize; 16]; 10] = [
 ];
 
 #[inline]
-fn blank_block() -> Block {
+const fn blank_block() -> Block {
     [0u64; BB / U64BYTES]
 }
 
@@ -53,7 +53,7 @@ fn add(a: &mut Word, b: Word) {
 }
 
 #[inline]
-fn ceil(dividend: usize, divisor: usize) -> usize {
+const fn ceil(dividend: usize, divisor: usize) -> usize {
     (dividend / divisor) + ((dividend % divisor != 0) as usize)
 }
 
@@ -62,17 +62,17 @@ fn g(v: &mut [Word; 16], a: usize, b: usize, c: usize, d: usize, x: Word, y: Wor
 
     let mixing = [x, y];
 
-    for i in 0..2 {
+    for (m, r) in mixing.into_iter().zip(rc.chunks(2)) {
         let v_b = v[b];
         add(&mut v[a], v_b);
-        add(&mut v[a], mixing[i]);
+        add(&mut v[a], m);
 
-        v[d] = (v[d] ^ v[a]).rotate_right(rc[i * 2]);
+        v[d] = (v[d] ^ v[a]).rotate_right(r[0]);
 
         let v_d = v[d];
         add(&mut v[c], v_d);
 
-        v[b] = (v[b] ^ v[c]).rotate_right(rc[i * 2 + 1]);
+        v[b] = (v[b] ^ v[c]).rotate_right(r[1]);
     }
 }
 
