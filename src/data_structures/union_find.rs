@@ -8,12 +8,11 @@ use std::hash::Hash;
 pub struct UnionFind<T: Debug + Eq + Hash> {
     payloads: HashMap<T, usize>, // we are going to manipulate indices to parent, thus `usize`. We need a map to associate a value to its index in the parent links array
     parent_links: Vec<usize>, // holds the relationship between an item and its parent. The root of a set is denoted by parent_links[i] == i
-    sizes: Vec<usize>, // holds the size
+    sizes: Vec<usize>,        // holds the size
     count: usize,
 }
 
 impl<T: Debug + Eq + Hash> UnionFind<T> {
-
     /// Creates an empty Union Find structure with capacity n
     ///
     /// # Examples
@@ -28,7 +27,7 @@ impl<T: Debug + Eq + Hash> UnionFind<T> {
             parent_links: Vec::with_capacity(capacity),
             sizes: Vec::with_capacity(capacity),
             payloads: HashMap::with_capacity(capacity),
-            count: 0
+            count: 0,
         }
     }
 
@@ -47,8 +46,7 @@ impl<T: Debug + Eq + Hash> UnionFind<T> {
 
     /// Returns the key of an item stored in the data structure or None if it doesn't exist
     fn find(&self, value: &T) -> Option<usize> {
-        self.id(value)
-            .map(|id| self.find_by_key(id))
+        self.id(value).map(|id| self.find_by_key(id))
     }
 
     /// Creates a link between value_1 and value_2
@@ -148,20 +146,20 @@ impl<T: Debug + Eq + Hash> UnionFind<T> {
     }
 }
 
-impl <T: Debug + Eq + Hash> Default for UnionFind<T> {
+impl<T: Debug + Eq + Hash> Default for UnionFind<T> {
     fn default() -> Self {
         Self {
             parent_links: Vec::default(),
             sizes: Vec::default(),
             payloads: HashMap::default(),
-            count: 0
+            count: 0,
         }
     }
 }
 
 impl<T: Debug + Eq + Hash> FromIterator<T> for UnionFind<T> {
     /// Creates a new UnionFind data structure from an iterable of disjoint elements
-    fn from_iter<I: IntoIterator<Item=T>>(iter: I) -> Self {
+    fn from_iter<I: IntoIterator<Item = T>>(iter: I) -> Self {
         let mut uf = UnionFind::default();
         for i in iter {
             uf.insert(i);
