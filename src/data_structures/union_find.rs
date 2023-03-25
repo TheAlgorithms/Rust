@@ -19,7 +19,7 @@ impl<T: Debug + Eq + Hash> UnionFind<T> {
     ///
     /// ```
     /// use the_algorithms_rust::data_structures::UnionFind;
-    /// let uf = UnionFind::with_capacity(5);
+    /// let uf = UnionFind::<&str>::with_capacity(5);
     /// assert_eq!(0, uf.count())
     /// ```
     pub fn with_capacity(capacity: usize) -> Self {
