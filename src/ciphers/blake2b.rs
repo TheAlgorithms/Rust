@@ -58,23 +58,22 @@ fn ceil(dividend: usize, divisor: usize) -> usize {
 }
 
 fn g(v: &mut [Word; 16], a: usize, b: usize, c: usize, d: usize, x: Word, y: Word) {
-    let v_b = v[b];
-    let v_d = v[d];
+    let rc = [R1, R2, R3, R4];
 
-    add(&mut v[a], v_b);
-    add(&mut v[a], x);
-    v[d] = (v[d] ^ v[a]).rotate_right(R1);
-    add(&mut v[c], v_d);
-    v[b] = (v[b] ^ v[c]).rotate_right(R2);
+    let mixing = [x, y];
 
-    let v_b = v[b];
-    let v_d = v[d];
+    for i in 0..2 {
+        let v_b = v[b];
+        add(&mut v[a], v_b);
+        add(&mut v[a], mixing[i]);
 
-    add(&mut v[a], v_b);
-    add(&mut v[a], y);
-    v[d] = (v[d] ^ v[a]).rotate_right(R3);
-    add(&mut v[c], v_d);
-    v[b] = (v[b] ^ v[c]).rotate_right(R4);
+        v[d] = (v[d] ^ v[a]).rotate_right(rc[i * 2]);
+
+        let v_d = v[d];
+        add(&mut v[c], v_d);
+
+        v[b] = (v[b] ^ v[c]).rotate_right(rc[i * 2 + 1]);
+    }
 }
 
 fn f(h: &mut [Word; 8], m: Block, t: u128, flag: bool) {
@@ -226,7 +225,7 @@ mod test {
     }
 
     digest_test!(
-        from_rfc,
+        blake2b_from_rfc,
         &[0x61, 0x62, 0x63],
         &[0; 0],
         64,
