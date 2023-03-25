@@ -11,8 +11,8 @@
 <a href="https://the-algorithms.com/discord">
   <img src="https://img.shields.io/discord/808045925556682782.svg?logo=discord&colorB=00d37d" height="20" alt="Discord community">
 </a>
-<a href="https://gitter.im/the-algorithms/rust">
-  <img src="https://img.shields.io/gitter/room/the-algorithms/rust.svg?style=flat-square" height="20" alt="Gitter chat">
+<a href="https://matrix.to/#/#TheAlgorithms_community:gitter.im">
+  <img src="https://img.shields.io/gitter/room/TheAlgorithms/community.svg?style=flat-square" height="20" alt="Gitter chat">
 </a>
 
 <!-- Short description: -->
