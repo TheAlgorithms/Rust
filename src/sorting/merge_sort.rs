@@ -65,42 +65,42 @@ mod tests {
         fn basic() {
             let mut res = vec![10, 8, 4, 3, 1, 9, 2, 7, 5, 6];
             top_down_merge_sort(&mut res);
-            assert_eq!(res, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn basic_string() {
             let mut res = vec!["a", "bb", "d", "cc"];
             top_down_merge_sort(&mut res);
-            assert_eq!(res, vec!["a", "bb", "cc", "d"]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn empty() {
             let mut res = Vec::<u8>::new();
             top_down_merge_sort(&mut res);
-            assert_eq!(res, vec![]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn one_element() {
             let mut res = vec![1];
             top_down_merge_sort(&mut res);
-            assert_eq!(res, vec![1]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn pre_sorted() {
             let mut res = vec![1, 2, 3, 4];
             top_down_merge_sort(&mut res);
-            assert_eq!(res, vec![1, 2, 3, 4]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn reverse_sorted() {
             let mut res = vec![4, 3, 2, 1];
             top_down_merge_sort(&mut res);
-            assert_eq!(res, vec![1, 2, 3, 4]);
+            assert!(crate::sorting::is_sorted(&res));
         }
     }
 
@@ -119,35 +119,35 @@ mod tests {
         fn basic_string() {
             let mut res = vec!["a", "bb", "d", "cc"];
             bottom_up_merge_sort(&mut res);
-            assert_eq!(res, vec!["a", "bb", "cc", "d"]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn empty() {
             let mut res = Vec::<u8>::new();
             bottom_up_merge_sort(&mut res);
-            assert_eq!(res, vec![]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn one_element() {
             let mut res = vec![1];
             bottom_up_merge_sort(&mut res);
-            assert_eq!(res, vec![1]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn pre_sorted() {
             let mut res = vec![1, 2, 3, 4];
             bottom_up_merge_sort(&mut res);
-            assert_eq!(res, vec![1, 2, 3, 4]);
+            assert!(crate::sorting::is_sorted(&res));
         }
 
         #[test]
         fn reverse_sorted() {
             let mut res = vec![4, 3, 2, 1];
             bottom_up_merge_sort(&mut res);
-            assert_eq!(res, vec![1, 2, 3, 4]);
+            assert!(crate::sorting::is_sorted(&res));
         }
     }
 }

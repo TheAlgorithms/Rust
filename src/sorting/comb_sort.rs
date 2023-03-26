@@ -28,9 +28,7 @@ mod tests {
         //descending
         let mut ve1 = vec![6, 5, 4, 3, 2, 1];
         comb_sort(&mut ve1);
-        for i in 0..ve1.len() - 1 {
-            assert!(ve1[i] <= ve1[i + 1]);
-        }
+        assert!(crate::sorting::is_sorted(&ve1));
     }
 
     #[test]
@@ -38,9 +36,7 @@ mod tests {
         //pre-sorted
         let mut ve2 = vec![1, 2, 3, 4, 5, 6];
         comb_sort(&mut ve2);
-        for i in 0..ve2.len() - 1 {
-            assert!(ve2[i] <= ve2[i + 1]);
-        }
+        assert!(crate::sorting::is_sorted(&ve2));
     }
 
     #[test]
@@ -48,8 +44,6 @@ mod tests {
         //pre-sorted
         let mut ve3 = vec![2, 2, 2, 2, 2, 1];
         comb_sort(&mut ve3);
-        for i in 0..ve3.len() - 1 {
-            assert!(ve3[i] <= ve3[i + 1]);
-        }
+        assert!(crate::sorting::is_sorted(&ve3));
     }
 }

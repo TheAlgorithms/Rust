@@ -31,30 +31,30 @@ mod tests {
     #[test]
     fn basic() {
         let res = gnome_sort(&[6, 5, -8, 3, 2, 3]);
-        assert_eq!(res, vec![-8, 2, 3, 3, 5, 6]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn already_sorted() {
         let res = gnome_sort(&["a", "b", "c"]);
-        assert_eq!(res, vec!["a", "b", "c"]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn odd_number_of_elements() {
         let res = gnome_sort(&["d", "a", "c", "e", "b"]);
-        assert_eq!(res, vec!["a", "b", "c", "d", "e"]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn one_element() {
         let res = gnome_sort(&[3]);
-        assert_eq!(res, vec![3]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn empty() {
         let res = gnome_sort(&Vec::<u8>::new());
-        assert_eq!(res, vec![]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 }

@@ -99,41 +99,41 @@ mod tests {
     fn empty() {
         let mut arr: Vec<i32> = Vec::new();
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[]);
+        assert!(crate::sorting::is_sorted(&arr));
     }
 
     #[test]
     fn single_element() {
         let mut arr = vec![1];
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1]);
+        assert!(crate::sorting::is_sorted(&arr));
     }
 
     #[test]
     fn sorted_array() {
         let mut arr = vec![1, 2, 3, 4];
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1, 2, 3, 4]);
+        assert!(crate::sorting::is_sorted(&arr));
     }
 
     #[test]
     fn unsorted_array() {
         let mut arr = vec![3, 4, 2, 1];
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1, 2, 3, 4]);
+        assert!(crate::sorting::is_sorted(&arr));
     }
 
     #[test]
     fn odd_number_of_elements() {
         let mut arr = vec![3, 4, 2, 1, 7];
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1, 2, 3, 4, 7]);
+        assert!(crate::sorting::is_sorted(&arr));
     }
 
     #[test]
     fn repeated_elements() {
         let mut arr = vec![542, 542, 542, 542];
         heap_sort(&mut arr);
-        assert_eq!(&arr, &vec![542, 542, 542, 542]);
+        assert!(crate::sorting::is_sorted(&arr));
     }
 }

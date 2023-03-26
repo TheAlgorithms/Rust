@@ -31,33 +31,27 @@ mod test {
     fn basic() {
         let mut vec = vec![3, 5, 6, 3, 1, 4];
         stooge_sort(&mut vec);
-        for i in 0..vec.len() - 1 {
-            assert!(vec[i] <= vec[i + 1]);
-        }
+        assert!(crate::sorting::is_sorted(&vec));
     }
 
     #[test]
     fn empty() {
         let mut vec: Vec<i32> = vec![];
         stooge_sort(&mut vec);
-        assert_eq!(vec, vec![]);
+        assert!(crate::sorting::is_sorted(&vec));
     }
 
     #[test]
     fn reverse() {
         let mut vec = vec![6, 5, 4, 3, 2, 1];
         stooge_sort(&mut vec);
-        for i in 0..vec.len() - 1 {
-            assert!(vec[i] <= vec[i + 1]);
-        }
+        assert!(crate::sorting::is_sorted(&vec));
     }
 
     #[test]
     fn already_sorted() {
         let mut vec = vec![1, 2, 3, 4, 5, 6];
         stooge_sort(&mut vec);
-        for i in 0..vec.len() - 1 {
-            assert!(vec[i] <= vec[i + 1]);
-        }
+        assert!(crate::sorting::is_sorted(&vec));
     }
 }

@@ -36,9 +36,7 @@ mod tests {
         //descending
         let mut ve1 = vec![6, 5, 4, 3];
         bitonic_sort(&mut ve1, 0, 4, 1);
-        for i in 0..ve1.len() - 1 {
-            assert!(ve1[i] <= ve1[i + 1]);
-        }
+        assert!(is_sorted(ve1));
     }
 
     #[test]
@@ -46,8 +44,6 @@ mod tests {
         //pre-sorted
         let mut ve2 = vec![1, 2, 3, 4];
         bitonic_sort(&mut ve2, 0, 4, 0);
-        for i in 0..ve2.len() - 1 {
-            assert!(ve2[i] >= ve2[i + 1]);
-        }
+        assert!(is_sorted(ve2));
     }
 }

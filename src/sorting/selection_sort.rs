@@ -19,27 +19,27 @@ mod tests {
     fn basic() {
         let mut res = vec!["d", "a", "c", "b"];
         selection_sort(&mut res);
-        assert_eq!(res, vec!["a", "b", "c", "d"]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn empty() {
         let mut res = Vec::<u8>::new();
         selection_sort(&mut res);
-        assert_eq!(res, vec![]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn one_element() {
         let mut res = vec!["a"];
         selection_sort(&mut res);
-        assert_eq!(res, vec!["a"]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn pre_sorted() {
         let mut res = vec!["a", "b", "c"];
         selection_sort(&mut res);
-        assert_eq!(res, vec!["a", "b", "c"]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 }

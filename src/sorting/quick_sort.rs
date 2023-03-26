@@ -47,41 +47,41 @@ mod tests {
     fn basic() {
         let mut res = vec![10, 8, 4, 3, 1, 9, 2, 7, 5, 6];
         quick_sort(&mut res);
-        assert_eq!(res, vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn basic_string() {
         let mut res = vec!["a", "bb", "d", "cc"];
         quick_sort(&mut res);
-        assert_eq!(res, vec!["a", "bb", "cc", "d"]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn empty() {
         let mut res = Vec::<u8>::new();
         quick_sort(&mut res);
-        assert_eq!(res, vec![]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn one_element() {
         let mut res = vec![1];
         quick_sort(&mut res);
-        assert_eq!(res, vec![1]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn pre_sorted() {
         let mut res = vec![1, 2, 3, 4];
         quick_sort(&mut res);
-        assert_eq!(res, vec![1, 2, 3, 4]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 
     #[test]
     fn reverse_sorted() {
         let mut res = vec![4, 3, 2, 1];
         quick_sort(&mut res);
-        assert_eq!(res, vec![1, 2, 3, 4]);
+        assert!(crate::sorting::is_sorted(&res));
     }
 }

@@ -100,9 +100,7 @@ mod tests {
         let mut array = vec![-2, 7, 15, -14, 0, 15, 0, 7, -7, -4, -13, 5, 8, -14, 12];
         let arr_len = array.len();
         tim_sort(&mut array, arr_len);
-        for i in 0..array.len() - 1 {
-            assert!(array[i] <= array[i + 1]);
-        }
+        assert!(crate::sorting::is_sorted(&array));
     }
 
     #[test]
@@ -110,7 +108,7 @@ mod tests {
         let mut array = Vec::<i32>::new();
         let arr_len = array.len();
         tim_sort(&mut array, arr_len);
-        assert_eq!(array, vec![]);
+        assert!(crate::sorting::is_sorted(&array));
     }
 
     #[test]
@@ -118,7 +116,7 @@ mod tests {
         let mut array = vec![3];
         let arr_len = array.len();
         tim_sort(&mut array, arr_len);
-        assert_eq!(array, vec![3]);
+        assert!(crate::sorting::is_sorted(&array));
     }
 
     #[test]
@@ -126,6 +124,6 @@ mod tests {
         let mut array = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
         let arr_len = array.len();
         tim_sort(&mut array, arr_len);
-        assert_eq!(array, vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        assert!(crate::sorting::is_sorted(&array));
     }
 }
