@@ -1,3 +1,4 @@
+mod bead_sort;
 mod bogo_sort;
 mod bubble_sort;
 mod bucket_sort;
@@ -23,6 +24,7 @@ mod sleep_sort;
 mod stooge_sort;
 mod tim_sort;
 
+pub use self::bead_sort::bead_sort;
 pub use self::bogo_sort::bogo_sort;
 pub use self::bubble_sort::bubble_sort;
 pub use self::bucket_sort::bucket_sort;
