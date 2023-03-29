@@ -17,8 +17,8 @@ pub fn topological_sort<Node: Hash + Eq + Copy>(
     edges: &Vec<(Node, Node)>,
 ) -> TopologicalSortResult<Node> {
     // Preparation:
-    //  Build a map of edges, from source to destinations
-    //  As well as count the number of incoming edges by nodes
+    //  Build a map of edges, organised from source to destinations
+    //  Also, count the number of incoming edges by node
     let mut edges_by_source: HashMap<Node, Vec<Node>> = HashMap::default();
     let mut incoming_edges_count: HashMap<Node, usize> = HashMap::default();
     for (source, destination) in edges {
