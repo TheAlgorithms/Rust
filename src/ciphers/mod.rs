@@ -1,6 +1,7 @@
 mod aes;
 mod another_rot13;
 mod base64;
+mod blake2b;
 mod caesar;
 mod chacha;
 mod diffie_hellman;
@@ -21,6 +22,7 @@ mod xor;
 pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
 pub use self::another_rot13::another_rot13;
 pub use self::base64::{base64_decode, base64_encode};
+pub use self::blake2b::blake2b;
 pub use self::caesar::caesar;
 pub use self::chacha::chacha20;
 pub use self::diffie_hellman::DiffieHellman;
