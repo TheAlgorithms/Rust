@@ -5,6 +5,7 @@ mod fenwick_tree;
 mod graph;
 mod heap;
 mod linked_list;
+pub mod probabilistic;
 mod queue;
 mod rb_tree;
 mod segment_tree;
