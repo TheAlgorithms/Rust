@@ -1,4 +1,4 @@
-use std::collections::hash_map::{RandomState};
+use std::collections::hash_map::RandomState;
 use std::fmt::{Debug, Formatter};
 use std::hash::{BuildHasher, Hash, Hasher};
 
@@ -102,11 +102,11 @@ impl<Item: Hash, const WIDTH: usize, const DEPTH: usize> Debug
     }
 }
 
-impl<T: Hash, const WIDTH: usize, const DEPTH: usize> Default for HashCountMinSketch<T, WIDTH, DEPTH> {
+impl<T: Hash, const WIDTH: usize, const DEPTH: usize> Default
+    for HashCountMinSketch<T, WIDTH, DEPTH>
+{
     fn default() -> Self {
-        let hashers = std::array::from_fn(|_| {
-            RandomState::new()
-        });
+        let hashers = std::array::from_fn(|_| RandomState::new());
 
         Self {
             phantom: Default::default(),
@@ -153,11 +153,11 @@ impl<Item: Hash, const WIDTH: usize, const DEPTH: usize> CountMinSketch
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
-    use quickcheck::{Arbitrary, Gen};
     use crate::data_structures::probabilistic::count_min_sketch::{
         CountMinSketch, HashCountMinSketch,
     };
+    use quickcheck::{Arbitrary, Gen};
+    use std::collections::HashSet;
 
     #[test]
     fn hash_functions_should_hash_differently() {
@@ -166,7 +166,8 @@ mod tests {
         // We want to check that our hash functions actually produce different results, so we'll store the indices where we encounter a count=1 in a set
         let mut indices_of_ones: HashSet<usize> = HashSet::default();
         for counts in sketch.counts {
-            let ones = counts.into_iter()
+            let ones = counts
+                .into_iter()
                 .enumerate()
                 .filter_map(|(idx, count)| (count == 1).then_some(idx))
                 .collect::<Vec<_>>();
@@ -217,10 +218,7 @@ mod tests {
                 str.push(char::arbitrary(g));
             }
             let count = usize::arbitrary(g) % MAX_COUNT;
-            TestItem {
-                item: str,
-                count,
-            }
+            TestItem { item: str, count }
         }
     }
 
@@ -230,17 +228,18 @@ mod tests {
         let n = test_items.len();
         let mut sketch: HashCountMinSketch<String, 50, 10> = HashCountMinSketch::default();
         let mut exact_count = 0;
-        for TestItem { item, count} in &test_items {
+        for TestItem { item, count } in &test_items {
             sketch.increment_by(item.clone(), *count);
         }
-        for TestItem { item, count} in test_items {
+        for TestItem { item, count } in test_items {
             let stored_count = sketch.get_count(item);
             assert!(stored_count >= count);
             if count == stored_count {
                 exact_count += 1;
             }
         }
-        if n > 20 { // if n is too short, the stat isn't really relevant
+        if n > 20 {
+            // if n is too short, the stat isn't really relevant
             let exact_ratio = exact_count as f64 / n as f64;
             assert!(exact_ratio > 0.7); // the proof is quite hard, but this should be OK
         }
