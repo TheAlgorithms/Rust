@@ -23,16 +23,19 @@ pub trait CountMinSketch {
 }
 
 /// The common implementation of a CountMinSketch
-/// Holding a matrix DEPTH x WIDTH matrix of counts
+/// Holding a DEPTH x WIDTH matrix of counts
 ///
 /// The idea behind the implementation is the following:
 /// Let's start from our problem statement above. We have a frequency map of counts, and want to go reduce its space complexity
 /// The immediate way to do this would be to use a Vector with a fixed size, let this size be `WIDTH`
 /// We will be holding the count of each item `item` in the Vector, at index `i = hash(item) % WIDTH` where `hash` is a hash function: `item -> usize`
-/// We now have constant space. The problem though is that we'll potentially have a lot of collisions.
-/// Taking an extreme example, if `WIDTH = 1`, all item will have the same count, which is the sum of counts of every items
+/// We now have constant space.
+///
+/// The problem though is that we'll potentially run into a lot of collisions.
+/// Taking an extreme example, if `WIDTH = 1`, all items will have the same count, which is the sum of counts of every items
 /// We could reduce the amount of collisions by using a bigger `WIDTH` but this wouldn't be way more efficient than the "big" frequency map
 /// How do we improve the solution, but still keeping constant space?
+///
 /// The idea is to use not just one vector, but multiple (`DEPTH`) ones and attach different `hash` functions to each vector
 /// This would lead to the following data structure:
 ///             <- WIDTH = 5 ->
@@ -81,9 +84,10 @@ pub trait CountMinSketch {
 ///  7   hash7: [2, 0, 0, 0, 0]
 ///
 /// We actually can witness some collisions (invalid counts of `2` above in some rows).
-/// This means that if we have to return the count for "TEST", we'd actually fetch counts from every row and return the minimum
-/// This could potentially be overestimated if we have a huge number of entries and a lot of collisions,
-/// But an interesting property is that this cannot be underestimated
+/// This means that if we have to return the count for "TEST", we'd actually fetch counts from every row and return the minimum value
+///
+/// This could potentially be overestimated if we have a huge number of entries and a lot of collisions.
+/// But an interesting property is that the count we return for "TEST" cannot be underestimated
 pub struct HashCountMinSketch<Item: Hash, const WIDTH: usize, const DEPTH: usize> {
     phantom: std::marker::PhantomData<Item>, // just a marker for Item to be used
     counts: [[usize; WIDTH]; DEPTH],
