@@ -104,6 +104,13 @@ impl MultiBinaryBloomFilter {
             hash_builders: vec![RandomState::new(); hash_count],
         }
     }
+
+    pub fn from_estimate(estimated_count_of_items: usize, max_false_positive_probability: f64) -> Self {
+        // Check Wikipedia for these formulae
+        let optimal_filter_size = (-(estimated_count_of_items as f64) * max_false_positive_probability.ln() / (2.0_f64.ln().powi(2))).ceil() as usize;
+        let optimal_hash_count = ((optimal_filter_size as f64 / estimated_count_of_items as f64) * 2.0_f64.ln()).ceil() as usize;
+        Self::with_dimensions(optimal_filter_size, optimal_hash_count)
+    }
 }
 
 impl <Item: Hash> BloomFilter<Item> for MultiBinaryBloomFilter {
@@ -214,9 +221,7 @@ mod tests {
             return;
         }
         // See Wikipedia for those formula
-        let optimal_filter_size = (-(n as f64) * FALSE_POSITIVE_MAX.ln() / (2.0_f64.ln().powi(2))).ceil() as usize;
-        let optimal_hash_count = ((optimal_filter_size as f64 / n as f64) * 2.0_f64.ln()).ceil() as usize;
-        let mut binary_filter = MultiBinaryBloomFilter::with_dimensions(optimal_filter_size, optimal_hash_count);
+        let mut binary_filter = MultiBinaryBloomFilter::from_estimate(n, FALSE_POSITIVE_MAX);
         for item in &to_insert {
             binary_filter.insert(*item);
         }
