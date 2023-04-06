@@ -22,13 +22,13 @@ trait BloomFilter<Item: Hash> {
 /// If it's `true` the item may be present, or maybe another one produces the same hash
 #[derive(Debug)]
 struct BasicBloomFilter<const CAPACITY: usize> {
-    vec: [bool;CAPACITY],
+    vec: [bool; CAPACITY],
 }
 
-impl <const CAPACITY: usize> Default for BasicBloomFilter<CAPACITY> {
+impl<const CAPACITY: usize> Default for BasicBloomFilter<CAPACITY> {
     fn default() -> Self {
         Self {
-            vec: [false; CAPACITY]
+            vec: [false; CAPACITY],
         }
     }
 }
@@ -78,7 +78,6 @@ impl<T: Hash> BloomFilter<T> for SingleBinaryBloomFilter {
     }
 }
 
-
 /// We may have made some progress in term of CPU efficiency, using binary operators
 /// But we might still run into a lot of collisions with our 128-bits number, and also, we are limited to 128 bits
 /// The first thing could be to use an array, but instead of using bools we could use bytes.
@@ -92,7 +91,7 @@ impl<T: Hash> BloomFilter<T> for SingleBinaryBloomFilter {
 pub struct MultiBinaryBloomFilter {
     filter_size: usize,
     bytes: Vec<u8>,
-    hash_builders: Vec<RandomState>
+    hash_builders: Vec<RandomState>,
 }
 
 impl MultiBinaryBloomFilter {
@@ -105,15 +104,23 @@ impl MultiBinaryBloomFilter {
         }
     }
 
-    pub fn from_estimate(estimated_count_of_items: usize, max_false_positive_probability: f64) -> Self {
+    pub fn from_estimate(
+        estimated_count_of_items: usize,
+        max_false_positive_probability: f64,
+    ) -> Self {
         // Check Wikipedia for these formulae
-        let optimal_filter_size = (-(estimated_count_of_items as f64) * max_false_positive_probability.ln() / (2.0_f64.ln().powi(2))).ceil() as usize;
-        let optimal_hash_count = ((optimal_filter_size as f64 / estimated_count_of_items as f64) * 2.0_f64.ln()).ceil() as usize;
+        let optimal_filter_size = (-(estimated_count_of_items as f64)
+            * max_false_positive_probability.ln()
+            / (2.0_f64.ln().powi(2)))
+        .ceil() as usize;
+        let optimal_hash_count = ((optimal_filter_size as f64 / estimated_count_of_items as f64)
+            * 2.0_f64.ln())
+        .ceil() as usize;
         Self::with_dimensions(optimal_filter_size, optimal_hash_count)
     }
 }
 
-impl <Item: Hash> BloomFilter<Item> for MultiBinaryBloomFilter {
+impl<Item: Hash> BloomFilter<Item> for MultiBinaryBloomFilter {
     fn insert(&mut self, item: Item) {
         for builder in &self.hash_builders {
             let mut hasher = builder.build_hasher();
@@ -142,18 +149,19 @@ impl <Item: Hash> BloomFilter<Item> for MultiBinaryBloomFilter {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
+    use crate::data_structures::probabilistic::bloom_filters::{
+        BasicBloomFilter, BloomFilter, MultiBinaryBloomFilter, SingleBinaryBloomFilter,
+    };
     use quickcheck::{Arbitrary, Gen};
     use quickcheck_macros::quickcheck;
-    use crate::data_structures::probabilistic::bloom_filters::{BasicBloomFilter, SingleBinaryBloomFilter, BloomFilter, MultiBinaryBloomFilter};
+    use std::collections::HashSet;
 
     #[derive(Debug, Clone)]
     struct TestSet {
         to_insert: HashSet<i32>,
-        to_test: Vec<i32>
+        to_test: Vec<i32>,
     }
 
     impl Arbitrary for TestSet {
@@ -199,7 +207,9 @@ mod tests {
     }
 
     #[quickcheck]
-    fn a_basic_filter_of_capacity_128_is_the_same_as_a_binary_filter(TestSet { to_insert, to_test }: TestSet) {
+    fn a_basic_filter_of_capacity_128_is_the_same_as_a_binary_filter(
+        TestSet { to_insert, to_test }: TestSet,
+    ) {
         let mut basic_filter = BasicBloomFilter::<128>::default(); // change 32 to anything else here, and the test won't pass
         let mut binary_filter = SingleBinaryBloomFilter::default();
         for item in &to_insert {
@@ -208,16 +218,22 @@ mod tests {
         }
         for other in to_test {
             // Since we use the same DefaultHasher::new(), and both have size 32, we should have exactly the same results
-            assert_eq!(basic_filter.contains(&other), binary_filter.contains(&other));
+            assert_eq!(
+                basic_filter.contains(&other),
+                binary_filter.contains(&other)
+            );
         }
     }
 
     const FALSE_POSITIVE_MAX: f64 = 0.05;
 
     #[quickcheck]
-    fn a_multi_binary_bloom_filter_must_not_return_false_negatives(TestSet { to_insert, to_test }: TestSet) {
+    fn a_multi_binary_bloom_filter_must_not_return_false_negatives(
+        TestSet { to_insert, to_test }: TestSet,
+    ) {
         let n = to_insert.len();
-        if n ==0 { // avoid dividing by 0 when adjusting the size
+        if n == 0 {
+            // avoid dividing by 0 when adjusting the size
             return;
         }
         // See Wikipedia for those formula
@@ -238,5 +254,4 @@ mod tests {
         let fp_rate = false_positives as f64 / tests as f64;
         assert!(fp_rate < 1.0); // This isn't really a test, but so that you have the `fp_rate` variable to print out, or evaluate
     }
-
 }
