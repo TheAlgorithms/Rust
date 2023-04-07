@@ -34,7 +34,7 @@ where
         }
     }
 
-    /// Find a value in this tree. Returns True iff value is in this
+    /// Find a value in this tree. Returns True if value is in this
     /// tree, and false otherwise
     pub fn search(&self, value: &T) -> bool {
         match &self.value {
