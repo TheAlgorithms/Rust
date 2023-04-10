@@ -50,19 +50,15 @@ pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
     let mut prev_dist: Vec<usize> = (0..=l1).collect();
 
     for (row, c2) in string2.chars().enumerate() {
-        // row starts at 0
-        let mut prev_substitution_cost = prev_dist[0]; // we'll keep a reference to cell (i-1, j-1)
+        let mut prev_substitution_cost = prev_dist[0]; // we'll keep a reference to matrix[i-1][j-1] (top-left cell)
         prev_dist[0] = row + 1; // diff with empty string, since `row` starts at 0, it's `row + 1`
 
         for (col, c1) in string1.chars().enumerate() {
-            // col starts at 0
             let deletion_cost = prev_dist[col] + 1; // "on the left" in the matrix (i.e. the value we just computed)
             let insertion_cost = prev_dist[col + 1] + 1; // "on the top" in the matrix (means previous)
             let substitution_cost = prev_substitution_cost + usize::from(c1 != c2); // top-left + 1 if char differs, 0 otherwise
 
             prev_substitution_cost = prev_dist[col + 1]; // save the old value at (i-1, j-1)
-
-            // compute the minimum (uses a custom `min3` function for more readability)
             prev_dist[col + 1] = min3(deletion_cost, insertion_cost, substitution_cost);
         }
     }
