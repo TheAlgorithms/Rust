@@ -1,5 +1,4 @@
 mod coin_change;
-mod edit_distance;
 mod egg_dropping;
 mod fibonacci;
 mod fractional_knapsack;
@@ -16,7 +15,6 @@ mod snail;
 mod subset_generation;
 
 pub use self::coin_change::coin_change;
-pub use self::edit_distance::{edit_distance, edit_distance_se};
 pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::classical_fibonacci;
 pub use self::fibonacci::fibonacci;
