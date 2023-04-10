@@ -1,52 +1,37 @@
 use std::cmp::min;
 
-// Let's imagine the distance between FROG and DOG (string1 = "FROG", string2 = "DOG")
-// The distance would be 2: Keep 'OG', remove F, and substitute 'R' for a 'D'
-//
-// In order to compute the distance, we are going to build the following matrix:
-//     |  ∅  |  F  |  R  |  O  |  G  |
-//  ∅  |  0  |  1  |  2  |  3  |  4  |
-//  D  |  1  |     |     |     |     |
-//  O  |  2  |     |     |     |     |
-//  G  |  3  |     |     |     |     |
-// Where:
-//  * ∅ indicates an empty String
-//  * each cell (i, j) in the matrix indicates the minimum distance between substrings string1[0..=j] and string2[0..=i]
-//      * (but considering we start with empty strings)
-// Above, we have filled the defaults:
-//   -> The distance between any string and an empty string is the string length
-// For example: the distance between String "F" and an empty String is 1, dist("FR", ∅) = 2, etc.
-// In the same fashion, vertically: dist("DOG", ∅) is 3
-// What we are interested in, is the last value at the bottom right of the matrix, which indicates dist("FROG", "DOG")
-//
-// How do we compute each cell in the matrix?
-//  -> Let's do this top-to-bottom, left-to-right
-// At each step we can either:
-//      * insert a char
-//      * delete a char
-//      * substitute a char
-// Say we're evaluating cell at index `(3, 2)` <=> `dist("FR", "DOG")`
-//  * "Inserting one char" means incrementing by one `dist("F", "DOG")` (cell at index: `(3, 1)`)
-//  * "Deleting one char" means incrementing by one `dist("FR", "DO")` (cell at index: `(2, 2)`)
-//  * "Substituting one char" means incrementing by one `dist("F", "DO")` (cell at index: `(2, 1)` if and only if chars differ (here 'R' != 'G'), otherwise we can just keep that distance
-// This would give the following:
-//     |  ∅  |  F  |  R  |  O  |  G  |
-//  ∅  |  0  |  1  |  2  |  3  |  4  |
-//  D  |  1  |  1  |  2  |  3  |  4  |
-//  O  |  2  |  2  |  2  |  2  |  3  |
-//  G  |  3  |  3  |  3  |  3  |  2  |
-//
-// This means when we evaluate a cell we only need the current row (the previous value), and the previous row.
-// We therefore don't need to keep the full matrix in memory, but only previous row
+/// The Levenshtein distance (or edit distance) between 2 strings
+/// This edit distance is defined as being 1 point per insertion,
+/// substitution, or deletion which must be made to make the strings equal.
+///
+/// This function iterates over the bytes in the string, so it may not behave
+/// entirely as expected for non-ASCII strings.
+///
+/// For a detailed explanation, check the example on Wikipedia: https://en.wikipedia.org/wiki/Levenshtein_distance
+/// (see the examples with the matrices, for instance between KITTEN and SITTING)
+/// Note that although we compute a matrix, left-to-right, top-to-bottom, at each step all we need to compute cell[i][j] is:
+///     * cell[i][j-1]
+///     * cell[i-j][j]
+///     * cell[i-i][j-1]
+/// This can be achieved by only using one "rolling" row and one additional variable, when computed cell[i][j] (or row[i]):
+///     * cell[i][j-1] is the value to the left, on the same row (the one we just computed, row[i-1])
+///     * cell[i-1][j] is the value at row[i], the one we're changing
+///     * cell[i-1][j-1] was the value at row[i-1] before we changed it, for that we'll use a variable
+/// Doing this reduces space complexity from O(nm) to O(n)
+///
+/// Second note: if we want to minimize space, since we're now O(n) make sure you use the shortest string horizontally, and the longest vertically
+///
+/// # Complexity
+///
+/// - time complexity: O(nm),
+/// - space complexity: O(n),
+///
+/// where n and m are lengths of `str_a` and `str_b`
 pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
     if string1.is_empty() {
         return string2.len();
     }
     let l1 = string1.len();
-
-    // Let's start by building the first row, in the example:
-    //     |  ∅  |  F  |  R  |  O  |  G  |
-    //  ∅  |  0  |  1  |  2  |  3  |  4  |
     let mut prev_dist: Vec<usize> = (0..=l1).collect();
 
     for (row, c2) in string2.chars().enumerate() {
