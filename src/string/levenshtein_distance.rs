@@ -118,7 +118,6 @@ mod levenshtein_distance_should {
         assert_eq!(3, levenshtein_distance("winner", "win"));
     }
 
-
     #[test]
     fn equal_strings() {
         assert_eq!(0, levenshtein_distance("Hello, world!", "Hello, world!"));
@@ -146,8 +145,6 @@ mod levenshtein_distance_should {
         assert_eq!(7, levenshtein_distance("Hello, world!", "Goodbye, world!"));
         assert_eq!(6, levenshtein_distance("Test_Case_#3", "Case #3"));
     }
-
-
 }
 
 fn min3(a: usize, b: usize, c: usize) -> usize {
