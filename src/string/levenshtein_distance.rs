@@ -56,7 +56,11 @@ pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
         for (col, c1) in string1.chars().enumerate() {
             let deletion_cost = prev_dist[col] + 1; // "on the left" in the matrix (i.e. the value we just computed)
             let insertion_cost = prev_dist[col + 1] + 1; // "on the top" in the matrix (means previous)
-            let substitution_cost = prev_substitution_cost + usize::from(c1 != c2); // top-left + 1 if char differs, 0 otherwise
+            let substitution_cost = if c1 == c2 {
+                prev_substitution_cost // last char is the same on both ends, so the min_distance is left unchanged from matrix[i-1][i+1]
+            } else {
+                prev_substitution_cost + 1 // substitute the last character
+            };
 
             prev_substitution_cost = prev_dist[col + 1]; // save the old value at (i-1, j-1)
             prev_dist[col + 1] = min3(deletion_cost, insertion_cost, substitution_cost);
