@@ -58,9 +58,8 @@ use std::cmp;
 #[cfg(test)]
 pub fn have_same_elements<T>(a: &[T], b: &[T]) -> bool
 where
-    T: cmp::PartialOrd
-    // If HashSet is used
-    // T: cmp::PartialOrd + cmp::Eq + std::hash::Hash
+    T: cmp::PartialOrd, // If HashSet is used
+                        // T: cmp::PartialOrd + cmp::Eq + std::hash::Hash
 {
     match a.len() == b.len() {
         true => {
@@ -71,13 +70,10 @@ where
             // let set_a: HashSet<&T> = a.iter().collect();
             // let set_b: HashSet<&T> = b.iter().collect();
             // set_a == set_b
-        },
-        false => {
-            false
-        },
+        }
+        false => false,
     }
 }
-
 
 #[cfg(test)]
 pub fn is_sorted<T>(arr: &[T]) -> bool
