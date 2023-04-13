@@ -35,15 +35,17 @@ mod tests {
     fn descending() {
         //descending
         let mut ve1 = vec![6, 5, 4, 3];
+        let cloned = ve1.clone();
         bitonic_sort(&mut ve1, 0, 4, 1);
-        assert!(is_sorted(ve1));
+        assert!(is_sorted(&ve1) && have_same_elements(&ve1, &cloned));
     }
 
     #[test]
     fn ascending() {
         //pre-sorted
         let mut ve2 = vec![1, 2, 3, 4];
+        let cloned = ve2.clone();
         bitonic_sort(&mut ve2, 0, 4, 0);
-        assert!(is_sorted(ve2));
+        assert!(is_sorted(&ve2) && have_same_elements(&ve2, &cloned));
     }
 }

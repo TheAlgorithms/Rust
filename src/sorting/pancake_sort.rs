@@ -31,30 +31,30 @@ mod tests {
     #[test]
     fn basic() {
         let res = pancake_sort(&mut [6, 5, -8, 3, 2, 3]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, vec![-8, 2, 3, 3, 5, 6]);
     }
 
     #[test]
     fn already_sorted() {
         let res = pancake_sort(&mut ["a", "b", "c"]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, vec!["a", "b", "c"]);
     }
 
     #[test]
     fn odd_number_of_elements() {
         let res = pancake_sort(&mut ["d", "a", "c", "e", "b"]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, vec!["a", "b", "c", "d", "e"]);
     }
 
     #[test]
     fn one_element() {
         let res = pancake_sort(&mut [3]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, vec![3]);
     }
 
     #[test]
     fn empty() {
         let res = pancake_sort(&mut [] as &mut [u8]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, vec![]);
     }
 }

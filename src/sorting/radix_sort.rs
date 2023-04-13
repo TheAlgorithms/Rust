@@ -36,27 +36,31 @@ pub fn radix_sort(arr: &mut [u64]) {
 
 #[cfg(test)]
 mod tests {
-    use super::super::is_sorted;
     use super::radix_sort;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_sorted;
 
     #[test]
     fn empty() {
         let mut a: [u64; 0] = [];
+        let cloned = a.clone();
         radix_sort(&mut a);
-        assert!(is_sorted(&a));
+        assert!(is_sorted(&a) && have_same_elements(&a, &cloned));
     }
 
     #[test]
     fn descending() {
         let mut v = vec![201, 127, 64, 37, 24, 4, 1];
+        let cloned = v.clone();
         radix_sort(&mut v);
-        assert!(is_sorted(&v));
+        assert!(is_sorted(&v) && have_same_elements(&v, &cloned));
     }
 
     #[test]
     fn ascending() {
         let mut v = vec![1, 4, 24, 37, 64, 127, 201];
+        let cloned = v.clone();
         radix_sort(&mut v);
-        assert!(is_sorted(&v));
+        assert!(is_sorted(&v) && have_same_elements(&v, &cloned));
     }
 }

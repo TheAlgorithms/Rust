@@ -29,42 +29,42 @@ mod tests {
     #[test]
     fn empty() {
         let res = sleep_sort(&[]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, &[]);
     }
 
     #[test]
     fn single_element() {
         let res = sleep_sort(&[1]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, &[1]);
     }
 
     #[test]
     fn sorted_array() {
         let res = sleep_sort(&[1, 2, 3, 4]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, &[1, 2, 3, 4]);
     }
 
     #[test]
     fn unsorted_array() {
         let res = sleep_sort(&[3, 4, 2, 1]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, &[1, 2, 3, 4]);
     }
 
     #[test]
     fn odd_number_of_elements() {
         let res = sleep_sort(&[3, 1, 7]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, &[1, 3, 7]);
     }
 
     #[test]
     fn repeated_elements() {
         let res = sleep_sort(&[1, 1, 1, 1]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, &[1, 1, 1, 1]);
     }
 
     #[test]
     fn random_elements() {
         let res = sleep_sort(&[5, 3, 7, 10, 1, 0, 8]);
-        assert!(crate::sorting::is_sorted(&res));
+        assert_eq!(res, &[0, 1, 3, 5, 7, 8, 10]);
     }
 }

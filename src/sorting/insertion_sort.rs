@@ -18,48 +18,55 @@ pub fn insertion_sort<T: Ord + Copy>(arr: &mut [T]) {
 
 #[cfg(test)]
 mod tests {
-    use super::super::is_sorted;
     use super::*;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_sorted;
 
     #[test]
     fn empty() {
         let mut arr: [u8; 0] = [];
+        let cloned = arr.clone();
         insertion_sort(&mut arr);
-        assert!(is_sorted(&arr));
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn one_element() {
         let mut arr: [char; 1] = ['a'];
+        let cloned = arr.clone();
         insertion_sort(&mut arr);
-        assert!(is_sorted(&arr));
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn already_sorted() {
         let mut arr: [&str; 3] = ["a", "b", "c"];
+        let cloned = arr.clone();
         insertion_sort(&mut arr);
-        assert!(is_sorted(&arr));
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn basic() {
         let mut arr: [&str; 4] = ["d", "a", "c", "b"];
+        let cloned = arr.clone();
         insertion_sort(&mut arr);
-        assert!(is_sorted(&arr));
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn odd_number_of_elements() {
         let mut arr: Vec<&str> = vec!["d", "a", "c", "e", "b"];
+        let cloned = arr.clone();
         insertion_sort(&mut arr);
-        assert!(is_sorted(&arr));
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn repeated_elements() {
         let mut arr: Vec<usize> = vec![542, 542, 542, 542];
+        let cloned = arr.clone();
         insertion_sort(&mut arr);
-        assert!(is_sorted(&arr));
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 }
