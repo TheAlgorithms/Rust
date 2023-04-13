@@ -4,7 +4,8 @@ use std::ops::Range;
 
 /// This data structure implements a segment-tree that can efficiently answer range (interval) queries on arrays.
 /// It represents this array as a binary tree of merged intervals. From top to bottom: [aggregated value for the overall array], then [left-hand half, right hand half], etc. until [each individual value, ...]
-/// It is generic over a reduction function for each segment or interval: basically, to describe how we merge two intervals together
+/// It is generic over a reduction function for each segment or interval: basically, to describe how we merge two intervals together.
+/// Note that this function should be commutative and associative
 ///     It could be `std::cmp::min(interval_1, interval_2)` or `std::cmp::max(interval_1, interval_2)`, or `|a, b| a + b`, `|a, b| a * b`
 pub struct SegmentTree<T: Debug + Default + Ord + Copy> {
     len: usize,           // length of the represented
