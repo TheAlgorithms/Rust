@@ -52,8 +52,24 @@ pub use self::sleep_sort::sleep_sort;
 pub use self::stooge_sort::stooge_sort;
 pub use self::tim_sort::tim_sort;
 
+#[cfg(test)]
+use std::collections::HashSet;
+
+#[cfg(test)]
 use std::cmp;
 
+#[cfg(test)]
+pub fn have_same_elements<T>(a: &[T], b: &[T]) -> bool
+where
+    T: cmp::PartialOrd + cmp::Eq + std::hash::Hash
+{
+    let set_a: HashSet<&T> = a.iter().collect();
+    let set_b: HashSet<&T> = b.iter().collect();
+    set_a == set_b
+}
+
+
+#[cfg(test)]
 pub fn is_sorted<T>(arr: &[T]) -> bool
 where
     T: cmp::PartialOrd,
