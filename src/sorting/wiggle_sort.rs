@@ -6,14 +6,14 @@
 //one possible Wiggle Sorted answer is [3, 5, 1, 6, 2, 4].
 
 pub fn wiggle_sort(nums: Vec<i32>) -> Vec<i32> {
-//Rust implementation of wiggle.
-//    Example:
-//    >>> wiggle_sort([0, 5, 3, 2, 2])
-//    [0, 5, 2, 3, 2]
-//    >>> wiggle_sort([])
-//    []
-//    >>> wiggle_sort([-2, -5, -45])
-//    [-45, -2, -5]
+    //Rust implementation of wiggle.
+    //    Example:
+    //    >>> wiggle_sort([0, 5, 3, 2, 2])
+    //    [0, 5, 2, 3, 2]
+    //    >>> wiggle_sort([])
+    //    []
+    //    >>> wiggle_sort([-2, -5, -45])
+    //    [-45, -2, -5]
 
     let len = nums.len();
     let mut p = nums;
@@ -25,30 +25,35 @@ pub fn wiggle_sort(nums: Vec<i32>) -> Vec<i32> {
             p[i] = num_x;
         }
     }
-    return p
+    return p;
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_sorted;
     #[test]
     fn wingle_elements() {
         let arr = vec![3, 5, 2, 1, 6, 4];
-        let res = wiggle_sort(arr.clone());
-        assert_eq!(res, [3, 5, 1, 6, 2, 4]);
+        let cloned = arr.clone();
+        let res = wiggle_sort(cloned);
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
-    
+
     #[test]
     fn odd_number_of_elements() {
         let arr = vec![4, 1, 3, 5, 2];
-        let res = wiggle_sort(arr.clone());
-        assert_eq!(res, [1, 4, 3, 5, 2]);
+        let cloned = arr.clone();
+        let res = wiggle_sort(cloned);
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn repeated_elements() {
         let arr = vec![5, 5, 5, 5];
-        let res = wiggle_sort(arr.clone());
-        assert_eq!(res, [5, 5, 5, 5]);
+        let cloned = arr.clone();
+        let res = wiggle_sort(cloned);
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 }
