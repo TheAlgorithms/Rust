@@ -94,46 +94,54 @@ fn move_down<T: Ord>(arr: &mut [T], mut root: usize) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_sorted;
 
     #[test]
     fn empty() {
         let mut arr: Vec<i32> = Vec::new();
+        let cloned = arr.clone();
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[]);
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn single_element() {
         let mut arr = vec![1];
+        let cloned = arr.clone();
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1]);
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn sorted_array() {
         let mut arr = vec![1, 2, 3, 4];
+        let cloned = arr.clone();
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1, 2, 3, 4]);
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn unsorted_array() {
         let mut arr = vec![3, 4, 2, 1];
+        let cloned = arr.clone();
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1, 2, 3, 4]);
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn odd_number_of_elements() {
         let mut arr = vec![3, 4, 2, 1, 7];
+        let cloned = arr.clone();
         heap_sort(&mut arr);
-        assert_eq!(&arr, &[1, 2, 3, 4, 7]);
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 
     #[test]
     fn repeated_elements() {
         let mut arr = vec![542, 542, 542, 542];
+        let cloned = arr.clone();
         heap_sort(&mut arr);
-        assert_eq!(&arr, &vec![542, 542, 542, 542]);
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
 }
