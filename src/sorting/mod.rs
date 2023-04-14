@@ -60,7 +60,7 @@ pub fn have_same_elements<T>(a: &[T], b: &[T]) -> bool
 where
     // T: cmp::PartialOrd,
     // If HashSet is used
-    T: cmp::PartialOrd + cmp::Eq + std::hash::Hash
+    T: cmp::PartialOrd + cmp::Eq + std::hash::Hash,
 {
     use std::collections::HashSet;
 
