@@ -43,7 +43,7 @@ mod tests {
     fn descending() {
         //descending
         let mut ve1: [usize; 5] = [5, 4, 3, 2, 1];
-        let cloned = ve1.clone();
+        let cloned = ve1;
         bead_sort(&mut ve1);
         assert!(is_sorted(&ve1) && have_same_elements(&ve1, &cloned));
     }
@@ -52,7 +52,7 @@ mod tests {
     fn mix_values() {
         //pre-sorted
         let mut ve2: [usize; 5] = [7, 9, 6, 2, 3];
-        let cloned = ve2.clone();
+        let cloned = ve2;
         bead_sort(&mut ve2);
         assert!(is_sorted(&ve2) && have_same_elements(&ve2, &cloned));
     }

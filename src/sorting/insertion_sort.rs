@@ -25,7 +25,7 @@ mod tests {
     #[test]
     fn empty() {
         let mut arr: [u8; 0] = [];
-        let cloned = arr.clone();
+        let cloned = arr;
         insertion_sort(&mut arr);
         assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
@@ -33,7 +33,7 @@ mod tests {
     #[test]
     fn one_element() {
         let mut arr: [char; 1] = ['a'];
-        let cloned = arr.clone();
+        let cloned = arr;
         insertion_sort(&mut arr);
         assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
@@ -41,7 +41,7 @@ mod tests {
     #[test]
     fn already_sorted() {
         let mut arr: [&str; 3] = ["a", "b", "c"];
-        let cloned = arr.clone();
+        let cloned = arr;
         insertion_sort(&mut arr);
         assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }
@@ -49,7 +49,7 @@ mod tests {
     #[test]
     fn basic() {
         let mut arr: [&str; 4] = ["d", "a", "c", "b"];
-        let cloned = arr.clone();
+        let cloned = arr;
         insertion_sort(&mut arr);
         assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
     }

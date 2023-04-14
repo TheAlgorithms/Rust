@@ -43,7 +43,7 @@ mod tests {
     #[test]
     fn empty() {
         let mut a: [u64; 0] = [];
-        let cloned = a.clone();
+        let cloned = a;
         radix_sort(&mut a);
         assert!(is_sorted(&a) && have_same_elements(&a, &cloned));
     }

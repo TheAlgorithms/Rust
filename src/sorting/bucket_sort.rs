@@ -40,7 +40,7 @@ mod tests {
     #[test]
     fn empty() {
         let arr: [usize; 0] = [];
-        let cloned = arr.clone();
+        let cloned = arr;
         let res = bucket_sort(&arr);
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
@@ -48,15 +48,15 @@ mod tests {
     #[test]
     fn one_element() {
         let arr: [usize; 1] = [4];
-        let cloned = arr.clone();
+        let cloned = arr;
         let res = bucket_sort(&arr);
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn already_sorted() {
-        let arr: [usize; 3] = [10, 9, 105];
-        let cloned = arr.clone();
+        let arr: [usize; 3] = [10, 19, 105];
+        let cloned = arr;
         let res = bucket_sort(&arr);
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
@@ -64,7 +64,7 @@ mod tests {
     #[test]
     fn basic() {
         let arr: [usize; 4] = [35, 53, 1, 0];
-        let cloned = arr.clone();
+        let cloned = arr;
         let res = bucket_sort(&arr);
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
