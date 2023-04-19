@@ -5,7 +5,9 @@ mod huffman_encoding;
 mod kmeans;
 mod mex;
 mod nqueens;
+mod permutations;
 mod two_sum;
+
 pub use self::convex_hull::convex_hull_graham;
 pub use self::fisher_yates_shuffle::fisher_yates_shuffle;
 pub use self::hanoi::hanoi;

@@ -75,6 +75,8 @@
     * [Mex](https://github.com/TheAlgorithms/Rust/blob/master/src/general/mex.rs)
     * [Nqueens](https://github.com/TheAlgorithms/Rust/blob/master/src/general/nqueens.rs)
     * [Two Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/general/two_sum.rs)
+    * Permutations
+      * [Heap's algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/heap.rs)
   * Geometry
     * [Closest Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/closest_points.rs)
   * Graph
