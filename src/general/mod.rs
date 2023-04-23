@@ -17,4 +17,7 @@ pub use self::kmeans::f64::kmeans as kmeans_f64;
 pub use self::mex::mex_using_set;
 pub use self::mex::mex_using_sort;
 pub use self::nqueens::nqueens;
+pub use self::permutations::{
+    heap_permute, permute, permute_unique, steinhaus_johnson_trotter_permute,
+};
 pub use self::two_sum::two_sum;

@@ -76,7 +76,9 @@
     * [Nqueens](https://github.com/TheAlgorithms/Rust/blob/master/src/general/nqueens.rs)
     * [Two Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/general/two_sum.rs)
     * Permutations
+      * [Naive Implementation](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/naive.rs) 
       * [Heap's algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/heap.rs)
+      * [Steinhaus-Johnson-Trotter algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/steinhaus-johnson-trotter.rs)
   * Geometry
     * [Closest Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/closest_points.rs)
   * Graph

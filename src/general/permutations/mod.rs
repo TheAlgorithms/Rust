@@ -1,10 +1,27 @@
 mod heap;
+mod naive;
+mod steinhaus_johnson_trotter;
 
 pub use self::heap::heap_permute;
+pub use self::naive::{permute, permute_unique};
+pub use self::steinhaus_johnson_trotter::steinhaus_johnson_trotter_permute;
 
 #[cfg(test)]
 mod tests {
+    use quickcheck::{Arbitrary, Gen};
     use std::collections::HashMap;
+
+    pub(crate) fn assert_permutations(original: &[i32], permutations: &[Vec<i32>]) {
+        if original.is_empty() {
+            assert_eq!(vec![vec![] as Vec<i32>], permutations);
+            return;
+        }
+        let n = original.len();
+        assert_eq!((1..=n).product::<usize>(), permutations.len()); // n!
+        for permut in permutations {
+            assert_valid_permutation(original, permut);
+        }
+    }
 
     pub(crate) fn assert_valid_permutation(original: &[i32], permuted: &[i32]) {
         assert_eq!(original.len(), permuted.len());
@@ -31,10 +48,8 @@ mod tests {
     fn test_valid_permutations() {
         assert_valid_permutation(&[1, 2, 3], &[1, 2, 3]);
         assert_valid_permutation(&[1, 2, 3], &[1, 3, 2]);
-
         assert_valid_permutation(&[1, 2, 3], &[2, 1, 3]);
         assert_valid_permutation(&[1, 2, 3], &[2, 3, 1]);
-
         assert_valid_permutation(&[1, 2, 3], &[3, 1, 2]);
         assert_valid_permutation(&[1, 2, 3], &[3, 2, 1]);
     }
@@ -61,5 +76,21 @@ mod tests {
     #[should_panic]
     fn test_invalid_permutation_repeat() {
         assert_valid_permutation(&[1, 2, 3], &[1, 2, 2]);
+    }
+
+    /// A Data Structure for testing permutations
+    /// Holds a Vec<i32> with just a few items, so that it's not too long to compute permutations
+    #[derive(Debug, Clone)]
+    pub(crate) struct NotTooBigVec {
+        pub(crate) inner: Vec<i32>, // opaque type alias so that we can implement Arbitrary
+    }
+
+    const MAX_SIZE: usize = 8; // 8! ~= 40k permutations already
+    impl Arbitrary for NotTooBigVec {
+        fn arbitrary(g: &mut Gen) -> Self {
+            let size = usize::arbitrary(g) % MAX_SIZE;
+            let res = (0..size).map(|_| i32::arbitrary(g)).collect();
+            NotTooBigVec { inner: res }
+        }
     }
 }
