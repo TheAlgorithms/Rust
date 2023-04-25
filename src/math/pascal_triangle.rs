@@ -1,13 +1,14 @@
-/// ## Paslcal's triangle problem
-
-/// pascal_triangle(num_rows) returns the first num_rows of Pascal's triangle.
-/// About Pascal's triangle: https://en.wikipedia.org/wiki/Pascal%27s_triangle
+/// ## Pascal's triangle problem
 ///
-/// Arguments:
-///     * `num_rows` - number of rows of triangle
-/// Complexity
-///     - time complexity: O(n^2),
-///     - space complexity: O(n^2),
+/// pascal_triangle(num_rows) returns the first num_rows of Pascal's triangle.\
+/// About Pascal's triangle: <https://en.wikipedia.org/wiki/Pascal%27s_triangle>
+///
+/// # Arguments:
+///   * `num_rows`: number of rows of triangle
+///
+/// # Complexity
+///   - time complexity: O(n<sup>2</sup>),
+///   - space complexity: O(n<sup>2</sup>),
 pub fn pascal_triangle(num_rows: i32) -> Vec<Vec<i32>> {
     let mut ans: Vec<Vec<i32>> = vec![];
 
