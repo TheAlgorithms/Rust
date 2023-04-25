@@ -1,4 +1,4 @@
-// the public struct can hide the implementation detail
+// The public struct can hide the implementation detail
 pub struct Stack<T> {
     head: Link<T>,
 }
@@ -21,8 +21,8 @@ impl<T> Stack<T> {
         } // we need to return the variant, so there without the ;
     }
 
-    // As we know the primary forms that self can take: self, &mut self and &self, push will change the linked list
-    // so we need &mut
+    // Here are the primary forms that self can take are: self, &mut self and &self.
+    // Since push will modify the linked list, we need a mutable reference `&mut`.
     // The push method which the signature's first parameter is self
     pub fn push(&mut self, elem: T) {
         let new_node = Box::new(Node {
@@ -32,17 +32,17 @@ impl<T> Stack<T> {
         // don't forget replace the head with new node for stack
         self.head = Some(new_node);
     }
+
+    /// The pop function removes the head and returns its value.
     ///
-    /// In pop function, we trying to:
-    /// * check if the list is empty, so we use enum Option<T>, it can either be Some(T) or None
-    ///   * if it's empty, return None
-    ///   * if it's not empty
-    ///     * remove the head of the list
-    ///     * remove its elem
-    ///     * replace the list's head with its next
-    ///     * return Some(elem), as the situation if need
-    ///
-    /// so, we need to remove the head, and return the value of the head
+    /// To do so, we'll need to match the `head` of the list, which is of enum type `Option<T>`.\
+    /// It has two variants: `Some(T)` and `None`.
+    /// * `None` - the list is empty:
+    ///   * return an enum `Result` of variant `Err()`, as there is nothing to pop.
+    /// * `Some(node)` - the list is not empty:
+    ///   * remove the head of the list,
+    ///   * relink the list's head `head` to its following node `next`,
+    ///   * return `Ok(elem)`.
     pub fn pop(&mut self) -> Result<T, &str> {
         match self.head.take() {
             None => Err("Stack is empty"),
@@ -54,7 +54,7 @@ impl<T> Stack<T> {
     }
 
     pub fn is_empty(&self) -> bool {
-        // Returns true if the option is a [None] value.
+        // Returns true if head is of variant `None`.
         self.head.is_none()
     }
 
@@ -95,16 +95,17 @@ impl<T> Default for Stack<T> {
     }
 }
 
-/// The drop method of singly linked list. There's a question that do we need to worry about cleaning up our list?
-/// As we all know the ownership and borrow mechanism, so we know the type will clean automatically after it goes out the scope,
-/// this implement by the Rust compiler automatically did which mean add trait `drop` for the automatically.
+/// The drop method of singly linked list.
 ///
-/// So, the complier will implements Drop for `List->Link->Box<Node> ->Node` automatically and tail recursive to clean the elements
-/// one by one. And we know the recursive will stop at Box<Node>
-/// https://rust-unofficial.github.io/too-many-lists/first-drop.html
+/// Here's a question: *Do we need to worry about cleaning up our list?*\
+/// With the help of the ownership mechanism, the type `List` will be cleaned up automatically (dropped) after it goes out of scope.\
+/// The Rust Compiler does so automacally. In other words, the `Drop` trait is implemented automatically.\
 ///
-/// As we know we can't drop the contents of the Box after deallocating, so we need to manually write the iterative drop
-
+/// The `Drop` trait is implemented for our type `List` with the following order: `List->Link->Box<Node>->Node`.\
+/// The `.drop()` method is tail recursive and will clean the element one by one, this recursion will stop at `Box<Node>`\
+/// <https://rust-unofficial.github.io/too-many-lists/first-drop.html>
+///
+/// We wouldn't be able to drop the contents contained by the box after deallocating, so we need to manually write the iterative drop.
 impl<T> Drop for Stack<T> {
     fn drop(&mut self) {
         let mut cur_link = self.head.take();
@@ -117,7 +118,7 @@ impl<T> Drop for Stack<T> {
     }
 }
 
-/// Rust has nothing like a yield statement, and there's actually 3 different kinds of iterator should to implement
+// Rust has nothing like a yield statement, and there are actually 3 different iterator traits to be implemented
 
 // Collections are iterated in Rust using the Iterator trait, we define a struct implement Iterator
 pub struct IntoIter<T>(Stack<T>);
