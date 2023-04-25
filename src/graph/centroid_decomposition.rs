@@ -1,24 +1,22 @@
-/*
-Centroid Decomposition for a tree.
-
-Given a tree, it can be recursively decomposed into centroids. Then the
-parent of a centroid `c` is the previous centroid that splitted its connected
-component into two or more components. It can be shown that in such
-decomposition, for each path `p` with starting and ending vertices `u`, `v`,
-the lowest common ancestor of `u` and `v` in centroid tree is a vertex of `p`.
-
-The input tree should have its vertices numbered from 1 to n, and
-`graph_enumeration.rs` may help to convert other representations.
- */
-
 type Adj = [Vec<usize>];
 
 const IN_DECOMPOSITION: u64 = 1 << 63;
+
+/// Centroid Decomposition for a tree.
+///
+/// Given a tree, it can be recursively decomposed into centroids. Then the
+/// parent of a centroid `c` is the previous centroid that splitted its connected
+/// component into two or more components. It can be shown that in such
+/// decomposition, for each path `p` with starting and ending vertices `u`, `v`,
+/// the lowest common ancestor of `u` and `v` in centroid tree is a vertex of `p`.
+///
+/// The input tree should have its vertices numbered from 1 to n, and
+/// `graph_enumeration.rs` may help to convert other representations.
 pub struct CentroidDecomposition {
     /// The root of the centroid tree, should _not_ be set by the user
     pub root: usize,
-    /// The result. decomposition[`v`] is the parent of `v` in centroid tree.
-    /// decomposition[`root`] is 0
+    /// The result. `decomposition[v]` is the parent of `v` in centroid tree.
+    /// `decomposition[root]` is 0
     pub decomposition: Vec<usize>,
     /// Used internally to save the big_child of a vertex, and whether it has
     /// been added to the centroid tree.
