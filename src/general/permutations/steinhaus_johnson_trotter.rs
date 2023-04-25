@@ -1,4 +1,4 @@
-/// https://en.wikipedia.org/wiki/Steinhaus%E2%80%93Johnson%E2%80%93Trotter_algorithm
+/// <https://en.wikipedia.org/wiki/Steinhaus%E2%80%93Johnson%E2%80%93Trotter_algorithm>
 pub fn steinhaus_johnson_trotter_permute<T: Clone>(array: &[T]) -> Vec<Vec<T>> {
     let len = array.len();
     let mut array = array.to_owned();
