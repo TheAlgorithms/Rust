@@ -10,7 +10,7 @@ use std::cmp::min;
 ///   * `matrix` - an array of integer array
 ///
 /// # Complexity
-///   - time complexity: O(n<sup>2</sup>),
+///   - time complexity: O(n^2),
 ///   - space complexity: O(n),
 pub fn maximal_square(matrix: &mut [Vec<i32>]) -> i32 {
     if matrix.is_empty() {
