@@ -7,8 +7,8 @@
 ///   * `num_rows`: number of rows of triangle
 ///
 /// # Complexity
-///   - time complexity: O(n<sup>2</sup>),
-///   - space complexity: O(n<sup>2</sup>),
+///   - time complexity: O(n^2),
+///   - space complexity: O(n^2),
 pub fn pascal_triangle(num_rows: i32) -> Vec<Vec<i32>> {
     let mut ans: Vec<Vec<i32>> = vec![];
 
