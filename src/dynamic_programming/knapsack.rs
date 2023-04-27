@@ -3,10 +3,10 @@ use std::cmp::max;
 
 /// knapsack_table(w, weights, values) returns the knapsack table (`n`, `m`) with maximum values, where `n` is number of items
 ///
-/// Arguments:
-///     * `w` - knapsack capacity
-///     * `weights` - set of weights for each item
-///     * `values` - set of values for each item
+/// # Arguments:
+///   * `w` - knapsack capacity
+///   * `weights` - set of weights for each item
+///   * `values` - set of values for each item
 fn knapsack_table(w: &usize, weights: &[usize], values: &[usize]) -> Vec<Vec<usize>> {
     // Initialize `n` - number of items
     let n: usize = weights.len();
@@ -36,11 +36,11 @@ fn knapsack_table(w: &usize, weights: &[usize], values: &[usize]) -> Vec<Vec<usi
 
 /// knapsack_items(weights, m, i, j) returns the indices of the items of the optimal knapsack (from 1 to `n`)
 ///
-/// Arguments:
-///     * `weights` - set of weights for each item
-///     * `m` - knapsack table with maximum values
-///     * `i` - include items 1 through `i` in knapsack (for the initial value, use `n`)
-///     * `j` - maximum weight of the knapsack
+/// # Arguments:
+///   * `weights` - set of weights for each item
+///   * `m` - knapsack table with maximum values
+///   * `i` - include items 1 through `i` in knapsack (for the initial value, use `n`)
+///   * `j` - maximum weight of the knapsack
 fn knapsack_items(weights: &[usize], m: &[Vec<usize>], i: usize, j: usize) -> Vec<usize> {
     if i == 0 {
         return vec![];
@@ -54,19 +54,19 @@ fn knapsack_items(weights: &[usize], m: &[Vec<usize>], i: usize, j: usize) -> Ve
     }
 }
 
-/// knapsack(w, weights, values) returns the tuple where first value is `optimal profit`,
-/// second value is `knapsack optimal weight` and the last value is `indices of items`, that we got (from 1 to `n`)
+/// knapsack(w, weights, values) returns the tuple where first value is "optimal profit",
+/// second value is "knapsack optimal weight" and the last value is "indices of items", that we got (from 1 to `n`)
 ///
-/// Arguments:
-///     * `w` - knapsack capacity
-///     * `weights` - set of weights for each item
-///     * `values` - set of values for each item
+/// # Arguments:
+///   * `w` - knapsack capacity
+///   * `weights` - set of weights for each item
+///   * `values` - set of values for each item
 ///
-/// Complexity
-///     - time complexity: O(nw),
-///     - space complexity: O(nw),
+/// # Complexity
+///   - time complexity: O(nw),
+///   - space complexity: O(nw),
 ///
-/// where `n` and `w` are `number of items` and `knapsack capacity`
+/// where `n` and `w` are "number of items" and "knapsack capacity"
 pub fn knapsack(w: usize, weights: Vec<usize>, values: Vec<usize>) -> (usize, usize, Vec<usize>) {
     // Checks if the number of items in the list of weights is the same as the number of items in the list of values
     assert_eq!(weights.len(), values.len(), "Number of items in the list of weights doesn't match the number of items in the list of values!");

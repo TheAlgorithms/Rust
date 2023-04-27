@@ -12,11 +12,9 @@ fn variable(var: i64) -> usize {
     }
 }
 
-/// Returns an assignment that satisfies all the constraints, or a variable
-/// that makes such an assignment impossible. Variables should be numbered
-/// from 1 to n, and a negative number -m corresponds to the negated variable
-/// m. For more information about this problem, please visit:
-/// https://en.wikipedia.org/wiki/2-satisfiability
+/// Returns an assignment that satisfies all the constraints, or a variable that makes such an assignment impossible.\
+/// Variables should be numbered from 1 to `n`, and a negative number `-m` corresponds to the negated variable `m`.\
+/// For more information about this problem, please visit: <https://en.wikipedia.org/wiki/2-satisfiability>
 pub fn solve_two_satisfiability(
     expression: &[Condition],
     num_variables: usize,

@@ -1,30 +1,29 @@
 use std::cmp::min;
 
-/// The Levenshtein distance (or edit distance) between 2 strings
-/// This edit distance is defined as being 1 point per insertion,
-/// substitution, or deletion which must be made to make the strings equal.
+/// The Levenshtein distance (or edit distance) between 2 strings.\
+/// This edit distance is defined as being 1 point per insertion, substitution, or deletion which must be made to make the strings equal.
+/// This function iterates over the bytes in the string, so it may not behave entirely as expected for non-ASCII strings.
 ///
-/// This function iterates over the bytes in the string, so it may not behave
-/// entirely as expected for non-ASCII strings.
-///
-/// For a detailed explanation, check the example on Wikipedia: https://en.wikipedia.org/wiki/Levenshtein_distance
+/// For a detailed explanation, check the example on Wikipedia: <https://en.wikipedia.org/wiki/Levenshtein_distance>\
 /// (see the examples with the matrices, for instance between KITTEN and SITTING)
-/// Note that although we compute a matrix, left-to-right, top-to-bottom, at each step all we need to compute cell[i][j] is:
-///     * cell[i][j-1]
-///     * cell[i-j][j]
-///     * cell[i-i][j-1]
-/// This can be achieved by only using one "rolling" row and one additional variable, when computed cell[i][j] (or row[i]):
-///     * cell[i][j-1] is the value to the left, on the same row (the one we just computed, row[i-1])
-///     * cell[i-1][j] is the value at row[i], the one we're changing
-///     * cell[i-1][j-1] was the value at row[i-1] before we changed it, for that we'll use a variable
+///
+/// Note that although we compute a matrix, left-to-right, top-to-bottom, at each step all we need to compute `cell[i][j]` is:
+///   - `cell[i][j-1]`
+///   - `cell[i-j][j]`
+///   - `cell[i-i][j-1]`
+///
+/// This can be achieved by only using one "rolling" row and one additional variable, when computed `cell[i][j]` (or `row[i]`):
+///   - `cell[i][j-1]` is the value to the left, on the same row (the one we just computed, `row[i-1]`)
+///   - `cell[i-1][j]` is the value at `row[i]`, the one we're changing
+///   - `cell[i-1][j-1]` was the value at `row[i-1]` before we changed it, for that we'll use a variable
+///
 /// Doing this reduces space complexity from O(nm) to O(n)
 ///
 /// Second note: if we want to minimize space, since we're now O(n) make sure you use the shortest string horizontally, and the longest vertically
 ///
 /// # Complexity
-///
-/// - time complexity: O(nm),
-/// - space complexity: O(n),
+///   - time complexity: O(nm),
+///   - space complexity: O(n),
 ///
 /// where n and m are lengths of `str_a` and `str_b`
 pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {

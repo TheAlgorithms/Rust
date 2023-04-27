@@ -1,9 +1,10 @@
 use std::ops::{Add, AddAssign};
 
 /// Fenwick Tree / Binary Indexed Tree
-/// Consider we have an array arr[0 . . . n-1]. We would like to
+///
+/// Consider we have an array `arr[0...n-1]`. We would like to:
 /// 1. Compute the sum of the first i elements.
-/// 2. Modify the value of a specified element of the array arr[i] = x where 0 <= i <= n-1.Fenwick tree
+/// 2. Modify the value of a specified element of the array `arr[i] = x`, where `0 <= i <= n-1`.
 pub struct FenwickTree<T: Add + AddAssign + Copy + Default> {
     data: Vec<T>,
 }
