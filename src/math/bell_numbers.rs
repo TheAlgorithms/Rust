@@ -12,7 +12,8 @@ fn n_choose_r(n: u32, r: u32) -> BigUint {
         return Zero::zero();
     }
 
-    // Each combination will only be computed once at most each time the program is run, so memoization is pointless
+    // Any combination will only need to be computed once, thus giving no need to
+    // memoize this function
 
     let mut product: BigUint = One::one();
 
@@ -83,8 +84,8 @@ pub fn bell_number(n: u32) -> BigUint {
         needs_resize = (n + 1) as usize > lookup_table.capacity();
     }
 
-    // Resize table first so that if more values need to be added during recursion the table isn't
-    // reallocated for every single one
+    // Resize table before recursion so that if more values need to be added during recursion the table isn't
+    // reallocated every single time
     if needs_resize {
         let mut lookup_table = LOOKUP_TABLE_LOCK.write().unwrap();
 
