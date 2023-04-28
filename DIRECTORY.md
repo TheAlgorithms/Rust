@@ -69,6 +69,7 @@
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
     * [Fisher Yates Shuffle](https://github.com/TheAlgorithms/Rust/blob/master/src/general/fisher_yates_shuffle.rs)
+    * [Genetic Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/genetic.rs)
     * [Hanoi](https://github.com/TheAlgorithms/Rust/blob/master/src/general/hanoi.rs)
     * [Huffman Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/general/huffman_encoding.rs)
     * [Kmeans](https://github.com/TheAlgorithms/Rust/blob/master/src/general/kmeans.rs)
