@@ -16,7 +16,7 @@ fn n_choose_r(n: u32, r: u32) -> BigUint {
 
     let mut product: BigUint = One::one();
 
-    for i in 0..=(r - 1) {
+    for i in 0..r {
         product *= BigUint::from(n - i);
 
         product /= BigUint::from(i + 1);
@@ -93,7 +93,7 @@ pub fn bell_number(n: u32) -> BigUint {
 
     let mut new_bell_number = BigUint::zero();
 
-    for i in 0..=(n - 1) {
+    for i in 0..n {
         new_bell_number += bell_number(i) * n_choose_r(n - 1, i);
     }
 
