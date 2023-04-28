@@ -27,16 +27,12 @@ fn n_choose_r(n: u32, r: u32) -> BigUint {
 
 /// A memoization table for storing previous results
 struct MemTable {
-    largest: usize,
     buffer: Vec<BigUint>,
 }
 
 impl MemTable {
     const fn new() -> Self {
-        MemTable {
-            largest: 0,
-            buffer: Vec::new(),
-        }
+        MemTable { buffer: Vec::new() }
     }
 
     fn get(&self, n: usize) -> Option<BigUint> {
@@ -55,8 +51,6 @@ impl MemTable {
 
     fn set(&mut self, n: usize, b: BigUint) {
         self.buffer[n] = b;
-
-        self.largest = if n > self.largest { n } else { self.largest };
     }
 
     #[inline]
