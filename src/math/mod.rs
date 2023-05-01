@@ -71,7 +71,7 @@ pub use self::lcm_of_n_numbers::lcm;
 pub use self::linear_sieve::LinearSieve;
 pub use self::matrix_ops::Matrix;
 pub use self::mersenne_primes::{get_mersenne_primes, is_mersenne_prime};
-pub use self::miller_rabin::miller_rabin;
+pub use self::miller_rabin::{big_miller_rabin, miller_rabin};
 pub use self::newton_raphson::find_root;
 pub use self::nthprime::nthprime;
 pub use self::pascal_triangle::pascal_triangle;
