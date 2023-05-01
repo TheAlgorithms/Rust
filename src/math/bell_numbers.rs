@@ -15,13 +15,9 @@ fn n_choose_r(n: u32, r: u32) -> BigUint {
     // Any combination will only need to be computed once, thus giving no need to
     // memoize this function
 
-    let mut product: BigUint = One::one();
-
-    for i in 0..r {
-        product *= BigUint::from(n - i);
-
-        product /= BigUint::from(i + 1);
-    }
+    let product: BigUint = (0..r).fold(BigUint::one(), |acc, x| {
+        (acc * BigUint::from(n - x)) / BigUint::from(x + 1)
+    });
 
     product
 }
@@ -92,11 +88,7 @@ pub fn bell_number(n: u32) -> BigUint {
         lookup_table.resize((n + 1) as usize);
     }
 
-    let mut new_bell_number = BigUint::zero();
-
-    for i in 0..n {
-        new_bell_number += bell_number(i) * n_choose_r(n - 1, i);
-    }
+    let new_bell_number: BigUint = (0..n).map(|x| bell_number(x) * n_choose_r(n - 1, x)).sum();
 
     // Add new number to lookup table
     {
