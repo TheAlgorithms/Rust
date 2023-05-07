@@ -33,7 +33,7 @@ mod prime_factors;
 mod prime_numbers;
 mod quadratic_residue;
 mod random;
-mod sieve_of_eratosthenes;
+pub mod sieve_of_eratosthenes;
 mod signum;
 mod simpson_integration;
 mod sine;
