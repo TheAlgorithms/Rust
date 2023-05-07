@@ -274,7 +274,7 @@ fn append_playaction(
         return;
     }
 
-    let mut play_actions = opt_play_actions.as_mut().unwrap();
+    let play_actions = opt_play_actions.as_mut().unwrap();
 
     //New game action is scored from the current side and the current saved best score against the new game action.
     match (current_side, play_actions.side, appendee.side) {

@@ -178,8 +178,7 @@ pub fn pollard_rho_factorize(
         return result;
     }
     let mut to_be_factored = vec![number];
-    while !to_be_factored.is_empty() {
-        let last = to_be_factored.pop().unwrap();
+    while let Some(last) = to_be_factored.pop() {
         if last < minimum_prime_factors.len() as u64 {
             result.append(&mut factor_using_mpf(last as usize, minimum_prime_factors));
             continue;
