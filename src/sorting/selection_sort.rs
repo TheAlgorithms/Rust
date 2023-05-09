@@ -14,32 +14,38 @@ pub fn selection_sort<T: Ord>(arr: &mut [T]) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_sorted;
 
     #[test]
     fn basic() {
         let mut res = vec!["d", "a", "c", "b"];
+        let cloned = res.clone();
         selection_sort(&mut res);
-        assert_eq!(res, vec!["a", "b", "c", "d"]);
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn empty() {
         let mut res = Vec::<u8>::new();
+        let cloned = res.clone();
         selection_sort(&mut res);
-        assert_eq!(res, vec![]);
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn one_element() {
         let mut res = vec!["a"];
+        let cloned = res.clone();
         selection_sort(&mut res);
-        assert_eq!(res, vec!["a"]);
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn pre_sorted() {
         let mut res = vec!["a", "b", "c"];
+        let cloned = res.clone();
         selection_sort(&mut res);
-        assert_eq!(res, vec!["a", "b", "c"]);
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 }

@@ -3,12 +3,12 @@
 /// coin_change(coins, amount) returns the fewest number of coins that need to make up that amount.
 /// If that amount of money cannot be made up by any combination of the coins, return `None`.
 ///
-/// Arguments:
-///     * `coins` - coins of different denominations
-///     * `amount` - a total amount of money be made up.
-/// Complexity
-///     - time complexity: O(amount * coins.length),
-///     - space complexity: O(amount),
+/// # Arguments:
+///   * `coins` - coins of different denominations
+///   * `amount` - a total amount of money be made up.
+/// # Complexity
+///   - time complexity: O(amount * coins.length),
+///   - space complexity: O(amount),
 pub fn coin_change(coins: &[usize], amount: usize) -> Option<usize> {
     let mut dp = vec![None; amount + 1];
     dp[0] = Some(0);

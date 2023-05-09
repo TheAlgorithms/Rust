@@ -1,8 +1,10 @@
-/// Aliquot sum of a number is defined as the sum of the proper divisors of
-/// a number, i.e. all the divisors of a number apart from the number itself
-/// For example: The aliquot sum of 6 is (1 + 2 + 3) = 6, and that of 15 is
-/// (1 + 3 + 5) = 9
-/// Wikipedia article on Aliquot Sum: https://en.wikipedia.org/wiki/Aliquot_sum
+/// Aliquot sum of a number is defined as the sum of the proper divisors of a number.\
+/// i.e. all the divisors of a number apart from the number itself.
+///
+/// ## Example:
+/// The aliquot sum of 6 is (1 + 2 + 3) = 6, and that of 15 is (1 + 3 + 5) = 9
+///
+/// Wikipedia article on Aliquot Sum: <https://en.wikipedia.org/wiki/Aliquot_sum>
 
 pub fn aliquot_sum(number: u64) -> u64 {
     if number == 1 || number == 0 {

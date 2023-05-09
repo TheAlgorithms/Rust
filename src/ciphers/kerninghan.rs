@@ -16,8 +16,8 @@ mod tests {
 
     #[test]
     fn count_set_bits() {
-        assert_eq!(kerninghan(0b_00000000000000000000000000001011), 3);
-        assert_eq!(kerninghan(0b_00000000000000000000000010000000), 1);
-        assert_eq!(kerninghan(0b_11111111111111111111111111111101), 31);
+        assert_eq!(kerninghan(0b0000_0000_0000_0000_0000_0000_0000_1011), 3);
+        assert_eq!(kerninghan(0b0000_0000_0000_0000_0000_0000_1000_0000), 1);
+        assert_eq!(kerninghan(0b1111_1111_1111_1111_1111_1111_1111_1101), 31);
     }
 }

@@ -1,10 +1,3 @@
-/*
- * Salsa20 implementation based on https://en.wikipedia.org/wiki/Salsa20
- * Salsa20 is a stream cipher developed by Daniel J. Bernstein. To use it, the
- * `salsa20` function should be called with appropriate parameters and the
- * output of the function should be XORed with plain text.
- */
-
 macro_rules! quarter_round {
     ($v1:expr,$v2:expr,$v3:expr,$v4:expr) => {
         $v2 ^= ($v1.wrapping_add($v4).rotate_left(7));
@@ -14,50 +7,57 @@ macro_rules! quarter_round {
     };
 }
 
-/**
- * `salsa20` function takes as input an array of 16 32-bit integers (512 bits)
- * of which 128 bits is the constant 'expand 32-byte k', 256 bits is the key,
- * and 128 bits are nonce and counter. It is up to the user to determine how
- * many bits each of nonce and counter take, but a default of 64 bits each
- * seems to be a sane choice.
- *
- * The 16 input numbers can be thought of as the elements of a 4x4 matrix like
- * the one bellow, on which we do the main operations of the cipher.
- *
- * +----+----+----+----+
- * | 00 | 01 | 02 | 03 |
- * +----+----+----+----+
- * | 04 | 05 | 06 | 07 |
- * +----+----+----+----+
- * | 08 | 09 | 10 | 11 |
- * +----+----+----+----+
- * | 12 | 13 | 14 | 15 |
- * +----+----+----+----+
- *
- * As per the diagram bellow, input[0, 5, 10, 15] are the constants mentioned
- * above, input[1, 2, 3, 4, 11, 12, 13, 14] is filled with the key, and
- * input[6, 7, 8, 9] should be filled with nonce and counter values. The output
- * of the function is stored in `output` variable and can be XORed with the
- * plain text to produce the cipher text.
- *
- * +------+------+------+------+
- * |      |      |      |      |
- * | C[0] | key1 | key2 | key3 |
- * |      |      |      |      |
- * +------+------+------+------+
- * |      |      |      |      |
- * | key4 | C[1] | no1  | no2  |
- * |      |      |      |      |
- * +------+------+------+------+
- * |      |      |      |      |
- * | ctr1 | ctr2 | C[2] | key5 |
- * |      |      |      |      |
- * +------+------+------+------+
- * |      |      |      |      |
- * | key6 | key7 | key8 | C[3] |
- * |      |      |      |      |
- * +------+------+------+------+
-*/
+/// This is a `Salsa20` implementation based on <https://en.wikipedia.org/wiki/Salsa20>\
+/// `Salsa20` is a stream cipher developed by Daniel J. Bernstein.\
+/// To use it, the `salsa20` function should be called with appropriate parameters and the
+/// output of the function should be XORed with plain text.
+///
+/// `salsa20` function takes as input an array of 16 32-bit integers (512 bits)
+/// of which 128 bits is the constant 'expand 32-byte k', 256 bits is the key,
+/// and 128 bits are nonce and counter. It is up to the user to determine how
+/// many bits each of nonce and counter take, but a default of 64 bits each
+/// seems to be a sane choice.
+///
+/// The 16 input numbers can be thought of as the elements of a 4x4 matrix like
+/// the one bellow, on which we do the main operations of the cipher.
+///
+/// ```text
+/// +----+----+----+----+
+/// | 00 | 01 | 02 | 03 |
+/// +----+----+----+----+
+/// | 04 | 05 | 06 | 07 |
+/// +----+----+----+----+
+/// | 08 | 09 | 10 | 11 |
+/// +----+----+----+----+
+/// | 12 | 13 | 14 | 15 |
+/// +----+----+----+----+
+/// ```
+///
+/// As per the diagram bellow, `input[0, 5, 10, 15]` are the constants mentioned
+/// above, `input[1, 2, 3, 4, 11, 12, 13, 14]` is filled with the key, and
+/// `input[6, 7, 8, 9]` should be filled with nonce and counter values. The output
+/// of the function is stored in `output` variable and can be XORed with the
+/// plain text to produce the cipher text.
+///
+/// ```text
+/// +------+------+------+------+
+/// |      |      |      |      |
+/// | C[0] | key1 | key2 | key3 |
+/// |      |      |      |      |
+/// +------+------+------+------+
+/// |      |      |      |      |
+/// | key4 | C[1] | no1  | no2  |
+/// |      |      |      |      |
+/// +------+------+------+------+
+/// |      |      |      |      |
+/// | ctr1 | ctr2 | C[2] | key5 |
+/// |      |      |      |      |
+/// +------+------+------+------+
+/// |      |      |      |      |
+/// | key6 | key7 | key8 | C[3] |
+/// |      |      |      |      |
+/// +------+------+------+------+
+/// ```
 pub fn salsa20(input: &[u32; 16], output: &mut [u32; 16]) {
     output.copy_from_slice(&input[..]);
     for _ in 0..10 {

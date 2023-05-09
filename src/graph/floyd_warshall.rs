@@ -4,15 +4,15 @@ use std::ops::Add;
 
 type Graph<V, E> = BTreeMap<V, BTreeMap<V, E>>;
 
-/// Performs the Floyd-Warshall algorithm on the input graph
-/// The graph is a weighted, directed graph with no negative cycles
+/// Performs the Floyd-Warshall algorithm on the input graph.\
+/// The graph is a weighted, directed graph with no negative cycles.
 ///
-/// Returns a map storing the distance from each node to all the others
-/// I.e. For each vertex u, map[u][v] == Some(distance) means
+/// Returns a map storing the distance from each node to all the others.\
+/// i.e. For each vertex `u`, `map[u][v] == Some(distance)` means
 /// distance is the sum of the weights of the edges on the shortest path
-/// from u to v
+/// from `u` to `v`.
 ///
-/// For a key v, if map[v].len() == 0, then v cannot reach any other vertex, but is in the graph
+/// For a key `v`, if `map[v].len() == 0`, then `v` cannot reach any other vertex, but is in the graph
 /// (island node, or sink in the case of a directed graph)
 pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E> + num_traits::Zero>(
     graph: &Graph<V, E>,

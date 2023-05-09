@@ -27,34 +27,41 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_sorted;
 
     #[test]
     fn basic() {
-        let res = gnome_sort(&[6, 5, -8, 3, 2, 3]);
-        assert_eq!(res, vec![-8, 2, 3, 3, 5, 6]);
+        let original = [6, 5, -8, 3, 2, 3];
+        let res = gnome_sort(&original);
+        assert!(is_sorted(&res) && have_same_elements(&res, &original));
     }
 
     #[test]
     fn already_sorted() {
-        let res = gnome_sort(&["a", "b", "c"]);
-        assert_eq!(res, vec!["a", "b", "c"]);
+        let original = gnome_sort(&["a", "b", "c"]);
+        let res = gnome_sort(&original);
+        assert!(is_sorted(&res) && have_same_elements(&res, &original));
     }
 
     #[test]
     fn odd_number_of_elements() {
-        let res = gnome_sort(&["d", "a", "c", "e", "b"]);
-        assert_eq!(res, vec!["a", "b", "c", "d", "e"]);
+        let original = gnome_sort(&["d", "a", "c", "e", "b"]);
+        let res = gnome_sort(&original);
+        assert!(is_sorted(&res) && have_same_elements(&res, &original));
     }
 
     #[test]
     fn one_element() {
-        let res = gnome_sort(&[3]);
-        assert_eq!(res, vec![3]);
+        let original = gnome_sort(&[3]);
+        let res = gnome_sort(&original);
+        assert!(is_sorted(&res) && have_same_elements(&res, &original));
     }
 
     #[test]
     fn empty() {
-        let res = gnome_sort(&Vec::<u8>::new());
-        assert_eq!(res, vec![]);
+        let original = gnome_sort(&Vec::<u8>::new());
+        let res = gnome_sort(&original);
+        assert!(is_sorted(&res) && have_same_elements(&res, &original));
     }
 }
