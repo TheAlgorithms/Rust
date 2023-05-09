@@ -1,7 +1,7 @@
 use std::collections::hash_map::{DefaultHasher, RandomState};
 use std::hash::{BuildHasher, Hash, Hasher};
 
-/// A Bloom Filter is a probabilistic data structure aiming at testing whether an element belongs to a set or not
+/// A Bloom Filter <https://en.wikipedia.org/wiki/Bloom_filter> is a probabilistic data structure testing whether an element belongs to a set or not
 /// Therefore, its contract looks very close to the one of a set, for example a `HashSet`
 trait BloomFilter<Item: Hash> {
     fn insert(&mut self, item: Item);
@@ -10,13 +10,14 @@ trait BloomFilter<Item: Hash> {
 
 /// What is the point of using a Bloom Filter if it acts like a Set?
 /// Let's imagine we have a huge number of elements to store (like un unbounded data stream) a Set storing every element will most likely take up too much space, at some point.
-/// As other probabilistic data structure like Count-min Sketch, the goal of a Bloom Filter is to trade off exactitude for constant space.
+/// As other probabilistic data structures like Count-min Sketch, the goal of a Bloom Filter is to trade off exactitude for constant space.
 /// We won't have a strictly exact result of whether the value belongs to the set, but we'll use constant space instead
 
 /// Let's start with the basic idea behind the implementation
+/// Let's start by trying to make a `HashSet` with constant space:
 /// Instead of storing every element and grow the set infinitely, let's use a vector with constant capacity `CAPACITY`
-/// Each element of this vector would be a boolean.
-/// When a new element is added, we hash its value and set the index at index `hash(item) % CAPACITY` to `true`
+/// Each element of this vector will be a boolean.
+/// When a new element is inserted, we hash its value and set the index at index `hash(item) % CAPACITY` to `true`
 /// When looking for an item, we hash its value and retrieve the boolean at index `hash(item) % CAPACITY`
 /// If it's `false` it's absolutely sure the item isn't present
 /// If it's `true` the item may be present, or maybe another one produces the same hash
@@ -51,16 +52,19 @@ impl<Item: Hash, const CAPACITY: usize> BloomFilter<Item> for BasicBloomFilter<C
 
 /// Can we improve it? Certainly, in different ways.
 /// One pattern you may have identified here is that we use a "binary array" (a vector of binary values)
-/// For instance, we might have [0,1,0,0,1], which is the binary representation of 9
-/// This means we can immediately replace our Vector by an actual number
-/// What would it mean to set a 1 at index 'i'?
-/// Say we have: 000010 and we want to set 1 at the last index: it's 000010 | 000001
-/// Meaning we can hash the item value, use a modulo to find the index, and do a binary or between the current number and the index
+/// For instance, we might have `[0,1,0,0,1,0]`, which is actually the binary representation of 9
+/// This means we can immediately replace our `Vec<bool>` by an actual number
+/// What would it mean to set a `1` at index `i`?
+/// Imagine a `CAPACITY` of `6`. The initial value for our mask is `000000`.
+/// We want to store `"Bloom"`. Its hash modulo `CAPACITY` is `5`. Which means we need to set `1` at the last index.
+/// It can be performed by doing `000000 | 000001`
+/// Meaning we can hash the item value, use a modulo to find the index, and do a binary `or` between the current number and the index
 #[derive(Debug, Default)]
 struct SingleBinaryBloomFilter {
     fingerprint: u128, // let's use 128 bits, the equivalent of using CAPACITY=128 in the previous example
 }
 
+/// Given a value and a hash function, compute the hash and return the bit mask
 fn mask_128<T: Hash>(hasher: &mut DefaultHasher, item: T) -> u128 {
     item.hash(hasher);
     let idx = (hasher.finish() % 128) as u32;
@@ -78,16 +82,23 @@ impl<T: Hash> BloomFilter<T> for SingleBinaryBloomFilter {
     }
 }
 
-/// We may have made some progress in term of CPU efficiency, using binary operators
-/// But we might still run into a lot of collisions with our 128-bits number, and also, we are limited to 128 bits
-/// The first thing could be to use an array, but instead of using bools we could use bytes.
-/// That'd allow us to go over 128 bits, but would divide by 8 the memory footprint (booleans are stored as bytes, not bits).
+/// We may have made some progress in term of CPU efficiency, using binary operators.
+/// But we might still run into a lot of collisions with a single 128-bits number.
+/// Can we use greater numbers then? Currently, our implementation is limited to 128 bits.
+///
+/// Should we go back to using an array, then?
+/// We could! But instead of using `Vec<bool>` we could use `Vec<u8>`.
+/// Each `u8` can act as a mask as we've done before, and is actually 1 byte in memory (same as a boolean!)
+/// That'd allow us to go over 128 bits, but would divide by 8 the memory footprint.
 /// That's one thing, and will involve dividing / shifting by 8 in different places.
 ///
 /// But still, can we reduce the collisions furthermore?
-/// We could be using multiple hash functions, hashing the same item to different indices
+///
+/// As we did with count-min-sketch, we could use multiple hash function.
 /// When inserting a value, we compute its hash with every hash function (`hash_i`) and perform the same operation as above (the OR with `fingerprint`)
-/// Then when looking for a value, if ANY of the tests (hash then AND) returns 0 this means the value is missing from the set, otherwise it would have returned 1
+/// Then when looking for a value, if **ANY** of the tests (`hash` then `AND`) returns 0 then this means the value is missing from the set, otherwise it would have returned 1
+/// If it returns `1`, it **may** be that the item is present, but could also be a collision
+/// This is what a Bloom Filter is about: returning `false` means the value is necessarily absent, and returning true means it may be present
 pub struct MultiBinaryBloomFilter {
     filter_size: usize,
     bytes: Vec<u8>,
@@ -151,7 +162,7 @@ impl<Item: Hash> BloomFilter<Item> for MultiBinaryBloomFilter {
 
 #[cfg(test)]
 mod tests {
-    use crate::data_structures::probabilistic::bloom_filters::{
+    use crate::data_structures::probabilistic::bloom_filter::{
         BasicBloomFilter, BloomFilter, MultiBinaryBloomFilter, SingleBinaryBloomFilter,
     };
     use quickcheck::{Arbitrary, Gen};

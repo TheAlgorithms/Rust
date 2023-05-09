@@ -1,2 +1,2 @@
-pub mod bloom_filters;
+pub mod bloom_filter;
 pub mod count_min_sketch;

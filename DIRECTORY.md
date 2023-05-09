@@ -49,6 +49,7 @@
     * [Union Find](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/union_find.rs)
       * Probabilistic Data Structures
         * [Count-min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
+        * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
   * Dynamic Programming
     * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
     * [Edit Distance => See Levenshtein Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/levenshtein_distance.rs)
