@@ -8,8 +8,10 @@
 /// ## Examples
 /// 
 /// ```
-/// sum_digits(1234) // 10
-/// sum_digits(-246) // 12
+/// use the_algorithms_rust::math::sum_digits_iterative;
+/// 
+/// assert_eq!(10, sum_digits_iterative(1234));
+/// assert_eq!(12, sum_digits_iterative(-246));
 /// ```
 pub fn sum_digits_iterative(num: i32) -> u32 {
     // convert to unsigned integer
@@ -35,8 +37,10 @@ pub fn sum_digits_iterative(num: i32) -> u32 {
 /// ## Examples
 /// 
 /// ```
-/// sum_digits(1234) // 10
-/// sum_digits(-246) // 12
+/// use the_algorithms_rust::math::sum_digits_recursive;
+/// 
+/// assert_eq!(10, sum_digits_recursive(1234));
+/// assert_eq!(12, sum_digits_recursive(-246));
 /// ```
 pub fn sum_digits_recursive(num: i32) -> u32 {
     // convert to unsigned integer
