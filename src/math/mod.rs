@@ -38,6 +38,7 @@ mod signum;
 mod simpson_integration;
 mod sine;
 mod square_root;
+mod sum_of_digits;
 mod trial_division;
 mod zellers_congruence_algorithm;
 
@@ -87,5 +88,6 @@ pub use self::signum::signum;
 pub use self::simpson_integration::simpson_integration;
 pub use self::sine::sine;
 pub use self::square_root::{fast_inv_sqrt, square_root};
+pub use self::sum_of_digits::{sum_digits_iterative, sum_digits_recursive};
 pub use self::trial_division::trial_division;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
