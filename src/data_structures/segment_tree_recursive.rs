@@ -18,7 +18,7 @@ impl<T: Debug + Default + Ord + Copy> SegmentTree<T> {
         if len != 0 {
             sgtr.build_recursive(arr, 1, 0..len, merge);
         }
-        return sgtr;
+        sgtr
     }
 
     fn build_recursive(
@@ -30,7 +30,6 @@ impl<T: Debug + Default + Ord + Copy> SegmentTree<T> {
     ) {
         if range.end - range.start == 1 {
             self.tree[idx] = arr[range.start];
-            return;
         } else {
             let mid = (range.start + range.end) / 2;
             self.build_recursive(arr, 2 * idx, range.start..mid, merge);
@@ -59,8 +58,8 @@ impl<T: Debug + Default + Ord + Copy> SegmentTree<T> {
             return Some(self.tree[idx]);
         }
         let mid = (element_range.start + element_range.end) / 2;
-        let left = self.query_recursive(idx * 2, element_range.start..mid, &query_range);
-        let right = self.query_recursive(idx * 2 + 1, mid..element_range.end, &query_range);
+        let left = self.query_recursive(idx * 2, element_range.start..mid, query_range);
+        let right = self.query_recursive(idx * 2 + 1, mid..element_range.end, query_range);
         match (left, right) {
             (None, None) => None,
             (None, Some(r)) => Some(r),
