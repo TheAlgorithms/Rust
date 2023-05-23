@@ -68,23 +68,14 @@ mod tests {
     }
 
     #[test]
-    fn test_langrange_polynomial_interpolation() {
+    fn test_lagrange_polynomial_interpolation() {
         // defined values for x^2 function
         let defined_points = vec![(0.0, 0.0), (1.0, 1.0), (2.0, 4.0), (3.0, 9.0)];
 
         // check for equality
-        assert_eq!(
-            lagrange_polynomial_interpolation(1.0, &defined_points),
-            1.0
-        );
-        assert_eq!(
-            lagrange_polynomial_interpolation(2.0, &defined_points),
-            4.0
-        );
-        assert_eq!(
-            lagrange_polynomial_interpolation(3.0, &defined_points),
-            9.0
-        );
+        assert_eq!(lagrange_polynomial_interpolation(1.0, &defined_points), 1.0);
+        assert_eq!(lagrange_polynomial_interpolation(2.0, &defined_points), 4.0);
+        assert_eq!(lagrange_polynomial_interpolation(3.0, &defined_points), 9.0);
 
         //other
         assert_eq!(
