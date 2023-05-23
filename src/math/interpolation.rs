@@ -7,6 +7,33 @@ pub fn linear_interpolation(x: f64, point0: (f64, f64), point1: (f64, f64)) -> f
     point0.1 + (x - point0.0) * (point1.1 - point0.1) / (point1.0 - point0.0)
 }
 
+pub fn langrange_polynomial_interpolation(x: f64, defined_points: &Vec<(f64, f64)>) -> f64 {
+    let mut defined_x_values: Vec<f64> = Vec::new();
+    let mut defined_y_values: Vec<f64> = Vec::new();
+
+    for (x, y) in defined_points {
+        defined_x_values.push(*x);
+        defined_y_values.push(*y);
+    }
+
+    let mut sum = 0.0;
+
+    for y_index in 0..defined_y_values.len() {
+        let mut numerator = 1.0;
+        let mut denominator = 1.0;
+        for x_index in 0..defined_x_values.len() {
+            if y_index == x_index {
+                continue;
+            }
+            denominator *= defined_x_values[y_index] - defined_x_values[x_index];
+            numerator *= x - defined_x_values[x_index];
+        }
+
+        sum += numerator / denominator * defined_y_values[y_index];
+    }
+    sum
+}
+
 #[cfg(test)]
 mod tests {
 
@@ -30,6 +57,36 @@ mod tests {
         assert_eq!(
             linear_interpolation(x1, point1, point2),
             linear_interpolation(x1, point2, point1)
+        );
+    }
+
+    #[test]
+    fn test_langrange_polynomial_interpolation() {
+        // defined values for x^2 function
+        let defined_points = vec![(0.0, 0.0), (1.0, 1.0), (2.0, 4.0), (3.0, 9.0)];
+
+        // check for equality
+        assert_eq!(
+            langrange_polynomial_interpolation(1.0, &defined_points),
+            1.0
+        );
+        assert_eq!(
+            langrange_polynomial_interpolation(2.0, &defined_points),
+            4.0
+        );
+        assert_eq!(
+            langrange_polynomial_interpolation(3.0, &defined_points),
+            9.0
+        );
+
+        //other
+        assert_eq!(
+            langrange_polynomial_interpolation(0.5, &defined_points),
+            0.25
+        );
+        assert_eq!(
+            langrange_polynomial_interpolation(2.5, &defined_points),
+            6.25
         );
     }
 }
