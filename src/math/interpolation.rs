@@ -14,7 +14,7 @@ pub fn linear_interpolation(x: f64, point0: (f64, f64), point1: (f64, f64)) -> f
 /// Source: https://mathworld.wolfram.com/LagrangeInterpolatingPolynomial.html
 /// x is the point we wish to interpolate
 /// defined points are a vector of tuples containing known x and y values of our function
-pub fn langrange_polynomial_interpolation(x: f64, defined_points: &Vec<(f64, f64)>) -> f64 {
+pub fn lagrange_polynomial_interpolation(x: f64, defined_points: &Vec<(f64, f64)>) -> f64 {
     let mut defined_x_values: Vec<f64> = Vec::new();
     let mut defined_y_values: Vec<f64> = Vec::new();
 
@@ -74,25 +74,25 @@ mod tests {
 
         // check for equality
         assert_eq!(
-            langrange_polynomial_interpolation(1.0, &defined_points),
+            lagrange_polynomial_interpolation(1.0, &defined_points),
             1.0
         );
         assert_eq!(
-            langrange_polynomial_interpolation(2.0, &defined_points),
+            lagrange_polynomial_interpolation(2.0, &defined_points),
             4.0
         );
         assert_eq!(
-            langrange_polynomial_interpolation(3.0, &defined_points),
+            lagrange_polynomial_interpolation(3.0, &defined_points),
             9.0
         );
 
         //other
         assert_eq!(
-            langrange_polynomial_interpolation(0.5, &defined_points),
+            lagrange_polynomial_interpolation(0.5, &defined_points),
             0.25
         );
         assert_eq!(
-            langrange_polynomial_interpolation(2.5, &defined_points),
+            lagrange_polynomial_interpolation(2.5, &defined_points),
             6.25
         );
     }
