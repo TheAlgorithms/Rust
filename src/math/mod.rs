@@ -17,6 +17,7 @@ mod gaussian_elimination;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
 mod interest;
+mod interpolation;
 mod karatsuba_multiplication;
 mod lcm_of_n_numbers;
 mod linear_sieve;
@@ -67,6 +68,7 @@ pub use self::greatest_common_divisor::{
     greatest_common_divisor_stein,
 };
 pub use self::interest::{compound_interest, simple_interest};
+pub use self::interpolation::linear_interpolation;
 pub use self::karatsuba_multiplication::multiply;
 pub use self::lcm_of_n_numbers::lcm;
 pub use self::linear_sieve::LinearSieve;
