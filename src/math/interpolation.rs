@@ -12,6 +12,8 @@ pub fn linear_interpolation(x: f64, point0: (f64, f64), point1: (f64, f64)) -> f
 ///
 /// Source: https://en.wikipedia.org/wiki/Lagrange_polynomial
 /// Source: https://mathworld.wolfram.com/LagrangeInterpolatingPolynomial.html
+/// x is the point we wish to interpolate
+/// defined points are a vector of tuples containing known x and y values of our function
 pub fn langrange_polynomial_interpolation(x: f64, defined_points: &Vec<(f64, f64)>) -> f64 {
     let mut defined_x_values: Vec<f64> = Vec::new();
     let mut defined_y_values: Vec<f64> = Vec::new();
