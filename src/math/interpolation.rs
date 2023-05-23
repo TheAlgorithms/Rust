@@ -7,6 +7,11 @@ pub fn linear_interpolation(x: f64, point0: (f64, f64), point1: (f64, f64)) -> f
     point0.1 + (x - point0.0) * (point1.1 - point0.1) / (point1.0 - point0.0)
 }
 
+/// In numerical analysis, the Lagrange interpolating polynomial
+/// is the unique polynomial of lowest degree that interpolates a given set of data.
+///
+/// Source: https://en.wikipedia.org/wiki/Lagrange_polynomial
+/// Source: https://mathworld.wolfram.com/LagrangeInterpolatingPolynomial.html
 pub fn langrange_polynomial_interpolation(x: f64, defined_points: &Vec<(f64, f64)>) -> f64 {
     let mut defined_x_values: Vec<f64> = Vec::new();
     let mut defined_y_values: Vec<f64> = Vec::new();
