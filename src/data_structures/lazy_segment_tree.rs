@@ -98,7 +98,7 @@ impl<T: Debug + Default + Ord + Copy + Display + AddAssign + Add<Output = T>> La
             };
             return;
         }
-        if self.lazy[idx].is_some_and(|x| x != T::default()) {
+        if self.lazy[idx].is_some() && self.lazy[idx].unwrap() != T::default() {
             self.propagation(idx, &element_range, T::default());
         }
         let mid = (element_range.start + element_range.end) / 2;
