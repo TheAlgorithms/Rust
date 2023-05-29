@@ -46,7 +46,7 @@ impl<T> LinkedList<T> {
         let mut node = Box::new(Node::new(obj));
         node.next = self.head;
         node.prev = None;
-        let node_ptr = Some(unsafe { NonNull::new_unchecked(Box::into_raw(node)) });
+        let node_ptr = NonNull::new(Box::into_raw(node));
         match self.head {
             None => self.tail = node_ptr,
             Some(head_ptr) => unsafe { (*head_ptr.as_ptr()).prev = node_ptr },
@@ -59,7 +59,7 @@ impl<T> LinkedList<T> {
         let mut node = Box::new(Node::new(obj));
         node.next = None;
         node.prev = self.tail;
-        let node_ptr = Some(unsafe { NonNull::new_unchecked(Box::into_raw(node)) });
+        let node_ptr = NonNull::new(Box::into_raw(node));
         match self.tail {
             None => self.head = node_ptr,
             Some(tail_ptr) => unsafe { (*tail_ptr.as_ptr()).next = node_ptr },
@@ -98,7 +98,7 @@ impl<T> LinkedList<T> {
                 node.prev = (*ith_node.as_ptr()).prev;
                 node.next = Some(ith_node);
                 if let Some(p) = (*ith_node.as_ptr()).prev {
-                    let node_ptr = Some(NonNull::new_unchecked(Box::into_raw(node)));
+                    let node_ptr = NonNull::new(Box::into_raw(node));
                     println!("{:?}", (*p.as_ptr()).next);
                     (*p.as_ptr()).next = node_ptr;
                     (*ith_node.as_ptr()).prev = node_ptr;
