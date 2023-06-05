@@ -43,7 +43,7 @@ mod tests {
         for i in 0..10 {
             for j in 0..10 {
                 println!("{}, {}", i, j);
-                assert_eq!(binary_exponentiation(i, j), u64::pow(i, j as u32))
+                assert_eq!(binary_exponentiation(i, j), u64::pow(i, j))
             }
         }
     }
