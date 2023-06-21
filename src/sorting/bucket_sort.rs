@@ -71,7 +71,7 @@ mod tests {
 
     #[test]
     fn odd_number_of_elements() {
-        let arr: Vec<usize> = vec![1, 21, 5, 11, 58];
+        let arr: [usize; 5] = [1, 21, 5, 11, 58];
         let cloned = arr;
         let res = bucket_sort(&arr);
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
@@ -79,7 +79,7 @@ mod tests {
 
     #[test]
     fn repeated_elements() {
-        let arr: Vec<usize> = vec![542, 542, 542, 542];
+        let arr: [usize; 4] = [542, 542, 542, 542];
         let cloned = arr;
         let res = bucket_sort(&arr);
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
