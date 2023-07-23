@@ -15,6 +15,10 @@ impl Segment {
         }
     }
 
+    pub fn from_points(a: Point, b: Point) -> Segment {
+        Segment { a, b }
+    }
+
     pub fn direction(&self, p: &Point) -> f64 {
         let a = Point::new(p.x - self.a.x, p.y - self.a.y);
         let b = Point::new(self.b.x - self.a.x, self.b.y - self.a.y);
@@ -62,6 +66,13 @@ impl Segment {
         };
 
         p.x >= low_x && p.x <= high_x && p.y >= low_y && p.y <= high_y
+    }
+
+    pub fn on_segment(&self, p: &Point) -> bool {
+        if !self.is_colinear(p) {
+            return false;
+        }
+        self.colinear_point_on_segment(p)
     }
 
     pub fn intersects(&self, other: &Segment) -> bool {
