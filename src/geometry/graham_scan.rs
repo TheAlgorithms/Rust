@@ -10,7 +10,7 @@ fn point_min(a: &&Point, b: &&Point) -> Ordering {
     }
 }
 
-// Returns a Vec of Points that make up the convex hull of `points`. Returns an empty Vec of there
+// Returns a Vec of Points that make up the convex hull of `points`. Returns an empty Vec if there
 // is no convex hull.
 pub fn graham_scan(mut points: Vec<Point>) -> Vec<Point> {
     if points.len() <= 2 {
