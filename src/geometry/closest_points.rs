@@ -1,10 +1,10 @@
-type Point = (f64, f64);
+use crate::geometry::Point;
 use std::cmp::Ordering;
 
-fn point_cmp((a1, a2): &Point, (b1, b2): &Point) -> Ordering {
-    let acmp = f64_cmp(a1, b1);
+fn point_cmp(p1: &Point, p2: &Point) -> Ordering {
+    let acmp = f64_cmp(&p1.x, &p2.x);
     match acmp {
-        Ordering::Equal => f64_cmp(a2, b2),
+        Ordering::Equal => f64_cmp(&p1.y, &p2.y),
         _ => acmp,
     }
 }
@@ -22,13 +22,6 @@ pub fn closest_points(points: &[Point]) -> Option<(Point, Point)> {
     closest_points_aux(&points, 0, points.len())
 }
 
-fn sqr_dist((x1, y1): &Point, (x2, y2): &Point) -> f64 {
-    let dx = *x1 - *x2;
-    let dy = *y1 - *y2;
-
-    dx * dx + dy * dy
-}
-
 fn closest_points_aux(
     points: &[Point],
     mut start: usize,
@@ -42,15 +35,15 @@ fn closest_points_aux(
 
     if n <= 3 {
         // bruteforce
-        let mut min = sqr_dist(&points[0], &points[1]);
-        let mut pair = (points[0], points[1]);
+        let mut min = points[0].euclidean_distance(&points[1]);
+        let mut pair = (points[0].clone(), points[1].clone());
 
         for i in 1..n {
             for j in (i + 1)..n {
-                let new = sqr_dist(&points[i], &points[j]);
+                let new = points[i].euclidean_distance(&points[j]);
                 if new < min {
                     min = new;
-                    pair = (points[i], points[j]);
+                    pair = (points[i].clone(), points[j].clone());
                 }
             }
         }
@@ -63,30 +56,30 @@ fn closest_points_aux(
 
     let (mut min_sqr_dist, mut pair) = match (left, right) {
         (Some((l1, l2)), Some((r1, r2))) => {
-            let dl = sqr_dist(&l1, &l2);
-            let dr = sqr_dist(&r1, &r2);
+            let dl = l1.euclidean_distance(&l2);
+            let dr = r1.euclidean_distance(&r2);
             if dl < dr {
                 (dl, (l1, l2))
             } else {
                 (dr, (r1, r2))
             }
         }
-        (Some((a, b)), None) => (sqr_dist(&a, &b), (a, b)),
-        (None, Some((a, b))) => (sqr_dist(&a, &b), (a, b)),
+        (Some((a, b)), None) => (a.euclidean_distance(&b), (a, b)),
+        (None, Some((a, b))) => (a.euclidean_distance(&b), (a, b)),
         (None, None) => unreachable!(),
     };
 
-    let mid_x = points[mid].0;
-    let dist = min_sqr_dist.sqrt();
-    while points[start].0 < mid_x - dist {
+    let mid_x = points[mid].x;
+    let dist = min_sqr_dist;
+    while points[start].x < mid_x - dist {
         start += 1;
     }
-    while points[end - 1].0 > mid_x + dist {
+    while points[end - 1].x > mid_x + dist {
         end -= 1;
     }
 
     let mut mids: Vec<&Point> = points[start..end].iter().collect();
-    mids.sort_by(|a, b| f64_cmp(&a.1, &b.1));
+    mids.sort_by(|a, b| f64_cmp(&a.y, &b.y));
 
     for (i, e) in mids.iter().enumerate() {
         for k in 1..8 {
@@ -94,10 +87,10 @@ fn closest_points_aux(
                 break;
             }
 
-            let new = sqr_dist(e, mids[i + k]);
+            let new = e.euclidean_distance(mids[i + k]);
             if new < min_sqr_dist {
                 min_sqr_dist = new;
-                pair = (**e, *mids[i + k]);
+                pair = ((*e).clone(), mids[i + k].clone());
             }
         }
     }
@@ -137,86 +130,101 @@ mod tests {
 
     #[test]
     fn one_points() {
-        let vals = [(0., 0.)];
+        let vals = [Point::new(0., 0.)];
         assert_display!(closest_points(&vals), None::<(Point, Point)>);
     }
 
     #[test]
     fn two_points() {
-        let vals = [(0., 0.), (1., 1.)];
-        assert_display!(closest_points(&vals), Some(((0., 0.), (1., 1.))));
+        let vals = [Point::new(0., 0.), Point::new(1., 1.)];
+        assert_display!(
+            closest_points(&vals),
+            Some((vals[0].clone(), vals[1].clone()))
+        );
     }
 
     #[test]
     fn three_points() {
-        let vals = [(0., 0.), (1., 1.), (3., 3.)];
-        assert_display!(closest_points(&vals), Some(((0., 0.), (1., 1.))));
+        let vals = [Point::new(0., 0.), Point::new(1., 1.), Point::new(3., 3.)];
+        assert_display!(
+            closest_points(&vals),
+            Some((vals[0].clone(), vals[1].clone()))
+        );
     }
 
     #[test]
     fn list_1() {
         let vals = [
-            (0., 0.),
-            (2., 1.),
-            (5., 2.),
-            (2., 3.),
-            (4., 0.),
-            (0., 4.),
-            (5., 6.),
-            (4., 4.),
-            (7., 3.),
-            (-1., 2.),
-            (2., 6.),
+            Point::new(0., 0.),
+            Point::new(2., 1.),
+            Point::new(5., 2.),
+            Point::new(2., 3.),
+            Point::new(4., 0.),
+            Point::new(0., 4.),
+            Point::new(5., 6.),
+            Point::new(4., 4.),
+            Point::new(7., 3.),
+            Point::new(-1., 2.),
+            Point::new(2., 6.),
         ];
-        assert_display!(closest_points(&vals), Some(((2., 1.), (2., 3.))));
+        assert_display!(
+            closest_points(&vals),
+            Some((Point::new(2., 1.), Point::new(2., 3.)))
+        );
     }
 
     #[test]
     fn list_2() {
         let vals = [
-            (1., 3.),
-            (4., 6.),
-            (8., 8.),
-            (7., 5.),
-            (5., 3.),
-            (10., 3.),
-            (7., 1.),
-            (8., 3.),
-            (4., 9.),
-            (4., 12.),
-            (4., 15.),
-            (7., 14.),
-            (8., 12.),
-            (6., 10.),
-            (4., 14.),
-            (2., 7.),
-            (3., 8.),
-            (5., 8.),
-            (6., 7.),
-            (8., 10.),
-            (6., 12.),
+            Point::new(1., 3.),
+            Point::new(4., 6.),
+            Point::new(8., 8.),
+            Point::new(7., 5.),
+            Point::new(5., 3.),
+            Point::new(10., 3.),
+            Point::new(7., 1.),
+            Point::new(8., 3.),
+            Point::new(4., 9.),
+            Point::new(4., 12.),
+            Point::new(4., 15.),
+            Point::new(7., 14.),
+            Point::new(8., 12.),
+            Point::new(6., 10.),
+            Point::new(4., 14.),
+            Point::new(2., 7.),
+            Point::new(3., 8.),
+            Point::new(5., 8.),
+            Point::new(6., 7.),
+            Point::new(8., 10.),
+            Point::new(6., 12.),
         ];
-        assert_display!(closest_points(&vals), Some(((4., 14.), (4., 15.))));
+        assert_display!(
+            closest_points(&vals),
+            Some((Point::new(4., 14.), Point::new(4., 15.)))
+        );
     }
 
     #[test]
     fn vertical_points() {
         let vals = [
-            (0., 0.),
-            (0., 50.),
-            (0., -25.),
-            (0., 40.),
-            (0., 42.),
-            (0., 100.),
-            (0., 17.),
-            (0., 29.),
-            (0., -50.),
-            (0., 37.),
-            (0., 34.),
-            (0., 8.),
-            (0., 3.),
-            (0., 46.),
+            Point::new(0., 0.),
+            Point::new(0., 50.),
+            Point::new(0., -25.),
+            Point::new(0., 40.),
+            Point::new(0., 42.),
+            Point::new(0., 100.),
+            Point::new(0., 17.),
+            Point::new(0., 29.),
+            Point::new(0., -50.),
+            Point::new(0., 37.),
+            Point::new(0., 34.),
+            Point::new(0., 8.),
+            Point::new(0., 3.),
+            Point::new(0., 46.),
         ];
-        assert_display!(closest_points(&vals), Some(((0., 40.), (0., 42.))));
+        assert_display!(
+            closest_points(&vals),
+            Some((Point::new(0., 40.), Point::new(0., 42.)))
+        );
     }
 }
