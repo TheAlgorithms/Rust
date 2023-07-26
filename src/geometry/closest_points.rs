@@ -1,7 +1,7 @@
 use crate::geometry::Point;
 use std::cmp::Ordering;
 
-fn point_cmp(p1: &Point, p2: &Point) -> Ordering {
+fn cmp_x(p1: &Point, p2: &Point) -> Ordering {
     let acmp = f64_cmp(&p1.x, &p2.x);
     match acmp {
         Ordering::Equal => f64_cmp(&p1.y, &p2.y),
@@ -16,14 +16,19 @@ fn f64_cmp(a: &f64, b: &f64) -> Ordering {
 /// returns the two closest points
 /// or None if there are zero or one point
 pub fn closest_points(points: &[Point]) -> Option<(Point, Point)> {
-    let mut points: Vec<Point> = points.to_vec();
-    points.sort_by(point_cmp);
+    let mut points_x: Vec<Point> = points.to_vec();
+    points_x.sort_by(cmp_x);
+    let mut points_y = points_x.clone();
+    points_y.sort_by(|p1: &Point, p2: &Point| -> Ordering { p1.y.partial_cmp(&p2.y).unwrap() });
 
-    closest_points_aux(&points, 0, points.len())
+    closest_points_aux(&points_x, points_y, 0, points_x.len())
 }
 
+// We maintain two vectors with the same points, one sort by x coordinates and one sorted by y
+// coordinates.
 fn closest_points_aux(
-    points: &[Point],
+    points_x: &[Point],
+    points_y: Vec<Point>,
     mut start: usize,
     mut end: usize,
 ) -> Option<(Point, Point)> {
@@ -35,15 +40,15 @@ fn closest_points_aux(
 
     if n <= 3 {
         // bruteforce
-        let mut min = points[0].euclidean_distance(&points[1]);
-        let mut pair = (points[0].clone(), points[1].clone());
+        let mut min = points_x[0].euclidean_distance(&points_x[1]);
+        let mut pair = (points_x[0].clone(), points_x[1].clone());
 
         for i in 1..n {
             for j in (i + 1)..n {
-                let new = points[i].euclidean_distance(&points[j]);
+                let new = points_x[i].euclidean_distance(&points_x[j]);
                 if new < min {
                     min = new;
-                    pair = (points[i].clone(), points[j].clone());
+                    pair = (points_x[i].clone(), points_x[j].clone());
                 }
             }
         }
@@ -51,8 +56,22 @@ fn closest_points_aux(
     }
 
     let mid = (start + end) / 2;
-    let left = closest_points_aux(points, start, mid);
-    let right = closest_points_aux(points, mid, end);
+    let mid_x = points_x[mid].x;
+
+    // Separate points into y_left and y_right vectors based on their x-coordinate. Since y is
+    // already sorted by y_axis, y_left and y_right will also be sorted.
+    let mut y_left = vec![];
+    let mut y_right = vec![];
+    for point in &points_y {
+        if point.x < mid_x {
+            y_left.push(point.clone());
+        } else {
+            y_right.push(point.clone());
+        }
+    }
+
+    let left = closest_points_aux(points_x, y_left, start, mid);
+    let right = closest_points_aux(points_x, y_right, mid, end);
 
     let (mut min_sqr_dist, mut pair) = match (left, right) {
         (Some((l1, l2)), Some((r1, r2))) => {
@@ -69,28 +88,24 @@ fn closest_points_aux(
         (None, None) => unreachable!(),
     };
 
-    let mid_x = points[mid].x;
     let dist = min_sqr_dist;
-    while points[start].x < mid_x - dist {
+    while points_x[start].x < mid_x - dist {
         start += 1;
     }
-    while points[end - 1].x > mid_x + dist {
+    while points_x[end - 1].x > mid_x + dist {
         end -= 1;
     }
 
-    let mut mids: Vec<&Point> = points[start..end].iter().collect();
-    mids.sort_by(|a, b| f64_cmp(&a.y, &b.y));
-
-    for (i, e) in mids.iter().enumerate() {
+    for (i, e) in points_y.iter().enumerate() {
         for k in 1..8 {
-            if i + k >= mids.len() {
+            if i + k >= points_y.len() {
                 break;
             }
 
-            let new = e.euclidean_distance(mids[i + k]);
+            let new = e.euclidean_distance(&points_y[i + k]);
             if new < min_sqr_dist {
                 min_sqr_dist = new;
-                pair = ((*e).clone(), mids[i + k].clone());
+                pair = ((*e).clone(), points_y[i + k].clone());
             }
         }
     }
