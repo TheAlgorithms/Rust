@@ -12,6 +12,7 @@ pub mod geometry;
 pub mod graph;
 pub mod math;
 pub mod navigation;
+pub mod number_theory;
 pub mod searching;
 pub mod sorting;
 pub mod string;
