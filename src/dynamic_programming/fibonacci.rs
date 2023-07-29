@@ -180,13 +180,84 @@ fn matrix_multiply(multiplier: &[Vec<u128>], multiplicand: &[Vec<u128>]) -> Vec<
     result
 }
 
+/// nth_fibonacci_number_modulo_m(n, m) returns the nth fibonacci number modulo the specified m
+/// i.e. F(n) % m
+pub fn nth_fibonacci_number_modulo_m(n: i64, m: i64) -> i128 {
+    let (length, pisano_sequence) = get_pisano_sequence_and_period(m);
+
+    let remainder = n % length as i64;
+    pisano_sequence.get(remainder as usize).unwrap().to_owned()
+}
+
+/// get_pisano_sequence_and_period(m) returns the Pisano Sequence and period for the specified integer m.
+/// The pisano period is the period with which the sequence of Fibonacci numbers taken modulo m repeats.
+/// The pisano sequence is the numbers in pisano period.
+fn get_pisano_sequence_and_period(m: i64) -> (i128, Vec<i128>) {
+    let mut a = 0;
+    let mut b = 1;
+    let mut lenght: i128 = 0;
+    let mut pisano_sequence: Vec<i128> = vec![a, b];
+
+    // Iterating through all the fib numbers to get the sequence
+    for _i in 0..(m * m) + 1 {
+        let c = (a + b) % m as i128;
+
+        // adding number into the sequence
+        pisano_sequence.push(c);
+
+        a = b;
+        b = c;
+
+        if a == 0 && b == 1 {
+            // Remove the last two elements from the sequence
+            // This is a less elegant way to do it.
+            pisano_sequence.pop();
+            pisano_sequence.pop();
+            lenght = pisano_sequence.len() as i128;
+            break;
+        }
+    }
+
+    (lenght, pisano_sequence)
+}
+
+/// last_digit_of_the_sum_of_nth_fibonacci_number(n) returns the last digit of the sum of n fibonacci numbers.
+/// The function uses the definition of Fibonacci where:
+/// F(0) = 0, F(1) = 1 and F(n+1) = F(n) + F(n-1) for n > 2
+///
+/// The sum of the Fibonacci numbers are:
+/// F(0) + F(1) + F(2) + ... + F(n)
+pub fn last_digit_of_the_sum_of_nth_fibonacci_number(n: i64) -> i64 {
+    if n < 2 {
+        return n;
+    }
+
+    // the pisano period of mod 10 is 60
+    let n = ((n + 2) % 60) as usize;
+    let mut fib = vec![0; n + 1];
+    fib[0] = 0;
+    fib[1] = 1;
+
+    for i in 2..=n {
+        fib[i] = (fib[i - 1] % 10 + fib[i - 2] % 10) % 10;
+    }
+
+    if fib[n] == 0 {
+        return 9;
+    }
+
+    fib[n] % 10 - 1
+}
+
 #[cfg(test)]
 mod tests {
     use super::classical_fibonacci;
     use super::fibonacci;
+    use super::last_digit_of_the_sum_of_nth_fibonacci_number;
     use super::logarithmic_fibonacci;
     use super::matrix_fibonacci;
     use super::memoized_fibonacci;
+    use super::nth_fibonacci_number_modulo_m;
     use super::recursive_fibonacci;
 
     #[test]
@@ -325,5 +396,33 @@ mod tests {
             matrix_fibonacci(184),
             127127879743834334146972278486287885163
         );
+    }
+
+    #[test]
+    fn test_nth_fibonacci_number_modulo_m() {
+        assert_eq!(nth_fibonacci_number_modulo_m(5, 10), 5);
+        assert_eq!(nth_fibonacci_number_modulo_m(10, 7), 6);
+        assert_eq!(nth_fibonacci_number_modulo_m(20, 100), 65);
+        assert_eq!(nth_fibonacci_number_modulo_m(1, 5), 1);
+        assert_eq!(nth_fibonacci_number_modulo_m(0, 15), 0);
+        assert_eq!(nth_fibonacci_number_modulo_m(50, 1000), 25);
+        assert_eq!(nth_fibonacci_number_modulo_m(100, 37), 7);
+        assert_eq!(nth_fibonacci_number_modulo_m(15, 2), 0);
+        assert_eq!(nth_fibonacci_number_modulo_m(8, 1_000_000), 21);
+        assert_eq!(nth_fibonacci_number_modulo_m(1000, 997), 996);
+        assert_eq!(nth_fibonacci_number_modulo_m(200, 123), 0);
+    }
+
+    #[test]
+    fn test_last_digit_of_the_sum_of_nth_fibonacci_number() {
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(0), 0);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(1), 1);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(2), 2);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(3), 4);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(4), 7);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(5), 2);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(25), 7);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(50), 8);
+        assert_eq!(last_digit_of_the_sum_of_nth_fibonacci_number(100), 5);
     }
 }
