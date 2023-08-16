@@ -1,6 +1,8 @@
-// Based on the TheAlgorithms/Python
-// RFC 3526 - More Modular Exponential (MODP) Diffie-Hellman groups for
-// Internet Key Exchange (IKE) https://tools.ietf.org/html/rfc3526
+/*
+Based on the TheAlgorithms/Python
+RFC 3526 - More Modular Exponential (MODP) Diffie-Hellman groups for
+Internet Key Exchange (IKE) https://tools.ietf.org/html/rfc3526
+*/
 
 use lazy_static;
 use num_bigint::BigUint;
