@@ -14,6 +14,7 @@ mod maximum_subarray;
 mod rod_cutting;
 mod snail;
 mod subset_generation;
+mod minimum_cost_path;
 
 pub use self::coin_change::coin_change;
 pub use self::egg_dropping::egg_drop;
@@ -38,3 +39,4 @@ pub use self::maximum_subarray::maximum_subarray;
 pub use self::rod_cutting::rod_cut;
 pub use self::snail::snail;
 pub use self::subset_generation::list_subset;
+pub use self::minimum_cost_path::minimum_cost_path;
