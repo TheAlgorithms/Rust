@@ -34,6 +34,7 @@ fn good_filepaths(top_dir: &Path) -> Result<Vec<String>, Box<dyn Error>> {
             }
         }
     }
+    good_fs.sort();
     Ok(good_fs)
 }
 
@@ -86,13 +87,16 @@ fn to_title(name: &str) -> String {
     let mut change = true;
     name.chars()
         .map(move |letter| {
-            if change {
+            if change && !letter.is_numeric() {
                 change = false;
                 letter.to_uppercase().next().unwrap()
             } else if letter == '_' {
                 change = true;
                 ' '
             } else {
+                if letter.is_numeric() || !letter.is_alphanumeric() {
+                    change = true;
+                }
                 letter
             }
         })

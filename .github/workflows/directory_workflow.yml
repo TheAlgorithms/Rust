@@ -15,7 +15,7 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
       - name: Update DIRECTORY.md
         run: |
-         python .github/workflows/scripts/build_directory_md.py
+         cargo run --manifest-path=.github/workflows/scripts/build_directory/Cargo.toml
       - name: Commit DIRECTORY.md
         run: |
          git add DIRECTORY.md
