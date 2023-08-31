@@ -13,7 +13,7 @@ impl Sudoku {
     }
 
     fn find_empty_cell(&self) -> Option<(usize, usize)> {
-        // Find a empty cell in the board (returns (-1, -1) if all cells are filled)
+        // Find a empty cell in the board (returns None if all cells are filled)
         for i in 0..9 {
             for j in 0..9 {
                 if self.board[i][j] == 0 {
