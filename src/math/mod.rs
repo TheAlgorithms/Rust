@@ -43,6 +43,7 @@ mod square_root;
 mod sum_of_digits;
 mod trial_division;
 mod zellers_congruence_algorithm;
+pub mod diophantine;
 
 pub use self::abs::abs;
 pub use self::aliquot_sum::aliquot_sum;
