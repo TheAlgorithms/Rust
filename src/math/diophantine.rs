@@ -1,11 +1,10 @@
-/// https://en.wikipedia.org/wiki/Diophantine_equation
-///
-/// linear diophantine equation
-/// ax + by = c
-///
-///
-// def diophantine(a: int, b: int, c: int) -> tuple[float, float]:
-// """
+#[doc = r"https://en.wikipedia.org/wiki/Diophantine_equation
+
+linear diophantine equation
+ax + by = c
+
+"]
+
 // Diophantine Equation : Given integers a,b,c ( at least one of a and b != 0), the
 // diophantine equation a*x + b*y = c has a solution (where x and y are integers)
 // iff gcd(a,b) divides c.
@@ -23,14 +22,6 @@
 
 // """
 
-// assert (
-//     c % greatest_common_divisor(a, b) == 0
-// )  # greatest_common_divisor(a,b) function implemented below
-// (d, x, y) = extended_gcd(a, b)  # extended_gcd(a,b) function implemented below
-// r = c / d
-// return (r * x, r * y)
-
-// def diophantine_all_soln(a: int, b: int, c: int, n: int = 2) -> None:
 // """
 // Lemma : if n|ab and gcd(a,n) = 1, then n|b.
 
@@ -43,34 +34,22 @@
 
 // n is the number of solution you want, n = 2 by default
 
-// >>> diophantine_all_soln(10, 6, 14)
+// >>> diophantine_all_soln(10, 6, 14,None)
 // -7.0 14.0
 // -4.0 9.0
 
-// >>> diophantine_all_soln(10, 6, 14, 4)
+// >>> diophantine_all_soln(10, 6, 14, Some(4))
 // -7.0 14.0
 // -4.0 9.0
 // -1.0 4.0
 // 2.0 -1.0
 
-// >>> diophantine_all_soln(391, 299, -69, n = 4)
+// >>> diophantine_all_soln(391, 299, -69, Some(4))
 // 9.0 -12.0
 // 22.0 -29.0
 // 35.0 -46.0
 // 48.0 -63.0
 
-// """
-// (x0, y0) = diophantine(a, b, c)  # Initial value
-// d = greatest_common_divisor(a, b)
-// p = a // d
-// q = b // d
-
-// for i in range(n):
-//     x = x0 + i * q
-//     y = y0 - i * p
-//     print(x, y)
-
-// def greatest_common_divisor(a: int, b: int) -> int:
 // """
 // Euclid's Lemma :  d divides a and b, if and only if d divides a-b and b
 
@@ -87,16 +66,6 @@
 // 11
 
 // """
-// if a < b:
-//     a, b = b, a
-
-// while a % b != 0:
-//     a, b = b, a % b
-
-// return b
-
-// def extended_gcd(a: int, b: int) -> tuple[int, int, int]:
-// """
 // Extended Euclid's Algorithm : If d divides a and b and d = a*x + b*y for integers
 // x and y, then d = gcd(a,b)
 
@@ -105,21 +74,6 @@
 
 // >>> extended_gcd(7, 5)
 // (1, -2, 3)
-
-// """
-// assert a >= 0 and b >= 0
-
-// if b == 0:
-//     d, x, y = a, 1, 0
-// else:
-//     (d, p, q) = extended_gcd(b, a % b)
-//     x = q
-//     y = p - q * (a // b)
-
-// assert a % d == 0 and b % d == 0
-// assert d == a * x + b * y
-
-// return (d, x, y)
 
 fn gcd(mut n: i64, mut m: i64) -> i64 {
     assert!(n > 0 && m > 0);
@@ -142,7 +96,7 @@ fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
     } else {
         (d, p, q) = extended_gcd(b, a % b);
         x = q;
-        y = p - q * (((a / b )as f64).floor() as i64);
+        y = p - q * (((a / b) as f64).floor() as i64);
     }
     assert!(a % d == 0 && b % d == 0);
     assert!(d == a * x + b * y);
@@ -151,20 +105,39 @@ fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
 fn diophantine(a: i64, b: i64, c: i64) -> (i64, i64) {
     assert!(c % gcd(a, b) == 0);
 
-    let (mut d, x, y) = extended_gcd(a, b);
-    let r = c/d;
+    let (d, x, y) = extended_gcd(a, b);
+    let r = c / d;
     (r * x, r * y)
 }
+fn diophantine_all_soln(a: i64, b: i64, c: i64, mut n: Option<i64>) -> Vec<(i64, i64)> {
+    let mut res: Vec<(i64, i64)> = vec![];
+    let (x0, y0) = diophantine(a, b, c);
+    let d = gcd(a, b);
+    let p = ((a / d) as f64).floor() as i64;
+    let q = ((b / d) as f64).floor() as i64;
+    let (mut x, mut y): (i64, i64);
+    if n.is_none() {
+        n = Some(2)
+    }
+    for i in 0..n.unwrap() {
+        x = x0 + i * q;
+        y = y0 - i * p;
+        res.push((x, y));
+    }
 
-
+    res
+}
 
 #[cfg(test)]
 mod test {
     use super::*;
 
     #[test]
-    fn test_diophantine (){
-        assert!(diophantine(10, 6, 14) == (-7,14));
-
+    fn test_diophantine() {
+        assert!(diophantine(10, 6, 14) == (-7, 14));
     }
+    #[test]
+    fn test_diophantine_all_soln() {
+        assert!(diophantine_all_soln(10, 6, 14, None) == vec![(-7, 14), (-4, 9)])
     }
+}
