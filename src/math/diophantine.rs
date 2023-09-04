@@ -74,7 +74,7 @@ ax + by = c
 
 // >>> extended_gcd(7, 5)
 // (1, -2, 3)
-
+#[allow(dead_code)]
 fn gcd(mut n: i64, mut m: i64) -> i64 {
     assert!(n > 0 && m > 0);
     if m < n {
@@ -88,6 +88,7 @@ fn gcd(mut n: i64, mut m: i64) -> i64 {
     }
     n
 }
+#[allow(dead_code)]
 fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
     assert!(a >= 0 && b >= 0);
     let (d, x, y, p, q): (i64, i64, i64, i64, i64);
@@ -101,7 +102,9 @@ fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
     assert!(a % d == 0 && b % d == 0);
     assert!(d == a * x + b * y);
     (d, x, y)
+
 }
+#[allow(dead_code)]
 fn diophantine(a: i64, b: i64, c: i64) -> (i64, i64) {
     assert!(c % gcd(a, b) == 0);
 
@@ -109,6 +112,7 @@ fn diophantine(a: i64, b: i64, c: i64) -> (i64, i64) {
     let r = c / d;
     (r * x, r * y)
 }
+#[allow(dead_code)]
 fn diophantine_all_soln(a: i64, b: i64, c: i64, mut n: Option<i64>) -> Vec<(i64, i64)> {
     let mut res: Vec<(i64, i64)> = vec![];
     let (x0, y0) = diophantine(a, b, c);

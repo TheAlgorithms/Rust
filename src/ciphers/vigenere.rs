@@ -35,8 +35,8 @@ pub fn vigenere(plain_text: &str, key: &str) -> String {
         .collect()
 }
 
-
 mod vignere {
+    #[allow(dead_code)]
     pub fn encrypt(key: &str, plaintext: &str) -> String {
         // encrypt
         let key_it = key.bytes().cycle();
@@ -52,6 +52,7 @@ mod vignere {
         )
         .unwrap()
     }
+    #[allow(dead_code)]
     pub fn decrypt(key: &str, ciphertext: &str) -> String {
         let key_it = key.bytes().cycle();
         String::from_utf8(
@@ -66,8 +67,6 @@ mod vignere {
         )
         .unwrap()
     }
-
-
 }
 #[cfg(test)]
 mod tests {
@@ -120,13 +119,12 @@ mod tests {
 
     #[test]
     fn test_vig() {
-      let msg = "aoeuidhtnsqjkxbmwvzpyfgcrl";
-      let key = "averygoodkey";
-      
-      let ciphertext = vignere::encrypt(key,msg);
-      
-      let plaintext = vignere::decrypt(key, &ciphertext);
-      assert_eq!(msg, plaintext);
-    
-  }
+        let msg = "aoeuidhtnsqjkxbmwvzpyfgcrl";
+        let key = "averygoodkey";
+
+        let ciphertext = vignere::encrypt(key, msg);
+
+        let plaintext = vignere::decrypt(key, &ciphertext);
+        assert_eq!(msg, plaintext);
+    }
 }

@@ -8,6 +8,7 @@ mod binary_exponentiation;
 mod ceil;
 mod chinese_remainder_theorem;
 mod collatz_sequence;
+pub mod diophantine;
 mod doomsday;
 mod extended_euclidean_algorithm;
 mod factors;
@@ -43,7 +44,6 @@ mod square_root;
 mod sum_of_digits;
 mod trial_division;
 mod zellers_congruence_algorithm;
-pub mod diophantine;
 
 pub use self::abs::abs;
 pub use self::aliquot_sum::aliquot_sum;

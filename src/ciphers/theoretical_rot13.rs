@@ -2,7 +2,7 @@
 pub fn theoretical_rot13(text: &str) -> String {
     let mut pos: u8 = 0;
     let mut npos: u8 = 0;
-     text.chars()
+    text.chars()
         .map(|mut c| -> char {
             if c.is_ascii_lowercase() {
                 // ((c as u8) + 13) as char
@@ -10,9 +10,8 @@ pub fn theoretical_rot13(text: &str) -> String {
                 npos = (pos + 13) % 26;
                 c = (npos + b'a') as char;
                 return c;
-            } 
-                c
-            
+            }
+            c
         })
         .collect()
 }
