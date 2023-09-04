@@ -4,7 +4,6 @@ linear diophantine equation
 ax + by = c
 
 "]
-
 // Diophantine Equation : Given integers a,b,c ( at least one of a and b != 0), the
 // diophantine equation a*x + b*y = c has a solution (where x and y are integers)
 // iff gcd(a,b) divides c.
@@ -102,7 +101,6 @@ fn extended_gcd(a: i64, b: i64) -> (i64, i64, i64) {
     assert!(a % d == 0 && b % d == 0);
     assert!(d == a * x + b * y);
     (d, x, y)
-
 }
 #[allow(dead_code)]
 fn diophantine(a: i64, b: i64, c: i64) -> (i64, i64) {
