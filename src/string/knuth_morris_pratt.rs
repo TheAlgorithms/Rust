@@ -1,10 +1,10 @@
-pub fn knuth_morris_pratt(st: String, pat: String) -> Vec<usize> {
+pub fn knuth_morris_pratt(st: &str, pat: &str) -> Vec<usize> {
     if st.is_empty() || pat.is_empty() {
         return vec![];
     }
 
-    let string = st.into_bytes();
-    let pattern = pat.into_bytes();
+    let string = st.as_bytes();
+    let pattern = pat.as_bytes();
 
     // build the partial match table
     let mut partial = vec![0];
@@ -42,56 +42,55 @@ mod tests {
 
     #[test]
     fn each_letter_matches() {
-        let index = knuth_morris_pratt("aaa".to_string(), "a".to_string());
+        let index = knuth_morris_pratt("aaa", "a");
         assert_eq!(index, vec![0, 1, 2]);
     }
 
     #[test]
     fn a_few_separate_matches() {
-        let index = knuth_morris_pratt("abababa".to_string(), "ab".to_string());
+        let index = knuth_morris_pratt("abababa", "ab");
         assert_eq!(index, vec![0, 2, 4]);
     }
 
     #[test]
     fn one_match() {
-        let index =
-            knuth_morris_pratt("ABC ABCDAB ABCDABCDABDE".to_string(), "ABCDABD".to_string());
+        let index = knuth_morris_pratt("ABC ABCDAB ABCDABCDABDE", "ABCDABD");
         assert_eq!(index, vec![15]);
     }
 
     #[test]
     fn lots_of_matches() {
-        let index = knuth_morris_pratt("aaabaabaaaaa".to_string(), "aa".to_string());
+        let index = knuth_morris_pratt("aaabaabaaaaa", "aa");
         assert_eq!(index, vec![0, 1, 4, 7, 8, 9, 10]);
     }
 
     #[test]
     fn lots_of_intricate_matches() {
-        let index = knuth_morris_pratt("ababababa".to_string(), "aba".to_string());
+        let index = knuth_morris_pratt("ababababa", "aba");
         assert_eq!(index, vec![0, 2, 4, 6]);
     }
 
     #[test]
     fn not_found0() {
-        let index = knuth_morris_pratt("abcde".to_string(), "f".to_string());
+        let index = knuth_morris_pratt("abcde", "f");
         assert_eq!(index, vec![]);
     }
 
     #[test]
     fn not_found1() {
-        let index = knuth_morris_pratt("abcde".to_string(), "ac".to_string());
+        let index = knuth_morris_pratt("abcde", "ac");
         assert_eq!(index, vec![]);
     }
 
     #[test]
     fn not_found2() {
-        let index = knuth_morris_pratt("ababab".to_string(), "bababa".to_string());
+        let index = knuth_morris_pratt("ababab", "bababa");
         assert_eq!(index, vec![]);
     }
 
     #[test]
     fn empty_string() {
-        let index = knuth_morris_pratt("".to_string(), "abcdef".to_string());
+        let index = knuth_morris_pratt("", "abcdef");
         assert_eq!(index, vec![]);
     }
 }

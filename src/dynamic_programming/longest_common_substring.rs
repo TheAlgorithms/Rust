@@ -1,6 +1,6 @@
 // Longest common substring via Dynamic Programming
 // longest_common_substring(a, b) returns the length of longest common substring between the strings a and b.
-pub fn longest_common_substring(text1: String, text2: String) -> i32 {
+pub fn longest_common_substring(text1: &str, text2: &str) -> i32 {
     let m = text1.len();
     let n = text2.len();
 
@@ -32,74 +32,44 @@ mod tests {
 
     #[test]
     fn test1() {
-        assert_eq!(
-            longest_common_substring(String::from(""), String::from("")),
-            0
-        );
+        assert_eq!(longest_common_substring("", ""), 0);
     }
     #[test]
     fn test2() {
-        assert_eq!(
-            longest_common_substring(String::from("a"), String::from("")),
-            0
-        );
+        assert_eq!(longest_common_substring("a", ""), 0);
     }
     #[test]
     fn test3() {
-        assert_eq!(
-            longest_common_substring(String::from(""), String::from("a")),
-            0
-        );
+        assert_eq!(longest_common_substring("", "a"), 0);
     }
     #[test]
     fn test4() {
-        assert_eq!(
-            longest_common_substring(String::from("a"), String::from("a")),
-            1
-        );
+        assert_eq!(longest_common_substring("a", "a"), 1);
     }
     #[test]
     fn test5() {
-        assert_eq!(
-            longest_common_substring(String::from("abcdef"), String::from("bcd")),
-            3
-        );
+        assert_eq!(longest_common_substring("abcdef", "bcd"), 3);
     }
     #[test]
     fn test6() {
-        assert_eq!(
-            longest_common_substring(String::from("abcdef"), String::from("xabded")),
-            2
-        );
+        assert_eq!(longest_common_substring("abcdef", "xabded"), 2);
     }
     #[test]
     fn test7() {
-        assert_eq!(
-            longest_common_substring(String::from("GeeksforGeeks"), String::from("GeeksQuiz")),
-            5
-        );
+        assert_eq!(longest_common_substring("GeeksforGeeks", "GeeksQuiz"), 5);
     }
     #[test]
     fn test8() {
-        assert_eq!(
-            longest_common_substring(String::from("abcdxyz"), String::from("xyzabcd")),
-            4
-        );
+        assert_eq!(longest_common_substring("abcdxyz", "xyzabcd"), 4);
     }
     #[test]
     fn test9() {
-        assert_eq!(
-            longest_common_substring(String::from("zxabcdezy"), String::from("yzabcdezx")),
-            6
-        );
+        assert_eq!(longest_common_substring("zxabcdezy", "yzabcdezx"), 6);
     }
     #[test]
     fn test10() {
         assert_eq!(
-            longest_common_substring(
-                String::from("OldSite:GeeksforGeeks.org"),
-                String::from("NewSite:GeeksQuiz.com")
-            ),
+            longest_common_substring("OldSite:GeeksforGeeks.org", "NewSite:GeeksQuiz.com"),
             10
         );
     }

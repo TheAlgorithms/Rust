@@ -29,7 +29,7 @@ pub struct SuffixTree {
 }
 
 impl SuffixTree {
-    pub fn new(s: String) -> Self {
+    pub fn new(s: &str) -> Self {
         let mut suf_tree = SuffixTree {
             nodes: vec![Node::empty()],
         };
@@ -98,7 +98,7 @@ mod tests {
 
     #[test]
     fn test_suffix_tree() {
-        let suf_tree = SuffixTree::new("banana$".to_string());
+        let suf_tree = SuffixTree::new("banana$");
         assert_eq!(
             suf_tree.nodes,
             vec![
