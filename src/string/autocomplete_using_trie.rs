@@ -18,7 +18,7 @@ impl Trie {
         Trie(HashMap::new())
     }
 
-    fn insert(&mut self, text: String) {
+    fn insert(&mut self, text: &str) {
         let mut trie = self;
 
         for c in text.chars().collect::<Vec<char>>() {
@@ -28,7 +28,7 @@ impl Trie {
         trie.0.insert(END, Box::new(Trie::new()));
     }
 
-    fn find(&self, prefix: String) -> Vec<String> {
+    fn find(&self, prefix: &str) -> Vec<String> {
         let mut trie = self;
 
         for c in prefix.chars().collect::<Vec<char>>() {
@@ -42,7 +42,7 @@ impl Trie {
 
         Self::_elements(trie)
             .iter()
-            .map(|s| prefix.clone() + s)
+            .map(|s| prefix.to_owned() + s)
             .collect()
     }
 
@@ -76,13 +76,13 @@ impl Autocomplete {
         Self { trie: Trie::new() }
     }
 
-    pub fn insert_words(&mut self, words: Vec<String>) {
+    pub fn insert_words<T: AsRef<str>>(&mut self, words: &[T]) {
         for word in words {
-            self.trie.insert(word);
+            self.trie.insert(word.as_ref());
         }
     }
 
-    pub fn find_words(&self, prefix: String) -> Vec<String> {
+    pub fn find_words(&self, prefix: &str) -> Vec<String> {
         self.trie.find(prefix)
     }
 }
@@ -99,28 +99,24 @@ mod tests {
 
     #[test]
     fn test_autocomplete() {
-        let words = vec![
-            "apple".to_owned(),
-            "orange".to_owned(),
-            "oregano".to_owned(),
-        ];
+        let words = vec!["apple", "orange", "oregano"];
 
         let mut auto_complete = Autocomplete::new();
-        auto_complete.insert_words(words);
+        auto_complete.insert_words(&words);
 
-        let prefix = "app".to_owned();
+        let prefix = "app";
         let mut auto_completed_words = auto_complete.find_words(prefix);
 
-        let mut apple = vec!["apple".to_owned()];
+        let mut apple = vec!["apple"];
         apple.sort();
 
         auto_completed_words.sort();
         assert_eq!(auto_completed_words, apple);
 
-        let prefix = "or".to_owned();
+        let prefix = "or";
         let mut auto_completed_words = auto_complete.find_words(prefix);
 
-        let mut prefix_or = vec!["orange".to_owned(), "oregano".to_owned()];
+        let mut prefix_or = vec!["orange", "oregano"];
         prefix_or.sort();
 
         auto_completed_words.sort();

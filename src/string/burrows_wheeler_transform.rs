@@ -1,4 +1,4 @@
-pub fn burrows_wheeler_transform(input: String) -> (String, usize) {
+pub fn burrows_wheeler_transform(input: &str) -> (String, usize) {
     let len = input.len();
 
     let mut table = Vec::<String>::with_capacity(len);
@@ -19,11 +19,11 @@ pub fn burrows_wheeler_transform(input: String) -> (String, usize) {
     (encoded, index)
 }
 
-pub fn inv_burrows_wheeler_transform(input: (String, usize)) -> String {
-    let len = input.0.len();
+pub fn inv_burrows_wheeler_transform<T: AsRef<str>>(input: (T, usize)) -> String {
+    let len = input.0.as_ref().len();
     let mut table = Vec::<(usize, char)>::with_capacity(len);
     for i in 0..len {
-        table.push((i, input.0.chars().nth(i).unwrap()));
+        table.push((i, input.0.as_ref().chars().nth(i).unwrap()));
     }
 
     table.sort_by(|a, b| a.1.cmp(&b.1));
@@ -46,50 +46,47 @@ mod tests {
     //Ensure function stand-alone legitimacy
     fn stand_alone_function() {
         assert_eq!(
-            burrows_wheeler_transform("CARROT".to_string()),
-            ("CTRRAO".to_string(), 1usize)
+            burrows_wheeler_transform("CARROT"),
+            ("CTRRAO".to_owned(), 1usize)
         );
+        assert_eq!(inv_burrows_wheeler_transform(("CTRRAO", 1usize)), "CARROT");
         assert_eq!(
-            inv_burrows_wheeler_transform(("CTRRAO".to_string(), 1usize)),
-            ("CARROT".to_string())
-        );
-        assert_eq!(
-            burrows_wheeler_transform("THEALGORITHMS".to_string()),
-            ("EHLTTRAHGOMSI".to_string(), 11usize)
+            burrows_wheeler_transform("THEALGORITHMS"),
+            ("EHLTTRAHGOMSI".to_owned(), 11usize)
         );
         assert_eq!(
             inv_burrows_wheeler_transform(("EHLTTRAHGOMSI".to_string(), 11usize)),
-            ("THEALGORITHMS".to_string())
+            "THEALGORITHMS"
         );
         assert_eq!(
-            burrows_wheeler_transform("!.!.!??.=::".to_string()),
-            (":..!!?:=.?!".to_string(), 0usize)
+            burrows_wheeler_transform("!.!.!??.=::"),
+            (":..!!?:=.?!".to_owned(), 0usize)
         );
         assert_eq!(
-            inv_burrows_wheeler_transform((":..!!?:=.?!".to_string(), 0usize)),
+            inv_burrows_wheeler_transform((":..!!?:=.?!", 0usize)),
             "!.!.!??.=::"
         );
     }
     #[test]
     fn basic_characters() {
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("CARROT".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("CARROT")),
             "CARROT"
         );
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("TOMATO".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("TOMATO")),
             "TOMATO"
         );
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("THISISATEST".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("THISISATEST")),
             "THISISATEST"
         );
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("THEALGORITHMS".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("THEALGORITHMS")),
             "THEALGORITHMS"
         );
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("RUST".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("RUST")),
             "RUST"
         );
     }
@@ -97,17 +94,15 @@ mod tests {
     #[test]
     fn special_characters() {
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("!.!.!??.=::".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("!.!.!??.=::")),
             "!.!.!??.=::"
         );
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform(
-                "!{}{}(((&&%%!??.=::".to_string()
-            )),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("!{}{}(((&&%%!??.=::")),
             "!{}{}(((&&%%!??.=::"
         );
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("//&$[]".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("//&$[]")),
             "//&$[]"
         );
     }
@@ -115,7 +110,7 @@ mod tests {
     #[test]
     fn empty() {
         assert_eq!(
-            inv_burrows_wheeler_transform(burrows_wheeler_transform("".to_string())),
+            inv_burrows_wheeler_transform(burrows_wheeler_transform("")),
             ""
         );
     }
