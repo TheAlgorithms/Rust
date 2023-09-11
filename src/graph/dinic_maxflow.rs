@@ -194,8 +194,8 @@ mod tests {
         let max_flow = flow.find_maxflow(i32::MAX);
         assert_eq!(max_flow, 23);
 
-        let mut sm_out = vec![0; 7];
-        let mut sm_in = vec![0; 7];
+        let mut sm_out = [0; 7];
+        let mut sm_in = [0; 7];
 
         let flow_edges = flow.get_flow_edges(i32::MAX);
         for e in flow_edges {
