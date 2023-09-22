@@ -18,7 +18,7 @@ impl<V: Ord + Copy, E: Ord + Copy> PartialOrd for Candidate<V, E> {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         // Note the inverted order; we want nodes with lesser weight to have
         // higher priority
-        other.estimated_weight.partial_cmp(&self.estimated_weight)
+        Some(self.cmp(other))
     }
 }
 

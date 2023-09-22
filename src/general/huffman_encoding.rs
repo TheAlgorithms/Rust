@@ -28,7 +28,7 @@ impl<T> PartialEq for HuffmanNode<T> {
 
 impl<T> PartialOrd for HuffmanNode<T> {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.frequency.cmp(&other.frequency).reverse())
+        Some(self.cmp(other))
     }
 }
 
