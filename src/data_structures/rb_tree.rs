@@ -616,7 +616,7 @@ mod tests {
     #[test]
     fn find() {
         let mut tree = RBTree::<usize, char>::new();
-        for (k, v) in String::from("hello, world!").chars().enumerate() {
+        for (k, v) in "hello, world!".chars().enumerate() {
             tree.insert(k, v);
         }
         assert_eq!(*tree.find(&3).unwrap_or(&'*'), 'l');
@@ -628,7 +628,7 @@ mod tests {
     #[test]
     fn insert() {
         let mut tree = RBTree::<usize, char>::new();
-        for (k, v) in String::from("hello, world!").chars().enumerate() {
+        for (k, v) in "hello, world!".chars().enumerate() {
             tree.insert(k, v);
         }
         let s: String = tree.iter().map(|x| x.value).collect();
@@ -638,7 +638,7 @@ mod tests {
     #[test]
     fn delete() {
         let mut tree = RBTree::<usize, char>::new();
-        for (k, v) in String::from("hello, world!").chars().enumerate() {
+        for (k, v) in "hello, world!".chars().enumerate() {
             tree.insert(k, v);
         }
         tree.delete(&1);

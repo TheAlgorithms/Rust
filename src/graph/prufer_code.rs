@@ -6,8 +6,7 @@ pub fn prufer_encode<V: Ord + Copy>(tree: &Graph<V>) -> Vec<V> {
     if tree.len() <= 2 {
         return vec![];
     }
-    let mut result: Vec<V> = Vec::new();
-    result.reserve(tree.len() - 2);
+    let mut result: Vec<V> = Vec::with_capacity(tree.len() - 2);
     let mut queue = BinaryHeap::new();
     let mut in_tree = BTreeSet::new();
     let mut degree = BTreeMap::new();

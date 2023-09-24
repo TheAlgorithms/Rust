@@ -25,7 +25,7 @@ pub fn topological_sort<Node: Hash + Eq + Copy>(
         incoming_edges_count.entry(*source).or_insert(0); // if we haven't seen this node yet, mark it as having 0 incoming nodes
         edges_by_source // add destination to the list of outgoing edges from source
             .entry(*source)
-            .or_insert_with(Vec::default)
+            .or_default()
             .push(*destination);
         // then make destination have one more incoming edge
         *incoming_edges_count.entry(*destination).or_insert(0) += 1;
