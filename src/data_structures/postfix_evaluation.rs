@@ -22,7 +22,7 @@ fn evaluate_postfix(expression: &str) -> Result<i32, &'static str> {
                     _ => return Err("Invalid operator"),
                 }
             } else {
-                return Err("Invalid postfix expression");
+                return Err("Insufficient operands");
             }
         }
     }
@@ -31,7 +31,29 @@ fn evaluate_postfix(expression: &str) -> Result<i32, &'static str> {
     if stack.len() == 1 {
         Ok(stack[0])
     } else {
-        Err("Invalid postfix expression")
+        Err("Invalid expression")
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_valid_postfix_expression() {
+        assert_eq!(evaluate_postfix("2 3 +"), Ok(5));
+        assert_eq!(evaluate_postfix("5 2 * 4 +"), Ok(14));
+        assert_eq!(evaluate_postfix("10 2 /"), Ok(5));
+    }
+
+    #[test]
+    fn test_insufficient_operands() {
+        assert_eq!(evaluate_postfix("+"), Err("Insufficient operands"));
+    }
+
+    #[test]
+    fn test_division_by_zero() {
+        assert_eq!(evaluate_postfix("5 0 /"), Err("Division by zero"));
     }
 }
 
@@ -39,7 +61,9 @@ fn main() {
     println!("Enter a postfix expression :");
 
     let mut input = String::new();
-    std::io::stdin().read_line(&mut input).expect("Failed to read line");
+    std::io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
 
     let postfix_expression = input.trim();
 
