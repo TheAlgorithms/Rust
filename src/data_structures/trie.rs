@@ -33,7 +33,7 @@ where
     {
         let mut node = &mut self.root;
         for c in key.into_iter() {
-            node = node.children.entry(c).or_insert_with(Node::default);
+            node = node.children.entry(c).or_default();
         }
         node.value = Some(value);
     }

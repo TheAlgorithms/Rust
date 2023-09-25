@@ -5,8 +5,8 @@ use std::ops::Add;
 type Graph<V, E> = BTreeMap<V, BTreeMap<V, E>>;
 
 fn add_edge<V: Ord + Copy, E: Ord + Add + Copy>(graph: &mut Graph<V, E>, v1: V, v2: V, c: E) {
-    graph.entry(v1).or_insert_with(BTreeMap::new).insert(v2, c);
-    graph.entry(v2).or_insert_with(BTreeMap::new).insert(v1, c);
+    graph.entry(v1).or_default().insert(v2, c);
+    graph.entry(v2).or_default().insert(v1, c);
 }
 
 // selects a start and run the algorithm from it

@@ -114,7 +114,7 @@ impl<T: Debug + Default + Ord + Copy + Display + AddAssign + Add<Output = T>> La
             return;
         }
 
-        let lazy = self.lazy[idx].unwrap_or(T::default());
+        let lazy = self.lazy[idx].unwrap_or_default();
         self.lazy[idx] = None;
 
         let mid = (element_range.start + element_range.end) / 2;

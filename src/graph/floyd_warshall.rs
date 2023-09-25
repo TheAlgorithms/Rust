@@ -71,7 +71,7 @@ mod tests {
     use std::collections::BTreeMap;
 
     fn add_edge<V: Ord + Copy, E: Ord + Copy>(graph: &mut Graph<V, E>, v1: V, v2: V, c: E) {
-        graph.entry(v1).or_insert_with(BTreeMap::new).insert(v2, c);
+        graph.entry(v1).or_default().insert(v2, c);
     }
 
     fn bi_add_edge<V: Ord + Copy, E: Ord + Copy>(graph: &mut Graph<V, E>, v1: V, v2: V, c: E) {

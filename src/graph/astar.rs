@@ -18,7 +18,7 @@ impl<V: Ord + Copy, E: Ord + Copy> PartialOrd for Candidate<V, E> {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
         // Note the inverted order; we want nodes with lesser weight to have
         // higher priority
-        other.estimated_weight.partial_cmp(&self.estimated_weight)
+        Some(self.cmp(other))
     }
 }
 
@@ -111,8 +111,8 @@ mod tests {
     }
 
     fn add_edge<V: Ord + Copy, E: Ord>(graph: &mut Graph<V, E>, v1: V, v2: V, c: E) {
-        graph.entry(v1).or_insert_with(BTreeMap::new).insert(v2, c);
-        graph.entry(v2).or_insert_with(BTreeMap::new);
+        graph.entry(v1).or_default().insert(v2, c);
+        graph.entry(v2).or_default();
     }
 
     #[test]

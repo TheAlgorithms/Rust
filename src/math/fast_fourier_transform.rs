@@ -194,7 +194,7 @@ mod tests {
         let mut fft = fast_fourier_transform(&polynomial, &permutation);
         fft.iter_mut().for_each(|num| *num *= *num);
         let ifft = inverse_fast_fourier_transform(&fft, &permutation);
-        let expected = vec![1.0, 2.0, 1.0, 4.0, 4.0, 0.0, 4.0, 0.0, 0.0];
+        let expected = [1.0, 2.0, 1.0, 4.0, 4.0, 0.0, 4.0, 0.0, 0.0];
         for (x, y) in ifft.iter().zip(expected.iter()) {
             assert!(almost_equal(*x, *y, EPSILON));
         }

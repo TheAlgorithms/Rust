@@ -3,7 +3,7 @@
 // by deleting some (can be none) of the characters without disturbing the relative
 // positions of the remaining characters.
 // (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
-pub fn is_subsequence(str1: String, str2: String) -> bool {
+pub fn is_subsequence(str1: &str, str2: &str) -> bool {
     let mut it1 = 0;
     let mut it2 = 0;
 
@@ -27,7 +27,7 @@ mod tests {
 
     #[test]
     fn test() {
-        assert!(is_subsequence(String::from("abc"), String::from("ahbgdc")));
-        assert!(!is_subsequence(String::from("axc"), String::from("ahbgdc")));
+        assert!(is_subsequence("abc", "ahbgdc"));
+        assert!(!is_subsequence("axc", "ahbgdc"));
     }
 }
