@@ -57,18 +57,3 @@ mod tests {
     }
 }
 
-fn main() {
-    println!("Enter a postfix expression :");
-
-    let mut input = String::new();
-    std::io::stdin()
-        .read_line(&mut input)
-        .expect("Failed to read line");
-
-    let postfix_expression = input.trim();
-
-    match evaluate_postfix(postfix_expression) {
-        Ok(result) => println!("Result: {}", result),
-        Err(err) => println!("Error: {}", err),
-    }
-}
