@@ -1,7 +1,11 @@
 fn area_under_curve(start: f64, end: f64, func: fn(f64) -> f64, step_count: usize) -> f64 {
     assert!(step_count > 0);
 
-    let (start, end) = if (start > end) { (end, start) } else { (start, end) }; //swap if bounds reversed
+    let (start, end) = if start > end {
+        (end, start)
+    } else {
+        (start, end)
+    }; //swap if bounds reversed
 
     let step_length: f64 = (end - start) / step_count as f64;
     let mut area: f64 = 0f64;
@@ -28,7 +32,10 @@ mod test {
 
     #[test]
     fn test_quadratic_func() {
-        assert_eq!(area_under_curve(1f64, 2f64, |x| x * x, 1000), 2.333333500000005);
+        assert_eq!(
+            area_under_curve(1f64, 2f64, |x| x * x, 1000),
+            2.333333500000005
+        );
     }
 
     #[test]
