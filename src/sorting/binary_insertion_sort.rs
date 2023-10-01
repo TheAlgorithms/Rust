@@ -27,11 +27,6 @@ fn binary_insertion_sort<T: Ord + Clone>(arr: &mut [T]) {
     }
 }
 
-fn main() {
-    let mut arr = vec![64, 25, 12, 22, 11];
-    binary_insertion_sort(&mut arr);
-    println!("Sorted array: {:?}", arr);
-}
 
 #[cfg(test)]
 mod tests {
