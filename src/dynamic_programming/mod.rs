@@ -1,3 +1,4 @@
+mod box_stacking;
 mod coin_change;
 mod egg_dropping;
 mod fibonacci;
@@ -16,6 +17,7 @@ mod rod_cutting;
 mod snail;
 mod subset_generation;
 
+pub use self::box_stacking::max_height_by_stacking_cuboids;
 pub use self::coin_change::coin_change;
 pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::classical_fibonacci;
