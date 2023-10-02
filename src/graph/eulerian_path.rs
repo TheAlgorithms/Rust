@@ -3,12 +3,12 @@ use std::vec::Vec;
 
 /// Struct representing an Eulerian Path in a directed graph.
 pub struct EulerianPath {
-    n: usize,                    // Number of nodes in the graph
-    edge_count: usize,           // Total number of edges in the graph
-    in_degree: Vec<usize>,       // In-degrees of nodes
-    out_degree: Vec<usize>,      // Out-degrees of nodes
-    path: LinkedList<usize>,     // Linked list to store the Eulerian path
-    graph: Vec<Vec<usize>>,     // Adjacency list representing the directed graph
+    n: usize,                // Number of nodes in the graph
+    edge_count: usize,       // Total number of edges in the graph
+    in_degree: Vec<usize>,   // In-degrees of nodes
+    out_degree: Vec<usize>,  // Out-degrees of nodes
+    path: LinkedList<usize>, // Linked list to store the Eulerian path
+    graph: Vec<Vec<usize>>,  // Adjacency list representing the directed graph
 }
 
 impl EulerianPath {
