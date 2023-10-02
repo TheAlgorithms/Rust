@@ -141,7 +141,7 @@ mod tests {
     }
 
     /// Adds a directed edge from `from` to `to` in the graph.
-    fn add_directed_edge(graph: &mut Vec<Vec<usize>>, from: usize, to: usize) {
+    fn add_directed_edge(graph: &mut [Vec<usize>], from: usize, to: usize) {
         graph[from].push(to);
     }
 
