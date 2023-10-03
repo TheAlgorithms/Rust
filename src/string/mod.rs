@@ -14,6 +14,7 @@ mod rabin_karp;
 mod reverse;
 mod run_length_encoding;
 mod suffix_array;
+mod suffix_array_manber_myers;
 mod suffix_tree;
 mod z_algorithm;
 
@@ -35,6 +36,7 @@ pub use self::rabin_karp::rabin_karp;
 pub use self::reverse::reverse;
 pub use self::run_length_encoding::{run_length_decoding, run_length_encoding};
 pub use self::suffix_array::generate_suffix_array;
+pub use self::suffix_array_manber_myers::generate_suffix_array_manber_myers;
 pub use self::suffix_tree::{Node, SuffixTree};
 pub use self::z_algorithm::match_pattern;
 pub use self::z_algorithm::z_array;
