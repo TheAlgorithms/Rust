@@ -44,12 +44,16 @@ mod tests {
     use super::*;
     use crate::sorting::have_same_elements;
     use crate::sorting::is_sorted;
+    use crate::sorting::sort_utils;
 
     #[test]
     fn basic() {
         let mut res = vec![10, 8, 4, 3, 1, 9, 2, 7, 5, 6];
         let cloned = res.clone();
-        quick_sort_3_ways(&mut res);
+        sort_utils::log_timed("basic", || {
+            quick_sort_3_ways(&mut res);
+        });
+
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
@@ -57,7 +61,10 @@ mod tests {
     fn basic_string() {
         let mut res = vec!["a", "bb", "d", "cc"];
         let cloned = res.clone();
-        quick_sort_3_ways(&mut res);
+        sort_utils::log_timed("basic sring", || {
+            quick_sort_3_ways(&mut res);
+        });
+
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
@@ -65,39 +72,78 @@ mod tests {
     fn empty() {
         let mut res = Vec::<u8>::new();
         let cloned = res.clone();
-        quick_sort_3_ways(&mut res);
+        sort_utils::log_timed("empty", || {
+            quick_sort_3_ways(&mut res);
+        });
+
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn one_element() {
-        let mut res = vec![1];
+        let mut res = sort_utils::generate_random_vec(1, 0, 1);
         let cloned = res.clone();
-        quick_sort_3_ways(&mut res);
+        sort_utils::log_timed("one element", || {
+            quick_sort_3_ways(&mut res);
+        });
+
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn pre_sorted() {
-        let mut res = vec![1, 2, 3, 4];
+        let mut res = sort_utils::generate_nearly_ordered_vec(1000, 0);
         let cloned = res.clone();
-        quick_sort_3_ways(&mut res);
+        sort_utils::log_timed("pre sorted", || {
+            quick_sort_3_ways(&mut res);
+        });
+
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn reverse_sorted() {
-        let mut res = vec![4, 3, 2, 1];
+        let mut res = sort_utils::generate_reverse_ordered_vec(5);
         let cloned = res.clone();
-        quick_sort_3_ways(&mut res);
+        sort_utils::log_timed("reverse sorted", || {
+            quick_sort_3_ways(&mut res);
+        });
+
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
+    }
+
+    #[test]
+    fn large_elements() {
+        let mut res = sort_utils::generate_random_vec(1000000, 0, 1000000);
+        let cloned = res.clone();
+        sort_utils::log_timed("large elements test", || {
+            quick_sort_3_ways(&mut res);
+        });
+        assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
+    }
+
+    #[test]
+    #[ignore = "too longer time to run"]
+    fn nearly_ordered_elements() {
+        let mut res = sort_utils::generate_nearly_ordered_vec(1000000, 10);
+        let cloned = res.clone();
+
+        sort_utils::log_timed("nearly ordered elements test", || {
+            quick_sort_3_ways(&mut res);
+        });
+
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 
     #[test]
     fn repeated_elements() {
-        let mut res = vec![2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2];
+        let mut res = sort_utils::generate_repeated_elements_vec(1000000, 3);
         let cloned = res.clone();
-        quick_sort_3_ways(&mut res);
+
+        sort_utils::log_timed("repeated elements test", || {
+            quick_sort_3_ways(&mut res);
+        });
+
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
     }
 }
