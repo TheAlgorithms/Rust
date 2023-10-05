@@ -1,23 +1,28 @@
 use std::cmp::{Ord, Ordering};
 
-fn _quick_sort_3_ways<T: Ord>(arr: &mut [T], lo: isize, hi: isize) {
+use rand::Rng;
+
+fn _quick_sort_3_ways<T: Ord>(arr: &mut [T], lo: usize, hi: usize) {
     if lo >= hi {
         return;
     }
+
+    let mut rng = rand::thread_rng();
+    arr.swap(lo, rng.gen_range(lo..hi + 1));
 
     let mut lt = lo; // arr[lo+1, lt] < v
     let mut gt = hi + 1; // arr[gt, r] > v
     let mut i = lo + 1; // arr[lt + 1, i) == v
 
     while i < gt {
-        match arr[i as usize].cmp(&arr[lo as usize]) {
+        match arr[i].cmp(&arr[lo]) {
             Ordering::Less => {
-                arr.swap(i as usize, (lt + 1) as usize);
+                arr.swap(i, lt + 1);
                 i += 1;
                 lt += 1;
             }
             Ordering::Greater => {
-                arr.swap(i as usize, (gt - 1) as usize);
+                arr.swap(i, gt - 1);
                 gt -= 1;
             }
             Ordering::Equal => {
@@ -26,16 +31,19 @@ fn _quick_sort_3_ways<T: Ord>(arr: &mut [T], lo: isize, hi: isize) {
         }
     }
 
-    arr.swap(lo as usize, lt as usize);
+    arr.swap(lo, lt);
 
-    _quick_sort_3_ways(arr, lo, lt - 1);
+    if lt > 1 {
+        _quick_sort_3_ways(arr, lo, lt - 1);
+    }
+
     _quick_sort_3_ways(arr, gt, hi);
 }
 
 pub fn quick_sort_3_ways<T: Ord>(arr: &mut [T]) {
     let len = arr.len();
     if len > 1 {
-        _quick_sort_3_ways(arr, 0, (len - 1) as isize);
+        _quick_sort_3_ways(arr, 0, len - 1);
     }
 }
 
@@ -92,7 +100,7 @@ mod tests {
 
     #[test]
     fn pre_sorted() {
-        let mut res = sort_utils::generate_nearly_ordered_vec(1000, 0);
+        let mut res = sort_utils::generate_nearly_ordered_vec(300000, 0);
         let cloned = res.clone();
         sort_utils::log_timed("pre sorted", || {
             quick_sort_3_ways(&mut res);
@@ -103,7 +111,7 @@ mod tests {
 
     #[test]
     fn reverse_sorted() {
-        let mut res = sort_utils::generate_reverse_ordered_vec(5);
+        let mut res = sort_utils::generate_reverse_ordered_vec(300000);
         let cloned = res.clone();
         sort_utils::log_timed("reverse sorted", || {
             quick_sort_3_ways(&mut res);
@@ -114,7 +122,7 @@ mod tests {
 
     #[test]
     fn large_elements() {
-        let mut res = sort_utils::generate_random_vec(1000000, 0, 1000000);
+        let mut res = sort_utils::generate_random_vec(300000, 0, 1000000);
         let cloned = res.clone();
         sort_utils::log_timed("large elements test", || {
             quick_sort_3_ways(&mut res);
@@ -123,9 +131,8 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "too longer time to run"]
     fn nearly_ordered_elements() {
-        let mut res = sort_utils::generate_nearly_ordered_vec(1000000, 10);
+        let mut res = sort_utils::generate_nearly_ordered_vec(300000, 10);
         let cloned = res.clone();
 
         sort_utils::log_timed("nearly ordered elements test", || {
