@@ -8,27 +8,26 @@ Reference: https://www.britannica.com/science/mean-median-and-mode
 
 This program approximates the mean, median and mode of a finite sequence.
 Note: `mean` function only limited to float 64 numbers. Floats sequences are not allowed for `median` & `mode` functions.
-
-# Examples
-```
-mean(vec![0.0,1.0,2.0,3.0,4.0])
-2.0
-median(vec![4, 53, 2, 1, 9, 0, 2, 3, 6])
-3
-mode(vec![-9, -8, 0, 1, 2, 2, 3, 4, 6, 9, 53])
-2
-```"]
+"]
 use std::collections::HashMap;
 use std::ops::{Add, Div, Sub};
-
+/// # Argument
+///
+/// * `sequence` - A vector of float64 numbers.
+/// Returns mean of `sequence`.
 pub fn mean(sequence: Vec<f64>) -> f64 {
     let mut sum: f64 = 0.0;
     let n: f64 = sequence.len() as f64;
     for value in sequence {
-        sum = sum + value;
+        sum += value;
     }
     sum / n
 }
+
+/// # Argument
+///
+/// * `sequence` - A vector of numbers.
+/// Returns median of `sequence`.
 
 pub fn median<T: Add<Output = T> + Sub<Output = T> + Div<i32, Output = T> + Ord + Copy>(
     mut sequence: Vec<T>,
@@ -36,13 +35,17 @@ pub fn median<T: Add<Output = T> + Sub<Output = T> + Div<i32, Output = T> + Ord 
     sequence.sort();
     if sequence.len() % 2 == 1 {
         let k = (sequence.len() + 1) / 2;
-        return sequence[k - 1];
+        sequence[k - 1]
     } else {
         let j = (sequence.len()) / 2;
-        return (sequence[j - 1] + sequence[j]) / 2;
+        (sequence[j - 1] + sequence[j]) / 2
     }
 }
 
+/// # Argument
+///
+/// * `sequence` - A vector of numbers.
+/// Returns mode of `sequence`.
 pub fn mode<
     T: Add<Output = T> + Sub<Output = T> + Div<i32, Output = T> + Ord + Copy + std::hash::Hash,
 >(
@@ -53,7 +56,7 @@ pub fn mode<
         let count = hash.entry(value).or_insert(0);
         *count += 1;
     }
-    return *hash.iter().max_by_key(|entry| entry.1).unwrap().0;
+    *hash.iter().max_by_key(|entry| entry.1).unwrap().0
 }
 
 #[cfg(test)]
