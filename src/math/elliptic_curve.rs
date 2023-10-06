@@ -2,7 +2,7 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::{Add, Div, Mul, Neg, Sub};
 
-/// Element of a field which can be represented by i64
+/// A field
 pub trait Field:
     Neg<Output = Self>
     + Add<Output = Self>
