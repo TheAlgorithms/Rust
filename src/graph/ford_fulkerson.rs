@@ -18,7 +18,7 @@ use std::collections::VecDeque;
 const V: usize = 6; // Number of vertices in graph
 
 pub fn bfs(r_graph: &mut [Vec<i32>], s: usize, t: usize, parent: &mut [i32]) -> bool {
-    let mut visited = vec![false; V];
+    let mut visited = [false; V];
     visited[s] = true;
     parent[s] = -1;
 
