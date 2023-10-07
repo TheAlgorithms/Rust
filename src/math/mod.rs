@@ -10,6 +10,7 @@ mod ceil;
 mod chinese_remainder_theorem;
 mod collatz_sequence;
 mod doomsday;
+mod elliptic_curve;
 mod extended_euclidean_algorithm;
 mod factors;
 mod fast_fourier_transform;
@@ -62,6 +63,7 @@ pub use self::ceil::ceil;
 pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
 pub use self::collatz_sequence::sequence;
 pub use self::doomsday::get_week_day;
+pub use self::elliptic_curve::EllipticCurve;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::factors::factors;
 pub use self::fast_fourier_transform::{
