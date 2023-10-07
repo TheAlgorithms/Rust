@@ -55,7 +55,7 @@ fn closest_points_aux(
         return Some(pair);
     }
 
-    let mid = (start + end) / 2;
+    let mid = start + (end - start) / 2;
     let mid_x = points_x[mid].x;
 
     // Separate points into y_left and y_right vectors based on their x-coordinate. Since y is
