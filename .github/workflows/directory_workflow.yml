@@ -6,7 +6,9 @@ jobs:
     name: DIRECTORY.md
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1 # v2 is broken for git diff
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v4
       - name: Setup Git Specs
         run: |
@@ -20,5 +22,4 @@ jobs:
         run: |
          git add DIRECTORY.md
          git commit -m "updating DIRECTORY.md" ||  true
-         git diff DIRECTORY.md
          git push --force origin HEAD:$GITHUB_REF || true
