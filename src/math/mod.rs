@@ -15,6 +15,7 @@ mod factors;
 mod fast_fourier_transform;
 mod fast_power;
 mod faster_perfect_numbers;
+mod field;
 mod gaussian_elimination;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
@@ -69,6 +70,7 @@ pub use self::fast_fourier_transform::{
 };
 pub use self::fast_power::fast_power;
 pub use self::faster_perfect_numbers::generate_perfect_numbers;
+pub use self::field::{Field, PrimeField};
 pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
