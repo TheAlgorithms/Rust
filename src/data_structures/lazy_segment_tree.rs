@@ -62,7 +62,7 @@ impl<T: Debug + Default + Ord + Copy + Display + AddAssign + Add<Output = T>> La
         if element_range.start >= query_range.start && element_range.end <= query_range.end {
             return Some(self.tree[idx]);
         }
-        let mid = element_range.start + (element_range.end - element_range.start) / 2; 
+        let mid = element_range.start + (element_range.end - element_range.start) / 2;
         let left = self.query_recursive(idx * 2, element_range.start..mid, query_range);
         let right = self.query_recursive(idx * 2 + 1, mid..element_range.end, query_range);
         match (left, right) {
