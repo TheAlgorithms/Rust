@@ -17,10 +17,13 @@ mod pancake_sort;
 mod patience_sort;
 mod pigeonhole_sort;
 mod quick_sort;
+mod quick_sort_3_ways;
 mod radix_sort;
 mod selection_sort;
 mod shell_sort;
 mod sleep_sort;
+#[cfg(test)]
+mod sort_utils;
 mod stooge_sort;
 mod tim_sort;
 
@@ -45,6 +48,7 @@ pub use self::pancake_sort::pancake_sort;
 pub use self::patience_sort::patience_sort;
 pub use self::pigeonhole_sort::pigeonhole_sort;
 pub use self::quick_sort::{partition, quick_sort};
+pub use self::quick_sort_3_ways::quick_sort_3_ways;
 pub use self::radix_sort::radix_sort;
 pub use self::selection_sort::selection_sort;
 pub use self::shell_sort::shell_sort;
