@@ -22,6 +22,8 @@ mod radix_sort;
 mod selection_sort;
 mod shell_sort;
 mod sleep_sort;
+#[cfg(test)]
+mod sort_utils;
 mod stooge_sort;
 mod tim_sort;
 
