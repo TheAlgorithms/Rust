@@ -69,7 +69,7 @@ mod tests {
     fn basic_string() {
         let mut res = vec!["a", "bb", "d", "cc"];
         let cloned = res.clone();
-        sort_utils::log_timed("basic sring", || {
+        sort_utils::log_timed("basic string", || {
             quick_sort_3_ways(&mut res);
         });
 
