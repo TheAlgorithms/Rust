@@ -42,6 +42,7 @@
     * [Fenwick Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/fenwick_tree.rs)
     * [Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/graph.rs)
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
+    * [Infix To Postfix](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/infix_to_postfix.rs)
     * [Lazy Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/lazy_segment_tree.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
     * [Postfix Evaluation](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/postfix_evaluation.rs)
