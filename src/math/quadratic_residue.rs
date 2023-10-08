@@ -13,12 +13,12 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use super::{fast_power, PCG32};
 
 #[derive(Debug)]
-struct CustomFiniteFiled {
+struct CustomFiniteField {
     modulus: u64,
     i_square: u64,
 }
 
-impl CustomFiniteFiled {
+impl CustomFiniteField {
     pub fn new(modulus: u64, i_square: u64) -> Self {
         Self { modulus, i_square }
     }
@@ -28,11 +28,11 @@ impl CustomFiniteFiled {
 struct CustomComplexNumber {
     real: u64,
     imag: u64,
-    f: Rc<CustomFiniteFiled>,
+    f: Rc<CustomFiniteField>,
 }
 
 impl CustomComplexNumber {
-    pub fn new(real: u64, imag: u64, f: Rc<CustomFiniteFiled>) -> Self {
+    pub fn new(real: u64, imag: u64, f: Rc<CustomFiniteField>) -> Self {
         Self { real, imag, f }
     }
 
@@ -70,6 +70,22 @@ fn is_residue(x: u64, modulus: u64) -> bool {
     x != 0 && fast_power(x as usize, power as usize, modulus as usize) == 1
 }
 
+/// The Legendre symbol `(a | p)`
+///
+/// Returns 0 if a = 0 mod p, 1 if a is a square mod p, -1 if it not a square mod p.
+///
+/// <https://en.wikipedia.org/wiki/Legendre_symbol>
+pub fn legendre_symbol(a: u64, odd_prime: u64) -> i64 {
+    debug_assert!(odd_prime % 2 != 0, "prime must be odd");
+    if a == 0 {
+        0
+    } else if is_residue(a, odd_prime) {
+        1
+    } else {
+        -1
+    }
+}
+
 // return two solutions (x1, x2) for Quadratic Residue problem x^2 = a (mod p), where p is an odd prime
 // if a is Quadratic Nonresidues, return None
 pub fn cipolla(a: u32, p: u32, seed: Option<u64>) -> Option<(u32, u32)> {
@@ -97,7 +113,7 @@ pub fn cipolla(a: u32, p: u32, seed: Option<u64>) -> Option<(u32, u32)> {
             break r;
         }
     };
-    let filed = Rc::new(CustomFiniteFiled::new(p, (p + r * r - a) % p));
+    let filed = Rc::new(CustomFiniteField::new(p, (p + r * r - a) % p));
     let comp = CustomComplexNumber::new(r, 1, filed);
     let power = (p + 1) >> 1;
     let x0 = CustomComplexNumber::fast_power(comp, power).real as u32;
