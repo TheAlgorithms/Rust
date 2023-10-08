@@ -95,7 +95,7 @@ pub use self::pollard_rho::{pollard_rho_factorize, pollard_rho_get_one_factor};
 pub use self::prime_check::prime_check;
 pub use self::prime_factors::prime_factors;
 pub use self::prime_numbers::prime_numbers;
-pub use self::quadratic_residue::cipolla;
+pub use self::quadratic_residue::{cipolla, tonelli_shanks};
 pub use self::random::PCG32;
 pub use self::relu::relu;
 pub use self::sieve_of_eratosthenes::sieve_of_eratosthenes;
