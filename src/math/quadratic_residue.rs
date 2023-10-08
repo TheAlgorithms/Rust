@@ -10,6 +10,8 @@
 use std::rc::Rc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
+use rand::Rng;
+
 use super::{fast_power, PCG32};
 
 #[derive(Debug)]
@@ -125,19 +127,96 @@ pub fn cipolla(a: u32, p: u32, seed: Option<u64>) -> Option<(u32, u32)> {
     }
 }
 
+/// Returns one of the two possible solutions of _x² = a mod p_, if any.
+///
+/// The other solution is _-x mod p_. If there is no solution, returns `None`.
+///
+/// Reference: H. Cohen, _A course in computational algebraic number theory_, Algorithm 1.4.3
+///
+/// ## Implementation details
+///
+/// To avoid multiplication overflows, internally the algorithm uses the `128`-bit arithmetic.
+///
+/// Also see [`cipolla`].
+pub fn tonelli_shanks(a: i64, odd_prime: u64) -> Option<u64> {
+    let p: u128 = odd_prime as u128;
+    let e = (p - 1).trailing_zeros();
+    let q = (p - 1) >> e; // p = 2^e * q, with q odd
+
+    let a = if a < 0 {
+        a.rem_euclid(p as i64) as u128
+    } else {
+        a as u128
+    };
+
+    let power_mod_p = |b, e| fast_power(b as usize, e as usize, p as usize) as u128;
+
+    // find generator: choose a random non-residue n mod p
+    let mut rng = rand::thread_rng();
+    let n = loop {
+        let n = rng.gen_range(0..p);
+        if legendre_symbol(n as u64, p as u64) == -1 {
+            break n;
+        }
+    };
+    let z = power_mod_p(n, q);
+
+    // init
+    let mut y = z;
+    let mut r = e;
+    let mut x = power_mod_p(a, (q - 1) / 2) % p;
+    let mut b = (a * x * x) % p;
+    x = (a * x) % p;
+
+    while b % p != 1 {
+        // find exponent
+        let m = (1..r)
+            .scan(b, |prev, m| {
+                *prev = (*prev * *prev) % p;
+                Some((m, *prev == 1))
+            })
+            .find_map(|(m, cond)| cond.then_some(m));
+        let Some(m) = m else {
+            return None; // non-residue
+        };
+
+        // reduce exponent
+        let t = power_mod_p(y as u128, 2_u128.pow(r - m - 1));
+        y = (t * t) % p;
+        r = m;
+        x = (x * t) % p;
+        b = (b * y) % p;
+    }
+
+    Some(x as u64)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    fn tonelli_shanks_residues(x: u64, odd_prime: u64) -> Option<(u64, u64)> {
+        let x = tonelli_shanks(x as i64, odd_prime)?;
+        let x2 = (-(x as i64)).rem_euclid(odd_prime as i64) as u64;
+        Some(if x < x2 { (x, x2) } else { (x2, x) })
+    }
+
     #[test]
-    fn small_numbers() {
+    fn cipolla_small_numbers() {
         assert_eq!(cipolla(1, 43, None), Some((1, 42)));
         assert_eq!(cipolla(2, 23, None), Some((5, 18)));
         assert_eq!(cipolla(17, 83, Some(42)), Some((10, 73)));
     }
 
     #[test]
-    fn random_numbers() {
+    fn tonelli_shanks_small_numbers() {
+        assert_eq!(tonelli_shanks_residues(1, 43).unwrap(), (1, 42));
+        assert_eq!(tonelli_shanks_residues(2, 23).unwrap(), (5, 18));
+        assert_eq!(tonelli_shanks_residues(17, 83).unwrap(), (10, 73));
+    }
+
+    #[test]
+    fn cipolla_random_numbers() {
         assert_eq!(cipolla(392203, 852167, None), Some((413252, 438915)));
         assert_eq!(
             cipolla(379606557, 425172197, None),
@@ -158,7 +237,32 @@ mod tests {
     }
 
     #[test]
+    fn tonelli_shanks_random_numbers() {
+        assert_eq!(
+            tonelli_shanks_residues(392203, 852167),
+            Some((413252, 438915))
+        );
+        assert_eq!(
+            tonelli_shanks_residues(379606557, 425172197),
+            Some((143417827, 281754370))
+        );
+        assert_eq!(
+            tonelli_shanks_residues(585251669, 892950901),
+            Some((192354555, 700596346))
+        );
+        assert_eq!(
+            tonelli_shanks_residues(404690348, 430183399),
+            Some((57227138, 372956261))
+        );
+        assert_eq!(
+            tonelli_shanks_residues(210205747, 625380647),
+            Some((76810367, 548570280))
+        );
+    }
+
+    #[test]
     fn no_answer() {
         assert_eq!(cipolla(650927, 852167, None), None);
+        assert_eq!(tonelli_shanks(650927, 852167), None);
     }
 }
