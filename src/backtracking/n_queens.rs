@@ -19,7 +19,7 @@
         "Q...",
         "..Q."
     ]
-    
+
     Solution 2:
     [
         "..Q.",
@@ -30,56 +30,55 @@
 */
 
 pub fn n_queens_solver(n: usize) -> Vec<Vec<String>> {
-  let mut board = vec![vec!['.'; n]; n];
-  let mut solutions = Vec::new();
-  solve(&mut board, 0, &mut solutions);
-  solutions
+    let mut board = vec![vec!['.'; n]; n];
+    let mut solutions = Vec::new();
+    solve(&mut board, 0, &mut solutions);
+    solutions
 }
 
 fn is_safe(board: &Vec<Vec<char>>, row: usize, col: usize) -> bool {
-  // Check if there is a queen in the same column
-  for i in 0..row {
-      if board[i][col] == 'Q' {
-          return false;
-      }
-  }
+    // Check if there is a queen in the same column
+    for (i, _) in board.iter().take(row).enumerate() {
+        if board[i][col] == 'Q' {
+            return false;
+        }
+    }
 
-  // Check if there is a queen in the left upper diagonal
-  for i in (0..row).rev() {
-      let j = col as isize - (row as isize - i as isize);
-      if j >= 0 && board[i][j as usize] == 'Q' {
-          return false;
-      }
-  }
+    // Check if there is a queen in the left upper diagonal
+    for i in (0..row).rev() {
+        let j = col as isize - (row as isize - i as isize);
+        if j >= 0 && board[i][j as usize] == 'Q' {
+            return false;
+        }
+    }
 
-  // Check if there is a queen in the right upper diagonal
-  for i in (0..row).rev() {
-      let j = col + row - i;
-      if j < board.len() && board[i][j] == 'Q' {
-          return false;
-      }
-  }
+    // Check if there is a queen in the right upper diagonal
+    for i in (0..row).rev() {
+        let j = col + row - i;
+        if j < board.len() && board[i][j] == 'Q' {
+            return false;
+        }
+    }
 
-  true
+    true
 }
 
 fn solve(board: &mut Vec<Vec<char>>, row: usize, solutions: &mut Vec<Vec<String>>) {
-  let n = board.len();
-  if row == n {
-      let solution: Vec<String> = board.iter().map(|row| row.iter().collect()).collect();
-      solutions.push(solution);
-      return;
-  }
+    let n = board.len();
+    if row == n {
+        let solution: Vec<String> = board.iter().map(|row| row.iter().collect()).collect();
+        solutions.push(solution);
+        return;
+    }
 
-  for col in 0..n {
-      if is_safe(board, row, col) {
-          board[row][col] = 'Q';
-          solve(board, row + 1, solutions);
-          board[row][col] = '.';
-      }
-  }
+    for col in 0..n {
+        if is_safe(board, row, col) {
+            board[row][col] = 'Q';
+            solve(board, row + 1, solutions);
+            board[row][col] = '.';
+        }
+    }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -93,25 +92,9 @@ mod tests {
         assert_eq!(solutions.len(), 2); // There are two solutions for the 4-Queens problem
 
         // Verify the first solution
-        assert_eq!(
-            solutions[0],
-            vec![
-                ".Q..",
-                "...Q",
-                "Q...",
-                "..Q."
-            ]
-        );
+        assert_eq!(solutions[0], vec![".Q..", "...Q", "Q...", "..Q."]);
 
         // Verify the second solution
-        assert_eq!(
-            solutions[1],
-            vec![
-                "..Q.",
-                "Q...",
-                "...Q",
-                ".Q.."
-            ]
-        );
+        assert_eq!(solutions[1], vec!["..Q.", "Q...", "...Q", ".Q.."]);
     }
 }
