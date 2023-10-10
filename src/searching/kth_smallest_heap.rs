@@ -12,7 +12,7 @@ use std::cmp::{Ord, Ordering};
 /// operation's complexity is O(log(k)).
 pub fn kth_smallest_heap<T>(input: &[T], k: usize) -> Option<T>
 where
-    T: Default + Ord + Copy,
+    T: Ord + Copy,
 {
     if input.len() < k {
         return None;
@@ -37,7 +37,7 @@ where
 
     for &val in input.iter().skip(k) {
         // compare new value to the current kth smallest value
-        let cur_big = heap.next().unwrap(); // heap.next() can't be None
+        let cur_big = heap.pop().unwrap(); // heap.pop() can't be None
         match val.cmp(&cur_big) {
             Ordering::Greater => {
                 heap.add(cur_big);
@@ -48,7 +48,7 @@ where
         }
     }
 
-    heap.next()
+    heap.pop()
 }
 
 #[cfg(test)]
