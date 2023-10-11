@@ -116,7 +116,6 @@ impl<T> LinkedList<T> {
         }
 
         self.head.map(|head_ptr| unsafe {
-            println!("{}", self.length);
             let old_head = Box::from_raw(head_ptr.as_ptr());
             match old_head.next {
                 Some(mut next_ptr) => next_ptr.as_mut().prev = None,
