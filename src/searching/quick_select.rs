@@ -19,7 +19,7 @@ pub fn quick_select(list: &mut [i32], left: usize, right: usize, index: usize) -
         // If the list contains only one element,
         return list[left];
     } // return that element
-    let mut pivot_index = ((left + right) / 2) + 1; // select a pivotIndex between left and right
+    let mut pivot_index = 1 + left + (right - left) / 2; // select a pivotIndex between left and right
     pivot_index = partition(list, left, right, pivot_index);
     // The pivot is in its final sorted position
     match index {
