@@ -2,8 +2,7 @@ use std::f64::consts::E;
 use std::f64::consts::PI;
 
 fn tanh(vector: f64) -> f64 {
-    let tanh_vec = (2. / (1. + E.powf(-2. * vector.to_owned()))) - 1.;
-    tanh_vec
+    (2. / (1. + E.powf(-2. * vector.to_owned()))) - 1.
 }
 
 pub fn gaussian_error_linear_unit(vector: &Vec<f64>) -> Vec<f64> {
