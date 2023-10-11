@@ -2,9 +2,9 @@ use std::fmt::{self, Display, Formatter};
 use std::marker::PhantomData;
 use std::ptr::NonNull;
 
-struct Node<T> {
-    val: T,
-    next: Option<NonNull<Node<T>>>,
+pub struct Node<T> {
+    pub val: T,
+    pub next: Option<NonNull<Node<T>>>,
     prev: Option<NonNull<Node<T>>>,
 }
 
@@ -19,9 +19,9 @@ impl<T> Node<T> {
 }
 
 pub struct LinkedList<T> {
-    length: u32,
-    head: Option<NonNull<Node<T>>>,
-    tail: Option<NonNull<Node<T>>>,
+    pub length: u32,
+    pub head: Option<NonNull<Node<T>>>,
+    pub tail: Option<NonNull<Node<T>>>,
     // Act like we own boxed nodes since we construct and leak them
     marker: PhantomData<Box<Node<T>>>,
 }
@@ -111,16 +111,22 @@ impl<T> LinkedList<T> {
     pub fn delete_head(&mut self) -> Option<T> {
         // Safety: head_ptr points to a leaked boxed node managed by this list
         // We reassign pointers that pointed to the head node
+        if self.length == 0 {
+            return None;
+        }
+
         self.head.map(|head_ptr| unsafe {
+            println!("{}", self.length);
             let old_head = Box::from_raw(head_ptr.as_ptr());
             match old_head.next {
                 Some(mut next_ptr) => next_ptr.as_mut().prev = None,
                 None => self.tail = None,
             }
             self.head = old_head.next;
-            self.length -= 1;
+            self.length = self.length.checked_add_signed(-1).unwrap_or(0);
             old_head.val
         })
+        // None
     }
 
     pub fn delete_tail(&mut self) -> Option<T> {
