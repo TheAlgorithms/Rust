@@ -203,6 +203,7 @@
     * [Kth Smallest Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/kth_smallest_heap.rs)
     * [Linear Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/linear_search.rs)
     * [Quick Select](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/quick_select.rs)
+    * [Saddleback Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/saddleback_search.rs)
     * [Ternary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search.rs)
     * [Ternary Search Min Max](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_min_max.rs)
     * [Ternary Search Min Max Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_min_max_recursive.rs)
