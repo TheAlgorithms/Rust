@@ -1,4 +1,4 @@
-fn binary_search<T: Ord>(arr: &[T], target: &T) -> usize {
+fn _binary_search<T: Ord>(arr: &[T], target: &T) -> usize {
     let mut low = 0;
     let mut high = arr.len();
 
@@ -15,18 +15,17 @@ fn binary_search<T: Ord>(arr: &[T], target: &T) -> usize {
     low
 }
 
-fn binary_insertion_sort<T: Ord + Clone>(arr: &mut [T]) {
+pub fn binary_insertion_sort<T: Ord + Clone>(arr: &mut [T]) {
     let len = arr.len();
 
     for i in 1..len {
         let key = arr[i].clone();
-        let index = binary_search(&arr[..i], &key);
-        
-        arr[index..i+1].rotate_right(1);
+        let index = _binary_search(&arr[..i], &key);
+
+        arr[index..i + 1].rotate_right(1);
         arr[index] = key;
     }
 }
-
 
 #[cfg(test)]
 mod tests {
