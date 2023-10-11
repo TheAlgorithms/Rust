@@ -3,7 +3,7 @@
 // top-right corner of the matrix and moving left or down based on the comparison of the current
 // element with the target element.
 
-fn saddleback_search(matrix: &Vec<Vec<i32>>, element: i32) -> (usize, usize) {
+pub fn saddleback_search(matrix: &Vec<Vec<i32>>, element: i32) -> (usize, usize) {
     // Initialize left and right indices
     let mut left_index = 0;
     let mut right_index = matrix[0].len() - 1;
