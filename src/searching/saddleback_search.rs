@@ -2,6 +2,7 @@
 // where m is the number of rows, and n is the number of columns. It works by starting from the
 // top-right corner of the matrix and moving left or down based on the comparison of the current
 // element with the target element.
+use std::cmp::Ordering;
 
 pub fn saddleback_search(matrix: &Vec<Vec<i32>>, element: i32) -> (usize, usize) {
     // Initialize left and right indices
@@ -10,18 +11,20 @@ pub fn saddleback_search(matrix: &Vec<Vec<i32>>, element: i32) -> (usize, usize)
 
     // Start searching
     while left_index < matrix.len() {
-        if element == matrix[left_index][right_index] {
+        match element.cmp(&matrix[left_index][right_index]) {
             // If the current element matches the target element, return its position (indices are 1-based)
-            return (left_index + 1, right_index + 1);
-        } else if element > matrix[left_index][right_index] {
-            // If the target element is greater, move to the next row (downwards)
-            left_index += 1;
-        } else if element < matrix[left_index][right_index] {
-            // If the target element is smaller, move to the previous column (leftwards)
-            if right_index == 0 {
-                break; // If we reach the left-most column, exit the loop
-            } else {
-                right_index -= 1;
+            Ordering::Equal => return (left_index + 1, right_index + 1),
+            Ordering::Greater => {
+                // If the target element is greater, move to the next row (downwards)
+                left_index += 1;
+            }
+            Ordering::Less => {
+                // If the target element is smaller, move to the previous column (leftwards)
+                if right_index == 0 {
+                    break; // If we reach the left-most column, exit the loop
+                } else {
+                    right_index -= 1;
+                }
             }
         }
     }
