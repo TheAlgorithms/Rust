@@ -13,6 +13,7 @@ mod ternary_search;
 mod ternary_search_min_max;
 mod ternary_search_min_max_recursive;
 mod ternary_search_recursive;
+mod text_search;
 
 pub use self::binary_search::binary_search;
 pub use self::binary_search_recursive::binary_search_rec;
@@ -31,3 +32,4 @@ pub use self::ternary_search_min_max::ternary_search_min;
 pub use self::ternary_search_min_max_recursive::ternary_search_max_rec;
 pub use self::ternary_search_min_max_recursive::ternary_search_min_rec;
 pub use self::ternary_search_recursive::ternary_search_rec;
+pub use self::text_search::search_word;
