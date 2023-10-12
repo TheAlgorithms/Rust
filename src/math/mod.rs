@@ -11,6 +11,7 @@ mod chinese_remainder_theorem;
 mod collatz_sequence;
 mod doomsday;
 mod elliptic_curve;
+mod exponential_linear_unit;
 mod extended_euclidean_algorithm;
 mod factors;
 mod fast_fourier_transform;
@@ -18,6 +19,7 @@ mod fast_power;
 mod faster_perfect_numbers;
 mod field;
 mod gaussian_elimination;
+mod gaussian_error_linear_unit;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
 mod interest;
@@ -66,6 +68,7 @@ pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
 pub use self::collatz_sequence::sequence;
 pub use self::doomsday::get_week_day;
 pub use self::elliptic_curve::EllipticCurve;
+pub use self::exponential_linear_unit::exponential_linear_unit;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
 pub use self::factors::factors;
 pub use self::fast_fourier_transform::{
@@ -76,6 +79,7 @@ pub use self::fast_power::fast_power;
 pub use self::faster_perfect_numbers::generate_perfect_numbers;
 pub use self::field::{Field, PrimeField};
 pub use self::gaussian_elimination::gaussian_elimination;
+pub use self::gaussian_error_linear_unit::gaussian_error_linear_unit;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
