@@ -119,4 +119,6 @@ pub use self::tanh::tanh;
 pub use self::trial_division::trial_division;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
 pub use self::vector_cross_product::cross_product;
+pub use self::vector_cross_product::vector_magnitude;
+
 
