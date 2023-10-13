@@ -54,7 +54,7 @@ mod sum_of_digits;
 mod tanh;
 mod trial_division;
 mod zellers_congruence_algorithm;
-pub mod vector_cross_product;
+mod vector_cross_product;
 
 pub use self::abs::abs;
 pub use self::aliquot_sum::aliquot_sum;
