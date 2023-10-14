@@ -24,7 +24,7 @@ where
         return input[lo];
     }
 
-    let pivot = partition(input, lo as isize, hi as isize) as usize;
+    let pivot = partition(input, lo, hi);
     let i = pivot - lo + 1;
 
     match k.cmp(&i) {

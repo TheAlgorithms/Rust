@@ -1,8 +1,10 @@
+use std::collections::HashSet;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::{Add, Neg, Sub};
 
-use crate::math::field::Field;
+use crate::math::field::{Field, PrimeField};
+use crate::math::quadratic_residue::legendre_symbol;
 
 /// Elliptic curve defined by `y^2 = x^3 + Ax + B` over a prime field `F` of
 /// characteristic != 2, 3
@@ -85,19 +87,85 @@ impl<F: Field, const A: i64, const B: i64> EllipticCurve<F, A, B> {
         y * y == x * x * x + x.integer_mul(A) + F::ONE.integer_mul(B)
     }
 
-    /// Naive calculation of points via enumeration
-    // TODO: Implement via generators
-    pub fn points() -> impl Iterator<Item = Self> {
-        std::iter::once(Self::infinity()).chain((0..F::CHARACTERISTIC as i64).flat_map(|x| {
-            (0..F::CHARACTERISTIC as i64)
-                .filter_map(move |y| Self::new(F::from_integer(x), F::from_integer(y)))
-        }))
-    }
-
     const fn check_invariants() {
         assert!(F::CHARACTERISTIC != 2);
         assert!(F::CHARACTERISTIC != 3);
         assert!(Self::discriminant() != 0);
+    }
+}
+
+/// Elliptic curve methods over a prime field
+impl<const P: u64, const A: i64, const B: i64> EllipticCurve<PrimeField<P>, A, B> {
+    /// Naive calculation of points via enumeration
+    // TODO: Implement via generators
+    pub fn points() -> impl Iterator<Item = Self> {
+        std::iter::once(Self::infinity()).chain(
+            PrimeField::elements()
+                .flat_map(|x| PrimeField::elements().filter_map(move |y| Self::new(x, y))),
+        )
+    }
+
+    /// Number of points on the elliptic curve over `F`, that is, `#E(F)`
+    pub fn cardinality() -> usize {
+        // TODO: implement counting for big P
+        Self::cardinality_counted_legendre()
+    }
+
+    /// Number of points on the elliptic curve over `F`, that is, `#E(F)`
+    ///
+    /// We simply count the number of points for each x coordinate and sum them up.
+    /// For that, we first precompute the table of all squares in `F`.
+    ///
+    /// Time complexity: O(P) <br>
+    /// Space complexity: O(P)
+    ///
+    /// Only fast for small fields.
+    pub fn cardinality_counted_table() -> usize {
+        let squares: HashSet<_> = PrimeField::<P>::elements().map(|x| x * x).collect();
+        1 + PrimeField::elements()
+            .map(|x| {
+                let y_square = x * x * x + x.integer_mul(A) + PrimeField::from_integer(B);
+                if y_square == PrimeField::ZERO {
+                    1
+                } else if squares.contains(&y_square) {
+                    2
+                } else {
+                    0
+                }
+            })
+            .sum::<usize>()
+    }
+
+    /// Number of points on the elliptic curve over `F`, that is, `#E(F)`
+    ///
+    /// We count the number of points for each x coordinate by using the [Legendre symbol] _(X |
+    /// P)_:
+    ///
+    /// _1 + (x^3 + Ax + B | P),_
+    ///
+    /// The total number of points is then:
+    ///
+    /// _#E(F) = 1 + P + Σ_x (x^3 + Ax + B | P)_ for _x_ in _F_.
+    ///
+    /// Time complexity: O(P) <br>
+    /// Space complexity: O(1)
+    ///
+    /// Only fast for small fields.
+    ///
+    /// [Legendre symbol]: https://en.wikipedia.org/wiki/Legendre_symbol
+    pub fn cardinality_counted_legendre() -> usize {
+        let cardinality: i64 = 1
+            + P as i64
+            + PrimeField::<P>::elements()
+                .map(|x| {
+                    let y_square = x * x * x + x.integer_mul(A) + PrimeField::from_integer(B);
+                    let y_square_int = y_square.to_integer();
+                    legendre_symbol(y_square_int, P)
+                })
+                .sum::<i64>();
+        cardinality
+            .try_into()
+            .expect("invalid legendre cardinality")
     }
 }
 
@@ -106,7 +174,6 @@ impl<F: Field, const A: i64, const B: i64> Add for EllipticCurve<F, A, B> {
     type Output = Self;
 
     fn add(self, p: Self) -> Self::Output {
-        dbg!(self, p);
         if self.infinity {
             p
         } else if p.infinity {
@@ -187,8 +254,7 @@ impl<F: Field + Hash, const A: i64, const B: i64> Hash for EllipticCurve<F, A, B
 #[cfg(test)]
 mod tests {
     use std::collections::HashSet;
-
-    use crate::math::PrimeField;
+    use std::time::Instant;
 
     use super::*;
 
@@ -274,6 +340,50 @@ mod tests {
         test::<17>();
         test::<19>();
         test::<23>();
+    }
+
+    #[test]
+    fn cardinality() {
+        fn test<const P: u64>(expected: usize) {
+            type E<const P: u64> = EllipticCurve<PrimeField<P>, 1, 0>;
+            assert_eq!(E::<P>::cardinality(), expected);
+            assert_eq!(E::<P>::cardinality_counted_table(), expected);
+            assert_eq!(E::<P>::cardinality_counted_legendre(), expected);
+        }
+        test::<5>(4);
+        test::<7>(8);
+        test::<11>(12);
+        test::<13>(20);
+        test::<17>(16);
+        test::<19>(20);
+        test::<23>(24);
+    }
+
+    #[test]
+    #[ignore = "slow test for measuring time"]
+    fn cardinality_perf() {
+        const P: u64 = 1000003;
+        type E = EllipticCurve<PrimeField<P>, 1, 0>;
+        const EXPECTED: usize = 1000004;
+
+        let now = Instant::now();
+        assert_eq!(E::cardinality_counted_table(), EXPECTED);
+        println!("cardinality_counted_table    : {:?}", now.elapsed());
+        let now = Instant::now();
+        assert_eq!(E::cardinality_counted_legendre(), EXPECTED);
+        println!("cardinality_counted_legendre : {:?}", now.elapsed());
+    }
+
+    #[test]
+    #[ignore = "slow test showing that cadinality is not yet feasible to compute for a large prime"]
+    fn cardinality_large_prime() {
+        const P: u64 = 2_u64.pow(63) - 25; // largest prime fitting into i64
+        type E = EllipticCurve<PrimeField<P>, 1, 0>;
+        const EXPECTED: usize = 9223372041295506260;
+
+        let now = Instant::now();
+        assert_eq!(E::cardinality(), EXPECTED);
+        println!("cardinality: {:?}", now.elapsed());
     }
 
     #[test]

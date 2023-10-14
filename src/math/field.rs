@@ -27,6 +27,12 @@ pub trait Field:
     fn from_integer(a: i64) -> Self {
         Self::ONE.integer_mul(a)
     }
+
+    /// Iterate over all elements in this field
+    ///
+    /// The iterator finishes only for finite fields.
+    type ElementsIter: Iterator<Item = Self>;
+    fn elements() -> Self::ElementsIter;
 }
 
 /// Prime field of order `P`, that is, finite field `GF(P) = ℤ/Pℤ`
@@ -48,9 +54,9 @@ impl<const P: u64> PrimeField<P> {
         Self { a }
     }
 
-    /// List all elements of the field
-    pub fn elements() -> impl Iterator<Item = Self> {
-        (0..P.try_into().expect("module not fitting into signed 64 bit")).map(Self::from)
+    /// Returns the positive integer in the range [0, p) representing this element
+    pub fn to_integer(&self) -> u64 {
+        self.reduce().a as u64
     }
 }
 
@@ -169,6 +175,31 @@ impl<const P: u64> Field for PrimeField<P> {
         }
         x + y
     }
+
+    type ElementsIter = PrimeFieldElementsIter<P>;
+
+    fn elements() -> Self::ElementsIter {
+        PrimeFieldElementsIter::default()
+    }
+}
+
+#[derive(Default)]
+pub struct PrimeFieldElementsIter<const P: u64> {
+    x: i64,
+}
+
+impl<const P: u64> Iterator for PrimeFieldElementsIter<P> {
+    type Item = PrimeField<P>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.x as u64 == P {
+            None
+        } else {
+            let res = PrimeField::from_integer(self.x);
+            self.x += 1;
+            Some(res)
+        }
+    }
 }
 
 impl<const P: u64> Hash for PrimeField<P> {
@@ -241,7 +272,6 @@ mod tests {
                 let x = PrimeField::<P>::from(x);
                 if x != PrimeField::ZERO {
                     // multiplicative
-                    dbg!(x, x.inverse());
                     assert_eq!(x.inverse() * x, PrimeField::ONE);
                     assert_eq!(x * x.inverse(), PrimeField::ONE);
                     assert_eq!((x.inverse().a * x.a).rem_euclid(P as i64), 1);
