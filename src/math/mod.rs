@@ -44,7 +44,7 @@ mod prime_numbers;
 mod quadratic_residue;
 mod random;
 mod relu;
-pub mod sieve_of_eratosthenes;
+mod sieve_of_eratosthenes;
 mod sigmoid;
 mod signum;
 mod simpson_integration;
