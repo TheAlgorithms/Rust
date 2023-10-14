@@ -15,6 +15,7 @@
   * Ciphers
     * [Aes](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/aes.rs)
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
+    * [Baconian Cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/baconian_cipher.rs)
     * [Base64](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base64.rs)
     * [Blake2B](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/blake2b.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
@@ -142,6 +143,7 @@
     * [Ceil](https://github.com/TheAlgorithms/Rust/blob/master/src/math/ceil.rs)
     * [Chinese Remainder Theorem](https://github.com/TheAlgorithms/Rust/blob/master/src/math/chinese_remainder_theorem.rs)
     * [Collatz Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/collatz_sequence.rs)
+    * [Cross Entropy Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/math/cross_entropy_loss.rs)
     * [Doomsday](https://github.com/TheAlgorithms/Rust/blob/master/src/math/doomsday.rs)
     * [Elliptic Curve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/elliptic_curve.rs)
     * [Exponential Linear Unit](https://github.com/TheAlgorithms/Rust/blob/master/src/math/exponential_linear_unit.rs)
@@ -155,6 +157,7 @@
     * [Gaussian Error Linear Unit](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gaussian_error_linear_unit.rs)
     * [Gcd Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gcd_of_n_numbers.rs)
     * [Greatest Common Divisor](https://github.com/TheAlgorithms/Rust/blob/master/src/math/greatest_common_divisor.rs)
+    * [Huber Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/math/huber_loss.rs)
     * [Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interest.rs)
     * [Interpolation](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interpolation.rs)
     * [Karatsuba Multiplication](https://github.com/TheAlgorithms/Rust/blob/master/src/math/karatsuba_multiplication.rs)
