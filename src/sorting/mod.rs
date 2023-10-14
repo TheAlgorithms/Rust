@@ -1,4 +1,6 @@
 mod bead_sort;
+mod binary_insertion_sort;
+mod bitonic_sort;
 mod bogo_sort;
 mod bubble_sort;
 mod bucket_sort;
@@ -28,6 +30,8 @@ mod stooge_sort;
 mod tim_sort;
 
 pub use self::bead_sort::bead_sort;
+pub use self::binary_insertion_sort::binary_insertion_sort;
+pub use self::bitonic_sort::bitonic_sort;
 pub use self::bogo_sort::bogo_sort;
 pub use self::bubble_sort::bubble_sort;
 pub use self::bucket_sort::bucket_sort;
@@ -88,6 +92,14 @@ where
     T: cmp::PartialOrd,
 {
     arr.windows(2).all(|w| w[0] <= w[1])
+}
+
+#[cfg(test)]
+pub fn is_descending_sorted<T>(arr: &[T]) -> bool
+where
+    T: cmp::PartialOrd,
+{
+    arr.windows(2).all(|w| w[0] >= w[1])
 }
 
 #[cfg(test)]

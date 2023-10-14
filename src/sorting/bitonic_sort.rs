@@ -1,28 +1,26 @@
-pub fn comp_and_swap<T: Ord>(array: &mut [T], index1: i32, index2: i32, direction: i32) {
-    if (direction == 1 && array[index1 as usize] > array[index2 as usize])
-        || (direction == 0 && array[index1 as usize] < array[index2 as usize])
-    {
-        array.swap(index1 as usize, index2 as usize);
+fn _comp_and_swap<T: Ord>(array: &mut [T], left: usize, right: usize, ascending: bool) {
+    if (ascending && array[left] > array[right]) || (!ascending && array[left] < array[right]) {
+        array.swap(left, right);
     }
 }
 
-pub fn bitonic_merge<T: Ord>(array: &mut [T], low: i32, length: i32, direction: i32) {
+fn _bitonic_merge<T: Ord>(array: &mut [T], low: usize, length: usize, ascending: bool) {
     if length > 1 {
         let middle = length / 2;
         for i in low..(low + middle) {
-            comp_and_swap(array, i, i + middle, direction);
+            _comp_and_swap(array, i, i + middle, ascending);
         }
-        bitonic_merge(array, low, middle, direction);
-        bitonic_merge(array, low + middle, middle, direction);
+        _bitonic_merge(array, low, middle, ascending);
+        _bitonic_merge(array, low + middle, middle, ascending);
     }
 }
 
-pub fn bitonic_sort<T: Ord>(array: &mut [T], low: i32, length: i32, direction: i32) {
+pub fn bitonic_sort<T: Ord>(array: &mut [T], low: usize, length: usize, ascending: bool) {
     if length > 1 {
         let middle = length / 2;
-        bitonic_sort(array, low, middle, 1);
-        bitonic_sort(array, low + middle, middle, 0);
-        bitonic_merge(array, low, length, direction);
+        bitonic_sort(array, low, middle, true);
+        bitonic_sort(array, low + middle, middle, false);
+        _bitonic_merge(array, low, length, ascending);
     }
 }
 
@@ -30,13 +28,16 @@ pub fn bitonic_sort<T: Ord>(array: &mut [T], low: i32, length: i32, direction: i
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_descending_sorted;
+    use crate::sorting::is_sorted;
 
     #[test]
     fn descending() {
         //descending
         let mut ve1 = vec![6, 5, 4, 3];
         let cloned = ve1.clone();
-        bitonic_sort(&mut ve1, 0, 4, 1);
+        bitonic_sort(&mut ve1, 0, 4, true);
         assert!(is_sorted(&ve1) && have_same_elements(&ve1, &cloned));
     }
 
@@ -45,7 +46,7 @@ mod tests {
         //pre-sorted
         let mut ve2 = vec![1, 2, 3, 4];
         let cloned = ve2.clone();
-        bitonic_sort(&mut ve2, 0, 4, 0);
-        assert!(is_sorted(&ve2) && have_same_elements(&ve2, &cloned));
+        bitonic_sort(&mut ve2, 0, 4, false);
+        assert!(is_descending_sorted(&ve2) && have_same_elements(&ve2, &cloned));
     }
 }
