@@ -20,6 +20,7 @@ mod fast_fourier_transform;
 mod fast_power;
 mod faster_perfect_numbers;
 mod field;
+mod frizzy_number;
 mod gaussian_elimination;
 mod gaussian_error_linear_unit;
 mod gcd_of_n_numbers;
@@ -84,6 +85,7 @@ pub use self::fast_fourier_transform::{
 pub use self::fast_power::fast_power;
 pub use self::faster_perfect_numbers::generate_perfect_numbers;
 pub use self::field::{Field, PrimeField};
+pub use self::frizzy_number::get_nth_frizzy;
 pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gaussian_error_linear_unit::gaussian_error_linear_unit;
 pub use self::gcd_of_n_numbers::gcd;
