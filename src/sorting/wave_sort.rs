@@ -10,11 +10,11 @@
 ///
 /// # Examples
 ///
-/// ```rust
+/// use the_algorithms_rust::sorting::wave_sort;
 /// let array = vec![10, 90, 49, 2, 1, 5, 23];
 /// let result = wave_sort(array);
 /// // Result: [2, 1, 10, 5, 49, 23, 90]
-/// ```
+///
 pub fn wave_sort<T: Ord>(arr: &mut [T]) {
     let n = arr.len();
     arr.sort();
