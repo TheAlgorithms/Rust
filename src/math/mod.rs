@@ -9,6 +9,7 @@ mod binary_exponentiation;
 mod ceil;
 mod chinese_remainder_theorem;
 mod collatz_sequence;
+mod cross_entropy_loss;
 mod doomsday;
 mod elliptic_curve;
 mod exponential_linear_unit;
@@ -22,6 +23,7 @@ mod gaussian_elimination;
 mod gaussian_error_linear_unit;
 mod gcd_of_n_numbers;
 mod greatest_common_divisor;
+mod huber_loss;
 mod interest;
 mod interpolation;
 mod karatsuba_multiplication;
@@ -66,6 +68,7 @@ pub use self::binary_exponentiation::binary_exponentiation;
 pub use self::ceil::ceil;
 pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
 pub use self::collatz_sequence::sequence;
+pub use self::cross_entropy_loss::cross_entropy_loss;
 pub use self::doomsday::get_week_day;
 pub use self::elliptic_curve::EllipticCurve;
 pub use self::exponential_linear_unit::exponential_linear_unit;
@@ -85,6 +88,7 @@ pub use self::greatest_common_divisor::{
     greatest_common_divisor_iterative, greatest_common_divisor_recursive,
     greatest_common_divisor_stein,
 };
+pub use self::huber_loss::huber_loss;
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::interpolation::{lagrange_polynomial_interpolation, linear_interpolation};
 pub use self::karatsuba_multiplication::multiply;
