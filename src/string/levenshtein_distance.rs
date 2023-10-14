@@ -47,14 +47,20 @@ pub fn levenshtein_distance(string1: &str, string2: &str) -> usize {
             };
 
             prev_substitution_cost = prev_dist[col + 1]; // save the old value at (i-1, j-1)
-            prev_dist[col + 1] = min3(deletion_cost, insertion_cost, substitution_cost);
+            prev_dist[col + 1] = _min3(deletion_cost, insertion_cost, substitution_cost);
         }
     }
     prev_dist[l1]
 }
 
+#[inline]
+fn _min3<T: Ord>(a: T, b: T, c: T) -> T {
+    min(a, min(b, c))
+}
+
 #[cfg(test)]
-mod levenshtein_distance_should {
+mod tests {
+    use super::_min3;
     use super::levenshtein_distance;
 
     #[test]
@@ -129,28 +135,19 @@ mod levenshtein_distance_should {
         assert_eq!(7, levenshtein_distance("Hello, world!", "Goodbye, world!"));
         assert_eq!(6, levenshtein_distance("Test_Case_#3", "Case #3"));
     }
-}
-
-fn min3(a: usize, b: usize, c: usize) -> usize {
-    min(a, min(b, c))
-}
-
-#[cfg(test)]
-mod min3_should {
-    use super::min3;
 
     #[test]
     fn return_1_with_1_2_3() {
-        assert_eq!(1, min3(1, 2, 3));
+        assert_eq!(1, _min3(1, 2, 3));
     }
 
     #[test]
     fn return_1_with_3_2_1() {
-        assert_eq!(1, min3(3, 2, 1));
+        assert_eq!(1, _min3(3, 2, 1));
     }
 
     #[test]
     fn return_1_with_2_3_1() {
-        assert_eq!(1, min3(2, 3, 1));
+        assert_eq!(1, _min3(2, 3, 1));
     }
 }
