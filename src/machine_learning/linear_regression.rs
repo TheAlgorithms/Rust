@@ -1,5 +1,5 @@
 /// Returns the parameters of the line after performing simple linear regression on the input data.
-fn linear_regression(data_points: Vec<(f64, f64)>) -> Option<(f64, f64)> {
+pub fn linear_regression(data_points: Vec<(f64, f64)>) -> Option<(f64, f64)> {
     if data_points.len() <= 0 {
         return None;
     }
