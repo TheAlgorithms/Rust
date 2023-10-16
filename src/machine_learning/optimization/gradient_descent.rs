@@ -1,3 +1,27 @@
+/// Gradient Descent Optimization
+///
+/// Gradient descent is an iterative optimization algorithm used to find the minimum of a function.
+/// It works by updating the parameters (in this case, elements of the vector `x`) in the direction of
+/// the steepest decrease in the function's value. This is achieved by subtracting the gradient of
+/// the function at the current point from the current point. The learning rate controls the step size.
+///
+/// The equation for a single parameter (univariate) is:
+/// x_{k+1} = x_k - learning_rate * derivative_of_function(x_k)
+///
+/// For multivariate functions, it extends to each parameter:
+/// x_{k+1} = x_k - learning_rate * gradient_of_function(x_k)
+///
+/// # Arguments
+///
+/// * `derivative_fn` - The function that calculates the gradient of the objective function at a given point.
+/// * `x` - The initial parameter vector to be optimized.
+/// * `learning_rate` - Step size for each iteration.
+/// * `num_iterations` - The number of iterations to run the optimization.
+///
+/// # Returns
+///
+/// A reference to the optimized parameter vector `x`.
+
 pub fn gradient_descent(
     derivative_fn: fn(&Vec<f64>) -> Vec<f64>,
     x: &mut Vec<f64>,
