@@ -23,7 +23,7 @@
 /// A reference to the optimized parameter vector `x`.
 
 pub fn gradient_descent(
-    derivative_fn: fn(&Vec<f64>) -> Vec<f64>,
+    derivative_fn: fn(&[f64]) -> Vec<f64>,
     x: &mut Vec<f64>,
     learning_rate: f64,
     num_iterations: i32,
@@ -44,7 +44,7 @@ mod test {
 
     #[test]
     fn test_gradient_descent_optimized() {
-        fn derivative_of_square(params: &Vec<f64>) -> Vec<f64> {
+        fn derivative_of_square(params: &[f64]) -> Vec<f64> {
             params.iter().map(|x| 2. * x).collect()
         }
 
@@ -55,7 +55,7 @@ mod test {
         let minimized_vector =
             gradient_descent(derivative_of_square, &mut x, learning_rate, num_iterations);
 
-        let test_vector = vec![0.0, 0.0];
+        let test_vector = [0.0, 0.0];
 
         let tolerance = 1e-6;
         for (minimized_value, test_value) in minimized_vector.iter().zip(test_vector.iter()) {
@@ -65,7 +65,7 @@ mod test {
 
     #[test]
     fn test_gradient_descent_unoptimized() {
-        fn derivative_of_square(params: &Vec<f64>) -> Vec<f64> {
+        fn derivative_of_square(params: &[f64]) -> Vec<f64> {
             params.iter().map(|x| 2. * x).collect()
         }
 
@@ -76,11 +76,11 @@ mod test {
         let minimized_vector =
             gradient_descent(derivative_of_square, &mut x, learning_rate, num_iterations);
 
-        let test_vector = vec![0.0, 0.0];
+        let test_vector = [0.0, 0.0];
 
         let tolerance = 1e-6;
         for (minimized_value, test_value) in minimized_vector.iter().zip(test_vector.iter()) {
-            assert_eq!((minimized_value - test_value).abs() < tolerance, false);
+            assert!((minimized_value - test_value).abs() >= tolerance);
         }
     }
 }
