@@ -28,6 +28,7 @@ mod sleep_sort;
 mod sort_utils;
 mod stooge_sort;
 mod tim_sort;
+mod wave_sort;
 
 pub use self::bead_sort::bead_sort;
 pub use self::binary_insertion_sort::binary_insertion_sort;
@@ -59,6 +60,7 @@ pub use self::shell_sort::shell_sort;
 pub use self::sleep_sort::sleep_sort;
 pub use self::stooge_sort::stooge_sort;
 pub use self::tim_sort::tim_sort;
+pub use self::wave_sort::wave_sort;
 
 #[cfg(test)]
 use std::cmp;
