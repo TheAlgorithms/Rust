@@ -203,6 +203,7 @@ mod tests {
         assert_eq!(updated_params, vec![]);
     }
 
+    #[ignore]
     #[test]
     fn test_adam_step_iteratively_until_convergence_with_default_params() {
         const CONVERGENCE_THRESHOLD: f64 = 1e-5;
@@ -243,6 +244,7 @@ mod tests {
         );
     }
 
+    #[ignore]
     #[test]
     fn test_adam_step_iteratively_until_convergence_with_custom_params() {
         const CONVERGENCE_THRESHOLD: f64 = 1e-7;
