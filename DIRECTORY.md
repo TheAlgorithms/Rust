@@ -12,6 +12,8 @@
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Bit Manipulation
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
+    * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/highest_set_bit.rs)
+    * [Sum of Two Integers](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/sum_of_two_integers.rs)
   * Ciphers
     * [Aes](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/aes.rs)
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
@@ -38,8 +40,11 @@
   * Compression
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
   * Conversions
-    * [Binary To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
-    * [Decimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
+    * [Binary to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
+    * [Binary to Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_hexadecimal.rs)
+    * [Decimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
+    * [Hexadecimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
+    * [Octal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
@@ -127,6 +132,14 @@
     * [Tarjans Ssc](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/tarjans_ssc.rs)
     * [Topological Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/topological_sort.rs)
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
+  * Machine Learning
+    * Loss Function
+      * [Mean Absolute Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mae_loss.rs)
+      * [Mean Squared Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mse_loss.rs)
+    * Optimization
+      * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
+      * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
+    * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math
     * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
@@ -153,6 +166,7 @@
     * [Fast Power](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_power.rs)
     * [Faster Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/faster_perfect_numbers.rs)
     * [Field](https://github.com/TheAlgorithms/Rust/blob/master/src/math/field.rs)
+    * [Frizzy Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/frizzy_number.rs)
     * [Gaussian Elimination](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gaussian_elimination.rs)
     * [Gaussian Error Linear Unit](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gaussian_error_linear_unit.rs)
     * [Gcd Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gcd_of_n_numbers.rs)
@@ -167,6 +181,7 @@
     * [Matrix Ops](https://github.com/TheAlgorithms/Rust/blob/master/src/math/matrix_ops.rs)
     * [Mersenne Primes](https://github.com/TheAlgorithms/Rust/blob/master/src/math/mersenne_primes.rs)
     * [Miller Rabin](https://github.com/TheAlgorithms/Rust/blob/master/src/math/miller_rabin.rs)
+    * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/math/mod.rs)
     * [Newton Raphson](https://github.com/TheAlgorithms/Rust/blob/master/src/math/newton_raphson.rs)
     * [Nthprime](https://github.com/TheAlgorithms/Rust/blob/master/src/math/nthprime.rs)
     * [Pascal Triangle](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pascal_triangle.rs)
@@ -190,6 +205,7 @@
     * [Sum Of Digits](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_digits.rs)
     * [Tanh](https://github.com/TheAlgorithms/Rust/blob/master/src/math/tanh.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
+    * [Vector Cross Product](https://github.com/TheAlgorithms/Rust/blob/master/src/math/vector_cross_product.rs)
     * [Zellers Congruence Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/zellers_congruence_algorithm.rs)
   * Navigation
     * [Bearing](https://github.com/TheAlgorithms/Rust/blob/master/src/navigation/bearing.rs)
@@ -245,6 +261,7 @@
     * [Stooge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/stooge_sort.rs)
     * [Tim Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tim_sort.rs)
     * [Tree Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tree_sort.rs)
+    * [Wave Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wave_sort.rs)
     * [Wiggle Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wiggle_sort.rs)
   * String
     * [Aho Corasick](https://github.com/TheAlgorithms/Rust/blob/master/src/string/aho_corasick.rs)
