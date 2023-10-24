@@ -54,8 +54,7 @@ mod tests {
     #[test]
     fn test_valid_octal() {
         let input = "123";
-        let expected = Ok("001010011".to_string()); 
+        let expected = Ok("001010011".to_string());
         assert_eq!(octal_to_binary(input), expected);
     }
-    
 }

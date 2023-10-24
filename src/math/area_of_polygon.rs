@@ -14,7 +14,7 @@
  * @see [Wikipedia - Polygon](https://en.wikipedia.org/wiki/Polygon)
  */
 
- struct Point {
+struct Point {
     x: f64,
     y: f64,
 }

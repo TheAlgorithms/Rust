@@ -49,11 +49,9 @@ pub fn has_cycle<T>(linked_list: &LinkedList<T>) -> bool {
             }
 
             if slow == fast {
-                
                 return true; // Cycle detected
             }
         }
-        
     }
     // println!("{}", flag);
     false // No cycle detected

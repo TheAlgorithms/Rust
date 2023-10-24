@@ -56,4 +56,3 @@ mod tests {
         assert_eq!(evaluate_postfix("5 0 /"), Err("Division by zero"));
     }
 }
-

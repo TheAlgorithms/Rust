@@ -41,7 +41,11 @@ pub fn binary_to_hexadecimal(binary_str: &str) -> String {
     }
 
     let padded_len = (4 - (binary_str.len() % 4)) % 4;
-    let binary_str = format!("{:0width$}", binary_str, width = binary_str.len() + padded_len);
+    let binary_str = format!(
+        "{:0width$}",
+        binary_str,
+        width = binary_str.len() + padded_len
+    );
 
     // Convert binary to hexadecimal
     let mut hexadecimal = String::with_capacity(binary_str.len() / 4 + 2);
