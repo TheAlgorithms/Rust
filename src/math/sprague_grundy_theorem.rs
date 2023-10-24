@@ -53,7 +53,7 @@ pub fn calculate_grundy_number(
 
     // Store the calculated Grundy number and return it.
     grundy_numbers[position as usize] = mex;
-    return mex;
+    mex
 }
 
 #[cfg(test)]

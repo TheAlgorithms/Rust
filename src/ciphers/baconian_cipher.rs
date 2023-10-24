@@ -17,7 +17,7 @@ pub fn baconian_encode(message: &str) -> String {
         .chars()
         .map(|c| {
             if let Some(index) = alphabet.find(c.to_ascii_uppercase()) {
-                baconian[index as usize].to_string()
+                baconian[index].to_string()
             } else {
                 c.to_string()
             }

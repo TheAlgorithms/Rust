@@ -10,7 +10,7 @@ pub fn octal_to_binary(octal_str: &str) -> Result<String, &'static str> {
         return Err("Empty");
     }
 
-    if !octal_str.chars().all(|c| c >= '0' && c <= '7') {
+    if !octal_str.chars().all(|c| ('0'..'7').contains(&c)) {
         return Err("Non-octal Value");
     }
 

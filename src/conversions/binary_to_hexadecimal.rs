@@ -54,7 +54,7 @@ pub fn binary_to_hexadecimal(binary_str: &str) -> String {
     for chunk in binary_str.as_bytes().chunks(4) {
         let mut nibble = 0;
         for (i, &byte) in chunk.iter().enumerate() {
-            nibble |= ((byte - b'0') as u8) << (3 - i);
+            nibble |= (byte - b'0') << (3 - i);
         }
 
         let hex_char = BITS_TO_HEX
