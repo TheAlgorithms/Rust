@@ -6,7 +6,7 @@
 
 
 // Encode Baconian Cipher
-fn baconian_encode(message: &str) -> String {
+pub fn baconian_encode(message: &str) -> String {
     let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let baconian = [
         "AAAAA", "AAAAB", "AAABA", "AAABB", "AABAA", "AABAB", "AABBA", "AABBB", "ABAAA", "ABAAB",
@@ -28,7 +28,7 @@ fn baconian_encode(message: &str) -> String {
 
 
 // Decode Baconian Cipher
-fn baconian_decode(encoded: &str) -> String {
+pub fn baconian_decode(encoded: &str) -> String {
     let baconian = [
         "AAAAA", "AAAAB", "AAABA", "AAABB", "AABAA", "AABAB", "AABBA", "AABBB", "ABAAA", "ABAAB",
         "ABABA", "ABABB", "ABBAA", "ABBAB", "ABBBA", "ABBBB", "BAAAA", "BAAAB", "BAABA", "BAABB",

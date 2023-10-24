@@ -3,7 +3,7 @@
 // Wikipedia References  : 1. https://en.wikipedia.org/wiki/Octal
 //                         2. https://en.wikipedia.org/wiki/Binary_number
 
-fn octal_to_binary(octal_str: &str) -> Result<String, &'static str> {
+pub fn octal_to_binary(octal_str: &str) -> Result<String, &'static str> {
     let octal_str = octal_str.trim();
 
     if octal_str.is_empty() {

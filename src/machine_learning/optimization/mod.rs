@@ -1,5 +1,4 @@
 mod gradient_descent;
-
 mod adam;
 
 pub use self::adam::Adam;

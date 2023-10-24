@@ -18,7 +18,7 @@
  * @param arr A slice of integers representing the array.
  * @return The maximum subarray sum.
  */
- fn max_sub_array(nums: Vec<i32>) -> i32 {
+pub fn max_sub_array(nums: Vec<i32>) -> i32 {
     if nums.is_empty() {
         return 0;
     }

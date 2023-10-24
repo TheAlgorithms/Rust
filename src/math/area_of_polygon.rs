@@ -25,7 +25,7 @@
  * @return The area of the polygon.
  */
 
-fn area(fig: &Vec<Point>) -> f64 {
+pub fn area_of_polygon(fig: &Vec<Point>) -> f64 {
     let mut res = 0.0;
 
     for i in 0..fig.len() {
@@ -57,7 +57,7 @@ mod tests {
             Point { x: 0.0, y: 1.0 },
         ];
 
-        assert_eq!(area(&points), 0.5);
+        assert_eq!(area_of_polygon(&points), 0.5);
     }
 
     /**
@@ -72,7 +72,7 @@ mod tests {
             Point { x: 0.0, y: 1.0 },
         ];
 
-        assert_eq!(area(&points), 1.0);
+        assert_eq!(area_of_polygon(&points), 1.0);
     }
 
     /**
@@ -89,6 +89,6 @@ mod tests {
             Point { x: -0.5, y: 0.866 },
         ];
 
-        assert_eq!(area(&points), 2.598);
+        assert_eq!(area_of_polygon(&points), 2.598);
     }
 }

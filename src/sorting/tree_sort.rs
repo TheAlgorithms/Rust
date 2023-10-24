@@ -60,7 +60,7 @@ impl<T: Ord + Clone> BinarySearchTree<T> {
     }
 }
 
-fn tree_sort<T: Ord + Clone>(arr: &mut Vec<T>) {
+pub fn tree_sort<T: Ord + Clone>(arr: &mut Vec<T>) {
     let mut tree = BinarySearchTree::new();
 
     for elem in arr.iter().cloned() {

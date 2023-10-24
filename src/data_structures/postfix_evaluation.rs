@@ -1,4 +1,4 @@
-fn evaluate_postfix(expression: &str) -> Result<i32, &'static str> {
+pub fn evaluate_postfix(expression: &str) -> Result<i32, &'static str> {
     let mut stack: Vec<i32> = Vec::new();
 
     for token in expression.split_whitespace() {

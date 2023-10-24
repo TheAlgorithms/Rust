@@ -22,7 +22,7 @@ static BITS_TO_HEX: &[(u8, &str)] = &[
     (0b1111, "f"),
 ];
 
-fn bin_to_hexadecimal(binary_str: &str) -> String {
+pub fn binary_to_hexadecimal(binary_str: &str) -> String {
     let binary_str = binary_str.trim();
 
     if binary_str.is_empty() {
@@ -76,27 +76,27 @@ mod tests {
     fn test_empty_string() {
         let input = "";
         let expected = "Invalid Input";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 
     #[test]
     fn test_invalid_binary() {
         let input = "a";
         let expected = "Invalid Input";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 
     #[test]
     fn test_binary() {
         let input = "00110110";
         let expected = "0x36";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 
     #[test]
     fn test_padded_binary() {
         let input = " 1010   ";
         let expected = "0xa";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 }

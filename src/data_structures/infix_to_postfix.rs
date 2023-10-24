@@ -1,5 +1,5 @@
 // Function to convert infix expression to postfix expression
-fn infix_to_postfix(infix: &str) -> String {
+pub fn infix_to_postfix(infix: &str) -> String {
     let mut postfix = String::new();
     let mut stack: Vec<char> = Vec::new();
 
