@@ -28,17 +28,14 @@ pub fn wiggle_sort(nums: &mut Vec<i32>) -> &mut Vec<i32> {
 }
 
 fn is_wiggle_sorted(nums: &Vec<i32>) -> bool {
-    if nums.len() == 0 {
+    if nums.is_empty() {
         return true;
     }
     let mut previous = nums[0];
     let mut result = true;
     nums.iter().enumerate().skip(1).for_each(|(i, &item)| {
         if i != 0 {
-            result = result && (
-                (i % 2 == 1 && previous < item) ||
-                (i % 2 == 0 && previous > item)
-            );
+            result = result && ((i % 2 == 1 && previous < item) || (i % 2 == 0 && previous > item));
         }
 
         previous = item;
