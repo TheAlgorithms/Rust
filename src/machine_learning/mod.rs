@@ -8,3 +8,4 @@ pub use self::loss_function::mae_loss;
 pub use self::loss_function::mse_loss;
 
 pub use self::optimization::gradient_descent;
+pub use self::optimization::Adam;
