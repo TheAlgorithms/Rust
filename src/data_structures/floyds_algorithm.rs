@@ -49,11 +49,9 @@ pub fn has_cycle<T>(linked_list: &LinkedList<T>) -> bool {
             }
 
             if slow == fast {
-                
                 return true; // Cycle detected
             }
         }
-        
     }
     // println!("{}", flag);
     false // No cycle detected
@@ -70,7 +68,7 @@ mod tests {
         linked_list.insert_at_tail(2);
         linked_list.insert_at_tail(3);
 
-        assert_eq!(has_cycle(&linked_list), false);
+        assert!(!has_cycle(&linked_list));
 
         assert_eq!(detect_cycle(&mut linked_list), None);
     }
@@ -91,7 +89,7 @@ mod tests {
             }
         }
 
-        assert_eq!(has_cycle(&linked_list), true);
+        assert!(has_cycle(&linked_list));
         assert_eq!(detect_cycle(&mut linked_list), Some(3));
     }
 }

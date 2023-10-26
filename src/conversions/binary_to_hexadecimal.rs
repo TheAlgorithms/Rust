@@ -22,7 +22,7 @@ static BITS_TO_HEX: &[(u8, &str)] = &[
     (0b1111, "f"),
 ];
 
-fn bin_to_hexadecimal(binary_str: &str) -> String {
+pub fn binary_to_hexadecimal(binary_str: &str) -> String {
     let binary_str = binary_str.trim();
 
     if binary_str.is_empty() {
@@ -41,7 +41,11 @@ fn bin_to_hexadecimal(binary_str: &str) -> String {
     }
 
     let padded_len = (4 - (binary_str.len() % 4)) % 4;
-    let binary_str = format!("{:0width$}", binary_str, width = binary_str.len() + padded_len);
+    let binary_str = format!(
+        "{:0width$}",
+        binary_str,
+        width = binary_str.len() + padded_len
+    );
 
     // Convert binary to hexadecimal
     let mut hexadecimal = String::with_capacity(binary_str.len() / 4 + 2);
@@ -50,7 +54,7 @@ fn bin_to_hexadecimal(binary_str: &str) -> String {
     for chunk in binary_str.as_bytes().chunks(4) {
         let mut nibble = 0;
         for (i, &byte) in chunk.iter().enumerate() {
-            nibble |= ((byte - b'0') as u8) << (3 - i);
+            nibble |= (byte - b'0') << (3 - i);
         }
 
         let hex_char = BITS_TO_HEX
@@ -76,27 +80,27 @@ mod tests {
     fn test_empty_string() {
         let input = "";
         let expected = "Invalid Input";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 
     #[test]
     fn test_invalid_binary() {
         let input = "a";
         let expected = "Invalid Input";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 
     #[test]
     fn test_binary() {
         let input = "00110110";
         let expected = "0x36";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 
     #[test]
     fn test_padded_binary() {
         let input = " 1010   ";
         let expected = "0xa";
-        assert_eq!(bin_to_hexadecimal(input), expected);
+        assert_eq!(binary_to_hexadecimal(input), expected);
     }
 }

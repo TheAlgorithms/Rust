@@ -12,7 +12,7 @@
 const MOD: i64 = 1000000007; // Define your MOD value here
 const MAX: usize = 1005; // Define your MAX value here
 
-fn init() -> Vec<i64> {
+pub fn init_catalan() -> Vec<i64> {
     let mut catalan = vec![0; MAX];
     catalan[0] = 1;
     catalan[1] = 1;
@@ -36,7 +36,7 @@ mod tests {
 
     #[test]
     fn test_catalan() {
-        let catalan = init();
+        let catalan = init_catalan();
 
         // Test case 1: Catalan number for n = 0
         assert_eq!(catalan[0], 1);

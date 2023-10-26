@@ -1,5 +1,6 @@
 mod aes;
 mod another_rot13;
+mod baconian_cipher;
 mod base64;
 mod blake2b;
 mod caesar;
@@ -21,6 +22,7 @@ mod vigenere;
 mod xor;
 pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
 pub use self::another_rot13::another_rot13;
+pub use self::baconian_cipher::{baconian_decode, baconian_encode};
 pub use self::base64::{base64_decode, base64_encode};
 pub use self::blake2b::blake2b;
 pub use self::caesar::caesar;

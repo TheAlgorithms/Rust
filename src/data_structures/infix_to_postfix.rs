@@ -1,5 +1,5 @@
 // Function to convert infix expression to postfix expression
-fn infix_to_postfix(infix: &str) -> String {
+pub fn infix_to_postfix(infix: &str) -> String {
     let mut postfix = String::new();
     let mut stack: Vec<char> = Vec::new();
 
@@ -53,17 +53,13 @@ fn infix_to_postfix(infix: &str) -> String {
     postfix
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn test_infix_to_postfix() {
-        assert_eq!(
-            infix_to_postfix("a-b+c-d*e"),
-            "ab-c+de*-".to_string()
-        );
+        assert_eq!(infix_to_postfix("a-b+c-d*e"), "ab-c+de*-".to_string());
         assert_eq!(
             infix_to_postfix("a*(b+c)+d/(e+f)"),
             "abc+*def+/+".to_string()

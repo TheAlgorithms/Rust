@@ -4,9 +4,8 @@
 // Bacon's cipher or the Baconian cipher is a method of steganographic message encoding devised by Francis Bacon in 1605.
 // A message is concealed in the presentation of text, rather than its content. Bacon cipher is categorized as both a substitution cipher (in plain code) and a concealment cipher (using the two typefaces).
 
-
 // Encode Baconian Cipher
-fn baconian_encode(message: &str) -> String {
+pub fn baconian_encode(message: &str) -> String {
     let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let baconian = [
         "AAAAA", "AAAAB", "AAABA", "AAABB", "AABAA", "AABAB", "AABBA", "AABBB", "ABAAA", "ABAAB",
@@ -18,7 +17,7 @@ fn baconian_encode(message: &str) -> String {
         .chars()
         .map(|c| {
             if let Some(index) = alphabet.find(c.to_ascii_uppercase()) {
-                baconian[index as usize].to_string()
+                baconian[index].to_string()
             } else {
                 c.to_string()
             }
@@ -26,9 +25,8 @@ fn baconian_encode(message: &str) -> String {
         .collect()
 }
 
-
 // Decode Baconian Cipher
-fn baconian_decode(encoded: &str) -> String {
+pub fn baconian_decode(encoded: &str) -> String {
     let baconian = [
         "AAAAA", "AAAAB", "AAABA", "AAABB", "AABAA", "AABAB", "AABBA", "AABBB", "ABAAA", "ABAAB",
         "ABABA", "ABABB", "ABBAA", "ABBAB", "ABBBA", "ABBBB", "BAAAA", "BAAAB", "BAABA", "BAABB",
@@ -40,7 +38,10 @@ fn baconian_decode(encoded: &str) -> String {
         .as_bytes()
         .chunks(5)
         .map(|chunk| {
-            if let Some(index) = baconian.iter().position(|&x| x == String::from_utf8_lossy(chunk)) {
+            if let Some(index) = baconian
+                .iter()
+                .position(|&x| x == String::from_utf8_lossy(chunk))
+            {
                 alphabet.chars().nth(index).unwrap()
             } else {
                 ' '

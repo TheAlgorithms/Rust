@@ -3,14 +3,14 @@
 // Wikipedia References  : 1. https://en.wikipedia.org/wiki/Octal
 //                         2. https://en.wikipedia.org/wiki/Binary_number
 
-fn octal_to_binary(octal_str: &str) -> Result<String, &'static str> {
+pub fn octal_to_binary(octal_str: &str) -> Result<String, &'static str> {
     let octal_str = octal_str.trim();
 
     if octal_str.is_empty() {
         return Err("Empty");
     }
 
-    if !octal_str.chars().all(|c| c >= '0' && c <= '7') {
+    if !octal_str.chars().all(|c| ('0'..'7').contains(&c)) {
         return Err("Non-octal Value");
     }
 
@@ -54,8 +54,7 @@ mod tests {
     #[test]
     fn test_valid_octal() {
         let input = "123";
-        let expected = Ok("001010011".to_string()); 
+        let expected = Ok("001010011".to_string());
         assert_eq!(octal_to_binary(input), expected);
     }
-    
 }
