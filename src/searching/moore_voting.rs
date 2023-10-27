@@ -36,9 +36,9 @@
 
     Now, this ele should be the majority element if there's any
     To check, a quick O(n) loop is run to check if the count of ele is >(n/2), n being the length of the array
-    
+
     -1 is returned when no such element is found.
-    
+
 */
 
 pub fn moore_voting(arr: &Vec<i32>) -> i32 {
@@ -46,18 +46,16 @@ pub fn moore_voting(arr: &Vec<i32>) -> i32 {
     let mut cnt = 0; // initializing cnt
     let mut ele = 0; // initializing ele
 
-    for i in 0..n {
+    arr.iter().for_each(|&item| {
         if cnt == 0 {
             cnt = 1;
-            ele = arr[i];
-        } 
-        else if arr[i] == ele {
+            ele = item;
+        } else if item == ele {
             cnt += 1;
-        } 
-        else {
+        } else {
             cnt -= 1;
         }
-    }
+    });
 
     let cnt_check = arr.iter().filter(|&&x| x == ele).count();
 
@@ -74,12 +72,9 @@ mod tests {
 
     #[test]
     fn test_moore_voting() {
-    
         let arr1: Vec<i32> = vec![9, 1, 8, 1, 1];
-        assert!(moore_voting(arr1),1);
-        let arr2: Vec<i32> = vec![1,2,3,4];
-        assert!(moore_voting(arr2),-1);
-
+        assert!(moore_voting(&arr1) == 1);
+        let arr2: Vec<i32> = vec![1, 2, 3, 4];
+        assert!(moore_voting(&arr2) == -1);
     }
-    
 }

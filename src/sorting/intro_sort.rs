@@ -45,7 +45,7 @@ fn heap_sort<T: Ord>(arr: &mut [T]) {
     }
 }
 
-fn intro_sort<T: Ord>(arr: &mut [T]) {
+pub fn intro_sort<T: Ord>(arr: &mut [T]) {
     let len = arr.len();
     let max_depth = (2.0 * len as f64).log2() as usize + 1;
 

@@ -13,7 +13,7 @@
  * Author : [Gyandeep](https://github.com/Gyan172004)
  */
 
- pub fn calculate_grundy_number(
+pub fn calculate_grundy_number(
     position: i64,
     grundy_numbers: &mut [i64],
     possible_moves: &[i64],
@@ -53,7 +53,7 @@
 
     // Store the calculated Grundy number and return it.
     grundy_numbers[position as usize] = mex;
-    return mex;
+    mex
 }
 
 #[cfg(test)]

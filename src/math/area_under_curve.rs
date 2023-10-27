@@ -1,4 +1,4 @@
-fn area_under_curve(start: f64, end: f64, func: fn(f64) -> f64, step_count: usize) -> f64 {
+pub fn area_under_curve(start: f64, end: f64, func: fn(f64) -> f64, step_count: usize) -> f64 {
     assert!(step_count > 0);
 
     let (start, end) = if start > end {

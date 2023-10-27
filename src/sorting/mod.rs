@@ -13,6 +13,7 @@ mod exchange_sort;
 mod gnome_sort;
 mod heap_sort;
 mod insertion_sort;
+mod intro_sort;
 mod merge_sort;
 mod odd_even_sort;
 mod pancake_sort;
@@ -28,7 +29,9 @@ mod sleep_sort;
 mod sort_utils;
 mod stooge_sort;
 mod tim_sort;
+mod tree_sort;
 mod wave_sort;
+mod wiggle_sort;
 
 pub use self::bead_sort::bead_sort;
 pub use self::binary_insertion_sort::binary_insertion_sort;
@@ -46,6 +49,7 @@ pub use self::exchange_sort::exchange_sort;
 pub use self::gnome_sort::gnome_sort;
 pub use self::heap_sort::heap_sort;
 pub use self::insertion_sort::insertion_sort;
+pub use self::intro_sort::intro_sort;
 pub use self::merge_sort::bottom_up_merge_sort;
 pub use self::merge_sort::top_down_merge_sort;
 pub use self::odd_even_sort::odd_even_sort;
@@ -60,7 +64,9 @@ pub use self::shell_sort::shell_sort;
 pub use self::sleep_sort::sleep_sort;
 pub use self::stooge_sort::stooge_sort;
 pub use self::tim_sort::tim_sort;
+pub use self::tree_sort::tree_sort;
 pub use self::wave_sort::wave_sort;
+pub use self::wiggle_sort::wiggle_sort;
 
 #[cfg(test)]
 use std::cmp;
