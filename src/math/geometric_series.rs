@@ -2,7 +2,7 @@
 // Wikipedia : https://en.wikipedia.org/wiki/Geometric_series
 // Calculate a geometric series.
 
-fn geometric_series(nth_term: f64, start_term_a: f64, common_ratio_r: f64) -> Vec<f64> {
+pub fn geometric_series(nth_term: f64, start_term_a: f64, common_ratio_r: f64) -> Vec<f64> {
     let mut series = Vec::new();
     let mut multiple = 1.0;
 

@@ -1,7 +1,7 @@
 // Author : cyrixninja
 // Perfect Square : Checks if a number is perfect square number or not
 // https://en.wikipedia.org/wiki/Perfect_square
-fn perfect_square(num: i32) -> bool {
+pub fn perfect_square(num: i32) -> bool {
     if num < 0 {
         return false;
     }
