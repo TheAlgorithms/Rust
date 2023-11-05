@@ -9,7 +9,7 @@ pub fn sum_of_geometric_progression(first_term: f64, common_ratio: f64, num_of_t
     }
 
     // Formula for finding the sum of n terms of a Geometric Progression
-    return (first_term / (1.0 - common_ratio)) * (1.0 - common_ratio.powi(num_of_terms));
+    (first_term / (1.0 - common_ratio)) * (1.0 - common_ratio.powi(num_of_terms))
 }
 
 #[cfg(test)]

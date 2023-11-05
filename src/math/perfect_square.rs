@@ -21,12 +21,10 @@ pub fn perfect_square_binary_search(n: i32) -> bool {
         let mid = (left + right) / 2;
         let mid_squared = mid * mid;
 
-        if mid_squared == n {
-            return true;
-        } else if mid_squared > n {
-            right = mid - 1;
-        } else {
-            left = mid + 1;
+        match mid_squared.cmp(&n) {
+            std::cmp::Ordering::Equal => return true,
+            std::cmp::Ordering::Greater => right = mid - 1,
+            std::cmp::Ordering::Less => left = mid + 1,
         }
     }
 
