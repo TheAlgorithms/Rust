@@ -14,19 +14,13 @@ pub fn geometric_series(nth_term: f64, start_term_a: f64, common_ratio_r: f64) -
     series
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     fn assert_approx_eq(a: f64, b: f64) {
         let epsilon = 1e-10;
-        assert!(
-            (a - b).abs() < epsilon,
-            "Expected {}, found {}",
-            a,
-            b
-        );
+        assert!((a - b).abs() < epsilon, "Expected {}, found {}", a, b);
     }
 
     #[test]
@@ -51,6 +45,5 @@ mod tests {
         assert_approx_eq(result[1], -4.0);
         assert_approx_eq(result[2], -8.0);
         assert_approx_eq(result[3], -16.0);
-
     }
 }

@@ -119,6 +119,7 @@ pub use self::nthprime::nthprime;
 pub use self::pascal_triangle::pascal_triangle;
 pub use self::perfect_numbers::perfect_numbers;
 pub use self::perfect_square::perfect_square;
+pub use self::perfect_square::perfect_square_binary_search;
 pub use self::pollard_rho::{pollard_rho_factorize, pollard_rho_get_one_factor};
 pub use self::prime_check::prime_check;
 pub use self::prime_factors::prime_factors;

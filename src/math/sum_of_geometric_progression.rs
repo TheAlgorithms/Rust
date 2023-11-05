@@ -26,6 +26,5 @@ mod tests {
 
         let result_3 = sum_of_geometric_progression(9.0, 2.5, 5);
         assert_eq!(result_3, 579.9375);
-
     }
 }
