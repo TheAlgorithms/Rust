@@ -37,7 +37,7 @@ mod tests {
 
     #[test]
     fn test_perfect_square() {
-        perfect_square_binary_search(9);
+        assert!(perfect_square(9));
         assert!(perfect_square(81));
         assert!(perfect_square(4));
         assert!(perfect_square(0));
