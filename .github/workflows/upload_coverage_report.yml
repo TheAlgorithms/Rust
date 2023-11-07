@@ -1,0 +1,35 @@
+---
+name: upload_coverage_report
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  REPORT_NAME: "lcov.info"
+
+jobs:
+  upload_coverage_report:
+    runs-on: ubuntu-latest
+    env:
+      CARGO_TERM_COLOR: always
+    steps:
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@cargo-llvm-cov
+      - name: Generate code coverage
+        run: >
+          cargo llvm-cov
+          --all-features
+          --workspace
+          --lcov
+          --output-path "${{ env.REPORT_NAME }}"
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: "${{ env.REPORT_NAME }}"
+          fail_ci_if_error: true
+...
