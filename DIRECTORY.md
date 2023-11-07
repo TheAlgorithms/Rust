@@ -13,7 +13,7 @@
   * Bit Manipulation
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
     * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/highest_set_bit.rs)
-    * [Sum of Two Integers](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/sum_of_two_integers.rs)
+    * [Sum Of Two Integers](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/sum_of_two_integers.rs)
   * Ciphers
     * [Aes](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/aes.rs)
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
@@ -40,11 +40,11 @@
   * Compression
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
   * Conversions
-    * [Binary to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
-    * [Binary to Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_hexadecimal.rs)
-    * [Decimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
-    * [Hexadecimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
-    * [Octal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
+    * [Binary To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
+    * [Binary To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_hexadecimal.rs)
+    * [Decimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
+    * [Hexadecimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
+    * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
@@ -124,7 +124,7 @@
     * [Graph Enumeration](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/graph_enumeration.rs)
     * [Heavy Light Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/heavy_light_decomposition.rs)
     * [Kosaraju](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/kosaraju.rs)
-    * [Lee's Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lee.rs)
+    * [Lee](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lee.rs)
     * [Lowest Common Ancestor](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lowest_common_ancestor.rs)
     * [Minimum Spanning Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/minimum_spanning_tree.rs)
     * [Prim](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prim.rs)
@@ -133,15 +133,15 @@
     * [Tarjans Ssc](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/tarjans_ssc.rs)
     * [Topological Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/topological_sort.rs)
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
+  * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Machine Learning
+    * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * Loss Function
-      * [Mean Absolute Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mae_loss.rs)
-      * [Mean Squared Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mse_loss.rs)
+      * [Mae Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mae_loss.rs)
+      * [Mse Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mse_loss.rs)
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
-    * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
-  * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Math
     * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
     * [Aliquot Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/aliquot_sum.rs)
@@ -153,7 +153,7 @@
     * [Baby Step Giant Step](https://github.com/TheAlgorithms/Rust/blob/master/src/math/baby_step_giant_step.rs)
     * [Bell Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/bell_numbers.rs)
     * [Binary Exponentiation](https://github.com/TheAlgorithms/Rust/blob/master/src/math/binary_exponentiation.rs)
-    * [Binomial Coefficient](https://github.com/TheAlgorithms/Rust/blob/master/src/math/binary_coefficient.rs)
+    * [Binomial Coefficient](https://github.com/TheAlgorithms/Rust/blob/master/src/math/binomial_coefficient.rs)
     * [Catalan Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/catalan_numbers.rs)
     * [Ceil](https://github.com/TheAlgorithms/Rust/blob/master/src/math/ceil.rs)
     * [Chinese Remainder Theorem](https://github.com/TheAlgorithms/Rust/blob/master/src/math/chinese_remainder_theorem.rs)
