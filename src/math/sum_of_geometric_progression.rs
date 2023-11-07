@@ -16,15 +16,22 @@ pub fn sum_of_geometric_progression(first_term: f64, common_ratio: f64, num_of_t
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_sum_of_geometric_progression() {
-        let result_1 = sum_of_geometric_progression(1.0, 2.0, 10);
-        assert_eq!(result_1, 1023.0);
+    macro_rules! test_sum_of_geometric_progression {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (first_term, common_ratio, num_of_terms, expected) = $inputs;
+                assert_eq!(sum_of_geometric_progression(first_term, common_ratio, num_of_terms), expected);
+            }
+        )*
+        }
+    }
 
-        let result_2 = sum_of_geometric_progression(1.0, 10.0, 5);
-        assert_eq!(result_2, 11111.0);
-
-        let result_3 = sum_of_geometric_progression(9.0, 2.5, 5);
-        assert_eq!(result_3, 579.9375);
+    test_sum_of_geometric_progression! {
+        regular_input_0: (1.0, 2.0, 10, 1023.0),
+        regular_input_1: (1.0, 10.0, 5, 11111.0),
+        regular_input_2: (9.0, 2.5, 5, 579.9375),
+        common_ratio_one: (10.0, 1.0, 3, 30.0),
     }
 }
