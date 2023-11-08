@@ -66,6 +66,7 @@ mod test {
     fn median_test() {
         assert_eq!(median(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), 3);
         assert_eq!(median(vec![-9, -8, 0, 1, 2, 2, 3, 4, 6, 9, 53]), 2);
+        assert_eq!(median(vec![2, 3]), 2);
     }
     #[test]
     fn mode_test() {
