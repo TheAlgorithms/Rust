@@ -1,4 +1,3 @@
-use num_traits::Num;
 #[doc = r"# Average
 Mean, Median, and Mode, in mathematics, the three principal ways of designating the average value of a list of numbers.
 The arithmetic mean is found by adding the numbers and dividing the sum by the number of numbers in the list.
@@ -11,7 +10,6 @@ This program approximates the mean, median and mode of a finite sequence.
 Note: `mean` function only limited to float 64 numbers. Floats sequences are not allowed for `median` & `mode` functions.
 "]
 use std::collections::HashMap;
-use std::ops::{Add, Div, Sub};
 /// # Argument
 ///
 /// * `sequence` - A vector of float64 numbers.
@@ -24,6 +22,8 @@ pub fn mean(sequence: Vec<f64>) -> f64 {
     }
     sum / n
 }
+
+use num_traits::Num;
 
 fn mean_of_two<T: Num + Copy>(a: T, b: T) -> T {
     (a + b) / (T::one() + T::one())
@@ -47,13 +47,9 @@ pub fn median<T: Num + Copy + PartialOrd>(mut sequence: Vec<T>) -> T {
 
 /// # Argument
 ///
-/// * `sequence` - A vector of numbers.
+/// * `sequence` - The input vector.
 /// Returns mode of `sequence`.
-pub fn mode<
-    T: Add<Output = T> + Sub<Output = T> + Div<i32, Output = T> + Ord + Copy + std::hash::Hash,
->(
-    sequence: Vec<T>,
-) -> T {
+pub fn mode<T: Eq + Copy + std::hash::Hash>(sequence: Vec<T>) -> T {
     let mut hash = HashMap::new();
     for value in sequence {
         let count = hash.entry(value).or_insert(0);
@@ -77,6 +73,7 @@ mod test {
     fn mode_test() {
         assert_eq!(mode(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), 2);
         assert_eq!(mode(vec![-9, -8, 0, 1, 2, 2, 3, -1, -1, 9, -1, -9]), -1);
+        assert_eq!(mode(vec!["a", "b", "a"]), "a");
     }
     #[test]
     fn mean_test() {
