@@ -1,3 +1,4 @@
+use num_traits::Num;
 #[doc = r"# Average
 Mean, Median, and Mode, in mathematics, the three principal ways of designating the average value of a list of numbers.
 The arithmetic mean is found by adding the numbers and dividing the sum by the number of numbers in the list.
@@ -11,7 +12,6 @@ Note: `mean` function only limited to float 64 numbers. Floats sequences are not
 "]
 use std::collections::HashMap;
 use std::ops::{Add, Div, Sub};
-use num_traits::Num;
 /// # Argument
 ///
 /// * `sequence` - A vector of float64 numbers.
@@ -26,7 +26,7 @@ pub fn mean(sequence: Vec<f64>) -> f64 {
 }
 
 fn mean_of_two<T: Num + Copy>(a: T, b: T) -> T {
-    (a + b) / (T::one()+T::one())
+    (a + b) / (T::one() + T::one())
 }
 
 /// # Argument
@@ -34,9 +34,7 @@ fn mean_of_two<T: Num + Copy>(a: T, b: T) -> T {
 /// * `sequence` - A vector of numbers.
 /// Returns median of `sequence`.
 
-pub fn median<T: Num + Copy + PartialOrd>(
-    mut sequence: Vec<T>,
-) -> T {
+pub fn median<T: Num + Copy + PartialOrd>(mut sequence: Vec<T>) -> T {
     sequence.sort_by(|a, b| a.partial_cmp(b).unwrap());
     if sequence.len() % 2 == 1 {
         let k = (sequence.len() + 1) / 2;
