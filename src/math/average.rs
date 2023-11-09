@@ -10,6 +10,7 @@ This program approximates the mean, median and mode of a finite sequence.
 Note: `mean` function only limited to float 64 numbers. Floats sequences are not allowed for `median` & `mode` functions.
 "]
 use std::collections::HashMap;
+use std::collections::HashSet;
 /// # Argument
 ///
 /// * `sequence` - A vector of float64 numbers.
@@ -45,17 +46,24 @@ pub fn median<T: Num + Copy + PartialOrd>(mut sequence: Vec<T>) -> T {
     }
 }
 
+fn histogram<T: Eq + std::hash::Hash>(sequence: Vec<T>) -> HashMap<T, usize> {
+    sequence.into_iter().fold(HashMap::new(), |mut res, val| {
+        *res.entry(val).or_insert(0) += 1;
+        res
+    })
+}
+
 /// # Argument
 ///
 /// * `sequence` - The input vector.
 /// Returns mode of `sequence`.
-pub fn mode<T: Eq + Copy + std::hash::Hash>(sequence: Vec<T>) -> T {
-    let mut hash = HashMap::new();
-    for value in sequence {
-        let count = hash.entry(value).or_insert(0);
-        *count += 1;
-    }
-    *hash.iter().max_by_key(|entry| entry.1).unwrap().0
+pub fn mode<T: Eq + std::hash::Hash>(sequence: Vec<T>) -> HashSet<T> {
+    let hist = histogram(sequence);
+    let max_count = *hist.values().max().unwrap();
+    hist.into_iter()
+        .filter(|(_, count)| *count == max_count)
+        .map(|(value, _)| value)
+        .collect()
 }
 
 #[cfg(test)]
@@ -71,9 +79,15 @@ mod test {
     }
     #[test]
     fn mode_test() {
-        assert_eq!(mode(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), 2);
-        assert_eq!(mode(vec![-9, -8, 0, 1, 2, 2, 3, -1, -1, 9, -1, -9]), -1);
-        assert_eq!(mode(vec!["a", "b", "a"]), "a");
+        assert_eq!(mode(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), HashSet::from([2]));
+        assert_eq!(
+            mode(vec![-9, -8, 0, 1, 2, 2, 3, -1, -1, 9, -1, -9]),
+            HashSet::from([-1])
+        );
+        assert_eq!(mode(vec!["a", "b", "a"]), HashSet::from(["a"]));
+        assert_eq!(mode(vec![1, 2, 2, 1]), HashSet::from([1, 2]));
+        assert_eq!(mode(vec![1, 2, 2, 1, 3]), HashSet::from([1, 2]));
+        assert_eq!(mode(vec![1]), HashSet::from([1]));
     }
     #[test]
     fn mean_test() {
