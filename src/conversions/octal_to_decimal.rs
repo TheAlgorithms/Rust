@@ -1,6 +1,6 @@
 // Author: cyrixninja
 // Octal to Decimal Converter: Converts Octal to Decimal
-// Wikipedia References: 
+// Wikipedia References:
 // 1. https://en.wikipedia.org/wiki/Octal
 // 2. https://en.wikipedia.org/wiki/Decimal
 
@@ -11,7 +11,7 @@ pub fn octal_to_decimal(octal_str: &str) -> Result<u64, &'static str> {
         return Err("Empty");
     }
 
-    if !octal_str.chars().all(|c| c >= '0' && c <= '7') {
+    if !octal_str.chars().all(|c| ('0'..='7').contains(&c)) {
         return Err("Non-octal Value");
     }
 
