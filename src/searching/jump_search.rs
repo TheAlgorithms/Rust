@@ -17,9 +17,6 @@ pub fn jump_search<T: Ord>(item: &T, arr: &[T]) -> Option<usize> {
     }
     while &arr[prev] < item {
         prev += 1;
-        if prev == min(step, len) {
-            return None;
-        }
     }
     if &arr[prev] == item {
         return Some(prev);
