@@ -68,5 +68,7 @@ mod tests {
     fn not_found() {
         let index = jump_search(&5, &[1, 2, 3, 4]);
         assert_eq!(index, None);
+
+        assert!(jump_search(&0, &[1, 2, 3, 4]).is_none());
     }
 }
