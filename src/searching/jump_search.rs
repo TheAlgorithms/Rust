@@ -33,42 +33,36 @@ mod tests {
 
     #[test]
     fn empty() {
-        let index = jump_search(&"a", &[]);
-        assert_eq!(index, None);
+        assert!(jump_search(&"a", &[]).is_none());
     }
 
     #[test]
     fn one_item() {
-        let index = jump_search(&"a", &["a"]);
-        assert_eq!(index, Some(0));
+        assert_eq!(jump_search(&"a", &["a"]).unwrap(), 0);
     }
 
     #[test]
     fn search_strings() {
-        let index = jump_search(&"a", &["a", "b", "c", "d", "google", "zoo"]);
-        assert_eq!(index, Some(0));
+        assert_eq!(
+            jump_search(&"a", &["a", "b", "c", "d", "google", "zoo"]).unwrap(),
+            0
+        );
     }
 
     #[test]
     fn search_ints() {
-        let index = jump_search(&4, &[1, 2, 3, 4]);
-        assert_eq!(index, Some(3));
-
-        let index = jump_search(&3, &[1, 2, 3, 4]);
-        assert_eq!(index, Some(2));
-
-        let index = jump_search(&2, &[1, 2, 3, 4]);
-        assert_eq!(index, Some(1));
-
-        let index = jump_search(&1, &[1, 2, 3, 4]);
-        assert_eq!(index, Some(0));
+        let arr = [1, 2, 3, 4];
+        assert_eq!(jump_search(&4, &arr).unwrap(), 3);
+        assert_eq!(jump_search(&3, &arr).unwrap(), 2);
+        assert_eq!(jump_search(&2, &arr).unwrap(), 1);
+        assert_eq!(jump_search(&1, &arr).unwrap(), 0);
     }
 
     #[test]
     fn not_found() {
-        let index = jump_search(&5, &[1, 2, 3, 4]);
-        assert_eq!(index, None);
+        let arr = [1, 2, 3, 4];
 
-        assert!(jump_search(&0, &[1, 2, 3, 4]).is_none());
+        assert!(jump_search(&5, &arr).is_none());
+        assert!(jump_search(&0, &arr).is_none());
     }
 }
