@@ -16,12 +16,7 @@ use std::collections::HashSet;
 /// * `sequence` - A vector of float64 numbers.
 /// Returns mean of `sequence`.
 pub fn mean(sequence: Vec<f64>) -> f64 {
-    let mut sum: f64 = 0.0;
-    let n: f64 = sequence.len() as f64;
-    for value in sequence {
-        sum += value;
-    }
-    sum / n
+    sequence.iter().sum::<f64>() / (sequence.len() as f64)
 }
 
 use num_traits::Num;
