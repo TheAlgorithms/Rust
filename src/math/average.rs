@@ -86,6 +86,7 @@ mod test {
     }
     #[test]
     fn mean_test() {
+        assert_eq!(mean(vec![2023.1112]), 2023.1112);
         assert_eq!(mean(vec![0.0, 1.0, 2.0, 3.0, 4.0]), 2.0);
         assert_eq!(
             mean(vec![-7.0, 4.0, 53.0, 2.0, 1.0, -9.0, 0.0, 2.0, 3.0, -6.0]),
