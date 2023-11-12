@@ -16,12 +16,7 @@ use std::collections::HashSet;
 /// * `sequence` - A vector of float64 numbers.
 /// Returns mean of `sequence`.
 pub fn mean(sequence: Vec<f64>) -> f64 {
-    let mut sum: f64 = 0.0;
-    let n: f64 = sequence.len() as f64;
-    for value in sequence {
-        sum += value;
-    }
-    sum / n
+    sequence.iter().sum::<f64>() / (sequence.len() as f64)
 }
 
 use num_traits::Num;
@@ -91,10 +86,12 @@ mod test {
     }
     #[test]
     fn mean_test() {
+        assert_eq!(mean(vec![2023.1112]), 2023.1112);
         assert_eq!(mean(vec![0.0, 1.0, 2.0, 3.0, 4.0]), 2.0);
         assert_eq!(
             mean(vec![-7.0, 4.0, 53.0, 2.0, 1.0, -9.0, 0.0, 2.0, 3.0, -6.0]),
             4.3
         );
+        assert!(mean(Vec::<f64>::new()).is_nan());
     }
 }
