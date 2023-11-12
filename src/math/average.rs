@@ -7,7 +7,7 @@ The mode is the most frequently occurring value on the list.
 Reference: https://www.britannica.com/science/mean-median-and-mode
 
 This program approximates the mean, median and mode of a finite sequence.
-Note: `mean` function only limited to float 64 numbers. Floats sequences are not allowed for `median` & `mode` functions.
+Note: `mean` function only limited to float 64 numbers. Floats sequences are not allowed for `mode` function.
 "]
 use std::collections::HashMap;
 use std::collections::HashSet;
