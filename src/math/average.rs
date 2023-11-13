@@ -30,14 +30,17 @@ fn mean_of_two<T: Num + Copy>(a: T, b: T) -> T {
 /// * `sequence` - A vector of numbers.
 /// Returns median of `sequence`.
 
-pub fn median<T: Num + Copy + PartialOrd>(mut sequence: Vec<T>) -> T {
+pub fn median<T: Num + Copy + PartialOrd>(mut sequence: Vec<T>) -> Option<T> {
+    if sequence.is_empty() {
+        return None;
+    }
     sequence.sort_by(|a, b| a.partial_cmp(b).unwrap());
     if sequence.len() % 2 == 1 {
         let k = (sequence.len() + 1) / 2;
-        sequence[k - 1]
+        Some(sequence[k - 1])
     } else {
         let j = (sequence.len()) / 2;
-        mean_of_two(sequence[j - 1], sequence[j])
+        Some(mean_of_two(sequence[j - 1], sequence[j]))
     }
 }
 
@@ -66,11 +69,13 @@ mod test {
     use super::*;
     #[test]
     fn median_test() {
-        assert_eq!(median(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), 3);
-        assert_eq!(median(vec![-9, -8, 0, 1, 2, 2, 3, 4, 6, 9, 53]), 2);
-        assert_eq!(median(vec![2, 3]), 2);
-        assert_eq!(median(vec![3.0, 2.0]), 2.5);
-        assert_eq!(median(vec![1.0, 700.0, 5.0]), 5.0);
+        assert_eq!(median(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]).unwrap(), 3);
+        assert_eq!(median(vec![-9, -8, 0, 1, 2, 2, 3, 4, 6, 9, 53]).unwrap(), 2);
+        assert_eq!(median(vec![2, 3]).unwrap(), 2);
+        assert_eq!(median(vec![3.0, 2.0]).unwrap(), 2.5);
+        assert_eq!(median(vec![1.0, 700.0, 5.0]).unwrap(), 5.0);
+        assert!(median(Vec::<i32>::new()).is_none());
+        assert!(median(Vec::<f64>::new()).is_none());
     }
     #[test]
     fn mode_test() {
