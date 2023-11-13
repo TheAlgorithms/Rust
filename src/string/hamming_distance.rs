@@ -1,18 +1,13 @@
-pub fn hamming_distance(string1: &str, string2: &str) -> usize {
-    let mut distance = 0;
-    let mut string1 = string1.chars();
-    let mut string2 = string2.chars();
-
-    loop {
-        match (string1.next(), string2.next()) {
-            (Some(char1), Some(char2)) if char1 != char2 => distance += 1,
-            (Some(char1), Some(char2)) if char1 == char2 => continue,
-            (None, Some(_)) | (Some(_), None) => panic!("Strings must have the same length"),
-            (None, None) => break,
-            _ => unreachable!(),
-        }
+pub fn hamming_distance(string_a: &str, string_b: &str) -> usize {
+    if string_a.len() != string_b.len() {
+        panic!("Strings must have the same length");
     }
-    distance
+
+    string_a
+        .chars()
+        .zip(string_b.chars())
+        .filter(|(a, b)| a != b)
+        .count()
 }
 
 #[cfg(test)]
