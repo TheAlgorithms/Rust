@@ -14,31 +14,29 @@ pub fn hamming_distance(string_a: &str, string_b: &str) -> usize {
 mod tests {
     use super::*;
 
-    #[test]
-    fn empty_strings() {
-        let result = hamming_distance("", "");
-        assert_eq!(result, 0);
+    macro_rules! test_hamming_distance {
+        ($($name:ident: $tc:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (str_a, str_b, expected) = $tc;
+                assert_eq!(hamming_distance(str_a, str_b), expected);
+                assert_eq!(hamming_distance(str_b, str_a), expected);
+            }
+        )*
+        }
     }
-    #[test]
-    fn distance_zero() {
-        let result = hamming_distance("rust", "rust");
-        assert_eq!(result, 0);
+
+    test_hamming_distance! {
+        empty_inputs: ("", "", 0),
+        length_1_inputs: ("a", "a", 0),
+        same_strings: ("rust", "rust", 0),
+        regular_input_0: ("karolin", "kathrin", 3),
+        regular_input_1: ("kathrin", "kerstin", 4),
+        regular_input_2: ("00000", "11111", 5),
+        different_case: ("x", "X", 1),
     }
-    #[test]
-    fn distance_three() {
-        let result = hamming_distance("karolin", "kathrin");
-        assert_eq!(result, 3);
-    }
-    #[test]
-    fn distance_four() {
-        let result = hamming_distance("kathrin", "kerstin");
-        assert_eq!(result, 4);
-    }
-    #[test]
-    fn distance_five() {
-        let result = hamming_distance("00000", "11111");
-        assert_eq!(result, 5);
-    }
+
     #[test]
     #[should_panic]
     fn panic_when_inputs_are_of_different_length() {
