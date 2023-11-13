@@ -40,12 +40,12 @@
   * Compression
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
   * Conversions
-    * [Binary To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
-    * [Binary To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_hexadecimal.rs)
-    * [Decimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
-    * [Hexadecimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
-    * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
-    * [Octal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
+    * [Binary to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
+    * [Binary to Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_hexadecimal.rs)
+    * [Decimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
+    * [Hexadecimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
+    * [Octal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
+    * [Octal to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
