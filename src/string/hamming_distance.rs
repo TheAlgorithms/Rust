@@ -44,4 +44,9 @@ mod tests {
         let result = hamming_distance("00000", "11111");
         assert_eq!(result, 5);
     }
+    #[test]
+    #[should_panic]
+    fn panic_when_inputs_are_of_different_length() {
+        hamming_distance("0", "");
+    }
 }
