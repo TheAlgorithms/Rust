@@ -162,6 +162,7 @@
     * [Cross Entropy Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/math/cross_entropy_loss.rs)
     * [Doomsday](https://github.com/TheAlgorithms/Rust/blob/master/src/math/doomsday.rs)
     * [Elliptic Curve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/elliptic_curve.rs)
+    * [Euclidean Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/math/euclidean_distance.rs)
     * [Exponential Linear Unit](https://github.com/TheAlgorithms/Rust/blob/master/src/math/exponential_linear_unit.rs)
     * [Extended Euclidean Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/extended_euclidean_algorithm.rs)
     * [Factors](https://github.com/TheAlgorithms/Rust/blob/master/src/math/factors.rs)
