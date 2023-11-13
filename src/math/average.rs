@@ -7,20 +7,16 @@ The mode is the most frequently occurring value on the list.
 Reference: https://www.britannica.com/science/mean-median-and-mode
 
 This program approximates the mean, median and mode of a finite sequence.
-Note: `mean` function only limited to float 64 numbers. Floats sequences are not allowed for `median` & `mode` functions.
+Note: `mean` function only limited to float 64 numbers. Floats sequences are not allowed for `mode` function.
 "]
 use std::collections::HashMap;
+use std::collections::HashSet;
 /// # Argument
 ///
 /// * `sequence` - A vector of float64 numbers.
 /// Returns mean of `sequence`.
 pub fn mean(sequence: Vec<f64>) -> f64 {
-    let mut sum: f64 = 0.0;
-    let n: f64 = sequence.len() as f64;
-    for value in sequence {
-        sum += value;
-    }
-    sum / n
+    sequence.iter().sum::<f64>() / (sequence.len() as f64)
 }
 
 use num_traits::Num;
@@ -45,17 +41,24 @@ pub fn median<T: Num + Copy + PartialOrd>(mut sequence: Vec<T>) -> T {
     }
 }
 
+fn histogram<T: Eq + std::hash::Hash>(sequence: Vec<T>) -> HashMap<T, usize> {
+    sequence.into_iter().fold(HashMap::new(), |mut res, val| {
+        *res.entry(val).or_insert(0) += 1;
+        res
+    })
+}
+
 /// # Argument
 ///
 /// * `sequence` - The input vector.
 /// Returns mode of `sequence`.
-pub fn mode<T: Eq + Copy + std::hash::Hash>(sequence: Vec<T>) -> T {
-    let mut hash = HashMap::new();
-    for value in sequence {
-        let count = hash.entry(value).or_insert(0);
-        *count += 1;
-    }
-    *hash.iter().max_by_key(|entry| entry.1).unwrap().0
+pub fn mode<T: Eq + std::hash::Hash>(sequence: Vec<T>) -> HashSet<T> {
+    let hist = histogram(sequence);
+    let max_count = *hist.values().max().unwrap();
+    hist.into_iter()
+        .filter(|(_, count)| *count == max_count)
+        .map(|(value, _)| value)
+        .collect()
 }
 
 #[cfg(test)]
@@ -71,16 +74,24 @@ mod test {
     }
     #[test]
     fn mode_test() {
-        assert_eq!(mode(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), 2);
-        assert_eq!(mode(vec![-9, -8, 0, 1, 2, 2, 3, -1, -1, 9, -1, -9]), -1);
-        assert_eq!(mode(vec!["a", "b", "a"]), "a");
+        assert_eq!(mode(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), HashSet::from([2]));
+        assert_eq!(
+            mode(vec![-9, -8, 0, 1, 2, 2, 3, -1, -1, 9, -1, -9]),
+            HashSet::from([-1])
+        );
+        assert_eq!(mode(vec!["a", "b", "a"]), HashSet::from(["a"]));
+        assert_eq!(mode(vec![1, 2, 2, 1]), HashSet::from([1, 2]));
+        assert_eq!(mode(vec![1, 2, 2, 1, 3]), HashSet::from([1, 2]));
+        assert_eq!(mode(vec![1]), HashSet::from([1]));
     }
     #[test]
     fn mean_test() {
+        assert_eq!(mean(vec![2023.1112]), 2023.1112);
         assert_eq!(mean(vec![0.0, 1.0, 2.0, 3.0, 4.0]), 2.0);
         assert_eq!(
             mean(vec![-7.0, 4.0, 53.0, 2.0, 1.0, -9.0, 0.0, 2.0, 3.0, -6.0]),
             4.3
         );
+        assert!(mean(Vec::<f64>::new()).is_nan());
     }
 }

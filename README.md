@@ -8,6 +8,9 @@
 <a href="https://github.com/TheAlgorithms/Rust/actions/workflows/build.yml">
   <img src="https://github.com/TheAlgorithms/Rust/actions/workflows/build.yml/badge.svg" height="20" alt="Build workflow">
 </a>
+<a href="https://codecov.io/gh/TheAlgorithms/Rust" > 
+  <img src="https://codecov.io/gh/TheAlgorithms/Rust/graph/badge.svg?token=nRkPKfbs42"/> 
+</a>
 <a href="https://the-algorithms.com/discord">
   <img src="https://img.shields.io/discord/808045925556682782.svg?logo=discord&colorB=00d37d" height="20" alt="Discord community">
 </a>
