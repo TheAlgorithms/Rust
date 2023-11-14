@@ -18,7 +18,7 @@ pub fn amicable_pairs_under_n(n: u32) -> Option<Vec<(u32, u32)>> {
     let mut out = vec![(0, 0)];
     // Check if numbers are amicable then append
     for (i, x) in factor_sums.iter().enumerate() {
-        if (*x != i as u32) && (*x < n) && (factor_sums[*x as usize] == i as u32) && (*x > i as u32)
+        if (*x < n) && (factor_sums[*x as usize] == i as u32) && (*x > i as u32)
         {
             out.push((i as u32, *x));
         }
