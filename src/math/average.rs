@@ -55,13 +55,18 @@ fn histogram<T: Eq + std::hash::Hash>(sequence: Vec<T>) -> HashMap<T, usize> {
 ///
 /// * `sequence` - The input vector.
 /// Returns mode of `sequence`.
-pub fn mode<T: Eq + std::hash::Hash>(sequence: Vec<T>) -> HashSet<T> {
+pub fn mode<T: Eq + std::hash::Hash>(sequence: Vec<T>) -> Option<HashSet<T>> {
+    if sequence.is_empty() {
+        return None;
+    }
     let hist = histogram(sequence);
     let max_count = *hist.values().max().unwrap();
-    hist.into_iter()
-        .filter(|(_, count)| *count == max_count)
-        .map(|(value, _)| value)
-        .collect()
+    Some(
+        hist.into_iter()
+            .filter(|(_, count)| *count == max_count)
+            .map(|(value, _)| value)
+            .collect(),
+    )
 }
 
 #[cfg(test)]
@@ -79,15 +84,19 @@ mod test {
     }
     #[test]
     fn mode_test() {
-        assert_eq!(mode(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]), HashSet::from([2]));
         assert_eq!(
-            mode(vec![-9, -8, 0, 1, 2, 2, 3, -1, -1, 9, -1, -9]),
+            mode(vec![4, 53, 2, 1, 9, 0, 2, 3, 6]).unwrap(),
+            HashSet::from([2])
+        );
+        assert_eq!(
+            mode(vec![-9, -8, 0, 1, 2, 2, 3, -1, -1, 9, -1, -9]).unwrap(),
             HashSet::from([-1])
         );
-        assert_eq!(mode(vec!["a", "b", "a"]), HashSet::from(["a"]));
-        assert_eq!(mode(vec![1, 2, 2, 1]), HashSet::from([1, 2]));
-        assert_eq!(mode(vec![1, 2, 2, 1, 3]), HashSet::from([1, 2]));
-        assert_eq!(mode(vec![1]), HashSet::from([1]));
+        assert_eq!(mode(vec!["a", "b", "a"]).unwrap(), HashSet::from(["a"]));
+        assert_eq!(mode(vec![1, 2, 2, 1]).unwrap(), HashSet::from([1, 2]));
+        assert_eq!(mode(vec![1, 2, 2, 1, 3]).unwrap(), HashSet::from([1, 2]));
+        assert_eq!(mode(vec![1]).unwrap(), HashSet::from([1]));
+        assert!(mode(Vec::<i32>::new()).is_none());
     }
     #[test]
     fn mean_test() {
