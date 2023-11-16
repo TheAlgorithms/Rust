@@ -2,9 +2,8 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: rustup update && rustup component add rustfmt clippy
     command: cargo build
 
 vscode:
   extensions:
-    - rust-lang.rust
+    - rust-analyzer
