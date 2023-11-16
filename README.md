@@ -5,6 +5,9 @@
 <h1><a href="https://github.com/TheAlgorithms/">The Algorithms</a> - Rust</h1>
 
 <!-- Labels: -->
+<a href="https://gitpod.io/#https://github.com/TheAlgorithms/Rust">
+    <img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod&style=flat-square" height="20" alt="Gitpod Ready-to-Code">
+</a>
 <a href="https://github.com/TheAlgorithms/Rust/actions/workflows/build.yml">
   <img src="https://github.com/TheAlgorithms/Rust/actions/workflows/build.yml/badge.svg" height="20" alt="Build workflow">
 </a>
