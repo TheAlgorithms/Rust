@@ -12,10 +12,6 @@ pub fn longest_common_substring(text1: &str, text2: &str) -> i32 {
     let mut ans = 0;
     for i in 1..=m {
         for j in 1..=n {
-            if i == 0 || j == 0 {
-                dp[i][j] = 0;
-                continue;
-            }
             if t1[i - 1] == t2[j - 1] {
                 dp[i][j] = 1 + dp[i - 1][j - 1];
                 ans = std::cmp::max(ans, dp[i][j]);
