@@ -4,7 +4,11 @@
 // Other References     :  https://the-algorithms.com/algorithm/sylvester-sequence?lang=python
 
 pub fn sylvester(number: i32) -> i128 {
-    assert!(number > 0, "The input value of [n={}] has to be > 0", number);
+    assert!(
+        number > 0,
+        "The input value of [n={}] has to be > 0",
+        number
+    );
 
     if number == 1 {
         2
@@ -30,5 +34,4 @@ mod tests {
     fn test_sylvester_negative() {
         sylvester(-1);
     }
-
 }
