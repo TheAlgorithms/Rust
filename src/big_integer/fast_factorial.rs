@@ -37,7 +37,7 @@ pub fn fast_factorial(n: usize) -> BigUint {
         p_indeces.insert(p, index(p, n));
     });
 
-    let max_bits = p_indeces.get(&2).unwrap().next_power_of_two().ilog2();
+    let max_bits = p_indeces.get(&2).unwrap().next_power_of_two().ilog2() + 1;
 
     // Create a Vec of 1's
     let mut a = Vec::with_capacity(max_bits as usize);
@@ -68,7 +68,19 @@ mod tests {
 
     #[test]
     fn fact() {
+        assert_eq!(fast_factorial(0), BigUint::one());
+        assert_eq!(fast_factorial(1), BigUint::one());
+        assert_eq!(fast_factorial(2), factorial(2));
+        assert_eq!(fast_factorial(3), factorial(3));
+        assert_eq!(fast_factorial(6), factorial(6));
+        assert_eq!(fast_factorial(7), factorial(7));
+        assert_eq!(fast_factorial(10), factorial(10));
+        assert_eq!(fast_factorial(11), factorial(11));
+        assert_eq!(fast_factorial(18), factorial(18));
+        assert_eq!(fast_factorial(19), factorial(19));
         assert_eq!(fast_factorial(30), factorial(30));
+        assert_eq!(fast_factorial(34), factorial(34));
+        assert_eq!(fast_factorial(35), factorial(35));
         assert_eq!(fast_factorial(52), factorial(52));
         assert_eq!(fast_factorial(100), factorial(100));
         assert_eq!(fast_factorial(1000), factorial(1000));
