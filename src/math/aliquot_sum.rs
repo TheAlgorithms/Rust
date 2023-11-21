@@ -7,7 +7,10 @@
 /// Wikipedia article on Aliquot Sum: <https://en.wikipedia.org/wiki/Aliquot_sum>
 
 pub fn aliquot_sum(number: u64) -> u64 {
-    if number == 1 || number == 0 {
+    if number == 0 {
+        panic!("Input has to be positive.")
+    }
+    if number == 1 {
         return 0;
     }
     let mut sum: u64 = 0;
@@ -38,5 +41,11 @@ mod tests {
     #[test]
     fn three_digit_number() {
         assert_eq!(aliquot_sum(343), 57);
+    }
+
+    #[test]
+    #[should_panic]
+    fn panics_if_input_is_zero() {
+        aliquot_sum(0);
     }
 }
