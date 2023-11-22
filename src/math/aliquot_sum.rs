@@ -28,29 +28,26 @@ pub fn aliquot_sum(number: u64) -> u64 {
 mod tests {
     use super::*;
 
-    #[test]
-    fn two_with_1() {
-        assert_eq!(aliquot_sum(1), 0);
+    macro_rules! test_aliquot_sum {
+        ($($name:ident: $tc:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (number, expected) = $tc;
+                assert_eq!(aliquot_sum(number), expected);
+            }
+        )*
+        }
     }
-
-    #[test]
-    fn two_with_2() {
-        assert_eq!(aliquot_sum(2), 1);
-    }
-
-    #[test]
-    fn one_digit_number() {
-        assert_eq!(aliquot_sum(6), 6);
-    }
-
-    #[test]
-    fn two_digit_number() {
-        assert_eq!(aliquot_sum(15), 9);
-    }
-
-    #[test]
-    fn three_digit_number() {
-        assert_eq!(aliquot_sum(343), 57);
+    test_aliquot_sum! {
+        test_with_1: (1, 0),
+        test_with_2: (2, 1),
+        test_with_3: (3, 1),
+        test_with_4: (4, 1+2),
+        test_with_5: (5, 1),
+        test_with_6: (6, 6),
+        test_with_15: (15, 9),
+        test_with_343: (343, 57),
     }
 
     #[test]
