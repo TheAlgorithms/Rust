@@ -46,8 +46,15 @@ mod tests {
         test_with_4: (4, 1+2),
         test_with_5: (5, 1),
         test_with_6: (6, 6),
+        test_with_7: (7, 1),
+        test_with_8: (8, 1+2+4),
+        test_with_9: (9, 1+3),
+        test_with_10: (10, 1+2+5),
         test_with_15: (15, 9),
         test_with_343: (343, 57),
+        test_with_344: (344, 316),
+        test_with_500: (500, 592),
+        test_with_501: (501, 171),
     }
 
     #[test]
