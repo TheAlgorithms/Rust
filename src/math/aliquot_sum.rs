@@ -10,18 +10,8 @@ pub fn aliquot_sum(number: u64) -> u64 {
     if number == 0 {
         panic!("Input has to be positive.")
     }
-    if number == 1 {
-        return 0;
-    }
-    let mut sum: u64 = 0;
 
-    for i in 1..(number / 2 + 1) {
-        if number % i == 0 {
-            sum += i;
-        }
-    }
-
-    sum
+    (1..=number / 2).filter(|&d| number % d == 0).sum()
 }
 
 #[cfg(test)]
