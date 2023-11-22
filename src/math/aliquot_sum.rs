@@ -29,6 +29,7 @@ mod tests {
         )*
         }
     }
+
     test_aliquot_sum! {
         test_with_1: (1, 0),
         test_with_2: (2, 1),
