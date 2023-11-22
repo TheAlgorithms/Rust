@@ -29,6 +29,16 @@ mod tests {
     use super::*;
 
     #[test]
+    fn two_with_1() {
+        assert_eq!(aliquot_sum(1), 0);
+    }
+
+    #[test]
+    fn two_with_2() {
+        assert_eq!(aliquot_sum(2), 1);
+    }
+
+    #[test]
     fn one_digit_number() {
         assert_eq!(aliquot_sum(6), 6);
     }
