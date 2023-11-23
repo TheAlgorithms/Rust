@@ -43,7 +43,6 @@ pub fn k_means(data_points: Vec<(f64, f64)>, n_clusters: usize, max_iter: i32) -
         let mut new_centroids_position: Vec<(f64, f64)> = vec![(0.0, 0.0); n_clusters];
         let mut new_centroids_num: Vec<u32> = vec![0; n_clusters];
 
-        // Assign new clusters to the data point.
         for (i, d) in data_points.iter().enumerate() {
             let nearest_cluster: u32 = find_nearest(d, &centroids);
             labels[i] = nearest_cluster;
