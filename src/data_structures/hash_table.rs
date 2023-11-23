@@ -11,6 +11,7 @@ impl<K: Hashable + std::cmp::PartialEq, V> Default for HashTable<K, V> {
         Self::new()
     }
 }
+
 pub trait Hashable {
     fn hash(&self) -> usize;
 }
