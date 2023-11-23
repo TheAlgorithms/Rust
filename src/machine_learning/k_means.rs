@@ -85,6 +85,6 @@ mod test {
             data_points.push((x, y));
         }
 
-        println!("{:?}", k_means(data_points, 10, 100).unwrap_or(vec![]));
+        println!("{:?}", k_means(data_points, 10, 100).unwrap_or_default());
     }
 }
