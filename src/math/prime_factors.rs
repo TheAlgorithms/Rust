@@ -8,7 +8,6 @@ pub fn prime_factors(n: u64) -> Vec<u64> {
         return factors;
     }
     if n == 1 {
-        factors.push(1);
         return factors;
     }
     while i * i <= n {
@@ -34,6 +33,7 @@ mod tests {
     #[test]
     fn it_works() {
         assert_eq!(prime_factors(0), vec![]);
+        assert_eq!(prime_factors(1), vec![]);
         assert_eq!(prime_factors(11), vec![11]);
         assert_eq!(prime_factors(25), vec![5, 5]);
         assert_eq!(prime_factors(33), vec![3, 11]);
