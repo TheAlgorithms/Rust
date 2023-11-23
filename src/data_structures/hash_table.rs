@@ -1,6 +1,5 @@
 use std::collections::LinkedList;
 
-#[derive(Debug)]
 pub struct HashTable<K, V> {
     elements: Vec<LinkedList<(K, V)>>,
     count: usize,
