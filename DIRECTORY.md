@@ -53,6 +53,7 @@
     * [Fenwick Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/fenwick_tree.rs)
     * [Floyds Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/floyds_algorithm.rs)
     * [Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/graph.rs)
+    * [Hash Table](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/hash_table.rs)
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Infix To Postfix](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/infix_to_postfix.rs)
     * [Lazy Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/lazy_segment_tree.rs)
@@ -63,7 +64,6 @@
       * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
     * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
     * [Rb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/rb_tree.rs)
-    * [HashTable](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/hash_table.rs)
     * [Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree.rs)
     * [Segment Tree Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree_recursive.rs)
     * [Stack Using Singly Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/stack_using_singly_linked_list.rs)
@@ -137,6 +137,7 @@
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Machine Learning
+    * [K Means](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_means.rs)
     * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * Loss Function
       * [Mae Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mae_loss.rs)
@@ -210,6 +211,7 @@
     * [Square Root](https://github.com/TheAlgorithms/Rust/blob/master/src/math/square_root.rs)
     * [Sum Of Digits](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_digits.rs)
     * [Sum Of Geometric Progression](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_geometric_progression.rs)
+    * [Sum Of Harmonic Series](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_harmonic_series.rs)
     * [Sylvester Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sylvester_sequence.rs)
     * [Tanh](https://github.com/TheAlgorithms/Rust/blob/master/src/math/tanh.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
