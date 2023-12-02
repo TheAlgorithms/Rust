@@ -185,6 +185,7 @@
     * [Lcm Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/lcm_of_n_numbers.rs)
     * [Leaky Relu](https://github.com/TheAlgorithms/Rust/blob/master/src/math/leaky_relu.rs)
     * [Linear Sieve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/linear_sieve.rs)
+    * [Lucas Series](https://github.com/TheAlgorithms/Rust/blob/master/src/math/lucas_series.rs)
     * [Matrix Ops](https://github.com/TheAlgorithms/Rust/blob/master/src/math/matrix_ops.rs)
     * [Mersenne Primes](https://github.com/TheAlgorithms/Rust/blob/master/src/math/mersenne_primes.rs)
     * [Miller Rabin](https://github.com/TheAlgorithms/Rust/blob/master/src/math/miller_rabin.rs)
