@@ -24,7 +24,7 @@ pub fn dynamic_lucas_number(n: i32) -> i32 {
     for _ in 0..n {
         let temp = a;
         a = b;
-        b = temp + b;
+        b += temp;
     }
 
     a
