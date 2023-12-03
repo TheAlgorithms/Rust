@@ -49,7 +49,7 @@ mod tests {
 
     #[test]
     fn test_calculate_cross() {
-        assert_eq!(cross(1, 2, 3, 4), 1 * 4 - 3 * 2);
+        assert_eq!(cross(1, 2, 3, 4), 4 - 3 * 2);
     }
 
     #[test]
