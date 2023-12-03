@@ -40,9 +40,7 @@ fn boundary(pts: &Vec<Pll>) -> Ll {
 pub fn lattice_points(pts: &Vec<Pll>) -> Ll {
     let bounds = boundary(pts);
     let area = polygon_area(pts);
-    let inside = area + 1 - bounds / 2;
-
-    inside
+    area + 1 - bounds / 2
 }
 
 #[cfg(test)]
