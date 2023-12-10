@@ -25,7 +25,7 @@ pub struct Point {
  * @return The area of the polygon.
  */
 
-pub fn area_of_polygon(fig: &Vec<Point>) -> f64 {
+pub fn area_of_polygon(fig: &[Point]) -> f64 {
     let mut res = 0.0;
 
     for i in 0..fig.len() {

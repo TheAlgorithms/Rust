@@ -136,7 +136,7 @@ impl<Item: Hash> BloomFilter<Item> for MultiBinaryBloomFilter {
         for builder in &self.hash_builders {
             let mut hasher = builder.build_hasher();
             item.hash(&mut hasher);
-            let hash = hasher.finish();
+            let hash = builder.hash_one(&item);
             let index = hash % self.filter_size as u64;
             let byte_index = index as usize / 8; // this is this byte that we need to modify
             let bit_index = (index % 8) as u8; // we cannot only OR with value 1 this time, since we have 8 bits
@@ -148,7 +148,7 @@ impl<Item: Hash> BloomFilter<Item> for MultiBinaryBloomFilter {
         for builder in &self.hash_builders {
             let mut hasher = builder.build_hasher();
             item.hash(&mut hasher);
-            let hash = hasher.finish();
+            let hash = builder.hash_one(item);
             let index = hash % self.filter_size as u64;
             let byte_index = index as usize / 8; // this is this byte that we need to modify
             let bit_index = (index % 8) as u8; // we cannot only OR with value 1 this time, since we have 8 bits

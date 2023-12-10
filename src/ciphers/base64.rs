@@ -31,7 +31,7 @@ fn collect_six_bits(from: (u8, u8), offset: u8) -> u8 {
     ((combined & (0b1111110000000000u16 >> offset)) >> (10 - offset)) as u8
 }
 
-pub fn base64_encode(data: &Vec<u8>) -> String {
+pub fn base64_encode(data: &[u8]) -> String {
     let mut bits_encoded = 0usize;
     let mut encoded_string = String::new();
     // Using modulo twice to prevent an underflow, Wolfram|Alpha says this is optimal

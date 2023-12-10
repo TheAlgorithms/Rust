@@ -4,7 +4,7 @@
 // element with the target element.
 use std::cmp::Ordering;
 
-pub fn saddleback_search(matrix: &Vec<Vec<i32>>, element: i32) -> (usize, usize) {
+pub fn saddleback_search(matrix: &[Vec<i32>], element: i32) -> (usize, usize) {
     // Initialize left and right indices
     let mut left_index = 0;
     let mut right_index = matrix[0].len() - 1;

@@ -5,7 +5,7 @@ fn cross(x1: Ll, y1: Ll, x2: Ll, y2: Ll) -> Ll {
     x1 * y2 - x2 * y1
 }
 
-pub fn polygon_area(pts: &Vec<Pll>) -> Ll {
+pub fn polygon_area(pts: &[Pll]) -> Ll {
     let mut ats = 0;
     for i in 2..pts.len() {
         ats += cross(
@@ -27,7 +27,7 @@ fn gcd(mut a: Ll, mut b: Ll) -> Ll {
     a
 }
 
-fn boundary(pts: &Vec<Pll>) -> Ll {
+fn boundary(pts: &[Pll]) -> Ll {
     let mut ats = pts.len() as Ll;
     for i in 0..pts.len() {
         let deltax = pts[i].0 - pts[(i + 1) % pts.len()].0;
@@ -37,7 +37,7 @@ fn boundary(pts: &Vec<Pll>) -> Ll {
     ats
 }
 
-pub fn lattice_points(pts: &Vec<Pll>) -> Ll {
+pub fn lattice_points(pts: &[Pll]) -> Ll {
     let bounds = boundary(pts);
     let area = polygon_area(pts);
     area + 1 - bounds / 2
