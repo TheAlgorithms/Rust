@@ -276,7 +276,7 @@
     * [Tim Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tim_sort.rs)
     * [Tree Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tree_sort.rs)
     * [Wave Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wave_sort.rs)
-    * [Wiggle Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wiggle_sort.rs)
+    * [Wiggle Sort change directory for testing](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wiggle_sort.rs)
   * String
     * [Aho Corasick](https://github.com/TheAlgorithms/Rust/blob/master/src/string/aho_corasick.rs)
     * [Anagram](https://github.com/TheAlgorithms/Rust/blob/master/src/string/anagram.rs)
