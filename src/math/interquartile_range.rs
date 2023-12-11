@@ -5,7 +5,7 @@
 
 use std::cmp::Ordering;
 
-fn find_median(numbers: &[f64]) -> f64 {
+pub fn find_median(numbers: &[f64]) -> f64 {
     let mut numbers = numbers.to_vec();
     numbers.sort_by(|a, b| a.partial_cmp(b).unwrap_or(Ordering::Equal));
 
@@ -83,4 +83,3 @@ mod tests {
         interquartile_range(&numbers);
     }
 }
-
