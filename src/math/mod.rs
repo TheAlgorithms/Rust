@@ -33,6 +33,7 @@ mod greatest_common_divisor;
 mod huber_loss;
 mod interest;
 mod interpolation;
+mod interquartile_range;
 mod karatsuba_multiplication;
 mod lcm_of_n_numbers;
 mod leaky_relu;
@@ -112,6 +113,7 @@ pub use self::greatest_common_divisor::{
 pub use self::huber_loss::huber_loss;
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::interpolation::{lagrange_polynomial_interpolation, linear_interpolation};
+pub use self::interquartile_range::interquartile_range;
 pub use self::karatsuba_multiplication::multiply;
 pub use self::lcm_of_n_numbers::lcm;
 pub use self::leaky_relu::leaky_relu;
