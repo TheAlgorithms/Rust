@@ -183,6 +183,7 @@
     * [Huber Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/math/huber_loss.rs)
     * [Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interest.rs)
     * [Interpolation](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interpolation.rs)
+    * [Interquartile Range](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interquartile_range.rs)
     * [Karatsuba Multiplication](https://github.com/TheAlgorithms/Rust/blob/master/src/math/karatsuba_multiplication.rs)
     * [Lcm Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/lcm_of_n_numbers.rs)
     * [Leaky Relu](https://github.com/TheAlgorithms/Rust/blob/master/src/math/leaky_relu.rs)
