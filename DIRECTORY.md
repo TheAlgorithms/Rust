@@ -128,7 +128,7 @@
     * [Graph Enumeration](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/graph_enumeration.rs)
     * [Heavy Light Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/heavy_light_decomposition.rs)
     * [Kosaraju](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/kosaraju.rs)
-    * [Lee](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lee.rs)
+    * [Lee Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lee_breadth_first_search.rs)
     * [Lowest Common Ancestor](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lowest_common_ancestor.rs)
     * [Minimum Spanning Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/minimum_spanning_tree.rs)
     * [Prim](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prim.rs)
@@ -142,8 +142,8 @@
     * [K Means](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_means.rs)
     * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * Loss Function
-      * [Mae Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mae_loss.rs)
-      * [Mse Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mse_loss.rs)
+      * [Mean Absolute Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mean_absolute_error_loss.rs)
+      * [Mean Squared Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mean_squared_error_loss.rs)
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
