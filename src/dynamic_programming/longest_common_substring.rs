@@ -12,10 +12,6 @@ pub fn longest_common_substring(text1: &str, text2: &str) -> i32 {
     let mut ans = 0;
     for i in 1..=m {
         for j in 1..=n {
-            if i == 0 || j == 0 {
-                dp[i][j] = 0;
-                continue;
-            }
             if t1[i - 1] == t2[j - 1] {
                 dp[i][j] = 1 + dp[i - 1][j - 1];
                 ans = std::cmp::max(ans, dp[i][j]);
@@ -30,47 +26,30 @@ pub fn longest_common_substring(text1: &str, text2: &str) -> i32 {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test1() {
-        assert_eq!(longest_common_substring("", ""), 0);
+    macro_rules! test_longest_common_substring {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (text1, text2, expected) = $inputs;
+                assert_eq!(longest_common_substring(text1, text2), expected);
+                assert_eq!(longest_common_substring(text2, text1), expected);
+            }
+        )*
+        }
     }
-    #[test]
-    fn test2() {
-        assert_eq!(longest_common_substring("a", ""), 0);
-    }
-    #[test]
-    fn test3() {
-        assert_eq!(longest_common_substring("", "a"), 0);
-    }
-    #[test]
-    fn test4() {
-        assert_eq!(longest_common_substring("a", "a"), 1);
-    }
-    #[test]
-    fn test5() {
-        assert_eq!(longest_common_substring("abcdef", "bcd"), 3);
-    }
-    #[test]
-    fn test6() {
-        assert_eq!(longest_common_substring("abcdef", "xabded"), 2);
-    }
-    #[test]
-    fn test7() {
-        assert_eq!(longest_common_substring("GeeksforGeeks", "GeeksQuiz"), 5);
-    }
-    #[test]
-    fn test8() {
-        assert_eq!(longest_common_substring("abcdxyz", "xyzabcd"), 4);
-    }
-    #[test]
-    fn test9() {
-        assert_eq!(longest_common_substring("zxabcdezy", "yzabcdezx"), 6);
-    }
-    #[test]
-    fn test10() {
-        assert_eq!(
-            longest_common_substring("OldSite:GeeksforGeeks.org", "NewSite:GeeksQuiz.com"),
-            10
-        );
+
+    test_longest_common_substring! {
+        empty_inputs: ("", "", 0),
+        one_empty_input: ("", "a", 0),
+        single_same_char_input: ("a", "a", 1),
+        single_different_char_input: ("a", "b", 0),
+        regular_input_0: ("abcdef", "bcd", 3),
+        regular_input_1: ("abcdef", "xabded", 2),
+        regular_input_2: ("GeeksforGeeks", "GeeksQuiz", 5),
+        regular_input_3: ("abcdxyz", "xyzabcd", 4),
+        regular_input_4: ("zxabcdezy", "yzabcdezx", 6),
+        regular_input_5: ("OldSite:GeeksforGeeks.org", "NewSite:GeeksQuiz.com", 10),
+        regular_input_6: ("aaaaaaaaaaaaa", "bbb", 0),
     }
 }

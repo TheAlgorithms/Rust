@@ -41,7 +41,7 @@
 
 */
 
-pub fn moore_voting(arr: &Vec<i32>) -> i32 {
+pub fn moore_voting(arr: &[i32]) -> i32 {
     let n = arr.len();
     let mut cnt = 0; // initializing cnt
     let mut ele = 0; // initializing ele

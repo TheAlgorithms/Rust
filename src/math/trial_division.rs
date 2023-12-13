@@ -8,7 +8,14 @@ fn double_to_int(amount: f64) -> i128 {
 }
 
 pub fn trial_division(mut num: i128) -> Vec<i128> {
+    if num < 0 {
+        return trial_division(-num);
+    }
     let mut result: Vec<i128> = vec![];
+
+    if num == 0 {
+        return result;
+    }
 
     while num % 2 == 0 {
         result.push(2);
@@ -39,7 +46,10 @@ mod tests {
 
     #[test]
     fn basic() {
+        assert_eq!(trial_division(0), vec![]);
+        assert_eq!(trial_division(1), vec![]);
         assert_eq!(trial_division(9), vec!(3, 3));
+        assert_eq!(trial_division(-9), vec!(3, 3));
         assert_eq!(trial_division(10), vec!(2, 5));
         assert_eq!(trial_division(11), vec!(11));
         assert_eq!(trial_division(33), vec!(3, 11));

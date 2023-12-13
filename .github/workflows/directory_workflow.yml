@@ -1,5 +1,7 @@
 name: build_directory_md
-on: [push, pull_request]
+on:
+  push:
+    branches: [master]
 
 jobs:
   MainSequence:
@@ -18,20 +20,8 @@ jobs:
       - name: Update DIRECTORY.md
         run: |
          cargo run --manifest-path=.github/workflows/scripts/build_directory/Cargo.toml
-      - name: Commit DIRECTORY.md with regular privileges
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        if: ${{ env.BOT_TOKEN == '' }}
+      - name: Commit DIRECTORY.md
         run: |
          git add DIRECTORY.md
-         git commit -m "updating DIRECTORY.md [skip actions]" ||  true
-         git push --force origin HEAD:$GITHUB_REF || true
-      - name: Commit DIRECTORY.md with elevated privileges
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
-        if: ${{ env.BOT_TOKEN != '' }}
-        run: |
-         git add DIRECTORY.md
-         git commit -m "updating DIRECTORY.md [skip actions]" ||  true
-         git push --force origin HEAD:$GITHUB_REF || true
+         git commit -m "Update DIRECTORY.md [skip actions]" ||  true
+         git push origin HEAD:$GITHUB_REF || true
