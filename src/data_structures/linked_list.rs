@@ -183,15 +183,15 @@ impl<T> LinkedList<T> {
         }
     }
 
-    pub fn get(&mut self, index: i32) -> Option<&'static T> {
-        Self::get_ith_node(self.head, index)
+    pub fn get(&self, index: i32) -> Option<&T> {
+        Self::get_ith_node(self.head, index).map(|ptr| unsafe { &(*ptr.as_ptr()).val })
     }
 
-    fn get_ith_node(node: Option<NonNull<Node<T>>>, index: i32) -> Option<&'static T> {
+    fn get_ith_node(node: Option<NonNull<Node<T>>>, index: i32) -> Option<NonNull<Node<T>>> {
         match node {
             None => None,
             Some(next_ptr) => match index {
-                0 => Some(unsafe { &(*next_ptr.as_ptr()).val }),
+                0 => Some(next_ptr),
                 _ => Self::get_ith_node(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
             },
         }
