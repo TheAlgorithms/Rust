@@ -1,6 +1,6 @@
 use std::collections::hash_map::RandomState;
 use std::fmt::{Debug, Formatter};
-use std::hash::{BuildHasher, Hash, Hasher};
+use std::hash::{BuildHasher, Hash};
 
 /// A probabilistic data structure holding an approximate count for diverse items efficiently (using constant space)
 ///
@@ -129,7 +129,7 @@ impl<Item: Hash, const WIDTH: usize, const DEPTH: usize> CountMinSketch
         for (row, r) in self.hashers.iter_mut().enumerate() {
             let mut h = r.build_hasher();
             item.hash(&mut h);
-            let hashed = h.finish();
+            let hashed = r.hash_one(&item);
             let col = (hashed % WIDTH as u64) as usize;
             self.counts[row][col] += count;
         }
@@ -142,7 +142,7 @@ impl<Item: Hash, const WIDTH: usize, const DEPTH: usize> CountMinSketch
             .map(|(row, r)| {
                 let mut h = r.build_hasher();
                 item.hash(&mut h);
-                let hashed = h.finish();
+                let hashed = r.hash_one(&item);
                 let col = (hashed % WIDTH as u64) as usize;
                 self.counts[row][col]
             })

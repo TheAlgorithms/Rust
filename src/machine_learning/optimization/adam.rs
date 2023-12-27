@@ -64,7 +64,7 @@ impl Adam {
         }
     }
 
-    pub fn step(&mut self, gradients: &Vec<f64>) -> Vec<f64> {
+    pub fn step(&mut self, gradients: &[f64]) -> Vec<f64> {
         let mut model_params = vec![0.0; gradients.len()];
         self.t += 1;
 

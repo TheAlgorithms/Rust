@@ -36,7 +36,7 @@ pub fn n_queens_solver(n: usize) -> Vec<Vec<String>> {
     solutions
 }
 
-fn is_safe(board: &Vec<Vec<char>>, row: usize, col: usize) -> bool {
+fn is_safe(board: &[Vec<char>], row: usize, col: usize) -> bool {
     // Check if there is a queen in the same column
     for (i, _) in board.iter().take(row).enumerate() {
         if board[i][col] == 'Q' {

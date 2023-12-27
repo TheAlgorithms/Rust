@@ -1,3 +1,4 @@
+use crate::math::greatest_common_divisor;
 /// Baby-step Giant-step algorithm
 ///
 /// Solving discrete logarithm problem:
@@ -10,8 +11,8 @@
 use std::collections::HashMap;
 
 pub fn baby_step_giant_step(a: usize, b: usize, n: usize) -> Option<usize> {
-    if b == 1 {
-        return Some(n);
+    if greatest_common_divisor::greatest_common_divisor_stein(a as u64, n as u64) != 1 {
+        return None;
     }
 
     let mut h_map = HashMap::new();
@@ -41,6 +42,9 @@ mod tests {
     fn small_numbers() {
         assert_eq!(baby_step_giant_step(5, 3, 11), Some(2));
         assert_eq!(baby_step_giant_step(3, 83, 100), Some(9));
+        assert_eq!(baby_step_giant_step(9, 1, 61), Some(5));
+        assert_eq!(baby_step_giant_step(5, 1, 67), Some(22));
+        assert_eq!(baby_step_giant_step(7, 1, 45), Some(12));
     }
 
     #[test]
@@ -68,5 +72,12 @@ mod tests {
             baby_step_giant_step(176908456, 23538399, 142357679),
             Some(14215560)
         );
+    }
+
+    #[test]
+    fn no_solution() {
+        assert!(baby_step_giant_step(7, 6, 45).is_none());
+        assert!(baby_step_giant_step(23, 15, 85).is_none());
+        assert!(baby_step_giant_step(2, 1, 84).is_none());
     }
 }

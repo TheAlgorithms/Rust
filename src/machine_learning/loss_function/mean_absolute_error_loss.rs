@@ -13,7 +13,7 @@
 //! It returns the average loss by dividing the `total_loss` by total no. of
 //! elements.
 //!
-pub fn mae_loss(predicted: &Vec<f64>, actual: &[f64]) -> f64 {
+pub fn mae_loss(predicted: &[f64], actual: &[f64]) -> f64 {
     let mut total_loss: f64 = 0.0;
     for (p, a) in predicted.iter().zip(actual.iter()) {
         let diff: f64 = p - a;
