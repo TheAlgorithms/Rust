@@ -41,6 +41,7 @@ mod tests {
         let res1 = cholesky(mat1.clone(), 3);
 
         // The expected Cholesky decomposition values
+        #[allow(clippy::useless_vec)]
         let expected1 = vec![5.0, 0.0, 0.0, 3.0, 3.0, 0.0, -1.0, 1.0, 3.0];
 
         assert!(res1
