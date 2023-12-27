@@ -47,7 +47,6 @@ mod tests {
             -1.0, 1.0, 3.0,
         ];
 
-        // Assert approximate equality
         assert!(res1.iter().zip(expected1.iter()).all(|(a, b)| (a - b).abs() < 1e-6));
     }
 
