@@ -1,5 +1,7 @@
 name: build_directory_md
-on: [push, pull_request]
+on:
+  push:
+    branches: [master]
 
 jobs:
   MainSequence:
@@ -21,5 +23,5 @@ jobs:
       - name: Commit DIRECTORY.md
         run: |
          git add DIRECTORY.md
-         git commit -m "updating DIRECTORY.md" ||  true
-         git push --force origin HEAD:$GITHUB_REF || true
+         git commit -m "Update DIRECTORY.md [skip actions]" ||  true
+         git push origin HEAD:$GITHUB_REF || true

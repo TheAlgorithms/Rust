@@ -1,5 +1,5 @@
-mod mae_loss;
-mod mse_loss;
+mod mean_absolute_error_loss;
+mod mean_squared_error_loss;
 
-pub use self::mae_loss::mae_loss;
-pub use self::mse_loss::mse_loss;
+pub use self::mean_absolute_error_loss::mae_loss;
+pub use self::mean_squared_error_loss::mse_loss;
