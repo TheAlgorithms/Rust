@@ -1,5 +1,4 @@
-use std::cmp::Reverse;
-use std::collections::{BTreeMap, BinaryHeap};
+use std::collections::BTreeMap;
 use std::ops::Add;
 
 type Graph<V, E> = BTreeMap<V, BTreeMap<V, E>>;
@@ -9,39 +8,37 @@ type Graph<V, E> = BTreeMap<V, BTreeMap<V, E>>;
 //
 // returns a map that for each reachable vertex associates the distance and the predecessor
 // since the start has no predecessor but is reachable, map[start] will be None
+//
+// Time: O(E * logV). For each vertex, we traverse each edge, resulting in O(E). For each edge, we
+// insert a new shortest path for a vertex into the tree, resulting in O(E * logV).
+// Space: O(V). The tree holds up to V vertices.
 pub fn dijkstra<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
     graph: &Graph<V, E>,
     start: V,
 ) -> BTreeMap<V, Option<(V, E)>> {
     let mut ans = BTreeMap::new();
-    let mut prio = BinaryHeap::new();
+    let mut prio = BTreeMap::new();
 
     // start is the special case that doesn't have a predecessor
     ans.insert(start, None);
 
     for (new, weight) in &graph[&start] {
         ans.insert(*new, Some((start, *weight)));
-        prio.push(Reverse((*weight, *new, start)));
+        prio.insert(*new, *weight);
     }
 
-    while let Some(Reverse((dist_new, new, prev))) = prio.pop() {
-        match ans[&new] {
-            // what we popped is what is in ans, we'll compute it
-            Some((p, d)) if p == prev && d == dist_new => {}
-            // otherwise it's not interesting
-            _ => continue,
-        }
-
-        for (next, weight) in &graph[&new] {
+    while let Some((vertex, path_weight)) = prio.pop_first() {
+        for (next, weight) in &graph[&vertex] {
+            let new_weight = path_weight + *weight;
             match ans.get(next) {
                 // if ans[next] is a lower dist than the alternative one, we do nothing
-                Some(Some((_, dist_next))) if dist_new + *weight >= *dist_next => {}
+                Some(Some((_, dist_next))) if new_weight >= *dist_next => {}
                 // if ans[next] is None then next is start and so the distance won't be changed, it won't be added again in prio
                 Some(None) => {}
                 // the new path is shorter, either new was not in ans or it was farther
                 _ => {
-                    ans.insert(*next, Some((new, *weight + dist_new)));
-                    prio.push(Reverse((*weight + dist_new, *next, new)));
+                    ans.insert(*next, Some((vertex, new_weight)));
+                    prio.insert(*next, new_weight);
                 }
             }
         }
