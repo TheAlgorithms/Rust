@@ -9,6 +9,7 @@ lazy_static = "1.4.0"
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
 rand = "0.8"
+nalgebra = "0.32.3"
 
 [dev-dependencies]
 quickcheck = "1.0"
