@@ -140,7 +140,6 @@
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Machine Learning
-    * [Cholesky](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
     * [K Means](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_means.rs)
     * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * Loss Function
@@ -266,7 +265,6 @@
     * [Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion_sort.rs)
     * [Intro Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/intro_sort.rs)
     * [Merge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort.rs)
-    * [Multithreaded Bogo Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/multithreaded_bogo_sort.rs)
     * [Odd Even Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/odd_even_sort.rs)
     * [Pancake Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/pancake_sort.rs)
     * [Patience Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/patience_sort.rs)
