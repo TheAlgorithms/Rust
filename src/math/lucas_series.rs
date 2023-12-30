@@ -28,19 +28,23 @@ pub fn dynamic_lucas_number(n: u32) -> u32 {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_recursive_lucas_number() {
-        assert_eq!(recursive_lucas_number(1), 1);
-        assert_eq!(recursive_lucas_number(20), 15127);
-        assert_eq!(recursive_lucas_number(0), 2);
-        assert_eq!(recursive_lucas_number(25), 167761);
+    macro_rules! test_lucas_number {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (n, expected) = $inputs;
+                assert_eq!(recursive_lucas_number(n), expected);
+                assert_eq!(dynamic_lucas_number(n), expected);
+            }
+        )*
+        }
     }
 
-    #[test]
-    fn test_dynamic_lucas_number() {
-        assert_eq!(dynamic_lucas_number(1), 1);
-        assert_eq!(dynamic_lucas_number(20), 15127);
-        assert_eq!(dynamic_lucas_number(0), 2);
-        assert_eq!(dynamic_lucas_number(25), 167761);
+    test_lucas_number! {
+        input_0: (0, 2),
+        input_1: (1, 1),
+        input_20: (20, 15127),
+        input_25: (25, 167761),
     }
 }
