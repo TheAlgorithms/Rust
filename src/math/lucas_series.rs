@@ -44,6 +44,16 @@ mod tests {
     test_lucas_number! {
         input_0: (0, 2),
         input_1: (1, 1),
+        input_2: (2, 3),
+        input_3: (3, 4),
+        input_4: (4, 7),
+        input_5: (5, 11),
+        input_6: (6, 18),
+        input_7: (7, 29),
+        input_8: (8, 47),
+        input_9: (9, 76),
+        input_10: (10, 123),
+        input_15: (15, 1364),
         input_20: (20, 15127),
         input_25: (25, 167761),
     }
