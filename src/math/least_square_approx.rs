@@ -9,7 +9,7 @@
 ///
 /// degree -> degree of the polynomial
 ///
-pub fn lsa(points: &[(f64, f64)], degree: i32) -> Vec<f64> {
+pub fn least_square_approx(points: &[(f64, f64)], degree: i32) -> Vec<f64> {
     use nalgebra::{DMatrix, DVector};
 
     /* Used for rounding floating numbers */
@@ -65,7 +65,7 @@ mod tests {
             (5.1, 8.4),
         ];
 
-        assert_eq!(lsa(&points, 1), [-0.49069, 10.44898]);
+        assert_eq!(least_square_approx(&points, 1), [-0.49069, 10.44898]);
     }
 
     #[test]
@@ -82,7 +82,7 @@ mod tests {
         ];
 
         assert_eq!(
-            lsa(&points, 5),
+            least_square_approx(&points, 5),
             [0.00603, -0.21304, 2.79929, -16.53468, 40.29473, -19.35771]
         );
     }
@@ -96,6 +96,6 @@ mod tests {
             (0.7051, 3.49716601),
         ];
 
-        assert_eq!(lsa(&points, 2), [1.0, 0.0, 3.0]);
+        assert_eq!(least_square_approx(&points, 2), [1.0, 0.0, 3.0]);
     }
 }
