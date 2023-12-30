@@ -221,6 +221,7 @@
     * [Sum Of Harmonic Series](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_harmonic_series.rs)
     * [Sylvester Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sylvester_sequence.rs)
     * [Tanh](https://github.com/TheAlgorithms/Rust/blob/master/src/math/tanh.rs)
+    * [Trapezoidal Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trapezoidal_integration.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
     * [Vector Cross Product](https://github.com/TheAlgorithms/Rust/blob/master/src/math/vector_cross_product.rs)
     * [Zellers Congruence Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/zellers_congruence_algorithm.rs)
