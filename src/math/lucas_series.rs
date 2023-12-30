@@ -3,10 +3,7 @@
 // Wikipedia Reference  :  https://en.wikipedia.org/wiki/Lucas_number
 // Other References     :  https://the-algorithms.com/algorithm/lucas-series?lang=python
 
-pub fn recursive_lucas_number(n: i32) -> i32 {
-    if n < 0 {
-        panic!("sorry, this function accepts only non-negative integer arguments.");
-    }
+pub fn recursive_lucas_number(n: u32) -> u32 {
     match n {
         0 => 2,
         1 => 1,
@@ -14,10 +11,7 @@ pub fn recursive_lucas_number(n: i32) -> i32 {
     }
 }
 
-pub fn dynamic_lucas_number(n: i32) -> i32 {
-    if n < 0 {
-        panic!("sorry, this functionc accepts only non-negative integer arguments.");
-    }
+pub fn dynamic_lucas_number(n: u32) -> u32 {
     let mut a = 2;
     let mut b = 1;
 
