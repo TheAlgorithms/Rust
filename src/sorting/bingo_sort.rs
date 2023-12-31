@@ -8,7 +8,6 @@ fn max_min(vec: &[i32], bingo: &mut i32, next_bingo: &mut i32) {
     }
 }
 
-// Function to sort the array
 pub fn bingo_sort(vec: &mut Vec<i32>) {
     if vec.is_empty() {
         return;
