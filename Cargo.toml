@@ -10,6 +10,7 @@ num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
 rand = "0.8"
 rand_chacha = "0.3"
+nalgebra = "0.32.3"
 
 [dev-dependencies]
 quickcheck = "1.0"
