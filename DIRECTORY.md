@@ -148,6 +148,7 @@
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
+    * [Simpson](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/simpson.rs)
   * Math
     * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
     * [Aliquot Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/aliquot_sum.rs)
@@ -219,6 +220,7 @@
     * [Sum Of Harmonic Series](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_harmonic_series.rs)
     * [Sylvester Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sylvester_sequence.rs)
     * [Tanh](https://github.com/TheAlgorithms/Rust/blob/master/src/math/tanh.rs)
+    * [Trapezoidal Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trapezoidal_integration.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
     * [Vector Cross Product](https://github.com/TheAlgorithms/Rust/blob/master/src/math/vector_cross_product.rs)
     * [Zellers Congruence Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/zellers_congruence_algorithm.rs)
