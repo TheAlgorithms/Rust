@@ -148,8 +148,6 @@
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
-      * [Cholesky Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
-      * [Simpson integration method](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/simpson.rs)
   * Math
     * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
     * [Aliquot Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/aliquot_sum.rs)
@@ -190,7 +188,9 @@
     * [Karatsuba Multiplication](https://github.com/TheAlgorithms/Rust/blob/master/src/math/karatsuba_multiplication.rs)
     * [Lcm Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/lcm_of_n_numbers.rs)
     * [Leaky Relu](https://github.com/TheAlgorithms/Rust/blob/master/src/math/leaky_relu.rs)
+    * [Least Square Approx](https://github.com/TheAlgorithms/Rust/blob/master/src/math/least_square_approx.rs)
     * [Linear Sieve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/linear_sieve.rs)
+    * [Logarithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/logarithm.rs)
     * [Lucas Series](https://github.com/TheAlgorithms/Rust/blob/master/src/math/lucas_series.rs)
     * [Matrix Ops](https://github.com/TheAlgorithms/Rust/blob/master/src/math/matrix_ops.rs)
     * [Mersenne Primes](https://github.com/TheAlgorithms/Rust/blob/master/src/math/mersenne_primes.rs)
