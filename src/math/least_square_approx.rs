@@ -9,7 +9,7 @@
 ///
 /// degree -> degree of the polynomial
 ///
-pub fn least_square_approx<T: Into<f64> + Copy>(points: &[(T, T)], degree: i32) -> Vec<f64> {
+pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(points: &[(T, U)], degree: i32) -> Vec<f64> {
     use nalgebra::{DMatrix, DVector};
 
     /* Used for rounding floating numbers */

@@ -8,7 +8,7 @@ use std::f64::consts::E;
 ///   <p>-> tol: tolerance; the precision of the approximation
 ///
 /// Advisable to use **std::f64::consts::*** for specific bases (like 'e')
-pub fn log<T: Into<f64>>(base: T, x: T, tol: f64) -> f64 {
+pub fn log<T: Into<f64>, U: Into<f64>>(base: U, x: T, tol: f64) -> f64 {
     let mut rez: f64 = 0f64;
     let mut argument: f64 = x.into();
     let usable_base: f64 = base.into();
