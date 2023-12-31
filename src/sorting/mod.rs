@@ -1,5 +1,6 @@
 mod bead_sort;
 mod binary_insertion_sort;
+mod bingo_sort;
 mod bitonic_sort;
 mod bogo_sort;
 mod bubble_sort;
@@ -35,6 +36,7 @@ mod wiggle_sort;
 
 pub use self::bead_sort::bead_sort;
 pub use self::binary_insertion_sort::binary_insertion_sort;
+pub use self::bingo_sort::bingo_sort;
 pub use self::bitonic_sort::bitonic_sort;
 pub use self::bogo_sort::bogo_sort;
 pub use self::bubble_sort::bubble_sort;

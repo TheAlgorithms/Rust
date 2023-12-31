@@ -251,6 +251,7 @@
   * Sorting
     * [Bead Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bead_sort.rs)
     * [Binary Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/binary_insertion_sort.rs)
+    * [Bingo Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bingo_sort.rs)
     * [Bitonic Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bitonic_sort.rs)
     * [Bogo Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bogo_sort.rs)
     * [Bubble Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bubble_sort.rs)
