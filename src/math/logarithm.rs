@@ -60,15 +60,13 @@ mod test {
     }
 
     #[test]
-    #[should_panic]
     fn test_log_zero_base() {
-        assert_eq!(log(0.0, 100.0, 0.00001), f64::NAN);
+        assert!(log(0.0, 100.0, 0.00001).is_nan());
     }
 
     #[test]
-    #[should_panic] // Should panic because can't compare NAN to NAN
     fn test_log_negative_base() {
-        assert_eq!(log(-1.0, 100.0, 0.00001), f64::NAN);
+        assert!(log(-1.0, 100.0, 0.00001).is_nan());
     }
 
     #[test]
