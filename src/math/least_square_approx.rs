@@ -9,7 +9,7 @@
 ///
 /// degree -> degree of the polynomial
 ///
-pub fn least_square_approx(points: &[(f64, f64)], degree: i32) -> Vec<f64> {
+pub fn least_square_approx<T: Into<f64> + Copy>(points: &[(T, T)], degree: i32) -> Vec<f64> {
     use nalgebra::{DMatrix, DVector};
 
     /* Used for rounding floating numbers */
@@ -18,16 +18,23 @@ pub fn least_square_approx(points: &[(f64, f64)], degree: i32) -> Vec<f64> {
         (value * multiplier).round() / multiplier
     }
 
+    /* Casting the data parsed to this function to f64 (as some points can have decimals) */
+    let vals: Vec<(f64, f64)> = points
+        .iter()
+        .map(|(x, y)| ((*x).into(), (*y).into()))
+        /* Because of dereferencing the refferences we need the Copy Trait for T */
+        .collect();
+
     /* Computes the sums in the system of equations */
     let mut sums = Vec::<f64>::new();
     for i in 1..=(2 * degree + 1) {
-        sums.push(points.iter().map(|(x, _)| x.powi(i - 1)).sum());
+        sums.push(vals.iter().map(|(x, _)| x.powi(i - 1)).sum());
     }
 
     let mut free_col = Vec::<f64>::new();
     /* Compute the free terms column vector */
     for i in 1..=(degree + 1) {
-        free_col.push(points.iter().map(|(x, y)| y * (x.powi(i - 1))).sum());
+        free_col.push(vals.iter().map(|(x, y)| y * (x.powi(i - 1))).sum());
     }
     let b = DVector::from_row_slice(&free_col);
 

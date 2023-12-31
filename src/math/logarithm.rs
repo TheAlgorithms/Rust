@@ -8,34 +8,36 @@ use std::f64::consts::E;
 ///   <p>-> tol: tolerance; the precision of the approximation
 ///
 /// Advisable to use **std::f64::consts::*** for specific bases (like 'e')
-pub fn log(base: f64, mut x: f64, tol: f64) -> f64 {
+pub fn log<T: Into<f64>>(base: T, x: T, tol: f64) -> f64 {
     let mut rez: f64 = 0f64;
+    let mut argument: f64 = x.into();
+    let usable_base: f64 = base.into();
 
-    if x <= 0f64 || base <= 0f64 {
+    if argument <= 0f64 || usable_base <= 0f64 {
         println!("Log does not support negative argument or negative base.");
         f64::NAN
-    } else if x < 1f64 && base == E {
+    } else if argument < 1f64 && usable_base == E {
         /*
             For x in (0, 1) and base 'e', the function is using MacLaurin Series:
             ln(|1 + x|) = Σ "(-1)^n-1 * x^n / n", for n = 1..inf
             Substituting x with x-1 yields:
             ln(|x|) = Σ "(-1)^n-1 * (x-1)^n / n"
         */
-        x -= 1f64;
+        argument -= 1f64;
 
         let mut prev_rez = 1f64;
         let mut step: i32 = 1;
 
         while (prev_rez - rez).abs() > tol {
             prev_rez = rez;
-            rez += (-1f64).powi(step - 1) * x.powi(step) / step as f64;
+            rez += (-1f64).powi(step - 1) * argument.powi(step) / step as f64;
             step += 1;
         }
 
         rez
     } else {
-        let ln_x = x.ln();
-        let ln_base = base.ln();
+        let ln_x = argument.ln();
+        let ln_base = usable_base.ln();
 
         ln_x / ln_base
     }
