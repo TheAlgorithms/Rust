@@ -17,17 +17,15 @@ pub fn log<T: Into<f64>, U: Into<f64>>(base: U, x: T, tol: f64) -> f64 {
         println!("Log does not support negative argument or negative base.");
         f64::NAN
     } else if argument < 1f64 && usable_base == E {
+        argument -= 1f64;
+        let mut prev_rez = 1f64;
+        let mut step: i32 = 1;
         /*
             For x in (0, 1) and base 'e', the function is using MacLaurin Series:
             ln(|1 + x|) = Σ "(-1)^n-1 * x^n / n", for n = 1..inf
             Substituting x with x-1 yields:
             ln(|x|) = Σ "(-1)^n-1 * (x-1)^n / n"
         */
-        argument -= 1f64;
-
-        let mut prev_rez = 1f64;
-        let mut step: i32 = 1;
-
         while (prev_rez - rez).abs() > tol {
             prev_rez = rez;
             rez += (-1f64).powi(step - 1) * argument.powi(step) / step as f64;
@@ -36,6 +34,7 @@ pub fn log<T: Into<f64>, U: Into<f64>>(base: U, x: T, tol: f64) -> f64 {
 
         rez
     } else {
+        /* Using the basic change of base formula for log */
         let ln_x = argument.ln();
         let ln_base = usable_base.ln();
 

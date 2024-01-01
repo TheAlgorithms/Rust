@@ -34,15 +34,15 @@ pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(
         sums.push(vals.iter().map(|(x, _)| x.powi(i - 1)).sum());
     }
 
-    let mut free_col = Vec::<f64>::new();
     /* Compute the free terms column vector */
+    let mut free_col = Vec::<f64>::new();
     for i in 1..=(degree + 1) {
         free_col.push(vals.iter().map(|(x, y)| y * (x.powi(i - 1))).sum());
     }
     let b = DVector::from_row_slice(&free_col);
 
-    let size = (degree + 1) as usize;
     /* Create and fill the system's matrix */
+    let size = (degree + 1) as usize;
     let a = DMatrix::from_fn(size, size, |i, j| sums[degree as usize + i - j]);
 
     /* Solve the system of equations: A * x = b */
