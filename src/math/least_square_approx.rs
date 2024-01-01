@@ -12,7 +12,7 @@
 pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(
     points: &[(T, U)],
     degree: i32,
-) -> Vec<f64> {
+) -> Option<Vec<f64>> {
     use nalgebra::{DMatrix, DVector};
 
     /* Used for rounding floating numbers */
@@ -49,9 +49,9 @@ pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(
     match a.qr().solve(&b) {
         Some(x) => {
             let rez: Vec<f64> = x.iter().map(|x| round_to_decimals(*x, 5)).collect();
-            rez
+            Some(rez)
         }
-        None => Vec::new(),
+        None => None,   //<-- The system cannot be solved (badly conditioned system's matrix)
     }
 }
 
@@ -74,7 +74,7 @@ mod tests {
             (5.1, 8.4),
         ];
 
-        assert_eq!(least_square_approx(&points, 1), [-0.49069, 10.44898]);
+        assert_eq!(least_square_approx(&points, 1), Some(vec![-0.49069, 10.44898]));
     }
 
     #[test]
@@ -92,7 +92,7 @@ mod tests {
 
         assert_eq!(
             least_square_approx(&points, 5),
-            [0.00603, -0.21304, 2.79929, -16.53468, 40.29473, -19.35771]
+            Some(vec![0.00603, -0.21304, 2.79929, -16.53468, 40.29473, -19.35771])
         );
     }
 
@@ -105,6 +105,6 @@ mod tests {
             (0.7051, 3.49716601),
         ];
 
-        assert_eq!(least_square_approx(&points, 2), [1.0, 0.0, 3.0]);
+        assert_eq!(least_square_approx(&points, 2), Some(vec![1.0, 0.0, 3.0]));
     }
 }
