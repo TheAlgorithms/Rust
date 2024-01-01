@@ -12,7 +12,7 @@ fn template<T: Into<f64>>(x: T, tol: f64, kind: i32) -> f64 {
         (1..=n).product()
     }
 
-    /* Function to round the 'decimal'th decimal of the number 'x' */
+    /* Function to round up to the 'decimal'th decimal of the number 'x' */
     fn round_up_to_decimal(x: f64, decimal: i32) -> f64 {
         let multiplier = 10f64.powi(decimal);
         (x * multiplier).round() / multiplier
@@ -22,7 +22,7 @@ fn template<T: Into<f64>>(x: T, tol: f64, kind: i32) -> f64 {
 
     /* Check for invalid arguments */
     if !value.is_finite() || value.is_nan() {
-        println!("This function does not accept invalid arguments.");
+        eprintln!("This function does not accept invalid arguments.");
         return f64::NAN;
     }
 
@@ -57,21 +57,8 @@ fn template<T: Into<f64>>(x: T, tol: f64, kind: i32) -> f64 {
         step += 1;
     }
 
-    /* Round up to the 5th decimal */
+    /* Round up to the 6th decimal */
     round_up_to_decimal(rez, 6)
-}
-
-/// Sine function for non radian angle
-///
-/// Interprets the argument in degrees, not in radians
-///
-/// ### Example
-///
-/// sin(1<sup>o</sup>) != \[ sin(1 rad) == sin(π/180) \]
-pub fn sine_no_radian_arg<T: Into<f64>>(x: T, tol: f64) -> f64 {
-    use std::f64::consts::PI;
-    let val: f64 = x.into();
-    sine(val * PI / 180f64, tol)
 }
 
 /// Returns the value of sin(x), approximated with the given tolerance
@@ -98,51 +85,133 @@ pub fn cosine_no_radian_arg<T: Into<f64>>(x: T, tol: f64) -> f64 {
     cosine(val * PI / 180., tol)
 }
 
+/// Sine function for non radian angle
+///
+/// Interprets the argument in degrees, not in radians
+///
+/// ### Example
+///
+/// sin(1<sup>o</sup>) != \[ sin(1 rad) == sin(π/180) \]
+pub fn sine_no_radian_arg<T: Into<f64>>(x: T, tol: f64) -> f64 {
+    use std::f64::consts::PI;
+    let val: f64 = x.into();
+    sine(val * PI / 180f64, tol)
+}
+
+/// Tangent of angle 'x' in radians, calculated with the given tolerance
+pub fn tan<T: Into<f64> + Copy>(x: T, tol: f64) -> f64 {
+    let cos_val = cosine(x, tol);
+
+    /* Cover special cases for division */
+    if cos_val != 0f64 {
+        let sin_val = sine(x, tol);
+        sin_val / cos_val
+    } else {
+        f64::NAN
+    }
+}
+
+/// Cotangent of angle 'x' in radians, calculated with the given tolerance
+pub fn cotan<T: Into<f64> + Copy>(x: T, tol: f64) -> f64 {
+    let sin_val = sine(x, tol);
+
+    /* Cover special cases for division */
+    if sin_val != 0f64 {
+        let cos_val = cosine(x, tol);
+        cos_val / sin_val
+    } else {
+        f64::NAN
+    }
+}
+
+/// Tangent of 'x' in degrees, approximated with the given tolerance
+pub fn tan_no_radian_arg<T: Into<f64> + Copy>(x: T, tol: f64) -> f64 {
+    let angle: f64 = x.into();
+
+    use std::f64::consts::PI;
+    tan(angle * PI / 180., tol)
+}
+
+/// Cotangent of 'x' in degrees, approximated with the given tolerance
+pub fn cotan_no_radian_arg<T: Into<f64> + Copy>(x: T, tol: f64) -> f64 {
+    let angle: f64 = x.into();
+
+    use std::f64::consts::PI;
+    cotan(angle * PI / 180., tol)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use std::f64::consts::PI;
 
-    fn assert<T: Into<f64>>(angle: T, expected_result: f64, is_radian: bool) {
-        // I will round the result to 3 decimal places, since it's an approximation.
-        match is_radian {
-            true => assert_eq!(
-                format!("{:.5}", sine(angle, 1e-10)),
-                /* Lower the tolerance, the more accurate the value will be */
-                format!("{:.5}", expected_result)
-            ),
-            false => assert_eq!(
-                format!("{:.5}", sine_no_radian_arg(angle, 1e-10)),
-                format!("{:.5}", expected_result)
-            ),
+    enum TrigFuncType {
+        Sine,
+        Cosine,
+        Tan,
+        Cotan,
+    }
+
+    const TOL: f64 = 1e-10;
+
+    trait Verify {
+        fn verify<T: Into<f64> + Copy>(
+            trig_func: &TrigFuncType,
+            angle: T,
+            expected_result: f64,
+            is_radian: bool,
+        );
+    }
+
+    impl TrigFuncType {
+        fn verify<T: Into<f64> + Copy>(&self, angle: T, expected_result: f64, is_radian: bool) {
+            let value = match self {
+                TrigFuncType::Sine => {
+                    if is_radian {
+                        sine(angle, TOL)
+                    } else {
+                        sine_no_radian_arg(angle, TOL)
+                    }
+                }
+                TrigFuncType::Cosine => {
+                    if is_radian {
+                        cosine(angle, TOL)
+                    } else {
+                        cosine_no_radian_arg(angle, TOL)
+                    }
+                }
+                TrigFuncType::Tan => {
+                    if is_radian {
+                        tan(angle, TOL)
+                    } else {
+                        tan_no_radian_arg(angle, TOL)
+                    }
+                }
+                TrigFuncType::Cotan => {
+                    if is_radian {
+                        cotan(angle, TOL)
+                    } else {
+                        cotan_no_radian_arg(angle, TOL)
+                    }
+                }
+            };
+
+            assert_eq!(format!("{:.5}", value), format!("{:.5}", expected_result));
         }
     }
 
     #[test]
     fn test_sine() {
-        assert(0.0, 0.0, true);
-        assert(PI / 2.0, 1.0, true);
-        assert(PI / 4.0, 1.0 / f64::sqrt(2.0), true);
-        assert(PI, -0.0, true);
-        assert(PI * 3.0 / 2.0, -1.0, true);
-        assert(PI * 2.0, 0.0, true);
-        assert(PI * 2.0 * 3.0, 0.0, true);
-        assert(-PI, 0.0, true);
-        assert(-PI / 2.0, -1.0, true);
-        assert(PI * 8.0 / 45.0, 0.5299192642, true);
-        assert(0.5, 0.4794255386, true);
+        let sine_id = TrigFuncType::Sine;
+        sine_id.verify(0.0, 0.0, true);
+        sine_id.verify(-PI, 0.0, true);
+        sine_id.verify(-PI / 2.0, -1.0, true);
+        sine_id.verify(0.5, 0.4794255386, true);
         /* Same tests, but angle is now in degrees */
-        assert(0, 0.0, false);
-        assert(90, 1.0, false);
-        assert(45, 1.0 / f64::sqrt(2.0), false);
-        assert(180, -0.0, false);
-        assert(180 * 3 / 2, -1.0, false);
-        assert(180 * 2, 0.0, false);
-        assert(180 * 2 * 3, 0.0, false);
-        assert(-180, 0.0, false);
-        assert(-180 / 2, -1.0, false);
-        assert(180 * 8 / 45, 0.5299192642, false);
-        assert(0.5, 0.00872654, false);
+        sine_id.verify(0, 0.0, false);
+        sine_id.verify(-180, 0.0, false);
+        sine_id.verify(-180 / 2, -1.0, false);
+        sine_id.verify(0.5, 0.00872654, false);
     }
 
     #[test]
@@ -157,33 +226,47 @@ mod tests {
         assert!(cosine_no_radian_arg(f64::NAN, 1e-1).is_nan());
     }
 
-    fn verify<T: Into<f64>>(angle: T, expected_result: f64, is_radian: bool) {
-        // I will round the result to 3 decimal places, since it's an approximation.
-        match is_radian {
-            true => assert_eq!(
-                format!("{:.5}", cosine(angle, 1e-10)),
-                /* Lower the tolerance, the more accurate the value will be */
-                format!("{:.5}", expected_result)
-            ),
-            false => assert_eq!(
-                format!("{:.5}", cosine_no_radian_arg(angle, 1e-10)),
-                format!("{:.5}", expected_result)
-            ),
-        }
+    #[test]
+    fn test_cosine() {
+        let cosine_id = TrigFuncType::Cosine;
+        cosine_id.verify(0, 1., true);
+        cosine_id.verify(0, 1., false);
+        cosine_id.verify(45, 1. / f64::sqrt(2.), false);
+        cosine_id.verify(PI / 4., 1. / f64::sqrt(2.), true);
+        cosine_id.verify(360, 1., false);
+        cosine_id.verify(2. * PI, 1., true);
+        cosine_id.verify(15. * PI / 2., 0.0, true);
+        cosine_id.verify(-855, -1. / f64::sqrt(2.), false);
     }
 
     #[test]
-    fn test_cosine() {
-        use std::f64::consts::PI;
-        verify(0, 1., true);
-        verify(0, 1., false);
-        verify(45, 1. / f64::sqrt(2.), false);
-        verify(PI / 4., 1. / f64::sqrt(2.), true);
-        verify(90, 0.0, false);
-        verify(PI / 2., 0.0, true);
-        verify(360, 1., false);
-        verify(2. * PI, 1., true);
-        verify(15. * PI / 2., 0.0, true);
-        verify(-855, -1. / f64::sqrt(2.), false);
+    fn test_tan_bad_arg() {
+        assert!(tan(PI / 2., TOL).is_nan());
+        assert!(tan(3. * PI / 2., TOL).is_nan());
+    }
+
+    #[test]
+    fn test_tan() {
+        let tan_id = TrigFuncType::Tan;
+        tan_id.verify(PI / 4., 1f64, true);
+        tan_id.verify(45, 1f64, false);
+        tan_id.verify(PI, 0f64, true);
+        tan_id.verify(180 + 45, 1f64, false);
+        tan_id.verify(60 - 2 * 180, 1.7320508075, false);
+        tan_id.verify(30 + 180 - 180, 0.57735026919, false);
+    }
+
+    #[test]
+    fn test_cotan_bad_arg() {
+        assert!(cotan(tan(PI / 2., TOL), TOL).is_nan());
+        assert!(!cotan(0, TOL).is_finite());
+    }
+
+    #[test]
+    fn test_cotan() {
+        let cotan_id = TrigFuncType::Cotan;
+        cotan_id.verify(PI / 4., 1f64, true);
+        cotan_id.verify(90 + 10 * 180, 0f64, false);
+        cotan_id.verify(30 - 5 * 180, f64::sqrt(3.), false);
     }
 }
