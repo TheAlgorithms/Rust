@@ -9,12 +9,15 @@
 ///
 /// degree -> degree of the polynomial
 ///
-pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(points: &[(T, U)], degree: i32) -> Vec<f64> {
+pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(
+    points: &[(T, U)],
+    degree: i32,
+) -> Vec<f64> {
     use nalgebra::{DMatrix, DVector};
 
     /* Used for rounding floating numbers */
-    fn round_to_decimals(value: f64, decimals: u32) -> f64 {
-        let multiplier = 10f64.powi(decimals as i32);
+    fn round_to_decimals(value: f64, decimals: i32) -> f64 {
+        let multiplier = 10f64.powi(decimals);
         (value * multiplier).round() / multiplier
     }
 
@@ -22,8 +25,8 @@ pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(points: &[(
     let vals: Vec<(f64, f64)> = points
         .iter()
         .map(|(x, y)| ((*x).into(), (*y).into()))
-        /* Because of dereferencing the refferences we need the Copy Trait for T */
         .collect();
+        /* Because of collect we need the Copy Trait for T and U */
 
     /* Computes the sums in the system of equations */
     let mut sums = Vec::<f64>::new();
@@ -40,13 +43,12 @@ pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(points: &[(
 
     let size = (degree + 1) as usize;
     /* Create and fill the system's matrix */
-    let a = DMatrix::from_fn(size, size, |i, j| sums[i + j]);
+    let a = DMatrix::from_fn(size, size, |i, j| sums[degree as usize + i - j]);
 
     /* Solve the system of equations: A * x = b */
     match a.qr().solve(&b) {
         Some(x) => {
-            let mut rez: Vec<f64> = x.iter().map(|x| round_to_decimals(*x, 5)).collect();
-            rez.reverse();
+            let rez: Vec<f64> = x.iter().map(|x| round_to_decimals(*x, 5)).collect();
             rez
         }
         None => Vec::new(),
