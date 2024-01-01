@@ -26,7 +26,7 @@ pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(
         .iter()
         .map(|(x, y)| ((*x).into(), (*y).into()))
         .collect();
-        /* Because of collect we need the Copy Trait for T and U */
+    /* Because of collect we need the Copy Trait for T and U */
 
     /* Computes the sums in the system of equations */
     let mut sums = Vec::<f64>::new();

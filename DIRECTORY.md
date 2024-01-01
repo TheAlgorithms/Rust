@@ -188,6 +188,7 @@
     * [Interquartile Range](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interquartile_range.rs)
     * [Karatsuba Multiplication](https://github.com/TheAlgorithms/Rust/blob/master/src/math/karatsuba_multiplication.rs)
     * [Lcm Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/lcm_of_n_numbers.rs)
+    * [Least Square Approximation](https://github.com/TheAlgorithms/Rust/blob/master/src/math/least_square_approx.rs)
     * [Leaky Relu](https://github.com/TheAlgorithms/Rust/blob/master/src/math/leaky_relu.rs)
     * [Least Square Approx](https://github.com/TheAlgorithms/Rust/blob/master/src/math/least_square_approx.rs)
     * [Linear Sieve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/linear_sieve.rs)
