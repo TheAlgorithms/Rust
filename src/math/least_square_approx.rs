@@ -51,7 +51,7 @@ pub fn least_square_approx<T: Into<f64> + Copy, U: Into<f64> + Copy>(
             let rez: Vec<f64> = x.iter().map(|x| round_to_decimals(*x, 5)).collect();
             Some(rez)
         }
-        None => None,   //<-- The system cannot be solved (badly conditioned system's matrix)
+        None => None, //<-- The system cannot be solved (badly conditioned system's matrix)
     }
 }
 
@@ -74,7 +74,10 @@ mod tests {
             (5.1, 8.4),
         ];
 
-        assert_eq!(least_square_approx(&points, 1), Some(vec![-0.49069, 10.44898]));
+        assert_eq!(
+            least_square_approx(&points, 1),
+            Some(vec![-0.49069, 10.44898])
+        );
     }
 
     #[test]
@@ -92,7 +95,9 @@ mod tests {
 
         assert_eq!(
             least_square_approx(&points, 5),
-            Some(vec![0.00603, -0.21304, 2.79929, -16.53468, 40.29473, -19.35771])
+            Some(vec![
+                0.00603, -0.21304, 2.79929, -16.53468, 40.29473, -19.35771
+            ])
         );
     }
 
