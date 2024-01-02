@@ -65,6 +65,7 @@
       * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
     * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
     * [Rb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/rb_tree.rs)
+    * [HashTable](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/hash_table.rs)
     * [Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree.rs)
     * [Segment Tree Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree_recursive.rs)
     * [Stack Using Singly Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/stack_using_singly_linked_list.rs)
@@ -139,7 +140,6 @@
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Machine Learning
-    * [Cholesky](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
     * [K Means](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_means.rs)
     * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * Loss Function
@@ -148,7 +148,8 @@
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
-    * [Simpson](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/simpson.rs)
+      * [Cholesky](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
+      * [Simpson](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/simpson.rs)
   * Math
     * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
     * [Aliquot Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/aliquot_sum.rs)
@@ -252,6 +253,7 @@
   * Sorting
     * [Bead Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bead_sort.rs)
     * [Binary Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/binary_insertion_sort.rs)
+    * [Bingo Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bingo_sort.rs)
     * [Bitonic Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bitonic_sort.rs)
     * [Bogo Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bogo_sort.rs)
     * [Bubble Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bubble_sort.rs)
