@@ -3,22 +3,22 @@ use std::cmp::PartialOrd;
 pub fn partition<T: PartialOrd>(arr: &mut [T], lo: usize, hi: usize) -> usize {
     let pivot = hi;
     let mut i = lo;
-    let mut j = hi;
+    let mut j = hi - 1;
 
     loop {
         while arr[i] < arr[pivot] {
             i += 1;
         }
-        while j > 0 && arr[j - 1] > arr[pivot] {
+        while j > 0 && arr[j] > arr[pivot] {
             j -= 1;
         }
-        if j == 0 || i >= j - 1 {
+        if j == 0 || i >= j {
             break;
-        } else if arr[i] == arr[j - 1] {
+        } else if arr[i] == arr[j] {
             i += 1;
             j -= 1;
         } else {
-            arr.swap(i, j - 1);
+            arr.swap(i, j);
         }
     }
     arr.swap(i, pivot);
