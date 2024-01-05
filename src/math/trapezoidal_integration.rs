@@ -4,58 +4,39 @@ where
 {
     let delta = (b - a) / precision as f64;
 
-    let integral: f64 = (0..precision)
+    (0..precision)
         .map(|trapezoid| {
             let left_side = a + (delta * trapezoid as f64);
             let right_side = left_side + delta;
 
             0.5 * (f(left_side) + f(right_side)) * delta
         })
-        .sum();
-
-    if a > b {
-        -integral
-    } else {
-        integral
-    }
-}
-
-#[allow(dead_code)]
-fn main() {
-    let f = |x: f64| x.powi(3);
-    let result = trapezoidal_integral(0.0, 1.0, f, 1000);
-    println!("{}", result);
+        .sum()
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_integral() {
-        let f = |x: f64| x.powi(2);
-        let result = trapezoidal_integral(0.0, 1.0, f, 1000);
-        assert!((result - 1.0 / 3.0).abs() < 0.0001);
+    macro_rules! test_trapezoidal_integral {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (a, b, f, prec, expected, eps) = $inputs;
+                let actual = trapezoidal_integral(a, b, f, prec);
+                assert!((actual - expected).abs() < eps);
+            }
+        )*
+        }
     }
 
-    #[test]
-    fn test_precision() {
-        let f = |x: f64| x.powi(2);
-        let result = trapezoidal_integral(0.0, 1.0, f, 10000);
-        assert!((result - 1.0 / 3.0).abs() < 0.00001);
-    }
-
-    #[test]
-    fn test_negative() {
-        let f = |x: f64| x.powi(2);
-        let result = trapezoidal_integral(-1.0, 1.0, f, 10000);
-        assert!((result - 2.0 / 3.0).abs() < 0.00001);
-    }
-
-    #[test]
-    fn test_negative_precision() {
-        let f = |x: f64| x.powi(2);
-        let result = trapezoidal_integral(-1.0, 1.0, f, 100000);
-        assert!((result - 2.0 / 3.0).abs() < 0.000001);
+    test_trapezoidal_integral! {
+        basic_0: (0.0, 1.0, |x: f64| x.powi(2), 1000, 1.0/3.0, 0.0001),
+        basic_0_higher_prec: (0.0, 1.0, |x: f64| x.powi(2), 10000, 1.0/3.0, 0.00001),
+        basic_1: (-1.0, 1.0, |x: f64| x.powi(2), 10000, 2.0/3.0, 0.00001),
+        basic_1_higher_prec: (-1.0, 1.0, |x: f64| x.powi(2), 100000, 2.0/3.0, 0.000001),
+        flipped_limits: (1.0, 0.0, |x: f64| x.powi(2), 10000, -1.0/3.0, 0.00001),
+        empty_range: (0.5, 0.5, |x: f64| x.powi(2), 100, 0.0, 0.0000001),
     }
 }
