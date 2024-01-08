@@ -199,6 +199,7 @@
     * [Newton Raphson](https://github.com/TheAlgorithms/Rust/blob/master/src/math/newton_raphson.rs)
     * [Nthprime](https://github.com/TheAlgorithms/Rust/blob/master/src/math/nthprime.rs)
     * [Pascal Triangle](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pascal_triangle.rs)
+    * [Perfect Cube](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_cube.rs)
     * [Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_numbers.rs)
     * [Perfect Square](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_square.rs)
     * [Pollard Rho](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pollard_rho.rs)
