@@ -128,7 +128,7 @@ pub use self::lucas_series::dynamic_lucas_number;
 pub use self::lucas_series::recursive_lucas_number;
 pub use self::matrix_ops::Matrix;
 pub use self::mersenne_primes::{get_mersenne_primes, is_mersenne_prime};
-pub use self::modular_exponential::{gcd_extended, mod_inverse, modular_exponential};
+pub use self::modular_exponential::{modular_exponential, mod_inverse};
 pub use self::miller_rabin::{big_miller_rabin, miller_rabin};
 pub use self::newton_raphson::find_root;
 pub use self::nthprime::nthprime;
