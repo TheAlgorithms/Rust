@@ -196,6 +196,7 @@
     * [Matrix Ops](https://github.com/TheAlgorithms/Rust/blob/master/src/math/matrix_ops.rs)
     * [Mersenne Primes](https://github.com/TheAlgorithms/Rust/blob/master/src/math/mersenne_primes.rs)
     * [Miller Rabin](https://github.com/TheAlgorithms/Rust/blob/master/src/math/miller_rabin.rs)
+    * [Modular Exponential](https://github.com/TheAlgorithms/Rust/blob/master/src/math/modular_exponential.rs)
     * [Newton Raphson](https://github.com/TheAlgorithms/Rust/blob/master/src/math/newton_raphson.rs)
     * [Nthprime](https://github.com/TheAlgorithms/Rust/blob/master/src/math/nthprime.rs)
     * [Pascal Triangle](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pascal_triangle.rs)
