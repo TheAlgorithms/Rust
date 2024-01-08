@@ -45,15 +45,15 @@ mod tests {
 
     #[test]
     fn test_perfect_cube() {
-        assert_eq!(perfect_cube(27), true);
-        assert_eq!(perfect_cube(4), false);
+        assert!(perfect_cube_binary_search(27));
+        assert!(!perfect_cube_binary_search(4));
     }
 
     #[test]
     fn test_perfect_cube_binary_search() {
-        assert_eq!(perfect_cube_binary_search(27), true);
-        assert_eq!(perfect_cube_binary_search(64), true);
-        assert_eq!(perfect_cube_binary_search(4), false);
-        assert_eq!(perfect_cube_binary_search(-8), false);
+        assert!(perfect_cube_binary_search(27));
+        assert!(perfect_cube_binary_search(64));
+        assert!(!perfect_cube_binary_search(4));
+        assert!(!perfect_cube_binary_search(-8));
     }
 }
