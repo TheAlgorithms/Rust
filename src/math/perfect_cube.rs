@@ -29,7 +29,6 @@ pub fn perfect_cube_binary_search(n: i64) -> bool {
             std::cmp::Ordering::Less => left = mid + 1,
             std::cmp::Ordering::Greater => right = mid - 1,
         }
-
     }
 
     // If no cube root is found, return false.
