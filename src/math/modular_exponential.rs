@@ -89,28 +89,28 @@ mod tests {
 
     #[test]
     fn test_modular_exponential_positive() {
-        assert_eq!(modular_exponential(2, 3, 5), 3); // 2^3 % 5 = 8 % 5 = 3
-        assert_eq!(modular_exponential(7, 2, 13), 10); // 7^2 % 13 = 49 % 13 = 10
-        assert_eq!(modular_exponential(5, 5, 31), 25); // 5^5 % 31 = 3125 % 31 = 25
-        assert_eq!(modular_exponential(10, 8, 11), 1); // 10^8 % 11 = 100000000 % 11 = 1
-        assert_eq!(modular_exponential(123, 45, 67), 62); // 123^45 % 67
+        assert_eq!(modular_exponential(2, 3, 5), 3); 
+        assert_eq!(modular_exponential(7, 2, 13), 10); 
+        assert_eq!(modular_exponential(5, 5, 31), 25); 
+        assert_eq!(modular_exponential(10, 8, 11), 1); 
+        assert_eq!(modular_exponential(123, 45, 67), 62); 
     }
 
     #[test]
     fn test_modular_exponential_negative() {
-        assert_eq!(modular_exponential(2, -3, 5), mod_inverse(2, 5).pow(3) % 5); // Inverse of 2 mod 5 is 3, 3^3 % 5 = 27 % 5 = 2
-        assert_eq!(modular_exponential(7, -2, 13), mod_inverse(7, 13).pow(2) % 13); // Inverse of 7 mod 13 is 2, 2^2 % 13 = 4 % 13 = 4
-        assert_eq!(modular_exponential(5, -5, 31), mod_inverse(5, 31).pow(5) % 31); // Inverse of 5 mod 31 is 25, 25^5 % 31 = 25
-        assert_eq!(modular_exponential(10, -8, 11), mod_inverse(10, 11).pow(8) % 11); // Inverse of 10 mod 11 is 10, 10^8 % 11 = 10
-        assert_eq!(modular_exponential(123, -45, 67), mod_inverse(123, 67).pow(45) % 67); // Inverse of 123 mod 67 is calculated via the function
+        assert_eq!(modular_exponential(2, -3, 5), mod_inverse(2, 5).pow(3) % 5); 
+        assert_eq!(modular_exponential(7, -2, 13), mod_inverse(7, 13).pow(2) % 13); 
+        assert_eq!(modular_exponential(5, -5, 31), mod_inverse(5, 31).pow(5) % 31); 
+        assert_eq!(modular_exponential(10, -8, 11), mod_inverse(10, 11).pow(8) % 11); 
+        assert_eq!(modular_exponential(123, -45, 67), mod_inverse(123, 67).pow(45) % 67); 
     }
 
     #[test]
     fn test_modular_exponential_edge_cases() {
-        assert_eq!(modular_exponential(0, 0, 1), 0); // 0^0 % 1 should be 0 as the modulus is 1
-        assert_eq!(modular_exponential(0, 10, 1), 0); // 0^n % 1 should be 0 for any n
-        assert_eq!(modular_exponential(10, 0, 1), 0); // n^0 % 1 should be 0 for any n
-        assert_eq!(modular_exponential(1, 1, 1), 0); // 1^1 % 1 should be 0
-        assert_eq!(modular_exponential(-1, 2, 1), 0); // (-1)^2 % 1 should be 0
+        assert_eq!(modular_exponential(0, 0, 1), 0);
+        assert_eq!(modular_exponential(0, 10, 1), 0); 
+        assert_eq!(modular_exponential(10, 0, 1), 0);
+        assert_eq!(modular_exponential(1, 1, 1), 0); 
+        assert_eq!(modular_exponential(-1, 2, 1), 0); 
     }
 }
