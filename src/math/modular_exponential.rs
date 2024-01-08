@@ -11,7 +11,7 @@
 /// A tuple (gcd, x) such that:
 /// gcd - the greatest common divisor of a and m.
 /// x - the coefficient such that `a * x` is equivalent to `gcd` modulo `m`.
-fn gcd_extended(a: i64, m: i64) -> (i64, i64) {
+pub fn gcd_extended(a: i64, m: i64) -> (i64, i64) {
     if a == 0 {
         (m, 0)
     } else {
@@ -35,7 +35,7 @@ fn gcd_extended(a: i64, m: i64) -> (i64, i64) {
 /// # Panics
 ///
 /// Panics if the inverse does not exist (i.e., `b` and `m` are not coprime).
-fn mod_inverse(b: i64, m: i64) -> i64 {
+pub fn mod_inverse(b: i64, m: i64) -> i64 {
     let (gcd, x) = gcd_extended(b, m);
     if gcd != 1 {
         panic!("Inverse does not exist");
@@ -57,7 +57,7 @@ fn mod_inverse(b: i64, m: i64) -> i64 {
 /// # Returns
 ///
 /// The result of `base` raised to `power` modulo `modulus`.
-fn modular_exponential(base: i64, mut power: i64, modulus: i64) -> i64 {
+pub fn modular_exponential(base: i64, mut power: i64, modulus: i64) -> i64 {
     if modulus == 1 {
         return 0; // Base case: any number modulo 1 is 0
     }
