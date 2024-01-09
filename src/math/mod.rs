@@ -15,6 +15,7 @@ mod chinese_remainder_theorem;
 mod collatz_sequence;
 mod combinations;
 mod cross_entropy_loss;
+mod decimal_to_fraction
 mod doomsday;
 mod elliptic_curve;
 mod euclidean_distance;
@@ -96,6 +97,7 @@ pub use self::chinese_remainder_theorem::chinese_remainder_theorem;
 pub use self::collatz_sequence::sequence;
 pub use self::combinations::combinations;
 pub use self::cross_entropy_loss::cross_entropy_loss;
+pub use self::decimal_to_fraction::decimal_to_fraction;
 pub use self::doomsday::get_week_day;
 pub use self::elliptic_curve::EllipticCurve;
 pub use self::euclidean_distance::euclidean_distance;

@@ -167,6 +167,7 @@
     * [Collatz Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/collatz_sequence.rs)
     * [Combinations](https://github.com/TheAlgorithms/Rust/blob/master/src/math/combinations.rs)
     * [Cross Entropy Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/math/cross_entropy_loss.rs)
+    * [Decimal To Fraction](https://github.com/TheAlgorithms/Rust/blob/master/src/math/decimal_to_fraction.rs)
     * [Doomsday](https://github.com/TheAlgorithms/Rust/blob/master/src/math/doomsday.rs)
     * [Elliptic Curve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/elliptic_curve.rs)
     * [Euclidean Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/math/euclidean_distance.rs)
