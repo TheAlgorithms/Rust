@@ -98,6 +98,7 @@ pub use self::elliptic_curve::EllipticCurve;
 pub use self::euclidean_distance::euclidean_distance;
 pub use self::exponential_linear_unit::exponential_linear_unit;
 pub use self::extended_euclidean_algorithm::extended_euclidean_algorithm;
+pub use self::factorial::{factorial, factorial_recursive};
 pub use self::factors::factors;
 pub use self::fast_fourier_transform::{
     fast_fourier_transform, fast_fourier_transform_input_permutation,
