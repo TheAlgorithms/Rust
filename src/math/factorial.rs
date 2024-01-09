@@ -1,4 +1,3 @@
-// Function to calculate factorial iteratively
 pub fn factorial(number: u64) -> u64 {
     // Base cases: 0! and 1! are both equal to 1
     if number == 0 || number == 1 {
@@ -9,7 +8,6 @@ pub fn factorial(number: u64) -> u64 {
     }
 }
 
-// Function to calculate factorial recursively
 pub fn factorial_recursive(n: u64) -> u64 {
     // Base cases: 0! and 1! are both equal to 1
     if n == 0 || n == 1 {
