@@ -15,7 +15,7 @@ mod chinese_remainder_theorem;
 mod collatz_sequence;
 mod combinations;
 mod cross_entropy_loss;
-mod decimal_to_fraction
+mod decimal_to_fraction;
 mod doomsday;
 mod elliptic_curve;
 mod euclidean_distance;
