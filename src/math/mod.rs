@@ -134,7 +134,7 @@ pub use self::modular_exponential::{mod_inverse, modular_exponential};
 pub use self::newton_raphson::find_root;
 pub use self::nthprime::nthprime;
 pub use self::pascal_triangle::pascal_triangle;
-pub use self::perfect_cube::{perfect_cube, perfect_cube_binary_search};
+pub use self::perfect_cube::perfect_cube_binary_search;
 pub use self::perfect_numbers::perfect_numbers;
 pub use self::perfect_square::perfect_square;
 pub use self::perfect_square::perfect_square_binary_search;
