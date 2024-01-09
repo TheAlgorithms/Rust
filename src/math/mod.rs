@@ -19,6 +19,7 @@ mod elliptic_curve;
 mod euclidean_distance;
 mod exponential_linear_unit;
 mod extended_euclidean_algorithm;
+mod factorial;
 mod factors;
 mod fast_fourier_transform;
 mod fast_power;
