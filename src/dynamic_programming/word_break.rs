@@ -26,7 +26,10 @@ impl Trie {
     pub fn insert(&mut self, word: &str) {
         let mut node = self;
         for c in word.chars() {
-            node = node.children.entry(c).or_insert_with(|| Box::new(Trie::new()));
+            node = node
+                .children
+                .entry(c)
+                .or_insert_with(|| Box::new(Trie::new()));
         }
         node.is_word = true;
     }
@@ -58,7 +61,6 @@ impl Trie {
     }
 }
 
-
 pub fn word_break(s: &str, word_dict: Vec<&str>) -> bool {
     let mut trie = Trie::new();
     for word in word_dict {
@@ -76,7 +78,10 @@ mod tests {
     #[test]
     fn typical_cases() {
         assert!(word_break("applepenapple", vec!["apple", "pen"]));
-        assert!(!word_break("catsandog", vec!["cats", "dog", "sand", "and", "cat"]));
+        assert!(!word_break(
+            "catsandog",
+            vec!["cats", "dog", "sand", "and", "cat"]
+        ));
         assert!(word_break("cars", vec!["car", "ca", "rs"]));
     }
 
@@ -105,4 +110,3 @@ mod tests {
         assert!(word_break(&long_string, words));
     }
 }
-
