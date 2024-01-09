@@ -4,7 +4,7 @@ pub fn decimal_to_fraction(decimal: f64) -> (i64, i64) {
 
     // If the fractional part is zero, the number is already an integer
     if fractional_part == 0.0 {
-        return (decimal as i64, 1);
+        (decimal as i64, 1)
     } else {
         // Calculate the number of decimal places in the fractional part
         let number_of_frac_digits = decimal.to_string().split('.').nth(1).unwrap_or("").len();
