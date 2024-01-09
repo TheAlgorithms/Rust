@@ -1,6 +1,5 @@
 // Check if a number is a perfect cube using binary search.
 pub fn perfect_cube_binary_search(n: i64) -> bool {
-    // Handle negative numbers, as cube roots are not defined for negatives.
     if n < 0 {
         return perfect_cube_binary_search(-n);
     }
