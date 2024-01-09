@@ -15,6 +15,7 @@ mod minimum_cost_path;
 mod rod_cutting;
 mod snail;
 mod subset_generation;
+mod word_break;
 
 pub use self::coin_change::coin_change;
 pub use self::egg_dropping::egg_drop;
@@ -40,3 +41,4 @@ pub use self::minimum_cost_path::minimum_cost_path;
 pub use self::rod_cutting::rod_cut;
 pub use self::snail::snail;
 pub use self::subset_generation::list_subset;
+pub use self::word_break::word_break;
