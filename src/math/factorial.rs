@@ -1,5 +1,6 @@
 use num_bigint::BigUint;
 use num_traits::One;
+#[allow(unused_imports)]
 use std::str::FromStr;
 
 pub fn factorial(number: u64) -> u64 {
