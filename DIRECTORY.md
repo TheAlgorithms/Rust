@@ -45,6 +45,7 @@
     * [Decimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
     * [Decimal To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_hexadecimal.rs)
     * [Hexadecimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
+    * [Hexadecimal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_decimal.rs)
     * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
   * Data Structures
