@@ -9,12 +9,11 @@
 // available words for the current position in the string.
 
 use crate::data_structures::Trie;
-use std::collections::HashMap;
 
 pub fn word_break(s: &str, word_dict: Vec<&str>) -> bool {
     let mut trie = Trie::new();
     for word in word_dict {
-        trie.insert(word.chars(), true);  // Insert each word with a value `true`
+        trie.insert(word.chars(), true); // Insert each word with a value `true`
     }
 
     let mut memo = vec![None; s.len()];
@@ -30,7 +29,7 @@ fn search(trie: &Trie<char, bool>, s: &str, start: usize, memo: &mut Vec<Option<
         return res;
     }
 
-    let mut node = trie;
+    let _node = trie;
     for end in start + 1..=s.len() {
         // Using trie.get to check if a substring is a word
         if trie.get(s[start..end].chars()).is_some() && search(trie, s, end, memo) {
