@@ -18,6 +18,14 @@ pub fn factorial_recursive(n: u64) -> u64 {
     }
 }
 
+pub fn factoria_bigmath(num: u32) -> BigUint {
+    let mut result: BigUint = One::one();
+    for i in 1..=num {
+        result *= i;
+    }
+    result
+}
+
 // Module for tests
 #[cfg(test)]
 mod tests {
@@ -41,5 +49,15 @@ mod tests {
         assert_eq!(factorial_recursive(6), 720);
         assert_eq!(factorial_recursive(10), 3628800);
         assert_eq!(factorial_recursive(20), 2432902008176640000);
+    }
+
+    #[test]
+    fn basic_factorial() {
+        assert_eq!(factorial(10), BigUint::from_str("3628800").unwrap());
+        assert_eq!(
+            factorial(50),
+            BigUint::from_str("30414093201713378043612608166064768844377641568960512000000000000")
+                .unwrap()
+        );
     }
 }
