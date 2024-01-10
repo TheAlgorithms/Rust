@@ -8,7 +8,6 @@
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
     * [Fast Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/fast_factorial.rs)
-    * [Hello Bigmath](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/hello_bigmath.rs)
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Bit Manipulation
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
