@@ -1,3 +1,6 @@
+use num_bigint::BigUint;
+use num_traits::One;
+
 pub fn factorial(number: u64) -> u64 {
     // Base cases: 0! and 1! are both equal to 1
     if number == 0 || number == 1 {
@@ -18,7 +21,7 @@ pub fn factorial_recursive(n: u64) -> u64 {
     }
 }
 
-pub fn factoria_bigmath(num: u32) -> BigUint {
+pub fn factorial_bigmath(num: u32) -> BigUint {
     let mut result: BigUint = One::one();
     for i in 1..=num {
         result *= i;
@@ -53,9 +56,9 @@ mod tests {
 
     #[test]
     fn basic_factorial() {
-        assert_eq!(factorial(10), BigUint::from_str("3628800").unwrap());
+        assert_eq!(factorial_bigmath(10), BigUint::from_str("3628800").unwrap());
         assert_eq!(
-            factorial(50),
+            factorial_bigmath(50),
             BigUint::from_str("30414093201713378043612608166064768844377641568960512000000000000")
                 .unwrap()
         );
