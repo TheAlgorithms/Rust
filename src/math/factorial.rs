@@ -1,5 +1,6 @@
 use num_bigint::BigUint;
 use num_traits::One;
+use std::str::FromStr;
 
 pub fn factorial(number: u64) -> u64 {
     // Base cases: 0! and 1! are both equal to 1
