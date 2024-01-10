@@ -8,7 +8,6 @@
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
     * [Fast Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/fast_factorial.rs)
-    * [Hello Bigmath](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/hello_bigmath.rs)
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Bit Manipulation
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
@@ -166,12 +165,15 @@
     * [Ceil](https://github.com/TheAlgorithms/Rust/blob/master/src/math/ceil.rs)
     * [Chinese Remainder Theorem](https://github.com/TheAlgorithms/Rust/blob/master/src/math/chinese_remainder_theorem.rs)
     * [Collatz Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/collatz_sequence.rs)
+    * [Combinations](https://github.com/TheAlgorithms/Rust/blob/master/src/math/combinations.rs)
     * [Cross Entropy Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/math/cross_entropy_loss.rs)
+    * [Decimal To Fraction](https://github.com/TheAlgorithms/Rust/blob/master/src/math/decimal_to_fraction.rs)
     * [Doomsday](https://github.com/TheAlgorithms/Rust/blob/master/src/math/doomsday.rs)
     * [Elliptic Curve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/elliptic_curve.rs)
     * [Euclidean Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/math/euclidean_distance.rs)
     * [Exponential Linear Unit](https://github.com/TheAlgorithms/Rust/blob/master/src/math/exponential_linear_unit.rs)
     * [Extended Euclidean Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/extended_euclidean_algorithm.rs)
+    * [Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/math/factorial.rs)
     * [Factors](https://github.com/TheAlgorithms/Rust/blob/master/src/math/factors.rs)
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
     * [Fast Power](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_power.rs)
