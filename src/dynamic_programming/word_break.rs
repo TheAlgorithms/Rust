@@ -8,17 +8,39 @@
 // The Trie will be used to store the words. It will be useful for scanning
 // available words for the current position in the string.
 
+use crate::data_structures::Trie;
 use std::collections::HashMap;
-use crate::data_structures::Trie; 
 
 pub fn word_break(s: &str, word_dict: Vec<&str>) -> bool {
     let mut trie = Trie::new();
     for word in word_dict {
-        trie.insert(word);
+        trie.insert(word.chars(), true);  // Insert each word with a value `true`
     }
 
     let mut memo = vec![None; s.len()];
-    trie.search(s, 0, &mut memo)
+    search(&trie, s, 0, &mut memo)
+}
+
+fn search(trie: &Trie<char, bool>, s: &str, start: usize, memo: &mut Vec<Option<bool>>) -> bool {
+    if start >= s.len() {
+        return true;
+    }
+
+    if let Some(res) = memo[start] {
+        return res;
+    }
+
+    let mut node = trie;
+    for end in start + 1..=s.len() {
+        // Using trie.get to check if a substring is a word
+        if trie.get(s[start..end].chars()).is_some() && search(trie, s, end, memo) {
+            memo[start] = Some(true);
+            return true;
+        }
+    }
+
+    memo[start] = Some(false);
+    false
 }
 
 #[cfg(test)]
