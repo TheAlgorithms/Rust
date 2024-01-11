@@ -218,7 +218,6 @@
     * [Sieve Of Eratosthenes](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sieve_of_eratosthenes.rs)
     * [Sigmoid](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sigmoid.rs)
     * [Signum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/signum.rs)
-    * [Simpson Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/simpson_integration.rs)
     * [Softmax](https://github.com/TheAlgorithms/Rust/blob/master/src/math/softmax.rs)
     * [Sprague Grundy Theorem](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sprague_grundy_theorem.rs)
     * [Square Pyramidal Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/square_pyramidal_numbers.rs)
