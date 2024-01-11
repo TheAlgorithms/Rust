@@ -102,4 +102,26 @@ mod tests {
         let result = simpsons_rule(f, a, b, n);
         assert!((result + 7.0 / 3.0).abs() < 1e-6);
     }
+
+    #[test]
+    fn parabola_curve_length() {
+        // Calculate the length of the curve f(x) = x^2 for -5 <= x <= 5
+        // We should integrate sqrt(1 + (f'(x))^2)
+        let function = |x: f64| -> f64 { (1.0 + 4.0 * x * x).sqrt() };
+        let result = simpsons_rule(function, -5.0, 5.0, 1_000);
+        let integrated = |x: f64| -> f64 { (x * function(x) / 2.0) + ((2.0 * x).asinh() / 4.0) };
+        let expected = integrated(5.0) - integrated(-5.0);
+        assert!((result - expected).abs() < 1e-9);
+    }
+
+    #[test]
+    fn area_under_cosine() {
+        use std::f64::consts::PI;
+        // Calculate area under f(x) = cos(x) + 5 for -pi <= x <= pi
+        // cosine should cancel out and the answer should be 2pi * 5
+        let function = |x: f64| -> f64 { x.cos() + 5.0 };
+        let result = simpsons_rule(function, -PI, PI, 1_000);
+        let expected = 2.0 * PI * 5.0;
+        assert!((result - expected).abs() < 1e-9);
+    }
 }
