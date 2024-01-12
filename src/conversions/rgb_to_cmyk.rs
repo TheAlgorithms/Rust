@@ -52,6 +52,6 @@ mod tests {
 
         // Additional colors
         assert_eq!(rgb_to_cmyk(102, 204, 0), (50, 0, 100, 20)); // Light green
-        assert_eq!(rgb_to_cmyk(191, 64, 191), (0, 66, 0, 25));  // Purple
+        assert_eq!(rgb_to_cmyk(191, 64, 191), (0, 66, 0, 25)); // Purple
     }
 }

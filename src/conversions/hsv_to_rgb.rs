@@ -9,7 +9,7 @@
 pub fn hsv_to_rgb(hue: f32, saturation: f32, value: f32) -> [i32; 3] {
     if !(0.0..=360.0).contains(&hue)
         || !(0.0..=1.0).contains(&saturation)
-        || !(0.0..=1.0).contains(&value) 
+        || !(0.0..=1.0).contains(&value)
     {
         panic!("Input values out of range");
     }
@@ -19,7 +19,7 @@ pub fn hsv_to_rgb(hue: f32, saturation: f32, value: f32) -> [i32; 3] {
     let second_largest_component = chroma * (1.0 - (hue_section % 2.0 - 1.0).abs());
     let match_value = value - chroma;
 
-    let (red, green, blue) = if hue_section >= 0.0 && hue_section <= 1.0 {
+    let (red, green, blue) = if (0.0..=1.0).contains(&hue_section) {
         (chroma, second_largest_component, 0.0)
     } else if hue_section <= 2.0 {
         (second_largest_component, chroma, 0.0)
