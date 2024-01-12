@@ -7,7 +7,10 @@
 // representation to the other.
 
 pub fn hsv_to_rgb(hue: f32, saturation: f32, value: f32) -> [i32; 3] {
-    if !(0.0..=360.0).contains(&hue) || !(0.0..=1.0).contains(&saturation) || !(0.0..=1.0).contains(&value) {
+    if !(0.0..=360.0).contains(&hue)
+        || !(0.0..=1.0).contains(&saturation)
+        || !(0.0..=1.0).contains(&value) 
+    {
         panic!("Input values out of range");
     }
 
