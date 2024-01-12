@@ -27,10 +27,7 @@ fn compute_missing(in_str: &str) -> String {
 pub fn is_lipogram(lipogram_str: &str) -> bool {
     let unused_letters = compute_missing(lipogram_str);
 
-    if unused_letters.is_empty() {
-        return false;
-    }
-    true
+    !unused_letters.is_empty()
 }
 
 #[cfg(test)]
