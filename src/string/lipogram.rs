@@ -1,36 +1,36 @@
+use std::collections::HashSet;
+
 //*
-// Fn that checks if the slice is a lipogram
-// Lipogram - sentence that exclude one or more letters from the alphabet
-//
-// if you only need one result use is_lipogram(str).0 for bool or use is_lipogram(str).1 for String
-pub fn is_lipogram(lipogram_str: &str) -> (bool, String) {
-    let alphabet = "abcdefghijklmnopqrstuvwxyz";
-    let mut excluded_letters = vec![];
+// Fn that returns the letters that are missing from the input slice
+// and are present in the english alphabet
+fn compute_missing(in_str: &str) -> String {
+    let alphabet: HashSet<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
 
-    if lipogram_str.is_empty() {
-        return (false, String::from("The sentence is empty"));
-    }
+    let letters_used: HashSet<char> = in_str
+        .to_lowercase()
+        .chars()
+        .filter(|c| c.is_ascii_alphabetic())
+        .collect();
 
-    for letter in alphabet.chars() {
-        if !lipogram_str.to_lowercase().contains(letter) {
-            excluded_letters.push(letter);
-        }
-    }
+    let difference_set: HashSet<char> = alphabet.difference(&letters_used).cloned().collect();
 
-    if !excluded_letters.is_empty() {
-        let excluded_letters_joined = excluded_letters
-            .iter()
-            .map(|&c| c.to_string())
-            .collect::<Vec<String>>()
-            .join(", ");
-        let result = format!(
-            "{}{}",
-            "The sentence is a lipogram that excludes the letters: ", excluded_letters_joined
-        );
-        (true, result)
-    } else {
-        (false, String::from("The sentence is not a lipogram"))
+    difference_set
+        .into_iter()
+        .map(|c| c.to_string())
+        .collect::<Vec<String>>()
+        .join("")
+}
+
+//*
+// Fn that checks if the slice is a lipogram.
+// Lipogram - sentence in which a particular letter or group of letters is avoided
+pub fn is_lipogram(lipogram_str: &str) -> bool {
+    let unused_letters = compute_missing(lipogram_str);
+
+    if unused_letters.is_empty() {
+        return false;
     }
+    true
 }
 
 #[cfg(test)]
@@ -41,67 +41,64 @@ mod tests {
     fn test_lipogram_invalid1() {
         assert_eq!(
             is_lipogram("The quick brown fox jumps over the lazy dog"),
-            (false, String::from("The sentence is not a lipogram"))
+            false
+        );
+        assert_eq!(
+            compute_missing("The quick brown fox jumps over the lazy dog").len(),
+            0
         );
     }
 
     #[test]
     fn test_lipogram_invalid2() {
+        assert_eq!(is_lipogram("Jackdaws love my big sphinx of quartz"), false);
         assert_eq!(
-            is_lipogram("Jackdaws love my big sphinx of quartz"),
-            (false, String::from("The sentence is not a lipogram"))
+            compute_missing("Jackdaws love my big sphinx of quartz").len(),
+            0
         );
+        assert_eq!(is_lipogram("abcdefghijklmnopqrstuvwxyz"), false);
         assert_eq!(
-            is_lipogram("abcdefghijklmnopqrstuvwxyz"),
-            (false, String::from("The sentence is not a lipogram"))
+            compute_missing("Jackdaws love my big sphinx of quartz").len(),
+            0
         );
+        assert_eq!(is_lipogram("Five quacking zephyrs jolt my wax bed"), false);
         assert_eq!(
-            is_lipogram("Five quacking zephyrs jolt my wax bed"),
-            (false, String::from("The sentence is not a lipogram"))
-        );
-    }
-
-    #[test]
-    fn test_lipogram_empty() {
-        assert_eq!(
-            is_lipogram(""),
-            (false, String::from("The sentence is empty"))
+            compute_missing("Jackdaws love my big sphinx of quartz").len(),
+            0
         );
     }
 
     #[test]
     fn test_lipogram_valid1() {
-        assert_eq!(
-            is_lipogram("abcdefghijklmnopqrstuvwxy"),
-            (
-                true,
-                String::from("The sentence is a lipogram that excludes the letters: z")
-            )
-        );
+        assert_eq!(is_lipogram("abcdefghijklmnopqrstuvwxy"), true);
+        assert_eq!(compute_missing("abcdefghijklmnopqrstuvwxy").len(), 1);
     }
 
     #[test]
     fn test_lipogram_valid2() {
         assert_eq!(
             is_lipogram("The quick brown fox jumped over the lazy dog"),
-            (
-                true,
-                String::from("The sentence is a lipogram that excludes the letters: s")
-            )
+            true
+        );
+        assert_eq!(
+            compute_missing("The quick brown fox jumped over the lazy dog").len(),
+            1
         );
         assert_eq!(
             is_lipogram("The brown fox jumped over the lazy dog with a brick"),
-            (
-                true,
-                String::from("The sentence is a lipogram that excludes the letters: q, s")
-            )
+            true
+        );
+        assert_eq!(
+            compute_missing("The brown fox jumped over the lazy dog with a brick").len(),
+            2
         );
         assert_eq!(
             is_lipogram("The brown cat jumped over the lazy dog with a brick"),
-            (
-                true,
-                String::from("The sentence is a lipogram that excludes the letters: f, q, s, x")
-            )
+            true
+        );
+        assert_eq!(
+            compute_missing("The brown cat jumped over the lazy dog with a brick").len(),
+            4
         );
     }
 }
