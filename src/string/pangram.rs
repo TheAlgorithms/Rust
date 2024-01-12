@@ -2,8 +2,14 @@
 // Fn that checks if the slice is a pangram
 // Pangram - sentence that contains all the letters in the alphabet at least once
 // Perfect Pangram - sentence that contains all the letters in the alphabet once (also named perfect heterogram)
+//
+// if you only need one result use is_pangram(str).0 for bool or use is_pangram(str).1 for &str
 pub fn is_pangram(pangram_str: &str) -> (bool, &str) {
     let alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    if lipogram_str.is_empty() {
+        return (false, "The sentence is empty");
+    }
 
     for letter in alphabet.chars() {
         if !pangram_str.to_lowercase().contains(letter) {
@@ -32,6 +38,11 @@ mod tests {
         assert_eq!(is_pangram("today is a good day"), (false, "The sentence is not a pangram"));
         assert_eq!(is_pangram(""), (false, "The sentence is not a pangram"));
         assert_eq!(is_pangram("this is almost a pangram but it does not have bcfghjkqwxy and the last letter"), (false, "The sentence is not a pangram"));
+    }
+
+    #[test]
+    fn test_panagram_invalid2() {
+        assert_eq!(is_pangram(""), (false, "The sentence is empty"));
     }
 
     #[test]
