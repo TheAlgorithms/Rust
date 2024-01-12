@@ -36,10 +36,7 @@ mod tests {
 
     #[test]
     fn test_lipogram_invalid1() {
-        assert_eq!(
-            is_lipogram("The quick brown fox jumps over the lazy dog"),
-            false
-        );
+        assert!(!is_lipogram("The quick brown fox jumps over the lazy dog"));
         assert_eq!(
             compute_missing("The quick brown fox jumps over the lazy dog").len(),
             0
@@ -48,17 +45,17 @@ mod tests {
 
     #[test]
     fn test_lipogram_invalid2() {
-        assert_eq!(is_lipogram("Jackdaws love my big sphinx of quartz"), false);
+        assert!(!is_lipogram("Jackdaws love my big sphinx of quartz"));
         assert_eq!(
             compute_missing("Jackdaws love my big sphinx of quartz").len(),
             0
         );
-        assert_eq!(is_lipogram("abcdefghijklmnopqrstuvwxyz"), false);
+        assert!(!is_lipogram("abcdefghijklmnopqrstuvwxyz"));
         assert_eq!(
             compute_missing("Jackdaws love my big sphinx of quartz").len(),
             0
         );
-        assert_eq!(is_lipogram("Five quacking zephyrs jolt my wax bed"), false);
+        assert!(!is_lipogram("Five quacking zephyrs jolt my wax bed"));
         assert_eq!(
             compute_missing("Jackdaws love my big sphinx of quartz").len(),
             0
@@ -67,32 +64,27 @@ mod tests {
 
     #[test]
     fn test_lipogram_valid1() {
-        assert_eq!(is_lipogram("abcdefghijklmnopqrstuvwxy"), true);
+        assert!(is_lipogram("abcdefghijklmnopqrstuvwxy"));
         assert_eq!(compute_missing("abcdefghijklmnopqrstuvwxy").len(), 1);
     }
 
     #[test]
     fn test_lipogram_valid2() {
-        assert_eq!(
-            is_lipogram("The quick brown fox jumped over the lazy dog"),
-            true
-        );
+        assert!(is_lipogram("The quick brown fox jumped over the lazy dog"));
         assert_eq!(
             compute_missing("The quick brown fox jumped over the lazy dog").len(),
             1
         );
-        assert_eq!(
-            is_lipogram("The brown fox jumped over the lazy dog with a brick"),
-            true
-        );
+        assert!(is_lipogram(
+            "The brown fox jumped over the lazy dog with a brick"
+        ));
         assert_eq!(
             compute_missing("The brown fox jumped over the lazy dog with a brick").len(),
             2
         );
-        assert_eq!(
-            is_lipogram("The brown cat jumped over the lazy dog with a brick"),
-            true
-        );
+        assert!(is_lipogram(
+            "The brown cat jumped over the lazy dog with a brick"
+        ));
         assert_eq!(
             compute_missing("The brown cat jumped over the lazy dog with a brick").len(),
             4
