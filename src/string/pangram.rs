@@ -13,7 +13,7 @@ pub enum PangramStatus {
 // Fn that checks if the slice is a pangram
 //
 // if you only need one result use is_pangram(str).0 for bool or use is_pangram(str).1 for PangramStatus
-pub fn is_pangram(pangram_str: &str) -> (bool, PangramStatus) {
+pub fn is_pangram(pangram_str: &str) -> PangramStatus {
     let alphabet: HashSet<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
 
     let letters_used: HashSet<char> = pangram_str
@@ -23,13 +23,13 @@ pub fn is_pangram(pangram_str: &str) -> (bool, PangramStatus) {
         .collect();
 
     if letters_used != alphabet {
-        return (false, PangramStatus::NotPangram);
+        return PangramStatus::NotPangram;
     };
 
-    if pangram_str.chars().filter(|c| c.is_alphabetic()).count() == 26 {
-        (true, PangramStatus::PerfectPangram)
+    if pangram_str.chars().filter(|c| c.is_alphabetic()).count() == alphabet.len() {
+        PangramStatus::PerfectPangram
     } else {
-        (true, PangramStatus::Pangram)
+        PangramStatus::Pangram
     }
 }
 
@@ -38,56 +38,53 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_pangram_invalid1() {
+    fn test_not_pangram_1() {
         assert_eq!(
             is_pangram("This is not a pangram"),
-            (false, PangramStatus::NotPangram)
+            PangramStatus::NotPangram
         );
     }
 
     #[test]
-    fn test_pangram_invalid2() {
-        assert_eq!(
-            is_pangram("today is a good day"),
-            (false, PangramStatus::NotPangram)
-        );
+    fn test_not_pangram_2() {
+        assert_eq!(is_pangram("today is a good day"), PangramStatus::NotPangram);
         assert_eq!(
             is_pangram(
                 "this is almost a pangram but it does not have bcfghjkqwxy and the last letter"
             ),
-            (false, PangramStatus::NotPangram)
+            PangramStatus::NotPangram
         );
     }
 
     #[test]
-    fn test_pangram_valid1() {
+    fn test_valid_pangram_1() {
         assert_eq!(
             is_pangram("The quick brown fox jumps over the lazy dog"),
-            (true, PangramStatus::Pangram)
+            PangramStatus::Pangram
         );
     }
 
     #[test]
-    fn test_pangram_valid2() {
+    fn test_valid_pangram_2() {
         assert_eq!(
             is_pangram("A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent"),
-            (true, PangramStatus::Pangram)
+            PangramStatus::Pangram
         );
         assert_eq!(
             is_pangram("Amazingly few discotheques provide jukeboxes"),
-            (true, PangramStatus::Pangram)
+            PangramStatus::Pangram
         );
         assert_eq!(
             is_pangram("How vexingly quick daft zebras jump"),
-            (true, PangramStatus::Pangram)
+            PangramStatus::Pangram
         );
     }
 
     #[test]
-    fn test_pangram_valid3() {
+    fn test_valid_perfect_pangram() {
         assert_eq!(
             is_pangram("Mr. Jock, TV quiz PhD, bags few lynx"),
-            (true, PangramStatus::PerfectPangram)
+            PangramStatus::PerfectPangram
         );
     }
 }

@@ -3,7 +3,7 @@ use std::collections::HashSet;
 //*
 // Fn that returns the letters that are missing from the input slice
 // and are present in the english alphabet
-fn compute_missing(in_str: &str) -> String {
+fn compute_missing(in_str: &str) -> HashSet<char> {
     let alphabet: HashSet<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
 
     let letters_used: HashSet<char> = in_str
@@ -12,13 +12,7 @@ fn compute_missing(in_str: &str) -> String {
         .filter(|c| c.is_ascii_alphabetic())
         .collect();
 
-    let difference_set: HashSet<char> = alphabet.difference(&letters_used).cloned().collect();
-
-    difference_set
-        .into_iter()
-        .map(|c| c.to_string())
-        .collect::<Vec<String>>()
-        .join("")
+    alphabet.difference(&letters_used).cloned().collect()
 }
 
 //*
@@ -35,59 +29,50 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_lipogram_invalid1() {
+    fn test_not_lipogram_1() {
         assert!(!is_lipogram("The quick brown fox jumps over the lazy dog"));
-        assert_eq!(
-            compute_missing("The quick brown fox jumps over the lazy dog").len(),
-            0
-        );
+        assert!(compute_missing("The quick brown fox jumps over the lazy dog").is_empty());
     }
 
     #[test]
-    fn test_lipogram_invalid2() {
+    fn test_not_lipogram_2() {
         assert!(!is_lipogram("Jackdaws love my big sphinx of quartz"));
-        assert_eq!(
-            compute_missing("Jackdaws love my big sphinx of quartz").len(),
-            0
-        );
+        assert!(compute_missing("Jackdaws love my big sphinx of quartz").is_empty());
         assert!(!is_lipogram("abcdefghijklmnopqrstuvwxyz"));
-        assert_eq!(
-            compute_missing("Jackdaws love my big sphinx of quartz").len(),
-            0
-        );
+        assert!(compute_missing("abcdefghijklmnopqrstuvwxyz").is_empty());
         assert!(!is_lipogram("Five quacking zephyrs jolt my wax bed"));
+        assert!(compute_missing("Five quacking zephyrs jolt my wax bed").is_empty());
+    }
+
+    #[test]
+    fn test_valid_lipogram_1() {
+        assert!(is_lipogram("abcdefghijklmnopqrstuvwxy"));
         assert_eq!(
-            compute_missing("Jackdaws love my big sphinx of quartz").len(),
-            0
+            compute_missing("abcdefghijklmnopqrstuvwxy"),
+            HashSet::from(['z'])
         );
     }
 
     #[test]
-    fn test_lipogram_valid1() {
-        assert!(is_lipogram("abcdefghijklmnopqrstuvwxy"));
-        assert_eq!(compute_missing("abcdefghijklmnopqrstuvwxy").len(), 1);
-    }
-
-    #[test]
-    fn test_lipogram_valid2() {
+    fn test_valid_lipogram_2() {
         assert!(is_lipogram("The quick brown fox jumped over the lazy dog"));
         assert_eq!(
-            compute_missing("The quick brown fox jumped over the lazy dog").len(),
-            1
+            compute_missing("The quick brown fox jumped over the lazy dog"),
+            HashSet::from(['s'])
         );
         assert!(is_lipogram(
             "The brown fox jumped over the lazy dog with a brick"
         ));
         assert_eq!(
-            compute_missing("The brown fox jumped over the lazy dog with a brick").len(),
-            2
+            compute_missing("The brown fox jumped over the lazy dog with a brick"),
+            HashSet::from(['q', 's'])
         );
         assert!(is_lipogram(
             "The brown cat jumped over the lazy dog with a brick"
         ));
         assert_eq!(
-            compute_missing("The brown cat jumped over the lazy dog with a brick").len(),
-            4
+            compute_missing("The brown cat jumped over the lazy dog with a brick"),
+            HashSet::from(['f', 'q', 's', 'x'])
         );
     }
 }
