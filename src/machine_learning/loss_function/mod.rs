@@ -1,5 +1,5 @@
 mod hinge_loss;
-mod kl_divergence_loss
+mod kl_divergence_loss;
 mod mean_absolute_error_loss;
 mod mean_squared_error_loss;
 
