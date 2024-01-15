@@ -1,6 +1,6 @@
 //! # Hinge Loss
 //!
-//! The `hinge_loss` function calculates the Hinge loss, which is a
+//! The `hng_loss` function calculates the Hinge loss, which is a
 //! loss function used for classification problems in machine learning.
 //!
 //! ## Formula
