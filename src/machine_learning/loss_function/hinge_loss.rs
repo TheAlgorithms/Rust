@@ -13,7 +13,7 @@
 //! It returns the average loss by dividing the `total_loss` by total no. of
 //! elements.
 //!
-pub fn hinge_loss(y_true: &[f64], y_pred: &[f64]) -> f64 {
+pub fn hng_loss(y_true: &[f64], y_pred: &[f64]) -> f64 {
     let mut total_loss: f64 = 0.0;
     for (p, a) in y_pred.iter().zip(y_true.iter()) {
         let loss: f64 = (1.0 - a * p).max(0.0);
@@ -31,7 +31,7 @@ mod tests {
         let predicted_values: Vec<f64> = vec![-1.0, 1.0, 1.0];
         let actual_values: Vec<f64> = vec![-1.0, -1.0, 1.0];
         assert_eq!(
-            hinge_loss(&predicted_values, &actual_values),
+            hng_loss(&predicted_values, &actual_values),
             0.6666666666666666
         );
     }
