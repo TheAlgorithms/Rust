@@ -1,6 +1,6 @@
 // Gaussian Quadrature Module
 //https://en.wikipedia.org/wiki/Gaussian_quadrature
-mod gaussian_quadrature {
+
     pub fn gaussian_quadrature(a: f64, b: f64, f: impl Fn(f64) -> f64, num_points: usize) -> f64 {
         let (points, weights) = get_gaussian_quadrature_points_weights(num_points);
 
@@ -23,7 +23,7 @@ mod gaussian_quadrature {
             _ => unimplemented!("Gaussian Quadrature not implemented for this number of points"),
         }
     }
-}
+
 
 pub use self::gaussian_quadrature::gaussian_quadrature;
 
