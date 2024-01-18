@@ -11,8 +11,33 @@ pub enum PangramStatus {
 }
 //*
 // Fn that checks if the slice is a pangram
-//
-// if you only need one result use is_pangram(str).0 for bool or use is_pangram(str).1 for PangramStatus
+///
+/// ## Arguments
+///
+/// * `pangram_str` - the slice that will be checked if is a pangram
+///
+/// ## Examples
+///
+/// ```
+/// use the_algorithms_rust::string::is_pangram;
+/// use std::collections::HashSet;
+/// use the_algorithms_rust::string::PangramStatus;
+///
+/// assert_eq!(
+///    is_pangram("This is not a pangram"),
+///    PangramStatus::NotPangram
+/// );
+///
+/// assert_eq!(
+///    is_pangram("The quick brown fox jumps over the lazy dog"),
+///    PangramStatus::Pangram
+/// );
+///
+/// assert_eq!(
+///    is_pangram("Mr. Jock, TV quiz PhD, bags few lynx"),
+///    PangramStatus::PerfectPangram
+/// );
+/// ```
 pub fn is_pangram(pangram_str: &str) -> PangramStatus {
     let alphabet: HashSet<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
 
@@ -38,15 +63,11 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_not_pangram_1() {
+    fn test_not_pangram() {
         assert_eq!(
             is_pangram("This is not a pangram"),
             PangramStatus::NotPangram
         );
-    }
-
-    #[test]
-    fn test_not_pangram_2() {
         assert_eq!(is_pangram("today is a good day"), PangramStatus::NotPangram);
         assert_eq!(
             is_pangram(
@@ -57,15 +78,11 @@ mod tests {
     }
 
     #[test]
-    fn test_valid_pangram_1() {
+    fn test_valid_pangram() {
         assert_eq!(
             is_pangram("The quick brown fox jumps over the lazy dog"),
             PangramStatus::Pangram
         );
-    }
-
-    #[test]
-    fn test_valid_pangram_2() {
         assert_eq!(
             is_pangram("A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent"),
             PangramStatus::Pangram
