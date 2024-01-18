@@ -184,6 +184,7 @@
     * [Frizzy Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/frizzy_number.rs)
     * [Gaussian Elimination](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gaussian_elimination.rs)
     * [Gaussian Error Linear Unit](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gaussian_error_linear_unit.rs)
+    * [Gaussian_quadrature](https://github.com/Rust/blob/new-feature-branch/src/math/gaussian_quadrature.rs)
     * [Gcd Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gcd_of_n_numbers.rs)
     * [Geometric Series](https://github.com/TheAlgorithms/Rust/blob/master/src/math/geometric_series.rs)
     * [Greatest Common Divisor](https://github.com/TheAlgorithms/Rust/blob/master/src/math/greatest_common_divisor.rs)
