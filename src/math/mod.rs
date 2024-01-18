@@ -30,7 +30,6 @@ mod field;
 mod frizzy_number;
 mod gaussian_elimination;
 mod gaussian_error_linear_unit;
-mod gaussian_quadrature;
 mod gcd_of_n_numbers;
 mod geometric_series;
 mod greatest_common_divisor;
@@ -116,7 +115,6 @@ pub use self::field::{Field, PrimeField};
 pub use self::frizzy_number::get_nth_frizzy;
 pub use self::gaussian_elimination::gaussian_elimination;
 pub use self::gaussian_error_linear_unit::gaussian_error_linear_unit;
-pub use self::gaussian_quadrature::gaussian_quadrature;
 pub use self::gcd_of_n_numbers::gcd;
 pub use self::geometric_series::geometric_series;
 pub use self::greatest_common_divisor::{
