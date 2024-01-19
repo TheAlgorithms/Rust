@@ -1,27 +1,14 @@
 use std::collections::HashSet;
 
-//*
-// Fn that returns the letters that are missing from the input slice
-// and are present in the english alphabet
+///*
+/// Function that returns the letters that are missing from the input slice  
+/// and are present in the English alphabet  
 ///
 /// ## Arguments
 ///
 /// * `in_str` - the slice that will be checked for missing characters
 ///
-/// ## Examples
-///
-/// ```
-/// use the_algorithms_rust::string::compute_missing;
-/// use std::collections::HashSet;
-///
-/// assert!(compute_missing("The quick brown fox jumps over the lazy dog").is_empty());
-///
-/// assert_eq!(
-///    compute_missing("The brown cat jumped over the lazy dog with a brick"),
-///    HashSet::from(['f', 'q', 's', 'x'])
-/// );
-/// ```
-pub fn compute_missing(in_str: &str) -> HashSet<char> {
+fn compute_missing(in_str: &str) -> HashSet<char> {
     let alphabet: HashSet<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
 
     let letters_used: HashSet<char> = in_str
@@ -34,8 +21,8 @@ pub fn compute_missing(in_str: &str) -> HashSet<char> {
 }
 
 //*
-// Fn that checks if the slice is a lipogram with specific missing letters.
-// Lipogram - sentence in which a particular letter or group of letters is avoided
+/// Function that checks if the slice is a lipogram with specific missing letters.  
+/// Lipogram - sentence in which a particular letter or group of letters is avoided
 ///
 /// ## Arguments
 ///
@@ -64,88 +51,30 @@ pub fn compute_missing(in_str: &str) -> HashSet<char> {
 /// ));
 /// ```
 pub fn is_lipogram(lipogram_str: &str, missing_chars: &HashSet<char>) -> bool {
-    let unused_letters = compute_missing(lipogram_str);
-
-    missing_chars == &unused_letters
+    missing_chars == &compute_missing(&lipogram_str.to_lowercase())
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_not_lipogram() {
-        let missing_chars = HashSet::from(['x']);
-        assert!(!is_lipogram(
-            "The quick brown fox jumps over the lazy dog",
-            &missing_chars
-        ));
-        assert!(compute_missing("The quick brown fox jumps over the lazy dog").is_empty());
-
-        let missing_chars = HashSet::from(['z']);
-        assert!(!is_lipogram(
-            "Jackdaws love my big sphinx of quartz",
-            &missing_chars
-        ));
-        assert!(compute_missing("Jackdaws love my big sphinx of quartz").is_empty());
-
-        let missing_chars = HashSet::from(['a']);
-        assert!(!is_lipogram("abcdefghijklmnopqrstuvwxyz", &missing_chars));
-        assert!(compute_missing("abcdefghijklmnopqrstuvwxyz").is_empty());
-
-        let missing_chars = HashSet::from(['d']);
-        assert!(!is_lipogram(
-            "Five quacking zephyrs jolt my wax bed",
-            &missing_chars
-        ));
-        assert!(compute_missing("Five quacking zephyrs jolt my wax bed").is_empty());
-
-        let missing_chars = HashSet::from(['x']);
-        let actual_missing_chars = HashSet::from(['s']);
-        assert!(!is_lipogram(
-            "The quick brown fox jumped over the lazy dog",
-            &missing_chars
-        ));
-        assert_eq!(
-            compute_missing("The quick brown fox jumped over the lazy dog"),
-            actual_missing_chars
-        );
+macro_rules! test_lipogram {
+    ($($name:ident: $inputs:expr,)*) => {
+    $(
+        #[test]
+        fn $name() {
+            let (in_str, missing_chars, other_chars) = $inputs;
+            assert_ne!(missing_chars, other_chars);
+            assert_eq!(compute_missing(in_str), missing_chars);
+            assert!(is_lipogram(in_str, &missing_chars));
+            assert!(!is_lipogram(in_str, &other_chars));
+        }
+    )*
     }
+}
 
-    #[test]
-    fn test_valid_lipogram() {
-        let missing_chars = HashSet::from(['z']);
-        assert!(is_lipogram("abcdefghijklmnopqrstuvwxy", &missing_chars));
-        assert_eq!(compute_missing("abcdefghijklmnopqrstuvwxy"), missing_chars);
-
-        let missing_chars = HashSet::from(['s']);
-        assert!(is_lipogram(
-            "The quick brown fox jumped over the lazy dog",
-            &missing_chars
-        ));
-        assert_eq!(
-            compute_missing("The quick brown fox jumped over the lazy dog"),
-            missing_chars
-        );
-
-        let missing_chars = HashSet::from(['q', 's']);
-        assert!(is_lipogram(
-            "The brown fox jumped over the lazy dog with a brick",
-            &missing_chars
-        ));
-        assert_eq!(
-            compute_missing("The brown fox jumped over the lazy dog with a brick"),
-            missing_chars
-        );
-
-        let missing_chars = HashSet::from(['f', 'q', 's', 'x']);
-        assert!(is_lipogram(
-            "The brown cat jumped over the lazy dog with a brick",
-            &missing_chars
-        ));
-        assert_eq!(
-            compute_missing("The brown cat jumped over the lazy dog with a brick"),
-            missing_chars
-        );
-    }
+test_lipogram! {
+    test_lipogram1: ("The quick brown fox jumps over the lazy dog", HashSet::from([]), HashSet::from(['a', 'b'])),
+    test_lipogram2: ("Jackdaws love my big sphinx of quartz", HashSet::from([]), HashSet::from(['x'])),
+    test_lipogram3: ("abcdefghijklmnopqrstuvwxyz", HashSet::from([]), HashSet::from(['x', 'y', 'z'])),
+    test_lipogram4: ("Five quacking zephyrs jolt my wax bed", HashSet::from([]), HashSet::from(['a'])),
+    test_lipogram5: ("The quick brown fox jumped over the lazy dog", HashSet::from(['s']), HashSet::from([])),
+    test_lipogram6: ("abcdefghijklmnopqrstuvwxy", HashSet::from(['z']), HashSet::from(['y', 'z'])),
+    test_lipogram7: ("The brown fox jumped over the lazy dog with a brick", HashSet::from(['q', 's']), HashSet::from(['b'])),
 }

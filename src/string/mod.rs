@@ -32,7 +32,6 @@ pub use self::hamming_distance::hamming_distance;
 pub use self::jaro_winkler_distance::jaro_winkler_distance;
 pub use self::knuth_morris_pratt::knuth_morris_pratt;
 pub use self::levenshtein_distance::levenshtein_distance;
-pub use self::lipogram::compute_missing;
 pub use self::lipogram::is_lipogram;
 pub use self::manacher::manacher;
 pub use self::palindrome::is_palindrome;

@@ -9,8 +9,9 @@ pub enum PangramStatus {
     Pangram,
     PerfectPangram,
 }
-//*
-// Fn that checks if the slice is a pangram
+
+/// *
+/// Function that checks if the slice is a pangram
 ///
 /// ## Arguments
 ///
@@ -78,7 +79,7 @@ mod tests {
     }
 
     #[test]
-    fn test_valid_pangram() {
+    fn test_pangram() {
         assert_eq!(
             is_pangram("The quick brown fox jumps over the lazy dog"),
             PangramStatus::Pangram
@@ -98,7 +99,7 @@ mod tests {
     }
 
     #[test]
-    fn test_valid_perfect_pangram() {
+    fn test_perfect_pangram() {
         assert_eq!(
             is_pangram("Mr. Jock, TV quiz PhD, bags few lynx"),
             PangramStatus::PerfectPangram
