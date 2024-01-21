@@ -15,7 +15,7 @@ mod tests {
     fn test_function(x: f64, y: f64) -> f64 {
         x.powi(2) + y.powi(2)
     }
-    
+
     #[test]
     fn test_derivative() {
         let x = 1.0;
