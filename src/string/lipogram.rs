@@ -49,7 +49,11 @@ fn compute_missing(in_str: &str) -> HashSet<char> {
 /// ));
 /// ```
 pub fn is_lipogram(lipogram_str: &str, missing_chars: &HashSet<char>) -> bool {
-    missing_chars == &compute_missing(&lipogram_str.to_lowercase())
+    if !missing_chars.iter().all(|&c| c.is_lowercase()) {
+        panic!("missing_chars should be all lowercase.")
+    }
+
+    missing_chars == &compute_missing(lipogram_str)
 }
 
 macro_rules! test_lipogram {
