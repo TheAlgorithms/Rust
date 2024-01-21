@@ -1,7 +1,7 @@
 // Gaussian Quadrature Module
 //https://en.wikipedia.org/wiki/Gaussian_quadrature
 
-pub fn gaussian_quadrature(a: f64, b: f64, f: impl Fn(f64) -> f64, num_points: usize) -> f64 {
+pub fn gaussian_quadrature(a: f64, b: f64, f: impl Fn(f64) -> f64, order: usize) -> f64 {
     let (points, weights) = get_gaussian_quadrature_points_weights(num_points);
 
     let mut result = 0.0;
