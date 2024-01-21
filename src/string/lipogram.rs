@@ -19,7 +19,6 @@ fn compute_missing(in_str: &str) -> HashSet<char> {
     alphabet.difference(&letters_used).cloned().collect()
 }
 
-//*
 /// Function that checks if the slice is a lipogram with specific missing letters.  
 /// Lipogram - sentence in which a particular letter or group of letters is avoided
 ///
