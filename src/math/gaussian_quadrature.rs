@@ -1,12 +1,12 @@
 // Gaussian Quadrature Module
-//https://en.wikipedia.org/wiki/Gaussian_quadrature
+// https://en.wikipedia.org/wiki/Gaussian_quadrature
 
 pub fn gaussian_quadrature(a: f64, b: f64, f: impl Fn(f64) -> f64, order: usize) -> f64 {
-    let (points, weights) = get_gaussian_quadrature_points_weights(num_points);
+    let (points, weights) = get_gaussian_quadrature_points_weights(order);
 
     let mut result = 0.0;
 
-    for i in 0..num_points {
+    for i in 0..order {
         let x_i = 0.5 * (a + b) + 0.5 * (b - a) * points[i];
         result += weights[i] * f(x_i);
     }
@@ -36,11 +36,11 @@ mod tests {
         let a = 0.0;
         let b = 1.0;
         let f = |x: f64| x.powi(2);
-        let num_points = 3;
+        let order = 3;
         let expected = 1.0 / 3.0;
         let eps = 0.0001;
 
-        let result = gaussian_quadrature(a, b, f, num_points);
+        let result = gaussian_quadrature(a, b, f, order);
         assert!((result - expected).abs() < eps);
     }
 }
