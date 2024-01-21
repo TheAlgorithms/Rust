@@ -1,8 +1,5 @@
 use std::collections::HashSet;
 
-//*
-// Pangram - sentence that contains all the letters in the alphabet at least once
-// Perfect Pangram - sentence that contains all the letters in the alphabet once (also named perfect heterogram)
 #[derive(PartialEq, Debug)]
 pub enum PangramStatus {
     NotPangram,
