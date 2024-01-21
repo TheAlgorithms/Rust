@@ -4,7 +4,6 @@
 pub fn gaussian_quadrature(a: f64, b: f64, f: impl Fn(f64) -> f64, order: usize) -> f64 {
     let (points, weights) = get_gaussian_quadrature_points_weights(order);
 
-    let mut result = 0.0;
 
     let result: f64 = points
         .iter()
