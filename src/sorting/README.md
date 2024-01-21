@@ -215,7 +215,20 @@ This card game is turned into a two-phase sorting algorithm, as follows. Given a
 
 __Properties__
 * Worst case performance O(n log n)
-* Best case performance	O(n)
+* Best case performance	O(n)\
+
+### [Strand Sort](./strand_sort.rs)
+
+Strand Sort is a sorting algorithm that works by repeatedly pulling sorted sublists out of the list to be sorted and merging them with the already sorted part. It is particularly effective for sorting lists where there are large numbers of ordered elements. The algorithm is intuitive and simple, iterating through the list, picking up elements in order, and merging these 'strands' into a final sorted list.
+
+* Simplicity: The algorithm is straightforward and easy to implement, making it a good choice for introductory sorting algorithm education.
+* Adaptive: Strand sort performs well on lists that are already partially sorted, as it can quickly identify and extract these ordered sublists.
+* In-place Sorting: The nature of the algorithm allows it to be implemented in an in-place fashion, although this is not always the case.
+
+__Properties__
+* Not-in-place Sorting: Typically, strand sort requires additional space for the strands, though in-place variants exist.
+* Time Complexity: The average and worst-case time complexity of strand sort can vary greatly depending on the input but typically is O(n²).
+* Stability: The algorithm is stable, maintaining the relative order of equal elements.
 
 [bogo-wiki]: https://en.wikipedia.org/wiki/Bogosort
 [bogo-image]: https://upload.wikimedia.org/wikipedia/commons/7/7b/Bogo_sort_animation.gif
