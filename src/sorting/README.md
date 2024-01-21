@@ -11,8 +11,12 @@ __Properties__
 * Average case performance O((n+1)!)
 
 ### [Bogo-Bogo-sort](./bogo_bogo_sort.rs)
-
-From [leonardini.dev][bogo-bogo-doc]: BogoBogo Sort is a humorously inefficient sorting algorithm inspired by the original Bogosort. It adds a layer of complexity by recursively sorting the first n-1 elements before placing the nth element. This process is repeated until the array is sorted. The algorithm's performance is exceptionally poor, making it impractical for sorting but a useful tool for educational purposes, especially in understanding algorithm efficiency and recursive functions.
+From [leonardini.dev][bogo-bogo-doc]: BogoBogo Sort is a humorously inefficient sorting
+algorithm inspired by the original Bogosort. It adds a layer of complexity by recursively
+sorting the first n-1 elements before placing the nth element. This process is repeated until
+the array is sorted. The algorithm's performance is exceptionally poor, making it impractical
+for sorting but a useful tool for educational purposes, especially in understanding
+algorithm efficiency and recursive functions.
 
 __Properties__
 * Worst case performance (unbounded, extremely poor)
@@ -215,8 +219,6 @@ __Properties__
 
 [bogo-wiki]: https://en.wikipedia.org/wiki/Bogosort
 [bogo-image]: https://upload.wikimedia.org/wikipedia/commons/7/7b/Bogo_sort_animation.gif
-
-[bogo-bogo-doc]: https://yaav.leonardini.dev/algorithms/sorting/bogobogo-sort.html
 
 [bubble-toptal]: https://www.toptal.com/developers/sorting-algorithms/bubble-sort
 [bubble-wiki]: https://en.wikipedia.org/wiki/Bubble_sort
