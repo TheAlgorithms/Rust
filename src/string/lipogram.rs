@@ -1,6 +1,5 @@
 use std::collections::HashSet;
 
-///*
 /// Function that returns the letters that are missing from the input slice  
 /// and are present in the English alphabet  
 ///
