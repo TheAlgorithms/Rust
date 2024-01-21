@@ -3,6 +3,7 @@ mod binary_insertion_sort;
 mod bingo_sort;
 mod bitonic_sort;
 mod bogo_sort;
+mod bogo_bogo_sort;
 mod bubble_sort;
 mod bucket_sort;
 mod cocktail_shaker_sort;
@@ -26,17 +27,15 @@ mod radix_sort;
 mod selection_sort;
 mod shell_sort;
 mod sleep_sort;
-#[cfg(test)]
 mod sort_utils;
 mod stooge_sort;
 mod tim_sort;
 mod tree_sort;
 mod wave_sort;
 mod wiggle_sort;
-mod bogo_bogo_sort;
 
-pub use self::bogo_bogo_sort::bogo_bogo_sort;
 pub use self::bead_sort::bead_sort;
+pub use self::bogo_bogo_sort::bogo_bogo_sort;
 pub use self::binary_insertion_sort::binary_insertion_sort;
 pub use self::bingo_sort::bingo_sort;
 pub use self::bitonic_sort::bitonic_sort;
