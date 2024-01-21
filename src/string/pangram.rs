@@ -7,7 +7,6 @@ pub enum PangramStatus {
     PerfectPangram,
 }
 
-/// *
 /// Function that checks if the slice is a pangram
 ///
 /// ## Arguments
