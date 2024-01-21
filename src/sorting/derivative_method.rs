@@ -1,30 +1,21 @@
+const DERIVATIVE_PRECISION: f64 = 0.0001;
+
 pub fn derivative_method<F>(x: f64, y: f64, f: F) -> f64
 where
     F: Fn(f64, f64) -> f64,
 {
-    let h = 0.0001;
+    let h = DERIVATIVE_PRECISION;
     (f(x + h, y) - f(x, y)) / h
-}
-
-fn test_function(x: f64, y: f64) -> f64 {
-    x.powi(2) + y.powi(2)
-}
-
-#[allow(dead_code)]
-fn main() {
-    let x = 1.0;
-    let y = 2.0;
-    let f = test_function;
-    let df_dx = derivative_method(x, y, f);
-    let df_dy = derivative_method(y, x, f);
-    println!("df/dx = {}", df_dx);
-    println!("df/dy = {}", df_dy);
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    fn test_function(x: f64, y: f64) -> f64 {
+        x.powi(2) + y.powi(2)
+    }
+    
     #[test]
     fn test_derivative() {
         let x = 1.0;
