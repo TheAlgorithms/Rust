@@ -56,7 +56,10 @@ pub fn is_lipogram(lipogram_str: &str, missing_chars: &HashSet<char>) -> bool {
     missing_chars == &compute_missing(lipogram_str)
 }
 
-macro_rules! test_lipogram {
+#[cfg(test)]
+mod tests {
+    use super::*;
+    macro_rules! test_lipogram {
     ($($name:ident: $inputs:expr,)*) => {
     $(
         #[test]
@@ -71,12 +74,20 @@ macro_rules! test_lipogram {
     }
 }
 
-test_lipogram! {
-    test_lipogram1: ("The quick brown fox jumps over the lazy dog", HashSet::from([]), HashSet::from(['a', 'b'])),
-    test_lipogram2: ("Jackdaws love my big sphinx of quartz", HashSet::from([]), HashSet::from(['x'])),
-    test_lipogram3: ("abcdefghijklmnopqrstuvwxyz", HashSet::from([]), HashSet::from(['x', 'y', 'z'])),
-    test_lipogram4: ("Five quacking zephyrs jolt my wax bed", HashSet::from([]), HashSet::from(['a'])),
-    test_lipogram5: ("The quick brown fox jumped over the lazy dog", HashSet::from(['s']), HashSet::from([])),
-    test_lipogram6: ("abcdefghijklmnopqrstuvwxy", HashSet::from(['z']), HashSet::from(['y', 'z'])),
-    test_lipogram7: ("The brown fox jumped over the lazy dog with a brick", HashSet::from(['q', 's']), HashSet::from(['b'])),
+    test_lipogram! {
+        lipogram1: ("The quick brown fox jumps over the lazy dog", HashSet::from([]), HashSet::from(['a', 'b'])),
+        lipogram2: ("Jackdaws love my big sphinx of quartz", HashSet::from([]), HashSet::from(['x'])),
+        lipogram3: ("abcdefghijklmnopqrstuvwxyz", HashSet::from([]), HashSet::from(['x', 'y', 'z'])),
+        lipogram4: ("Five quacking zephyrs jolt my wax bed", HashSet::from([]), HashSet::from(['a'])),
+        lipogram5: ("The quick brown fox jumped over the lazy dog", HashSet::from(['s']), HashSet::from([])),
+        lipogram6: ("abcdefghijklmnopqrstuvwxy", HashSet::from(['z']), HashSet::from(['y', 'z'])),
+        lipogram7: ("The brown fox jumped over the lazy dog with a brick", HashSet::from(['q', 's']), HashSet::from(['b'])),
+        lipogram8: ("ABCdefghijklmnopqrstuvwx", HashSet::from(['y', 'z']), HashSet::from(['a', 'b'])),
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_is_lipogram_panics_when_missing_chars_are_upper_case() {
+        is_lipogram("abcdefghijklmnopqrstuvwx", &HashSet::from(['y', 'Z']));
+    }
 }
