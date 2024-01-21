@@ -7,13 +7,13 @@ pub fn gaussian_quadrature(a: f64, b: f64, f: impl Fn(f64) -> f64, order: usize)
     let mut result = 0.0;
 
     let result: f64 = points
-    .iter()
-    .zip(weights.iter())
-    .map(|(&point, &weight)| {
-        let x_i = 0.5 * ((a + b) + (b - a) * point);
-        weight * f(x_i)
-    })
-    .sum();
+        .iter()
+        .zip(weights.iter())
+        .map(|(&point, &weight)| {
+            let x_i = 0.5 * ((a + b) + (b - a) * point);
+            weight * f(x_i)
+        })
+        .sum();
 
     0.5 * (b - a) * result
 }
