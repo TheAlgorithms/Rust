@@ -44,5 +44,8 @@ mod tests {
 
         let result = gaussian_quadrature(a, b, f, order);
         assert!((result - expected).abs() < eps);
+
+        let result_neg = gaussian_quadrature(b, a, f, order);
+        assert!((result_neg + expected).abs() < eps);
     }
 }
