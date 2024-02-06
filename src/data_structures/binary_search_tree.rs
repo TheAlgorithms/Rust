@@ -88,7 +88,7 @@ where
                         }
                         None => {
                             let mut node = BinarySearchTree::new();
-                            node.insert(value);
+                            node.value = Some(value);
                             *target_node = Some(Box::new(node));
                         }
                     }
