@@ -32,7 +32,7 @@ mod tests {
     use super::*;
     use crate::sorting::have_same_elements;
 
-    fn is_wiggle_sorted(nums: &Vec<i32>) -> bool {
+    fn is_wiggle_sorted(nums: &[i32]) -> bool {
         if nums.is_empty() {
             return true;
         }
