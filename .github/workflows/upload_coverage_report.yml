@@ -28,7 +28,9 @@ jobs:
           --lcov
           --output-path "${{ env.REPORT_NAME }}"
       - name: Upload coverage to codecov (tokenless)
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name != github.repository
         uses: codecov/codecov-action@v4
         with:
           files: "${{ env.REPORT_NAME }}"
