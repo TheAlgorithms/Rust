@@ -1,5 +1,3 @@
-use std::cmp::PartialOrd;
-
 pub fn partition<T: PartialOrd>(arr: &mut [T], lo: usize, hi: usize) -> usize {
     let pivot = hi;
     let mut i = lo;
@@ -25,13 +23,19 @@ pub fn partition<T: PartialOrd>(arr: &mut [T], lo: usize, hi: usize) -> usize {
     i
 }
 
-fn _quick_sort<T: Ord>(arr: &mut [T], lo: usize, hi: usize) {
-    if lo < hi {
-        let p = partition(arr, lo, hi);
-        if p > 0 {
-            _quick_sort(arr, lo, p - 1);
+fn _quick_sort<T: Ord>(arr: &mut [T], mut lo: usize, mut hi: usize) {
+    while lo < hi {
+        let pivot = partition(arr, lo, hi);
+
+        if pivot - lo < hi - pivot {
+            if pivot > 0 {
+                _quick_sort(arr, lo, pivot - 1);
+            }
+            lo = pivot + 1;
+        } else {
+            _quick_sort(arr, pivot + 1, hi);
+            hi = pivot - 1;
         }
-        _quick_sort(arr, p + 1, hi);
     }
 }
 
