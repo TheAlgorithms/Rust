@@ -1,4 +1,8 @@
 pub fn selection_sort<T: Ord>(arr: &mut [T]) {
+    if arr.is_empty() {
+        return;
+    }
+
     let len = arr.len();
     for left in 0..(len - 1) {
         let mut smallest = left;
