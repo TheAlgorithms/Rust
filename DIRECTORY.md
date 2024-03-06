@@ -67,6 +67,7 @@
     * [Rb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/rb_tree.rs)
     * [Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree.rs)
     * [Segment Tree Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree_recursive.rs)
+    * [Sparse Table](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/sparse_table.rs)
     * [Stack Using Singly Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/stack_using_singly_linked_list.rs)
     * [Treap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/treap.rs)
     * [Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/trie.rs)
