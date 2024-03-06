@@ -19,7 +19,7 @@ pub struct SparseTable<T: PartialOrd + Copy> {
 }
 
 impl<T: PartialOrd + Copy> SparseTable<T> {
-    pub fn new(input: &Vec<T>) -> SparseTable<T> {
+    pub fn new(input: &[T]) -> SparseTable<T> {
         let mut table: Vec<Vec<usize>> = vec![(0..input.len()).collect()];
         let len = input.len();
 
@@ -37,7 +37,7 @@ impl<T: PartialOrd + Copy> SparseTable<T> {
             table.push(row);
         }
         SparseTable {
-            input: input.clone(),
+            input: input.to_vec(),
             table,
         }
     }
