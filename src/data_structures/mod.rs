@@ -20,6 +20,7 @@ mod treap;
 mod trie;
 mod union_find;
 mod veb_tree;
+mod sparse_table;
 
 pub use self::avl_tree::AVLTree;
 pub use self::b_tree::BTree;
@@ -45,3 +46,4 @@ pub use self::treap::Treap;
 pub use self::trie::Trie;
 pub use self::union_find::UnionFind;
 pub use self::veb_tree::VebTree;
+pub use self::sparse_table::SparseTable;
