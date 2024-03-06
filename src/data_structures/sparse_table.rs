@@ -47,7 +47,7 @@ impl<T: PartialOrd + Copy> SparseTable<T> {
             std::mem::swap(&mut r, &mut l);
         }
         let loglen = (r - l + 1).ilog2() as usize;
-        let idx: usize = r - (1 << loglen) + 1;
+        let idx: usize = r + 1 - (1 << loglen);
         let a = self.table[loglen][l];
         let b = self.table[loglen][idx];
         if self.input[a] < self.input[b] {
@@ -68,5 +68,15 @@ mod tests {
         assert_eq!(-4, sparse_v1.get_min(0, 9));
         assert_eq!(6, sparse_v1.get_min(8, 8));
         assert_eq!(7, sparse_v1.get_min(4, 3));
+    }
+
+    #[test]
+    fn float_tests() {
+        let sparse_v1 = super::SparseTable::new(&[0.4, -2.3, 0.0, 234.22, 12.2, -3.0]);
+
+        assert_eq!(-3.0, sparse_v1.get_min(0, 5));
+        assert_eq!(-2.3, sparse_v1.get_min(0, 3));
+        assert_eq!(12.2, sparse_v1.get_min(3, 4));
+        assert_eq!(0.0, sparse_v1.get_min(2, 2));
     }
 }
