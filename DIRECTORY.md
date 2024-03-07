@@ -151,6 +151,9 @@
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
+    * Perceptron
+      * [Single Layer Perceptron](https://github.com/943n/RustAlgorithms/blob/master/src/machine_learning/perceptron/single_layer_perceptron.rs)
+      * [Activation Function](https://github.com/943n/RustAlgorithms/blob/master/src/machine_learning/perceptron/activation_function.rs)
   * Math
     * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
     * [Aliquot Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/aliquot_sum.rs)
