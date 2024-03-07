@@ -1,13 +1,18 @@
+// Perceptron model implementation.
+// A perceptron is a basic unit of a neural network, capable of binary classification.
+// It takes inputs, applies weights, and passes the result through an activation function to produce an output.
+
 use crate::machine_learning::perceptron::ActivationFunction;
 use rand::prelude::*;
 
 pub struct Perceptron {
-    weights: Vec<f64>,
-    learning_rate: f64,
-    activation_fn: ActivationFunction,
+    weights: Vec<f64>,                  // Weights assigned to each input feature
+    learning_rate: f64,                 // Learning rate for weight adjustment during training
+    activation_fn: ActivationFunction,  // Activation function used to compute the output
 }
 
 impl Perceptron {
+    // Initialize a new perceptron with random weights, learning rate, and activation function
     pub fn new(input_size: usize, learning_rate: f64, activation_fn: ActivationFunction) -> Self {
         let mut rng = thread_rng();
         let weights: Vec<f64> = (0..input_size).map(|_| rng.gen_range(-1.0..1.0)).collect();
@@ -18,17 +23,20 @@ impl Perceptron {
         }
     }
 
+    // Perform feedforward computation to produce an output based on input features
     fn feedforward(&self, inputs: &[f64]) -> f64 {
         let sum: f64 = inputs.iter().zip(&self.weights).map(|(&i, &w)| i * w).sum();
         self.activation_fn.activate(sum)
     }
 
+    // Update weights based on the provided inputs and error
     fn update_weights(&mut self, inputs: &[f64], error: f64) {
         for (weight, &input) in self.weights.iter_mut().zip(inputs) {
             *weight += self.learning_rate * error * input;
         }
     }
 
+    // Train the perceptron using the provided inputs and target outputs for a specified number of epochs
     pub fn train(&mut self, inputs: &[Vec<f64>], epochs: usize) {
         let mut rng = thread_rng();
         for _ in 0..epochs {
@@ -44,6 +52,7 @@ impl Perceptron {
         }
     }
 
+    // Test the perceptron with the provided inputs and expected outputs, returning accuracy
     pub fn test(&self, inputs: &[Vec<f64>], outputs: &[f64]) -> f64 {
         let mut correct_predictions = 0;
         for (input, &output) in inputs.iter().zip(outputs) {
@@ -72,7 +81,7 @@ mod tests {
             vec![1.0, 2.0],
             vec![2.0, 4.0],
             vec![3.0, 6.0],
-            vec![4.0, 8.0],
+            vec![8.0, 16.0],
         ];
 
         // Train the perceptron on the training data
@@ -89,7 +98,6 @@ mod tests {
 
         let accuracy = perceptron.test(&testing_data, &[0.0, 2.0, 4.0, 6.0, 8.0]);
 
-        // Assert that the accuracy is 100%
         assert_eq!(accuracy, 1.0);
     }
 }
