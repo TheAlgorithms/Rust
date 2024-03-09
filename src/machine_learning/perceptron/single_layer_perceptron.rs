@@ -6,9 +6,9 @@ use crate::machine_learning::perceptron::ActivationFunction;
 use rand::prelude::*;
 
 pub struct Perceptron {
-    weights: Vec<f64>,                  // Weights assigned to each input feature
-    learning_rate: f64,                 // Learning rate for weight adjustment during training
-    activation_fn: ActivationFunction,  // Activation function used to compute the output
+    weights: Vec<f64>,                 // Weights assigned to each input feature
+    learning_rate: f64,                // Learning rate for weight adjustment during training
+    activation_fn: ActivationFunction, // Activation function used to compute the output
 }
 
 impl Perceptron {
