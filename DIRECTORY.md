@@ -301,6 +301,7 @@
     * [Hamming Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/hamming_distance.rs)
     * [Jaro Winkler Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/jaro_winkler_distance.rs)
     * [Knuth Morris Pratt](https://github.com/TheAlgorithms/Rust/blob/master/src/string/knuth_morris_pratt.rs)
+    * [Length Of Longest Substring](https://github.com/TheAlgorithms/Rust/blob/master/src/string/length_of_longest_substring.rs)
     * [Levenshtein Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/levenshtein_distance.rs)
     * [Lipogram](https://github.com/TheAlgorithms/Rust/blob/master/src/string/lipogram.rs)
     * [Manacher](https://github.com/TheAlgorithms/Rust/blob/master/src/string/manacher.rs)
