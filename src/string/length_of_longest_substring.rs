@@ -41,19 +41,16 @@ mod tests {
 
     #[test]
     fn example_one() {
-        assert_eq!(
-            length_of_longest_substring("abcabcbb".to_string()),
-            3 as i32
-        );
+        assert_eq!(length_of_longest_substring("abcabcbb".to_string()), 3_i32);
     }
 
     #[test]
     fn example_two() {
-        assert_eq!(length_of_longest_substring("bbbbb".to_string()), 1 as i32);
+        assert_eq!(length_of_longest_substring("bbbbb".to_string()), 1_i32);
     }
 
     #[test]
     fn example_three() {
-        assert_eq!(length_of_longest_substring("pwwkew".to_string()), 3 as i32);
+        assert_eq!(length_of_longest_substring("pwwkew".to_string()), 3_i32);
     }
 }
