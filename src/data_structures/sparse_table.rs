@@ -26,18 +26,18 @@ impl<T: PartialOrd + Copy> SparseTable<T> {
         }
     }
 
-    pub fn get_min(&self, mut l: usize, mut r: usize) -> T {
-        if r < l {
-            std::mem::swap(&mut r, &mut l);
+    pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, &str> {
+        if start >= end || start >= self.input.len() || end > self.input.len() {
+            return Err("invalid range");
         }
-        let loglen = (r - l + 1).ilog2() as usize;
-        let idx: usize = r + 1 - (1 << loglen);
-        let a = self.table[loglen][l];
+        let loglen = (end - start).ilog2() as usize;
+        let idx: usize = end - (1 << loglen);
+        let a = self.table[loglen][start];
         let b = self.table[loglen][idx];
         if self.input[a] < self.input[b] {
-            return self.input[a];
+            return Ok(self.input[a]);
         }
-        self.input[b]
+        Ok(self.input[b])
     }
 }
 
@@ -101,19 +101,19 @@ mod tests {
         let v1 = vec![1, 3, 6, 123, 7, 235, 3, -4, 6, 2];
         let sparse_v1 = super::SparseTable::new(&v1);
 
-        assert_eq!(3, sparse_v1.get_min(1, 5));
-        assert_eq!(-4, sparse_v1.get_min(0, 9));
-        assert_eq!(6, sparse_v1.get_min(8, 8));
-        assert_eq!(7, sparse_v1.get_min(4, 3));
+        assert_eq!(Ok(3), sparse_v1.get_range_min(1, 6));
+        assert_eq!(Ok(-4), sparse_v1.get_range_min(0, 10));
+        assert_eq!(Ok(6), sparse_v1.get_range_min(8, 9));
+        assert_eq!(Err("invalid range"), sparse_v1.get_range_min(4, 3));
     }
 
     #[test]
     fn float_query_tests() {
         let sparse_v1 = super::SparseTable::new(&[0.4, -2.3, 0.0, 234.22, 12.2, -3.0]);
 
-        assert_eq!(-3.0, sparse_v1.get_min(0, 5));
-        assert_eq!(-2.3, sparse_v1.get_min(0, 3));
-        assert_eq!(12.2, sparse_v1.get_min(3, 4));
-        assert_eq!(0.0, sparse_v1.get_min(2, 2));
+        assert_eq!(Ok(-3.0), sparse_v1.get_range_min(0, 6));
+        assert_eq!(Ok(-2.3), sparse_v1.get_range_min(0, 4));
+        assert_eq!(Ok(12.2), sparse_v1.get_range_min(3, 5));
+        assert_eq!(Ok(0.0), sparse_v1.get_range_min(2, 3));
     }
 }
