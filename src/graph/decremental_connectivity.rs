@@ -62,11 +62,6 @@ impl<'a> DecrementalConnectivity<'a> {
         self.count += 1;
     }
 
-    // Not sure if this is of any use for devs
-    pub fn get_component(&self, u: usize) -> usize {
-        self.component[u]
-    }
-
     fn calc_component(&mut self) -> Vec<usize> {
         let mut visited: Vec<bool> = vec![false; self.adjacent.len()];
         let mut comp: Vec<usize> = vec![0; self.adjacent.len()];
