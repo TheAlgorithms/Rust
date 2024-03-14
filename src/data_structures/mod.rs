@@ -41,7 +41,7 @@ pub use self::queue::Queue;
 pub use self::rb_tree::RBTree;
 pub use self::segment_tree::SegmentTree;
 pub use self::segment_tree_recursive::SegmentTree as SegmentTreeRecursive;
-pub use self::sparse_table::SparseTable;
+pub use self::sparse_table::RangeMinimumQuery;
 pub use self::stack_using_singly_linked_list::Stack;
 pub use self::treap::Treap;
 pub use self::trie::Trie;

@@ -11,16 +11,16 @@
 
 use std::cmp::PartialOrd;
 
-pub struct SparseTable<T: PartialOrd + Copy> {
+pub struct RangeMinimumQuery<T: PartialOrd + Copy> {
     // the current version makes a copy of the input array, but this could be changed
     // to references if needed (in that case, we dont need T to implement the Copy trait)
     input: Vec<T>,
     table: Vec<Vec<usize>>,
 }
 
-impl<T: PartialOrd + Copy> SparseTable<T> {
-    pub fn new(input: &[T]) -> SparseTable<T> {
-        SparseTable {
+impl<T: PartialOrd + Copy> RangeMinimumQuery<T> {
+    pub fn new(input: &[T]) -> RangeMinimumQuery<T> {
+        RangeMinimumQuery {
             input: input.to_vec(),
             table: build_sparse_table(input),
         }
@@ -66,7 +66,7 @@ mod tests {
     #[test]
     fn construction_tests() {
         let v1 = [1, 3, 6, 123, 7, 235, 3, -4, 6, 2];
-        let sparse_v1 = super::SparseTable::new(&v1);
+        let sparse_v1 = super::RangeMinimumQuery::new(&v1);
         assert_eq!(
             sparse_v1.table,
             vec![
@@ -80,7 +80,7 @@ mod tests {
         let v2 = [
             20, 13, -13, 2, 3634, -2, 56, 3, 67, 8, 23, 0, -23, 1, 5, 85, 3, 24, 5, -10, 3, 4, 20,
         ];
-        let sparse_v2 = super::SparseTable::new(&v2);
+        let sparse_v2 = super::RangeMinimumQuery::new(&v2);
         assert_eq!(
             sparse_v2.table,
             vec![
@@ -99,7 +99,7 @@ mod tests {
     #[test]
     fn simple_query_tests() {
         let v1 = vec![1, 3, 6, 123, 7, 235, 3, -4, 6, 2];
-        let sparse_v1 = super::SparseTable::new(&v1);
+        let sparse_v1 = super::RangeMinimumQuery::new(&v1);
 
         assert_eq!(Ok(3), sparse_v1.get_range_min(1, 6));
         assert_eq!(Ok(-4), sparse_v1.get_range_min(0, 10));
@@ -109,7 +109,7 @@ mod tests {
 
     #[test]
     fn float_query_tests() {
-        let sparse_v1 = super::SparseTable::new(&[0.4, -2.3, 0.0, 234.22, 12.2, -3.0]);
+        let sparse_v1 = super::RangeMinimumQuery::new(&[0.4, -2.3, 0.0, 234.22, 12.2, -3.0]);
 
         assert_eq!(Ok(-3.0), sparse_v1.get_range_min(0, 6));
         assert_eq!(Ok(-2.3), sparse_v1.get_range_min(0, 4));
