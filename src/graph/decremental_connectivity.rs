@@ -38,22 +38,19 @@ impl<'a> DecrementalConnectivity<'a> {
 
     // original adjacency will not be modified by this function
     // expects for the graph to have an edge (u,v)
-    pub fn delete(&mut self, u: usize, v: usize) {
+    pub fn delete(&mut self, mut u: usize, mut v: usize) {
         if self.component[u] != self.component[v] {
             return;
         }
-
         let mut queue: Vec<usize> = Vec::new();
 
-        if self.is_smaller(u, v).expect("invalid indeces") {
-            queue.push(u);
-            self.dfs_id += 1;
-            self.visited[v] = self.dfs_id;
-        } else {
-            queue.push(v);
-            self.dfs_id += 1;
-            self.visited[u] = self.dfs_id;
+        if self.is_smaller(v, u) {
+            std::mem::swap(&mut v, &mut u);
         }
+        queue.push(u);
+        self.dfs_id += 1;
+        self.visited[v] = self.dfs_id;
+    
         while !queue.is_empty() {
             let current = queue[0];
             self.dfs_step(&mut queue, self.dfs_id);
@@ -83,11 +80,7 @@ impl<'a> DecrementalConnectivity<'a> {
         comp
     }
 
-    fn is_smaller(&mut self, u: usize, v: usize) -> Option<bool> {
-        if u >= self.adjacent.len() || u >= self.adjacent.len() {
-            return None;
-        }
-
+    fn is_smaller(&mut self, u: usize, v: usize) -> bool {
         let mut u_queue: Vec<usize> = vec![u];
         let u_id = self.dfs_id;
         self.visited[v] = u_id;
@@ -103,7 +96,7 @@ impl<'a> DecrementalConnectivity<'a> {
             self.dfs_step(&mut u_queue, u_id);
             self.dfs_step(&mut v_queue, v_id);
         }
-        Some(u_queue.is_empty())
+        u_queue.is_empty()
     }
 
     fn dfs_step(&mut self, queue: &mut Vec<usize>, dfs_id: usize) {
