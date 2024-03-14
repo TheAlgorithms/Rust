@@ -14,30 +14,30 @@ use std::cmp::PartialOrd;
 pub struct RangeMinimumQuery<T: PartialOrd + Copy> {
     // the current version makes a copy of the input array, but this could be changed
     // to references if needed (in that case, we dont need T to implement the Copy trait)
-    input: Vec<T>,
-    table: Vec<Vec<usize>>,
+    array: Vec<T>,
+    sparse_table: Vec<Vec<usize>>,
 }
 
 impl<T: PartialOrd + Copy> RangeMinimumQuery<T> {
     pub fn new(input: &[T]) -> RangeMinimumQuery<T> {
         RangeMinimumQuery {
-            input: input.to_vec(),
-            table: build_sparse_table(input),
+            array: input.to_vec(),
+            sparse_table: build_sparse_table(input),
         }
     }
 
     pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, &str> {
-        if start >= end || start >= self.input.len() || end > self.input.len() {
+        if start >= end || start >= self.array.len() || end > self.array.len() {
             return Err("invalid range");
         }
         let loglen = (end - start).ilog2() as usize;
         let idx: usize = end - (1 << loglen);
-        let a = self.table[loglen][start];
-        let b = self.table[loglen][idx];
-        if self.input[a] < self.input[b] {
-            return Ok(self.input[a]);
+        let a = self.sparse_table[loglen][start];
+        let b = self.sparse_table[loglen][idx];
+        if self.array[a] < self.array[b] {
+            return Ok(self.array[a]);
         }
-        Ok(self.input[b])
+        Ok(self.array[b])
     }
 }
 
@@ -68,7 +68,7 @@ mod tests {
         let v1 = [1, 3, 6, 123, 7, 235, 3, -4, 6, 2];
         let sparse_v1 = super::RangeMinimumQuery::new(&v1);
         assert_eq!(
-            sparse_v1.table,
+            sparse_v1.sparse_table,
             vec![
                 vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 vec![0, 1, 2, 4, 4, 6, 7, 7, 9],
@@ -82,7 +82,7 @@ mod tests {
         ];
         let sparse_v2 = super::RangeMinimumQuery::new(&v2);
         assert_eq!(
-            sparse_v2.table,
+            sparse_v2.sparse_table,
             vec![
                 vec![
                     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
