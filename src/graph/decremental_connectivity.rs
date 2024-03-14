@@ -171,8 +171,9 @@ mod tests {
         dec_con1.delete(7, 8);
         assert_eq!(dec_con1.connected(8, 7), Some(false));
         dec_con1.delete(7, 8);
+        dec_con1.delete(1, 4);
 
         let mut dec_con2 = super::DecrementalConnectivity::new(&adjacent);
-        dec_con2.delete(2, 0);
+        dec_con2.delete(4, 1);
     }
 }
