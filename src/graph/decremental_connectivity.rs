@@ -45,7 +45,7 @@ impl<'a> DecrementalConnectivity<'a> {
 
         let mut queue: Vec<usize> = Vec::new();
 
-        if self.is_smaller(u, v).expect("invalid indeces") {
+        if self.is_smaller(u, v) {
             queue.push(u);
             self.dfs_id += 1;
             self.visited[v] = self.dfs_id;
@@ -53,6 +53,7 @@ impl<'a> DecrementalConnectivity<'a> {
             queue.push(v);
             self.dfs_id += 1;
             self.visited[u] = self.dfs_id;
+            println!("entered");
         }
         while !queue.is_empty() {
             let current = queue[0];
@@ -83,11 +84,7 @@ impl<'a> DecrementalConnectivity<'a> {
         comp
     }
 
-    fn is_smaller(&mut self, u: usize, v: usize) -> Option<bool> {
-        if u >= self.adjacent.len() || u >= self.adjacent.len() {
-            return None;
-        }
-
+    fn is_smaller(&mut self, u: usize, v: usize) -> bool {
         let mut u_queue: Vec<usize> = vec![u];
         let u_id = self.dfs_id;
         self.visited[v] = u_id;
@@ -103,7 +100,7 @@ impl<'a> DecrementalConnectivity<'a> {
             self.dfs_step(&mut u_queue, u_id);
             self.dfs_step(&mut v_queue, v_id);
         }
-        Some(u_queue.is_empty())
+        u_queue.is_empty()
     }
 
     fn dfs_step(&mut self, queue: &mut Vec<usize>, dfs_id: usize) {
@@ -175,5 +172,8 @@ mod tests {
 
         let mut dec_con2 = super::DecrementalConnectivity::new(&adjacent);
         dec_con2.delete(4, 1);
+
+        let mut dec_con3 = super::DecrementalConnectivity::new(&adjacent);
+        dec_con3.delete(1, 4);
     }
 }
