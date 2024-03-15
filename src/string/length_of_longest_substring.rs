@@ -18,7 +18,7 @@ Note that your answer must be the length of the substring; "pwke" is a subsequen
 */
 
 pub fn length_of_longest_substring(s: String) -> i32 {
-    if s.is_ascii() == false {
+    if !s.is_ascii() {
         panic!("{}", "Please enter ascii-compliant characters");
     }
     let s = s.as_bytes();
