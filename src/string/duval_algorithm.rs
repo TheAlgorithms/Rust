@@ -63,7 +63,7 @@ mod test {
     fn test_factorization_with_duval_multiple() {
         let text = "abcdabcdababc";
         assert_eq!(
-            factorization_with_duval(text.chars().collect::<Vec<char> >()),
+            factorization_with_duval(text.chars().collect::<Vec<char>>()),
             ["abcd", "abcd", "ababc"]
         );
     }
