@@ -35,28 +35,23 @@ pub fn duval_algorithm(s: &str) -> Vec<String> {
 mod test {
     use super::*;
 
-    #[test]
-    fn test_duval_multiple() {
-        let text = "abcdabcdababc";
-        assert_eq!(duval_algorithm(text), ["abcd", "abcd", "ababc"]);
+    macro_rules! test_duval_algorithm {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (text, expected) = $inputs;
+                assert_eq!(duval_algorithm(text), expected);
+            }
+        )*
+        }
     }
 
-    #[test]
-    fn test_duval_all() {
-        let text = "aaa";
-        assert_eq!(duval_algorithm(text), ["a", "a", "a"]);
-    }
-
-    #[test]
-    fn test_duval_single() {
-        let text = "ababb";
-        assert_eq!(duval_algorithm(text), ["ababb"]);
-    }
-
-    #[test]
-    fn test_duval_unicode() {
-        let text = "അഅഅ";
-        assert_eq!(duval_algorithm(text), ["അ", "അ", "അ"]);
+    test_duval_algorithm! {
+        multiple: ("abcdabcdababc", ["abcd", "abcd", "ababc"]),
+        all: ("aaa", ["a", "a", "a"]),
+        single: ("ababb", ["ababb"]),
+        unicode: ("അഅഅ", ["അ", "അ", "അ"]),
     }
 
     #[test]
