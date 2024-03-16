@@ -1,6 +1,6 @@
 // A string is called simple (or a Lyndon word), if it is strictly smaller than any of its own nontrivial suffixes.
 // Duval (1983) developed an algorithm for finding the standard factorization that runs in linear time and constant space. Source: https://en.wikipedia.org/wiki/Lyndon_word
-fn factorization_with_duval(s: &[u8]) -> Vec<String> {
+fn factorization_with_duval(s: Vec<char>) -> Vec<String> {
     let n = s.len();
     let mut i = 0;
     let mut factorization: Vec<String> = Vec::new();
@@ -19,7 +19,7 @@ fn factorization_with_duval(s: &[u8]) -> Vec<String> {
         }
 
         while i <= k {
-            factorization.push(String::from_utf8(s[i..i + j - k].to_vec()).unwrap());
+            factorization.push(s[i..i + j - k].iter().collect::<String>());
             i += j - k;
         }
     }
@@ -28,7 +28,7 @@ fn factorization_with_duval(s: &[u8]) -> Vec<String> {
 }
 
 pub fn duval_algorithm(s: &str) -> Vec<String> {
-    return factorization_with_duval(s.as_bytes());
+    return factorization_with_duval(s.chars().collect::<Vec<char>>());
 }
 
 #[cfg(test)]
@@ -54,10 +54,16 @@ mod test {
     }
 
     #[test]
+    fn test_duval_unicode() {
+        let text = "അഅഅ";
+        assert_eq!(duval_algorithm(text), ["അ", "അ", "അ"]);
+    }
+
+    #[test]
     fn test_factorization_with_duval_multiple() {
         let text = "abcdabcdababc";
         assert_eq!(
-            factorization_with_duval(text.as_bytes()),
+            factorization_with_duval(text.chars().collect::<Vec<char> >()),
             ["abcd", "abcd", "ababc"]
         );
     }
