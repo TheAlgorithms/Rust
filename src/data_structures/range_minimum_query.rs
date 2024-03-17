@@ -105,7 +105,9 @@ mod tests {
         assert_eq!(Ok(3), sparse_v1.get_range_min(1, 6));
         assert_eq!(Ok(-4), sparse_v1.get_range_min(0, 10));
         assert_eq!(Ok(6), sparse_v1.get_range_min(8, 9));
-        assert_eq!(Err("invalid range"), sparse_v1.get_range_min(4, 3));
+        assert!(sparse_v1.get_range_min(4, 3).is_err());
+        assert!(sparse_v1.get_range_min(0, 1000).is_err());
+        assert!(sparse_v1.get_range_min(1000, 1001).is_err());
     }
 
     #[test]
