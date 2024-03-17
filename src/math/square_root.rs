@@ -1,5 +1,5 @@
 /// squre_root returns the square root
-/// of a f64 number using Newtons method
+/// of a f64 number using Newton's method
 pub fn square_root(num: f64) -> f64 {
     if num < 0.0_f64 {
         return f64::NAN;
@@ -15,8 +15,8 @@ pub fn square_root(num: f64) -> f64 {
 }
 
 // fast_inv_sqrt returns an approximation of the inverse square root
-// This algorithm was fist used in Quake and has been reimplimented in a few other languages
-// This crate impliments it more throughly: https://docs.rs/quake-inverse-sqrt/latest/quake_inverse_sqrt/
+// This algorithm was first used in Quake and has been reimplemented in a few other languages
+// This crate implements it more thoroughly: https://docs.rs/quake-inverse-sqrt/latest/quake_inverse_sqrt/
 pub fn fast_inv_sqrt(num: f32) -> f32 {
     // If you are confident in your input this can be removed for speed
     if num < 0.0f32 {
@@ -28,9 +28,9 @@ pub fn fast_inv_sqrt(num: f32) -> f32 {
     let y = f32::from_bits(i);
 
     println!("num: {:?}, out: {:?}", num, y * (1.5 - 0.5 * num * y * y));
-    // First iteration of newton approximation
+    // First iteration of Newton's approximation
     y * (1.5 - 0.5 * num * y * y)
-    // The above can be repeated again for more precision
+    // The above can be repeated for more precision
 }
 
 #[cfg(test)]
