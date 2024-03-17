@@ -3,8 +3,8 @@ pub fn knuth_morris_pratt(st: &str, pat: &str) -> Vec<usize> {
         return vec![];
     }
 
-    let string = st.as_bytes();
-    let pattern = pat.as_bytes();
+    let string = st.chars().collect::<Vec<char>>();
+    let pattern = pat.chars().collect::<Vec<char>>();
 
     // build the partial match table
     let mut partial = vec![0];
@@ -50,6 +50,12 @@ mod tests {
     fn a_few_separate_matches() {
         let index = knuth_morris_pratt("abababa", "ab");
         assert_eq!(index, vec![0, 2, 4]);
+    }
+
+    #[test]
+    fn unicode() {
+        let index = knuth_morris_pratt("അഅഅ", "അ");
+        assert_eq!(index, vec![0, 1, 2]);
     }
 
     #[test]
