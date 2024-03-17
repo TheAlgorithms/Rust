@@ -64,7 +64,7 @@
       * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
       * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
     * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
-    * [Range-Minimum Query](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/range_minimum_query.rs)
+    * [Range Minimum Query](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/range_minimum_query.rs)
     * [Rb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/rb_tree.rs)
     * [Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree.rs)
     * [Segment Tree Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree_recursive.rs)
