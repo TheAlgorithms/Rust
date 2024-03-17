@@ -57,6 +57,7 @@ mod tests {
         each_letter_matches: ("aaa", "a", vec![0, 1, 2]),
         a_few_seperate_matches: ("abababa", "ab", vec![0, 2, 4]),
         unicode: ("അഅഅ", "അ", vec![0, 1, 2]),
+        unicode_no_match_but_similar_bytes: (&String::from_utf8(vec![224, 180, 133]).unwrap(), &String::from_utf8(vec![224, 180, 132]).unwrap(), vec![]),
         one_match: ("ABC ABCDAB ABCDABCDABDE",  "ABCDABD", vec![15]),
         lots_of_matches: ("aaabaabaaaaa",  "aa", vec![0, 1, 4, 7, 8, 9, 10]),
         lots_of_intricate_matches: ("ababababa", "aba", vec![0, 2, 4, 6]),
