@@ -97,6 +97,12 @@ mod tests {
     }
 
     #[test]
+    fn empty_array() {
+        let empty: std::vec::Vec<u8>= vec![];
+        assert_eq!(permute_unique(&empty), vec![vec![]]);
+    }
+
+    #[test]
     fn test_3_times_the_same_value() {
         let original = vec![1, 1, 1];
         let res = permute(&original);
