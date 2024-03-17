@@ -46,8 +46,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (input, pattern, expected) = $inputs;
-                    let index = knuth_morris_pratt(input, pattern);
-                    assert_eq!(index, expected);
+                    assert_eq!(knuth_morris_pratt(input, pattern), expected);
                 }
             )*
         }
