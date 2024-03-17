@@ -1,5 +1,5 @@
 /*
-    A Sparse Table, is a data structure for answering range-minimum-queries of an array.
+    A RangeMinimumQuery, is a data structure for answering range-minimum-queries of an array.
     For a given array A[], of elements for which an ordering exists, we want to find the
     minimum value A[x] of a subarray A[i..j], where i and j are the query parameters.
 
