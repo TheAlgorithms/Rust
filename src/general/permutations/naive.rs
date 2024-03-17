@@ -99,6 +99,7 @@ mod tests {
     #[test]
     fn empty_array() {
         let empty: std::vec::Vec<u8> = vec![];
+        assert_eq!(permute(&empty), vec![vec![]]);
         assert_eq!(permute_unique(&empty), vec![vec![]]);
     }
 
