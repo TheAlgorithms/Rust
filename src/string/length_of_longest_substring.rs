@@ -17,7 +17,7 @@ Explanation: Since the longest substring without repeated characters is "wke", i
 Note that your answer must be the length of the substring; "pwke" is a subsequence, not a substring.
 */
 
-pub fn length_of_longest_substring(s: String) -> i32 {
+pub fn length_of_longest_substring(s: String) -> usize {
     if !s.is_ascii() {
         panic!("{}", "Please enter ascii-compliant characters");
     }
@@ -35,7 +35,7 @@ pub fn length_of_longest_substring(s: String) -> i32 {
         window[c] = true;
         ans = ans.max(right - left + 1); // Update window length maximum
     }
-    ans as i32
+    ans
 }
 
 #[cfg(test)]
@@ -44,16 +44,16 @@ mod tests {
 
     #[test]
     fn example_one() {
-        assert_eq!(length_of_longest_substring("abcabcbb".to_string()), 3_i32);
+        assert_eq!(length_of_longest_substring("abcabcbb".to_string()), 3_usize);
     }
 
     #[test]
     fn example_two() {
-        assert_eq!(length_of_longest_substring("bbbbb".to_string()), 1_i32);
+        assert_eq!(length_of_longest_substring("bbbbb".to_string()), 1_usize);
     }
 
     #[test]
     fn example_three() {
-        assert_eq!(length_of_longest_substring("pwwkew".to_string()), 3_i32);
+        assert_eq!(length_of_longest_substring("pwwkew".to_string()), 3_usize);
     }
 }
