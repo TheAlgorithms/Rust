@@ -155,17 +155,17 @@ mod tests {
             vec![7],
         ];
         let mut dec_con1 = super::DecrementalConnectivity::new(&adjacent);
-        assert_eq!(dec_con1.connected(3, 4), Some(true));
-        assert_eq!(dec_con1.connected(5, 0), Some(true));
-        assert_eq!(dec_con1.connected(2, 7), Some(false));
-        assert_eq!(dec_con1.connected(0, 9), None);
+        assert!(dec_con1.connected(3, 4).unwrap());
+        assert!(dec_con1.connected(5, 0).unwrap());
+        assert!(!dec_con1.connected(2, 7).unwrap());
+        assert!(dec_con1.connected(0, 9).is_none());
         dec_con1.delete(0, 2);
-        assert_eq!(dec_con1.connected(3, 4), Some(true));
-        assert_eq!(dec_con1.connected(5, 0), Some(false));
-        assert_eq!(dec_con1.connected(5, 6), Some(true));
-        assert_eq!(dec_con1.connected(8, 7), Some(true));
+        assert!(dec_con1.connected(3, 4).unwrap());
+        assert!(!dec_con1.connected(5, 0).unwrap());
+        assert!(dec_con1.connected(5, 6).unwrap());
+        assert!(dec_con1.connected(8, 7).unwrap());
         dec_con1.delete(7, 8);
-        assert_eq!(dec_con1.connected(8, 7), Some(false));
+        assert!(!dec_con1.connected(8, 7).unwrap());
         dec_con1.delete(7, 8);
         dec_con1.delete(1, 4);
 
