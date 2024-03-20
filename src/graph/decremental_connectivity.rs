@@ -53,7 +53,6 @@ impl<'a> DecrementalConnectivity<'a> {
             queue.push(v);
             self.dfs_id += 1;
             self.visited[u] = self.dfs_id;
-            println!("entered");
         }
         while !queue.is_empty() {
             let current = queue[0];
