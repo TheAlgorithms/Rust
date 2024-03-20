@@ -310,6 +310,7 @@
     * [Rabin Karp](https://github.com/TheAlgorithms/Rust/blob/master/src/string/rabin_karp.rs)
     * [Reverse](https://github.com/TheAlgorithms/Rust/blob/master/src/string/reverse.rs)
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/string/run_length_encoding.rs)
+    * [Shortest Palindrome](https://github.com/TheAlgorithms/Rust/blob/master/src/string/shortest_palindrome.rs)
     * [Suffix Array](https://github.com/TheAlgorithms/Rust/blob/master/src/string/suffix_array.rs)
     * [Suffix Array Manber Myers](https://github.com/TheAlgorithms/Rust/blob/master/src/string/suffix_array_manber_myers.rs)
     * [Suffix Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/string/suffix_tree.rs)
