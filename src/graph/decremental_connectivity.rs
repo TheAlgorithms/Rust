@@ -168,11 +168,14 @@ mod tests {
         assert!(!dec_con1.connected(8, 7).unwrap());
         dec_con1.delete(7, 8);
         dec_con1.delete(1, 4);
+        assert!(!dec_con1.connected(1, 4).unwrap());
 
         let mut dec_con2 = super::DecrementalConnectivity::new(&adjacent);
         dec_con2.delete(4, 1);
+        assert!(!dec_con1.connected(1, 4).unwrap());
 
         let mut dec_con3 = super::DecrementalConnectivity::new(&adjacent);
         dec_con3.delete(1, 4);
+        assert!(!dec_con1.connected(4, 1).unwrap());
     }
 }
