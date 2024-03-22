@@ -12,7 +12,7 @@ pub fn main() {
 
 
 /// Generates the 'mod' and 'use' expressions for a lib.rs or mod.rs file to export everything available.
-pub fn auto_export_mod(mod_file_path: &Path) {
+fn auto_export_mod(mod_file_path: &Path) {
 
     // Validate mod file exists.
     if !mod_file_path.exists() {
@@ -80,7 +80,7 @@ fn collect_exports(directory: &Path) -> Vec<Export> {
 
 
 
-pub struct Export {
+struct Export {
     pub name: String,
     pub is_dir: bool
 }

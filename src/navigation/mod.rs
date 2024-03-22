@@ -1,5 +1,6 @@
+/* start auto-imports */
 mod bearing;
 mod haversine;
-
-pub use self::bearing::bearing;
-pub use self::haversine::haversine;
+pub use bearing::*;
+pub use haversine::*;
+/* end auto-imports */

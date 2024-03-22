@@ -1,3 +1,4 @@
+/* start auto-imports */
 mod binary_search;
 mod binary_search_recursive;
 mod exponential_search;
@@ -14,22 +15,20 @@ mod ternary_search;
 mod ternary_search_min_max;
 mod ternary_search_min_max_recursive;
 mod ternary_search_recursive;
-
-pub use self::binary_search::binary_search;
-pub use self::binary_search_recursive::binary_search_rec;
-pub use self::exponential_search::exponential_search;
-pub use self::fibonacci_search::fibonacci_search;
-pub use self::interpolation_search::interpolation_search;
-pub use self::jump_search::jump_search;
-pub use self::kth_smallest::kth_smallest;
-pub use self::kth_smallest_heap::kth_smallest_heap;
-pub use self::linear_search::linear_search;
-pub use self::moore_voting::moore_voting;
-pub use self::quick_select::quick_select;
-pub use self::saddleback_search::saddleback_search;
-pub use self::ternary_search::ternary_search;
-pub use self::ternary_search_min_max::ternary_search_max;
-pub use self::ternary_search_min_max::ternary_search_min;
-pub use self::ternary_search_min_max_recursive::ternary_search_max_rec;
-pub use self::ternary_search_min_max_recursive::ternary_search_min_rec;
-pub use self::ternary_search_recursive::ternary_search_rec;
+pub use binary_search::*;
+pub use binary_search_recursive::*;
+pub use exponential_search::*;
+pub use fibonacci_search::*;
+pub use interpolation_search::*;
+pub use jump_search::*;
+pub use kth_smallest::*;
+pub use kth_smallest_heap::*;
+pub use linear_search::*;
+pub use moore_voting::*;
+pub use quick_select::*;
+pub use saddleback_search::*;
+pub use ternary_search::*;
+pub use ternary_search_min_max::*;
+pub use ternary_search_min_max_recursive::*;
+pub use ternary_search_recursive::*;
+/* end auto-imports */
