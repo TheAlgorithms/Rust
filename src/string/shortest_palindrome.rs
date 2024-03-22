@@ -1,6 +1,11 @@
-pub fn shortest_palindrome(s: String) -> String {
+/*
+KMP. Source：https://www.scaler.com/topics/data-structures/kmp-algorithm/
+Prefix Functions and KPM. Source：https://oi-wiki.org/string/kmp/
+*/
+
+pub fn shortest_palindrome(s: &str) -> String {
     if s.is_empty() {
-        return "String is Empty!".to_string();
+        return "".to_string();
     }
 
     let p_chars: Vec<char> = s.chars().collect();
@@ -28,21 +33,22 @@ pub fn shortest_palindrome(s: String) -> String {
     s_chars.iter().collect()
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn example_one() {
-        assert_eq!(shortest_palindrome("aacecaaa".to_string()), "aaacecaaa");
+macro_rules! test_shortest_palindrome {
+    ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                use crate::string::is_palindrome;
+                let (s, expected) = $inputs;
+                assert!(is_palindrome(expected));
+                assert_eq!(shortest_palindrome(s), expected);
+                assert_eq!(shortest_palindrome(expected), expected);
+            }
+        )*
     }
-
-    #[test]
-    fn example_two() {
-        assert_eq!(shortest_palindrome("abcd".to_string()), "dcbabcd");
-    }
-    #[test]
-    fn example_three() {
-        assert_eq!(shortest_palindrome("".to_string()), "String is Empty!");
-    }
+}
+test_shortest_palindrome! {
+    empty: ("", ""),
+    extend_left_1: ("aacecaaa", "aaacecaaa"),
+    extend_left_3: ("abcd", "dcbabcd"),
 }
