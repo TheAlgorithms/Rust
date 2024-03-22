@@ -1,5 +1,5 @@
+use super::range_minimum_query::build_sparse_table;
 use std::cmp::PartialOrd;
-use super:: range_minimum_query::build_sparse_table;
 
 /// A data-structure for answering +-1 range minimum queries on arrays
 ///
@@ -14,7 +14,7 @@ use super:: range_minimum_query::build_sparse_table;
 /// used <https://cp-algorithms.com/graph/lca_farachcoltonbender.html#implementation> as reference
 pub struct PlusMinusOneRMQ<T: PartialOrd + Copy> {
     array: Vec<T>,
-    n: usize, 
+    n: usize,
     k: usize,
     block_min: Vec<T>,
     block_min_idx: Vec<usize>,
@@ -27,9 +27,9 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
     pub fn new(mut array: Vec<T>) -> Self {
         input_padding(&mut array);
         let n = array.len() as u32;
-        let k = n.ilog2()/ 2;        
+        let k = n.ilog2() / 2;
         let mut new = Self {
-            array: array,
+            array,
             n: n as usize,
             k: k as usize,
             block_min: Vec::new(),
@@ -43,11 +43,11 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
         new.fill_block_rmq();
         new.precompute_masks();
 
-        return new;
+        new
     }
     fn calc_block_min(&mut self) {
-        for i in 0..(self.n + self.k -1) / self.k {
-            let (min, min_idx) = self.calc_min(i*self.k);
+        for i in 0..(self.n + self.k - 1) / self.k {
+            let (min, min_idx) = self.calc_min(i * self.k);
             self.block_min.push(min);
             self.block_min_idx.push(min_idx)
         }
@@ -61,41 +61,44 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
                 Some(x) => {
                     current_min = min(current_min, *x);
                     min_idx = self.min_idx(min_idx, j);
-                },
+                }
                 None => break,
             };
         }
-        return (current_min, min_idx);
+        (current_min, min_idx)
     }
 
-    pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, &str> { 
+    pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, &str> {
         if start >= end || start >= self.array.len() || end > self.array.len() {
             return Err("invalid range");
         }
 
-        let block_l = start / self.k ;
-        let block_r = (end - 1) / self.k ;
+        let block_l = start / self.k;
+        let block_r = (end - 1) / self.k;
         let l_suffix = self.get_in_block(block_l, start % self.k, self.k - 1);
         let r_prefix = self.get_in_block(block_r, 0, (end - 1) % self.k);
         match block_r - block_l {
-            0 => return Ok(self.array[self.get_in_block(block_l, start % self.k, (end - 1) % self.k)]),
-            1 => return Ok(self.array[self.min_idx(l_suffix, r_prefix)]),
-            _ => return Ok(self.array[self.min_idx(self.min_idx(l_suffix, self.get_on_blocks(block_l+1, block_r-1)), r_prefix)]),
-        };
+            0 => Ok(self.array[self.get_in_block(block_l, start % self.k, (end - 1) % self.k)]),
+            1 => Ok(self.array[self.min_idx(l_suffix, r_prefix)]),
+            _ => Ok(self.array[self.min_idx(
+                self.min_idx(l_suffix, self.get_on_blocks(block_l + 1, block_r - 1)),
+                r_prefix,
+            )]),
+        }
     }
 
     fn get_on_blocks(&self, l: usize, r: usize) -> usize {
-        let loglen = (r-l+1).ilog2() as usize;
+        let loglen = (r - l + 1).ilog2() as usize;
         let idx: usize = ((r as i64) - (1 << loglen as i64) + 1) as usize;
-        let a = self.sparse_idx[loglen][l as usize];
+        let a = self.sparse_idx[loglen][l];
         let b = self.sparse_idx[loglen][idx];
-        return self.min_idx(a,b);
+        self.min_idx(a, b)
     }
 
-    fn get_in_block(&self, block_idx: usize, l: usize, r: usize) -> usize {  
+    fn get_in_block(&self, block_idx: usize, l: usize, r: usize) -> usize {
         let mask = self.block_mask[block_idx];
         let min_idx = self.block_rmq[mask as usize][l][r];
-        return min_idx + block_idx * self.k;
+        min_idx + block_idx * self.k
     }
 
     fn fill_block_rmq(&mut self) {
@@ -106,26 +109,24 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
         }
     }
 
-    fn rmq_bitmask(&mut self, mask: u32) -> Vec<Vec<usize>> {  
-        let mut rmq_matrix: Vec<Vec<usize>> = vec![vec![0;self.k]; self.k];
+    fn rmq_bitmask(&mut self, mask: u32) -> Vec<Vec<usize>> {
+        let mut rmq_matrix: Vec<Vec<usize>> = vec![vec![0; self.k]; self.k];
         let list = bitmask_to_array(self.k, mask);
         for i in 0..self.k {
             for j in i..self.k {
                 if i == j {
                     rmq_matrix[i][j] = i;
-                }
-                else {
-                    let min = list[rmq_matrix[i][j-1]];     //Do we want range-minimum or range-maximum
+                } else {
+                    let min = list[rmq_matrix[i][j - 1]]; //Do we want range-minimum or range-maximum
                     if list[j] < min {
                         rmq_matrix[i][j] = j;
-                    }
-                    else {
-                        rmq_matrix[i][j] = rmq_matrix[i][j-1];
+                    } else {
+                        rmq_matrix[i][j] = rmq_matrix[i][j - 1];
                     }
                 }
             }
         }
-        return rmq_matrix;
+        rmq_matrix
     }
 
     fn precompute_masks(&mut self) {
@@ -136,26 +137,27 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
 
     // we initialize the mask with k-1 ones
     // this is necessary so if blocks are of size < k the bitmask is still correct
-    fn calc_bitmask(&self, block_idx: usize) -> u32{
-        let mut mask: u32 = (1 << (self.k - 1)) - 1;  
-        for i in self.k*block_idx + 1..self.k * (block_idx + 1) {
-            let last = self.array[i-1];
+    fn calc_bitmask(&self, block_idx: usize) -> u32 {
+        let mut mask: u32 = (1 << (self.k - 1)) - 1;
+        for i in self.k * block_idx + 1..self.k * (block_idx + 1) {
+            let last = self.array[i - 1];
             match self.array.get(i) {
                 Some(&x) => {
                     if last >= x {
-                        mask -= 1 << (self.k-1-(i % self.k));
+                        mask -= 1 << (self.k - 1 - (i % self.k));
                     }
-                },
+                }
                 None => break,
             };
-        }                                
-        return mask;
+        }
+        mask
     }
+
     fn min_idx(&self, i: usize, j: usize) -> usize {
         if self.array[i] < self.array[j] {
             return i;
         }
-        return j;
+        j
     }
 }
 
@@ -172,12 +174,12 @@ fn min<T: std::cmp::PartialOrd>(a: T, b: T) -> T {
     match a < b {
         true => a,
         _ => b,
-    } 
+    }
 }
 
 fn bitmask_to_array(k: usize, mut mask: u32) -> Vec<i32> {
     let mut list: Vec<i32> = vec![0];
-    for i in 0..k-1{
+    for i in 0..k - 1 {
         match mask % 2 {
             1 => list.push(list[i] - 1),
             _ => list.push(list[i] + 1),
@@ -185,7 +187,7 @@ fn bitmask_to_array(k: usize, mut mask: u32) -> Vec<i32> {
         mask /= 2;
     }
     list.reverse();
-    return list;
+    list
 }
 
 #[cfg(test)]
@@ -202,5 +204,4 @@ mod tests {
         assert!(sparse_v1.get_range_min(0, 1000).is_err());
         assert!(sparse_v1.get_range_min(1000, 1001).is_err());
     }
-
 }
