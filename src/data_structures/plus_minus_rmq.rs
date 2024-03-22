@@ -1,4 +1,5 @@
 use std::cmp::PartialOrd;
+use super:: range_minimum_query::build_sparse_table;
 
 /// A data-structure for answering +-1 range minimum queries on arrays
 ///
@@ -38,7 +39,7 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
             block_mask: Vec::new(),
         };
         new.calc_block_min();
-        new.build_sparse();
+        new.sparse_idx = build_sparse_table(&new.array);
         new.fill_block_rmq();
         new.precompute_masks();
 
@@ -65,22 +66,6 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
             };
         }
         return (current_min, min_idx);
-    }
-
-    fn build_sparse(&mut self) {
-        for x in self.block_min_idx.iter() {
-            self.sparse_idx[0].push(*x);
-        }
-        let m = self.block_min_idx.len();
-        for loglen in 1..=(m.ilog2() as usize)  {
-            self.sparse_idx.push(Vec::new());
-            for i in 0..= m - (1 << loglen) {
-                let a = self.sparse_idx[loglen-1][i];
-                let b = self.sparse_idx[loglen-1][i + (1 << (loglen - 1))];
-                let tmp = self.min_idx(a,b);
-                self.sparse_idx[loglen].push(tmp);
-            }
-        }
     }
 
     pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, &str> { 

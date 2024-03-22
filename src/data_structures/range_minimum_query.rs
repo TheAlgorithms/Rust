@@ -41,7 +41,7 @@ impl<T: PartialOrd + Copy> RangeMinimumQuery<T> {
     }
 }
 
-fn build_sparse_table<T: PartialOrd>(array: &[T]) -> Vec<Vec<usize>> {
+pub fn build_sparse_table<T: PartialOrd>(array: &[T]) -> Vec<Vec<usize>> {
     let mut table: Vec<Vec<usize>> = vec![(0..array.len()).collect()];
     let len = array.len();
 
