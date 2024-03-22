@@ -83,22 +83,19 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
         }
     }
 
-    pub fn get(&self, mut l: usize, mut r: usize) -> T { 
-        // println!("RMQ({},{})", l, r);
-        if l > r {
-            let tmp = l;
-            l = r;
-            r = tmp;
+    pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, &str> { 
+        if start >= end || start >= self.array.len() || end > self.array.len() {
+            return Err("invalid range");
         }
 
-        let block_l = l/self.k ;
-        let block_r = r/self.k ;
-        let l_suffix = self.get_in_block(block_l, l % self.k, self.k - 1);
-        let r_prefix = self.get_in_block(block_r, 0, r % self.k);
+        let block_l = start / self.k ;
+        let block_r = (end - 1) / self.k ;
+        let l_suffix = self.get_in_block(block_l, start % self.k, self.k - 1);
+        let r_prefix = self.get_in_block(block_r, 0, (end - 1) % self.k);
         match block_r - block_l {
-            0 => return self.array[self.get_in_block(block_l, l % self.k, r % self.k)],
-            1 => return self.array[self.min_idx(l_suffix, r_prefix)],
-            _ => return self.array[self.min_idx(self.min_idx(l_suffix, self.get_on_blocks(block_l+1, block_r-1)), r_prefix)],
+            0 => return Ok(self.array[self.get_in_block(block_l, start % self.k, (end - 1) % self.k)]),
+            1 => return Ok(self.array[self.min_idx(l_suffix, r_prefix)]),
+            _ => return Ok(self.array[self.min_idx(self.min_idx(l_suffix, self.get_on_blocks(block_l+1, block_r-1)), r_prefix)]),
         };
     }
 
@@ -213,12 +210,12 @@ mod tests {
         let v1 = vec![1, 2, 3, 2, 3, 4, 5, 4, 3, 2, 1, 0, -1];
         let sparse_v1 = super::PlusMinusOneRMQ::new(v1);
 
-        assert_eq!(2, sparse_v1.get(1, 5));
-        assert_eq!(1, sparse_v1.get(0, 9));
-        assert_eq!(-1, sparse_v1.get(10, 12));
-        // assert!(sparse_v1.get_range_min(4, 3).is_err());
-        // assert!(sparse_v1.get_range_min(0, 1000).is_err());
-        // assert!(sparse_v1.get_range_min(1000, 1001).is_err());
+        assert_eq!(Ok(2), sparse_v1.get_range_min(1, 6));
+        assert_eq!(Ok(1), sparse_v1.get_range_min(0, 10));
+        assert_eq!(Ok(-1), sparse_v1.get_range_min(10, 13));
+        assert!(sparse_v1.get_range_min(4, 3).is_err());
+        assert!(sparse_v1.get_range_min(0, 1000).is_err());
+        assert!(sparse_v1.get_range_min(1000, 1001).is_err());
     }
 
 }
