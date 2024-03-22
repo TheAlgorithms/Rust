@@ -14,7 +14,6 @@ use std::cmp::PartialOrd;
 /// used <https://cp-algorithms.com/graph/lca_farachcoltonbender.html#implementation> as reference
 pub struct PlusMinusOneRMQ<T: PartialOrd + Copy> {
     array: Vec<T>,
-    n: usize,
     k: usize,
     block_min: Vec<T>,
     block_min_idx: Vec<usize>,
@@ -26,12 +25,10 @@ pub struct PlusMinusOneRMQ<T: PartialOrd + Copy> {
 impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
     pub fn new(mut array: Vec<T>) -> Self {
         input_padding(&mut array);
-        let n = array.len() as u32;
-        let k = n.ilog2() / 2;
+        let k = (array.len().ilog2() / 2) as usize;
         let mut new = Self {
             array,
-            n: n as usize,
-            k: k as usize,
+            k,
             block_min: Vec::new(),
             block_min_idx: Vec::new(),
             sparse_idx: vec![Vec::new()], // is a sparse table, which only stores the indeces
@@ -46,7 +43,7 @@ impl<T: PartialOrd + Copy> PlusMinusOneRMQ<T> {
         new
     }
     fn calc_block_min(&mut self) {
-        for i in 0..(self.n + self.k - 1) / self.k {
+        for i in 0..(self.array.len() + self.k - 1) / self.k {
             let (min, min_idx) = self.calc_min(i * self.k);
             self.block_min.push(min);
             self.block_min_idx.push(min_idx)
