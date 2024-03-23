@@ -3,6 +3,7 @@
 ## Src
   * Backtracking
     * [All Combination Of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
+    * [Knight Tour](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/knight_tour.rs)
     * [N Queens](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/n_queens.rs)
     * [Permutations](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/permutations.rs)
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
