@@ -126,7 +126,7 @@ mod tests {
     fn test_knights_tour_5x5() {
         let mut tour = KnightTour::new(5);
         let (found, tour_matrix) = tour.find_tour(0, 0);
-        assert_eq!(found, true);
+        assert!(found);
 
         // Define the expected tour matrix for an 8x8 board (assuming a successful tour)
         let expected_matrix: Vec<Vec<i32>> = vec![
@@ -147,7 +147,7 @@ mod tests {
     fn test_knights_tour_6x6() {
         let mut tour = KnightTour::new(6);
         let (found, tour_matrix) = tour.find_tour(0, 0);
-        assert_eq!(found, true);
+        assert!(found);
 
         // Define the expected tour matrix for an 6x6 board (assuming a successful tour)
         let expected_matrix: Vec<Vec<i32>> = vec![
@@ -169,7 +169,7 @@ mod tests {
     fn test_knights_tour_8x8() {
         let mut tour = KnightTour::new(8);
         let (found, tour_matrix) = tour.find_tour(0, 0);
-        assert_eq!(found, true);
+        assert!(found);
 
         // Define the expected tour matrix for an 5x5 board (assuming a successful tour)
         let expected_matrix: Vec<Vec<i32>> = vec![
@@ -194,13 +194,13 @@ mod tests {
         // Define the expected tour matrix for an 5x5 board
         let mut tour = KnightTour::new(5);
         let (found, _) = tour.find_tour(2, 1);
-        assert_eq!(found, false);
+        assert!(!found);
     }
 
     #[test]
     fn test_invalid_start_position() {
         let mut tour = KnightTour::new(8);
         let (found, _) = tour.find_tour(10, 10);
-        assert_eq!(found, false);
+        assert!(!found);
     }
 }
