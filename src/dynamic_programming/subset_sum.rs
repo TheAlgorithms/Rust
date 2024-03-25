@@ -6,7 +6,7 @@
 ///
 /// * `nums` - A slice of integers representing the input array.
 /// * `target_sum` - The target sum that the subset needs to achieve.
-pub fn subset_sum(nums: &[i32], target_sum: i32) -> (bool, Option<Vec<i32>>) {
+pub fn subset_sum(nums: &[u32], target_sum: u32) -> (bool, Option<Vec<u32>>) {
     let n = nums.len();
     let mut dp = vec![vec![false; (target_sum + 1) as usize]; n + 1];
 
@@ -19,7 +19,7 @@ pub fn subset_sum(nums: &[i32], target_sum: i32) -> (bool, Option<Vec<i32>>) {
     for (i, num) in nums.iter().enumerate() {
         for j in 1..=target_sum as usize {
             dp[i + 1][j] = dp[i][j];
-            if *num <= j as i32 {
+            if *num <= j as u32 {
                 dp[i + 1][j] |= dp[i][j - *num as usize];
             }
         }
