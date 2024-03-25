@@ -3,7 +3,7 @@ mod heap;
 mod naive;
 mod steinhaus_johnson_trotter;
 pub use heap::heap_permute;
-pub use naive::{ permute, permute_unique };
+pub use naive::{permute, permute_unique};
 pub use steinhaus_johnson_trotter::steinhaus_johnson_trotter_permute;
 /* auto-imports end */
 

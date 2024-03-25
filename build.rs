@@ -4,17 +4,18 @@ use std::{
     path::{Path, PathBuf},
 };
 
-
 pub fn main() {
     auto_export_mod(Path::new("src/lib.rs"));
 }
 
 /// Generates the 'mod' and 'use' expressions for a lib.rs or mod.rs file to export everything available.
 fn auto_export_mod(mod_file_path: &Path) {
-    use regex::{ Regex, Captures };
+    use regex::{Captures, Regex};
 
-    let start_tag_regex:Regex = Regex::new(r"\/\*\s+auto-imports\s+start\s+(exclusions\=\[(?<exclusions>.+)?\]\s+)?\*\/").unwrap();
-    let end_tag_regex:Regex = Regex::new(r"\/\*\s+auto-imports\s+end\s+\*\/").unwrap();
+    let start_tag_regex: Regex =
+        Regex::new(r"\/\*\s+auto-imports\s+start\s+(exclusions\=\[(?<exclusions>.+)?\]\s+)?\*\/")
+            .unwrap();
+    let end_tag_regex: Regex = Regex::new(r"\/\*\s+auto-imports\s+end\s+\*\/").unwrap();
 
     // Validate mod file exists.
     if !mod_file_path.exists() {
@@ -29,31 +30,51 @@ fn auto_export_mod(mod_file_path: &Path) {
     let current_mod_contents: String = read_to_string(mod_file_path).unwrap_or_default();
 
     // Find auto-import start tag.
-    let start_captures:Vec<Captures<'_>> = start_tag_regex.captures_iter(&current_mod_contents).collect();
+    let start_captures: Vec<Captures<'_>> = start_tag_regex
+        .captures_iter(&current_mod_contents)
+        .collect();
     if start_captures.is_empty() {
         return;
     }
     if start_captures.len() > 1 {
-        panic!("file '{}' has multiple auto-export start tags, which is not supported.", mod_file_path.display());
+        panic!(
+            "file '{}' has multiple auto-export start tags, which is not supported.",
+            mod_file_path.display()
+        );
     }
     let start_capture = &start_captures[0];
-    let start_capture_position:usize = start_capture.get(0).unwrap().end();
-    let start_tag:&str = start_capture.get(0).unwrap().as_str();
+    let start_capture_position: usize = start_capture.get(0).unwrap().end();
+    let start_tag: &str = start_capture.get(0).unwrap().as_str();
     let imports_prefix: &str = &current_mod_contents[..start_capture.get(0).unwrap().start()];
-    let imports_exclusions:Vec<String> = start_capture.name("exclusions").map(|capture_match| capture_match.as_str()).unwrap_or_default().split(",").map(|exclusion| exclusion.trim().to_string()).collect();
+    let imports_exclusions: Vec<String> = start_capture
+        .name("exclusions")
+        .map(|capture_match| capture_match.as_str())
+        .unwrap_or_default()
+        .split(',')
+        .map(|exclusion| exclusion.trim().to_string())
+        .collect();
 
     // Find auto-import end-tag.
-    let end_captures:Vec<Captures<'_>> = end_tag_regex.captures_iter(&current_mod_contents[start_capture_position..]).collect();
+    let end_captures: Vec<Captures<'_>> = end_tag_regex
+        .captures_iter(&current_mod_contents[start_capture_position..])
+        .collect();
     if end_captures.is_empty() {
         panic!("Could not find auto-import end tag in file '{}', please add \"/* auto-imports end */\" somewhere.", mod_file_path.display());
     }
     if end_captures.len() > 1 {
-        panic!("file '{}' has multiple auto-export end tags, which is not supported.", mod_file_path.display());
+        panic!(
+            "file '{}' has multiple auto-export end tags, which is not supported.",
+            mod_file_path.display()
+        );
     }
     let end_capture = &end_captures[0];
-    let end_capture_position:usize = start_capture_position + end_capture.get(0).unwrap().end();
-    let end_tag:&str = end_capture.get(0).unwrap().as_str();
-    let imports_suffix: &str = if end_capture_position < current_mod_contents.len() { &current_mod_contents[end_capture_position..] } else { "" };
+    let end_capture_position: usize = start_capture_position + end_capture.get(0).unwrap().end();
+    let end_tag: &str = end_capture.get(0).unwrap().as_str();
+    let imports_suffix: &str = if end_capture_position < current_mod_contents.len() {
+        &current_mod_contents[end_capture_position..]
+    } else {
+        ""
+    };
 
     // Get exports.
     let mod_dir: &Path = mod_file_path.parent().unwrap_or_else(|| {
@@ -83,7 +104,14 @@ fn auto_export_mod(mod_file_path: &Path) {
 
     // Remove excluded pub identities.
     for export_file in &mut export_files {
-        let exclusion_violations:Vec<usize> = export_file.exports.iter_mut().enumerate().filter(|(_, export)| imports_exclusions.contains(export)).rev().map(|(index, _)| index).collect();
+        let exclusion_violations: Vec<usize> = export_file
+            .exports
+            .iter_mut()
+            .enumerate()
+            .filter(|(_, export)| imports_exclusions.contains(export))
+            .rev()
+            .map(|(index, _)| index)
+            .collect();
         for index in exclusion_violations {
             export_file.exports.remove(index);
         }
@@ -228,7 +256,7 @@ impl ExportsFile {
             0 => String::new(),
             1 => format!("pub use {}::{};", self.name, self.exports[0]),
             _ => format!(
-                "pub use {}::{} {} {};",
+                "pub use {}::{}{}{};",
                 self.name,
                 '{',
                 self.exports.join(", "),
