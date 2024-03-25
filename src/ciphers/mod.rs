@@ -1,4 +1,4 @@
-/* start auto-imports */
+/* auto-imports start */
 mod aes;
 mod another_rot13;
 mod baconian_cipher;
@@ -41,4 +41,4 @@ pub use theoretical_rot13::theoretical_rot13;
 pub use transposition::transposition;
 pub use vigenere::vigenere;
 pub use xor::{ xor_bytes, xor };
-/* end auto-imports */
+/* auto-imports end */

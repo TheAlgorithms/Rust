@@ -4,8 +4,6 @@ use std::{
     path::{Path, PathBuf},
 };
 
-static AUTO_IMPORT_START_STR: &str = "/* start auto-imports */";
-static AUTO_IMPORT_END_STR: &str = "/* end auto-imports */";
 
 pub fn main() {
     auto_export_mod(Path::new("src/lib.rs"));
@@ -13,6 +11,11 @@ pub fn main() {
 
 /// Generates the 'mod' and 'use' expressions for a lib.rs or mod.rs file to export everything available.
 fn auto_export_mod(mod_file_path: &Path) {
+    use regex::{ Regex, Captures };
+
+    let start_tag_regex:Regex = Regex::new(r"\/\*\s+auto-imports\s+start\s+(exclusions\=\[(?<exclusions>.+)?\]\s+)?\*\/").unwrap();
+    let end_tag_regex:Regex = Regex::new(r"\/\*\s+auto-imports\s+end\s+\*\/").unwrap();
+
     // Validate mod file exists.
     if !mod_file_path.exists() {
         panic!("Mod file '{}' does not exist.", mod_file_path.display());
@@ -23,6 +26,34 @@ fn auto_export_mod(mod_file_path: &Path) {
             mod_file_path.to_path_buf().display()
         );
     }
+    let current_mod_contents: String = read_to_string(mod_file_path).unwrap_or_default();
+
+    // Find auto-import start tag.
+    let start_captures:Vec<Captures<'_>> = start_tag_regex.captures_iter(&current_mod_contents).collect();
+    if start_captures.is_empty() {
+        return;
+    }
+    if start_captures.len() > 1 {
+        panic!("file '{}' has multiple auto-export start tags, which is not supported.", mod_file_path.display());
+    }
+    let start_capture = &start_captures[0];
+    let start_capture_position:usize = start_capture.get(0).unwrap().end();
+    let start_tag:&str = start_capture.get(0).unwrap().as_str();
+    let imports_prefix: &str = &current_mod_contents[..start_capture.get(0).unwrap().start()];
+    let imports_exclusions:Vec<String> = start_capture.name("exclusions").map(|capture_match| capture_match.as_str()).unwrap_or_default().split(",").map(|exclusion| exclusion.trim().to_string()).collect();
+
+    // Find auto-import end-tag.
+    let end_captures:Vec<Captures<'_>> = end_tag_regex.captures_iter(&current_mod_contents[start_capture_position..]).collect();
+    if end_captures.is_empty() {
+        panic!("Could not find auto-import end tag in file '{}', please add \"/* auto-imports end */\" somewhere.", mod_file_path.display());
+    }
+    if end_captures.len() > 1 {
+        panic!("file '{}' has multiple auto-export end tags, which is not supported.", mod_file_path.display());
+    }
+    let end_capture = &end_captures[0];
+    let end_capture_position:usize = start_capture_position + end_capture.get(0).unwrap().end();
+    let end_tag:&str = end_capture.get(0).unwrap().as_str();
+    let imports_suffix: &str = if end_capture_position < current_mod_contents.len() { &current_mod_contents[end_capture_position..] } else { "" };
 
     // Get exports.
     let mod_dir: &Path = mod_file_path.parent().unwrap_or_else(|| {
@@ -38,20 +69,6 @@ fn auto_export_mod(mod_file_path: &Path) {
         auto_export_mod(mod_dir.join(&dir.name).join("mod.rs").as_path());
     }
 
-    // Parse current contents.
-    let current_mod_contents: String = read_to_string(mod_file_path).unwrap_or_default();
-    let imports_prefix: &str = current_mod_contents
-        .split(AUTO_IMPORT_START_STR)
-        .next()
-        .unwrap();
-    let imports_suffix: &str = if current_mod_contents.contains(AUTO_IMPORT_END_STR) {
-        current_mod_contents
-            .split(AUTO_IMPORT_END_STR)
-            .collect::<Vec<&str>>()[1]
-    } else {
-        ""
-    };
-
     // Find the exported pub things for all files.
     let mut export_files: Vec<ExportsFile> = Vec::new();
     for export in exports.iter().filter(|export| !export.is_dir) {
@@ -61,6 +78,14 @@ fn auto_export_mod(mod_file_path: &Path) {
         let file_exports: Vec<String> = find_exports(&contents);
         if !file_exports.is_empty() {
             export_files.push(ExportsFile::new(export.name.clone(), file_exports));
+        }
+    }
+
+    // Remove excluded pub identities.
+    for export_file in &mut export_files {
+        let exclusion_violations:Vec<usize> = export_file.exports.iter_mut().enumerate().filter(|(_, export)| imports_exclusions.contains(export)).rev().map(|(index, _)| index).collect();
+        for index in exclusion_violations {
+            export_file.exports.remove(index);
         }
     }
 
@@ -76,9 +101,9 @@ fn auto_export_mod(mod_file_path: &Path) {
         .map(|(_, name)| name.to_string())
         .collect::<Vec<String>>();
     if !duplicate_names.is_empty() {
-        for pub_identity in &mut export_files {
-            let file_name: &str = &pub_identity.name;
-            for export in &mut pub_identity.exports {
+        for export_file in &mut export_files {
+            let file_name: &str = &export_file.name;
+            for export in &mut export_file.exports {
                 if duplicate_names.contains(export) {
                     *export = format!("{export} as {file_name}_{export}");
                 }
@@ -94,7 +119,7 @@ fn auto_export_mod(mod_file_path: &Path) {
         } else {
             ""
         },
-        AUTO_IMPORT_START_STR,
+        start_tag,
         format!(
             "{}\n{}\n{}",
             exports
@@ -116,7 +141,7 @@ fn auto_export_mod(mod_file_path: &Path) {
         )
         .replace("\n\n", "\n")
         .trim(),
-        AUTO_IMPORT_END_STR,
+        end_tag,
         if !imports_suffix.trim().is_empty() {
             imports_suffix
         } else {

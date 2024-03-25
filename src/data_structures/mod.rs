@@ -1,4 +1,4 @@
-/* start auto-imports */
+/* auto-imports start */
 pub mod probabilistic;
 mod avl_tree;
 mod binary_search_tree;
@@ -44,4 +44,4 @@ pub use treap::{ Treap, Iter as treap_Iter };
 pub use trie::Trie;
 pub use union_find::UnionFind;
 pub use veb_tree::{ VebTree, VebTreeIter };
-/* end auto-imports */
+/* auto-imports end */

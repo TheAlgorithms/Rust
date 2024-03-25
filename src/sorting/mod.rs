@@ -1,4 +1,4 @@
-/* start auto-imports */
+/* auto-imports start */
 mod bead_sort;
 mod binary_insertion_sort;
 mod bingo_sort;
@@ -65,7 +65,7 @@ pub use tim_sort::tim_sort;
 pub use tree_sort::tree_sort;
 pub use wave_sort::wave_sort;
 pub use wiggle_sort::wiggle_sort;
-/* end auto-imports */
+/* auto-imports end */
 
 #[cfg(test)]
 mod sort_utils;

@@ -1,4 +1,4 @@
-/* start auto-imports */
+/* auto-imports start */
 mod closest_points;
 mod graham_scan;
 mod jarvis_scan;
@@ -11,4 +11,4 @@ pub use jarvis_scan::jarvis_march;
 pub use point::Point;
 pub use polygon_points::{ polygon_area, lattice_points };
 pub use segment::Segment;
-/* end auto-imports */
+/* auto-imports end */

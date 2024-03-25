@@ -1,4 +1,4 @@
-/* start auto-imports */
+/* auto-imports start */
 mod astar;
 mod bellman_ford;
 mod bipartite_matching;
@@ -49,4 +49,4 @@ pub use strongly_connected_components::StronglyConnectedComponents;
 pub use tarjans_ssc::{ Graph as tarjans_ssc_Graph, tarjan_scc };
 pub use topological_sort::{ TopoligicalSortError, topological_sort };
 pub use two_satisfiability::solve_two_satisfiability;
-/* end auto-imports */
+/* auto-imports end */

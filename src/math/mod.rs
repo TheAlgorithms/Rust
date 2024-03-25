@@ -1,4 +1,4 @@
-/* start auto-imports */
+/* auto-imports start */
 mod abs;
 mod aliquot_sum;
 mod amicable_numbers;
@@ -161,4 +161,4 @@ pub use trial_division::trial_division;
 pub use trig_functions::{ sine, cosine, cosine_no_radian_arg, sine_no_radian_arg, tan, cotan, tan_no_radian_arg, cotan_no_radian_arg };
 pub use vector_cross_product::{ cross_product, vector_magnitude };
 pub use zellers_congruence_algorithm::zellers_congruence_algorithm;
-/* end auto-imports */
+/* auto-imports end */

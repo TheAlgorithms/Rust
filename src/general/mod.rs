@@ -1,4 +1,4 @@
-/* start auto-imports */
+/* auto-imports start */
 pub mod permutations;
 mod convex_hull;
 mod fisher_yates_shuffle;
@@ -16,4 +16,4 @@ pub use huffman_encoding::{ HuffmanValue, HuffmanNode, HuffmanDictionary, Huffma
 pub use kadane_algorithm::max_sub_array;
 pub use mex::{ mex_using_set, mex_using_sort };
 pub use two_sum::two_sum;
-/* end auto-imports */
+/* auto-imports end */
