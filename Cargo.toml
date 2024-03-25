@@ -16,6 +16,11 @@ nalgebra = "0.32.3"
 quickcheck = "1.0"
 quickcheck_macros = "1.0"
 
+[build-dependencies]
+regex = "1.10.3"
+syn = "1.0"
+
+
 [features]
 default = ["big-math"]
 big-math = ["dep:num-bigint", "dep:num-traits"]
