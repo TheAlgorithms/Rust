@@ -19,7 +19,11 @@ mod subset_generation;
 mod word_break;
 pub use coin_change::coin_change;
 pub use egg_dropping::egg_drop;
-pub use fibonacci::{fibonacci, recursive_fibonacci, classical_fibonacci, logarithmic_fibonacci, memoized_fibonacci, matrix_fibonacci, nth_fibonacci_number_modulo_m, last_digit_of_the_sum_of_nth_fibonacci_number};
+pub use fibonacci::{
+    classical_fibonacci, fibonacci, last_digit_of_the_sum_of_nth_fibonacci_number,
+    logarithmic_fibonacci, matrix_fibonacci, memoized_fibonacci, nth_fibonacci_number_modulo_m,
+    recursive_fibonacci,
+};
 pub use fractional_knapsack::fractional_knapsack;
 pub use is_subsequence::is_subsequence;
 pub use knapsack::knapsack;

@@ -24,9 +24,9 @@ mod exponential_linear_unit;
 mod extended_euclidean_algorithm;
 mod factorial;
 mod factors;
-mod faster_perfect_numbers;
 mod fast_fourier_transform;
 mod fast_power;
+mod faster_perfect_numbers;
 mod field;
 mod frizzy_number;
 mod gaussian_elimination;
@@ -103,21 +103,27 @@ pub use elliptic_curve::EllipticCurve;
 pub use euclidean_distance::euclidean_distance;
 pub use exponential_linear_unit::exponential_linear_unit;
 pub use extended_euclidean_algorithm::extended_euclidean_algorithm;
-pub use factorial::{factorial, factorial_recursive, factorial_bigmath};
+pub use factorial::{factorial, factorial_bigmath, factorial_recursive};
 pub use factors::factors;
-pub use faster_perfect_numbers::generate_perfect_numbers;
-pub use fast_fourier_transform::{fast_fourier_transform_input_permutation, fast_fourier_transform, inverse_fast_fourier_transform};
+pub use fast_fourier_transform::{
+    fast_fourier_transform, fast_fourier_transform_input_permutation,
+    inverse_fast_fourier_transform,
+};
 pub use fast_power::fast_power;
+pub use faster_perfect_numbers::generate_perfect_numbers;
 pub use field::{Field, PrimeField};
 pub use frizzy_number::get_nth_frizzy;
 pub use gaussian_elimination::gaussian_elimination;
 pub use gaussian_error_linear_unit::gaussian_error_linear_unit;
 pub use gcd_of_n_numbers::gcd;
 pub use geometric_series::geometric_series;
-pub use greatest_common_divisor::{greatest_common_divisor_recursive, greatest_common_divisor_iterative, greatest_common_divisor_stein};
+pub use greatest_common_divisor::{
+    greatest_common_divisor_iterative, greatest_common_divisor_recursive,
+    greatest_common_divisor_stein,
+};
 pub use huber_loss::huber_loss;
-pub use interest::{simple_interest, compound_interest};
-pub use interpolation::{linear_interpolation, lagrange_polynomial_interpolation};
+pub use interest::{compound_interest, simple_interest};
+pub use interpolation::{lagrange_polynomial_interpolation, linear_interpolation};
 pub use interquartile_range::{find_median, interquartile_range};
 pub use karatsuba_multiplication::multiply;
 pub use lcm_of_n_numbers::lcm;
@@ -125,10 +131,10 @@ pub use leaky_relu::leaky_relu;
 pub use least_square_approx::least_square_approx;
 pub use linear_sieve::LinearSieve;
 pub use logarithm::log;
-pub use lucas_series::{recursive_lucas_number, dynamic_lucas_number};
+pub use lucas_series::{dynamic_lucas_number, recursive_lucas_number};
 pub use matrix_ops::Matrix;
-pub use mersenne_primes::{is_mersenne_prime, get_mersenne_primes};
-pub use miller_rabin::{miller_rabin, big_miller_rabin};
+pub use mersenne_primes::{get_mersenne_primes, is_mersenne_prime};
+pub use miller_rabin::{big_miller_rabin, miller_rabin};
 pub use modular_exponential::{mod_inverse, modular_exponential};
 pub use newton_raphson::find_root;
 pub use nthprime::nthprime;
@@ -136,7 +142,7 @@ pub use pascal_triangle::pascal_triangle;
 pub use perfect_cube::perfect_cube_binary_search;
 pub use perfect_numbers::{is_perfect_number, perfect_numbers};
 pub use perfect_square::{perfect_square, perfect_square_binary_search};
-pub use pollard_rho::{pollard_rho_get_one_factor, pollard_rho_factorize};
+pub use pollard_rho::{pollard_rho_factorize, pollard_rho_get_one_factor};
 pub use prime_check::prime_check;
 pub use prime_factors::prime_factors;
 pub use prime_numbers::prime_numbers;
@@ -150,7 +156,7 @@ pub use simpsons_integration::simpsons_integration;
 pub use softmax::softmax;
 pub use sprague_grundy_theorem::calculate_grundy_number;
 pub use square_pyramidal_numbers::square_pyramidal_number;
-pub use square_root::{square_root, fast_inv_sqrt};
+pub use square_root::{fast_inv_sqrt, square_root};
 pub use sum_of_digits::{sum_digits_iterative, sum_digits_recursive};
 pub use sum_of_geometric_progression::sum_of_geometric_progression;
 pub use sum_of_harmonic_series::sum_of_harmonic_progression;
@@ -158,7 +164,10 @@ pub use sylvester_sequence::sylvester;
 pub use tanh::tanh;
 pub use trapezoidal_integration::trapezoidal_integral;
 pub use trial_division::trial_division;
-pub use trig_functions::{sine, cosine, cosine_no_radian_arg, sine_no_radian_arg, tan, cotan, tan_no_radian_arg, cotan_no_radian_arg};
+pub use trig_functions::{
+    cosine, cosine_no_radian_arg, cotan, cotan_no_radian_arg, sine, sine_no_radian_arg, tan,
+    tan_no_radian_arg,
+};
 pub use vector_cross_product::{cross_product, vector_magnitude};
 pub use zellers_congruence_algorithm::zellers_congruence_algorithm;
 /* auto-imports end */
