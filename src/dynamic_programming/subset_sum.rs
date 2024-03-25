@@ -1,12 +1,12 @@
 /// Determines whether there exists a subset of the given array `nums` that adds up to the specified `target_sum`.
-/// If such a subset exists, returns a tuple `(true, Some(subset))` where `subset` is the subset that adds up to `target_sum`,
-/// sorted in ascending order. If no such subset exists, returns `(false, None)`.
+/// If such a subset exists, returns the subset that adds up to `target_sum`, sorted in ascending order.
+/// If no such subset exists, returns `None`.
 ///
 /// # Arguments
 ///
 /// * `nums` - A slice of integers representing the input array.
 /// * `target_sum` - The target sum that the subset needs to achieve.
-pub fn subset_sum(nums: &[u32], target_sum: u32) -> (bool, Option<Vec<u32>>) {
+pub fn subset_sum(nums: &[u32], target_sum: u32) -> Option<Vec<u32>> {
     let n = nums.len();
     let mut dp = vec![vec![false; (target_sum + 1) as usize]; n + 1];
 
@@ -41,9 +41,9 @@ pub fn subset_sum(nums: &[u32], target_sum: u32) -> (bool, Option<Vec<u32>>) {
     subset.sort();
 
     if dp[n][target_sum as usize] {
-        (true, Some(subset))
+        Some(subset)
     } else {
-        (false, None)
+        None
     }
 }
 
@@ -55,8 +55,7 @@ mod tests {
     fn test_subset_sum_exists() {
         let nums = vec![3, 34, 4, 12, 5, 2];
         let target_sum = 9;
-        let (exists, subset) = subset_sum(&nums, target_sum);
-        assert!(exists);
+        let subset = subset_sum(&nums, target_sum);
         assert_eq!(subset, Some(vec![4, 5]));
     }
 
@@ -64,8 +63,7 @@ mod tests {
     fn test_subset_sum_does_not_exist() {
         let nums = vec![3, 34, 4, 12, 5, 2];
         let target_sum = 30; // No subset adds up to 50
-        let (exists, subset) = subset_sum(&nums, target_sum);
-        assert!(!exists);
+        let subset = subset_sum(&nums, target_sum);
         assert_eq!(subset, None);
     }
 
@@ -73,8 +71,7 @@ mod tests {
     fn test_subset_sum_empty_array() {
         let nums = vec![];
         let target_sum = 5;
-        let (exists, subset) = subset_sum(&nums, target_sum);
-        assert!(!exists);
+        let subset = subset_sum(&nums, target_sum);
         assert_eq!(subset, None);
     }
 
@@ -82,8 +79,7 @@ mod tests {
     fn test_subset_sum_single_element_array() {
         let nums = vec![7];
         let target_sum = 7;
-        let (exists, subset) = subset_sum(&nums, target_sum);
-        assert!(exists);
+        let subset = subset_sum(&nums, target_sum);
         assert_eq!(subset, Some(vec![7]));
     }
 }
