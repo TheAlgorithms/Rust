@@ -18,7 +18,7 @@
     * [Another Rot13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Baconian Cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/baconian_cipher.rs)
     * [Base64](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base64.rs)
-    * [Blake2B](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/blake2b.rs)
+    * [Blake2b](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/blake2b.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
     * [Chacha](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/chacha.rs)
     * [Diffie Hellman](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/diffie_hellman.rs)
@@ -48,9 +48,12 @@
     * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
   * Data Structures
+    * Probabilistic
+      * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
+      * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
-    * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
     * [Binary Search Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/binary_search_tree.rs)
+    * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
     * [Fenwick Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/fenwick_tree.rs)
     * [Floyds Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/floyds_algorithm.rs)
     * [Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/graph.rs)
@@ -60,9 +63,6 @@
     * [Lazy Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/lazy_segment_tree.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
     * [Postfix Evaluation](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/postfix_evaluation.rs)
-    * Probabilistic
-      * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
-      * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
     * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
     * [Range Minimum Query](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/range_minimum_query.rs)
     * [Rb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/rb_tree.rs)
@@ -93,6 +93,10 @@
     * [Subset Generation](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_generation.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * General
+    * Permutations
+      * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/heap.rs)
+      * [Naive](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/naive.rs)
+      * [Steinhaus Johnson Trotter](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/steinhaus_johnson_trotter.rs)
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
     * [Fisher Yates Shuffle](https://github.com/TheAlgorithms/Rust/blob/master/src/general/fisher_yates_shuffle.rs)
     * [Genetic](https://github.com/TheAlgorithms/Rust/blob/master/src/general/genetic.rs)
@@ -101,10 +105,6 @@
     * [Kadane Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/general/kadane_algorithm.rs)
     * [Kmeans](https://github.com/TheAlgorithms/Rust/blob/master/src/general/kmeans.rs)
     * [Mex](https://github.com/TheAlgorithms/Rust/blob/master/src/general/mex.rs)
-    * Permutations
-      * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/heap.rs)
-      * [Naive](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/naive.rs)
-      * [Steinhaus Johnson Trotter](https://github.com/TheAlgorithms/Rust/blob/master/src/general/permutations/steinhaus_johnson_trotter.rs)
     * [Two Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/general/two_sum.rs)
   * Geometry
     * [Closest Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/closest_points.rs)
@@ -139,11 +139,7 @@
     * [Tarjans Ssc](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/tarjans_ssc.rs)
     * [Topological Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/topological_sort.rs)
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
-  * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Machine Learning
-    * [Cholesky](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
-    * [K Means](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_means.rs)
-    * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * Loss Function
       * [Hinge Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/hinge_loss.rs)
       * [Kl Divergence Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/kl_divergence_loss.rs)
@@ -152,6 +148,9 @@
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
+    * [Cholesky](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
+    * [K Means](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_means.rs)
+    * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
   * Math
     * [Abs](https://github.com/TheAlgorithms/Rust/blob/master/src/math/abs.rs)
     * [Aliquot Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/math/aliquot_sum.rs)
@@ -178,9 +177,9 @@
     * [Extended Euclidean Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/extended_euclidean_algorithm.rs)
     * [Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/math/factorial.rs)
     * [Factors](https://github.com/TheAlgorithms/Rust/blob/master/src/math/factors.rs)
+    * [Faster Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/faster_perfect_numbers.rs)
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
     * [Fast Power](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_power.rs)
-    * [Faster Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/faster_perfect_numbers.rs)
     * [Field](https://github.com/TheAlgorithms/Rust/blob/master/src/math/field.rs)
     * [Frizzy Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/frizzy_number.rs)
     * [Gaussian Elimination](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gaussian_elimination.rs)
@@ -281,7 +280,7 @@
     * [Patience Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/patience_sort.rs)
     * [Pigeonhole Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/pigeonhole_sort.rs)
     * [Quick Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/quick_sort.rs)
-    * [Quick Sort 3_ways](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/quick_sort_3_ways.rs)
+    * [Quick Sort 3 Ways](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/quick_sort_3_ways.rs)
     * [Radix Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/radix_sort.rs)
     * [Selection Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/selection_sort.rs)
     * [Shell Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/shell_sort.rs)

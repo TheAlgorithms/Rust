@@ -1,7 +1,25 @@
 use std::path::{Path, PathBuf};
 
 pub fn main() {
-    ExportsDir::new(Path::new("src")).write_to_mod_file();
+    use std::{
+        fs::{read_to_string, File},
+        io::Write,
+    };
+
+    // Write exports to mod files.
+    let mut exports_dir: ExportsDir = ExportsDir::new(Path::new("src"));
+    exports_dir.write_to_mod_file();
+
+    // Write the dir and file tree to the DIRECTORY.md file.
+    let new_contents: String = format!("# List of all files\n\n## S{}", &exports_dir.tree()[3..]);
+    let current_contents: String =
+        read_to_string("DIRECTORY.md").expect("Could not read DIRECTORY.md file");
+    if current_contents != new_contents {
+        File::create("DIRECTORY.md")
+            .expect("Could not create DIRECTORY.md file")
+            .write_all(new_contents.as_bytes())
+            .expect("Could not write to DIRECTORY.md file");
+    }
 }
 
 struct ExportsDir {
@@ -135,10 +153,10 @@ impl ExportsDir {
         use std::io::Write;
 
         let start_tag_regex: Regex = Regex::new(
-            r"\/\*\s+auto-imports\s+start\s+(exclusions\=\[(?<exclusions>.+)?\]\s+)?\*\/",
+            r"\/\*\s+auto-exports\s+start\s+(exclusions\=\[(?<exclusions>.+)?\]\s+)?\*\/",
         )
         .unwrap();
-        let end_tag_regex: Regex = Regex::new(r"\/\*\s+auto-imports\s+end\s+\*\/").unwrap();
+        let end_tag_regex: Regex = Regex::new(r"\/\*\s+auto-exports\s+end\s+\*\/").unwrap();
 
         // Find the output path.
         let mut output_path: Option<PathBuf> = None;
@@ -169,7 +187,7 @@ impl ExportsDir {
         }
         let current_mod_contents: String = read_to_string(&output_path).unwrap_or_default();
 
-        // Find auto-import start tag.
+        // Find auto-export start tag.
         let start_captures: Vec<Captures<'_>> = start_tag_regex
             .captures_iter(&current_mod_contents)
             .collect();
@@ -185,8 +203,8 @@ impl ExportsDir {
         let start_capture = &start_captures[0];
         let start_capture_position: usize = start_capture.get(0).unwrap().end();
         let start_tag: &str = start_capture.get(0).unwrap().as_str();
-        let imports_prefix: &str = &current_mod_contents[..start_capture.get(0).unwrap().start()];
-        let imports_exclusions: Vec<String> = start_capture
+        let exports_prefix: &str = &current_mod_contents[..start_capture.get(0).unwrap().start()];
+        let export_exclusions: Vec<String> = start_capture
             .name("exclusions")
             .map(|capture_match| capture_match.as_str())
             .unwrap_or_default()
@@ -194,12 +212,12 @@ impl ExportsDir {
             .map(|exclusion| exclusion.trim().to_string())
             .collect();
 
-        // Find auto-import end-tag.
+        // Find auto-export end-tag.
         let end_captures: Vec<Captures<'_>> = end_tag_regex
             .captures_iter(&current_mod_contents[start_capture_position..])
             .collect();
         if end_captures.is_empty() {
-            panic!("Could not find auto-import end tag in file '{}', please add \"/* auto-imports end */\" somewhere.", output_path.display());
+            panic!("Could not find auto-export end tag in file '{}', please add \"/* auto-exports end */\" somewhere.", output_path.display());
         }
         if end_captures.len() > 1 {
             panic!(
@@ -211,24 +229,24 @@ impl ExportsDir {
         let end_capture_position: usize =
             start_capture_position + end_capture.get(0).unwrap().end();
         let end_tag: &str = end_capture.get(0).unwrap().as_str();
-        let imports_suffix: &str = if end_capture_position < current_mod_contents.len() {
+        let exports_suffix: &str = if end_capture_position < current_mod_contents.len() {
             &current_mod_contents[end_capture_position..]
         } else {
             ""
         };
 
         // Fix exclusions and duplicates.
-        self.remove_exports(&imports_exclusions);
+        self.remove_exports(&export_exclusions);
         self.prefix_duplicates();
         self.remove_files_without_exports();
 
-        // Parse imports into string.
+        // Parse exports into string.
         let new_mod_contents: String = format!(
             "{}{}\n{}\n{}{}",
-            if imports_prefix.trim().is_empty() {
+            if exports_prefix.trim().is_empty() {
                 ""
             } else {
-                imports_prefix
+                exports_prefix
             },
             start_tag,
             format!(
@@ -252,10 +270,10 @@ impl ExportsDir {
             .replace("\n\n", "\n")
             .trim(),
             end_tag,
-            if imports_suffix.trim().is_empty() {
+            if exports_suffix.trim().is_empty() {
                 ""
             } else {
-                imports_suffix
+                exports_suffix
             }
         );
 
@@ -273,9 +291,55 @@ impl ExportsDir {
             dir.write_to_mod_file();
         }
     }
+
+    /// Create a dir and file tree.
+    pub fn tree(&self) -> String {
+        let spacing = "  ";
+        let base_dir: &str = "https://github.com/TheAlgorithms/Rust/blob/master";
+
+        // Print tree.
+        format!(
+            "* {}\n{}{}{}",
+            Self::pretty_name(&self.name),
+            self.sub_dirs
+                .iter()
+                .map(|dir| dir
+                    .tree()
+                    .split('\n')
+                    .map(|line| format!("{spacing}{line}"))
+                    .collect::<Vec<String>>()
+                    .join("\n"))
+                .collect::<Vec<String>>()
+                .join("\n"),
+            if !self.sub_dirs.is_empty() && !self.files.is_empty() {
+                "\n"
+            } else {
+                ""
+            },
+            self.files
+                .iter()
+                .map(|file| format!(
+                    "{spacing}* [{}]({}/{})",
+                    Self::pretty_name(&file.name),
+                    base_dir,
+                    file.path.display().to_string().replace('\\', "/")
+                ))
+                .collect::<Vec<String>>()
+                .join("\n")
+        )
+    }
+
+    /// Format a file or dir name.
+    pub fn pretty_name(name: &str) -> String {
+        name.split('_')
+            .map(|word| word[0..1].to_uppercase() + &word[1..])
+            .collect::<Vec<String>>()
+            .join(" ")
+    }
 }
 
 struct ExportsFile {
+    pub path: PathBuf,
     pub name: String,
     pub exports: Vec<String>,
 }
@@ -287,6 +351,7 @@ impl ExportsFile {
 
         // Create the intial instance.
         let mut exports_file = ExportsFile {
+            path: path_buf.clone(),
             name: path_buf
                 .file_stem()
                 .unwrap_or_else(|| {
@@ -344,7 +409,7 @@ impl ExportsFile {
         }
     }
 
-    /// Create a string that imports the mod for the mod file.
+    /// Create a string that exports the mod for the mod file.
     fn mod_to_string(&self) -> String {
         format!("mod {};", self.name)
     }
