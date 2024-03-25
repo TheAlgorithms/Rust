@@ -1,4 +1,4 @@
-/* auto-imports start */
+/* auto-imports start exclusions=[Node, Edge, Graph, Vertex, Edge, FlowEdge, FlowResultEdge, DSUNode, bfs, LCAQuery, QueryAnswer, TopoligicalSortError] */
 mod astar;
 mod bellman_ford;
 mod bipartite_matching;
@@ -27,26 +27,26 @@ mod two_satisfiability;
 pub use astar::astar;
 pub use bellman_ford::bellman_ford;
 pub use bipartite_matching::BipartiteMatching;
-pub use breadth_first_search::{ breadth_first_search, Node, Edge as breadth_first_search_Edge, Graph as breadth_first_search_Graph };
+pub use breadth_first_search::breadth_first_search;
 pub use centroid_decomposition::CentroidDecomposition;
-pub use depth_first_search::{ depth_first_search, Vertex, Edge as depth_first_search_Edge, Graph as depth_first_search_Graph };
+pub use depth_first_search::depth_first_search;
 pub use depth_first_search_tic_tac_toe::{ Players, PlayActions, minimax };
 pub use dijkstra::dijkstra;
-pub use dinic_maxflow::{ FlowEdge, FlowResultEdge, DinicMaxFlow };
-pub use disjoint_set_union::{ DSUNode, DisjointSetUnion };
+pub use dinic_maxflow::DinicMaxFlow;
+pub use disjoint_set_union::DisjointSetUnion;
 pub use eulerian_path::EulerianPath;
 pub use floyd_warshall::floyd_warshall;
-pub use ford_fulkerson::{ bfs, ford_fulkerson };
+pub use ford_fulkerson::ford_fulkerson;
 pub use graph_enumeration::enumerate_graph;
 pub use heavy_light_decomposition::HeavyLightDecomposition;
-pub use kosaraju::{ Graph as kosaraju_Graph, kosaraju };
+pub use kosaraju::kosaraju;
 pub use lee_breadth_first_search::lee;
-pub use lowest_common_ancestor::{ LowestCommonAncestorOnline, LCAQuery, QueryAnswer, LowestCommonAncestorOffline };
-pub use minimum_spanning_tree::{ Edge as minimum_spanning_tree_Edge, kruskal };
+pub use lowest_common_ancestor::{ LowestCommonAncestorOnline, LowestCommonAncestorOffline };
+pub use minimum_spanning_tree::kruskal;
 pub use prim::{ prim, prim_with_start };
 pub use prufer_code::{ prufer_encode, prufer_decode };
 pub use strongly_connected_components::StronglyConnectedComponents;
-pub use tarjans_ssc::{ Graph as tarjans_ssc_Graph, tarjan_scc };
-pub use topological_sort::{ TopoligicalSortError, topological_sort };
+pub use tarjans_ssc::tarjan_scc;
+pub use topological_sort::topological_sort;
 pub use two_satisfiability::solve_two_satisfiability;
 /* auto-imports end */

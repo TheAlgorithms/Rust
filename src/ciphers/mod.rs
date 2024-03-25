@@ -1,4 +1,4 @@
-/* auto-imports start */
+/* auto-imports start exclusions=[AesKey, xor_bytes] */
 mod aes;
 mod another_rot13;
 mod baconian_cipher;
@@ -20,7 +20,7 @@ mod theoretical_rot13;
 mod transposition;
 mod vigenere;
 mod xor;
-pub use aes::{ AesKey, aes_encrypt, aes_decrypt };
+pub use aes::{ aes_encrypt, aes_decrypt };
 pub use another_rot13::another_rot13;
 pub use baconian_cipher::{ baconian_encode, baconian_decode };
 pub use base64::{ base64_encode, base64_decode };
@@ -40,5 +40,5 @@ pub use tea::{ tea_encrypt, tea_decrypt };
 pub use theoretical_rot13::theoretical_rot13;
 pub use transposition::transposition;
 pub use vigenere::vigenere;
-pub use xor::{ xor_bytes, xor };
+pub use xor::xor;
 /* auto-imports end */
