@@ -1,11 +1,12 @@
 /*
+The function shortest_palindrome expands the given string to shortest palindrome by adding a shortest prefix.
 KMP. Source：https://www.scaler.com/topics/data-structures/kmp-algorithm/
 Prefix Functions and KPM. Source：https://oi-wiki.org/string/kmp/
 */
 
 pub fn shortest_palindrome(s: &str) -> String {
-    if s.is_empty() {
-        return "".to_string();
+    if s.is_empty() || !s.is_ascii() {
+        return s.to_string();
     }
 
     let p_chars: Vec<char> = s.chars().collect();
@@ -50,5 +51,7 @@ macro_rules! test_shortest_palindrome {
 test_shortest_palindrome! {
     empty: ("", ""),
     extend_left_1: ("aacecaaa", "aaacecaaa"),
-    extend_left_3: ("abcd", "dcbabcd"),
+    extend_left_2: ("abcd", "dcbabcd"),
+    unicode_1: ("അ", "അ"),
+    unicode_2: ("牛", "牛"),
 }
