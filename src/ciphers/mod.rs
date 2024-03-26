@@ -42,3 +42,6 @@ pub use transposition::transposition;
 pub use vigenere::vigenere;
 pub use xor::xor;
 /* auto-imports end */
+
+mod sha3;
+pub use sha3::{sha3_224, sha3_256, sha3_384, sha3_512};
