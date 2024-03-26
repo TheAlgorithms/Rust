@@ -64,7 +64,7 @@ pub fn fast_factorial(n: usize) -> BigUint {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::math::factorial::factorial_bigmath;
+    use crate::math::factorial_bigmath;
 
     #[test]
     fn fact() {
