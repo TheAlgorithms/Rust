@@ -138,9 +138,7 @@ mod tests {
         ];
 
         // Compare each cell of the generated tour matrix with the expected matrix
-        for i in 0..5 {
-            assert_eq!(tour_matrix[i], expected_matrix[i]);
-        }
+       assert!(tour_matrix, expected_matrix); 
     }
 
     #[test]
@@ -160,9 +158,7 @@ mod tests {
         ];
 
         // Compare each cell of the generated tour matrix with the expected matrix
-        for i in 0..6 {
-            assert_eq!(tour_matrix[i], expected_matrix[i]);
-        }
+        assert_eq!(tour_matrix, expected_matrix); 
     }
 
     #[test]
@@ -184,9 +180,7 @@ mod tests {
         ];
 
         // Compare each cell of the generated tour matrix with the expected matrix
-        for i in 0..8 {
-            assert_eq!(tour_matrix[i], expected_matrix[i]);
-        }
+        assert_eq!(tour_matrix, expected_matrix); 
     }
 
     #[test]
