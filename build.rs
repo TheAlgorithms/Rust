@@ -1,4 +1,8 @@
-use std::path::{Path, PathBuf};
+use std::{
+    fmt::Display,
+    path::{Path, PathBuf},
+};
+use syn::{Item, UseTree, Visibility::Public};
 
 pub fn main() {
     use std::{
@@ -11,7 +15,8 @@ pub fn main() {
     exports_dir.write_to_mod_file();
 
     // Write the dir and file tree to the DIRECTORY.md file.
-    let new_contents: String = format!("# List of all files\n\n## S{}", &exports_dir.tree()[3..]);
+    let new_contents: String = "# List of all files\n\n##".to_string()
+        + &UsageTree::new(Path::new("src").to_path_buf()).to_string()[1..];
     let current_contents: String =
         read_to_string("DIRECTORY.md").expect("Could not read DIRECTORY.md file");
     if current_contents != new_contents {
@@ -291,55 +296,9 @@ impl ExportsDir {
             dir.write_to_mod_file();
         }
     }
-
-    /// Create a dir and file tree.
-    pub fn tree(&self) -> String {
-        let spacing = "  ";
-        let base_dir: &str = "https://github.com/TheAlgorithms/Rust/blob/master";
-
-        // Print tree.
-        format!(
-            "* {}\n{}{}{}",
-            Self::pretty_name(&self.name),
-            self.sub_dirs
-                .iter()
-                .map(|dir| dir
-                    .tree()
-                    .split('\n')
-                    .map(|line| format!("{spacing}{line}"))
-                    .collect::<Vec<String>>()
-                    .join("\n"))
-                .collect::<Vec<String>>()
-                .join("\n"),
-            if !self.sub_dirs.is_empty() && !self.files.is_empty() {
-                "\n"
-            } else {
-                ""
-            },
-            self.files
-                .iter()
-                .map(|file| format!(
-                    "{spacing}* [{}]({}/{})",
-                    Self::pretty_name(&file.name),
-                    base_dir,
-                    file.path.display().to_string().replace('\\', "/")
-                ))
-                .collect::<Vec<String>>()
-                .join("\n")
-        )
-    }
-
-    /// Format a file or dir name.
-    pub fn pretty_name(name: &str) -> String {
-        name.split('_')
-            .map(|word| word[0..1].to_uppercase() + &word[1..])
-            .collect::<Vec<String>>()
-            .join(" ")
-    }
 }
 
 struct ExportsFile {
-    pub path: PathBuf,
     pub name: String,
     pub exports: Vec<String>,
 }
@@ -347,11 +306,9 @@ impl ExportsFile {
     /// Create a new instance. Reads the file and collects exports automatically.
     pub fn new(path_buf: PathBuf) -> ExportsFile {
         use std::fs::read_to_string;
-        use syn::{Item, Visibility::Public};
 
         // Create the intial instance.
         let mut exports_file = ExportsFile {
-            path: path_buf.clone(),
             name: path_buf
                 .file_stem()
                 .unwrap_or_else(|| {
@@ -427,5 +384,131 @@ impl ExportsFile {
                 '}'
             ),
         }
+    }
+}
+
+struct UsageTree {
+    path: PathBuf,
+    name: String,
+    items: Vec<String>,
+    sub_trees: Vec<UsageTree>,
+}
+impl UsageTree {
+    /// Create a new exports tree given the starting directory.
+    pub fn new(dir: PathBuf) -> UsageTree {
+        use std::fs::read_to_string;
+
+        if !dir.exists() || !dir.is_dir() {
+            panic!(
+                "Could not create UsageTree for directory '{}' as it does not exist.",
+                dir.display()
+            );
+        }
+
+        // Try for lib and mod file.
+        let mut usages: Vec<String> = Vec::new();
+        let mut sub_dirs: Vec<PathBuf> = Vec::new();
+        for file_name in ["lib.rs", "mod.rs"] {
+            let mod_file: PathBuf = dir.join(file_name);
+            if mod_file.exists() {
+                // Parse contents.
+                let file_contents: String = read_to_string(&mod_file)
+                    .unwrap_or_else(|_| panic!("Could not read file '{}'", mod_file.display()));
+                let syntax_tree = syn::parse_file(&file_contents)
+                    .unwrap_or_else(|_| panic!("Could not parse file '{}'", mod_file.display()));
+                for item in syntax_tree.items {
+                    match &item {
+                        // 'pub use' suggests item in dir.
+                        Item::Use(item) if matches!(item.vis, Public(_)) => {
+                            match &item.tree {
+                                UseTree::Path(path) => usages.push(path.ident.to_string()),
+                                UseTree::Name(name) => usages.push(name.ident.to_string()),
+                                UseTree::Rename(rename) => usages.push(rename.rename.to_string()),
+                                _ => {}
+                            };
+                        }
+
+                        // 'pub mod' suggests sub-dir.
+                        Item::Mod(item) if matches!(item.vis, Public(_)) => {
+                            sub_dirs.push(dir.join(item.ident.to_string()));
+                        }
+
+                        _ => {}
+                    }
+                }
+            }
+        }
+        usages.sort();
+        sub_dirs.sort();
+
+        // Return usagetree.
+        UsageTree {
+            path: dir.clone(),
+            name: dir
+                .file_stem()
+                .unwrap_or_else(|| panic!("Could not get filename of path '{}'", dir.display()))
+                .to_str()
+                .unwrap()
+                .to_string(),
+            items: usages,
+            sub_trees: sub_dirs
+                .iter()
+                .map(|dir| UsageTree::new(dir.clone()))
+                .collect::<Vec<UsageTree>>(),
+        }
+    }
+
+    /// Format a file or dir name.
+    pub fn pretty_name(name: &str) -> String {
+        name.split('_')
+            .map(|word| word[0..1].to_uppercase() + &word[1..])
+            .collect::<Vec<String>>()
+            .join(" ")
+    }
+}
+impl Display for UsageTree {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let spacing = "  ";
+        let item_path: String = format!(
+            "https://github.com/TheAlgorithms/Rust/blob/master/{}",
+            self.path.display().to_string().replace('\\', "/")
+        );
+
+        // Parse files and dirs separately, then sort by name.
+        let mut entries: Vec<(&str, String)> = Vec::new();
+        for sub_tree in &self.sub_trees {
+            entries.push((
+                &sub_tree.name,
+                sub_tree
+                    .to_string()
+                    .split('\n')
+                    .map(|line| format!("{spacing}{line}"))
+                    .collect::<Vec<String>>()
+                    .join("\n"),
+            ));
+        }
+        for item in &self.items {
+            entries.push((
+                item,
+                format!(
+                    "{spacing}* [{}]({}/{}.rs)",
+                    Self::pretty_name(item),
+                    item_path,
+                    item
+                ),
+            ));
+        }
+        entries.sort_by(|a, b| a.0.cmp(b.0));
+
+        write!(
+            f,
+            "* {}\n{}",
+            Self::pretty_name(&self.name),
+            entries
+                .iter()
+                .map(|entry| entry.1.clone())
+                .collect::<Vec<String>>()
+                .join("\n")
+        )
     }
 }
