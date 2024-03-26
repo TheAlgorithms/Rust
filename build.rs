@@ -395,11 +395,16 @@ struct UsageTree {
     name: String,
     items: Vec<String>,
     sub_trees: Vec<UsageTree>,
+    override_commands: Vec<Vec<String>>,
 }
 impl UsageTree {
     /// Create a new exports tree given the starting directory.
     pub fn new(dir: PathBuf) -> UsageTree {
+        use regex::Regex;
         use std::fs::read_to_string;
+
+        let directorymd_override: Regex =
+            Regex::new(r"DIRECTORY\.md override(?<arguments>([^\S\n]?(\S+))+)").unwrap();
 
         if !dir.exists() || !dir.is_dir() {
             panic!(
@@ -408,15 +413,18 @@ impl UsageTree {
             );
         }
 
-        // Try for lib and mod file.
+        // Loop through lib and mod files.
         let mut usages: Vec<String> = Vec::new();
         let mut sub_dirs: Vec<PathBuf> = Vec::new();
+        let mut directory_overrides: Vec<Vec<String>> = Vec::new();
         for file_name in ["lib.rs", "mod.rs"] {
             let mod_file: PathBuf = dir.join(file_name);
             if mod_file.exists() {
                 // Parse contents.
                 let file_contents: String = read_to_string(&mod_file)
                     .unwrap_or_else(|_| panic!("Could not read file '{}'", mod_file.display()));
+
+                // Usage items.
                 let syntax_tree = syn::parse_file(&file_contents)
                     .unwrap_or_else(|_| panic!("Could not parse file '{}'", mod_file.display()));
                 for item in syntax_tree.items {
@@ -439,10 +447,24 @@ impl UsageTree {
                         _ => {}
                     }
                 }
+
+                // Custom DIRECTORY.md overrides.
+                for capture in directorymd_override.captures_iter(&file_contents) {
+                    let arguments: Vec<String> = capture
+                        .name("arguments")
+                        .unwrap()
+                        .as_str()
+                        .trim()
+                        .to_lowercase()
+                        .split(' ')
+                        .map(|word| word.to_string())
+                        .collect();
+                    if !arguments.is_empty() {
+                        directory_overrides.push(arguments);
+                    }
+                }
             }
         }
-        usages.sort();
-        sub_dirs.sort();
 
         // Return usagetree.
         UsageTree {
@@ -458,6 +480,7 @@ impl UsageTree {
                 .iter()
                 .map(|dir| UsageTree::new(dir.clone()))
                 .collect::<Vec<UsageTree>>(),
+            override_commands: directory_overrides,
         }
     }
 
@@ -502,6 +525,74 @@ impl Display for UsageTree {
             ));
         }
         entries.sort_by(|a, b| a.0.cmp(b.0));
+
+        // Apply override commands to modify order or contents.
+        for command in &self.override_commands {
+            let err_main: String = format!(
+                "Error overriding DIRECTORY.md with command '{}': ",
+                command.join(" ")
+            );
+
+            // Parse command basics.
+            if command.len() < 3 {
+                panic!("{err_main}too few parameters.");
+            }
+            let mut command_target_index: usize = command[1].parse::<usize>().unwrap_or(
+                entries
+                    .iter()
+                    .position(|(name, _)| name == &command[1])
+                    .unwrap_or_else(|| panic!("{err_main}could not find target '{}'.", command[1])),
+            );
+            if command_target_index > entries.len() {
+                panic!("{err_main}No element at index {}.", command_target_index);
+            }
+            command_target_index += match command[0].as_str() {
+                "before" => 0,
+                "at" => 0,
+                "after" => 1,
+                _ => panic!("{err_main}first word should always be 'before', 'at' or 'after'."),
+            };
+
+            // Execute the command's specifics.
+            match command[2].as_str() {
+                // Reposition an element.
+                "place" => {
+                    if command.len() < 4 {
+                        panic!("{err_main}move command requires 4 arguments.");
+                    }
+                    let source_index: usize = entries
+                        .iter()
+                        .position(|(name, _)| name == &command[3])
+                        .unwrap_or_else(|| {
+                            panic!("{err_main}could not find target '{}'.", command[3])
+                        });
+                    let item = entries.remove(source_index);
+                    entries.insert(command_target_index, item);
+                }
+
+                // Hide an element.
+                "hide" => {
+                    entries.remove(command_target_index);
+                }
+
+                // Insert a new text under the selected element.
+                "insert" => {
+                    if command.len() < 4 {
+                        panic!("{err_main}insert command requires 4 arguments.");
+                    }
+                    let current_contents: &str = &entries[command_target_index].1;
+                    let padding: &str = &current_contents
+                        [..current_contents.len() - current_contents.trim_start().len()];
+                    entries.insert(
+                        command_target_index,
+                        ("", padding.to_string() + &command[3..].join(" ")),
+                    );
+                }
+
+                // Unknown command.
+                _ => panic!("{err_main}unknown command '{}'.", command[2]),
+            }
+        }
 
         write!(
             f,
