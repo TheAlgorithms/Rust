@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate lazy_static;
 
-/* auto-imports start */
+/* auto-exports start */
 pub mod backtracking;
 pub mod big_integer;
 pub mod bit_manipulation;
@@ -20,7 +20,7 @@ pub mod number_theory;
 pub mod searching;
 pub mod sorting;
 pub mod string;
-/* auto-imports end */
+/* auto-exports end */
 
 #[cfg(test)]
 mod tests {

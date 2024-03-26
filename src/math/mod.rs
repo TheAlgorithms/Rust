@@ -1,4 +1,4 @@
-/* auto-imports start exclusions=[Point, Complex64, PrimeFieldElementsIter, MatrixElement, gcd_extended, iteration, legendre_symbol, IterMut] */
+/* auto-exports start exclusions=[Point, Complex64, PrimeFieldElementsIter, MatrixElement, gcd_extended, iteration, legendre_symbol, IterMut] */
 mod abs;
 mod aliquot_sum;
 mod amicable_numbers;
@@ -170,4 +170,4 @@ pub use trig_functions::{
 };
 pub use vector_cross_product::{cross_product, vector_magnitude};
 pub use zellers_congruence_algorithm::zellers_congruence_algorithm;
-/* auto-imports end */
+/* auto-exports end */

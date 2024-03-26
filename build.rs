@@ -13,6 +13,7 @@ pub fn main() {
     // Write exports to mod files.
     let mut exports_dir: ExportsDir = ExportsDir::new(Path::new("src"));
     exports_dir.write_to_mod_file();
+    exports_dir.check_duplicates();
 
     // Write the dir and file tree to the DIRECTORY.md file.
     let new_contents: String = "# List of all files\n\n##".to_string()
@@ -82,6 +83,16 @@ impl ExportsDir {
 
     /// Remove some specific exports from all exports in the directory.
     pub fn remove_exports(&mut self, exclusions: &Vec<String>) {
+        for index in (0..self.sub_dirs.len()).rev() {
+            if exclusions.contains(&self.sub_dirs[index].name) {
+                self.sub_dirs.remove(index);
+            }
+        }
+        for index in (0..self.files.len()).rev() {
+            if exclusions.contains(&self.files[index].name) {
+                self.files.remove(index);
+            }
+        }
         for sub_dir in &mut self.sub_dirs {
             sub_dir.remove_exports(exclusions);
         }
@@ -90,33 +101,24 @@ impl ExportsDir {
         }
     }
 
-    /// Get a flat list of all exports' names.
-    pub fn flat_export_names(&self) -> Vec<&String> {
-        let mut export_names = Vec::new();
-        export_names.extend_from_slice(
-            &self
-                .files
-                .iter()
-                .flat_map(|file| &file.exports)
-                .collect::<Vec<&String>>()[..],
-        );
-        export_names.extend_from_slice(
+    /// Prefix all duplicate exports with the name of their file.
+    pub fn check_duplicates(&mut self) {
+        for sub_dir in &mut self.sub_dirs {
+            sub_dir.check_duplicates();
+        }
+        let mut exports_names: Vec<&String> = self
+            .files
+            .iter()
+            .map(|file| &file.name)
+            .collect::<Vec<&String>>();
+        exports_names.extend_from_slice(
             &self
                 .sub_dirs
                 .iter()
-                .flat_map(|dir| dir.flat_export_names())
+                .map(|sub_dir| &sub_dir.name)
                 .collect::<Vec<&String>>()[..],
         );
-        export_names
-    }
-
-    /// Prefix all duplicate exports with the name of their file.
-    pub fn prefix_duplicates(&mut self) {
-        for sub_dir in &mut self.sub_dirs {
-            sub_dir.prefix_duplicates();
-        }
-        let exports_names: Vec<&String> = self.flat_export_names();
-        let duplicate_names: Vec<String> = exports_names
+        let mut duplicate_names: Vec<String> = exports_names
             .iter()
             .enumerate()
             .filter(|(index, name)| {
@@ -127,9 +129,19 @@ impl ExportsDir {
                     != *index
             })
             .map(|(_, name)| name.to_string())
-            .collect();
-        for file in &mut self.files {
-            file.prefix_exports(&duplicate_names);
+            .collect::<Vec<String>>();
+        duplicate_names.dedup();
+        if !duplicate_names.is_empty() {
+            let mod_file_name: &str = if self.path.join("lib.rs").exists() {
+                "lib.rs"
+            } else {
+                "mod.rs"
+            };
+            panic!(
+                "'{}' contains duplicate definitions for: {}",
+                self.path.join(mod_file_name).display(),
+                duplicate_names.join(", ")
+            );
         }
     }
 
@@ -205,6 +217,7 @@ impl ExportsDir {
                 output_path.display()
             );
         }
+
         let start_capture = &start_captures[0];
         let start_capture_position: usize = start_capture.get(0).unwrap().end();
         let start_tag: &str = start_capture.get(0).unwrap().as_str();
@@ -242,7 +255,6 @@ impl ExportsDir {
 
         // Fix exclusions and duplicates.
         self.remove_exports(&export_exclusions);
-        self.prefix_duplicates();
         self.remove_files_without_exports();
 
         // Parse exports into string.
@@ -357,15 +369,6 @@ impl ExportsFile {
         }
     }
 
-    /// Prefix the given exports with the name of the file.
-    fn prefix_exports(&mut self, prefixed_exports: &[String]) {
-        for export in &mut self.exports {
-            if prefixed_exports.contains(&*export) {
-                *export = format!("{} as {}_{}", export, self.name, export);
-            }
-        }
-    }
-
     /// Create a string that exports the mod for the mod file.
     fn mod_to_string(&self) -> String {
         format!("mod {};", self.name)
@@ -377,10 +380,10 @@ impl ExportsFile {
             0 => String::new(),
             1 => format!("pub use {}::{};", self.name, self.exports[0]),
             _ => format!(
-                "pub use {}::{}{}{};",
+                "pub use {}::{}\n\t{}\n{};",
                 self.name,
                 '{',
-                self.exports.join(", "),
+                self.exports.join(",\n\t"),
                 '}'
             ),
         }

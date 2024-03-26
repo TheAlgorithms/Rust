@@ -1,4 +1,4 @@
-/* auto-imports start exclusions=[polygon_area] */
+/* auto-exports start exclusions=[polygon_area] */
 mod closest_points;
 mod graham_scan;
 mod jarvis_scan;
@@ -11,4 +11,4 @@ pub use jarvis_scan::jarvis_march;
 pub use point::Point;
 pub use polygon_points::lattice_points;
 pub use segment::Segment;
-/* auto-imports end */
+/* auto-exports end */

@@ -1,6 +1,6 @@
-/* auto-imports start */
+/* auto-exports start */
 mod bearing;
 mod haversine;
 pub use bearing::bearing;
 pub use haversine::haversine;
-/* auto-imports end */
+/* auto-exports end */

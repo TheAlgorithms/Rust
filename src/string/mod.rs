@@ -1,4 +1,4 @@
-/* auto-imports start */
+/* auto-exports start */
 mod aho_corasick;
 mod anagram;
 mod autocomplete_using_trie;
@@ -41,4 +41,4 @@ pub use suffix_array::generate_suffix_array;
 pub use suffix_array_manber_myers::generate_suffix_array_manber_myers;
 pub use suffix_tree::{Node, SuffixTree};
 pub use z_algorithm::{match_pattern, z_array};
-/* auto-imports end */
+/* auto-exports end */

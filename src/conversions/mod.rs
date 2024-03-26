@@ -1,4 +1,4 @@
-/* auto-imports start */
+/* auto-exports start */
 mod binary_to_decimal;
 mod binary_to_hexadecimal;
 mod decimal_to_binary;
@@ -15,4 +15,4 @@ pub use hexadecimal_to_binary::hexadecimal_to_binary;
 pub use hexadecimal_to_decimal::hexadecimal_to_decimal;
 pub use octal_to_binary::octal_to_binary;
 pub use octal_to_decimal::octal_to_decimal;
-/* auto-imports end */
+/* auto-exports end */

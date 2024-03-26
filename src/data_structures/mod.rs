@@ -1,4 +1,4 @@
-/* auto-imports start exclusions=[Iter, NodeNotInGraph, Graph, Hashable, Node, RBNode, RBTreeIterator, IntoIter, IterMut, VebTreeIter] */
+/* auto-exports start exclusions=[Iter, NodeNotInGraph, Graph, Hashable, Node, RBNode, RBTreeIterator, IntoIter, IterMut, VebTreeIter, segment_tree_recursive] */
 mod avl_tree;
 mod b_tree;
 mod binary_search_tree;
@@ -16,13 +16,12 @@ mod queue;
 mod range_minimum_query;
 mod rb_tree;
 mod segment_tree;
-mod segment_tree_recursive;
 mod stack_using_singly_linked_list;
 mod treap;
 mod trie;
 mod union_find;
 mod veb_tree;
-pub use avl_tree::{AVLTree, Iter as avl_tree_Iter};
+pub use avl_tree::AVLTree;
 pub use b_tree::BTree;
 pub use binary_search_tree::BinarySearchTree;
 pub use fenwick_tree::FenwickTree;
@@ -37,11 +36,13 @@ pub use postfix_evaluation::evaluate_postfix;
 pub use queue::Queue;
 pub use range_minimum_query::RangeMinimumQuery;
 pub use rb_tree::RBTree;
-pub use segment_tree::SegmentTree as segment_tree_SegmentTree;
-pub use segment_tree_recursive::SegmentTree as segment_tree_recursive_SegmentTree;
-pub use stack_using_singly_linked_list::{Iter as stack_using_singly_linked_list_Iter, Stack};
-pub use treap::{Iter as treap_Iter, Treap};
+pub use segment_tree::SegmentTree;
+pub use stack_using_singly_linked_list::Stack;
+pub use treap::Treap;
 pub use trie::Trie;
 pub use union_find::UnionFind;
 pub use veb_tree::VebTree;
-/* auto-imports end */
+/* auto-exports end */
+
+mod segment_tree_recursive;
+pub use segment_tree_recursive::SegmentTree as SegmentTreeRecursive;

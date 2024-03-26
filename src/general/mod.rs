@@ -1,4 +1,4 @@
-/* auto-imports start exclusions=[Chromosome, SelectionStrategy, RouletteWheel, Tournament, GenericAlgorithmParams, HuffmanValue, HuffmanNode] */
+/* auto-exports start exclusions=[Chromosome, SelectionStrategy, RouletteWheel, Tournament, GenericAlgorithmParams, HuffmanValue, HuffmanNode] */
 mod convex_hull;
 mod fisher_yates_shuffle;
 mod genetic;
@@ -16,7 +16,7 @@ pub use huffman_encoding::{HuffmanDictionary, HuffmanEncoding};
 pub use kadane_algorithm::max_sub_array;
 pub use mex::{mex_using_set, mex_using_sort};
 pub use two_sum::two_sum;
-/* auto-imports end */
+/* auto-exports end */
 
 mod kmeans;
 pub use kmeans::{f32::kmeans as kmeans_f32, f64::kmeans as kmeans_f64};

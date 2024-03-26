@@ -1,4 +1,4 @@
-/* auto-imports start */
+/* auto-exports start */
 mod binary_search;
 mod binary_search_recursive;
 mod exponential_search;
@@ -31,4 +31,4 @@ pub use ternary_search::ternary_search;
 pub use ternary_search_min_max::{ternary_search_max, ternary_search_min};
 pub use ternary_search_min_max_recursive::{ternary_search_max_rec, ternary_search_min_rec};
 pub use ternary_search_recursive::ternary_search_rec;
-/* auto-imports end */
+/* auto-exports end */

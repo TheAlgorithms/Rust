@@ -1,4 +1,4 @@
-/* auto-imports start exclusions=[AesKey, xor_bytes] */
+/* auto-exports start exclusions=[AesKey, xor_bytes] */
 mod aes;
 mod another_rot13;
 mod baconian_cipher;
@@ -41,7 +41,7 @@ pub use theoretical_rot13::theoretical_rot13;
 pub use transposition::transposition;
 pub use vigenere::vigenere;
 pub use xor::xor;
-/* auto-imports end */
+/* auto-exports end */
 
 mod sha3;
 pub use sha3::{sha3_224, sha3_256, sha3_384, sha3_512};

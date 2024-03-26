@@ -1,4 +1,4 @@
-/* auto-imports start */
+/* auto-exports start */
 mod coin_change;
 mod egg_dropping;
 mod fibonacci;
@@ -39,4 +39,4 @@ pub use rod_cutting::rod_cut;
 pub use snail::snail;
 pub use subset_generation::list_subset;
 pub use word_break::word_break;
-/* auto-imports end */
+/* auto-exports end */
