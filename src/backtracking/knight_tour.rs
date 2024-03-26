@@ -2,10 +2,33 @@
 //!
 //! The Knight's Tour is a classic chess problem where the objective is to move a knight to every square on a chessboard exactly once.
 
+/// Finds the Knight's Tour starting from the specified position.
+///
+/// # Arguments
+///
+/// * `size_x` - The width of the chessboard.
+/// * `size_y` - The height of the chessboard.
+/// * `start_x` - The x-coordinate of the starting position.
+/// * `start_y` - The y-coordinate of the starting position.
+///
+/// # Returns
+///
+/// A tuple containing a boolean indicating whether a tour was found and the tour matrix if found.
+pub fn find_knight_tour(
+    size_x: usize,
+    size_y: usize,
+    start_x: usize,
+    start_y: usize,
+) -> (bool, Vec<Vec<usize>>) {
+    let mut tour = KnightTour::new(size_x, size_y);
+    tour.find_tour(start_x, start_y)
+}
+
 /// Represents the KnightTour struct which implements the Knight's Tour problem.
-pub struct KnightTour {
-    board_size: usize,
-    board: Vec<Vec<i32>>,
+struct KnightTour {
+    board_size_x: usize,
+    board_size_y: usize,
+    board: Vec<Vec<usize>>,
     moves: [(i32, i32); 8],
 }
 
@@ -19,8 +42,8 @@ impl KnightTour {
     /// # Returns
     ///
     /// A new KnightTour instance.
-    pub fn new(size: usize) -> Self {
-        let board = vec![vec![0; size]; size];
+    fn new(size_x: usize, size_y: usize) -> Self {
+        let board = vec![vec![0; size_x]; size_y];
         let moves = [
             (2, 1),
             (1, 2),
@@ -32,7 +55,8 @@ impl KnightTour {
             (2, -1),
         ];
         KnightTour {
-            board_size: size,
+            board_size_x: size_x,
+            board_size_y: size_y,
             board,
             moves,
         }
@@ -51,8 +75,8 @@ impl KnightTour {
     fn is_safe(&self, x: i32, y: i32) -> bool {
         x >= 0
             && y >= 0
-            && x < self.board_size as i32
-            && y < self.board_size as i32
+            && x < self.board_size_x as i32
+            && y < self.board_size_y as i32
             && self.board[x as usize][y as usize] == 0
     }
 
@@ -68,7 +92,7 @@ impl KnightTour {
     ///
     /// A boolean indicating whether a solution was found.
     fn solve_tour(&mut self, x: i32, y: i32, move_count: i32) -> bool {
-        if move_count == self.board_size as i32 * self.board_size as i32 {
+        if move_count == (self.board_size_x * self.board_size_y) as i32 {
             return true;
         }
 
@@ -77,7 +101,7 @@ impl KnightTour {
             let next_y = y + self.moves[i].1;
 
             if self.is_safe(next_x, next_y) {
-                self.board[next_x as usize][next_y as usize] = move_count + 1;
+                self.board[next_x as usize][next_y as usize] = (move_count as usize) + 1;
 
                 if self.solve_tour(next_x, next_y, move_count + 1) {
                     return true;
@@ -100,7 +124,7 @@ impl KnightTour {
     /// # Returns
     ///
     /// A tuple containing a boolean indicating whether a tour was found and the tour matrix if found.
-    pub fn find_tour(&mut self, start_x: usize, start_y: usize) -> (bool, Vec<Vec<i32>>) {
+    fn find_tour(&mut self, start_x: usize, start_y: usize) -> (bool, Vec<Vec<usize>>) {
         if !self.is_safe(start_x as i32, start_y as i32) {
             println!("Invalid starting position");
             return (false, vec![]);
@@ -124,12 +148,11 @@ mod tests {
 
     #[test]
     fn test_knights_tour_5x5() {
-        let mut tour = KnightTour::new(5);
-        let (found, tour_matrix) = tour.find_tour(0, 0);
+        let (found, tour_matrix) = find_knight_tour(5, 5, 0, 0);
         assert!(found);
 
         // Define the expected tour matrix for an 8x8 board (assuming a successful tour)
-        let expected_matrix: Vec<Vec<i32>> = vec![
+        let expected_matrix: Vec<Vec<usize>> = vec![
             vec![1, 6, 15, 10, 21],
             vec![14, 9, 20, 5, 16],
             vec![19, 2, 7, 22, 11],
@@ -143,12 +166,11 @@ mod tests {
 
     #[test]
     fn test_knights_tour_6x6() {
-        let mut tour = KnightTour::new(6);
-        let (found, tour_matrix) = tour.find_tour(0, 0);
+        let (found, tour_matrix) = find_knight_tour(6, 6, 0, 0);
         assert!(found);
 
         // Define the expected tour matrix for an 6x6 board (assuming a successful tour)
-        let expected_matrix: Vec<Vec<i32>> = vec![
+        let expected_matrix: Vec<Vec<usize>> = vec![
             vec![1, 16, 7, 26, 11, 14],
             vec![34, 25, 12, 15, 6, 27],
             vec![17, 2, 33, 8, 13, 10],
@@ -163,12 +185,11 @@ mod tests {
 
     #[test]
     fn test_knights_tour_8x8() {
-        let mut tour = KnightTour::new(8);
-        let (found, tour_matrix) = tour.find_tour(0, 0);
+        let (found, tour_matrix) = find_knight_tour(8, 8, 0, 0);
         assert!(found);
 
         // Define the expected tour matrix for an 5x5 board (assuming a successful tour)
-        let expected_matrix: Vec<Vec<i32>> = vec![
+        let expected_matrix: Vec<Vec<usize>> = vec![
             vec![1, 60, 39, 34, 31, 18, 9, 64],
             vec![38, 35, 32, 61, 10, 63, 30, 17],
             vec![59, 2, 37, 40, 33, 28, 19, 8],
@@ -186,15 +207,13 @@ mod tests {
     #[test]
     fn test_no_solution_exist() {
         // Define the expected tour matrix for an 5x5 board
-        let mut tour = KnightTour::new(5);
-        let (found, _) = tour.find_tour(2, 1);
+        let (found, _) = find_knight_tour(5, 5, 2, 1);
         assert!(!found);
     }
 
     #[test]
     fn test_invalid_start_position() {
-        let mut tour = KnightTour::new(8);
-        let (found, _) = tour.find_tour(10, 10);
+        let (found, _) = find_knight_tour(8, 8, 10, 10);
         assert!(!found);
     }
 }
