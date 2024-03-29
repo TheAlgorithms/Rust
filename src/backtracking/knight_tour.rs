@@ -14,6 +14,9 @@
 /// # Returns
 ///
 /// A tuple containing a boolean indicating whether a tour was found and the tour matrix if found.
+/// The tour matrix returned is essentially the board field of the `KnightTour`
+/// struct `Vec<Vec<i32>>`. It represents the sequence of moves made by the
+/// knight on the chessboard, with each cell containing the order in which the knight visited that square.
 pub fn find_knight_tour(
     size_x: usize,
     size_y: usize,
