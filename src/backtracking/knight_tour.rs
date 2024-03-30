@@ -32,12 +32,22 @@ struct KnightTour {
     board_size_x: usize,
     board_size_y: usize,
     board: Vec<Vec<usize>>,
-    moves: [(i32, i32); 8],
 }
 
 impl KnightTour {
+    /// Possible moves of the knight on the board
+    const MOVES: [(i32, i32); 8] = [
+        (2, 1),
+        (1, 2),
+        (-1, 2),
+        (-2, 1),
+        (-2, -1),
+        (-1, -2),
+        (1, -2),
+        (2, -1),
+    ];
+
     /// Constructs a new KnightTour instance with the given board size.
-    ///
     /// # Arguments
     ///
     /// * `size` - The size of the chessboard.
@@ -47,21 +57,10 @@ impl KnightTour {
     /// A new KnightTour instance.
     fn new(size_x: usize, size_y: usize) -> Self {
         let board = vec![vec![0; size_x]; size_y];
-        let moves = [
-            (2, 1),
-            (1, 2),
-            (-1, 2),
-            (-2, 1),
-            (-2, -1),
-            (-1, -2),
-            (1, -2),
-            (2, -1),
-        ];
         KnightTour {
             board_size_x: size_x,
             board_size_y: size_y,
             board,
-            moves,
         }
     }
 
@@ -100,8 +99,8 @@ impl KnightTour {
         }
 
         for i in 0..8 {
-            let next_x = x + self.moves[i].0;
-            let next_y = y + self.moves[i].1;
+            let next_x = x + KnightTour::MOVES[i].0;
+            let next_y = y + KnightTour::MOVES[i].1;
 
             if self.is_safe(next_x, next_y) {
                 self.board[next_x as usize][next_y as usize] = (move_count as usize) + 1;
