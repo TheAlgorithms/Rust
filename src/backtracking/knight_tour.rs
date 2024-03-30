@@ -129,18 +129,15 @@ impl KnightTour {
     /// A tour matrix if the tour was found or None if not found.
     fn find_tour(&mut self, start_x: usize, start_y: usize) -> Option<Vec<Vec<usize>>> {
         if !self.is_safe(start_x as i32, start_y as i32) {
-            println!("Invalid starting position");
             return None;
         }
 
         self.board[start_x][start_y] = 1;
 
         if !self.solve_tour(start_x as i32, start_y as i32, 1) {
-            println!("No solution exists");
             return None;
         }
 
-        println!("Knight's Tour:");
         Some(self.board.clone())
     }
 }
