@@ -145,47 +145,34 @@ impl KnightTour {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_knights_tour_5x5() {
-        let tour_matrix = find_knight_tour(5, 5, 0, 0);
-
-        // Define the expected tour matrix for an 8x8 board (assuming a successful tour)
-        let expected_matrix: Vec<Vec<usize>> = vec![
+    macro_rules! test_find_knight_tour {
+        ($($name:ident: $tc:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (size_x, size_y, start_x, start_y, expected) = $tc;
+                assert_eq!(find_knight_tour(size_x, size_y, start_x, start_y), expected);
+            }
+        )*
+        }
+    }
+    test_find_knight_tour! {
+        test_knight_tour_5x5: (5, 5, 0, 0, Some(vec![
             vec![1, 6, 15, 10, 21],
             vec![14, 9, 20, 5, 16],
             vec![19, 2, 7, 22, 11],
             vec![8, 13, 24, 17, 4],
             vec![25, 18, 3, 12, 23],
-        ];
-
-        // Compare each cell of the generated tour matrix with the expected matrix
-        assert_eq!(tour_matrix, Some(expected_matrix));
-    }
-
-    #[test]
-    fn test_knights_tour_6x6() {
-        let tour_matrix = find_knight_tour(6, 6, 0, 0);
-
-        // Define the expected tour matrix for an 6x6 board (assuming a successful tour)
-        let expected_matrix: Vec<Vec<usize>> = vec![
+        ])),
+        test_knight_tour_6x6: (6, 6, 0, 0, Some(vec![
             vec![1, 16, 7, 26, 11, 14],
             vec![34, 25, 12, 15, 6, 27],
             vec![17, 2, 33, 8, 13, 10],
             vec![32, 35, 24, 21, 28, 5],
             vec![23, 18, 3, 30, 9, 20],
             vec![36, 31, 22, 19, 4, 29],
-        ];
-
-        // Compare each cell of the generated tour matrix with the expected matrix
-        assert_eq!(tour_matrix, Some(expected_matrix));
-    }
-
-    #[test]
-    fn test_knights_tour_8x8() {
-        let tour_matrix = find_knight_tour(8, 8, 0, 0);
-
-        // Define the expected tour matrix for an 5x5 board (assuming a successful tour)
-        let expected_matrix: Vec<Vec<usize>> = vec![
+        ])),
+        test_knight_tour_8x8: (8, 8, 0, 0, Some(vec![
             vec![1, 60, 39, 34, 31, 18, 9, 64],
             vec![38, 35, 32, 61, 10, 63, 30, 17],
             vec![59, 2, 37, 40, 33, 28, 19, 8],
@@ -194,22 +181,8 @@ mod tests {
             vec![48, 51, 46, 55, 26, 21, 12, 15],
             vec![57, 44, 53, 4, 23, 14, 25, 6],
             vec![52, 47, 56, 45, 54, 5, 22, 13],
-        ];
-
-        // Compare each cell of the generated tour matrix with the expected matrix
-        assert_eq!(tour_matrix, Some(expected_matrix));
-    }
-
-    #[test]
-    fn test_no_solution_exist() {
-        // Define the expected tour matrix for an 5x5 board
-        let tour_matrix = find_knight_tour(5, 5, 2, 1);
-        assert_eq!(tour_matrix, None);
-    }
-
-    #[test]
-    fn test_invalid_start_position() {
-        let tour_matrix = find_knight_tour(8, 8, 10, 10);
-        assert_eq!(tour_matrix, None);
+        ])),
+        test_no_solution: (5, 5, 2, 1, None),
+        test_invalid_start_position: (8, 8, 10, 10, None),
     }
 }
