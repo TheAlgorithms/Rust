@@ -97,10 +97,9 @@ impl KnightTour {
         if move_count == (self.board_size_x * self.board_size_y) as i32 {
             return true;
         }
-
-        for i in 0..8 {
-            let next_x = x + KnightTour::MOVES[i].0;
-            let next_y = y + KnightTour::MOVES[i].1;
+        for &(dx, dy) in KnightTour::MOVES.iter() {
+            let next_x = x + dx;
+            let next_y = y + dy;
 
             if self.is_safe(next_x, next_y) {
                 self.board[next_x as usize][next_y as usize] = (move_count as usize) + 1;
