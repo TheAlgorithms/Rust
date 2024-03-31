@@ -29,8 +29,6 @@ pub fn find_knight_tour(
 
 /// Represents the KnightTour struct which implements the Knight's Tour problem.
 struct KnightTour {
-    board_size_x: usize,
-    board_size_y: usize,
     board: Vec<Vec<usize>>,
 }
 
@@ -50,18 +48,15 @@ impl KnightTour {
     /// Constructs a new KnightTour instance with the given board size.
     /// # Arguments
     ///
-    /// * `size` - The size of the chessboard.
+    /// * `size_x` - The width of the chessboard.
+    /// * `size_y` - The height of the chessboard.
     ///
     /// # Returns
     ///
     /// A new KnightTour instance.
     fn new(size_x: usize, size_y: usize) -> Self {
         let board = vec![vec![0; size_x]; size_y];
-        KnightTour {
-            board_size_x: size_x,
-            board_size_y: size_y,
-            board,
-        }
+        KnightTour { board }
     }
 
     /// Checks if the given position is safe to move to.
@@ -77,8 +72,8 @@ impl KnightTour {
     fn is_safe(&self, x: i32, y: i32) -> bool {
         x >= 0
             && y >= 0
-            && x < self.board_size_x as i32
-            && y < self.board_size_y as i32
+            && x < self.board.len() as i32
+            && y < self.board[0].len() as i32
             && self.board[x as usize][y as usize] == 0
     }
 
@@ -94,7 +89,7 @@ impl KnightTour {
     ///
     /// A boolean indicating whether a solution was found.
     fn solve_tour(&mut self, x: i32, y: i32, move_count: u32) -> bool {
-        if move_count == (self.board_size_x * self.board_size_y) as u32 {
+        if move_count == (self.board.len() * self.board[0].len()) as u32 {
             return true;
         }
         for &(dx, dy) in KnightTour::MOVES.iter() {
