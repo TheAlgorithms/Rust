@@ -93,8 +93,8 @@ impl KnightTour {
     /// # Returns
     ///
     /// A boolean indicating whether a solution was found.
-    fn solve_tour(&mut self, x: i32, y: i32, move_count: i32) -> bool {
-        if move_count == (self.board_size_x * self.board_size_y) as i32 {
+    fn solve_tour(&mut self, x: i32, y: i32, move_count: u32) -> bool {
+        if move_count == (self.board_size_x * self.board_size_y) as u32 {
             return true;
         }
         for &(dx, dy) in KnightTour::MOVES.iter() {
