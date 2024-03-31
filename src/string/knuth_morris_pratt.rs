@@ -3,8 +3,8 @@ pub fn knuth_morris_pratt(st: &str, pat: &str) -> Vec<usize> {
         return vec![];
     }
 
-    let string = st.as_bytes();
-    let pattern = pat.as_bytes();
+    let string = st.chars().collect::<Vec<char>>();
+    let pattern = pat.chars().collect::<Vec<char>>();
 
     // build the partial match table
     let mut partial = vec![0];
@@ -40,57 +40,29 @@ pub fn knuth_morris_pratt(st: &str, pat: &str) -> Vec<usize> {
 mod tests {
     use super::*;
 
-    #[test]
-    fn each_letter_matches() {
-        let index = knuth_morris_pratt("aaa", "a");
-        assert_eq!(index, vec![0, 1, 2]);
+    macro_rules! test_knuth_morris_pratt {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (input, pattern, expected) = $inputs;
+                    assert_eq!(knuth_morris_pratt(input, pattern), expected);
+                }
+            )*
+        }
     }
 
-    #[test]
-    fn a_few_separate_matches() {
-        let index = knuth_morris_pratt("abababa", "ab");
-        assert_eq!(index, vec![0, 2, 4]);
-    }
-
-    #[test]
-    fn one_match() {
-        let index = knuth_morris_pratt("ABC ABCDAB ABCDABCDABDE", "ABCDABD");
-        assert_eq!(index, vec![15]);
-    }
-
-    #[test]
-    fn lots_of_matches() {
-        let index = knuth_morris_pratt("aaabaabaaaaa", "aa");
-        assert_eq!(index, vec![0, 1, 4, 7, 8, 9, 10]);
-    }
-
-    #[test]
-    fn lots_of_intricate_matches() {
-        let index = knuth_morris_pratt("ababababa", "aba");
-        assert_eq!(index, vec![0, 2, 4, 6]);
-    }
-
-    #[test]
-    fn not_found0() {
-        let index = knuth_morris_pratt("abcde", "f");
-        assert_eq!(index, vec![]);
-    }
-
-    #[test]
-    fn not_found1() {
-        let index = knuth_morris_pratt("abcde", "ac");
-        assert_eq!(index, vec![]);
-    }
-
-    #[test]
-    fn not_found2() {
-        let index = knuth_morris_pratt("ababab", "bababa");
-        assert_eq!(index, vec![]);
-    }
-
-    #[test]
-    fn empty_string() {
-        let index = knuth_morris_pratt("", "abcdef");
-        assert_eq!(index, vec![]);
+    test_knuth_morris_pratt! {
+        each_letter_matches: ("aaa", "a", vec![0, 1, 2]),
+        a_few_seperate_matches: ("abababa", "ab", vec![0, 2, 4]),
+        unicode: ("അഅഅ", "അ", vec![0, 1, 2]),
+        unicode_no_match_but_similar_bytes: (&String::from_utf8(vec![224, 180, 133]).unwrap(), &String::from_utf8(vec![224, 180, 132]).unwrap(), vec![]),
+        one_match: ("ABC ABCDAB ABCDABCDABDE",  "ABCDABD", vec![15]),
+        lots_of_matches: ("aaabaabaaaaa",  "aa", vec![0, 1, 4, 7, 8, 9, 10]),
+        lots_of_intricate_matches: ("ababababa", "aba", vec![0, 2, 4, 6]),
+        not_found0: ("abcde", "f", vec![]),
+        not_found1: ("abcde", "ac", vec![]),
+        not_found2: ("ababab", "bababa", vec![]),
+        empty_string: ("", "abcdef", vec![]),
     }
 }
