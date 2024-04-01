@@ -8,7 +8,7 @@ pub fn shortest_palindrome(s: &str) -> String {
     if s.is_empty() {
         return "".to_string();
     }
-    
+
     let p_chars: Vec<char> = s.chars().collect();
     let mut suffix = vec![0; s.chars().count()];
     for i in 1..s.chars().count() {
@@ -29,7 +29,7 @@ pub fn shortest_palindrome(s: &str) -> String {
         }
         dp[i] = j + if s_chars[i] == p_chars[j] { 1 } else { 0 };
     }
-    
+
     s_chars.append(&mut p_chars[dp[s.chars().count() - 1]..s.chars().count()].to_vec());
     s_chars.iter().collect()
 }
