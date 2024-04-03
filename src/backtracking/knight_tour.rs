@@ -15,7 +15,7 @@
 ///
 /// A tour matrix if the tour was found or None if not found.
 /// The tour matrix returned is essentially the board field of the `KnightTour`
-/// struct `Vec<Vec<i32>>`. It represents the sequence of moves made by the
+/// struct `Vec<Vec<usize>>`. It represents the sequence of moves made by the
 /// knight on the chessboard, with each cell containing the order in which the knight visited that square.
 pub fn find_knight_tour(
     size_x: usize,
@@ -34,7 +34,7 @@ struct KnightTour {
 
 impl KnightTour {
     /// Possible moves of the knight on the board
-    const MOVES: [(i32, i32); 8] = [
+    const MOVES: [(isize, isize); 8] = [
         (2, 1),
         (1, 2),
         (-1, 2),
@@ -59,6 +59,16 @@ impl KnightTour {
         KnightTour { board }
     }
 
+    /// Returns the width of the chessboard.
+    fn size_x(&self) -> usize {
+        self.board.len()
+    }
+
+    /// Returns the height of the chessboard.
+    fn size_y(&self) -> usize {
+        self.board[0].len()
+    }
+
     /// Checks if the given position is safe to move to.
     ///
     /// # Arguments
@@ -69,11 +79,11 @@ impl KnightTour {
     /// # Returns
     ///
     /// A boolean indicating whether the position is safe to move to.
-    fn is_safe(&self, x: i32, y: i32) -> bool {
+    fn is_safe(&self, x: isize, y: isize) -> bool {
         x >= 0
             && y >= 0
-            && x < self.board.len() as i32
-            && y < self.board[0].len() as i32
+            && x < self.size_x() as isize
+            && y < self.size_y() as isize
             && self.board[x as usize][y as usize] == 0
     }
 
@@ -88,16 +98,16 @@ impl KnightTour {
     /// # Returns
     ///
     /// A boolean indicating whether a solution was found.
-    fn solve_tour(&mut self, x: i32, y: i32, move_count: u32) -> bool {
-        if move_count == (self.board.len() * self.board[0].len()) as u32 {
+    fn solve_tour(&mut self, x: isize, y: isize, move_count: usize) -> bool {
+        if move_count == self.size_x() * self.size_y() {
             return true;
         }
-        for &(dx, dy) in KnightTour::MOVES.iter() {
+        for &(dx, dy) in &Self::MOVES {
             let next_x = x + dx;
             let next_y = y + dy;
 
             if self.is_safe(next_x, next_y) {
-                self.board[next_x as usize][next_y as usize] = (move_count as usize) + 1;
+                self.board[next_x as usize][next_y as usize] = move_count + 1;
 
                 if self.solve_tour(next_x, next_y, move_count + 1) {
                     return true;
@@ -121,13 +131,13 @@ impl KnightTour {
     ///
     /// A tour matrix if the tour was found or None if not found.
     fn find_tour(&mut self, start_x: usize, start_y: usize) -> Option<Vec<Vec<usize>>> {
-        if !self.is_safe(start_x as i32, start_y as i32) {
+        if !self.is_safe(start_x as isize, start_y as isize) {
             return None;
         }
 
         self.board[start_x][start_y] = 1;
 
-        if !self.solve_tour(start_x as i32, start_y as i32, 1) {
+        if !self.solve_tour(start_x as isize, start_y as isize, 1) {
             return None;
         }
 
