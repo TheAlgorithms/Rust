@@ -155,6 +155,9 @@ mod tests {
             #[test]
             fn $name() {
                 let (size_x, size_y, start_x, start_y, expected) = $tc;
+                if expected.is_some() {
+                    assert_eq!(expected.clone().unwrap()[start_x][start_y], 1)
+                }
                 assert_eq!(find_knight_tour(size_x, size_y, start_x, start_y), expected);
             }
         )*
@@ -186,7 +189,7 @@ mod tests {
             vec![57, 44, 53, 4, 23, 14, 25, 6],
             vec![52, 47, 56, 45, 54, 5, 22, 13],
         ])),
-        test_no_solution: (5, 5, 2, 1, None),
-        test_invalid_start_position: (8, 8, 10, 10, None),
+        test_no_solution: (5, 5, 2, 1, None::<Vec<Vec<usize>>>),
+        test_invalid_start_position: (8, 8, 10, 10, None::<Vec<Vec<usize>>>),
     }
 }
