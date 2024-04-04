@@ -1,7 +1,23 @@
+//! Implements Tim sort algorithm.
+//!
+//! Tim sort is a hybrid sorting algorithm derived from merge sort and insertion sort.
+//! It is designed to perform well on many kinds of real-world data.
+
 use std::cmp;
 
 static MIN_MERGE: usize = 32;
 
+/// Determines the minimum run length for Tim sort.
+///
+/// The minimum run length is calculated based on the minimum merge size.
+///
+/// # Arguments
+///
+/// * `n` - The length of the array.
+///
+/// # Returns
+///
+/// The minimum run length.
 fn min_run_length(mut n: usize) -> usize {
     let mut r = 0;
     while n >= MIN_MERGE {
@@ -11,37 +27,44 @@ fn min_run_length(mut n: usize) -> usize {
     n + r
 }
 
-fn insertion_sort(arr: &mut Vec<i32>, left: usize, right: usize) -> &Vec<i32> {
-    for i in (left + 1)..(right + 1) {
+/// Sorts a slice using insertion sort algorithm.
+///
+/// This function sorts the provided slice in-place using the insertion sort algorithm.
+///
+/// # Arguments
+///
+/// * `arr` - The slice to be sorted.
+fn insertion_sort(arr: &mut [i32]) {
+    for i in 1..arr.len() {
         let temp = arr[i];
-        let mut j = (i - 1) as i32;
+        let mut j = i;
 
-        while j >= (left as i32) && arr[j as usize] > temp {
-            arr[(j + 1) as usize] = arr[j as usize];
+        while j > 0 && arr[j - 1] > temp {
+            arr[j] = arr[j - 1];
             j -= 1;
         }
-        arr[(j + 1) as usize] = temp;
+        arr[j] = temp;
     }
-    arr
 }
 
-fn merge(arr: &mut Vec<i32>, l: usize, m: usize, r: usize) -> &Vec<i32> {
-    let len1 = m - l + 1;
-    let len2 = r - m;
-    let mut left = vec![0; len1];
-    let mut right = vec![0; len2];
-
-    left[..len1].clone_from_slice(&arr[l..(len1 + l)]);
-
-    for x in 0..len2 {
-        right[x] = arr[m + 1 + x];
-    }
-
+/// Merges two sorted subarrays into a single sorted subarray.
+///
+/// This function merges two sorted subarrays of the provided slice into a single sorted subarray.
+///
+/// # Arguments
+///
+/// * `arr` - The slice containing the subarrays to be merged.
+/// * `l` - The starting index of the first subarray.
+/// * `m` - The ending index of the first subarray.
+/// * `r` - The ending index of the second subarray.
+fn merge(arr: &mut [i32], l: usize, m: usize, r: usize) {
+    let left = arr[l..=m].to_vec();
+    let right = arr[m + 1..=r].to_vec();
     let mut i = 0;
     let mut j = 0;
     let mut k = l;
 
-    while i < len1 && j < len2 {
+    while i < left.len() && j < right.len() {
         if left[i] <= right[j] {
             arr[k] = left[i];
             i += 1;
@@ -52,26 +75,33 @@ fn merge(arr: &mut Vec<i32>, l: usize, m: usize, r: usize) -> &Vec<i32> {
         k += 1;
     }
 
-    while i < len1 {
+    while i < left.len() {
         arr[k] = left[i];
         k += 1;
         i += 1;
     }
 
-    while j < len2 {
+    while j < right.len() {
         arr[k] = right[j];
         k += 1;
         j += 1;
     }
-    arr
 }
 
-pub fn tim_sort(arr: &mut Vec<i32>, n: usize) {
+/// Sorts a slice using Tim sort algorithm.
+///
+/// This function sorts the provided slice in-place using the Tim sort algorithm.
+///
+/// # Arguments
+///
+/// * `arr` - The slice to be sorted.
+pub fn tim_sort(arr: &mut [i32]) {
+    let n = arr.len();
     let min_run = min_run_length(MIN_MERGE);
 
     let mut i = 0;
     while i < n {
-        insertion_sort(arr, i, cmp::min(i + MIN_MERGE - 1, n - 1));
+        insertion_sort(&mut arr[i..cmp::min(i + MIN_MERGE, n)]);
         i += min_run;
     }
 
@@ -94,15 +124,13 @@ pub fn tim_sort(arr: &mut Vec<i32>, n: usize) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::sorting::have_same_elements;
-    use crate::sorting::is_sorted;
+    use crate::sorting::{have_same_elements, is_sorted};
 
     #[test]
     fn basic() {
         let mut array = vec![-2, 7, 15, -14, 0, 15, 0, 7, -7, -4, -13, 5, 8, -14, 12];
         let cloned = array.clone();
-        let arr_len = array.len();
-        tim_sort(&mut array, arr_len);
+        tim_sort(&mut array);
         assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
     }
 
@@ -110,8 +138,7 @@ mod tests {
     fn empty() {
         let mut array = Vec::<i32>::new();
         let cloned = array.clone();
-        let arr_len = array.len();
-        tim_sort(&mut array, arr_len);
+        tim_sort(&mut array);
         assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
     }
 
@@ -119,8 +146,7 @@ mod tests {
     fn one_element() {
         let mut array = vec![3];
         let cloned = array.clone();
-        let arr_len = array.len();
-        tim_sort(&mut array, arr_len);
+        tim_sort(&mut array);
         assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
     }
 
@@ -128,8 +154,7 @@ mod tests {
     fn pre_sorted() {
         let mut array = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
         let cloned = array.clone();
-        let arr_len = array.len();
-        tim_sort(&mut array, arr_len);
+        tim_sort(&mut array);
         assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
     }
 }
