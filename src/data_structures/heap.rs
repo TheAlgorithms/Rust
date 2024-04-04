@@ -156,6 +156,7 @@ mod tests {
         assert_eq!(heap.pop(), Some(2));
     }
 
+    #[allow(dead_code)]
     struct Point(/* x */ i32, /* y */ i32);
 
     #[test]
