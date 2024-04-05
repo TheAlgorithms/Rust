@@ -16,8 +16,11 @@ pub struct DecrementalConnectivity<'a> {
 }
 impl<'a> DecrementalConnectivity<'a> {
     //expects the parent of a root to be itself
-    pub fn new(adjacent: &'a Vec<Vec<usize>>) -> Self {
+    pub fn new(adjacent: &'a Vec<Vec<usize>>) -> Result<Self, String> {
         let n = adjacent.len();
+        if !is_forest(adjacent) {
+            return Err("input graph is not a forest!".to_string());
+        }
         let mut tmp = DecrementalConnectivity {
             adjacent,
             component: vec![0; n],
@@ -26,7 +29,7 @@ impl<'a> DecrementalConnectivity<'a> {
             dfs_id: 1,
         };
         tmp.component = tmp.calc_component();
-        tmp
+        Ok(tmp)
     }
 
     pub fn connected(&self, u: usize, v: usize) -> Option<bool> {
@@ -115,6 +118,38 @@ impl<'a> DecrementalConnectivity<'a> {
     }
 }
 
+fn is_forest(adjacent: &Vec<Vec<usize>>) -> bool {
+    let mut visited = vec![false; adjacent.len()];
+    for node in 0..adjacent.len() {
+        if visited[node] {
+            continue;
+        }
+        if has_cycle(adjacent, &mut visited, node, node) {
+            return false;
+        }
+    }
+    true
+}
+
+fn has_cycle(
+    adjacent: &Vec<Vec<usize>>,
+    visited: &mut Vec<bool>,
+    node: usize,
+    parent: usize,
+) -> bool {
+    visited[node] = true;
+    for &neighbour in adjacent[node].iter() {
+        if !visited[neighbour] {
+            if has_cycle(adjacent, visited, neighbour, node) {
+                return true;
+            }
+        } else if neighbour != parent {
+            return true;
+        }
+    }
+    false
+}
+
 #[cfg(test)]
 mod tests {
     // test forest (remember the assumptoin that roots are adjacent to themselves)
@@ -138,7 +173,7 @@ mod tests {
             vec![7, 8],
             vec![7],
         ];
-        let dec_con = super::DecrementalConnectivity::new(&adjacent);
+        let dec_con = super::DecrementalConnectivity::new(&adjacent).unwrap();
         assert_eq!(dec_con.component, vec![0, 0, 0, 0, 0, 0, 0, 1, 1])
     }
     #[test]
@@ -154,7 +189,7 @@ mod tests {
             vec![7, 8],
             vec![7],
         ];
-        let mut dec_con1 = super::DecrementalConnectivity::new(&adjacent);
+        let mut dec_con1 = super::DecrementalConnectivity::new(&adjacent).unwrap();
         assert!(dec_con1.connected(3, 4).unwrap());
         assert!(dec_con1.connected(5, 0).unwrap());
         assert!(!dec_con1.connected(2, 7).unwrap());
@@ -170,11 +205,11 @@ mod tests {
         dec_con1.delete(1, 4);
         assert!(!dec_con1.connected(1, 4).unwrap());
 
-        let mut dec_con2 = super::DecrementalConnectivity::new(&adjacent);
+        let mut dec_con2 = super::DecrementalConnectivity::new(&adjacent).unwrap();
         dec_con2.delete(4, 1);
         assert!(!dec_con1.connected(1, 4).unwrap());
 
-        let mut dec_con3 = super::DecrementalConnectivity::new(&adjacent);
+        let mut dec_con3 = super::DecrementalConnectivity::new(&adjacent).unwrap();
         dec_con3.delete(1, 4);
         assert!(!dec_con1.connected(4, 1).unwrap());
     }
