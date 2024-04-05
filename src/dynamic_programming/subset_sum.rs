@@ -17,43 +17,46 @@ pub fn subset_sum(nums: &[u32], target_sum: u32) -> Option<Vec<Vec<u32>>> {
     extract_subsets(&dp, nums.len(), target_sum)
 }
 
-/// Initializes the DP table with empty vectors.
-///
-/// # Arguments
-///
-/// * `rows` - The number of rows in the DP table.
-/// * `columns` - The number of columns in the DP table.
-///
-/// # Returns
-///
-/// A vector of vectors of empty vectors representing the DP table.
-fn initialize_dp_table(rows: usize, columns: u32) -> Vec<Vec<Vec<Vec<u32>>>> {
-    // Initialize DP table with empty vectors
-    let mut dp = vec![vec![vec![]; (columns + 1) as usize]; rows + 1];
-
-    // Base case: Empty subset is a valid solution for target sum 0
-    for row in &mut dp {
-        row[0] = vec![vec![]];
-    }
-
-    dp
-}
-
-/// Populates the DP table with subsets that sum up to specific values.
+/// Generates a dynamic programming table for the subset sum problem.
 ///
 /// # Arguments
 ///
 /// * `nums` - A slice of unsigned 32-bit integers representing the input numbers.
-/// * `dp` - A mutable reference to the DP table.
-fn fill_dp_table(nums: &[u32], dp: &mut [Vec<Vec<Vec<u32>>>]) {
-    for (i, num) in nums.iter().enumerate() {
-        for j in 1..=dp[0].len() - 1 {
-            dp[i + 1][j] = update_subsets(dp, i, *num, j as u32);
+/// * `target_sum` - The target sum to which subsets are sought.
+///
+/// # Returns
+///
+/// A dynamic programming table containing subsets that sum up to specific values.
+fn generate_subset_table(nums: &[u32], target_sum: u32) -> Vec<Vec<Vec<Vec<u32>>>> {
+    let mut subset_table = vec![vec![vec![]; (target_sum + 1) as usize]; nums.len() + 1];
+
+    // Base case: Empty subset is a valid solution for target sum 0
+    for row in &mut subset_table {
+        row[0] = vec![vec![]];
+    }
+
+    // Fill subset_table table
+    for (i, &num) in nums.iter().enumerate() {
+        for j in 1..=target_sum {
+            let mut new_subsets = subset_table[i][j as usize].clone();
+            if num <= j {
+                let prev_subsets = &subset_table[i][(j - num) as usize];
+                for prev_subset in prev_subsets {
+                    let mut new_subset = prev_subset.clone();
+                    new_subset.push(num);
+                    new_subsets.push(new_subset);
+                }
+            }
+            for subset in new_subsets {
+                subset_table[i + 1][j as usize].push(subset);
+            }
         }
     }
+
+    subset_table
 }
 
-/// Updates subsets in the DP table for a given number and target sum.
+/// Extracts subsets that sum up to the target sum from the subset table.
 ///
 /// # Arguments
 ///
