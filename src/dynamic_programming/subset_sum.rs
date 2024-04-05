@@ -7,14 +7,11 @@
 ///
 /// # Returns
 ///
-/// An option containing a vector of vectors representing subsets that sum up to the target sum,
-/// or `None` if no such subsets exist.
-pub fn subset_sum(nums: &[u32], target_sum: u32) -> Option<Vec<Vec<u32>>> {
-    let mut dp = initialize_dp_table(nums.len(), target_sum);
-
-    fill_dp_table(nums, &mut dp);
-
-    extract_subsets(&dp, nums.len(), target_sum)
+/// An option containing a vector of vectors representing indices of elements in the input `nums`
+/// vector that form subsets summing up to the target sum, or `None` if no such subsets exist.
+pub fn find_subsets_with_sum(nums: &[u32], target_sum: u32) -> Option<Vec<Vec<usize>>> {
+    let subset_table = generate_subset_table(nums, target_sum);
+    extract_subset_indices(&subset_table, nums.len(), target_sum, nums)
 }
 
 /// Generates a dynamic programming table for the subset sum problem.
@@ -60,54 +57,49 @@ fn generate_subset_table(nums: &[u32], target_sum: u32) -> Vec<Vec<Vec<Vec<u32>>
 ///
 /// # Arguments
 ///
-/// * `dp` - A reference to the DP table.
-/// * `i` - Index representing the current number being considered.
-/// * `num` - The current number being considered.
-/// * `j` - The target sum for which subsets are sought.
+/// * `subset_table` - A reference to the subset table.
+/// * `rows` - The number of rows in the subset table.
+/// * `columns` - The number of columns in the subset table.
+/// * `nums` - A slice of unsigned 32-bit integers representing the input numbers.
 ///
 /// # Returns
 ///
-/// A vector of vectors representing subsets that sum up to the target sum.
-fn update_subsets(dp: &[Vec<Vec<Vec<u32>>>], i: usize, num: u32, j: u32) -> Vec<Vec<u32>> {
-    let mut new_subsets = dp[i][j as usize].clone();
+/// An option containing a vector of vectors representing indices of elements in the input `nums`
+/// vector that form subsets summing up to the target sum, or `None` if no such subsets exist.
+fn extract_subset_indices(
+    subset_table: &[Vec<Vec<Vec<u32>>>],
+    rows: usize,
+    columns: u32,
+    nums: &[u32],
+) -> Option<Vec<Vec<usize>>> {
+    let subsets = &subset_table[rows][columns as usize];
 
-    // If the current number is less than or equal to the target sum,
-    // update subsets with the current number
-    if num <= j {
-        let prev_subsets = dp[i][(j - num) as usize].clone();
-        for prev_subset in prev_subsets {
-            let mut new_subset = prev_subset.clone();
-            new_subset.push(num);
-            new_subsets.push(new_subset);
-        }
+    if subsets.is_empty() {
+        return None;
     }
 
-    new_subsets
-}
+    let mut result = Vec::new();
 
-/// Extracts subsets that sum up to the target sum from the DP table.
-///
-/// # Arguments
-///
-/// * `dp` - A reference to the DP table.
-/// * `rows` - The number of rows in the DP table.
-/// * `columns` - The number of columns in the DP table.
-///
-/// # Returns
-///
-/// An option containing a vector of vectors representing subsets that sum up to the target sum,
-/// or `None` if no such subsets exist.
-fn extract_subsets(dp: &[Vec<Vec<Vec<u32>>>], rows: usize, columns: u32) -> Option<Vec<Vec<u32>>> {
-    let mut result = dp[rows][columns as usize].clone();
-    // Sort subsets to make duplicates adjacent
+    // Extract indices of nums in the subsets
+    for subset in subsets {
+        let mut indices = Vec::new();
+        for &num in subset {
+            if let Some(index) = nums.iter().position(|&x| x == num) {
+                indices.push(index);
+            }
+        }
+        // Sort indices
+        indices.sort();
+        result.push(indices);
+    }
+
+    // Sort vector of vectors
     result.sort();
     // Remove consecutive duplicates
     result.dedup();
-    if result.is_empty() {
-        None
-    } else {
-        Some(result)
-    }
+
+    Some(result)
+}
 }
 
 #[cfg(test)]
