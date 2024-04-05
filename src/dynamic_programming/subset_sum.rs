@@ -100,7 +100,6 @@ fn extract_subset_indices(
 
     Some(result)
 }
-}
 
 #[cfg(test)]
 mod tests {
@@ -112,18 +111,18 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (nums, target_sum, expected) = $inputs;
-                    assert_eq!(subset_sum(&nums, target_sum), expected);
+                    assert_eq!(find_subsets_with_sum(&nums, target_sum), expected);
                 }
             )*
         }
     }
 
     test_subset_sum! {
-        test_subset_sum_basic: (vec![1, 2, 3, 4, 5], 5, Some(vec![vec![1, 4], vec![2, 3], vec![5]])),
+        test_subset_sum_basic: (vec![5, 1, 3, 4, 2], 5, Some(vec![vec![0], vec![1, 3], vec![2, 4]])),
         test_subset_sum_empty_input: (vec![], 10, None),
-        test_subset_sum_no_solution: (vec![1, 2, 3, 4, 5], 100, None),
-        test_subset_sum_single_element: (vec![7], 7, Some(vec![vec![7]])),
-        test_subset_sum_with_duplicates: (vec![1, 2, 2, 3], 5, Some(vec![vec![1, 2, 2], vec![2, 3]])),
-        test_subset_sum_with_non_unique_elements: (vec![1, 2, 3, 3, 4], 7, Some(vec![vec![1, 2, 4], vec![1, 3, 3], vec![3, 4]])),
+        test_subset_sum_no_solution: (vec![1, 3, 2, 5, 4], 100, None),
+        test_subset_sum_single_element: (vec![7], 7, Some(vec![vec![0]])),
+        test_subset_sum_with_duplicates: (vec![1, 3, 2, 2], 5, Some(vec![vec![0, 2, 2], vec![1, 2]])),
+        test_subset_sum_with_non_unique_elements: (vec![1, 3, 2, 4, 3], 7, Some(vec![vec![0, 1, 1], vec![0, 2, 3], vec![1, 3]])),
     }
 }
