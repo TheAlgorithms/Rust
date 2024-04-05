@@ -9,7 +9,11 @@
 /// # Returns
 ///
 /// The average Huber loss for all pairs of true and predicted values.
-pub fn huber_loss(y_true: &[f64], y_pred: &[f64], delta: f64) -> f64 {
+pub fn huber_loss(y_true: &[f64], y_pred: &[f64], delta: f64) -> Option<f64> {
+    if y_true.len() != y_pred.len() || y_pred.is_empty() {
+        return None;
+    }
+
     let loss: f64 = y_true
         .iter()
         .zip(y_pred.iter())
@@ -21,7 +25,8 @@ pub fn huber_loss(y_true: &[f64], y_pred: &[f64], delta: f64) -> f64 {
             }
         })
         .sum();
-    loss / (y_pred.len() as f64)
+
+    Some(loss / (y_pred.len() as f64))
 }
 
 #[cfg(test)]
