@@ -42,5 +42,5 @@ pub use self::minimum_cost_path::minimum_cost_path;
 pub use self::rod_cutting::rod_cut;
 pub use self::snail::snail;
 pub use self::subset_generation::list_subset;
-pub use self::subset_sum::subset_sum;
+pub use self::subset_sum::find_subsets_with_sum;
 pub use self::word_break::word_break;
