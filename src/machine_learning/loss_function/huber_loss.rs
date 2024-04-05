@@ -34,11 +34,36 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_huber_loss() {
+    fn test_huber_loss_residual_less_than_delta() {
         let y_true = vec![10.0, 8.0, 12.0];
         let y_pred = vec![9.0, 7.0, 11.0];
         let delta = 1.0;
         let expected_loss = 0.5;
-        assert_eq!(huber_loss(&y_true, &y_pred, delta), expected_loss);
+        assert_eq!(huber_loss(&y_true, &y_pred, delta), Some(expected_loss));
+    }
+
+    #[test]
+    fn test_huber_loss_residual_greater_than_delta() {
+        let y_true = vec![3.0, 5.0, 7.0];
+        let y_pred = vec![2.0, 4.0, 8.0];
+        let delta = 0.5;
+        let expected_loss = 0.375;
+        assert_eq!(huber_loss(&y_true, &y_pred, delta), Some(expected_loss));
+    }
+
+    #[test]
+    fn test_huber_loss_invalid_length() {
+        let y_true = vec![10.0, 8.0, 12.0];
+        let y_pred = vec![7.0, 6.0];
+        let delta = 1.0;
+        assert_eq!(huber_loss(&y_true, &y_pred, delta), None);
+    }
+
+    #[test]
+    fn test_huber_loss_empty_prediction() {
+        let y_true = vec![10.0, 8.0, 12.0];
+        let y_pred = vec![];
+        let delta = 1.0;
+        assert_eq!(huber_loss(&y_true, &y_pred, delta), None);
     }
 }
