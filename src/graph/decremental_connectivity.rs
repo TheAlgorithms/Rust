@@ -162,7 +162,7 @@ mod tests {
     //        4   5   6
     #[test]
     fn construction_test() {
-        let adjacent = vec![
+        let mut adjacent = vec![
             vec![0, 1, 2, 3],
             vec![0, 4],
             vec![0, 5, 6],
@@ -174,7 +174,11 @@ mod tests {
             vec![7],
         ];
         let dec_con = super::DecrementalConnectivity::new(&adjacent).unwrap();
-        assert_eq!(dec_con.component, vec![0, 0, 0, 0, 0, 0, 0, 1, 1])
+        assert_eq!(dec_con.component, vec![0, 0, 0, 0, 0, 0, 0, 1, 1]);
+
+        // add a cycle to the tree
+        adjacent[2].push(4);
+        assert!(super::DecrementalConnectivity::new(&adjacent).is_err());
     }
     #[test]
     fn query_test() {
