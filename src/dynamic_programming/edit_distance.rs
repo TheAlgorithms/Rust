@@ -62,6 +62,18 @@ mod tests {
                         min_distance(string1, string2),
                         expected_distance
                     );
+                    assert_eq!(
+                        min_distance(string2, string1),
+                        expected_distance
+                    );
+                    assert_eq!(
+                        min_distance(string1, string1),
+                        0
+                    );
+                    assert_eq!(
+                        min_distance(string2, string2),
+                        0
+                    );
                 }
             )*
         };
