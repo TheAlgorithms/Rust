@@ -160,7 +160,7 @@ mod tests {
         let mut array = vec![1, 2, 3];
         merge(&mut array, 0, 2, 2);
         assert_eq!(array, vec![1, 2, 3]);
-    } 
+    }
 
     #[test]
     fn merge_with_empty_left_and_right_subarrays() {
