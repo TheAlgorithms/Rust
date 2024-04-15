@@ -20,7 +20,7 @@ pub fn shortest_palindrome(s: &str) -> String {
     s_chars.iter().collect()
 }
 
-pub fn raw_suffix_function(p_chars: &Vec<char>) -> Vec<usize> {
+pub fn raw_suffix_function(p_chars: &[char]) -> Vec<usize> {
     let mut suffix = vec![0; p_chars.len()];
     for i in 1..p_chars.len() {
         let mut j = suffix[i - 1];
