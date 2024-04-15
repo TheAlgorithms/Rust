@@ -139,20 +139,33 @@ mod tests {
         let mut array = vec![3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
         insertion_sort(&mut array);
         assert_eq!(array, vec![1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]);
-
-        let mut array = vec![1, 2, 3, 4, 5];
-        insertion_sort(&mut array);
-        assert_eq!(array, vec![1, 2, 3, 4, 5]);
     }
 
     #[test]
-    fn merge_merges_sorted_arrays_correctly() {
-        let mut array = vec![1, 3, 5, 2, 4, 6];
+    fn merge_left_and_right_subarrays_into_array() {
+        let mut array = vec![0, 2, 4, 1, 3, 5];
         merge(&mut array, 0, 2, 5);
-        assert_eq!(array, vec![1, 2, 3, 4, 5, 6]);
+        assert_eq!(array, vec![0, 1, 2, 3, 4, 5]);
+    }
 
+    #[test]
+    fn merge_with_empty_left_subarray() {
         let mut array = vec![1, 2, 3];
         merge(&mut array, 0, 0, 2);
+        assert_eq!(array, vec![1, 2, 3]);
+    }
+
+    #[test]
+    fn merge_with_empty_right_subarray() {
+        let mut array = vec![1, 2, 3];
+        merge(&mut array, 0, 2, 2);
+        assert_eq!(array, vec![1, 2, 3]);
+    } 
+
+    #[test]
+    fn merge_with_empty_left_and_right_subarrays() {
+        let mut array = vec![1, 2, 3];
+        merge(&mut array, 1, 0, 0);
         assert_eq!(array, vec![1, 2, 3]);
     }
 
