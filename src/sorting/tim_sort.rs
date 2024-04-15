@@ -127,7 +127,37 @@ mod tests {
     use crate::sorting::{have_same_elements, is_sorted};
 
     #[test]
-    fn basic() {
+    fn min_run_length_returns_correct_value() {
+        assert_eq!(min_run_length(0), 0);
+        assert_eq!(min_run_length(10), 10);
+        assert_eq!(min_run_length(33), 17);
+        assert_eq!(min_run_length(64), 16);
+    }
+
+    #[test]
+    fn insertion_sort_sorts_array_correctly() {
+        let mut array = vec![3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
+        insertion_sort(&mut array);
+        assert_eq!(array, vec![1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]);
+
+        let mut array = vec![1, 2, 3, 4, 5];
+        insertion_sort(&mut array);
+        assert_eq!(array, vec![1, 2, 3, 4, 5]);
+    }
+
+    #[test]
+    fn merge_merges_sorted_arrays_correctly() {
+        let mut array = vec![1, 3, 5, 2, 4, 6];
+        merge(&mut array, 0, 2, 5);
+        assert_eq!(array, vec![1, 2, 3, 4, 5, 6]);
+
+        let mut array = vec![1, 2, 3];
+        merge(&mut array, 0, 0, 2);
+        assert_eq!(array, vec![1, 2, 3]);
+    }
+
+    #[test]
+    fn tim_sort_sorts_basic_array_correctly() {
         let mut array = vec![-2, 7, 15, -14, 0, 15, 0, 7, -7, -4, -13, 5, 8, -14, 12];
         let cloned = array.clone();
         tim_sort(&mut array);
@@ -135,7 +165,7 @@ mod tests {
     }
 
     #[test]
-    fn empty() {
+    fn tim_sort_handles_empty_array() {
         let mut array = Vec::<i32>::new();
         let cloned = array.clone();
         tim_sort(&mut array);
@@ -143,7 +173,7 @@ mod tests {
     }
 
     #[test]
-    fn one_element() {
+    fn tim_sort_handles_single_element_array() {
         let mut array = vec![3];
         let cloned = array.clone();
         tim_sort(&mut array);
@@ -151,7 +181,7 @@ mod tests {
     }
 
     #[test]
-    fn pre_sorted() {
+    fn tim_sort_handles_pre_sorted_array() {
         let mut array = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
         let cloned = array.clone();
         tim_sort(&mut array);
