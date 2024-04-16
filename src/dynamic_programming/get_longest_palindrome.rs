@@ -1,5 +1,6 @@
 /*
 Find the longest palindrome substring in the string
+Source：https://leetcode.cn/problems/longest-palindromic-substring/description/
 Example:
 
 Input: s = "abdbc"
@@ -14,17 +15,20 @@ pub fn get_longest_palindrome(s: &str) -> String {
     let n = s.len();
     // dp indicates whether it is a palindrome
     let mut dp = vec![vec![true; n]; n];
+    // res record the indexes before and after the palindrome
     let mut res = (0, 0);
 
     for k in 1..n {
         for i in 0..(n - k) {
             if k == 1 {
+                // strings of 2 equal characters are palindromes
                 dp[i][i + k] = s[i] == s[i + 1];
             } else {
+                // a string that is equal on both sides and has an iambic palindrome in the middle is also an iambic palindrome
                 dp[i][i + k] = (s[i] == s[i + k]) && dp[i + 1][i + k - 1];
             }
 
-            // update palindrome length
+            // update palindrome length, record index
             if dp[i][i + k] {
                 res = (i, i + k);
             }
