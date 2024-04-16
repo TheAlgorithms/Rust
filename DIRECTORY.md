@@ -79,6 +79,7 @@
     * [Egg Dropping](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/egg_dropping.rs)
     * [Fibonacci](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/fibonacci.rs)
     * [Fractional Knapsack](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/fractional_knapsack.rs)
+    * [Get Longest Palindrome](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/get_longest_palindrome.rs)
     * [Is Subsequence](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/is_subsequence.rs)
     * [Knapsack](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/knapsack.rs)
     * [Longest Common Subsequence](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/longest_common_subsequence.rs)
