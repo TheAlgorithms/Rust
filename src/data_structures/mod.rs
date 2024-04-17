@@ -1,7 +1,9 @@
 /* auto-exports start exclusions=[Iter, NodeNotInGraph, Graph, Hashable, Node, RBNode, RBTreeIterator, IntoIter, IterMut, VebTreeIter, segment_tree_recursive] */
+pub mod probabilistic;
+
 mod avl_tree;
-mod b_tree;
 mod binary_search_tree;
+mod b_tree;
 mod fenwick_tree;
 mod floyds_algorithm;
 mod graph;
@@ -11,7 +13,6 @@ mod infix_to_postfix;
 mod lazy_segment_tree;
 mod linked_list;
 mod postfix_evaluation;
-pub mod probabilistic;
 mod queue;
 mod range_minimum_query;
 mod rb_tree;
@@ -21,12 +22,19 @@ mod treap;
 mod trie;
 mod union_find;
 mod veb_tree;
+
 pub use avl_tree::AVLTree;
-pub use b_tree::BTree;
 pub use binary_search_tree::BinarySearchTree;
+pub use b_tree::BTree;
 pub use fenwick_tree::FenwickTree;
-pub use floyds_algorithm::{detect_cycle, has_cycle};
-pub use graph::{DirectedGraph, UndirectedGraph};
+pub use floyds_algorithm::{
+	detect_cycle,
+	has_cycle
+};
+pub use graph::{
+	DirectedGraph,
+	UndirectedGraph
+};
 pub use hash_table::HashTable;
 pub use heap::Heap;
 pub use infix_to_postfix::infix_to_postfix;

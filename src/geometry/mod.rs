@@ -5,6 +5,7 @@ mod jarvis_scan;
 mod point;
 mod polygon_points;
 mod segment;
+
 pub use closest_points::closest_points;
 pub use graham_scan::graham_scan;
 pub use jarvis_scan::jarvis_march;

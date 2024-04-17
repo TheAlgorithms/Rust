@@ -7,6 +7,7 @@ mod hexadecimal_to_binary;
 mod hexadecimal_to_decimal;
 mod octal_to_binary;
 mod octal_to_decimal;
+
 pub use binary_to_decimal::binary_to_decimal;
 pub use binary_to_hexadecimal::binary_to_hexadecimal;
 pub use decimal_to_binary::decimal_to_binary;

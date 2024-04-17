@@ -15,6 +15,7 @@ mod ternary_search;
 mod ternary_search_min_max;
 mod ternary_search_min_max_recursive;
 mod ternary_search_recursive;
+
 pub use binary_search::binary_search;
 pub use binary_search_recursive::binary_search_rec;
 pub use exponential_search::exponential_search;
@@ -28,7 +29,13 @@ pub use moore_voting::moore_voting;
 pub use quick_select::quick_select;
 pub use saddleback_search::saddleback_search;
 pub use ternary_search::ternary_search;
-pub use ternary_search_min_max::{ternary_search_max, ternary_search_min};
-pub use ternary_search_min_max_recursive::{ternary_search_max_rec, ternary_search_min_rec};
+pub use ternary_search_min_max::{
+	ternary_search_max,
+	ternary_search_min
+};
+pub use ternary_search_min_max_recursive::{
+	ternary_search_max_rec,
+	ternary_search_min_rec
+};
 pub use ternary_search_recursive::ternary_search_rec;
 /* auto-exports end */

@@ -20,23 +20,48 @@ mod theoretical_rot13;
 mod transposition;
 mod vigenere;
 mod xor;
-pub use aes::{aes_decrypt, aes_encrypt};
+
+pub use aes::{
+	aes_encrypt,
+	aes_decrypt
+};
 pub use another_rot13::another_rot13;
-pub use baconian_cipher::{baconian_decode, baconian_encode};
-pub use base64::{base64_decode, base64_encode};
+pub use baconian_cipher::{
+	baconian_encode,
+	baconian_decode
+};
+pub use base64::{
+	base64_encode,
+	base64_decode
+};
 pub use blake2b::blake2b;
 pub use caesar::caesar;
 pub use chacha::chacha20;
 pub use diffie_hellman::DiffieHellman;
-pub use hashing_traits::{Hasher, HMAC};
+pub use hashing_traits::{
+	Hasher,
+	HMAC
+};
 pub use kerninghan::kerninghan;
-pub use morse_code::{decode, encode};
-pub use polybius::{decode_ascii, encode_ascii};
-pub use rail_fence::{rail_fence_decrypt, rail_fence_encrypt};
+pub use morse_code::{
+	encode,
+	decode
+};
+pub use polybius::{
+	encode_ascii,
+	decode_ascii
+};
+pub use rail_fence::{
+	rail_fence_encrypt,
+	rail_fence_decrypt
+};
 pub use rot13::rot13;
 pub use salsa::salsa20;
 pub use sha256::SHA256;
-pub use tea::{tea_decrypt, tea_encrypt};
+pub use tea::{
+	tea_encrypt,
+	tea_decrypt
+};
 pub use theoretical_rot13::theoretical_rot13;
 pub use transposition::transposition;
 pub use vigenere::vigenere;

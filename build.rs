@@ -267,7 +267,7 @@ impl ExportsDir {
             },
             start_tag,
             format!(
-                "{}\n{}\n{}",
+                "{}\n\n{}\n\n{}",
                 self.sub_dirs
                     .iter()
                     .map(|dir| format!("pub mod {};", dir.name))
@@ -284,11 +284,10 @@ impl ExportsDir {
                     .collect::<Vec<String>>()
                     .join("\n"),
             )
-            .replace("\n\n", "\n")
             .trim(),
             end_tag,
             if exports_suffix.trim().is_empty() {
-                ""
+                "\n"
             } else {
                 exports_suffix
             }

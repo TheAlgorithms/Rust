@@ -32,6 +32,7 @@ mod tim_sort;
 mod tree_sort;
 mod wave_sort;
 mod wiggle_sort;
+
 pub use bead_sort::bead_sort;
 pub use binary_insertion_sort::binary_insertion_sort;
 pub use bingo_sort::bingo_sort;
@@ -41,20 +42,32 @@ pub use bubble_sort::bubble_sort;
 pub use bucket_sort::bucket_sort;
 pub use cocktail_shaker_sort::cocktail_shaker_sort;
 pub use comb_sort::comb_sort;
-pub use counting_sort::{counting_sort, generic_counting_sort};
+pub use counting_sort::{
+	counting_sort,
+	generic_counting_sort
+};
 pub use cycle_sort::cycle_sort;
-pub use dutch_national_flag_sort::{dutch_national_flag_sort, Colors};
+pub use dutch_national_flag_sort::{
+	Colors,
+	dutch_national_flag_sort
+};
 pub use exchange_sort::exchange_sort;
 pub use gnome_sort::gnome_sort;
 pub use heap_sort::heap_sort;
 pub use insertion_sort::insertion_sort;
 pub use intro_sort::intro_sort;
-pub use merge_sort::{bottom_up_merge_sort, top_down_merge_sort};
+pub use merge_sort::{
+	top_down_merge_sort,
+	bottom_up_merge_sort
+};
 pub use odd_even_sort::odd_even_sort;
 pub use pancake_sort::pancake_sort;
 pub use patience_sort::patience_sort;
 pub use pigeonhole_sort::pigeonhole_sort;
-pub use quick_sort::{partition, quick_sort};
+pub use quick_sort::{
+	partition,
+	quick_sort
+};
 pub use quick_sort_3_ways::quick_sort_3_ways;
 pub use radix_sort::radix_sort;
 pub use selection_sort::selection_sort;

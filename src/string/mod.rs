@@ -20,11 +20,15 @@ mod suffix_array;
 mod suffix_array_manber_myers;
 mod suffix_tree;
 mod z_algorithm;
+
 pub use aho_corasick::AhoCorasick;
 pub use anagram::check_anagram;
 pub use autocomplete_using_trie::Autocomplete;
 pub use boyer_moore_search::boyer_moore_search;
-pub use burrows_wheeler_transform::{burrows_wheeler_transform, inv_burrows_wheeler_transform};
+pub use burrows_wheeler_transform::{
+	burrows_wheeler_transform,
+	inv_burrows_wheeler_transform
+};
 pub use duval_algorithm::duval_algorithm;
 pub use hamming_distance::hamming_distance;
 pub use jaro_winkler_distance::jaro_winkler_distance;
@@ -33,12 +37,24 @@ pub use levenshtein_distance::levenshtein_distance;
 pub use lipogram::is_lipogram;
 pub use manacher::manacher;
 pub use palindrome::is_palindrome;
-pub use pangram::{is_pangram, PangramStatus};
+pub use pangram::{
+	PangramStatus,
+	is_pangram
+};
 pub use rabin_karp::rabin_karp;
 pub use reverse::reverse;
-pub use run_length_encoding::{run_length_decoding, run_length_encoding};
+pub use run_length_encoding::{
+	run_length_encoding,
+	run_length_decoding
+};
 pub use suffix_array::generate_suffix_array;
 pub use suffix_array_manber_myers::generate_suffix_array_manber_myers;
-pub use suffix_tree::{Node, SuffixTree};
-pub use z_algorithm::{match_pattern, z_array};
+pub use suffix_tree::{
+	Node,
+	SuffixTree
+};
+pub use z_algorithm::{
+	z_array,
+	match_pattern
+};
 /* auto-exports end */
