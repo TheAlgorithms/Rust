@@ -8,24 +8,27 @@ use std::cmp;
 
 static MIN_MERGE: usize = 32;
 
-/// Determines the minimum run length for Tim sort.
+/// Calculates the minimum run length for Tim sort based on the length of the array.
 ///
-/// The minimum run length is calculated based on the minimum merge size.
+/// The minimum run length is determined using a heuristic that ensures good performance.
 ///
 /// # Arguments
 ///
-/// * `n` - The length of the array.
+/// * `array_length` - The length of the array.
 ///
 /// # Returns
 ///
 /// The minimum run length.
-fn min_run_length(mut n: usize) -> usize {
-    let mut r = 0;
-    while n >= MIN_MERGE {
-        r |= n & 1;
-        n >>= 1;
+fn compute_min_run_length(array_length: usize) -> usize {
+    let mut remaining_length = array_length;
+    let mut result = 0;
+
+    while remaining_length >= MIN_MERGE {
+        result |= remaining_length & 1;
+        remaining_length >>= 1;
     }
-    n + r
+
+    remaining_length + result
 }
 
 /// Merges two sorted subarrays into a single sorted subarray.
@@ -35,35 +38,37 @@ fn min_run_length(mut n: usize) -> usize {
 /// # Arguments
 ///
 /// * `arr` - The slice containing the subarrays to be merged.
-/// * `l` - The starting index of the first subarray.
-/// * `m` - The ending index of the first subarray.
-/// * `r` - The ending index of the second subarray.
-fn merge<T: Ord + Copy>(arr: &mut [T], l: usize, m: usize, r: usize) {
-    let left = arr[l..=m].to_vec();
-    let right = arr[m + 1..=r].to_vec();
+/// * `left` - The starting index of the first subarray.
+/// * `mid` - The ending index of the first subarray.
+/// * `right` - The ending index of the second subarray.
+fn merge<T: Ord + Copy>(arr: &mut [T], left: usize, mid: usize, right: usize) {
+    let left_slice = arr[left..=mid].to_vec();
+    let right_slice = arr[mid + 1..=right].to_vec();
     let mut i = 0;
     let mut j = 0;
-    let mut k = l;
+    let mut k = left;
 
-    while i < left.len() && j < right.len() {
-        if left[i] <= right[j] {
-            arr[k] = left[i];
+    while i < left_slice.len() && j < right_slice.len() {
+        if left_slice[i] <= right_slice[j] {
+            arr[k] = left_slice[i];
             i += 1;
         } else {
-            arr[k] = right[j];
+            arr[k] = right_slice[j];
             j += 1;
         }
         k += 1;
     }
 
-    while i < left.len() {
-        arr[k] = left[i];
+    // Copy any remaining elements from the left subarray
+    while i < left_slice.len() {
+        arr[k] = left_slice[i];
         k += 1;
         i += 1;
     }
 
-    while j < right.len() {
-        arr[k] = right[j];
+    // Copy any remaining elements from the right subarray
+    while j < right_slice.len() {
+        arr[k] = right_slice[j];
         k += 1;
         j += 1;
     }
@@ -78,14 +83,16 @@ fn merge<T: Ord + Copy>(arr: &mut [T], l: usize, m: usize, r: usize) {
 /// * `arr` - The slice to be sorted.
 pub fn tim_sort<T: Ord + Copy>(arr: &mut [T]) {
     let n = arr.len();
-    let min_run = min_run_length(MIN_MERGE);
+    let min_run = compute_min_run_length(MIN_MERGE);
 
+    // Perform insertion sort on small subarrays
     let mut i = 0;
     while i < n {
         insertion_sort(&mut arr[i..cmp::min(i + MIN_MERGE, n)]);
         i += min_run;
     }
 
+    // Merge sorted subarrays
     let mut size = min_run;
     while size < n {
         let mut left = 0;
@@ -109,10 +116,10 @@ mod tests {
 
     #[test]
     fn min_run_length_returns_correct_value() {
-        assert_eq!(min_run_length(0), 0);
-        assert_eq!(min_run_length(10), 10);
-        assert_eq!(min_run_length(33), 17);
-        assert_eq!(min_run_length(64), 16);
+        assert_eq!(compute_min_run_length(0), 0);
+        assert_eq!(compute_min_run_length(10), 10);
+        assert_eq!(compute_min_run_length(33), 17);
+        assert_eq!(compute_min_run_length(64), 16);
     }
 
     macro_rules! test_merge {
