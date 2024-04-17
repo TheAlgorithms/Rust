@@ -3,6 +3,7 @@
 //! Tim sort is a hybrid sorting algorithm derived from merge sort and insertion sort.
 //! It is designed to perform well on many kinds of real-world data.
 
+use crate::sorting::insertion_sort;
 use std::cmp;
 
 static MIN_MERGE: usize = 32;
@@ -25,26 +26,6 @@ fn min_run_length(mut n: usize) -> usize {
         n >>= 1;
     }
     n + r
-}
-
-/// Sorts a slice using insertion sort algorithm.
-///
-/// This function sorts the provided slice in-place using the insertion sort algorithm.
-///
-/// # Arguments
-///
-/// * `arr` - The slice to be sorted.
-fn insertion_sort(arr: &mut [i32]) {
-    for i in 1..arr.len() {
-        let temp = arr[i];
-        let mut j = i;
-
-        while j > 0 && arr[j - 1] > temp {
-            arr[j] = arr[j - 1];
-            j -= 1;
-        }
-        arr[j] = temp;
-    }
 }
 
 /// Merges two sorted subarrays into a single sorted subarray.
@@ -132,13 +113,6 @@ mod tests {
         assert_eq!(min_run_length(10), 10);
         assert_eq!(min_run_length(33), 17);
         assert_eq!(min_run_length(64), 16);
-    }
-
-    #[test]
-    fn insertion_sort_sorts_array_correctly() {
-        let mut array = vec![3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
-        insertion_sort(&mut array);
-        assert_eq!(array, vec![1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]);
     }
 
     macro_rules! test_merge {
