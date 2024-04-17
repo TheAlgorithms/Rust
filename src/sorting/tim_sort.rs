@@ -141,63 +141,45 @@ mod tests {
         assert_eq!(array, vec![1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]);
     }
 
-    #[test]
-    fn merge_left_and_right_subarrays_into_array() {
-        let mut array = vec![0, 2, 4, 1, 3, 5];
-        merge(&mut array, 0, 2, 5);
-        assert_eq!(array, vec![0, 1, 2, 3, 4, 5]);
+    macro_rules! test_merge {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (input_arr, l, m, r, expected) = $inputs;
+                    let mut arr = input_arr.clone();
+                    merge(&mut arr, l, m, r);
+                    assert_eq!(arr, expected);
+                }
+            )*
+        }
+    }
+    test_merge! {
+        left_and_right_subarrays_into_array: (vec![0, 2, 4, 1, 3, 5], 0, 2, 5, vec![0, 1, 2, 3, 4, 5]),
+        with_empty_left_subarray: (vec![1, 2, 3], 0, 0, 2, vec![1, 2, 3]),
+        with_empty_right_subarray: (vec![1, 2, 3], 0, 2, 2, vec![1, 2, 3]),
+        with_empty_left_and_right_subarrays: (vec![1, 2, 3], 1, 0, 0, vec![1, 2, 3]),
     }
 
-    #[test]
-    fn merge_with_empty_left_subarray() {
-        let mut array = vec![1, 2, 3];
-        merge(&mut array, 0, 0, 2);
-        assert_eq!(array, vec![1, 2, 3]);
+    macro_rules! test_tim_sort {
+        ($($name:ident: $input:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let mut array = $input;
+                    let cloned = array.clone();
+                    tim_sort(&mut array);
+                    assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
+                }
+            )*
+        }
     }
 
-    #[test]
-    fn merge_with_empty_right_subarray() {
-        let mut array = vec![1, 2, 3];
-        merge(&mut array, 0, 2, 2);
-        assert_eq!(array, vec![1, 2, 3]);
-    }
-
-    #[test]
-    fn merge_with_empty_left_and_right_subarrays() {
-        let mut array = vec![1, 2, 3];
-        merge(&mut array, 1, 0, 0);
-        assert_eq!(array, vec![1, 2, 3]);
-    }
-
-    #[test]
-    fn tim_sort_sorts_basic_array_correctly() {
-        let mut array = vec![-2, 7, 15, -14, 0, 15, 0, 7, -7, -4, -13, 5, 8, -14, 12];
-        let cloned = array.clone();
-        tim_sort(&mut array);
-        assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
-    }
-
-    #[test]
-    fn tim_sort_handles_empty_array() {
-        let mut array = Vec::<i32>::new();
-        let cloned = array.clone();
-        tim_sort(&mut array);
-        assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
-    }
-
-    #[test]
-    fn tim_sort_handles_single_element_array() {
-        let mut array = vec![3];
-        let cloned = array.clone();
-        tim_sort(&mut array);
-        assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
-    }
-
-    #[test]
-    fn tim_sort_handles_pre_sorted_array() {
-        let mut array = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-        let cloned = array.clone();
-        tim_sort(&mut array);
-        assert!(is_sorted(&array) && have_same_elements(&array, &cloned));
+    test_tim_sort! {
+        sorts_basic_array_correctly: vec![-2, 7, 15, -14, 0, 15, 0, 7, -7, -4, -13, 5, 8, -14, 12],
+        sorts_long_array_correctly: vec![-2, 7, 15, -14, 0, 15, 0, 7, -7, -4, -13, 5, 8, -14, 12, 5, 3, 9, 22, 1, 1, 2, 3, 9, 6, 5, 4, 5, 6, 7, 8, 9, 1],
+        handles_empty_array: Vec::<i32>::new(),
+        handles_single_element_array: vec![3],
+        handles_pre_sorted_array: vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     }
 }
