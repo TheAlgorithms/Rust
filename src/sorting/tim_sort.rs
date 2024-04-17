@@ -38,7 +38,7 @@ fn min_run_length(mut n: usize) -> usize {
 /// * `l` - The starting index of the first subarray.
 /// * `m` - The ending index of the first subarray.
 /// * `r` - The ending index of the second subarray.
-fn merge(arr: &mut [i32], l: usize, m: usize, r: usize) {
+fn merge<T: Ord + Copy>(arr: &mut [T], l: usize, m: usize, r: usize) {
     let left = arr[l..=m].to_vec();
     let right = arr[m + 1..=r].to_vec();
     let mut i = 0;
@@ -76,7 +76,7 @@ fn merge(arr: &mut [i32], l: usize, m: usize, r: usize) {
 /// # Arguments
 ///
 /// * `arr` - The slice to be sorted.
-pub fn tim_sort(arr: &mut [i32]) {
+pub fn tim_sort<T: Ord + Copy>(arr: &mut [T]) {
     let n = arr.len();
     let min_run = min_run_length(MIN_MERGE);
 
@@ -128,6 +128,7 @@ mod tests {
             )*
         }
     }
+
     test_merge! {
         left_and_right_subarrays_into_array: (vec![0, 2, 4, 1, 3, 5], 0, 2, 5, vec![0, 1, 2, 3, 4, 5]),
         with_empty_left_subarray: (vec![1, 2, 3], 0, 0, 2, vec![1, 2, 3]),
