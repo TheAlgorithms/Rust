@@ -2,6 +2,7 @@
 Find the longest palindrome substring in the string（non-unique solution）
 Source：https://leetcode.cn/problems/longest-palindromic-substring/description/
 Example:
+
 Input: s = "abdbc"
 Output: "bdb"
 */
@@ -18,6 +19,7 @@ pub fn get_longest_palindrome(s: &str) -> String {
     let mut res = (0, 0);
 
     // form filling strategy: fill in the form by length
+    // k denotes the length of the palindrome, the further you traverse, the longer it is
     for k in 1..n {
         for i in 0..(n - k) {
             if k == 1 {
@@ -64,3 +66,4 @@ mod tests {
         unicode_1: ("常威天天打来福", "天天"),
     }
 }
+
