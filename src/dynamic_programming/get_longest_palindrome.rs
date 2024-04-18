@@ -1,5 +1,5 @@
 /*
-Find the longest palindrome substring in the string
+Find the longest palindrome substring in the string（non-unique solution）
 Source：https://leetcode.cn/problems/longest-palindromic-substring/description/
 Example:
 
@@ -18,7 +18,10 @@ pub fn get_longest_palindrome(s: &str) -> String {
     // res record the indexes before and after the palindrome
     let mut res = (0, 0);
 
+    // k is the left boundaries.
     for k in 1..n {
+        // （k and i） is possible to construct right boundaries
+        // from r - i + 1 = k, so r = k + i - 1
         for i in 0..(n - k) {
             if k == 1 {
                 // strings of 2 equal characters are palindromes
@@ -58,6 +61,9 @@ mod tests {
         empty_input: ("", ""),
         basic_1: ("abdbc", "bdb"),
         basic_2: ("abyxycbabcyxy", "yxycbabcyxy"),
+        // Theoretically it is possible to return either aa or bb,
+        // there are multiple palindromes of the same length, here only the rightmost one is returned
+        basic_3: ("aabb", "bb"),
         unicode_1: ("常威天天打来福", "天天"),
     }
 }
