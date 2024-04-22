@@ -42,7 +42,6 @@ impl DecrementalConnectivity {
     }
 
     pub fn delete(&mut self, u: usize, v: usize) {
-        println!("{:?}", self.component);
         if !self.adjacent[u].contains(&v) || self.component[u] != self.component[v] {
             panic!(
                 "delete called on the edge ({}, {}) which doesn't exist",
