@@ -195,7 +195,7 @@ mod tests {
         assert!(super::DecrementalConnectivity::new(adjacent.clone()).is_err());
     }
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "2 -> 4 exists")]
     fn non_bidirectional_test() {
         let adjacent = vec![
             HashSet::from([0, 1, 2, 3]),
@@ -212,6 +212,25 @@ mod tests {
         // should panic now since our graph is not bidirectional
         super::DecrementalConnectivity::new(adjacent).unwrap();
     }
+
+    #[test]
+    #[should_panic(expected = "delete called on the edge (2, 4)")]
+    fn delete_panic_test() {
+        let adjacent = vec![
+            HashSet::from([0, 1, 2, 3]),
+            HashSet::from([0, 4]),
+            HashSet::from([0, 5, 6]),
+            HashSet::from([0]),
+            HashSet::from([1]),
+            HashSet::from([2]),
+            HashSet::from([2]),
+            HashSet::from([7, 8]),
+            HashSet::from([7]),
+        ];
+        let mut dec_con = super::DecrementalConnectivity::new(adjacent.clone()).unwrap();
+        dec_con.delete(2, 4);
+    }
+
     #[test]
     fn query_test() {
         let adjacent = vec![
