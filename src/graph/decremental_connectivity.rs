@@ -124,6 +124,8 @@ impl DecrementalConnectivity {
     }
 }
 
+// checks whether the given graph is a forest
+// also checks for all adjacent vertices a,b if adjacent[a].contains(b) && adjacent[b].contains(a)
 fn is_forest(adjacent: &Vec<HashSet<usize>>) -> bool {
     let mut visited = vec![false; adjacent.len()];
     for node in 0..adjacent.len() {
@@ -145,6 +147,9 @@ fn has_cycle(
 ) -> bool {
     visited[node] = true;
     for &neighbour in adjacent[node].iter() {
+        if !adjacent[neighbour].contains(&node) {
+            panic!("the given graph does not strictly contain bidirectional edges\n {} -> {} exists, but the other direction does not", node, neighbour);
+        }
         if !visited[neighbour] {
             if has_cycle(adjacent, visited, neighbour, node) {
                 return true;
@@ -186,7 +191,26 @@ mod tests {
 
         // add a cycle to the tree
         adjacent[2].insert(4);
-        assert!(super::DecrementalConnectivity::new(adjacent).is_err());
+        adjacent[4].insert(2);
+        assert!(super::DecrementalConnectivity::new(adjacent.clone()).is_err());
+    }
+    #[test]
+    #[should_panic]
+    fn non_bidirectional_test() {
+        let adjacent = vec![
+            HashSet::from([0, 1, 2, 3]),
+            HashSet::from([0, 4]),
+            HashSet::from([0, 5, 6, 4]),
+            HashSet::from([0]),
+            HashSet::from([1]),
+            HashSet::from([2]),
+            HashSet::from([2]),
+            HashSet::from([7, 8]),
+            HashSet::from([7]),
+        ];
+
+        // should panic now since our graph is not bidirectional
+        super::DecrementalConnectivity::new(adjacent).unwrap();
     }
     #[test]
     fn query_test() {
