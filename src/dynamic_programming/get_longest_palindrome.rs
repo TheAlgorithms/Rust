@@ -13,24 +13,22 @@ pub fn get_longest_palindrome(s: &str) -> String {
     }
     let s: Vec<char> = s.chars().collect();
     let n = s.len();
-    // dp indicates whether it is a palindrome
     let mut dp = vec![vec![true; n]; n];
-    // res record the indexes before and after the palindrome
+    // res is the index of the longest palindrome
     let mut res = (0, 0);
 
-    // form filling strategy: fill in the form by length
-    // k denotes the length of the palindrome, the further you traverse, the longer it is
+    // form filling strategy: fill in the form by
+    // use k instead of palindrome length
     for k in 1..n {
         for i in 0..(n - k) {
             if k == 1 {
                 // strings of 2 equal characters are palindromes
                 dp[i][i + k] = s[i] == s[i + 1];
             } else {
-                // a string that is equal on both sides and has an iambic palindrome in the middle is also an iambic palindrome
+                // a string that is equal on both sides and has a palindrome in the middle is also a palindrome
                 dp[i][i + k] = (s[i] == s[i + k]) && dp[i + 1][i + k - 1];
             }
 
-            // update palindrome length, record index
             if dp[i][i + k] {
                 res = (i, i + k);
             }
