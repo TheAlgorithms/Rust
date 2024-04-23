@@ -1,147 +1,127 @@
-/// Sort a mutable slice using heap sort.
-///
-/// Heap sort is an in-place O(n log n) sorting algorithm. It is based on a
-/// max heap, a binary tree data structure whose main feature is that
-/// parent nodes are always greater or equal to their child nodes.
-///
-/// # Max Heap Implementation
-///
-/// A max heap can be efficiently implemented with an array.
-/// For example, the binary tree:
-/// ```text
-///     1
-///  2     3
-/// 4 5   6 7
-/// ```
-///
-/// ... is represented by the following array:
-/// ```text
-/// 1 23 4567
-/// ```
-///
-/// Given the index `i` of a node, parent and child indices can be calculated
-/// as follows:
-/// ```text
-/// parent(i)      = (i-1) / 2
-/// left_child(i)  = 2*i + 1
-/// right_child(i) = 2*i + 2
-/// ```
+//! This module provides functions for heap sort algorithm.
 
-/// # Algorithm
+use std::cmp::Ordering;
+
+/// Builds a heap from the provided array.
 ///
-/// Heap sort has two steps:
-///   1. Convert the input array to a max heap.
-///   2. Partition the array into heap part and sorted part. Initially the
-///      heap consists of the whole array and the sorted part is empty:
-///      ```text
-///      arr: [ heap                    |]
-///      ```
+/// This function builds either a max heap or a min heap based on the `is_max_heap` parameter.
 ///
-///      Repeatedly swap the root (i.e. the largest) element of the heap with
-///      the last element of the heap and increase the sorted part by one:
-///      ```text
-///      arr: [ root ...   last | sorted ]
-///       --> [ last ... | root   sorted ]
-///      ```
+/// # Arguments
 ///
-///      After each swap, fix the heap to make it a valid max heap again.
-///      Once the heap is empty, `arr` is completely sorted.
-pub fn heap_sort<T: Ord>(arr: &mut [T]) {
+/// * `arr` - A mutable reference to the array to be sorted.
+/// * `is_max_heap` - A boolean indicating whether to build a max heap (`true`) or a min heap (`false`).
+fn build_heap<T: Ord>(arr: &mut [T], is_max_heap: bool) {
+    let mut i = (arr.len() - 1) / 2;
+    while i > 0 {
+        heapify(arr, i, is_max_heap);
+        i -= 1;
+    }
+    heapify(arr, 0, is_max_heap);
+}
+
+/// Fixes a heap violation starting at the given index.
+///
+/// This function adjusts the heap rooted at index `i` to fix the heap property violation.
+/// It assumes that the subtrees rooted at left and right children of `i` are already heaps.
+///
+/// # Arguments
+///
+/// * `arr` - A mutable reference to the array representing the heap.
+/// * `i` - The index to start fixing the heap violation.
+/// * `is_max_heap` - A boolean indicating whether to maintain a max heap or a min heap.
+fn heapify<T: Ord>(arr: &mut [T], i: usize, is_max_heap: bool) {
+    let mut comparator: fn(&T, &T) -> Ordering = |a, b| a.cmp(b);
+    if !is_max_heap {
+        comparator = |a, b| b.cmp(a);
+    }
+
+    let mut idx = i;
+    let l = 2 * i + 1;
+    let r = 2 * i + 2;
+
+    if l < arr.len() && comparator(&arr[l], &arr[idx]) == Ordering::Greater {
+        idx = l;
+    }
+
+    if r < arr.len() && comparator(&arr[r], &arr[idx]) == Ordering::Greater {
+        idx = r;
+    }
+
+    if idx != i {
+        arr.swap(i, idx);
+        heapify(arr, idx, is_max_heap);
+    }
+}
+
+/// Sorts the given array using heap sort algorithm.
+///
+/// This function sorts the array either in ascending or descending order based on the `ascending` parameter.
+///
+/// # Arguments
+///
+/// * `arr` - A mutable reference to the array to be sorted.
+/// * `ascending` - A boolean indicating whether to sort in ascending order (`true`) or descending order (`false`).
+pub fn heap_sort<T: Ord>(arr: &mut [T], ascending: bool) {
     if arr.len() <= 1 {
-        return; // already sorted
+        return;
     }
 
-    heapify(arr);
+    // Build heap based on the order
+    build_heap(arr, ascending);
 
-    for end in (1..arr.len()).rev() {
+    let mut end = arr.len() - 1;
+    while end > 0 {
         arr.swap(0, end);
-        move_down(&mut arr[..end], 0);
-    }
-}
-
-/// Convert `arr` into a max heap.
-fn heapify<T: Ord>(arr: &mut [T]) {
-    let last_parent = (arr.len() - 2) / 2;
-    for i in (0..=last_parent).rev() {
-        move_down(arr, i);
-    }
-}
-
-/// Move the element at `root` down until `arr` is a max heap again.
-///
-/// This assumes that the subtrees under `root` are valid max heaps already.
-fn move_down<T: Ord>(arr: &mut [T], mut root: usize) {
-    let last = arr.len() - 1;
-    loop {
-        let left = 2 * root + 1;
-        if left > last {
-            break;
-        }
-        let right = left + 1;
-        let max = if right <= last && arr[right] > arr[left] {
-            right
-        } else {
-            left
-        };
-
-        if arr[max] > arr[root] {
-            arr.swap(root, max);
-        }
-        root = max;
+        heapify(&mut arr[..end], 0, ascending);
+        end -= 1;
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::sorting::have_same_elements;
-    use crate::sorting::is_sorted;
 
-    #[test]
-    fn empty() {
-        let mut arr: Vec<i32> = Vec::new();
-        let cloned = arr.clone();
-        heap_sort(&mut arr);
-        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
+    macro_rules! ascending_tests {
+        ($($name:ident: $input:expr, $expected:expr;)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let mut arr = $input.clone();
+                    heap_sort(&mut arr, true);
+                    assert_eq!(arr, $expected);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn single_element() {
-        let mut arr = vec![1];
-        let cloned = arr.clone();
-        heap_sort(&mut arr);
-        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
+    macro_rules! descending_tests {
+        ($($name:ident: $input:expr, $expected:expr;)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let mut arr = $input.clone();
+                    heap_sort(&mut arr, false);
+                    assert_eq!(arr, $expected);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn sorted_array() {
-        let mut arr = vec![1, 2, 3, 4];
-        let cloned = arr.clone();
-        heap_sort(&mut arr);
-        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
+    ascending_tests! {
+        test_empty_vector_ascending: Vec::<i32>::new(), vec![];
+        test_single_element_vector_ascending: vec![5], vec![5];
+        test_sorted_vector_ascending: vec![1, 2, 3, 4, 5], vec![1, 2, 3, 4, 5];
+        test_unsorted_vector_ascending: vec![5, 3, 9, 2, 7], vec![2, 3, 5, 7, 9];
+        test_odd_elements_vector_ascending: vec![8, 3, 1, 5, 7], vec![1, 3, 5, 7, 8];
+        test_repeated_elements_vector_ascending: vec![5, 5, 5, 5, 5], vec![5, 5, 5, 5, 5];
     }
 
-    #[test]
-    fn unsorted_array() {
-        let mut arr = vec![3, 4, 2, 1];
-        let cloned = arr.clone();
-        heap_sort(&mut arr);
-        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
-    }
-
-    #[test]
-    fn odd_number_of_elements() {
-        let mut arr = vec![3, 4, 2, 1, 7];
-        let cloned = arr.clone();
-        heap_sort(&mut arr);
-        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
-    }
-
-    #[test]
-    fn repeated_elements() {
-        let mut arr = vec![542, 542, 542, 542];
-        let cloned = arr.clone();
-        heap_sort(&mut arr);
-        assert!(is_sorted(&arr) && have_same_elements(&arr, &cloned));
+    descending_tests! {
+        test_empty_vector_descending: Vec::<i32>::new(), vec![];
+        test_single_element_vector_descending: vec![5], vec![5];
+        test_sorted_vector_descending: vec![1, 2, 3, 4, 5], vec![5, 4, 3, 2, 1];
+        test_unsorted_vector_descending: vec![5, 3, 9, 2, 7], vec![9, 7, 5, 3, 2];
+        test_odd_elements_vector_descending: vec![8, 3, 1, 5, 7], vec![8, 7, 5, 3, 1];
+        test_repeated_elements_vector_descending: vec![5, 5, 5, 5, 5], vec![5, 5, 5, 5, 5];
     }
 }
