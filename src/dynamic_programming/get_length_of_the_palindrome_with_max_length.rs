@@ -7,7 +7,7 @@ Input: s = "abdbc"
 Output: "bdb"
 */
 
-pub fn get_longest_palindrome(s: &str) -> String {
+pub fn get_length_of_the_palindrome_with_max_length(s: &str) -> String {
     if s.is_empty() {
         return "".to_string();
     }
@@ -39,8 +39,8 @@ pub fn get_longest_palindrome(s: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::get_longest_palindrome;
-    macro_rules! test_get_longest_palindrome {
+    use super::get_length_of_the_palindrome_with_max_length;
+    macro_rules! test_get_length_of_the_palindrome_with_max_length {
         ($($name:ident: $inputs:expr,)*) => {
             $(
                 #[test]
@@ -48,13 +48,13 @@ mod tests {
                     use crate::string::is_palindrome;
                     let (s, expected) = $inputs;
                     assert!(is_palindrome(expected));
-                    assert_eq!(get_longest_palindrome(s), expected);
-                    assert_eq!(get_longest_palindrome(expected), expected);
+                    assert_eq!(get_length_of_the_palindrome_with_max_length(s), expected);
+                    assert_eq!(get_length_of_the_palindrome_with_max_length(expected), expected);
                 }
             )*
         }
     }
-    test_get_longest_palindrome! {
+    test_get_length_of_the_palindrome_with_max_length! {
         empty_input: ("", ""),
         basic_1: ("abdbc", "bdb"),
         basic_2: ("abyxycbabcyxy", "yxycbabcyxy"),
