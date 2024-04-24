@@ -1,10 +1,9 @@
-//! This module provides functions to calculate the min distance between two strings.
+//! Provides functions to calculate the Levenshtein distance between two strings.
 //!
-//! The min distance, also known as the edit distance, is a measure of the similarity between two strings
-//! by calculating the minimum number of single-character edits (insertions, deletions, or substitutions) required
-//! to change one string into the other.
+//! The Levenshtein distance is a measure of the similarity between two strings by calculating the minimum number of single-character
+//! edits (insertions, deletions, or substitutions) required to change one string into the other.
 
-/// Calculates the min distance between two strings.
+/// Calculates the Levenshtein distance between two strings.
 ///
 /// # Arguments
 ///
@@ -13,8 +12,8 @@
 ///
 /// # Returns
 ///
-/// The min distance between the two input strings.
-pub fn min_distance(string1: &str, string2: &str) -> usize {
+/// The Levenshtein distance between the two input strings.
+pub fn naive_levenshtein_distance(string1: &str, string2: &str) -> usize {
     let distance_matrix: Vec<Vec<usize>> = (0..=string1.len())
         .map(|i| {
             (0..=string2.len())
@@ -52,26 +51,26 @@ pub fn min_distance(string1: &str, string2: &str) -> usize {
 mod tests {
     use super::*;
 
-    macro_rules! min_distance_tests {
+    macro_rules! naive_levenshtein_distance_tests {
         ($($name:ident: $test_case:expr,)*) => {
             $(
                 #[test]
                 fn $name() {
                     let (string1, string2, expected_distance) = $test_case;
                     assert_eq!(
-                        min_distance(string1, string2),
+                        naive_levenshtein_distance(string1, string2),
                         expected_distance
                     );
                     assert_eq!(
-                        min_distance(string2, string1),
+                        naive_levenshtein_distance(string2, string1),
                         expected_distance
                     );
                     assert_eq!(
-                        min_distance(string1, string1),
+                        naive_levenshtein_distance(string1, string1),
                         0
                     );
                     assert_eq!(
-                        min_distance(string2, string2),
+                        naive_levenshtein_distance(string2, string2),
                         0
                     );
                 }
@@ -79,7 +78,7 @@ mod tests {
         };
     }
 
-    min_distance_tests! {
+    naive_levenshtein_distance_tests! {
         test_empty_strings: ("", "", 0),
         test_same_strings: ("Hello, World!", "Hello, World!", 0),
         test_one_empty_string: ("", "Rust", 4),
