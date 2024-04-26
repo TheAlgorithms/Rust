@@ -169,8 +169,8 @@ mod tests {
         test_same_strings: ("Hello, World!", "Hello, World!", 0),
         test_one_empty_string: ("", "Rust", 4),
         test_longer_first_string: ("horse", "ros", 3),
-        test_longer_second_string: ("execute", "intention", 8),
-        test_different_strings: ("elephant", "ant", 5),
+        test_longer_second_strings: ("tan", "elephant", 6),
+        test_different_string: ("execute", "intention", 8),
     }
 
     levenshtein_distance_tests! {
@@ -179,7 +179,7 @@ mod tests {
         test_same_strings: ("Hello, World!", "Hello, World!", 0),
         test_one_empty_string: ("", "Rust", 4),
         test_longer_first_string: ("horse", "ros", 3),
-        test_longer_second_string: ("execute", "intention", 8),
-        test_different_strings: ("elephant", "ant", 5),
+        test_longer_second_strings: ("tan", "elephant", 6),
+        test_different_string: ("execute", "intention", 8),
     }
 }
