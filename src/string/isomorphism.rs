@@ -39,18 +39,18 @@ mod tests {
 
     #[test]
     fn test_is_isomorphic1() {
-        assert_eq!(is_isomorphic("egg", "add"), true);
+        assert!(is_isomorphic("egg", "add"));
     }
     #[test]
     fn test_is_isomorphic2() {
-        assert_eq!(is_isomorphic("egg", "adc"), false);
+        assert!(!is_isomorphic("egg", "adc"));
     }
     #[test]
     fn test_unicode_is_isomorphic() {
-        assert_eq!(is_isomorphic("天苍苍", "野茫茫"), true);
+        assert!(is_isomorphic("天苍苍", "野茫茫"));
     }
     #[test]
     fn test_empty_is_isomorphic() {
-        assert_eq!(is_isomorphic("", ""), true);
+        assert!(is_isomorphic("", ""));
     }
 }
