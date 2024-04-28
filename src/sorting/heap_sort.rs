@@ -79,49 +79,42 @@ pub fn heap_sort<T: Ord>(arr: &mut [T], ascending: bool) {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    const HEAP_SORT_TEST_CASES: &[(&[isize], &[isize])] = &[
+        (&[], &[]),
+        (&[5], &[5]),
+        (&[1, 2, 3, 4, 5], &[1, 2, 3, 4, 5]),
+        (&[5, 3, 9, 2, 7], &[2, 3, 5, 7, 9]),
+        (&[8, 3, 1, 5, 7], &[1, 3, 5, 7, 8]),
+        (&[5, 5, 5, 5, 5], &[5, 5, 5, 5, 5]),
+    ];
 
-    macro_rules! ascending_tests {
-        ($($name:ident: $input:expr, $expected:expr;)*) => {
-            $(
-                #[test]
-                fn $name() {
-                    let mut arr = $input.clone();
-                    heap_sort(&mut arr, true);
-                    assert_eq!(arr, $expected);
+    macro_rules! heap_sort_tests {
+        ($function:ident) => {
+            mod $function {
+                use super::*;
+
+                fn run_test_case(input: &[isize], expected_output: &[isize]) {
+                    let mut arr_asc = input.to_vec();
+                    super::super::$function(&mut arr_asc, true);
+                    assert_eq!(arr_asc, expected_output);
+
+                    let mut arr_desc = input.to_vec();
+                    super::super::$function(&mut arr_desc, false);
+                    assert_eq!(
+                        arr_desc,
+                        expected_output.iter().rev().copied().collect::<Vec<_>>()
+                    );
                 }
-            )*
+
+                #[test]
+                fn test_heap_sort() {
+                    for &(input, expected_output) in HEAP_SORT_TEST_CASES.iter() {
+                        run_test_case(input, expected_output);
+                    }
+                }
+            }
         };
     }
 
-    macro_rules! descending_tests {
-        ($($name:ident: $input:expr, $expected:expr;)*) => {
-            $(
-                #[test]
-                fn $name() {
-                    let mut arr = $input.clone();
-                    heap_sort(&mut arr, false);
-                    assert_eq!(arr, $expected);
-                }
-            )*
-        };
-    }
-
-    ascending_tests! {
-        test_empty_vector_ascending: Vec::<i32>::new(), vec![];
-        test_single_element_vector_ascending: vec![5], vec![5];
-        test_sorted_vector_ascending: vec![1, 2, 3, 4, 5], vec![1, 2, 3, 4, 5];
-        test_unsorted_vector_ascending: vec![5, 3, 9, 2, 7], vec![2, 3, 5, 7, 9];
-        test_odd_elements_vector_ascending: vec![8, 3, 1, 5, 7], vec![1, 3, 5, 7, 8];
-        test_repeated_elements_vector_ascending: vec![5, 5, 5, 5, 5], vec![5, 5, 5, 5, 5];
-    }
-
-    descending_tests! {
-        test_empty_vector_descending: Vec::<i32>::new(), vec![];
-        test_single_element_vector_descending: vec![5], vec![5];
-        test_sorted_vector_descending: vec![1, 2, 3, 4, 5], vec![5, 4, 3, 2, 1];
-        test_unsorted_vector_descending: vec![5, 3, 9, 2, 7], vec![9, 7, 5, 3, 2];
-        test_odd_elements_vector_descending: vec![8, 3, 1, 5, 7], vec![8, 7, 5, 3, 1];
-        test_repeated_elements_vector_descending: vec![5, 5, 5, 5, 5], vec![5, 5, 5, 5, 5];
-    }
+    heap_sort_tests!(heap_sort);
 }
