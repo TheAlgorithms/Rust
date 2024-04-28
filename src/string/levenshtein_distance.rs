@@ -130,56 +130,39 @@ fn _min3<T: Ord>(a: T, b: T, c: T) -> T {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    const LEVENSHTEIN_DISTANCE_TEST_CASES: &[(&str, &str, usize)] = &[
+        ("", "", 0),
+        ("Hello, World!", "Hello, World!", 0),
+        ("", "Rust", 4),
+        ("horse", "ros", 3),
+        ("tan", "elephant", 6),
+        ("execute", "intention", 8),
+    ];
 
     macro_rules! levenshtein_distance_tests {
-        ($function:ident, $($name:ident: $test_case:expr,)*) => {
+        ($function:ident) => {
             mod $function {
                 use super::*;
 
-                $(
-                    #[test]
-                    fn $name() {
-                        let (string1, string2, expected_distance) = $test_case;
-                        assert_eq!(
-                            $function(string1, string2),
-                            expected_distance
-                        );
-                        assert_eq!(
-                            $function(string2, string1),
-                            expected_distance
-                        );
-                        assert_eq!(
-                            $function(string1, string1),
-                            0
-                        );
-                        assert_eq!(
-                            $function(string2, string2),
-                            0
-                        );
+                fn run_test_case(string1: &str, string2: &str, expected_distance: usize) {
+                    assert_eq!(super::super::$function(string1, string2), expected_distance);
+                    assert_eq!(super::super::$function(string2, string1), expected_distance);
+                    assert_eq!(super::super::$function(string1, string1), 0);
+                    assert_eq!(super::super::$function(string2, string2), 0);
+                }
+
+                #[test]
+                fn test_levenshtein_distance() {
+                    for &(string1, string2, expected_distance) in
+                        LEVENSHTEIN_DISTANCE_TEST_CASES.iter()
+                    {
+                        run_test_case(string1, string2, expected_distance);
                     }
-                )*
+                }
             }
         };
     }
 
-    levenshtein_distance_tests! {
-        naive_levenshtein_distance,
-        test_empty_strings: ("", "", 0),
-        test_same_strings: ("Hello, World!", "Hello, World!", 0),
-        test_one_empty_string: ("", "Rust", 4),
-        test_longer_first_string: ("horse", "ros", 3),
-        test_longer_second_strings: ("tan", "elephant", 6),
-        test_different_string: ("execute", "intention", 8),
-    }
-
-    levenshtein_distance_tests! {
-        optimized_levenshtein_distance,
-        test_empty_strings: ("", "", 0),
-        test_same_strings: ("Hello, World!", "Hello, World!", 0),
-        test_one_empty_string: ("", "Rust", 4),
-        test_longer_first_string: ("horse", "ros", 3),
-        test_longer_second_strings: ("tan", "elephant", 6),
-        test_different_string: ("execute", "intention", 8),
-    }
+    levenshtein_distance_tests!(naive_levenshtein_distance);
+    levenshtein_distance_tests!(optimized_levenshtein_distance);
 }
