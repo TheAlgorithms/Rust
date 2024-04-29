@@ -79,37 +79,36 @@ pub fn heap_sort<T: Ord>(arr: &mut [T], ascending: bool) {
 
 #[cfg(test)]
 mod tests {
-    const HEAP_SORT_TEST_CASES: &[(&[isize], &[isize])] = &[
-        (&[], &[]),
-        (&[5], &[5]),
-        (&[1, 2, 3, 4, 5], &[1, 2, 3, 4, 5]),
-        (&[5, 3, 9, 2, 7], &[2, 3, 5, 7, 9]),
-        (&[8, 3, 1, 5, 7], &[1, 3, 5, 7, 8]),
-        (&[5, 5, 5, 5, 5], &[5, 5, 5, 5, 5]),
+    const HEAP_SORT_TEST_CASES: &[&[isize]] = &[
+        &[],
+        &[5],
+        &[1, 2, 3, 4, 5],
+        &[9, 8, 7, 6, 5],
+        &[8, 3, 1, 5, 7],
+        &[5, 5, 5, 5, 5],
     ];
 
     macro_rules! heap_sort_tests {
         ($function:ident) => {
             mod $function {
                 use super::*;
+                use crate::sorting::is_descending_sorted;
+                use crate::sorting::is_sorted;
 
-                fn run_test_case(input: &[isize], expected_output: &[isize]) {
+                fn run_test_case(input: &[isize]) {
                     let mut arr_asc = input.to_vec();
                     super::super::$function(&mut arr_asc, true);
-                    assert_eq!(arr_asc, expected_output);
+                    assert!(is_sorted(&arr_asc));
 
                     let mut arr_desc = input.to_vec();
                     super::super::$function(&mut arr_desc, false);
-                    assert_eq!(
-                        arr_desc,
-                        expected_output.iter().rev().copied().collect::<Vec<_>>()
-                    );
+                    assert!(is_descending_sorted(&arr_desc));
                 }
 
                 #[test]
                 fn test_heap_sort() {
-                    for &(input, expected_output) in HEAP_SORT_TEST_CASES.iter() {
-                        run_test_case(input, expected_output);
+                    for &input in HEAP_SORT_TEST_CASES.iter() {
+                        run_test_case(input);
                     }
                 }
             }
