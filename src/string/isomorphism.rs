@@ -1,9 +1,19 @@
-/*
-Given two strings s and t, determine whether they are isomorphic.
-The two strings are isomorphic if the characters in s can be replaced by some mapping relation to get t
-*/
+//! This module provides functionality to determine whether two strings are isomorphic.
+//!
+//! Two strings are considered isomorphic if the characters in one string can be replaced
+//! by some mapping relation to obtain the other string.
 use std::collections::HashMap;
 
+/// Determines whether two strings are isomorphic.
+///
+/// # Arguments
+///
+/// * `s` - The first string.
+/// * `t` - The second string.
+///
+/// # Returns
+///
+/// `true` if the strings are isomorphic, `false` otherwise.
 pub fn is_isomorphic(s: &str, t: &str) -> bool {
     let s_chars: Vec<char> = s.chars().collect();
     let t_chars: Vec<char> = t.chars().collect();
@@ -21,6 +31,18 @@ pub fn is_isomorphic(s: &str, t: &str) -> bool {
     }
     true
 }
+
+/// Checks the mapping between two characters and updates the map.
+///
+/// # Arguments
+///
+/// * `map` - The HashMap to store the mapping.
+/// * `key` - The key character.
+/// * `value` - The value character.
+///
+/// # Returns
+///
+/// `true` if the mapping is consistent, `false` otherwise.
 fn check_mapping(map: &mut HashMap<char, char>, key: char, value: char) -> bool {
     match map.get(&key) {
         Some(&mapped_char) => mapped_char == value,
