@@ -5,52 +5,55 @@ The two strings are isomorphic if the characters in s can be replaced by some ma
 use std::collections::HashMap;
 
 pub fn is_isomorphic(s: &str, t: &str) -> bool {
-    if s.len() != t.len() {
+    let s_chars: Vec<char> = s.chars().collect();
+    let t_chars: Vec<char> = t.chars().collect();
+    if s_chars.len() != t_chars.len() {
         return false;
     }
-    let sv: Vec<char> = s.chars().collect();
-    let tv: Vec<char> = t.chars().collect();
-    let mut sr1 = String::new();
-    let mut map1 = HashMap::new();
-    for i in 0..sv.len() {
-        if let Some(x) = map1.get(&sv[i]) {
-            sr1.push(*x);
-        } else {
-            map1.insert(sv[i], tv[i]);
-            sr1.push(tv[i]);
+    let mut s_to_t_map = HashMap::new();
+    let mut t_to_s_map = HashMap::new();
+    for (s_char, t_char) in s_chars.into_iter().zip(t_chars) {
+        if !check_mapping(&mut s_to_t_map, s_char, t_char)
+            || !check_mapping(&mut t_to_s_map, t_char, s_char)
+        {
+            return false;
         }
     }
-    let mut sr2 = String::new();
-    let mut map2 = HashMap::new();
-    for i in 0..sv.len() {
-        if let Some(x) = map2.get(&tv[i]) {
-            sr2.push(*x);
-        } else {
-            map2.insert(tv[i], sv[i]);
-            sr2.push(sv[i]);
+    true
+}
+fn check_mapping(map: &mut HashMap<char, char>, key: char, value: char) -> bool {
+    match map.get(&key) {
+        Some(&mapped_char) => mapped_char == value,
+        None => {
+            map.insert(key, value);
+            true
         }
     }
-    sr1 == t && sr2 == s
 }
 
 #[cfg(test)]
 mod tests {
     use super::is_isomorphic;
-
-    #[test]
-    fn test_is_isomorphic1() {
-        assert!(is_isomorphic("egg", "add"));
+    macro_rules! test_is_isomorphic {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (s, t, expected) = $inputs;
+                assert_eq!(is_isomorphic(s, t), expected);
+                assert_eq!(is_isomorphic(t, s), expected);
+                assert!(is_isomorphic(s, s));
+                assert!(is_isomorphic(t, t));
+            }
+        )*
+        }
     }
-    #[test]
-    fn test_is_isomorphic2() {
-        assert!(!is_isomorphic("egg", "adc"));
-    }
-    #[test]
-    fn test_unicode_is_isomorphic() {
-        assert!(is_isomorphic("天苍苍", "野茫茫"));
-    }
-    #[test]
-    fn test_empty_is_isomorphic() {
-        assert!(is_isomorphic("", ""));
+    test_is_isomorphic! {
+        isomorphic: ("egg", "add", true),
+        not_isomorphic: ("egg", "adc", false),
+        isomorphic_unicode: ("天苍苍", "野茫茫", true),
+        isomorphic_unicode_different_byte_size: ("abb", "野茫茫", true),
+        empty: ("", "", true),
+        different_length: ("abc", "abcd", false),
     }
 }
