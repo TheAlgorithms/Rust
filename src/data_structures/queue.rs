@@ -56,7 +56,11 @@ mod tests {
         queue.enqueue(32);
         queue.enqueue(64);
         let retrieved_dequeue = queue.dequeue();
-        assert_eq!(retrieved_dequeue, Some(32), "Dequeue should return the first element");
+        assert_eq!(
+            retrieved_dequeue,
+            Some(32),
+            "Dequeue should return the first element"
+        );
     }
 
     #[test]
@@ -65,7 +69,11 @@ mod tests {
         queue.enqueue(8);
         queue.enqueue(16);
         let retrieved_peek = queue.peek_front();
-        assert_eq!(retrieved_peek, Some(&8), "Peek should return a reference to the first element");
+        assert_eq!(
+            retrieved_peek,
+            Some(&8),
+            "Peek should return a reference to the first element"
+        );
     }
 
     #[test]
@@ -73,7 +81,11 @@ mod tests {
         let mut queue: Queue<u8> = Queue::new();
         queue.enqueue(8);
         queue.enqueue(16);
-        assert_eq!(2, queue.len(), "Queue length should be equal to the number of enqueued elements");
+        assert_eq!(
+            2,
+            queue.len(),
+            "Queue length should be equal to the number of enqueued elements"
+        );
     }
 
     #[test]

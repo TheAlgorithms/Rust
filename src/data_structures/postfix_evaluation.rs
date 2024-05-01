@@ -14,7 +14,7 @@ pub fn evaluate_postfix(expression: &str) -> Result<i32, PostfixError> {
             // If the token is a number, push it onto the stack.
             stack.push(number);
         } else {
-         // If the token is an operator, pop the top two values from the stack,
+            // If the token is an operator, pop the top two values from the stack,
             // apply the operator, and push the result back onto the stack.
             if let (Some(b), Some(a)) = (stack.pop(), stack.pop()) {
                 match token {
@@ -55,7 +55,10 @@ mod tests {
 
     #[test]
     fn test_insufficient_operands() {
-        assert_eq!(evaluate_postfix("+"), Err(PostfixError::InsufficientOperands));
+        assert_eq!(
+            evaluate_postfix("+"),
+            Err(PostfixError::InsufficientOperands)
+        );
     }
 
     #[test]
@@ -65,12 +68,21 @@ mod tests {
 
     #[test]
     fn test_invalid_operator() {
-        assert_eq!(evaluate_postfix("2 3 #"), Err(PostfixError::InvalidOperator));
+        assert_eq!(
+            evaluate_postfix("2 3 #"),
+            Err(PostfixError::InvalidOperator)
+        );
     }
 
     #[test]
     fn test_invalid_expression() {
-        assert_eq!(evaluate_postfix("2 3"), Err(PostfixError::InvalidExpression));
-        assert_eq!(evaluate_postfix("2 3 4 +"), Err(PostfixError::InvalidExpression));
+        assert_eq!(
+            evaluate_postfix("2 3"),
+            Err(PostfixError::InvalidExpression)
+        );
+        assert_eq!(
+            evaluate_postfix("2 3 4 +"),
+            Err(PostfixError::InvalidExpression)
+        );
     }
 }
