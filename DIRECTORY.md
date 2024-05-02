@@ -113,6 +113,7 @@
     * [Jarvis Scan](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/jarvis_scan.rs)
     * [Point](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/point.rs)
     * [Polygon Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/polygon_points.rs)
+    * [Ramer-Douglas-Peucker](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/ramer_douglas_peucker.rs)
     * [Segment](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/segment.rs)
   * Graph
     * [Astar](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/astar.rs)
