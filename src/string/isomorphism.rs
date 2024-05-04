@@ -72,7 +72,9 @@ mod tests {
     }
     test_is_isomorphic! {
         isomorphic: ("egg", "add", true),
+        isomorphic_long: ("abcdaabdcdbbabababacdadad", "AbCdAAbdCdbbAbAbAbACdAdAd", true),
         not_isomorphic: ("egg", "adc", false),
+        non_isomorphic_long: ("abcdaabdcdbbabababacdadad", "AACdAAbdCdbbAbAbAbACdAdAd", false),
         isomorphic_unicode: ("天苍苍", "野茫茫", true),
         isomorphic_unicode_different_byte_size: ("abb", "野茫茫", true),
         empty: ("", "", true),
