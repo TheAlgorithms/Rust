@@ -301,6 +301,7 @@
     * [Autocomplete Using Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/string/autocomplete_using_trie.rs)
     * [Boyer Moore Search](https://github.com/TheAlgorithms/Rust/blob/master/src/string/boyer_moore_search.rs)
     * [Burrows Wheeler Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/string/burrows_wheeler_transform.rs)
+    * [Check Permutation](https://github.com/TheAlgorithms/Rust/blob/master/src/string/check_permutation.rs)
     * [Duval Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/string/duval_algorithm.rs)
     * [Hamming Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/hamming_distance.rs)
     * [Isomorphism](https://github.com/TheAlgorithms/Rust/blob/master/src/string/isomorphism.rs)
