@@ -10,6 +10,17 @@
 */
 
 use std::cmp::PartialOrd;
+use std::fmt;
+
+/// Custom error for invalid range
+#[derive(Debug, PartialEq)]
+pub struct RangeError;
+
+impl fmt::Display for RangeError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Invalid range")
+    }
+}
 
 pub struct RangeMinimumQuery<T: PartialOrd + Copy> {
     // the current version makes a copy of the input array, but this could be changed
@@ -26,9 +37,9 @@ impl<T: PartialOrd + Copy> RangeMinimumQuery<T> {
         }
     }
 
-    pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, &str> {
+    pub fn get_range_min(&self, start: usize, end: usize) -> Result<T, RangeError> {
         if start >= end || start >= self.array.len() || end > self.array.len() {
-            return Err("invalid range");
+            return Err(RangeError);
         }
         let loglen = (end - start).ilog2() as usize;
         let idx: usize = end - (1 << loglen);

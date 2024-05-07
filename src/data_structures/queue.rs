@@ -47,7 +47,7 @@ mod tests {
     fn test_enqueue() {
         let mut queue: Queue<u8> = Queue::new();
         queue.enqueue(64);
-        assert!(!queue.is_empty());
+        assert!(!queue.is_empty(), "Queue should not be empty after enqueue");
     }
 
     #[test]
@@ -56,7 +56,11 @@ mod tests {
         queue.enqueue(32);
         queue.enqueue(64);
         let retrieved_dequeue = queue.dequeue();
-        assert_eq!(retrieved_dequeue, Some(32));
+        assert_eq!(
+            retrieved_dequeue,
+            Some(32),
+            "Dequeue should return the first element"
+        );
     }
 
     #[test]
@@ -65,7 +69,11 @@ mod tests {
         queue.enqueue(8);
         queue.enqueue(16);
         let retrieved_peek = queue.peek_front();
-        assert_eq!(retrieved_peek, Some(&8));
+        assert_eq!(
+            retrieved_peek,
+            Some(&8),
+            "Peek should return a reference to the first element"
+        );
     }
 
     #[test]
@@ -73,6 +81,18 @@ mod tests {
         let mut queue: Queue<u8> = Queue::new();
         queue.enqueue(8);
         queue.enqueue(16);
-        assert_eq!(2, queue.len());
+        assert_eq!(
+            2,
+            queue.len(),
+            "Queue length should be equal to the number of enqueued elements"
+        );
+    }
+
+    #[test]
+    fn test_is_empty() {
+        let mut queue: Queue<u8> = Queue::new();
+        assert!(queue.is_empty(), "Newly created queue should be empty");
+        queue.enqueue(8);
+        assert!(!queue.is_empty(), "Queue should not be empty after enqueue");
     }
 }
