@@ -13,13 +13,17 @@
 ///
 /// # Returns
 ///
-/// A solution matrix if a path is found or None if not found.
+/// A solution matrix if a path is found or `None` if not found.
 /// During the maze traversal process, the rat explores different paths,
-/// marking its progress in the solution matrix. The goal is to find a path 
-/// from the starting position to the exit of the maze. Once the rat 
-/// successfully reaches the exit, the solution matrix will contain the path 
+/// marking its progress in the solution matrix. The goal is to find a path
+/// from the starting position to the exit (end) of the maze. Once the rat
+/// successfully reaches the exit, the solution matrix will contain the path
 /// taken by the rat, enabling us to reconstruct the solution and visualize the rat's journey through the maze.
-pub fn find_path_in_maze(maze: &Vec<Vec<usize>>, start_x: usize, start_y: usize) -> Option<Vec<Vec<usize>>> {
+pub fn find_path_in_maze(
+    maze: &Vec<Vec<usize>>,
+    start_x: usize,
+    start_y: usize,
+) -> Option<Vec<Vec<usize>>> {
     let mut maze_instance = Maze::new(maze.clone());
     maze_instance.find_path(start_x, start_y)
 }
@@ -32,10 +36,10 @@ struct Maze {
 impl Maze {
     /// Represents possible moves in the maze.
     const MOVES: [(isize, isize); 4] = [
-        (0, 1),   // Move right
-        (1, 0),   // Move down
-        (0, -1),  // Move left
-        (-1, 0),  // Move up
+        (0, 1),  // Move right
+        (1, 0),  // Move down
+        (0, -1), // Move left
+        (-1, 0), // Move up
     ];
 
     /// Constructs a new Maze instance.
@@ -116,7 +120,7 @@ impl Maze {
             // If none of the directions lead to the solution, backtrack
             solution[x as usize][y as usize] = 0;
             return false;
-        }        
+        }
         false
     }
 
@@ -132,49 +136,87 @@ impl Maze {
     ///
     /// A boolean indicating whether the position is valid.
     fn is_valid(&self, x: isize, y: isize, solution: &Vec<Vec<usize>>) -> bool {
-        x >= 0 && y >= 0 && x < self.height() as isize && y < self.width() as isize
-            && self.maze[x as usize][y as usize] == 1 && solution[x as usize][y as usize] == 0
+        x >= 0
+            && y >= 0
+            && x < self.height() as isize
+            && y < self.width() as isize
+            && self.maze[x as usize][y as usize] == 1
+            && solution[x as usize][y as usize] == 0
     }
 }
-
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_find_path_in_maze() {
-        let maze = vec![
+    macro_rules! test_find_path_in_maze {
+        ($($name:ident: $start_x:expr, $start_y:expr, $maze:expr, $expected:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let solution = find_path_in_maze(&$maze, $start_x, $start_y);
+                    assert_eq!(solution, $expected);
+                    if let Some(expected_solution) = &$expected {
+                        assert_eq!(expected_solution[$start_x][$start_y], 1);
+                    }
+                }
+            )*
+        }
+    }
+
+    test_find_path_in_maze! {
+        test_find_path_in_maze_with_solution_5x5: 0, 0, vec![
             vec![1, 0, 1, 0, 0],
             vec![1, 1, 0, 1, 0],
             vec![0, 1, 1, 1, 0],
             vec![0, 0, 0, 1, 1],
             vec![0, 1, 0, 0, 1],
-        ];
-
-        let solution = find_path_in_maze(&maze, 0, 0).unwrap();
-
-        let expected_solution = vec![
+        ], Some(vec![
             vec![1, 0, 0, 0, 0],
             vec![1, 1, 0, 0, 0],
             vec![0, 1, 1, 1, 0],
             vec![0, 0, 0, 1, 1],
             vec![0, 0, 0, 0, 1],
-        ];
-
-        assert_eq!(solution, expected_solution);
-    }
-
-    #[test]
-    fn test_no_solution() {
-        let maze = vec![
-            vec![1, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 1],
-        ];
-
-        assert_eq!(find_path_in_maze(&maze, 0, 0), None);
+        ]),
+        test_find_path_in_maze_with_solution_6x6: 0, 0, vec![
+        vec![1, 0, 1, 0, 1, 0],
+        vec![1, 1, 0, 1, 0, 1],
+        vec![0, 1, 1, 1, 1, 0],
+        vec![0, 0, 0, 1, 1, 1],
+        vec![0, 1, 0, 0, 1, 0],
+        vec![1, 1, 1, 1, 1, 1],
+        ], Some(vec![
+            vec![1, 0, 0, 0, 0, 0],
+            vec![1, 1, 0, 0, 0, 0],
+            vec![0, 1, 1, 1, 1, 0],
+            vec![0, 0, 0, 0, 1, 0],
+            vec![0, 0, 0, 0, 1, 0],
+            vec![0, 0, 0, 0, 1, 1],
+        ]),
+        test_find_path_in_maze_with_solution_8x8: 0, 0, vec![
+            vec![1, 0, 0, 0, 0, 0, 0, 1],
+            vec![1, 1, 0, 1, 1, 1, 0, 0],
+            vec![0, 1, 1, 1, 0, 0, 0, 0],
+            vec![0, 0, 0, 1, 0, 1, 1, 0],
+            vec![0, 1, 0, 1, 1, 1, 0, 1],
+            vec![1, 0, 1, 0, 0, 1, 1, 1],
+            vec![0, 0, 1, 1, 1, 0, 1, 1],
+            vec![1, 1, 1, 0, 1, 1, 1, 1],
+        ], Some(vec![
+            vec![1, 0, 0, 0, 0, 0, 0, 0],
+            vec![1, 1, 0, 0, 0, 0, 0, 0],
+            vec![0, 1, 1, 1, 0, 0, 0, 0],
+            vec![0, 0, 0, 1, 0, 0, 0, 0],
+            vec![0, 0, 0, 1, 1, 1, 0, 0],
+            vec![0, 0, 0, 0, 0, 1, 1, 1],
+            vec![0, 0, 0, 0, 0, 0, 0, 1],
+            vec![0, 0, 0, 0, 0, 0, 0, 1],
+        ]),
+        test_find_path_in_maze_without_solution_4x4: 0, 0, vec![
+            vec![1, 0, 0, 0],
+            vec![1, 1, 0, 0],
+            vec![0, 1, 1, 0],
+            vec![0, 0, 0, 1],
+        ], None::<Vec<Vec<usize>>>,
     }
 }
