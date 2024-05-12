@@ -1,13 +1,15 @@
 //! This module contains the implementation of the Rat in Maze problem.
 //!
-//! The Rat in Maze problem is a classic algorithmic problem where the objective is to find a path from
-//! the starting position to the exit position in a maze.
+//! The Rat in Maze problem is a classic algorithmic problem where the
+//! objective is to find a path from the starting position to the exit
+//! position in a maze.
 
 /// Finds a path through the maze starting from the specified position.
 ///
 /// # Arguments
 ///
-/// * `maze` - The maze represented as a 2D array where 1 represents a valid path and 0 represents a wall.
+/// * `maze` - The maze represented as a 2D array where 1 represents a
+/// valid path and 0 represents a wall.
 /// * `start_x` - The x-coordinate of the starting position.
 /// * `start_y` - The y-coordinate of the starting position.
 ///
@@ -18,7 +20,8 @@
 /// marking its progress in the solution matrix. The goal is to find a path
 /// from the starting position to the exit (end) of the maze. Once the rat
 /// successfully reaches the exit, the solution matrix will contain the path
-/// taken by the rat, enabling us to reconstruct the solution and visualize the rat's journey through the maze.
+/// taken by the rat, enabling us to reconstruct the solution and visualize the
+/// rat's journey through the maze.
 pub fn find_path_in_maze(
     maze: &Vec<Vec<usize>>,
     start_x: usize,
@@ -179,12 +182,12 @@ mod tests {
             vec![0, 0, 0, 0, 1],
         ]),
         test_find_path_in_maze_with_solution_6x6: 0, 0, vec![
-        vec![1, 0, 1, 0, 1, 0],
-        vec![1, 1, 0, 1, 0, 1],
-        vec![0, 1, 1, 1, 1, 0],
-        vec![0, 0, 0, 1, 1, 1],
-        vec![0, 1, 0, 0, 1, 0],
-        vec![1, 1, 1, 1, 1, 1],
+            vec![1, 0, 1, 0, 1, 0],
+            vec![1, 1, 0, 1, 0, 1],
+            vec![0, 1, 1, 1, 1, 0],
+            vec![0, 0, 0, 1, 1, 1],
+            vec![0, 1, 0, 0, 1, 0],
+            vec![1, 1, 1, 1, 1, 1],
         ], Some(vec![
             vec![1, 0, 0, 0, 0, 0],
             vec![1, 1, 0, 0, 0, 0],

@@ -11,5 +11,5 @@ pub use knight_tour::find_knight_tour;
 pub use n_queens::n_queens_solver;
 pub use parentheses_generator::generate_parentheses;
 pub use permutations::permute;
-pub use sudoku::sudoku_solver;
 pub use rat_in_maze::find_path_in_maze;
+pub use sudoku::sudoku_solver;
