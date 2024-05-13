@@ -119,12 +119,8 @@ mod tests {
             $(
                 #[test]
                 fn $name() {
-                    let mut solver = SudokuSolver::new($board);
-                    let is_solved = solver.solve();
-                    assert_eq!(is_solved, $expected.is_some());
-                    if let Some(expected_solution) = $expected {
-                        assert_eq!(solver.board, expected_solution);
-                    }
+                    let result = sudoku_solver(&$board);
+                    assert_eq!(result, $expected);
                 }
             )*
         };
