@@ -1,23 +1,45 @@
-/*
-    A Rust implementation of Sudoku solver using Backtracking.
-    GeeksForGeeks: https://www.geeksforgeeks.org/sudoku-backtracking-7/
-*/
+//! A Rust implementation of Sudoku solver using Backtracking.
+//!
+//! This module provides functionality to solve Sudoku puzzles using the backtracking algorithm.
+//!
+//! GeeksForGeeks: [Sudoku Backtracking](https://www.geeksforgeeks.org/sudoku-backtracking-7/)
 
-pub struct Sudoku {
+/// Solves a Sudoku puzzle.
+///
+/// Given a partially filled Sudoku puzzle represented by a 9x9 grid, this function attempts to
+/// solve the puzzle using the backtracking algorithm.
+///
+/// Returns the solved Sudoku board if a solution exists, or `None` if no solution is found.
+pub fn sudoku_solver(board: &[[u8; 9]; 9]) -> Option<[[u8; 9]; 9]> {
+    let mut solver = SudokuSolver::new(*board);
+    if solver.solve() {
+        Some(solver.board)
+    } else {
+        None
+    }
+}
+
+/// Represents a Sudoku puzzle solver.
+struct SudokuSolver {
+    /// The Sudoku board represented by a 9x9 grid.
     board: [[u8; 9]; 9],
 }
 
-impl Sudoku {
-    pub fn new(board: [[u8; 9]; 9]) -> Sudoku {
-        Sudoku { board }
+impl SudokuSolver {
+    /// Creates a new Sudoku puzzle solver with the given board.
+    fn new(board: [[u8; 9]; 9]) -> SudokuSolver {
+        SudokuSolver { board }
     }
 
+    /// Finds an empty cell in the Sudoku board.
+    ///
+    /// Returns the coordinates of an empty cell `(row, column)` if found, or `None` if all cells are filled.
     fn find_empty_cell(&self) -> Option<(usize, usize)> {
-        // Find a empty cell in the board (returns None if all cells are filled)
-        for i in 0..9 {
-            for j in 0..9 {
-                if self.board[i][j] == 0 {
-                    return Some((i, j));
+        // Find an empty cell in the board (returns None if all cells are filled)
+        for row in 0..9 {
+            for column in 0..9 {
+                if self.board[row][column] == 0 {
+                    return Some((row, column));
                 }
             }
         }
@@ -25,31 +47,34 @@ impl Sudoku {
         None
     }
 
-    fn check(&self, index_tuple: (usize, usize), value: u8) -> bool {
-        let (y, x) = index_tuple;
+    /// Checks whether a given value can be placed in a specific cell according to Sudoku rules.
+    ///
+    /// Returns `true` if the value can be placed in the cell, otherwise `false`.
+    fn is_value_valid(&self, coordinates: (usize, usize), value: u8) -> bool {
+        let (row, column) = coordinates;
 
-        // checks if the value to be added in the board is an acceptable value for the cell
-
-        // checking through the row
-        for i in 0..9 {
-            if self.board[i][x] == value {
-                return false;
-            }
-        }
-        // checking through the column
-        for i in 0..9 {
-            if self.board[y][i] == value {
+        // Checks if the value to be added in the board is an acceptable value for the cell
+        // Checking through the row
+        for current_column in 0..9 {
+            if self.board[row][current_column] == value {
                 return false;
             }
         }
 
-        // checking through the 3x3 block of the cell
-        let sec_row = y / 3;
-        let sec_col = x / 3;
+        // Checking through the column
+        for current_row in 0..9 {
+            if self.board[current_row][column] == value {
+                return false;
+            }
+        }
 
-        for i in (sec_row * 3)..(sec_row * 3 + 3) {
-            for j in (sec_col * 3)..(sec_col * 3 + 3) {
-                if self.board[i][j] == value {
+        // Checking through the 3x3 block of the cell
+        let start_row = row / 3 * 3;
+        let start_column = column / 3 * 3;
+
+        for current_row in start_row..start_row + 3 {
+            for current_column in start_column..start_column + 3 {
+                if self.board[current_row][current_column] == value {
                     return false;
                 }
             }
@@ -58,55 +83,30 @@ impl Sudoku {
         true
     }
 
-    pub fn solve(&mut self) -> bool {
+    /// Solves the Sudoku puzzle recursively using backtracking.
+    ///
+    /// Returns `true` if a solution is found, otherwise `false`.
+    fn solve(&mut self) -> bool {
         let empty_cell = self.find_empty_cell();
 
-        if let Some((y, x)) = empty_cell {
-            for val in 1..10 {
-                if self.check((y, x), val) {
-                    self.board[y][x] = val;
+        if let Some((row, column)) = empty_cell {
+            for value in 1..=9 {
+                if self.is_value_valid((row, column), value) {
+                    self.board[row][column] = value;
                     if self.solve() {
                         return true;
                     }
-                    // backtracking if the board cannot be solved using current configuration
-                    self.board[y][x] = 0
+                    // Backtracking if the board cannot be solved using the current configuration
+                    self.board[row][column] = 0;
                 }
             }
         } else {
-            // if the board is complete
+            // If the board is complete
             return true;
         }
 
-        // returning false the board cannot be solved using current configuration
+        // Returning false if the board cannot be solved using the current configuration
         false
-    }
-
-    pub fn print_board(&self) {
-        // helper function to display board
-
-        let print_3_by_1 = |arr: Vec<u8>, last: bool| {
-            let str = arr
-                .iter()
-                .map(|n| n.to_string())
-                .collect::<Vec<String>>()
-                .join(", ");
-
-            if last {
-                println!("{str}",);
-            } else {
-                print!("{str} | ",);
-            }
-        };
-
-        for i in 0..9 {
-            if i % 3 == 0 && i != 0 {
-                println!("- - - - - - - - - - - - - -")
-            }
-
-            print_3_by_1(self.board[i][0..3].to_vec(), false);
-            print_3_by_1(self.board[i][3..6].to_vec(), false);
-            print_3_by_1(self.board[i][6..9].to_vec(), true);
-        }
     }
 }
 
@@ -114,9 +114,24 @@ impl Sudoku {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_sudoku_correct() {
-        let board: [[u8; 9]; 9] = [
+    macro_rules! test_sudoku_solver {
+        ($($name:ident: $board:expr, $expected:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let mut solver = SudokuSolver::new($board);
+                    let is_solved = solver.solve();
+                    assert_eq!(is_solved, $expected.is_some());
+                    if let Some(expected_solution) = $expected {
+                        assert_eq!(solver.board, expected_solution);
+                    }
+                }
+            )*
+        };
+    }
+
+    test_sudoku_solver! {
+        test_sudoku_correct: [
             [3, 0, 6, 5, 0, 8, 4, 0, 0],
             [5, 2, 0, 0, 0, 0, 0, 0, 0],
             [0, 8, 7, 0, 0, 0, 0, 3, 1],
@@ -126,9 +141,7 @@ mod tests {
             [1, 3, 0, 0, 0, 0, 2, 5, 0],
             [0, 0, 0, 0, 0, 0, 0, 7, 4],
             [0, 0, 5, 2, 0, 6, 3, 0, 0],
-        ];
-
-        let board_result = [
+        ], Some([
             [3, 1, 6, 5, 7, 8, 4, 9, 2],
             [5, 2, 9, 1, 3, 4, 7, 6, 8],
             [4, 8, 7, 6, 2, 9, 5, 3, 1],
@@ -138,18 +151,9 @@ mod tests {
             [1, 3, 8, 9, 4, 7, 2, 5, 6],
             [6, 9, 2, 3, 5, 1, 8, 7, 4],
             [7, 4, 5, 2, 8, 6, 3, 1, 9],
-        ];
+        ]),
 
-        let mut sudoku = Sudoku::new(board);
-        let is_solved = sudoku.solve();
-
-        assert!(is_solved);
-        assert_eq!(sudoku.board, board_result);
-    }
-
-    #[test]
-    fn test_sudoku_incorrect() {
-        let board: [[u8; 9]; 9] = [
+        test_sudoku_incorrect: [
             [6, 0, 3, 5, 0, 8, 4, 0, 0],
             [5, 2, 0, 0, 0, 0, 0, 0, 0],
             [0, 8, 7, 0, 0, 0, 0, 3, 1],
@@ -159,11 +163,6 @@ mod tests {
             [1, 3, 0, 0, 0, 0, 2, 5, 0],
             [0, 0, 0, 0, 0, 0, 0, 7, 4],
             [0, 0, 5, 2, 0, 6, 3, 0, 0],
-        ];
-
-        let mut sudoku = Sudoku::new(board);
-        let is_solved = sudoku.solve();
-
-        assert!(!is_solved);
+        ], None::<[[u8; 9]; 9]>,
     }
 }

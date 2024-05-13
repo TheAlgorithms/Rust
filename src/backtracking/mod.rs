@@ -8,4 +8,4 @@ pub use all_combination_of_size_k::generate_all_combinations;
 pub use knight_tour::find_knight_tour;
 pub use n_queens::n_queens_solver;
 pub use permutations::permute;
-pub use sudoku::Sudoku;
+pub use sudoku::sudoku_solver;
