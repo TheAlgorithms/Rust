@@ -4,35 +4,35 @@
 ///
 /// # Arguments
 ///
-/// * `height` - A vector containing the heights of walls forming the elevation map.
+/// * `elevation_map` - A vector containing the heights of walls forming the elevation map.
 ///
 /// # Returns
 ///
 /// The total amount of trapped rainwater.
-pub fn trapped_rainwater(height: Vec<u32>) -> u32 {
-    if height.is_empty() {
+pub fn trapped_rainwater(elevation_map: Vec<u32>) -> u32 {
+    if elevation_map.is_empty() {
         return 0;
     }
 
-    let mut left_max = vec![0; height.len()];
-    let mut right_max = vec![0; height.len()];
+    let mut left_max = vec![0; elevation_map.len()];
+    let mut right_max = vec![0; elevation_map.len()];
     let mut water_trapped = 0;
 
     // Calculate left_max array
-    left_max[0] = height[0];
-    for i in 1..height.len() {
-        left_max[i] = left_max[i - 1].max(height[i]);
+    left_max[0] = elevation_map[0];
+    for i in 1..elevation_map.len() {
+        left_max[i] = left_max[i - 1].max(elevation_map[i]);
     }
 
     // Calculate right_max array
-    right_max[height.len() - 1] = height[height.len() - 1];
-    for i in (0..(height.len() - 1)).rev() {
-        right_max[i] = right_max[i + 1].max(height[i]);
+    right_max[elevation_map.len() - 1] = elevation_map[elevation_map.len() - 1];
+    for i in (0..(elevation_map.len() - 1)).rev() {
+        right_max[i] = right_max[i + 1].max(elevation_map[i]);
     }
 
     // Calculate trapped water
-    for i in 0..height.len() {
-        water_trapped += left_max[i].min(right_max[i]) - height[i];
+    for i in 0..elevation_map.len() {
+        water_trapped += left_max[i].min(right_max[i]) - elevation_map[i];
     }
 
     water_trapped
@@ -47,8 +47,8 @@ mod tests {
             $(
                 #[test]
                 fn $name() {
-                    let (height, expected_trapped_water) = $test_case;
-                    assert_eq!(trapped_rainwater(height), expected_trapped_water);
+                    let (elevation_map, expected_trapped_water) = $test_case;
+                    assert_eq!(trapped_rainwater(elevation_map), expected_trapped_water);
                 }
             )*
         };
@@ -79,11 +79,11 @@ mod tests {
             vec![1, 1, 2, 4, 0, 0, 0],
             0
         ),
-        test_trapped_rainwater_single_height: (
+        test_trapped_rainwater_single_elevation_map: (
             vec![5],
             0
         ),
-        test_trapped_rainwater_large_height_difference: (
+        test_trapped_rainwater_large_elevation_map_difference: (
             vec![5, 1, 6, 1, 7, 1, 8],
             15
         ),
