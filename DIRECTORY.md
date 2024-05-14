@@ -309,6 +309,7 @@
     * [Levenshtein Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/levenshtein_distance.rs)
     * [Lipogram](https://github.com/TheAlgorithms/Rust/blob/master/src/string/lipogram.rs)
     * [Manacher](https://github.com/TheAlgorithms/Rust/blob/master/src/string/manacher.rs)
+    * [Multiply](https://github.com/TheAlgorithms/Rust/blob/master/src/string/multiply.rs)
     * [Palindrome](https://github.com/TheAlgorithms/Rust/blob/master/src/string/palindrome.rs)
     * [Pangram](https://github.com/TheAlgorithms/Rust/blob/master/src/string/pangram.rs)
     * [Rabin Karp](https://github.com/TheAlgorithms/Rust/blob/master/src/string/rabin_karp.rs)
