@@ -21,26 +21,26 @@ pub fn generate_parentheses(n: u32) -> Vec<String> {
 /// # Arguments
 ///
 /// * `current` - The current string of parentheses being built.
-/// * `open` - The count of open parentheses in the current string.
-/// * `close` - The count of close parentheses in the current string.
+/// * `open_count` - The count of open parentheses in the current string.
+/// * `close_count` - The count of close parentheses in the current string.
 /// * `n` - The total number of pairs of parentheses to be generated.
 /// * `result` - A mutable reference to the vector storing the generated combinations.
-fn generate(current: &str, open: u32, close: u32, n: u32, result: &mut Vec<String>) {
+fn generate(current: &str, open_count: u32, close_count: u32, n: u32, result: &mut Vec<String>) {
     if current.len() == (n * 2) as usize {
         result.push(current.to_string());
         return;
     }
 
-    if open < n {
+    if open_count < n {
         let mut new_str = current.to_string();
         new_str.push('(');
-        generate(&new_str, open + 1, close, n, result);
+        generate(&new_str, open_count + 1, close_count, n, result);
     }
 
-    if close < open {
+    if close_count < open_count {
         let mut new_str = current.to_string();
         new_str.push(')');
-        generate(&new_str, open, close + 1, n, result);
+        generate(&new_str, open_count, close_count + 1, n, result);
     }
 }
 
