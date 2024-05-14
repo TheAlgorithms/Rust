@@ -59,6 +59,14 @@ mod tests {
             vec![0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1],
             6
         ),
+        test_bucket: (
+            vec![5, 1, 5],
+            4
+        ),
+        test_skewed_bucket: (
+            vec![4, 1, 5],
+            3
+        ),
         test_trapped_rainwater_empty: (
             Vec::new(),
             0
