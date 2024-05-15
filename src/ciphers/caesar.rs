@@ -44,6 +44,21 @@ mod tests {
     use super::*;
 
     #[test]
+    fn empty() {
+        assert_eq!(caesar_cipher("", 13), "");
+    }
+
+    #[test]
+    fn rot_13() {
+        assert_eq!(caesar_cipher("rust", 13), "ehfg");
+    }
+
+    #[test]
+    fn unicode() {
+        assert_eq!(caesar_cipher("attack at dawn 攻", 5), "fyyfhp fy ifbs 攻");
+    }
+
+    #[test]
     fn rotation_within_alphabet_range() {
         assert_eq!(caesar_cipher("Hello, World!", 3), "Khoor, Zruog!");
     }
