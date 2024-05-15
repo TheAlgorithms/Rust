@@ -1,12 +1,15 @@
-/// Generates all combinations of well-formed parentheses given a positive integer `n`.
+/// Generates all combinations of well-formed parentheses given a non-positive integer `n`.
 ///
 /// This function uses backtracking to generate all possible combinations of well-formed
 /// parentheses. The resulting combinations are returned as a vector of strings.
 ///
 /// # Arguments
 ///
-/// * `n` - A positive integer representing the number of pairs of parentheses.
+/// * `n` - A non-positive integer representing the number of pairs of parentheses.
 pub fn generate_parentheses(n: usize) -> Vec<String> {
+    if n == 0 {
+        return Vec::new();
+    }
     let mut result = Vec::new();
     generate("", 0, 0, n, &mut result);
     result
@@ -65,6 +68,7 @@ mod tests {
     }
 
     generate_parentheses_tests! {
+        test_generate_parentheses_0: (0, Vec::<String>::new()),
         test_generate_parentheses_1: (1, vec!["()"]),
         test_generate_parentheses_2: (2, vec!["(())", "()()"]),
         test_generate_parentheses_3: (3, vec!["((()))", "(()())", "(())()", "()(())", "()()()"]),
