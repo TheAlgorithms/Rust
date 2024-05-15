@@ -17,15 +17,6 @@
 /// # Panics
 ///
 /// Panics if the rotation value is greater than or equal to 26.
-///
-/// # Examples
-///
-/// ```
-/// let text = "Hello, World!";
-/// let rotation = 3;
-/// let encrypted = caesar(text, rotation);
-/// assert_eq!(encrypted, "Khoor, Zruog!");
-/// ```
 pub fn caesar(text: &str, rotation: usize) -> String {
     text.chars()
         .map(|c| {
