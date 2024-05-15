@@ -27,16 +27,17 @@
 /// assert_eq!(encrypted, "Khoor, Zruog!");
 /// ```
 pub fn caesar(text: &str, rotation: usize) -> String {
-    text.chars().map(|c| {
-        if c.is_ascii_alphabetic() {
-            let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
+    text.chars()
+        .map(|c| {
+            if c.is_ascii_alphabetic() {
+                let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
 
-            (((c as u8 - first) + (rotation % 26) as u8) % 26 + first) as char
-        } else {
-            c
-        }
-    })
-    .collect()
+                (((c as u8 - first) + (rotation % 26) as u8) % 26 + first) as char
+            } else {
+                c
+            }
+        })
+        .collect()
 }
 
 #[cfg(test)]
