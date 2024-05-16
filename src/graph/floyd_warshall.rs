@@ -36,7 +36,7 @@ pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E> + num_trait
     let keys = map.keys().copied().collect::<Vec<_>>();
     for &k in &keys {
         for &i in &keys {
-            if map[&i].get(&k).is_none() {
+            if !map[&i].contains_key(&k) {
                 continue;
             }
             for &j in &keys {

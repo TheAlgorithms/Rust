@@ -76,6 +76,12 @@ impl LinearSieve {
     }
 }
 
+impl Default for LinearSieve {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::LinearSieve;
