@@ -38,7 +38,6 @@ mod tests {
         $(
             #[test]
             fn $name() {
-                use super::multiply;
                 let (s, t, expected) = $inputs;
                 assert_eq!(multiply(s, t), expected);
                 assert_eq!(multiply(t, s), expected);
