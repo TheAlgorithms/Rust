@@ -3,7 +3,7 @@ use std::hash::{BuildHasher, Hash, Hasher};
 
 /// A Bloom Filter <https://en.wikipedia.org/wiki/Bloom_filter> is a probabilistic data structure testing whether an element belongs to a set or not
 /// Therefore, its contract looks very close to the one of a set, for example a `HashSet`
-trait BloomFilter<Item: Hash> {
+pub trait BloomFilter<Item: Hash> {
     fn insert(&mut self, item: Item);
     fn contains(&self, item: &Item) -> bool;
 }
