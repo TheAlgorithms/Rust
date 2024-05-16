@@ -2,11 +2,11 @@
 ///（Negative numbers and strings of numbers starting with 0 are not supported at this time）
 
 pub fn multiply(num1: &str, num2: &str) -> String {
-    if num1 == " " || num2 == " " {
+    if num1.is_empty() || num2.is_empty() {
         panic!("String numbers cannot be space")
     }
 
-    if num1 == "0" || num2 == "0" || num1.is_empty() || num2.is_empty() {
+    if num1 == "0" || num2 == "0" {
         return "0".to_string();
     }
 
@@ -50,7 +50,6 @@ mod tests {
         multiply0: ("2", "3", "6"),
         multiply1: ("123", "456", "56088"),
         multiply_zero: ("0", "222", "0"),
-        multiply_empty: ("", "222", "0"),
         other_1: ("99", "99", "9801"),
         other_2: ("999", "99", "98901"),
         other_3: ("9999", "99", "989901"),
@@ -60,5 +59,6 @@ mod tests {
     #[should_panic]
     fn panic_when_inputs_is_space() {
         multiply(" ", "121");
+        multiply("", "");
     }
 }
