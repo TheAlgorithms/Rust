@@ -7,11 +7,10 @@
 ///
 /// * `n` - A non-negative integer representing the number of pairs of parentheses.
 pub fn generate_parentheses(n: usize) -> Vec<String> {
-    if n == 0 {
-        return Vec::new();
-    }
     let mut result = Vec::new();
-    generate("", 0, 0, n, &mut result);
+    if n > 0 {
+        generate("", 0, 0, n, &mut result);
+    }
     result
 }
 
