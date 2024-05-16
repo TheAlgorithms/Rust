@@ -154,15 +154,6 @@ mod tests {
 
     const TOL: f64 = 1e-10;
 
-    trait Verify {
-        fn verify<T: Into<f64> + Copy>(
-            trig_func: &TrigFuncType,
-            angle: T,
-            expected_result: f64,
-            is_radian: bool,
-        );
-    }
-
     impl TrigFuncType {
         fn verify<T: Into<f64> + Copy>(&self, angle: T, expected_result: f64, is_radian: bool) {
             let value = match self {
