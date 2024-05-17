@@ -8,7 +8,7 @@
 /// # Arguments
 ///
 /// * `text` - The text to be encrypted.
-/// * `rotation` - The number of rotations (shift) to be applied. It should be less than 26.
+/// * `rotation` - The number of rotations (shift) to be applied.
 ///
 /// # Returns
 ///
