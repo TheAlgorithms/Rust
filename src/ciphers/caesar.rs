@@ -13,10 +13,6 @@
 /// # Returns
 ///
 /// Returns the encrypted string.
-///
-/// # Panics
-///
-/// Panics if the rotation value is greater than or equal to 26.
 pub fn caesar(text: &str, rotation: usize) -> String {
     text.chars()
         .map(|c| {
