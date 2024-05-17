@@ -19,10 +19,7 @@ pub fn ramer_douglas_peucker(points: &[Point], epsilon: f64) -> Vec<Point> {
     if dmax > epsilon {
         let mut results = ramer_douglas_peucker(&points[..=index], epsilon);
         results.pop();
-        results.extend(ramer_douglas_peucker(
-            &Vec::from(&points[index..]),
-            epsilon,
-        ));
+        results.extend(ramer_douglas_peucker(&Vec::from(&points[index..]), epsilon));
         results
     } else {
         vec![points[0].clone(), points[end].clone()]
@@ -85,7 +82,5 @@ mod tests {
         let epsilon = 3.; // The epsilon is quite large, so the result will be a single line
         let result = ramer_douglas_peucker(&polygon, epsilon);
         assert_eq!(result, vec![a, e]);
-
-
     }
 }
