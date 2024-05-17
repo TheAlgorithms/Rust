@@ -28,7 +28,7 @@ pub fn ramer_douglas_peucker(points: &[Point], epsilon: f64) -> Vec<Point> {
 
 fn perpendicular_distance(p: &Point, a: &Point, b: &Point) -> f64 {
     let num = (b.y - a.y) * p.x - (b.x - a.x) * p.y + b.x * a.y - b.y * a.x;
-    let den = a.euclidean_distance(&b);
+    let den = a.euclidean_distance(b);
     num.abs() / den
 }
 
