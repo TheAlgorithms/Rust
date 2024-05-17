@@ -3,7 +3,7 @@
 
 pub fn multiply(num1: &str, num2: &str) -> String {
     if num1.is_empty() || num2.is_empty() {
-        panic!("String numbers cannot be space")
+        panic!("String numbers cannot be empty")
     }
 
     if num1 == "0" || num2 == "0" {
@@ -57,8 +57,8 @@ mod tests {
     }
     #[test]
     #[should_panic]
-    fn panic_when_inputs_is_space() {
-        multiply(" ", "121");
+    fn panic_when_inputs_is_empty() {
+        multiply("", "121");
         multiply("", "");
     }
 }
