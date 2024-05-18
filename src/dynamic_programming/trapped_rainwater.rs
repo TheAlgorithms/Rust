@@ -88,6 +88,10 @@ mod tests {
             [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1],
             6
         ),
+        test_trapped_rainwater_peak_under_water: (
+            [3, 0, 2, 0, 4],
+            7,
+        ),
         test_bucket: (
             [5, 1, 5],
             4
@@ -110,6 +114,10 @@ mod tests {
         ),
         test_trapped_rainwater_single_elevation_map: (
             [5],
+            0
+        ),
+        test_trapped_rainwater_two_point_elevation_map: (
+            [5, 1],
             0
         ),
         test_trapped_rainwater_large_elevation_map_difference: (
