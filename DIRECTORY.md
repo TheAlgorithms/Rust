@@ -143,6 +143,7 @@
     * [Tarjans Ssc](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/tarjans_ssc.rs)
     * [Topological Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/topological_sort.rs)
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
+    * [Cycle Detection](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/detect_cycle.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Machine Learning
     * [Cholesky](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
