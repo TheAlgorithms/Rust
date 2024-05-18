@@ -1,60 +1,68 @@
 //! Module to calculate trapped rainwater in an elevation map.
 
-/// Calculates the total amount of trapped rainwater in the given elevation map.
+/// Computes the total volume of trapped rainwater in a given elevation map.
 ///
 /// # Arguments
 ///
-/// * `elevation_map` - A vector containing the heights of walls forming the elevation map.
+/// * `elevation_map` - A slice containing the heights of the terrain elevations.
 ///
 /// # Returns
 ///
-/// The total amount of trapped rainwater.
+/// The total volume of trapped rainwater.
 pub fn trapped_rainwater(elevation_map: &[u32]) -> u32 {
     if elevation_map.is_empty() {
         return 0;
     }
-
-    let left_max = calculate_max(elevation_map, true);
-    let right_max = calculate_max(elevation_map, false);
+    let left_max = calculate_max_values(elevation_map, false);
+    let right_max = calculate_max_values(elevation_map, true);
     let mut water_trapped = 0;
-
     // Calculate trapped water
     for i in 0..elevation_map.len() {
         water_trapped += left_max[i].min(right_max[i]) - elevation_map[i];
     }
-
     water_trapped
 }
 
-/// Calculates the maximum array of the given elevation map based on the direction.
+/// Determines the maximum heights from either direction in the elevation map.
 ///
 /// # Arguments
 ///
-/// * `elevation_map` - A reference to a slice representing the elevation map where each element
-///   represents the height of the terrain at that position.
-/// * `direction` - A boolean indicating whether to calculate the maximum array from left to right (`true`)
-///   or from right to left (`false`).
+/// * `elevation_map` - A slice representing the heights of the terrain elevations.
+/// * `reverse` - A boolean that indicates the direction of calculation.
+///   - `false` for left-to-right.
+///   - `true` for right-to-left.
 ///
 /// # Returns
 ///
-/// A vector representing the maximum array.
-fn calculate_max(elevation_map: &[u32], direction: bool) -> Vec<u32> {
-    let mut max_array = vec![0; elevation_map.len()];
-    match direction {
-        true => {
-            max_array[0] = elevation_map[0];
-            for i in 1..elevation_map.len() {
-                max_array[i] = max_array[i - 1].max(elevation_map[i]);
-            }
-        }
-        false => {
-            max_array[elevation_map.len() - 1] = elevation_map[elevation_map.len() - 1];
-            for i in (0..(elevation_map.len() - 1)).rev() {
-                max_array[i] = max_array[i + 1].max(elevation_map[i]);
-            }
-        }
+/// A vector containing the maximum heights encountered up to each position.
+fn calculate_max_values(elevation_map: &[u32], reverse: bool) -> Vec<u32> {
+    let mut max_values = vec![0; elevation_map.len()];
+    let mut current_max = 0;
+    for i in create_iter(elevation_map.len(), reverse) {
+        current_max = current_max.max(elevation_map[i]);
+        max_values[i] = current_max;
     }
-    max_array
+    max_values
+}
+
+/// Creates an iterator for the given length, optionally reversing it.
+///
+/// # Arguments
+///
+/// * `len` - The length of the iterator.
+/// * `reverse` - A boolean that determines the order of iteration.
+///   - `false` for forward iteration.
+///   - `true` for reverse iteration.
+///
+/// # Returns
+///
+/// A boxed iterator that iterates over the range of indices.
+fn create_iter(len: usize, reverse: bool) -> Box<dyn Iterator<Item = usize>> {
+    if reverse {
+        Box::new((0..len).rev())
+    } else {
+        Box::new(0..len)
+    }
 }
 
 #[cfg(test)]
@@ -68,6 +76,8 @@ mod tests {
                 fn $name() {
                     let (elevation_map, expected_trapped_water) = $test_case;
                     assert_eq!(trapped_rainwater(&elevation_map), expected_trapped_water);
+                    let elevation_map_rev: Vec<u32> = elevation_map.iter().rev().cloned().collect();
+                    assert_eq!(trapped_rainwater(&elevation_map_rev), expected_trapped_water);
                 }
             )*
         };
