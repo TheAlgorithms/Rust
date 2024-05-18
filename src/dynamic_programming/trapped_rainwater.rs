@@ -10,9 +10,6 @@
 ///
 /// The total volume of trapped rainwater.
 pub fn trapped_rainwater(elevation_map: &[u32]) -> u32 {
-    if elevation_map.is_empty() {
-        return 0;
-    }
     let left_max = calculate_max_values(elevation_map, false);
     let right_max = calculate_max_values(elevation_map, true);
     let mut water_trapped = 0;
