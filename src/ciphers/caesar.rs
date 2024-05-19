@@ -17,14 +17,29 @@ pub fn caesar(text: &str, rotation: usize) -> String {
     text.chars()
         .map(|c| {
             if c.is_ascii_alphabetic() {
-                let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
-
-                (((c as u8 - first) + (rotation % 26) as u8) % 26 + first) as char
+                shift_char(c, rotation)
             } else {
                 c
             }
         })
         .collect()
+}
+
+/// Shifts a single ASCII alphabetic character by a specified number of positions in the alphabet.
+///
+/// # Arguments
+///
+/// * `c` - The ASCII alphabetic character to be shifted.
+/// * `rotation` - The number of positions to shift the character. Should be within the range (0, 25).
+///
+/// # Returns
+///
+/// Returns the shifted ASCII alphabetic character.
+fn shift_char(c: char, rotation: usize) -> char {
+    let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
+    let rotation = rotation as u8; // Safe cast as rotation is within (0, 25)
+
+    (((c as u8 - first) + rotation) % 26 + first) as char
 }
 
 #[cfg(test)]
