@@ -1,3 +1,5 @@
+const ERROR_MESSAGE: &str = "Rotation must be in the range [0, 25]";
+
 /// Encrypts a given text using the Caesar cipher technique.
 ///
 /// In cryptography, a Caesar cipher, also known as Caesar's cipher, the shift cipher, Caesar's code,
@@ -8,13 +10,23 @@
 /// # Arguments
 ///
 /// * `text` - The text to be encrypted.
-/// * `rotation` - The number of rotations (shift) to be applied.
+/// * `rotation` - The number of rotations (shift) to be applied. It should be within the range (0, 25).
 ///
 /// # Returns
 ///
-/// Returns the encrypted string.
-pub fn caesar(text: &str, rotation: usize) -> String {
-    text.chars()
+/// Returns a `Result` containing the encrypted string if successful, or an error message if the rotation
+/// is out of the valid range.
+///
+/// # Errors
+///
+/// Returns an error if the rotation value is out of the valid range (0, 25)
+pub fn caesar(text: &str, rotation: isize) -> Result<String, &'static str> {
+    if !(0..=25).contains(&rotation) {
+        return Err(ERROR_MESSAGE);
+    }
+
+    let result = text
+        .chars()
         .map(|c| {
             if c.is_ascii_alphabetic() {
                 shift_char(c, rotation)
@@ -22,7 +34,9 @@ pub fn caesar(text: &str, rotation: usize) -> String {
                 c
             }
         })
-        .collect()
+        .collect();
+
+    Ok(result)
 }
 
 /// Shifts a single ASCII alphabetic character by a specified number of positions in the alphabet.
@@ -35,7 +49,7 @@ pub fn caesar(text: &str, rotation: usize) -> String {
 /// # Returns
 ///
 /// Returns the shifted ASCII alphabetic character.
-fn shift_char(c: char, rotation: usize) -> char {
+fn shift_char(c: char, rotation: isize) -> char {
     let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
     let rotation = rotation as u8; // Safe cast as rotation is within (0, 25)
 
