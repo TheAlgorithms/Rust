@@ -93,6 +93,7 @@
     * [Rod Cutting](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/rod_cutting.rs)
     * [Snail](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/snail.rs)
     * [Subset Generation](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_generation.rs)
+    * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
@@ -114,6 +115,7 @@
     * [Jarvis Scan](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/jarvis_scan.rs)
     * [Point](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/point.rs)
     * [Polygon Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/polygon_points.rs)
+    * [Ramer Douglas Peucker](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/ramer_douglas_peucker.rs)
     * [Segment](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/segment.rs)
   * Graph
     * [Astar](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/astar.rs)
