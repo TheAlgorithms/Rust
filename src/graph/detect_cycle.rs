@@ -11,15 +11,16 @@ pub trait DetectCycle {
 fn undirected_graph_detect_cycle_dfs<'a>(
     graph: &'a UndirectedGraph,
     visited_node: &mut HashSet<&'a String>,
-    parent: &'a String,
+    parent: Option<&'a String>,
     u: &'a String,
 ) -> bool {
     visited_node.insert(u);
     for (v, _) in graph.adjacency_table().get(u).unwrap() {
-        if v == parent {
+        if matches!(parent, Some(parent) if v == parent) {
             continue;
         }
-        if visited_node.contains(v) || undirected_graph_detect_cycle_dfs(graph, visited_node, u, v)
+        if visited_node.contains(v)
+            || undirected_graph_detect_cycle_dfs(graph, visited_node, Some(u), v)
         {
             return true;
         }
@@ -36,19 +37,19 @@ fn undirected_graph_detect_cycle_bfs<'a>(
     visited_node.insert(u);
 
     // Initialize the queue for BFS, storing (current node, parent node) tuples
-    let mut queue = VecDeque::<(&String, &String)>::new();
-    queue.push_back((u, u));
+    let mut queue = VecDeque::<(&String, Option<&String>)>::new();
+    queue.push_back((u, None));
 
     while let Some((u, parent)) = queue.pop_front() {
         for (v, _) in graph.adjacency_table().get(u).unwrap() {
-            if v == parent {
+            if matches!(parent, Some(parent) if v == parent) {
                 continue;
             }
             if visited_node.contains(v) {
                 return true;
             }
             visited_node.insert(v);
-            queue.push_back((v, u));
+            queue.push_back((v, Some(u)));
         }
     }
     false
@@ -60,7 +61,7 @@ impl DetectCycle for UndirectedGraph {
         let adj = self.adjacency_table();
         for u in adj.keys() {
             if !visited_node.contains(u)
-                && undirected_graph_detect_cycle_dfs(self, &mut visited_node, u, u)
+                && undirected_graph_detect_cycle_dfs(self, &mut visited_node, None, u)
             {
                 return true;
             }
@@ -166,56 +167,128 @@ impl DetectCycle for DirectedGraph {
 
 #[cfg(test)]
 mod test {
-    use crate::data_structures::{graph::Graph, DirectedGraph, UndirectedGraph};
-
     use super::DetectCycle;
-
-    #[test]
-    fn test_detect_cycle_in_undirected_graph() {
-        let mut graph_with_cycle = UndirectedGraph::new();
-
-        graph_with_cycle.add_edge(("a", "b", 1));
-        graph_with_cycle.add_edge(("a", "c", 1));
-        graph_with_cycle.add_edge(("b", "c", 1));
-        graph_with_cycle.add_edge(("b", "d", 1));
-        graph_with_cycle.add_edge(("c", "d", 1));
-
-        assert!(graph_with_cycle.detect_cycle_dfs());
-        assert!(graph_with_cycle.detect_cycle_bfs());
-
-        let mut graph_without_cycle = UndirectedGraph::new();
-
-        graph_without_cycle.add_edge(("a", "b", 1));
-        graph_without_cycle.add_edge(("a", "c", 1));
-        graph_without_cycle.add_edge(("b", "d", 1));
-        graph_without_cycle.add_edge(("c", "e", 1));
-
-        assert!(!graph_without_cycle.detect_cycle_dfs());
-        assert!(!graph_without_cycle.detect_cycle_bfs());
+    use crate::data_structures::{graph::Graph, DirectedGraph, UndirectedGraph};
+    fn get_undirected_single_node_with_loop() -> UndirectedGraph {
+        let mut res = UndirectedGraph::new();
+        res.add_edge(("a", "a", 1));
+        res
     }
-
-    #[test]
-    fn test_detect_cycle_in_directed_graph() {
-        let mut graph_with_cycle = DirectedGraph::new();
-
-        graph_with_cycle.add_edge(("b", "a", 1));
-        graph_with_cycle.add_edge(("c", "a", 1));
-        graph_with_cycle.add_edge(("b", "c", 1));
-        graph_with_cycle.add_edge(("c", "d", 1));
-        graph_with_cycle.add_edge(("d", "b", 1));
-
-        assert!(graph_with_cycle.detect_cycle_dfs());
-        assert!(graph_with_cycle.detect_cycle_bfs());
-
-        let mut graph_without_cycle = DirectedGraph::new();
-
-        graph_without_cycle.add_edge(("b", "a", 1));
-        graph_without_cycle.add_edge(("c", "a", 1));
-        graph_without_cycle.add_edge(("b", "c", 1));
-        graph_without_cycle.add_edge(("c", "d", 1));
-        graph_without_cycle.add_edge(("b", "d", 1));
-
-        assert!(!graph_without_cycle.detect_cycle_dfs());
-        assert!(!graph_without_cycle.detect_cycle_bfs());
+    fn get_directed_single_node_with_loop() -> DirectedGraph {
+        let mut res = DirectedGraph::new();
+        res.add_edge(("a", "a", 1));
+        res
+    }
+    fn get_undirected_two_nodes_connected() -> UndirectedGraph {
+        let mut res = UndirectedGraph::new();
+        res.add_edge(("a", "b", 1));
+        res
+    }
+    fn get_directed_two_nodes_connected() -> DirectedGraph {
+        let mut res = DirectedGraph::new();
+        res.add_edge(("a", "b", 1));
+        res.add_edge(("b", "a", 1));
+        res
+    }
+    fn get_directed_two_nodes() -> DirectedGraph {
+        let mut res = DirectedGraph::new();
+        res.add_edge(("a", "b", 1));
+        res
+    }
+    fn get_undirected_triangle() -> UndirectedGraph {
+        let mut res = UndirectedGraph::new();
+        res.add_edge(("a", "b", 1));
+        res.add_edge(("b", "c", 1));
+        res.add_edge(("c", "a", 1));
+        res
+    }
+    fn get_directed_triangle() -> DirectedGraph {
+        let mut res = DirectedGraph::new();
+        res.add_edge(("a", "b", 1));
+        res.add_edge(("b", "c", 1));
+        res.add_edge(("c", "a", 1));
+        res
+    }
+    fn get_undirected_triangle_with_tail() -> UndirectedGraph {
+        let mut res = get_undirected_triangle();
+        res.add_edge(("c", "d", 1));
+        res.add_edge(("d", "e", 1));
+        res.add_edge(("e", "f", 1));
+        res.add_edge(("g", "h", 1));
+        res
+    }
+    fn get_directed_triangle_with_tail() -> DirectedGraph {
+        let mut res = get_directed_triangle();
+        res.add_edge(("c", "d", 1));
+        res.add_edge(("d", "e", 1));
+        res.add_edge(("e", "f", 1));
+        res.add_edge(("g", "h", 1));
+        res
+    }
+    fn get_undirected_graph_with_cycle() -> UndirectedGraph {
+        let mut res = UndirectedGraph::new();
+        res.add_edge(("a", "b", 1));
+        res.add_edge(("a", "c", 1));
+        res.add_edge(("b", "c", 1));
+        res.add_edge(("b", "d", 1));
+        res.add_edge(("c", "d", 1));
+        res
+    }
+    fn get_undirected_graph_without_cycle() -> UndirectedGraph {
+        let mut res = UndirectedGraph::new();
+        res.add_edge(("a", "b", 1));
+        res.add_edge(("a", "c", 1));
+        res.add_edge(("b", "d", 1));
+        res.add_edge(("c", "e", 1));
+        res
+    }
+    fn get_directed_graph_with_cycle() -> DirectedGraph {
+        let mut res = DirectedGraph::new();
+        res.add_edge(("b", "a", 1));
+        res.add_edge(("c", "a", 1));
+        res.add_edge(("b", "c", 1));
+        res.add_edge(("c", "d", 1));
+        res.add_edge(("d", "b", 1));
+        res
+    }
+    fn get_directed_graph_without_cycle() -> DirectedGraph {
+        let mut res = DirectedGraph::new();
+        res.add_edge(("b", "a", 1));
+        res.add_edge(("c", "a", 1));
+        res.add_edge(("b", "c", 1));
+        res.add_edge(("c", "d", 1));
+        res.add_edge(("b", "d", 1));
+        res
+    }
+    macro_rules! test_detect_cycle {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (graph, has_cycle) = $test_case;
+                    println!("detect_cycle_dfs: {}", graph.detect_cycle_dfs());
+                    println!("detect_cycle_bfs: {}", graph.detect_cycle_bfs());
+                    assert_eq!(graph.detect_cycle_dfs(), has_cycle);
+                    assert_eq!(graph.detect_cycle_bfs(), has_cycle);
+                }
+            )*
+        };
+    }
+    test_detect_cycle! {
+        undirected_empty: (UndirectedGraph::new(), false),
+        directed_empty: (DirectedGraph::new(), false),
+        undirected_single_node_with_loop: (get_undirected_single_node_with_loop(), true),
+        directed_single_node_with_loop: (get_directed_single_node_with_loop(), true),
+        undirected_two_nodes_connected: (get_undirected_two_nodes_connected(), false),
+        directed_two_nodes_connected: (get_directed_two_nodes_connected(), true),
+        directed_two_nodes: (get_directed_two_nodes(), false),
+        undirected_triangle: (get_undirected_triangle(), true),
+        undirected_triangle_with_tail: (get_undirected_triangle_with_tail(), true),
+        directed_triangle: (get_directed_triangle(), true),
+        directed_triangle_with_tail: (get_directed_triangle_with_tail(), true),
+        undirected_graph_with_cycle: (get_undirected_graph_with_cycle(), true),
+        undirected_graph_without_cycle: (get_undirected_graph_without_cycle(), false),
+        directed_graph_with_cycle: (get_directed_graph_with_cycle(), true),
+        directed_graph_without_cycle: (get_directed_graph_without_cycle(), false),
     }
 }
