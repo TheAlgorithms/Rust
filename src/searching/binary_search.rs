@@ -64,23 +64,19 @@ fn match_compare<T: Ord>(
     is_asc: bool,
 ) -> bool {
     let mid = *left + (*right - *left) / 2;
-    match is_asc {
-        true => match item.cmp(&arr[mid]) {
-            Ordering::Less => *right = mid,
-            Ordering::Equal => {
-                *left = mid;
-                return true;
-            }
-            Ordering::Greater => *left = mid + 1,
-        },
-        false => match item.cmp(&arr[mid]) {
-            Ordering::Less => *left = mid + 1,
-            Ordering::Equal => {
-                *left = mid;
-                return true;
-            }
-            Ordering::Greater => *right = mid,
-        },
+    let cmp_result = item.cmp(&arr[mid]);
+
+    match (is_asc, cmp_result) {
+        (true, Ordering::Less) | (false, Ordering::Greater) => {
+            *right = mid;
+        }
+        (true, Ordering::Greater) | (false, Ordering::Less) => {
+            *left = mid + 1;
+        }
+        (_, Ordering::Equal) => {
+            *left = mid;
+            return true;
+        }
     }
 
     false
