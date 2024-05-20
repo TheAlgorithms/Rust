@@ -1,5 +1,4 @@
-/// Compute the multiplier of two strings of numbers
-///（Negative numbers and strings of numbers starting with 0 are not supported at this time）
+/// Performs long multiplication on string representations of non-negative numbers.
 
 pub fn multiply(num1: &str, num2: &str) -> String {
     if num1.is_empty() || num2.is_empty() {
@@ -15,9 +14,7 @@ pub fn multiply(num1: &str, num2: &str) -> String {
     let mut mult = vec![0; output_size];
     for (i, c1) in num1.chars().rev().enumerate() {
         for (j, c2) in num2.chars().rev().enumerate() {
-            let n1 = c1.to_digit(10).unwrap();
-            let n2 = c2.to_digit(10).unwrap();
-            let mul = n1 * n2;
+            let mul = c1.to_digit(10).unwrap() * c2.to_digit(10).unwrap();
             // It could be a two-digit number here.
             mult[i + j + 1] += (mult[i + j] + mul) / 10;
             // Handling rounding. Here's a single digit.
