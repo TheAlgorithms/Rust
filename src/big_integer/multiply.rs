@@ -5,7 +5,9 @@ pub fn multiply(num1: &str, num2: &str) -> String {
         return "0".to_string();
     }
 
-    if !num1[0..1].chars().all(char::is_numeric)
+    if !num1.chars().all(char::is_numeric)
+        || !num2.chars().all(char::is_numeric)
+        || &num2[0..1] == "0"
         || &num1[0..1] == "0"
         || num1.is_empty()
         || num2.is_empty()
