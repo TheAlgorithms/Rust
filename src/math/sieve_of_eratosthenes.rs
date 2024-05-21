@@ -55,7 +55,7 @@ fn update_sieve(sieve: &mut [bool], end: usize, num: usize) {
 /// A vector containing all prime numbers extracted from the sieve.
 fn extract_primes(sieve: &[bool]) -> Vec<usize> {
     sieve
-        .into_iter()
+        .iter()
         .enumerate()
         .filter_map(|(num, is_prime)| if *is_prime { Some(num) } else { None })
         .collect()
