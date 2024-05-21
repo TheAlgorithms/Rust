@@ -1,12 +1,16 @@
 /// Performs long multiplication on string representations of non-negative numbers.
 
 pub fn multiply(num1: &str, num2: &str) -> String {
-    if num1.is_empty() || num2.is_empty() {
-        panic!("String numbers cannot be empty")
-    }
-
     if num1 == "0" || num2 == "0" {
         return "0".to_string();
+    }
+
+    if !num1[0..1].chars().all(char::is_numeric)
+        || &num1[0..1] == "0"
+        || num1.is_empty()
+        || num2.is_empty()
+    {
+        panic!("String does not conform to specification")
     }
 
     let output_size = num1.len() + num2.len();
@@ -52,10 +56,16 @@ mod tests {
         other_3: ("9999", "99", "989901"),
         other_4: ("192939", "9499596", "1832842552644"),
     }
+
     #[test]
     #[should_panic]
     fn panic_when_inputs_is_empty() {
         multiply("", "121");
-        multiply("", "");
+    }
+
+    #[test]
+    #[should_panic]
+    fn panic_when_inputs_is_abnormal() {
+        multiply("012", "1a1");
     }
 }
