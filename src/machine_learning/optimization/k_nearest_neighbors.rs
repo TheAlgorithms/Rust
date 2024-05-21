@@ -63,7 +63,7 @@ fn find_majority_label(k_nearest_neighbors: Vec<&Point>) -> String {
         }
         if counter > max_counter {
             max_counter = counter;
-            label = neighbor.label.to_owned();
+            neighbor.label.clone_into(&mut label);
         }
         majority_counter_map.insert(neighbor.label.to_owned(), counter);
     }
@@ -81,7 +81,7 @@ fn fetch_k_nearest_neighbors<'a>(
 ) -> Vec<&'a Point> {
     //calculate the distance to all neighbors from input_point.
     let distance_map: BTreeMap<i64, &Point> =
-        calculate_distance_to_neighbors(&neighbors, &input_point, distance_computation);
+        calculate_distance_to_neighbors(neighbors, input_point, distance_computation);
 
     //find the k nearest neighbors
     let k_nearest_neighbors: Vec<&Point> = return_k_closest_neighbors(distance_map, k);
@@ -96,11 +96,10 @@ fn calculate_distance_to_neighbors<'a>(
 ) -> BTreeMap<i64, &'a Point> {
     let mut distance_map: BTreeMap<i64, &Point> = BTreeMap::new();
 
-    for i in 0..neighbors.len() {
-        let neighbor = &neighbors[i];
-        let distance: f64 = distance_computation.distance(&input_point, &neighbor);
+    for neighbor in neighbors {
+        let distance: f64 = distance_computation.distance(input_point, neighbor);
         //multiplying by 100 since floating point numbers cant be keys. Any precission more than 2 digits is ignored
-        distance_map.insert((distance * 100.0) as i64, &neighbor);
+        distance_map.insert((distance * 100.0) as i64, neighbor);
     }
     distance_map
 }
@@ -122,11 +121,7 @@ mod tests {
     use super::*;
 
     fn construct_point_data(x: f64, y: f64, label: String) -> Point {
-        Point {
-            x: x,
-            y: y,
-            label: label,
-        }
+        Point { x, y, label }
     }
 
     #[test]
@@ -179,7 +174,7 @@ mod tests {
         assert_eq!(result.len(), 2);
 
         let first_closest_point = &point_4;
-        assert_eq!(result.get(0).unwrap().x, first_closest_point.x);
+        assert_eq!(result.first().unwrap().x, first_closest_point.x);
 
         let second_closest_point = &point_5;
         assert_eq!(result.get(1).unwrap().x, second_closest_point.x);
@@ -210,7 +205,7 @@ mod tests {
         assert_eq!(result.len(), 1);
 
         let first_closest_point = &point_4;
-        assert_eq!(result.get(0).unwrap().x, first_closest_point.x);
+        assert_eq!(result.first().unwrap().x, first_closest_point.x);
     }
 
     #[test]
