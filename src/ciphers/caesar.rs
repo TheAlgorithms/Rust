@@ -1,4 +1,5 @@
 const ERROR_MESSAGE: &str = "Rotation must be in the range [0, 25]";
+const ALPHABET_LENGTH: u8 = b'z' - b'a' + 1;
 
 /// Encrypts a given text using the Caesar cipher technique.
 ///
@@ -21,7 +22,7 @@ const ERROR_MESSAGE: &str = "Rotation must be in the range [0, 25]";
 ///
 /// Returns an error if the rotation value is out of the valid range (0, 25)
 pub fn caesar(text: &str, rotation: isize) -> Result<String, &'static str> {
-    if !(0..=25).contains(&rotation) {
+    if !(0..ALPHABET_LENGTH as isize).contains(&rotation) {
         return Err(ERROR_MESSAGE);
     }
 
@@ -53,7 +54,7 @@ fn shift_char(c: char, rotation: isize) -> char {
     let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
     let rotation = rotation as u8; // Safe cast as rotation is within (0, 25)
 
-    (((c as u8 - first) + rotation) % 26 + first) as char
+    (((c as u8 - first) + rotation) % ALPHABET_LENGTH + first) as char
 }
 
 #[cfg(test)]
@@ -66,19 +67,10 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (text, rotation, expected) = $test_case;
+                    assert_eq!(caesar(&text, rotation).unwrap(), expected);
 
-                    // Test forward rotation
-                    match caesar(&text, rotation) {
-                        Ok(result) => assert_eq!(result, expected),
-                        Err(e) => panic!("Unexpected error: {}", e),
-                    }
-
-                    // Test backward rotation
-                    let backward_rotation = if rotation == 0 { 0 } else { 26 - rotation };
-                    match caesar(&expected, backward_rotation) {
-                        Ok(result) => assert_eq!(result, text),
-                        Err(e) => panic!("Unexpected error: {}", e),
-                    }
+                    let backward_rotation = if rotation == 0 { 0 } else { ALPHABET_LENGTH as isize - rotation };
+                    assert_eq!(caesar(&expected, backward_rotation).unwrap(), text);
                 }
             )*
         };
@@ -90,12 +82,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (text, rotation) = $test_case;
-
-                    // If rotation is invalid, test that the function returns the specific error message
-                    match caesar(&text, rotation) {
-                        Ok(_) => panic!("Expected an error but got an Ok result"),
-                        Err(e) => assert_eq!(e, ERROR_MESSAGE),
-                    }
+                    assert_eq!(caesar(&text, rotation), Err(ERROR_MESSAGE));
                 }
             )*
         };
@@ -119,6 +106,8 @@ mod tests {
 
     test_caesar_error_cases! {
         negative_rotation: ("Hello, World!", -5),
+        empty_input_negative_rotation: ("", -1),
+        empty_input_large_rotation: ("", 27),
         large_rotation: ("Large rotation", 139),
         large_rotation_with_big_input: ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices ante, at gravida ante. Quisque luctus, ligula nec dictum facilisis, elit leo luctus arcu, ut auctor sapien turpis ut mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vel orci sit amet sem efficitur sagittis a quis augue. Donec semper quam tincidunt hendrerit cursus. Duis placerat gravida diam, in interdum purus dapibus in.", 139),
         very_large_rotation_with_big_input: ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices ante, at gravida ante. Quisque luctus, ligula nec dictum facilisis, elit leo luctus arcu, ut auctor sapien turpis ut mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vel orci sit amet sem efficitur sagittis a quis augue. Donec semper quam tincidunt hendrerit cursus. Duis placerat gravida diam, in interdum purus dapibus in.", 345876),
