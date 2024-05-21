@@ -80,7 +80,6 @@ fn fetch_k_nearest_neighbors<'a>(
     distance_computation: DistanceMeasurementFormula,
 ) -> Vec<&'a Point> {
     //calculate the distance to all neighbors from input_point.
-    //let mut distance_vec: Vec<f64> = calculate_distance_to_neighbors(&neighbors, &input_point);
     let distance_map: BTreeMap<i64, &Point> =
         calculate_distance_to_neighbors(&neighbors, &input_point, distance_computation);
 
@@ -95,14 +94,12 @@ fn calculate_distance_to_neighbors<'a>(
     input_point: &'a Point,
     distance_computation: DistanceMeasurementFormula,
 ) -> BTreeMap<i64, &'a Point> {
-    // when distance is calculated , we can have multiple nodes having same distance
-    // let mut distance_vec: Vec<f64> = Vec::new();
     let mut distance_map: BTreeMap<i64, &Point> = BTreeMap::new();
 
     for i in 0..neighbors.len() {
         let neighbor = &neighbors[i];
         let distance: f64 = distance_computation.distance(&input_point, &neighbor);
-        //multiplying by 100 since floating point numbers cant be keys anymore. Any precission more than 2 digits is ignored
+        //multiplying by 100 since floating point numbers cant be keys. Any precission more than 2 digits is ignored
         distance_map.insert((distance * 100.0) as i64, &neighbor);
     }
     distance_map
