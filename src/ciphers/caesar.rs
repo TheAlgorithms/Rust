@@ -11,7 +11,7 @@ const ALPHABET_LENGTH: u8 = b'z' - b'a' + 1;
 /// # Arguments
 ///
 /// * `text` - The text to be encrypted.
-/// * `rotation` - The number of rotations (shift) to be applied. It should be within the range (0, 25).
+/// * `rotation` - The number of rotations (shift) to be applied. It should be within the range [0, 25].
 ///
 /// # Returns
 ///
@@ -20,7 +20,7 @@ const ALPHABET_LENGTH: u8 = b'z' - b'a' + 1;
 ///
 /// # Errors
 ///
-/// Returns an error if the rotation value is out of the valid range (0, 25)
+/// Returns an error if the rotation value is out of the valid range [0, 25]
 pub fn caesar(text: &str, rotation: isize) -> Result<String, &'static str> {
     if !(0..ALPHABET_LENGTH as isize).contains(&rotation) {
         return Err(ERROR_MESSAGE);
@@ -45,14 +45,14 @@ pub fn caesar(text: &str, rotation: isize) -> Result<String, &'static str> {
 /// # Arguments
 ///
 /// * `c` - The ASCII alphabetic character to be shifted.
-/// * `rotation` - The number of positions to shift the character. Should be within the range (0, 25).
+/// * `rotation` - The number of positions to shift the character. Should be within the range [0, 25].
 ///
 /// # Returns
 ///
 /// Returns the shifted ASCII alphabetic character.
 fn shift_char(c: char, rotation: isize) -> char {
     let first = if c.is_ascii_lowercase() { b'a' } else { b'A' };
-    let rotation = rotation as u8; // Safe cast as rotation is within (0, 25)
+    let rotation = rotation as u8; // Safe cast as rotation is within [0, 25]
 
     (((c as u8 - first) + rotation) % ALPHABET_LENGTH + first) as char
 }
@@ -86,6 +86,11 @@ mod tests {
                 }
             )*
         };
+    }
+
+    #[test]
+    fn alphabet_length_should_be_26() {
+        assert_eq!(ALPHABET_LENGTH, 26);
     }
 
     test_caesar_happy_path! {
