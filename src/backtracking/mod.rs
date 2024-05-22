@@ -10,4 +10,4 @@ pub use knight_tour::find_knight_tour;
 pub use n_queens::n_queens_solver;
 pub use parentheses_generator::generate_parentheses;
 pub use permutations::permute;
-pub use sudoku::Sudoku;
+pub use sudoku::sudoku_solver;
