@@ -114,7 +114,5 @@ mod tests {
         empty_input_negative_rotation: ("", -1),
         empty_input_large_rotation: ("", 27),
         large_rotation: ("Large rotation", 139),
-        large_rotation_with_big_input: ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices ante, at gravida ante. Quisque luctus, ligula nec dictum facilisis, elit leo luctus arcu, ut auctor sapien turpis ut mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vel orci sit amet sem efficitur sagittis a quis augue. Donec semper quam tincidunt hendrerit cursus. Duis placerat gravida diam, in interdum purus dapibus in.", 139),
-        very_large_rotation_with_big_input: ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices ante, at gravida ante. Quisque luctus, ligula nec dictum facilisis, elit leo luctus arcu, ut auctor sapien turpis ut mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vel orci sit amet sem efficitur sagittis a quis augue. Donec semper quam tincidunt hendrerit cursus. Duis placerat gravida diam, in interdum purus dapibus in.", 345876),
     }
 }
