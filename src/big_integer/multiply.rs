@@ -1,20 +1,13 @@
 /// Performs long multiplication on string representations of non-negative numbers.
 
 pub fn multiply(num1: &str, num2: &str) -> String {
-    if num1 == "0" || num2 == "0" {
-        return "0".to_string();
-    }
-
-    if !num1.chars().all(char::is_numeric)
-        || !num2.chars().all(char::is_numeric)
-        || &num2[0..1] == "0"
-        || &num1[0..1] == "0"
-        || num1.is_empty()
-        || num2.is_empty()
-    {
+    if !is_valid_nonnegative(num1) || !is_valid_nonnegative(num2) {
         panic!("String does not conform to specification")
     }
 
+    if num1 == "0" || num2 == "0" {
+        return "0".to_string();
+    }
     let output_size = num1.len() + num2.len();
 
     let mut mult = vec![0; output_size];
@@ -31,6 +24,10 @@ pub fn multiply(num1: &str, num2: &str) -> String {
         mult.pop();
     }
     mult.iter().rev().map(|&n| n.to_string()).collect()
+}
+
+pub fn is_valid_nonnegative(num: &str) -> bool {
+    !(!num.chars().all(char::is_numeric) || (&num[0..1] == "0" && num.len() > 1) || num.is_empty())
 }
 
 #[cfg(test)]
@@ -59,15 +56,23 @@ mod tests {
         other_4: ("192939", "9499596", "1832842552644"),
     }
 
-    #[test]
-    #[should_panic]
-    fn panic_when_inputs_is_empty() {
-        multiply("", "121");
+    macro_rules! test_multiply_with_wrong_input {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            #[should_panic]
+            fn $name() {
+                let (s, t) = $inputs;
+                multiply(s, t);
+            }
+        )*
+        }
     }
-
-    #[test]
-    #[should_panic]
-    fn panic_when_inputs_is_abnormal() {
-        multiply("012", "1a1");
+    test_multiply_with_wrong_input! {
+        empty_input: ("", "121"),
+        leading_zeros: ("001", "3"),
+        wrong_characters: ("2", "12d4"),
+        wrong_input_and_zero_1: ("0", "x"),
+        wrong_input_and_zero_2: ("y", "0"),
     }
 }
