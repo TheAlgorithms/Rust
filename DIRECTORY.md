@@ -5,6 +5,7 @@
     * [All Combination Of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
     * [Knight Tour](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/knight_tour.rs)
     * [N Queens](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/n_queens.rs)
+    * [Parentheses Generator](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/parentheses_generator.rs)
     * [Permutations](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/permutations.rs)
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
@@ -92,6 +93,7 @@
     * [Rod Cutting](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/rod_cutting.rs)
     * [Snail](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/snail.rs)
     * [Subset Generation](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_generation.rs)
+    * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
@@ -113,6 +115,7 @@
     * [Jarvis Scan](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/jarvis_scan.rs)
     * [Point](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/point.rs)
     * [Polygon Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/polygon_points.rs)
+    * [Ramer Douglas Peucker](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/ramer_douglas_peucker.rs)
     * [Segment](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/segment.rs)
   * Graph
     * [Astar](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/astar.rs)
@@ -123,6 +126,7 @@
     * [Decremental Connectivity](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/decremental_connectivity.rs)
     * [Depth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/depth_first_search.rs)
     * [Depth First Search Tic Tac Toe](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/depth_first_search_tic_tac_toe.rs)
+    * [Detect Cycle](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/detect_cycle.rs)
     * [Dijkstra](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dijkstra.rs)
     * [Dinic Maxflow](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dinic_maxflow.rs)
     * [Disjoint Set Union](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/disjoint_set_union.rs)
