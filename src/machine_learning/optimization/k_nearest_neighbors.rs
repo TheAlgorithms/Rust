@@ -1,15 +1,23 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 use std::{
     cmp,
     collections::{BTreeMap, HashMap},
 };
 
 use crate::math::{abs, square_root};
-
 #[derive(Debug, Clone)]
 pub struct Point {
     x: f64,        // x-axis
     y: f64,        // y-axis
     label: String, // A label denotes the classification of the data. For instance, 'Football' might be labeled as 'Sport'
+}
+
+impl Point {
+    pub fn build(x: f64, y: f64, label: String) -> Self {
+        Self { x, y, label }
+    }
 }
 
 pub enum DistanceMeasurementFormula {
@@ -34,7 +42,7 @@ impl DistanceMeasurementFormula {
 
 pub fn classify_using_knn(
     neighbors: Vec<&Point>, // The training data which essentially consists of a set of points on the X-Y axis represented as vector of Points,
-    mut input_point: Point, // The input point requiring classification
+    input_point: Point,     // The input point requiring classification
     k: usize, // The value of 'K'. For example, if K equals 4, classification is determined by the majority vote among the 4 nearest neighbors
     distance_computation: DistanceMeasurementFormula, // An enum employed to specify the technique/formula for calculating the distance between two points
 ) -> Point {
@@ -46,9 +54,7 @@ pub fn classify_using_knn(
     let label = find_majority_label(k_nearest_neighbors).to_owned();
 
     //update the input point with the right label after classification
-    input_point.label = label;
-
-    input_point
+    Point::build(input_point.x, input_point.y, label)
 }
 
 // This method identifies the label that appears most frequently among the k nearest neighbors
