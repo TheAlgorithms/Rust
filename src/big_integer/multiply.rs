@@ -1,5 +1,4 @@
 /// Performs long multiplication on string representations of non-negative numbers.
-
 pub fn multiply(num1: &str, num2: &str) -> String {
     if !is_valid_nonnegative(num1) || !is_valid_nonnegative(num2) {
         panic!("String does not conform to specification")
@@ -27,7 +26,7 @@ pub fn multiply(num1: &str, num2: &str) -> String {
 }
 
 pub fn is_valid_nonnegative(num: &str) -> bool {
-    !(!num.chars().all(char::is_numeric) || (&num[0..1] == "0" && num.len() > 1) || num.is_empty())
+    num.chars().all(char::is_numeric) && !num.is_empty() && (!num.starts_with('0') || num == "0")
 }
 
 #[cfg(test)]
@@ -70,7 +69,7 @@ mod tests {
     }
     test_multiply_with_wrong_input! {
         empty_input: ("", "121"),
-        leading_zeros: ("001", "3"),
+        leading_zero: ("01", "3"),
         wrong_characters: ("2", "12d4"),
         wrong_input_and_zero_1: ("0", "x"),
         wrong_input_and_zero_2: ("y", "0"),
