@@ -10,6 +10,7 @@
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
     * [Fast Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/fast_factorial.rs)
+    * [Maximum](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/maximum.rs)
     * [Multiply](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/multiply.rs)
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Bit Manipulation
