@@ -45,7 +45,7 @@ fn partition<T: Ord>(arr: &mut [T], low: usize, high: usize) -> usize {
     let mut curr = low;
 
     for idx in low..high {
-        if arr[curr] < arr[pivot] {
+        if arr[idx] < arr[pivot] {
             arr.swap(curr, idx);
             curr += 1;
         }
@@ -96,7 +96,7 @@ fn heap_sort<T: Ord>(arr: &mut [T], low: usize, high: usize) {
     }
 
     for size in (1..heap_size).rev() {
-        arr.swap(low, low + 1);
+        arr.swap(low, low + size);
         heapify(arr, size, 0, low);
     }
 }
@@ -150,6 +150,8 @@ pub fn pdqsort<T: Ord>(arr: &mut [T]) {
 #[cfg(test)]
 mod tests {
     use crate::sorting::{have_same_elements, is_sorted, pdqsort};
+    use rand::seq::SliceRandom;
+    use rand::thread_rng;
 
     macro_rules! test_pdqsort {
         ($($name:ident: $input:expr,)*) => {
@@ -176,7 +178,17 @@ mod tests {
         test_single_str_arr: vec!["apple"],
         test_sorted_str_arr: vec!["apple", "banana", "grape", "kiwi", "orange"],
         test_reverse_sorted_str_arr: vec!["orange", "kiwi", "grape", "banana", "apple"],
-        test_random_str_array: vec!["banana", "apple", "orange", "grape", "kiwi'"],
+        test_random_str_array: vec!["banana", "apple", "orange", "grape", "kiwi"],
         test_arr_contain_empty_str: vec!["", "", "apple", "", "orange", "", "kiwi", "grape", "banana", ""],
+    }
+
+    #[test]
+    fn test_large_random_array() {
+        let mut rng = thread_rng();
+        let mut arr: Vec<i32> = (0..100_000).collect();
+        arr.shuffle(&mut rng);
+        let input_arr = arr.clone();
+        pdqsort(&mut arr);
+        assert!(is_sorted(&arr) && have_same_elements(&arr, &input_arr));
     }
 }
