@@ -109,8 +109,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (item, arr, expected) = $test_case;
-                    let index = binary_search(&item, arr);
-                    assert_eq!(index, expected);
+                    assert_eq!(binary_search(&item, arr), expected);
                 }
             )*
         };
@@ -136,5 +135,19 @@ mod tests {
         search_ints_desc_middle: (3, &[4, 3, 2, 1], Some(1)),
         search_ints_desc_end: (1, &[4, 3, 2, 1], Some(3)),
         search_ints_desc_not_found: (5, &[4, 3, 2, 1], None),
+        with_gaps_0: (0, &[1, 3, 8, 11], None),
+        with_gaps_1: (1, &[1, 3, 8, 11], Some(0)),
+        with_gaps_2: (2, &[1, 3, 8, 11], None),
+        with_gaps_3: (3, &[1, 3, 8, 11], Some(1)),
+        with_gaps_4: (4, &[1, 3, 8, 10], None),
+        with_gaps_5: (5, &[1, 3, 8, 10], None),
+        with_gaps_6: (6, &[1, 3, 8, 10], None),
+        with_gaps_7: (7, &[1, 3, 8, 11], None),
+        with_gaps_8: (8, &[1, 3, 8, 11], Some(2)),
+        with_gaps_9: (9, &[1, 3, 8, 11], None),
+        with_gaps_10: (10, &[1, 3, 8, 11], None),
+        with_gaps_11: (11, &[1, 3, 8, 11], Some(3)),
+        with_gaps_12: (12, &[1, 3, 8, 11], None),
+        with_gaps_13: (13, &[1, 3, 8, 11], None),
     }
 }
