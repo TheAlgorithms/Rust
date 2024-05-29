@@ -38,7 +38,7 @@ pub fn classify_using_knn(
     neighbors: Vec<&Point>, // The training data which essentially consists of a set of points on the X-Y axis represented as vector of Points,
     input_point: Point,     // The input point requiring classification
     k: usize, // The value of 'K'. For example, if K equals 4, classification is determined by the majority vote among the 4 nearest neighbors
-    distance_computation: fn(source_point: &Point, destination_point: &Point) -> f64, // An enum employed to specify the technique/formula for calculating the distance between two points
+    distance_computation: fn(source_point: &Point, destination_point: &Point) -> f64, // Distance Computation Function Pointer
 ) -> Point {
     // fetch k nearest neighbors for the input_point
     let k_nearest_neighbors =
