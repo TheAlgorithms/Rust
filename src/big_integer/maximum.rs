@@ -7,9 +7,9 @@
 //         .max(nums[0] * nums[1] * nums[nums.len() - 1])
 // }
 
-pub fn maximum(nums: Vec<i32>) -> i32 {
+pub fn maximum(nums: Vec<isize>) -> isize {
     let (mut s1, mut s2, mut b1, mut b2, mut b3) =
-        (i32::MAX, i32::MAX, i32::MIN, i32::MIN, i32::MIN);
+        (isize::MAX, isize::MAX, isize::MIN, isize::MIN, isize::MIN);
 
     for n in nums {
         if n < s1 {
@@ -50,12 +50,22 @@ mod tests {
     }
 
     test_maximum! {
-        positive0: ([1,2,3], 6),
-        positive1: ([1,2,3,4], 24),
-        negative0: ([-1,-2,-3], -6),
-        negative1: ([-1,-2,-3,-4,-5], -6),
-        positive_and_negative0: ([-1,-2,-3,4,5], 30),
-        positive_and_negative1: ([-1,2,-3,-4,5], 60),
-        positive_and_negative2: ([-1,2,-3,4,5], 40),
+        three_positive_numbers: ([1, 2, 3], 6),
+        four_positive_numbers: ([1, 2, 3, 4], 24),
+        four_numbers_with_zero: ([-1, 2, 0, 4], 0),
+        three_negative_numbers: ([-1, -2, -3], -6),
+        four_negative_numbers: ([-1, -2, -3, -4], -6),
+        five_negative_numbers: ([-1, -2, -3, -4, -5], -6),
+        negative_numbers_with_zero: ([-1, -2, 0, -3, -4, -5], 0),
+        four_negative_numbers_with_zero: ([-1, -2, 0, -3, -4], 0),
+        mixed_positive_and_negative_numbers1: ([-1, -2, -3, 4, 5], 30),
+        mixed_positive_and_negative_numbers2: ([-1, 2, -3, -4, 5], 60),
+        mixed_positive_and_negative_numbers3: ([-1, 2, -3, 4, 5], 40),
+        single_negative_number_repeated: ([-1, -1, -1, -1, -1], -1),
+        all_zeros: ([0, 0, 0, 0, 0], 0),
+        two_positive_one_negative: ([1, 2, -3], -6),
+        two_negative_one_positive: ([-1, -2, 3], 6),
+        large_numbers: ([1000, 1000, 10000], 10000000000),
+        mixture_with_large_and_small_numbers: ([1, -1, 2, -2, 1000000], 2000000),
     }
 }
