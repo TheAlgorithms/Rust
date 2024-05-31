@@ -21,3 +21,20 @@ pub fn mrg_ranking_loss(x_first: &[f64], x_second: &[f64], margin: f64, y_true: 
     }
     total_loss / (x_first.len() as f64)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_marginal_ranking_loss() {
+        let first_values: Vec<f64> = vec![1.0, 2.0, 3.0];
+        let second_values: Vec<f64> = vec![2.0, 3.0, 4.0];
+        let margin: f64 = 1.0;
+        let actual_value: f64 = -1.0;
+        assert_eq!(
+            mrg_ranking_loss(&first_values, &second_values, margin, actual_value),
+            2.0
+        );
+    }
+}
