@@ -10,3 +10,5 @@
 //
 //  - loss = `max(0, -y_true * (x_first - x_second) + margin)`.
 //
+
+pub fn mrg_ranking_loss(x_first: &[f64], x_second: &[f64], margin: f64, y_true: i8) -> f64 {}
