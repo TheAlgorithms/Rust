@@ -5,6 +5,7 @@
 //! It provides near-constant-time operations to add new sets, to find the
 //! representative of a set, and to merge sets.
 
+use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::hash::Hash;
@@ -73,12 +74,15 @@ impl<T: Debug + Eq + Hash> UnionFind<T> {
             return false;
         }
 
-        if self.sizes[first_root] < self.sizes[sec_root] {
-            self.parent_links[first_root] = sec_root;
-            self.sizes[sec_root] += self.sizes[first_root];
-        } else {
-            self.parent_links[sec_root] = first_root;
-            self.sizes[first_root] += self.sizes[sec_root];
+        match self.sizes[first_root].cmp(&self.sizes[sec_root]) {
+            Ordering::Less => {
+                self.parent_links[first_root] = sec_root;
+                self.sizes[sec_root] += self.sizes[first_root];
+            }
+            _ => {
+                self.parent_links[sec_root] = first_root;
+                self.sizes[first_root] += self.sizes[sec_root];
+            }
         }
 
         self.count -= 1;
