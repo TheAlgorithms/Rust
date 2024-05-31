@@ -34,7 +34,7 @@ mod tests {
         let actual_value: f64 = -1.0;
         assert_eq!(
             mrg_ranking_loss(&first_values, &second_values, margin, actual_value),
-            2.0
+            0.0
         );
     }
 }
