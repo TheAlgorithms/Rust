@@ -23,11 +23,11 @@
 /// taken by the rat, enabling us to reconstruct the solution and visualize the
 /// rat's journey through the maze.
 pub fn find_path_in_maze(
-    maze: &Vec<Vec<usize>>,
+    maze: &[Vec<usize>],
     start_x: usize,
     start_y: usize,
 ) -> Option<Vec<Vec<usize>>> {
-    let mut maze_instance = Maze::new(maze.clone());
+    let mut maze_instance = Maze::new(maze.to_owned());
     maze_instance.find_path(start_x, start_y)
 }
 
@@ -105,7 +105,7 @@ impl Maze {
     /// # Returns
     ///
     /// A boolean indicating whether a solution was found.
-    fn solve(&self, x: isize, y: isize, solution: &mut Vec<Vec<usize>>) -> bool {
+    fn solve(&self, x: isize, y: isize, solution: &mut [Vec<usize>]) -> bool {
         if x == (self.height() as isize - 1) && y == (self.width() as isize - 1) {
             solution[x as usize][y as usize] = 1;
             return true;
@@ -138,7 +138,7 @@ impl Maze {
     /// # Returns
     ///
     /// A boolean indicating whether the position is valid.
-    fn is_valid(&self, x: isize, y: isize, solution: &Vec<Vec<usize>>) -> bool {
+    fn is_valid(&self, x: isize, y: isize, solution: &[Vec<usize>]) -> bool {
         x >= 0
             && y >= 0
             && x < self.height() as isize
@@ -157,7 +157,7 @@ mod tests {
             $(
                 #[test]
                 fn $name() {
-                    let solution = find_path_in_maze(&$maze, $start_x, $start_y);
+                    let solution = find_path_in_maze($maze, $start_x, $start_y);
                     assert_eq!(solution, $expected);
                     if let Some(expected_solution) = &$expected {
                         assert_eq!(expected_solution[$start_x][$start_y], 1);
@@ -168,7 +168,7 @@ mod tests {
     }
 
     test_find_path_in_maze! {
-        test_find_path_in_maze_with_solution_5x5: 0, 0, vec![
+        test_find_path_in_maze_with_solution_5x5: 0, 0, &[
             vec![1, 0, 1, 0, 0],
             vec![1, 1, 0, 1, 0],
             vec![0, 1, 1, 1, 0],
@@ -181,7 +181,7 @@ mod tests {
             vec![0, 0, 0, 1, 1],
             vec![0, 0, 0, 0, 1],
         ]),
-        test_find_path_in_maze_with_solution_6x6: 0, 0, vec![
+        test_find_path_in_maze_with_solution_6x6: 0, 0, &[
             vec![1, 0, 1, 0, 1, 0],
             vec![1, 1, 0, 1, 0, 1],
             vec![0, 1, 1, 1, 1, 0],
@@ -196,7 +196,7 @@ mod tests {
             vec![0, 0, 0, 0, 1, 0],
             vec![0, 0, 0, 0, 1, 1],
         ]),
-        test_find_path_in_maze_with_solution_8x8: 0, 0, vec![
+        test_find_path_in_maze_with_solution_8x8: 0, 0, &[
             vec![1, 0, 0, 0, 0, 0, 0, 1],
             vec![1, 1, 0, 1, 1, 1, 0, 0],
             vec![0, 1, 1, 1, 0, 0, 0, 0],
@@ -215,7 +215,7 @@ mod tests {
             vec![0, 0, 0, 0, 0, 0, 0, 1],
             vec![0, 0, 0, 0, 0, 0, 0, 1],
         ]),
-        test_find_path_in_maze_without_solution_4x4: 0, 0, vec![
+        test_find_path_in_maze_without_solution_4x4: 0, 0, &[
             vec![1, 0, 0, 0],
             vec![1, 1, 0, 0],
             vec![0, 1, 1, 0],
