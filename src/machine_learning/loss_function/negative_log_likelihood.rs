@@ -21,3 +21,18 @@ pub fn neg_log_likelihood(y_true: &[f64], y_pred: &[f64]) -> f64 {
     }
     total_loss / (y_pred.len() as f64)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_neg_log_likelihood() {
+        let actual_values: Vec<f64> = vec![1.0, 0.0, 1.0];
+        let predicted_values: Vec<f64> = vec![0.9, 0.1, 0.8];
+        assert_eq!(
+            neg_log_likelihood(&actual_values, &predicted_values),
+            0.14462152754328741
+        );
+    }
+}
