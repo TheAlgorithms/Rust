@@ -66,11 +66,11 @@ macro_rules! impl_kmeans {
             /// Assign the N D-dimensional data, `xs`, to `k` clusters using
             /// K-Means clustering, with optional iteration limitation `max_iter`
             pub fn kmeans(
-                xs: Vec<Vec<$kind>>,
+                xs: &Vec<Vec<$kind>>,
                 k: usize,
                 max_iter: Option<i32>,
             ) -> Option<Vec<usize>> {
-                if xs.len() < k {
+                if xs.len() < k || k == 0 {
                     return None;
                 }
 
@@ -132,7 +132,7 @@ mod test {
             vec![1.3],
             vec![1.4],
         ];
-        let clustering = kmeans(xs, 2, None);
+        let clustering = kmeans(&xs, 2, None);
         assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 1, 1, 1, 1]);
     }
 
@@ -149,7 +149,7 @@ mod test {
             vec![1.4],
             vec![1.5],
         ];
-        let clustering = kmeans(xs, 2, None);
+        let clustering = kmeans(&xs, 2, None);
         assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 1, 1, 1, 1, 1]);
     }
 
@@ -165,7 +165,7 @@ mod test {
             vec![1.3, -1.2],
             vec![1.4, -1.3],
         ];
-        let clustering = kmeans(xs, 2, None);
+        let clustering = kmeans(&xs, 2, None);
         assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 1, 1, 1, 1]);
     }
 
@@ -184,8 +184,20 @@ mod test {
             vec![2.6201773, 0.9006588, 2.6774097, 1.8188620, 1.6076493],
         ];
 
-        let clustering = kmeans(xs, 2, None);
+        let clustering = kmeans(&xs, 2, None);
         assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 0, 1, 1, 1, 1, 1]);
+    }
+
+    #[test]
+    fn test_edge_cases() {
+        let xs = vec![];
+        let clustering = kmeans(&xs, 0, None);
+        assert_eq!(clustering, None);
+        let clustering = kmeans(&xs, 1234, None);
+        assert_eq!(clustering, None);
+        let xs = vec![vec![1.0], vec![2.0], vec![3.0]];
+        let clustering = kmeans(&xs, 4, None);
+        assert_eq!(clustering, None);
     }
 
     /// This test eventually shows that we don't need
@@ -194,7 +206,7 @@ mod test {
     /// **dimension** and **type** compare to `machine_learning::k_means`.
     #[test]
     fn compare_two_impl_of_k_means() {
-        let mut data_points_gen: Vec<Vec<f64>> = vec![];
+        let mut xs: Vec<Vec<f64>> = vec![];
         let mut data_points: Vec<(f64, f64)> = vec![];
         let n_points: usize = 1000;
 
@@ -202,14 +214,14 @@ mod test {
             let x: f64 = random::<f64>() * 100.0;
             let y: f64 = random::<f64>() * 100.0;
 
-            data_points_gen.push(vec![x, y]);
+            xs.push(vec![x, y]);
             data_points.push((x, y));
         }
 
         let max_iter = 100;
 
         assert_eq!(
-            kmeans(data_points_gen, 10, Some(max_iter)),
+            kmeans(&xs, 10, Some(max_iter)),
             k_means(data_points, 10, max_iter)
         );
     }
