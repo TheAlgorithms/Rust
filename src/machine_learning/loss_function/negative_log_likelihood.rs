@@ -13,13 +13,24 @@
 // It returns the average loss by dividing the `total_loss` by total no. of
 // elements.
 
-pub fn neg_log_likelihood(y_true: &[f64], y_pred: &[f64]) -> f64 {
+pub fn neg_log_likelihood(y_true: &[f64], y_pred: &[f64]) -> Option<f64> {
+    // Checks if the length of the actual and predicted values are equal
+    if y_true.len() != y_pred.len() || y_pred.is_empty() {
+        return None;
+    }
+    // Checks values are between 0 and 1
+    for (p, a) in y_pred.iter().zip(y_true.iter()) {
+        if *p < 0.0 || *p > 1.0 || *a < 0.0 || *a > 1.0 {
+            return None;
+        }
+    }
+
     let mut total_loss: f64 = 0.0;
     for (p, a) in y_pred.iter().zip(y_true.iter()) {
         let loss: f64 = -a * p.ln() - (1.0 - a) * (1.0 - p).ln();
         total_loss += loss;
     }
-    total_loss / (y_pred.len() as f64)
+    Some(total_loss / (y_pred.len() as f64))
 }
 
 #[cfg(test)]
@@ -32,7 +43,7 @@ mod tests {
         let predicted_values: Vec<f64> = vec![0.9, 0.1, 0.8];
         assert_eq!(
             neg_log_likelihood(&actual_values, &predicted_values),
-            0.14462152754328741
+            Some(0.14462152754328741)
         );
     }
 }
