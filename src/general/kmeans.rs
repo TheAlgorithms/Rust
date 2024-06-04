@@ -117,6 +117,8 @@ impl_kmeans!(f32);
 #[cfg(test)]
 mod test {
     use self::super::f64::kmeans;
+    use crate::machine_learning::k_means;
+    use rand::random;
 
     #[test]
     fn easy_univariate_clustering() {
@@ -184,5 +186,31 @@ mod test {
 
         let clustering = kmeans(xs, 2, None);
         assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 0, 1, 1, 1, 1, 1]);
+    }
+
+    /// This test eventually shows that we don't need
+    /// two implementation of k means. `general::kmeans_XXX`
+    /// may the better one according to its generalization on
+    /// **dimension** and **type** compare to `machine_learning::k_means`.
+    #[test]
+    fn compare_two_impl_of_k_means() {
+        let mut data_points_gen: Vec<Vec<f64>> = vec![];
+        let mut data_points: Vec<(f64, f64)> = vec![];
+        let n_points: usize = 1000;
+
+        for _ in 0..n_points {
+            let x: f64 = random::<f64>() * 100.0;
+            let y: f64 = random::<f64>() * 100.0;
+
+            data_points_gen.push(vec![x, y]);
+            data_points.push((x, y));
+        }
+
+        let max_iter = 100;
+
+        assert_eq!(
+            kmeans(data_points_gen, 10, Some(max_iter)),
+            k_means(data_points, 10, max_iter)
+        );
     }
 }

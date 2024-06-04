@@ -1,5 +1,3 @@
-use rand::prelude::random;
-
 fn get_distance(p1: &(f64, f64), p2: &(f64, f64)) -> f64 {
     let dx: f64 = p1.0 - p2.0;
     let dy: f64 = p1.1 - p2.1;
@@ -7,44 +5,43 @@ fn get_distance(p1: &(f64, f64), p2: &(f64, f64)) -> f64 {
     ((dx * dx) + (dy * dy)).sqrt()
 }
 
-fn find_nearest(data_point: &(f64, f64), centroids: &[(f64, f64)]) -> u32 {
-    let mut cluster: u32 = 0;
+fn find_nearest(data_point: &(f64, f64), centroids: &[(f64, f64)]) -> usize {
+    let mut cluster: usize = 0;
 
     for (i, c) in centroids.iter().enumerate() {
         let d1: f64 = get_distance(data_point, c);
         let d2: f64 = get_distance(data_point, &centroids[cluster as usize]);
 
         if d1 < d2 {
-            cluster = i as u32;
+            cluster = i as usize;
         }
     }
 
     cluster
 }
 
-pub fn k_means(data_points: Vec<(f64, f64)>, n_clusters: usize, max_iter: i32) -> Option<Vec<u32>> {
+pub fn k_means(
+    data_points: Vec<(f64, f64)>,
+    n_clusters: usize,
+    max_iter: i32,
+) -> Option<Vec<usize>> {
     if data_points.len() < n_clusters {
         return None;
     }
 
-    let mut centroids: Vec<(f64, f64)> = Vec::new();
-    let mut labels: Vec<u32> = vec![0; data_points.len()];
-
-    for _ in 0..n_clusters {
-        let x: f64 = random::<f64>();
-        let y: f64 = random::<f64>();
-
-        centroids.push((x, y));
-    }
+    let mut centroids: Vec<(f64, f64)> = (0..n_clusters)
+        .map(|j| data_points[j * data_points.len() / n_clusters].clone())
+        .collect();
+    let mut labels: Vec<usize> = vec![0; data_points.len()];
 
     let mut count_iter: i32 = 0;
 
     while count_iter < max_iter {
         let mut new_centroids_position: Vec<(f64, f64)> = vec![(0.0, 0.0); n_clusters];
-        let mut new_centroids_num: Vec<u32> = vec![0; n_clusters];
+        let mut new_centroids_num: Vec<usize> = vec![0; n_clusters];
 
         for (i, d) in data_points.iter().enumerate() {
-            let nearest_cluster: u32 = find_nearest(d, &centroids);
+            let nearest_cluster: usize = find_nearest(d, &centroids);
             labels[i] = nearest_cluster;
 
             new_centroids_position[nearest_cluster as usize].0 += d.0;
@@ -72,6 +69,7 @@ pub fn k_means(data_points: Vec<(f64, f64)>, n_clusters: usize, max_iter: i32) -
 #[cfg(test)]
 mod test {
     use super::*;
+    use rand::random;
 
     #[test]
     fn test_k_means() {
