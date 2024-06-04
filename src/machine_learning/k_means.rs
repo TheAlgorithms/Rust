@@ -10,10 +10,10 @@ fn find_nearest(data_point: &(f64, f64), centroids: &[(f64, f64)]) -> usize {
 
     for (i, c) in centroids.iter().enumerate() {
         let d1: f64 = get_distance(data_point, c);
-        let d2: f64 = get_distance(data_point, &centroids[cluster as usize]);
+        let d2: f64 = get_distance(data_point, &centroids[cluster]);
 
         if d1 < d2 {
-            cluster = i as usize;
+            cluster = i;
         }
     }
 
@@ -30,7 +30,7 @@ pub fn k_means(
     }
 
     let mut centroids: Vec<(f64, f64)> = (0..n_clusters)
-        .map(|j| data_points[j * data_points.len() / n_clusters].clone())
+        .map(|j| data_points[j * data_points.len() / n_clusters])
         .collect();
     let mut labels: Vec<usize> = vec![0; data_points.len()];
 
@@ -44,9 +44,9 @@ pub fn k_means(
             let nearest_cluster: usize = find_nearest(d, &centroids);
             labels[i] = nearest_cluster;
 
-            new_centroids_position[nearest_cluster as usize].0 += d.0;
-            new_centroids_position[nearest_cluster as usize].1 += d.1;
-            new_centroids_num[nearest_cluster as usize] += 1;
+            new_centroids_position[nearest_cluster].0 += d.0;
+            new_centroids_position[nearest_cluster].1 += d.1;
+            new_centroids_num[nearest_cluster] += 1;
         }
 
         for i in 0..centroids.len() {
