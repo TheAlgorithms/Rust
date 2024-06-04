@@ -1,11 +1,10 @@
 // Macro to implement kmeans for both f64 and f32 without writing everything
 // twice or importing the `num` crate
 macro_rules! impl_kmeans {
-    ($kind: ty, $modname: ident) => {
-        // Since we can't overload methods in rust, we have to use namespacing
-        pub mod $modname {
-            use std::$modname::INFINITY;
-
+    ($kind: ident) => {
+        // Since we can't overload methods in rust, we have to use namespace
+        pub mod $kind {
+            use std::$kind::INFINITY;
             /// computes sum of squared deviation between two identically sized vectors
             /// `x`, and `y`.
             fn distance(x: &[$kind], y: &[$kind]) -> $kind {
@@ -64,20 +63,29 @@ macro_rules! impl_kmeans {
                     .collect()
             }
 
-            /// Assign the N D-dimensional data, `xs`, to `k` clusters using K-Means clustering
-            pub fn kmeans(xs: Vec<Vec<$kind>>, k: usize) -> Vec<usize> {
-                assert!(xs.len() >= k);
+            /// Assign the N D-dimensional data, `xs`, to `k` clusters using
+            /// K-Means clustering, with optional iteration limitation `max_iter`
+            pub fn kmeans(
+                xs: Vec<Vec<$kind>>,
+                k: usize,
+                max_iter: Option<i32>,
+            ) -> Option<Vec<usize>> {
+                if xs.len() < k {
+                    return None;
+                }
 
-                // Rather than pulling in a dependency to radomly select the staring
-                // points for the centroids, we're going to deterministally choose them by
-                // slecting evenly spaced points in `xs`
+                // Rather than pulling in a dependency to randomly select the staring
+                // points for the centroids, we're going to deterministically choose them by
+                // selecting evenly spaced points in `xs`
                 let n_per_cluster: usize = xs.len() / k;
                 let centroids: Vec<Vec<$kind>> =
                     (0..k).map(|j| xs[j * n_per_cluster].clone()).collect();
 
                 let mut clustering = nearest_centroids(&xs, &centroids);
 
-                loop {
+                let mut count_iter: i32 = 0;
+
+                while max_iter == None || count_iter < max_iter.unwrap() {
                     let centroids = recompute_centroids(&xs, &clustering, k);
                     let new_clustering = nearest_centroids(&xs, &centroids);
 
@@ -87,20 +95,24 @@ macro_rules! impl_kmeans {
                         .zip(clustering.iter())
                         .all(|(&za, &zb)| za == zb)
                     {
-                        // We need to use `return` to break out of the `loop`
-                        return clustering;
+                        // break loop and return since the result converges
+                        break;
                     } else {
                         clustering = new_clustering;
                     }
+
+                    count_iter += 1;
                 }
+
+                Some(clustering)
             }
         }
     };
 }
 
 // generate code for kmeans for f32 and f64 data
-impl_kmeans!(f64, f64);
-impl_kmeans!(f32, f32);
+impl_kmeans!(f64);
+impl_kmeans!(f32);
 
 #[cfg(test)]
 mod test {
@@ -118,8 +130,8 @@ mod test {
             vec![1.3],
             vec![1.4],
         ];
-        let clustering = kmeans(xs, 2);
-        assert_eq!(clustering, vec![0, 0, 0, 0, 1, 1, 1, 1]);
+        let clustering = kmeans(xs, 2, None);
+        assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 1, 1, 1, 1]);
     }
 
     #[test]
@@ -135,8 +147,8 @@ mod test {
             vec![1.4],
             vec![1.5],
         ];
-        let clustering = kmeans(xs, 2);
-        assert_eq!(clustering, vec![0, 0, 0, 0, 1, 1, 1, 1, 1]);
+        let clustering = kmeans(xs, 2, None);
+        assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 1, 1, 1, 1, 1]);
     }
 
     #[test]
@@ -151,8 +163,8 @@ mod test {
             vec![1.3, -1.2],
             vec![1.4, -1.3],
         ];
-        let clustering = kmeans(xs, 2);
-        assert_eq!(clustering, vec![0, 0, 0, 0, 1, 1, 1, 1]);
+        let clustering = kmeans(xs, 2, None);
+        assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 1, 1, 1, 1]);
     }
 
     #[test]
@@ -170,7 +182,7 @@ mod test {
             vec![2.6201773, 0.9006588, 2.6774097, 1.8188620, 1.6076493],
         ];
 
-        let clustering = kmeans(xs, 2);
-        assert_eq!(clustering, vec![0, 0, 0, 0, 0, 1, 1, 1, 1, 1]);
+        let clustering = kmeans(xs, 2, None);
+        assert_eq!(clustering.unwrap(), vec![0, 0, 0, 0, 0, 1, 1, 1, 1, 1]);
     }
 }
