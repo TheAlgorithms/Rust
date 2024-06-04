@@ -15,7 +15,7 @@
 
 pub fn neg_log_likelihood(y_true: &[f64], y_pred: &[f64]) -> Option<f64> {
     // Checks if the length of the actual and predicted values are equal
-    if y_true.len() != y_pred.len() || y_pred.is_empty() {
+    if y_true.len() != y_pred.len() || y_pred.is_empty() || y_true.is_empty() {
         return None;
     }
     // Checks values are between 0 and 1
