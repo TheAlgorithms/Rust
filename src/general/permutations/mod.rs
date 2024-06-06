@@ -31,10 +31,7 @@ mod tests {
         }
         for permut_value in permuted {
             let count = indices.get_mut(permut_value).unwrap_or_else(|| {
-                panic!(
-                    "Value {} appears too many times in permutation",
-                    permut_value,
-                )
+                panic!("Value {permut_value} appears too many times in permutation")
             });
             *count -= 1; // use this value
             if *count == 0 {
