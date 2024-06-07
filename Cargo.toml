@@ -22,3 +22,4 @@ big-math = ["dep:num-bigint", "dep:num-traits"]
 
 [lints.clippy]
 uninlined_format_args = "warn"
+map_unwrap_or = "warn"
