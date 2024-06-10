@@ -41,15 +41,25 @@ pub fn mrg_ranking_loss(
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_marginal_ranking_loss() {
-        let first_values: Vec<f64> = vec![1.0, 2.0, 3.0];
-        let second_values: Vec<f64> = vec![2.0, 3.0, 4.0];
-        let margin: f64 = 1.0;
-        let actual_value: f64 = -1.0;
-        assert_eq!(
-            mrg_ranking_loss(&first_values, &second_values, margin, actual_value),
-            Some(0.0)
-        );
+    macro_rules! test_mrg_ranking_loss {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (x_first, x_second, margin, y_true, expected) = $test_case;
+                    let result = mrg_ranking_loss(&x_first, &x_second, margin, y_true);
+                    assert_eq!(result, expected);
+                }
+            )*
+        };
+    }
+
+    test_mrg_ranking_loss! {
+        test_simple_ranking_example: (vec![3.0, 5.0, 2.0], vec![2.0, 4.0, 1.0], 1.0, 1.0, Some(0.0)),
+        test_negative_margin: (vec![1.0, 2.0, 3.0], vec![3.0, 2.0, 1.0], 0.5, -1.0, Some(1.0)),
+        test_identical_scores: (vec![1.0, 1.0, 1.0], vec![1.0, 1.0, 1.0], 1.0, 1.0, Some(1.0)),
+        test_mixed_y_true: (vec![3.0, 5.0, 7.0], vec![2.0, 6.0, 1.0], 1.0, -1.0, Some(3.0)),
+        test_different_lengths: (vec![1.0, 2.0], vec![3.0], 1.0, 1.0, None),
+        test_empty_vectors: (vec![], vec![], 1.0, 1.0, None),
     }
 }
