@@ -13,13 +13,28 @@
 // It returns the average loss by dividing the `total_loss` by total no. of
 // elements.
 
-pub fn mrg_ranking_loss(x_first: &[f64], x_second: &[f64], margin: f64, y_true: f64) -> f64 {
+pub fn mrg_ranking_loss(
+    x_first: &[f64],
+    x_second: &[f64],
+    margin: f64,
+    y_true: f64,
+) -> Option<f64> {
+    if x_first.len() != x_second.len() || x_first.is_empty() || x_second.is_empty() {
+        return None;
+    }
+    if margin < 0.0 {
+        return None;
+    }
+    if y_true != 1.0 && y_true != -1.0 {
+        return None;
+    }
+
     let mut total_loss: f64 = 0.0;
     for (f, s) in x_first.iter().zip(x_second.iter()) {
         let loss: f64 = (margin - y_true * (f - s)).max(0.0);
         total_loss += loss;
     }
-    total_loss / (x_first.len() as f64)
+    Some(total_loss / (x_first.len() as f64))
 }
 
 #[cfg(test)]
@@ -34,7 +49,7 @@ mod tests {
         let actual_value: f64 = -1.0;
         assert_eq!(
             mrg_ranking_loss(&first_values, &second_values, margin, actual_value),
-            0.0
+            Some(0.0)
         );
     }
 }
