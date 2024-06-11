@@ -1,6 +1,6 @@
 pub fn run_length_encoding(target: &str) -> String {
     if target.trim().is_empty() {
-        return "String is Empty!".to_string();
+        return "".to_string();
     }
     let mut count: i32 = 0;
     let mut base_character: String = "".to_string();
@@ -27,9 +27,8 @@ pub fn run_length_encoding(target: &str) -> String {
 
 pub fn run_length_decoding(target: &str) -> String {
     if target.trim().is_empty() {
-        return "String is Empty!".to_string();
+        return "".to_string();
     }
-
     let mut character_count: String = String::new();
     let mut decoded_target = String::new();
 
@@ -55,16 +54,6 @@ pub fn run_length_decoding(target: &str) -> String {
 mod tests {
     use super::*;
 
-    #[test]
-    fn encode_empty() {
-        assert_eq!(run_length_encoding(""), "String is Empty!")
-    }
-
-    #[test]
-    fn decode_empty() {
-        assert_eq!(run_length_decoding(""), "String is Empty!")
-    }
-
     macro_rules! test_run_length {
         ($($name:ident: $test_case:expr,)*) => {
             $(
@@ -79,6 +68,7 @@ mod tests {
     }
 
     test_run_length! {
+        empty_input: ("", ""),
         repeated_char: ("aaaaaaaaaa", "10a"),
         no_repeated: ("abcdefghijk", "1a1b1c1d1e1f1g1h1i1j1k"),
         regular_input: ("aaaaabbbcccccdddddddddd", "5a3b5c10d"),
