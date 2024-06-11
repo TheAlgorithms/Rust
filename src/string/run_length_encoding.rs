@@ -99,10 +99,7 @@ mod tests {
 
     #[test]
     fn decode_random_character() {
-        assert_eq!(
-            run_length_decoding("5a3b5c10d").to_string(),
-            "aaaaabbbcccccdddddddddd"
-        )
+        assert_eq!(run_length_decoding("5a3b5c10d"), "aaaaabbbcccccdddddddddd")
     }
 
     #[test]
