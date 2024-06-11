@@ -61,52 +61,28 @@ mod tests {
     }
 
     #[test]
-    fn encode_identical_character() {
-        assert_eq!(run_length_encoding("aaaaaaaaaa"), "10a")
-    }
-    #[test]
-    fn encode_continuous_character() {
-        assert_eq!(run_length_encoding("abcdefghijk"), "1a1b1c1d1e1f1g1h1i1j1k")
-    }
-
-    #[test]
-    fn encode_random_character() {
-        assert_eq!(run_length_encoding("aaaaabbbcccccdddddddddd"), "5a3b5c10d")
-    }
-
-    #[test]
-    fn encode_long_character() {
-        assert_eq!(
-            run_length_encoding(
-                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbcccccdddddddddd"
-            ),
-            "200a3b5c10d"
-        )
-    }
-    #[test]
     fn decode_empty() {
         assert_eq!(run_length_decoding(""), "String is Empty!")
     }
 
-    #[test]
-    fn decode_identical_character() {
-        assert_eq!(run_length_decoding("10a"), "aaaaaaaaaa")
-    }
-    #[test]
-    fn decode_continuous_character() {
-        assert_eq!(run_length_decoding("1a1b1c1d1e1f1g1h1i1j1k"), "abcdefghijk")
+    macro_rules! test_run_length {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (raw_str, encoded) = $test_case;
+                    assert_eq!(run_length_encoding(raw_str), encoded);
+                    assert_eq!(run_length_decoding(encoded), raw_str);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn decode_random_character() {
-        assert_eq!(run_length_decoding("5a3b5c10d"), "aaaaabbbcccccdddddddddd")
-    }
-
-    #[test]
-    fn decode_long_character() {
-        assert_eq!(
-            run_length_decoding("200a3b5c10d"),
-            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbcccccdddddddddd"
-        )
+    test_run_length! {
+        repeated_char: ("aaaaaaaaaa", "10a"),
+        no_repeated: ("abcdefghijk", "1a1b1c1d1e1f1g1h1i1j1k"),
+        regular_input: ("aaaaabbbcccccdddddddddd", "5a3b5c10d"),
+        two_blocks_with_same_char: ("aaabbaaaa", "3a2b4a"),
+        long_input: ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbcccccdddddddddd", "200a3b5c10d"),
     }
 }
