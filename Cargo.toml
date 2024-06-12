@@ -140,7 +140,6 @@ std_instead_of_core = { level = "allow", priority = 1 }
 str_to_string = { level = "allow", priority = 1 }
 string_add = { level = "allow", priority = 1 }
 string_slice = { level = "allow", priority = 1 }
-string_to_string = { level = "allow", priority = 1 }
 undocumented_unsafe_blocks = { level = "allow", priority = 1 }
 unnecessary_safety_comment = { level = "allow", priority = 1 }
 unneeded_field_pattern = { level = "allow", priority = 1 }
