@@ -167,6 +167,5 @@ redundant_pub_crate = { level = "allow", priority = 1 }
 suboptimal_flops = { level = "allow", priority = 1 }
 suspicious_operation_groupings = { level = "allow", priority = 1 }
 use_self = { level = "allow", priority = 1 }
-useless_let_if_seq = { level = "allow", priority = 1 }
 # cargo-lints:
 cargo_common_metadata = { level = "allow", priority = 1 }
