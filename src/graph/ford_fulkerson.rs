@@ -63,7 +63,7 @@ fn bfs(graph: &[Vec<i32>], source: usize, sink: usize, parent: &mut [i32]) -> bo
 /// # Returns
 ///
 /// Returns the maximum flow and the residual graph
-pub fn ford_fulkerson(graph: &[Vec<i32>], source: usize, sink: usize) -> (i32, Vec<Vec<i32>>){
+pub fn ford_fulkerson(graph: &[Vec<i32>], source: usize, sink: usize) -> (i32, Vec<Vec<i32>>) {
     let mut residual_graph = graph.to_owned();
     let mut parent = vec![-1; graph.len()];
     let mut max_flow = 0;
@@ -89,7 +89,7 @@ pub fn ford_fulkerson(graph: &[Vec<i32>], source: usize, sink: usize) -> (i32, V
         max_flow += path_flow;
     }
 
-    (max_flow, residual_graph) 
+    (max_flow, residual_graph)
 }
 
 #[cfg(test)]
@@ -102,7 +102,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (graph, source, sink, expected_flow, expected_residual_graph) = $tc;
-                    let (max_flow, residual_graph) = ford_fulkerson(&graph, source, sink); 
+                    let (max_flow, residual_graph) = ford_fulkerson(&graph, source, sink);
                     assert_eq!(max_flow, expected_flow);
                     assert_eq!(residual_graph, expected_residual_graph);
                 }
