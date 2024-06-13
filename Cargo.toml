@@ -159,7 +159,6 @@ imprecise_flops = { level = "allow", priority = 1 }
 iter_on_single_items = { level = "allow", priority = 1 }
 missing_const_for_fn = { level = "allow", priority = 1 }
 needless_collect = { level = "allow", priority = 1 }
-needless_pass_by_ref_mut = { level = "allow", priority = 1 }
 nonstandard_macro_braces = { level = "allow", priority = 1 }
 option_if_let_else = { level = "allow", priority = 1 }
 redundant_clone = { level = "allow", priority = 1 }

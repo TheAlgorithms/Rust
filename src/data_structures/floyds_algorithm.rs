@@ -5,7 +5,7 @@
 
 use crate::data_structures::linked_list::LinkedList; // Import the LinkedList from linked_list.rs
 
-pub fn detect_cycle<T>(linked_list: &mut LinkedList<T>) -> Option<usize> {
+pub fn detect_cycle<T>(linked_list: &LinkedList<T>) -> Option<usize> {
     let mut current = linked_list.head;
     let mut checkpoint = linked_list.head;
     let mut steps_until_reset = 1;
@@ -70,7 +70,7 @@ mod tests {
 
         assert!(!has_cycle(&linked_list));
 
-        assert_eq!(detect_cycle(&mut linked_list), None);
+        assert_eq!(detect_cycle(&linked_list), None);
     }
 
     #[test]
@@ -90,6 +90,6 @@ mod tests {
         }
 
         assert!(has_cycle(&linked_list));
-        assert_eq!(detect_cycle(&mut linked_list), Some(3));
+        assert_eq!(detect_cycle(&linked_list), Some(3));
     }
 }
