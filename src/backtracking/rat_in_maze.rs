@@ -37,13 +37,8 @@ struct Maze {
 }
 
 impl Maze {
-    /// Represents possible moves in the maze.
-    const MOVES: [(isize, isize); 4] = [
-        (0, 1),  // Move right
-        (1, 0),  // Move down
-        (0, -1), // Move left
-        (-1, 0), // Move up
-    ];
+    /// Represents possible moves in the maze (up, right, down, left).
+    const MOVES: [(isize, isize); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 
     /// Constructs a new Maze instance.
     /// # Arguments
@@ -220,6 +215,18 @@ mod tests {
             vec![1, 1, 0, 0],
             vec![0, 1, 1, 0],
             vec![0, 0, 0, 1],
+        ], None::<Vec<Vec<usize>>>,
+        no_solution_possible_loops: 0, 0, &[
+            vec![1, 1, 1, 1],
+            vec![1, 1, 1, 1],
+            vec![1, 1, 1, 0],
+            vec![1, 1, 0, 1],
+        ], None::<Vec<Vec<usize>>>,
+        start_outside: 5, 0, &[
+            vec![1, 0, 0, 0],
+            vec![1, 1, 0, 0],
+            vec![0, 1, 1, 0],
+            vec![0, 0, 1, 1],
         ], None::<Vec<Vec<usize>>>,
     }
 }
