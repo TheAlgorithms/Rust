@@ -8,8 +8,8 @@
 ///
 /// # Arguments
 ///
-/// * `maze` - The maze represented as a 2D array where 1 represents a
-/// valid path and 0 represents a wall.
+/// * `maze` - The maze represented as a vector of vectors where each
+/// inner vector represents a row in the maze grid.
 /// * `start_x` - The x-coordinate of the starting position.
 /// * `start_y` - The y-coordinate of the starting position.
 ///
@@ -37,13 +37,14 @@ struct Maze {
 }
 
 impl Maze {
-    /// Represents possible moves in the maze (up, right, down, left).
+    /// Represents possible moves in the maze.
     const MOVES: [(isize, isize); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 
     /// Constructs a new Maze instance.
     /// # Arguments
     ///
-    /// * `maze` - The maze represented as a 2D array where 1 represents a valid path and 0 represents a wall.
+    /// * `maze` - The maze represented as a vector of vectors where each
+    /// inner vector represents a row in the maze grid.
     ///
     /// # Returns
     ///
@@ -58,7 +59,7 @@ impl Maze {
     ///
     /// The width of the maze.
     fn width(&self) -> usize {
-        self.maze[0].len()
+        self.maze.iter().map(|row| row.len()).max().unwrap_or(0)
     }
 
     /// Returns the height of the maze.
@@ -138,7 +139,7 @@ impl Maze {
             && y >= 0
             && x < self.height() as isize
             && y < self.width() as isize
-            && self.maze[x as usize][y as usize] == 1
+            && self.maze[x as usize].get(y as usize) == Some(&1)
             && solution[x as usize][y as usize] == 0
     }
 }
@@ -163,7 +164,7 @@ mod tests {
     }
 
     test_find_path_in_maze! {
-        test_find_path_in_maze_with_solution_5x5: 0, 0, &[
+        maze_with_solution_5x5: 0, 0, &[
             vec![1, 0, 1, 0, 0],
             vec![1, 1, 0, 1, 0],
             vec![0, 1, 1, 1, 0],
@@ -176,7 +177,7 @@ mod tests {
             vec![0, 0, 0, 1, 1],
             vec![0, 0, 0, 0, 1],
         ]),
-        test_find_path_in_maze_with_solution_6x6: 0, 0, &[
+        maze_with_solution_6x6: 0, 0, &[
             vec![1, 0, 1, 0, 1, 0],
             vec![1, 1, 0, 1, 0, 1],
             vec![0, 1, 1, 1, 1, 0],
@@ -191,7 +192,7 @@ mod tests {
             vec![0, 0, 0, 0, 1, 0],
             vec![0, 0, 0, 0, 1, 1],
         ]),
-        test_find_path_in_maze_with_solution_8x8: 0, 0, &[
+        maze_with_solution_8x8: 0, 0, &[
             vec![1, 0, 0, 0, 0, 0, 0, 1],
             vec![1, 1, 0, 1, 1, 1, 0, 0],
             vec![0, 1, 1, 1, 0, 0, 0, 0],
@@ -210,23 +211,40 @@ mod tests {
             vec![0, 0, 0, 0, 0, 0, 0, 1],
             vec![0, 0, 0, 0, 0, 0, 0, 1],
         ]),
-        test_find_path_in_maze_without_solution_4x4: 0, 0, &[
+        maze_without_solution_4x4: 0, 0, &[
             vec![1, 0, 0, 0],
             vec![1, 1, 0, 0],
             vec![0, 1, 1, 0],
             vec![0, 0, 0, 1],
         ], None::<Vec<Vec<usize>>>,
-        no_solution_possible_loops: 0, 0, &[
+        maze_no_solution_possible_loops: 0, 0, &[
             vec![1, 1, 1, 1],
             vec![1, 1, 1, 1],
             vec![1, 1, 1, 0],
             vec![1, 1, 0, 1],
         ], None::<Vec<Vec<usize>>>,
-        start_outside: 5, 0, &[
+        maze_with_start_outside: 5, 0, &[
             vec![1, 0, 0, 0],
             vec![1, 1, 0, 0],
             vec![0, 1, 1, 0],
             vec![0, 0, 1, 1],
+        ], None::<Vec<Vec<usize>>>,
+        unproper_maze_with_solution: 0, 0, &[
+            vec![1],
+            vec![1, 1],
+            vec![1, 1, 1],
+            vec![1, 1, 1, 1]
+        ], Some(vec![
+            vec![1, 0, 0, 0],
+            vec![1, 1, 0, 0],
+            vec![0, 1, 1, 0],
+            vec![0, 0, 1, 1]
+        ]),
+        unproper_maze_no_solution_possible_loops: 0, 0, &[
+            vec![1, 1, 1, 1],
+            vec![1, 1],
+            vec![1, 1, 0],
+            vec![0, 0, 1],
         ], None::<Vec<Vec<usize>>>,
     }
 }
