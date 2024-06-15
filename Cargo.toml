@@ -37,7 +37,6 @@ default_trait_access = { level = "allow", priority = 1 }
 doc_markdown = { level = "allow", priority = 1 }
 enum_glob_use = { level = "allow", priority = 1 }
 explicit_deref_methods = { level = "allow", priority = 1 }
-explicit_into_iter_loop = { level = "allow", priority = 1 }
 explicit_iter_loop = { level = "allow", priority = 1 }
 float_cmp = { level = "allow", priority = 1 }
 from_iter_instead_of_collect = { level = "allow", priority = 1 }
