@@ -139,7 +139,10 @@ impl Maze {
             && y >= 0
             && x < self.height() as isize
             && y < self.width() as isize
-            && self.maze[x as usize].get(y as usize) == Some(&true)
+            && self
+                .maze
+                .get(x as usize)
+                .map_or(false, |row| row.get(y as usize).copied().unwrap_or(false))
             && !solution[x as usize][y as usize]
     }
 }
