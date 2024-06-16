@@ -4,6 +4,17 @@
 //! objective is to find a path from the starting position to the exit
 //! position in a maze.
 
+/// Enum representing various errors that can occur while working with mazes.
+#[derive(Debug, PartialEq, Eq)]
+pub enum MazeError {
+    /// Indicates that the maze is empty (zero rows).
+    EmptyMaze,
+    /// Indicates that the starting position is out of bounds.
+    OutOfBoundPos,
+    /// Indicates an improper representation of the maze (e.g., non-rectangular maze).
+    ImproperMazeRepr,
+}
+
 /// Finds a path through the maze starting from the specified position.
 ///
 /// # Arguments
@@ -14,6 +25,11 @@
 /// * `start_y` - The y-coordinate of the starting position.
 ///
 /// # Returns
+///
+/// A `Result` where:
+/// - `Ok(Some(solution))` if a path is found and contains the solution matrix.
+/// - `Ok(None)` if no path is found.
+/// - `Err(MazeError)` for various error conditions such as out-of-bound start position or improper maze representation.
 ///
 /// A solution matrix if a path is found or `None` if not found.
 /// During the maze traversal process, the rat explores different paths,
@@ -26,9 +42,24 @@ pub fn find_path_in_maze(
     maze: &[Vec<bool>],
     start_x: usize,
     start_y: usize,
-) -> Option<Vec<Vec<bool>>> {
+) -> Result<Option<Vec<Vec<bool>>>, MazeError> {
+    if maze.is_empty() {
+        return Err(MazeError::EmptyMaze);
+    }
+
+    // Validate start position
+    if start_x >= maze.len() || start_y >= maze[0].len() {
+        return Err(MazeError::OutOfBoundPos);
+    }
+
+    // Validate maze representation (if necessary)
+    if maze.iter().any(|row| row.len() != maze[0].len()) {
+        return Err(MazeError::ImproperMazeRepr);
+    }
+
+    // If validations pass, proceed with finding the path
     let mut maze_instance = Maze::new(maze.to_owned());
-    maze_instance.find_path(start_x, start_y)
+    Ok(maze_instance.find_path(start_x, start_y))
 }
 
 /// Represents a maze.
@@ -59,7 +90,7 @@ impl Maze {
     ///
     /// The width of the maze.
     fn width(&self) -> usize {
-        self.maze.iter().map(|row| row.len()).max().unwrap_or(0)
+        self.maze[0].len()
     }
 
     /// Returns the height of the maze.
@@ -139,10 +170,7 @@ impl Maze {
             && y >= 0
             && x < self.height() as isize
             && y < self.width() as isize
-            && self
-                .maze
-                .get(x as usize)
-                .map_or(false, |row| row.get(y as usize).copied().unwrap_or(false))
+            && self.maze[x as usize][y as usize]
             && !solution[x as usize][y as usize]
     }
 }
@@ -158,7 +186,7 @@ mod tests {
                 fn $name() {
                     let solution = find_path_in_maze($maze, $start_x, $start_y);
                     assert_eq!(solution, $expected);
-                    if let Some(expected_solution) = &$expected {
+                    if let Ok(Some(expected_solution)) = &solution {
                         assert_eq!(expected_solution[$start_x][$start_y], true);
                     }
                 }
@@ -173,13 +201,13 @@ mod tests {
             vec![false, true, true, true, false],
             vec![false, false, false, true, true],
             vec![false, true, false, false, true],
-        ], Some(vec![
+        ], Ok(Some(vec![
             vec![true, false, false, false, false],
             vec![true, true, false, false, false],
             vec![false, true, true, true, false],
             vec![false, false, false, true, true],
             vec![false, false, false, false, true],
-        ]),
+        ])),
         maze_with_solution_6x6: 0, 0, &[
             vec![true, false, true, false, true, false],
             vec![true, true, false, true, false, true],
@@ -187,14 +215,14 @@ mod tests {
             vec![false, false, false, true, true, true],
             vec![false, true, false, false, true, false],
             vec![true, true, true, true, true, true],
-        ], Some(vec![
+        ], Ok(Some(vec![
             vec![true, false, false, false, false, false],
             vec![true, true, false, false, false, false],
             vec![false, true, true, true, true, false],
             vec![false, false, false, false, true, false],
             vec![false, false, false, false, true, false],
             vec![false, false, false, false, true, true],
-        ]),
+        ])),
         maze_with_solution_8x8: 0, 0, &[
             vec![true, false, false, false, false, false, false, true],
             vec![true, true, false, true, true, true, false, false],
@@ -204,7 +232,7 @@ mod tests {
             vec![true, false, true, false, false, true, true, true],
             vec![false, false, true, true, true, false, true, true],
             vec![true, true, true, false, true, true, true, true],
-        ], Some(vec![
+        ], Ok(Some(vec![
             vec![true, false, false, false, false, false, false, false],
             vec![true, true, false, false, false, false, false, false],
             vec![false, true, true, true, false, false, false, false],
@@ -213,55 +241,64 @@ mod tests {
             vec![false, false, false, false, false, true, true, true],
             vec![false, false, false, false, false, false, false, true],
             vec![false, false, false, false, false, false, false, true],
-        ]),
+        ])),
         maze_without_solution_4x4: 0, 0, &[
             vec![true, false, false, false],
             vec![true, true, false, false],
             vec![false, false, true, false],
             vec![false, false, false, true],
-        ], None::<Vec<Vec<bool>>>,
-        maze_no_solution_possible_loops: 0, 0, &[
-            vec![true, true, true, true],
-            vec![true, true, true, true],
+        ], Ok(None::<Vec<Vec<bool>>>),
+        maze_with_solution_3x4: 0, 0, &[
+            vec![true, false, true, true],
             vec![true, true, true, false],
-            vec![true, true, false, true],
-        ], None::<Vec<Vec<bool>>>,
-        maze_with_start_outside: 5, 0, &[
+            vec![false, true, true, true],
+        ], Ok(Some(vec![
             vec![true, false, false, false],
-            vec![true, true, false, false],
-            vec![false, true, true, false],
+            vec![true, true, true, false],
             vec![false, false, true, true],
-        ], None::<Vec<Vec<bool>>>,
-        unproper_maze_with_solution: 0, 0, &[
+        ])),
+        maze_without_solution_3x4: 0, 0, &[
+            vec![true, false, true, true],
+            vec![true, false, true, false],
+            vec![false, true, false, true],
+        ], Ok(None::<Vec<Vec<bool>>>),
+        improper_maze_representation: 0, 0, &[
             vec![true],
             vec![true, true],
             vec![true, true, true],
             vec![true, true, true, true]
-        ], Some(vec![
-            vec![true, false, false, false],
-            vec![true, true, false, false],
-            vec![false, true, true, false],
-            vec![false, false, true, true]
-        ]),
-        unproper_maze_no_solution_possible_loops: 0, 0, &[
-            vec![true, true, true, true],
+        ], Err(MazeError::ImproperMazeRepr),
+        out_of_bound_start: 0, 3, &[
+            vec![true, false, true],
             vec![true, true],
-            vec![true, true, false],
+            vec![false, true, true],
+        ], Err(MazeError::OutOfBoundPos),
+        empty_maze: 0, 0, &[], Err(MazeError::EmptyMaze),
+        maze_with_single_cell: 0, 0, &[
+            vec![true],
+        ], Ok(Some(vec![vec![true]])),
+        maze_with_one_row_and_multiple_columns: 0, 0, &[
+            vec![true, false, true, true, false]
+        ], Ok(None::<Vec<Vec<bool>>>),
+        maze_with_multiple_rows_and_one_column: 0, 0, &[
+            vec![true],
+            vec![true],
+            vec![false],
+            vec![true],
+        ], Ok(None::<Vec<Vec<bool>>>),
+        maze_with_walls_surrounding_border: 0, 0, &[
+            vec![false, false, false],
+            vec![false, true, false],
+            vec![false, false, false],
+        ], Ok(None::<Vec<Vec<bool>>>),
+        maze_with_no_walls: 0, 0, &[
+            vec![true, true, true],
+            vec![true, true, true],
+            vec![true, true, true],
+        ], Ok(Some(vec![
+            vec![true, true, true],
             vec![false, false, true],
-        ], None::<Vec<Vec<bool>>>,
-        maze_non_square_with_solution: 0, 0, &[
-            vec![true, false, true, true],
-            vec![true, true, true, false],
-            vec![false, true, true, true],
-        ], Some(vec![
-            vec![true, false, false, false],
-            vec![true, true, true, false],
-            vec![false, false, true, true],
-        ]),
-        maze_non_square_without_solution: 0, 0, &[
-            vec![true, false, true, true],
-            vec![true, false, true, false],
-            vec![false, true, false, true],
-        ], None::<Vec<Vec<bool>>>,
+            vec![false, false, true],
+        ])),
     }
 }
