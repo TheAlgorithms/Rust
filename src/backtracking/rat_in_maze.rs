@@ -31,13 +31,15 @@ pub enum MazeError {
 /// - `Ok(None)` if no path is found.
 /// - `Err(MazeError)` for various error conditions such as out-of-bound start position or improper maze representation.
 ///
-/// A solution matrix if a path is found or `None` if not found.
-/// During the maze traversal process, the rat explores different paths,
-/// marking its progress in the solution matrix. The goal is to find a path
-/// from the starting position to the exit (end) of the maze. Once the rat
-/// successfully reaches the exit, the solution matrix will contain the path
-/// taken by the rat, enabling us to reconstruct the solution and visualize the
-/// rat's journey through the maze.
+/// # Solution Selection
+///
+/// The function returns the first successful path it discovers based on the predefined order of moves.
+/// The order of moves is defined in the `MOVES` constant of the `Maze` struct.
+///
+/// The backtracking algorithm explores each direction in this order. If multiple solutions exist,
+/// the algorithm returns the first path it finds according to this sequence. It recursively explores
+/// each direction, marks valid moves, and backtracks if necessary, ensuring that the solution is found
+/// efficiently and consistently.
 pub fn find_path_in_maze(
     maze: &[Vec<bool>],
     start_x: usize,
@@ -276,7 +278,9 @@ mod tests {
         empty_maze: 0, 0, &[], Err(MazeError::EmptyMaze),
         maze_with_single_cell: 0, 0, &[
             vec![true],
-        ], Ok(Some(vec![vec![true]])),
+        ], Ok(Some(vec![
+                vec![true]
+        ])),
         maze_with_one_row_and_multiple_columns: 0, 0, &[
             vec![true, false, true, true, false]
         ], Ok(None::<Vec<Vec<bool>>>),
@@ -299,6 +303,25 @@ mod tests {
             vec![true, true, true],
             vec![false, false, true],
             vec![false, false, true],
+        ])),
+        maze_with_going_back: 0, 0, &[
+            vec![true,  true,  true,  true, true,   true],
+            vec![false, false, false, true, false,  true],
+            vec![true,  true,  true,  true,  false, false],
+            vec![true,  false, false, false, false, false],
+            vec![true,  false, false, false, true, true],
+            vec![true,  false, true,  true,  true,  false],
+            vec![true,  false, true , false, true,  false],
+            vec![true,  true,  true,  false, true,  true],
+        ], Ok(Some(vec![
+            vec![true,  true,  true,  true, false,  false],
+            vec![false, false, false, true, false,  false],
+            vec![true,  true,  true,  true,  false, false],
+            vec![true,  false, false, false, false, false],
+            vec![true,  false, false, false, false, false],
+            vec![true,  false, true,  true,  true,  false],
+            vec![true,  false, true , false, true,  false],
+            vec![true,  true,  true,  false, true,  true],
         ])),
     }
 }
