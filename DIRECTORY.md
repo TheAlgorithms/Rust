@@ -7,6 +7,7 @@
     * [N Queens](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/n_queens.rs)
     * [Parentheses Generator](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/parentheses_generator.rs)
     * [Permutations](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/permutations.rs)
+    * [Rat in Maze](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/rat_in_maze.rs)
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
     * [Fast Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/fast_factorial.rs)
