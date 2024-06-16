@@ -42,7 +42,7 @@ mod tests {
         // Compute all powers from up to ten, using the standard library as the source of truth.
         for i in 0..10 {
             for j in 0..10 {
-                println!("{}, {}", i, j);
+                println!("{i}, {j}");
                 assert_eq!(binary_exponentiation(i, j), u64::pow(i, j))
             }
         }

@@ -172,12 +172,7 @@ mod tests {
     #[test]
     fn decrypt_valid_character_set_invalid_morsecode() {
         let expected = format!(
-            "{}{}{}{} {}",
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
+            "{_UNKNOWN_MORSE_CHARACTER}{_UNKNOWN_MORSE_CHARACTER}{_UNKNOWN_MORSE_CHARACTER}{_UNKNOWN_MORSE_CHARACTER} {_UNKNOWN_MORSE_CHARACTER}",
         );
 
         let encypted = ".-.-.--.-.-. --------. ..---.-.-. .-.-.--.-.-. / .-.-.--.-.-.".to_string();

@@ -20,7 +20,7 @@ mod tests {
 
     fn assert_approx_eq(a: f64, b: f64) {
         let epsilon = 1e-10;
-        assert!((a - b).abs() < epsilon, "Expected {}, found {}", a, b);
+        assert!((a - b).abs() < epsilon, "Expected {a}, found {b}");
     }
 
     #[test]

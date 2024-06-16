@@ -21,7 +21,7 @@ impl Trie {
     fn insert(&mut self, text: &str) {
         let mut trie = self;
 
-        for c in text.chars().collect::<Vec<char>>() {
+        for c in text.chars() {
             trie = trie.0.entry(c).or_insert_with(|| Box::new(Trie::new()));
         }
 
@@ -31,7 +31,7 @@ impl Trie {
     fn find(&self, prefix: &str) -> Vec<String> {
         let mut trie = self;
 
-        for c in prefix.chars().collect::<Vec<char>>() {
+        for c in prefix.chars() {
             let char_trie = trie.0.get(&c);
             if let Some(char_trie) = char_trie {
                 trie = char_trie;

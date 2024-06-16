@@ -80,12 +80,12 @@ impl<T: Debug + Default + Ord + Copy> SegmentTree<T> {
         target_idx: usize,
         val: T,
     ) {
-        println!("{:?}", element_range);
+        println!("{element_range:?}");
         if element_range.start > target_idx || element_range.end <= target_idx {
             return;
         }
         if element_range.end - element_range.start <= 1 && element_range.start == target_idx {
-            println!("{:?}", element_range);
+            println!("{element_range:?}");
             self.tree[idx] = val;
             return;
         }
