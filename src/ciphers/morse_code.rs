@@ -96,11 +96,7 @@ fn _decode_token(string: &str) -> String {
 }
 
 fn _decode_part(string: &str) -> String {
-    string
-        .split(' ')
-        .map(_decode_token)
-        .collect::<Vec<String>>()
-        .join("")
+    string.split(' ').map(_decode_token).collect::<String>()
 }
 
 /// Convert morse code to ascii.
