@@ -19,10 +19,8 @@ pub fn neg_log_likelihood(y_true: &[f64], y_pred: &[f64]) -> Option<f64> {
         return None;
     }
     // Checks values are between 0 and 1
-    for (p, a) in y_pred.iter().zip(y_true.iter()) {
-        if *p < 0.0 || *p > 1.0 || *a < 0.0 || *a > 1.0 {
-            return None;
-        }
+    if !are_all_values_in_range(y_true) || !are_all_values_in_range(y_pred) {
+        return None;
     }
 
     let mut total_loss: f64 = 0.0;
@@ -88,4 +86,8 @@ mod tests {
         let predicted_values: Vec<f64> = vec![0.9, 0.1, -0.8];
         assert_eq!(neg_log_likelihood(&actual_values, &predicted_values), None);
     }
+}
+
+fn are_all_values_in_range(values: &[f64]) -> bool {
+    values.iter().all(|&x| (0.0..=1.0).contains(&x))
 }
