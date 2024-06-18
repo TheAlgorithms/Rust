@@ -74,4 +74,18 @@ mod tests {
         let predicted_values: Vec<f64> = vec![];
         assert_eq!(neg_log_likelihood(&actual_values, &predicted_values), None);
     }
+
+    #[test]
+    fn test_neg_log_likelihood_negative_values0() {
+        let actual_values: Vec<f64> = vec![-1.0, 0.0, 1.0];
+        let predicted_values: Vec<f64> = vec![0.9, 0.1, 0.8];
+        assert_eq!(neg_log_likelihood(&actual_values, &predicted_values), None);
+    }
+
+    #[test]
+    fn test_neg_log_likelihood_negative_values1() {
+        let actual_values: Vec<f64> = vec![1.0, 0.0, 1.0];
+        let predicted_values: Vec<f64> = vec![0.9, 0.1, -0.8];
+        assert_eq!(neg_log_likelihood(&actual_values, &predicted_values), None);
+    }
 }
