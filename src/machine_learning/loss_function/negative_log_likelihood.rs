@@ -12,6 +12,8 @@
 //
 // It returns the average loss by dividing the `total_loss` by total no. of
 // elements.
+//
+// https://towardsdatascience.com/cross-entropy-negative-log-likelihood-and-all-that-jazz-47a95bd2e81
 
 pub fn neg_log_likelihood(y_true: &[f64], y_pred: &[f64]) -> Option<f64> {
     // Checks if the length of the actual and predicted values are equal
