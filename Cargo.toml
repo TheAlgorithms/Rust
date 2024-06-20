@@ -165,3 +165,5 @@ suspicious_operation_groupings = { level = "allow", priority = 1 }
 use_self = { level = "allow", priority = 1 }
 # cargo-lints:
 cargo_common_metadata = { level = "allow", priority = 1 }
+# style-lints:
+legacy_numeric_constants = { level = "allow", priority = 1 }
