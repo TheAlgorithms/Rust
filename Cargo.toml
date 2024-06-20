@@ -103,6 +103,7 @@ impl_trait_in_params = { level = "allow", priority = 1 }
 implicit_return = { level = "allow", priority = 1 }
 indexing_slicing = { level = "allow", priority = 1 }
 integer_division = { level = "allow", priority = 1 }
+integer_division_remainder_used = { level = "allow", priority = 1 }
 iter_over_hash_type = { level = "allow", priority = 1 }
 little_endian_bytes = { level = "allow", priority = 1 }
 map_err_ignore = { level = "allow", priority = 1 }
