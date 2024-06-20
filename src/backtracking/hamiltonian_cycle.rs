@@ -1,40 +1,58 @@
 //! This module provides functionality to find a Hamiltonian cycle in a graph.
 //! Source: [Wikipedia](https://en.wikipedia.org/wiki/Hamiltonian_path_problem)
 
-/// Represents errors that can occur while working with an adjacency matrix.
+/// Represents potential errors when working with an adjacency matrix.
 #[derive(Debug, PartialEq, Eq)]
 pub enum AdjMatError {
-    /// The adjacency matrix is empty.
+    /// Indicates that the adjacency matrix is empty.
     EmptyMat,
-    /// The adjacency matrix is not square.
+    /// Indicates that the adjacency matrix is not square.
     ImproperMat,
-    /// The start vertex is out of bounds.
+    /// Indicates that the starting vertex is out of bounds.
     StartOutOfBound,
 }
 
-/// Represents a graph with an adjacency matrix.
+/// Represents a graph using an adjacency matrix.
 struct Graph {
     /// The adjacency matrix representing the graph.
     adjacency_matrix: Vec<Vec<bool>>,
 }
 
 impl Graph {
-    /// Creates a new graph with the given adjacency matrix.
+    /// Creates a new graph with the provided adjacency matrix.
     ///
     /// # Arguments
     ///
-    /// * `adjacency_matrix` - A square matrix where each element represents
-    ///                        the presence `true` or absence `false` of an edge
+    /// * `adjacency_matrix` - A square matrix where each element indicates
+    ///                        the presence (`true`) or absence (`false`) of an edge
     ///                        between two vertices.
     ///
     /// # Returns
     ///
-    /// A graph that represents adjacency matrix
-    fn new(adjacency_matrix: Vec<Vec<bool>>) -> Self {
-        Self { adjacency_matrix }
+    /// A `Result` containing the graph if successful, or an `AdjMatError` if there is an issue with the matrix.
+    fn new(adjacency_matrix: Vec<Vec<bool>>) -> Result<Self, AdjMatError> {
+        // Check if the adjacency matrix is empty.
+        if adjacency_matrix.is_empty() {
+            return Err(AdjMatError::EmptyMat);
+        }
+
+        // Validate that the adjacency matrix is square.
+        if adjacency_matrix
+            .iter()
+            .any(|row| row.len() != adjacency_matrix.len())
+        {
+            return Err(AdjMatError::ImproperMat);
+        }
+
+        Ok(Self { adjacency_matrix })
     }
 
-    /// Checks if it's safe to include vertex `v` in the Hamiltonian cycle path.
+    /// Returns the number of vertices in the graph.
+    fn num_vertices(&self) -> usize {
+        self.adjacency_matrix.len()
+    }
+
+    /// Determines if it is safe to include vertex `v` in the Hamiltonian cycle path.
     ///
     /// # Arguments
     ///
@@ -44,18 +62,18 @@ impl Graph {
     ///
     /// # Returns
     ///
-    /// * `true` if it's safe to include `v` in the path, `false` otherwise.
+    /// `true` if it is safe to include `v` in the path, `false` otherwise.
     fn is_safe(&self, v: usize, path: &[usize], pos: usize) -> bool {
-        // Check if the current vertex and the last vertex in the path are adjacent
+        // Check if the current vertex and the last vertex in the path are adjacent.
         if !self.adjacency_matrix[path[pos - 1]][v] {
             return false;
         }
 
-        // Check if the vertex has already been included in the path
+        // Check if the vertex has already been included in the path.
         !path[..pos].contains(&v)
     }
 
-    /// Utility function for finding a Hamiltonian cycle recursively.
+    /// Recursively searches for a Hamiltonian cycle.
     ///
     /// This function is called by `find_hamiltonian_cycle`.
     ///
@@ -66,15 +84,14 @@ impl Graph {
     ///
     /// # Returns
     ///
-    /// * `true` if a Hamiltonian cycle is found, `false` otherwise.
+    /// `true` if a Hamiltonian cycle is found, `false` otherwise.
     fn hamiltonian_cycle_util(&self, path: &mut Vec<usize>, pos: usize) -> bool {
-        let vertices = self.adjacency_matrix.len();
-        if pos == vertices {
-            // Check if there is an edge from the last included vertex to the first vertex
+        if pos == self.num_vertices() {
+            // Check if there is an edge from the last included vertex to the first vertex.
             return self.adjacency_matrix[path[pos - 1]][path[0]];
         }
 
-        for v in 0..vertices {
+        for v in 0..self.num_vertices() {
             if self.is_safe(v, path, pos) {
                 path[pos] = v;
                 if self.hamiltonian_cycle_util(path, pos + 1) {
@@ -87,59 +104,52 @@ impl Graph {
         false
     }
 
-    /// Finds a Hamiltonian cycle in the graph, if one exists, starting from the specified vertex.
+    /// Attempts to find a Hamiltonian cycle in the graph, starting from the specified vertex.
     ///
-    /// A Hamiltonian cycle is a cycle that visits every vertex exactly once
-    /// and returns to the starting vertex.
+    /// A Hamiltonian cycle visits every vertex exactly once and returns to the starting vertex.
     ///
     /// # Note
     /// This implementation may not find all possible Hamiltonian cycles.
-    /// It will stop as soon as it finds one valid cycle. If multiple Hamiltonian cycles exist,
-    /// only one of them will be returned.
+    /// It stops as soon as it finds one valid cycle. If multiple Hamiltonian cycles exist,
+    /// only one will be returned.
     ///
-    /// Returns `Some(path)` if a Hamiltonian cycle is found, where `path` is a vector
+    /// # Returns
+    ///
+    /// `Ok(Some(path))` if a Hamiltonian cycle is found, where `path` is a vector
     /// containing the indices of vertices in the cycle, starting and ending with the same vertex.
     ///
-    /// Returns `None` if no Hamiltonian cycle exists in the graph.
-    fn find_hamiltonian_cycle(&self, start_vertex: usize) -> Option<Vec<usize>> {
+    /// `Ok(None)` if no Hamiltonian cycle exists.
+    fn find_hamiltonian_cycle(
+        &self,
+        start_vertex: usize,
+    ) -> Result<Option<Vec<usize>>, AdjMatError> {
+        // Validate the start vertex.
+        if start_vertex >= self.num_vertices() {
+            return Err(AdjMatError::StartOutOfBound);
+        }
+
+        // Initialize the path.
         let mut path = vec![usize::MAX; self.adjacency_matrix.len()];
-        // Start at the specified vertex
+        // Start at the specified vertex.
         path[0] = start_vertex;
 
         if self.hamiltonian_cycle_util(&mut path, 1) {
-            // To complete the cycle by returning to the starting vertex
+            // Complete the cycle by returning to the starting vertex.
             path.push(start_vertex);
-            Some(path)
+            Ok(Some(path))
         } else {
-            None
+            Ok(None)
         }
     }
 }
 
-/// Finds a Hamiltonian cycle in a given graph represented by an adjacency matrix, if one exists, starting from a specified vertex
+/// Attempts to find a Hamiltonian cycle in a graph represented by an adjacency matrix, starting from a specified vertex.
 pub fn find_hamiltonian_cycle(
     adjacency_matrix: Vec<Vec<bool>>,
     start_vertex: usize,
 ) -> Result<Option<Vec<usize>>, AdjMatError> {
-    let vertices = adjacency_matrix.len();
-    // Check if the adjacency matrix is empty
-    if vertices == 0 {
-        return Err(AdjMatError::EmptyMat);
-    }
-
-    // Validate maze representation (if necessary)
-    if adjacency_matrix.iter().any(|row| row.len() != vertices) {
-        return Err(AdjMatError::ImproperMat);
-    }
-
-    // Validate start position
-    if start_vertex >= vertices {
-        return Err(AdjMatError::StartOutOfBound);
-    }
-
-    // If validations pass, proceed with finding the cycle
-    let graph = Graph::new(adjacency_matrix);
-    Ok(graph.find_hamiltonian_cycle(start_vertex))
+    let graph = Graph::new(adjacency_matrix)?;
+    graph.find_hamiltonian_cycle(start_vertex)
 }
 
 #[cfg(test)]
