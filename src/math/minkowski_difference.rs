@@ -70,4 +70,17 @@ mod tests {
             Err(ParameterError::DifferentDimensions)
         );
     }
+
+    #[test]
+    fn test_minkowski_difference_order() {
+        let a = Point { x: vec![1.0, 1.0] };
+        let b = Point {
+            x: vec![2.0, 2.0, 2.0],
+        };
+
+        assert_eq!(
+            minkowski_difference(&a, &b, 0),
+            Err(ParameterError::DifferentDimensions)
+        );
+    }
 }
