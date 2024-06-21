@@ -1,13 +1,15 @@
-//! This module provides functionality to find a Hamiltonian cycle in a graph.
+//! This module provides functionality to find a Hamiltonian cycle in a directed or undirected graph.
 //! Source: [Wikipedia](https://en.wikipedia.org/wiki/Hamiltonian_path_problem)
 
-/// Represents potential errors when working with an adjacency matrix.
+use std::collections::HashSet;
+
+/// Represents potential errors when finding hamiltonian cycle on an adjacency matrix.
 #[derive(Debug, PartialEq, Eq)]
-pub enum AdjMatError {
+pub enum FindHamiltonianCycleError {
     /// Indicates that the adjacency matrix is empty.
-    EmptyMat,
+    EmptyAdjMat,
     /// Indicates that the adjacency matrix is not square.
-    ImproperMat,
+    ImproperAdjMat,
     /// Indicates that the starting vertex is out of bounds.
     StartOutOfBound,
 }
@@ -29,11 +31,11 @@ impl Graph {
     ///
     /// # Returns
     ///
-    /// A `Result` containing the graph if successful, or an `AdjMatError` if there is an issue with the matrix.
-    fn new(adjacency_matrix: Vec<Vec<bool>>) -> Result<Self, AdjMatError> {
+    /// A `Result` containing the graph if successful, or an `FindHamiltonianCycleError` if there is an issue with the matrix.
+    fn new(adjacency_matrix: Vec<Vec<bool>>) -> Result<Self, FindHamiltonianCycleError> {
         // Check if the adjacency matrix is empty.
         if adjacency_matrix.is_empty() {
-            return Err(AdjMatError::EmptyMat);
+            return Err(FindHamiltonianCycleError::EmptyAdjMat);
         }
 
         // Validate that the adjacency matrix is square.
@@ -41,7 +43,7 @@ impl Graph {
             .iter()
             .any(|row| row.len() != adjacency_matrix.len())
         {
-            return Err(AdjMatError::ImproperMat);
+            return Err(FindHamiltonianCycleError::ImproperAdjMat);
         }
 
         Ok(Self { adjacency_matrix })
@@ -57,20 +59,21 @@ impl Graph {
     /// # Arguments
     ///
     /// * `v` - The index of the vertex being considered.
+    /// * `visited` - A reference to the set of visited vertices.
     /// * `path` - A reference to the current path being explored.
     /// * `pos` - The position of the current vertex being considered.
     ///
     /// # Returns
     ///
     /// `true` if it is safe to include `v` in the path, `false` otherwise.
-    fn is_safe(&self, v: usize, path: &[usize], pos: usize) -> bool {
+    fn is_safe(&self, v: usize, visited: &HashSet<usize>, path: &[usize], pos: usize) -> bool {
         // Check if the current vertex and the last vertex in the path are adjacent.
         if !self.adjacency_matrix[path[pos - 1]][v] {
             return false;
         }
 
         // Check if the vertex has already been included in the path.
-        !path[..pos].contains(&v)
+        !visited.contains(&v)
     }
 
     /// Recursively searches for a Hamiltonian cycle.
@@ -80,24 +83,32 @@ impl Graph {
     /// # Arguments
     ///
     /// * `path` - A mutable vector representing the current path being explored.
+    /// * `visited` - A mutable set representing the visited vertices.
     /// * `pos` - The position of the current vertex being considered.
     ///
     /// # Returns
     ///
     /// `true` if a Hamiltonian cycle is found, `false` otherwise.
-    fn hamiltonian_cycle_util(&self, path: &mut Vec<usize>, pos: usize) -> bool {
+    fn hamiltonian_cycle_util(
+        &self,
+        path: &mut Vec<usize>,
+        visited: &mut HashSet<usize>,
+        pos: usize,
+    ) -> bool {
         if pos == self.num_vertices() {
             // Check if there is an edge from the last included vertex to the first vertex.
             return self.adjacency_matrix[path[pos - 1]][path[0]];
         }
 
         for v in 0..self.num_vertices() {
-            if self.is_safe(v, path, pos) {
+            if self.is_safe(v, visited, path, pos) {
                 path[pos] = v;
-                if self.hamiltonian_cycle_util(path, pos + 1) {
+                visited.insert(v);
+                if self.hamiltonian_cycle_util(path, visited, pos + 1) {
                     return true;
                 }
                 path[pos] = usize::MAX;
+                visited.remove(&v);
             }
         }
 
@@ -122,10 +133,10 @@ impl Graph {
     fn find_hamiltonian_cycle(
         &self,
         start_vertex: usize,
-    ) -> Result<Option<Vec<usize>>, AdjMatError> {
+    ) -> Result<Option<Vec<usize>>, FindHamiltonianCycleError> {
         // Validate the start vertex.
         if start_vertex >= self.num_vertices() {
-            return Err(AdjMatError::StartOutOfBound);
+            return Err(FindHamiltonianCycleError::StartOutOfBound);
         }
 
         // Initialize the path.
@@ -133,7 +144,11 @@ impl Graph {
         // Start at the specified vertex.
         path[0] = start_vertex;
 
-        if self.hamiltonian_cycle_util(&mut path, 1) {
+        // Initialize the visited set.
+        let mut visited = HashSet::new();
+        visited.insert(start_vertex);
+
+        if self.hamiltonian_cycle_util(&mut path, &mut visited, 1) {
             // Complete the cycle by returning to the starting vertex.
             path.push(start_vertex);
             Ok(Some(path))
@@ -147,9 +162,8 @@ impl Graph {
 pub fn find_hamiltonian_cycle(
     adjacency_matrix: Vec<Vec<bool>>,
     start_vertex: usize,
-) -> Result<Option<Vec<usize>>, AdjMatError> {
-    let graph = Graph::new(adjacency_matrix)?;
-    graph.find_hamiltonian_cycle(start_vertex)
+) -> Result<Option<Vec<usize>>, FindHamiltonianCycleError> {
+    Graph::new(adjacency_matrix)?.find_hamiltonian_cycle(start_vertex)
 }
 
 #[cfg(test)]
@@ -180,7 +194,18 @@ mod tests {
             0,
             Ok(Some(vec![0, 1, 2, 3, 0]))
         ),
-        test_cycle_graph: (
+        test_directed_graph_with_cycle: (
+            vec![
+                vec![false, true, false, false, false],
+                vec![false, false, true, true, false],
+                vec![true, false, false, true, true],
+                vec![false, false, true, false, true],
+                vec![true, true, false, false, false],
+            ],
+            2,
+            Ok(Some(vec![2, 3, 4, 0, 1, 2]))
+        ),
+        test_undirected_graph_with_cycle: (
             vec![
                 vec![false, true, false, false, true],
                 vec![true, false, true, false, false],
@@ -191,23 +216,36 @@ mod tests {
             2,
             Ok(Some(vec![2, 1, 0, 4, 3, 2]))
         ),
-        test_no_cycle_graph: (
+        test_directed_graph_no_cycle: (
             vec![
-                vec![false, true, false],
-                vec![true, false, false],
-                vec![false, false, false],
+                vec![false, true, false, true, false],
+                vec![false, false, true, true, false],
+                vec![false, false, false, true, false],
+                vec![false, false, false, false, true],
+                vec![false, false, true, false, false],
+            ],
+            0,
+            Ok(None::<Vec<usize>>)
+        ),
+        test_undirected_graph_no_cycle: (
+            vec![
+                vec![false, true, false, false, false],
+                vec![true, false, true, true, false],
+                vec![false, true, false, true, true],
+                vec![false, true, true, false, true],
+                vec![false, false, true, true, false],
             ],
             0,
             Ok(None::<Vec<usize>>)
         ),
         test_triangle_graph: (
             vec![
-                vec![false, true, true],
-                vec![true, false, true],
-                vec![true, true, false],
+                vec![false, true, false],
+                vec![false, false, true],
+                vec![true, false, false],
             ],
             1,
-            Ok(Some(vec![1, 0, 2, 1]))
+            Ok(Some(vec![1, 2, 0, 1]))
         ),
         test_tree_graph: (
             vec![
@@ -220,12 +258,12 @@ mod tests {
             0,
             Ok(None::<Vec<usize>>)
         ),
-        test_empty_matrix: (
+        test_empty_graph: (
             vec![],
             0,
-            Err(AdjMatError::EmptyMat)
+            Err(FindHamiltonianCycleError::EmptyAdjMat)
         ),
-        test_improper_matrix: (
+        test_improper_graph: (
             vec![
                 vec![false, true],
                 vec![true],
@@ -233,7 +271,7 @@ mod tests {
                 vec![true, true, true, false]
             ],
             0,
-            Err(AdjMatError::ImproperMat)
+            Err(FindHamiltonianCycleError::ImproperAdjMat)
         ),
         test_start_out_of_bound: (
             vec![
@@ -242,7 +280,19 @@ mod tests {
                 vec![true, true, false],
             ],
             3,
-            Err(AdjMatError::StartOutOfBound)
+            Err(FindHamiltonianCycleError::StartOutOfBound)
+        ),
+        test_complex_directed_graph: (
+            vec![
+                vec![false, true, false, true, false, false],
+                vec![false, false, true, false, true, false],
+                vec![false, false, false, true, false, false],
+                vec![false, true, false, false, true, false],
+                vec![false, false, true, false, false, true],
+                vec![true, false, false, false, false, false],
+            ],
+            0,
+            Ok(Some(vec![0, 1, 2, 3, 4, 5, 0]))
         ),
     }
 }
