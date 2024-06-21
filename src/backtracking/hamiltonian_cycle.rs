@@ -1,15 +1,13 @@
 //! This module provides functionality to find a Hamiltonian cycle in a directed or undirected graph.
 //! Source: [Wikipedia](https://en.wikipedia.org/wiki/Hamiltonian_path_problem)
 
-use std::collections::HashSet;
-
 /// Represents potential errors when finding hamiltonian cycle on an adjacency matrix.
 #[derive(Debug, PartialEq, Eq)]
 pub enum FindHamiltonianCycleError {
     /// Indicates that the adjacency matrix is empty.
-    EmptyAdjMat,
+    EmptyAdjacencyMatrix,
     /// Indicates that the adjacency matrix is not square.
-    ImproperAdjMat,
+    ImproperAdjacencyMatrix,
     /// Indicates that the starting vertex is out of bounds.
     StartOutOfBound,
 }
@@ -35,7 +33,7 @@ impl Graph {
     fn new(adjacency_matrix: Vec<Vec<bool>>) -> Result<Self, FindHamiltonianCycleError> {
         // Check if the adjacency matrix is empty.
         if adjacency_matrix.is_empty() {
-            return Err(FindHamiltonianCycleError::EmptyAdjMat);
+            return Err(FindHamiltonianCycleError::EmptyAdjacencyMatrix);
         }
 
         // Validate that the adjacency matrix is square.
@@ -43,7 +41,7 @@ impl Graph {
             .iter()
             .any(|row| row.len() != adjacency_matrix.len())
         {
-            return Err(FindHamiltonianCycleError::ImproperAdjMat);
+            return Err(FindHamiltonianCycleError::ImproperAdjacencyMatrix);
         }
 
         Ok(Self { adjacency_matrix })
@@ -59,21 +57,21 @@ impl Graph {
     /// # Arguments
     ///
     /// * `v` - The index of the vertex being considered.
-    /// * `visited` - A reference to the set of visited vertices.
+    /// * `visited` - A reference to the vector representing the visited vertices.
     /// * `path` - A reference to the current path being explored.
     /// * `pos` - The position of the current vertex being considered.
     ///
     /// # Returns
     ///
     /// `true` if it is safe to include `v` in the path, `false` otherwise.
-    fn is_safe(&self, v: usize, visited: &HashSet<usize>, path: &[usize], pos: usize) -> bool {
+    fn is_safe(&self, v: usize, visited: &[bool], path: &[Option<usize>], pos: usize) -> bool {
         // Check if the current vertex and the last vertex in the path are adjacent.
-        if !self.adjacency_matrix[path[pos - 1]][v] {
+        if !self.adjacency_matrix[path[pos - 1].unwrap()][v] {
             return false;
         }
 
         // Check if the vertex has already been included in the path.
-        !visited.contains(&v)
+        !visited[v]
     }
 
     /// Recursively searches for a Hamiltonian cycle.
@@ -83,7 +81,7 @@ impl Graph {
     /// # Arguments
     ///
     /// * `path` - A mutable vector representing the current path being explored.
-    /// * `visited` - A mutable set representing the visited vertices.
+    /// * `visited` - A mutable vector representing the visited vertices.
     /// * `pos` - The position of the current vertex being considered.
     ///
     /// # Returns
@@ -91,24 +89,24 @@ impl Graph {
     /// `true` if a Hamiltonian cycle is found, `false` otherwise.
     fn hamiltonian_cycle_util(
         &self,
-        path: &mut Vec<usize>,
-        visited: &mut HashSet<usize>,
+        path: &mut [Option<usize>],
+        visited: &mut [bool],
         pos: usize,
     ) -> bool {
         if pos == self.num_vertices() {
             // Check if there is an edge from the last included vertex to the first vertex.
-            return self.adjacency_matrix[path[pos - 1]][path[0]];
+            return self.adjacency_matrix[path[pos - 1].unwrap()][path[0].unwrap()];
         }
 
         for v in 0..self.num_vertices() {
             if self.is_safe(v, visited, path, pos) {
-                path[pos] = v;
-                visited.insert(v);
+                path[pos] = Some(v);
+                visited[v] = true;
                 if self.hamiltonian_cycle_util(path, visited, pos + 1) {
                     return true;
                 }
-                path[pos] = usize::MAX;
-                visited.remove(&v);
+                path[pos] = None;
+                visited[v] = false;
             }
         }
 
@@ -140,18 +138,18 @@ impl Graph {
         }
 
         // Initialize the path.
-        let mut path = vec![usize::MAX; self.adjacency_matrix.len()];
+        let mut path = vec![None; self.num_vertices()];
         // Start at the specified vertex.
-        path[0] = start_vertex;
+        path[0] = Some(start_vertex);
 
-        // Initialize the visited set.
-        let mut visited = HashSet::new();
-        visited.insert(start_vertex);
+        // Initialize the visited vector.
+        let mut visited = vec![false; self.num_vertices()];
+        visited[start_vertex] = true;
 
         if self.hamiltonian_cycle_util(&mut path, &mut visited, 1) {
             // Complete the cycle by returning to the starting vertex.
-            path.push(start_vertex);
-            Ok(Some(path))
+            path.push(Some(start_vertex));
+            Ok(Some(path.into_iter().map(Option::unwrap).collect()))
         } else {
             Ok(None)
         }
@@ -261,7 +259,7 @@ mod tests {
         test_empty_graph: (
             vec![],
             0,
-            Err(FindHamiltonianCycleError::EmptyAdjMat)
+            Err(FindHamiltonianCycleError::EmptyAdjacencyMatrix)
         ),
         test_improper_graph: (
             vec![
@@ -271,7 +269,7 @@ mod tests {
                 vec![true, true, true, false]
             ],
             0,
-            Err(FindHamiltonianCycleError::ImproperAdjMat)
+            Err(FindHamiltonianCycleError::ImproperAdjacencyMatrix)
         ),
         test_start_out_of_bound: (
             vec![
@@ -293,6 +291,20 @@ mod tests {
             ],
             0,
             Ok(Some(vec![0, 1, 2, 3, 4, 5, 0]))
+        ),
+        single_node_self_loop: (
+            vec![
+                vec![true],
+            ],
+            0,
+            Ok(Some(vec![0, 0]))
+        ),
+        single_node: (
+            vec![
+                vec![false],
+            ],
+            0,
+            Ok(None)
         ),
     }
 }
