@@ -3,6 +3,7 @@
 ## Src
   * Backtracking
     * [All Combination Of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
+    * [Hamiltonian Cycle](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/hamiltonian_cycle.rs)
     * [Knight Tour](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/knight_tour.rs)
     * [N Queens](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/n_queens.rs)
     * [Parentheses Generator](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/parentheses_generator.rs)
