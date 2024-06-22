@@ -17,7 +17,7 @@ use std::collections::VecDeque;
 
 const V: usize = 6; // Number of vertices in graph
 
-pub fn bfs(r_graph: &mut [Vec<i32>], s: usize, t: usize, parent: &mut [i32]) -> bool {
+pub fn bfs(r_graph: &[Vec<i32>], s: usize, t: usize, parent: &mut [i32]) -> bool {
     let mut visited = [false; V];
     visited[s] = true;
     parent[s] = -1;
@@ -41,12 +41,12 @@ pub fn bfs(r_graph: &mut [Vec<i32>], s: usize, t: usize, parent: &mut [i32]) -> 
     false
 }
 
-pub fn ford_fulkerson(graph: &mut [Vec<i32>], s: usize, t: usize) -> i32 {
+pub fn ford_fulkerson(graph: &[Vec<i32>], s: usize, t: usize) -> i32 {
     let mut r_graph = graph.to_owned();
     let mut parent = vec![-1; V];
     let mut max_flow = 0;
 
-    while bfs(&mut r_graph, s, t, &mut parent) {
+    while bfs(&r_graph, s, t, &mut parent) {
         let mut path_flow = i32::MAX;
         let mut v = t;
 
@@ -76,7 +76,7 @@ mod tests {
 
     #[test]
     fn test_example_1() {
-        let mut graph = vec![
+        let graph = vec![
             vec![0, 12, 0, 13, 0, 0],
             vec![0, 0, 10, 0, 0, 0],
             vec![0, 0, 0, 13, 3, 15],
@@ -84,12 +84,12 @@ mod tests {
             vec![0, 0, 6, 0, 0, 17],
             vec![0, 0, 0, 0, 0, 0],
         ];
-        assert_eq!(ford_fulkerson(&mut graph, 0, 5), 23);
+        assert_eq!(ford_fulkerson(&graph, 0, 5), 23);
     }
 
     #[test]
     fn test_example_2() {
-        let mut graph = vec![
+        let graph = vec![
             vec![0, 4, 0, 3, 0, 0],
             vec![0, 0, 4, 0, 8, 0],
             vec![0, 0, 0, 3, 0, 2],
@@ -97,12 +97,12 @@ mod tests {
             vec![0, 0, 6, 0, 0, 6],
             vec![0, 0, 0, 0, 0, 0],
         ];
-        assert_eq!(ford_fulkerson(&mut graph, 0, 5), 7);
+        assert_eq!(ford_fulkerson(&graph, 0, 5), 7);
     }
 
     #[test]
     fn test_example_3() {
-        let mut graph = vec![
+        let graph = vec![
             vec![0, 10, 0, 10, 0, 0],
             vec![0, 0, 4, 2, 8, 0],
             vec![0, 0, 0, 0, 0, 10],
@@ -110,12 +110,12 @@ mod tests {
             vec![0, 0, 6, 0, 0, 10],
             vec![0, 0, 0, 0, 0, 0],
         ];
-        assert_eq!(ford_fulkerson(&mut graph, 0, 5), 19);
+        assert_eq!(ford_fulkerson(&graph, 0, 5), 19);
     }
 
     #[test]
     fn test_example_4() {
-        let mut graph = vec![
+        let graph = vec![
             vec![0, 8, 0, 0, 3, 0],
             vec![0, 0, 9, 0, 0, 0],
             vec![0, 0, 0, 0, 7, 2],
@@ -123,12 +123,12 @@ mod tests {
             vec![0, 0, 7, 4, 0, 0],
             vec![0, 0, 0, 0, 0, 0],
         ];
-        assert_eq!(ford_fulkerson(&mut graph, 0, 5), 6);
+        assert_eq!(ford_fulkerson(&graph, 0, 5), 6);
     }
 
     #[test]
     fn test_example_5() {
-        let mut graph = vec![
+        let graph = vec![
             vec![0, 16, 13, 0, 0, 0],
             vec![0, 0, 10, 12, 0, 0],
             vec![0, 4, 0, 0, 14, 0],
@@ -136,6 +136,6 @@ mod tests {
             vec![0, 0, 0, 7, 0, 4],
             vec![0, 0, 0, 0, 0, 0],
         ];
-        assert_eq!(ford_fulkerson(&mut graph, 0, 5), 23);
+        assert_eq!(ford_fulkerson(&graph, 0, 5), 23);
     }
 }

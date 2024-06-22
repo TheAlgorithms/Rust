@@ -241,10 +241,10 @@ mod tests {
         let second_value = 2;
         list.insert_at_tail(1);
         list.insert_at_tail(second_value);
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         match list.get(1) {
             Some(val) => assert_eq!(*val, second_value),
-            None => panic!("Expected to find {} at index 1", second_value),
+            None => panic!("Expected to find {second_value} at index 1"),
         }
     }
     #[test]
@@ -253,10 +253,10 @@ mod tests {
         let second_value = 2;
         list.insert_at_head(1);
         list.insert_at_head(second_value);
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         match list.get(0) {
             Some(val) => assert_eq!(*val, second_value),
-            None => panic!("Expected to find {} at index 0", second_value),
+            None => panic!("Expected to find {second_value} at index 0"),
         }
     }
 
@@ -266,10 +266,10 @@ mod tests {
         let second_value = 2;
         list.insert_at_ith(0, 0);
         list.insert_at_ith(1, second_value);
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         match list.get(1) {
             Some(val) => assert_eq!(*val, second_value),
-            None => panic!("Expected to find {} at index 1", second_value),
+            None => panic!("Expected to find {second_value} at index 1"),
         }
     }
 
@@ -279,10 +279,10 @@ mod tests {
         let second_value = 2;
         list.insert_at_ith(0, 1);
         list.insert_at_ith(0, second_value);
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         match list.get(0) {
             Some(val) => assert_eq!(*val, second_value),
-            None => panic!("Expected to find {} at index 0", second_value),
+            None => panic!("Expected to find {second_value} at index 0"),
         }
     }
 
@@ -294,15 +294,15 @@ mod tests {
         list.insert_at_ith(0, 1);
         list.insert_at_ith(1, second_value);
         list.insert_at_ith(1, third_value);
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         match list.get(1) {
             Some(val) => assert_eq!(*val, third_value),
-            None => panic!("Expected to find {} at index 1", third_value),
+            None => panic!("Expected to find {third_value} at index 1"),
         }
 
         match list.get(2) {
             Some(val) => assert_eq!(*val, second_value),
-            None => panic!("Expected to find {} at index 1", second_value),
+            None => panic!("Expected to find {second_value} at index 1"),
         }
     }
 
@@ -331,7 +331,7 @@ mod tests {
         ] {
             match list.get(i) {
                 Some(val) => assert_eq!(*val, expected),
-                None => panic!("Expected to find {} at index {}", expected, i),
+                None => panic!("Expected to find {expected} at index {i}"),
             }
         }
     }
@@ -379,13 +379,13 @@ mod tests {
         list.insert_at_tail(second_value);
         match list.delete_tail() {
             Some(val) => assert_eq!(val, 2),
-            None => panic!("Expected to remove {} at tail", second_value),
+            None => panic!("Expected to remove {second_value} at tail"),
         }
 
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         match list.get(0) {
             Some(val) => assert_eq!(*val, first_value),
-            None => panic!("Expected to find {} at index 0", first_value),
+            None => panic!("Expected to find {first_value} at index 0"),
         }
     }
 
@@ -398,13 +398,13 @@ mod tests {
         list.insert_at_tail(second_value);
         match list.delete_head() {
             Some(val) => assert_eq!(val, 1),
-            None => panic!("Expected to remove {} at head", first_value),
+            None => panic!("Expected to remove {first_value} at head"),
         }
 
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         match list.get(0) {
             Some(val) => assert_eq!(*val, second_value),
-            None => panic!("Expected to find {} at index 0", second_value),
+            None => panic!("Expected to find {second_value} at index 0"),
         }
     }
 
@@ -417,7 +417,7 @@ mod tests {
         list.insert_at_tail(second_value);
         match list.delete_ith(1) {
             Some(val) => assert_eq!(val, 2),
-            None => panic!("Expected to remove {} at tail", second_value),
+            None => panic!("Expected to remove {second_value} at tail"),
         }
 
         assert_eq!(list.length, 1);
@@ -432,7 +432,7 @@ mod tests {
         list.insert_at_tail(second_value);
         match list.delete_ith(0) {
             Some(val) => assert_eq!(val, 1),
-            None => panic!("Expected to remove {} at tail", first_value),
+            None => panic!("Expected to remove {first_value} at tail"),
         }
 
         assert_eq!(list.length, 1);
@@ -449,12 +449,12 @@ mod tests {
         list.insert_at_tail(third_value);
         match list.delete_ith(1) {
             Some(val) => assert_eq!(val, 2),
-            None => panic!("Expected to remove {} at tail", second_value),
+            None => panic!("Expected to remove {second_value} at tail"),
         }
 
         match list.get(1) {
             Some(val) => assert_eq!(*val, third_value),
-            None => panic!("Expected to find {} at index 1", third_value),
+            None => panic!("Expected to find {third_value} at index 1"),
         }
     }
 
@@ -464,7 +464,7 @@ mod tests {
         list.insert_at_tail(1);
         list.insert_at_tail(2);
         list.insert_at_tail(3);
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         assert_eq!(3, list.length);
     }
 
@@ -474,7 +474,7 @@ mod tests {
         list_str.insert_at_tail("A".to_string());
         list_str.insert_at_tail("B".to_string());
         list_str.insert_at_tail("C".to_string());
-        println!("Linked List is {}", list_str);
+        println!("Linked List is {list_str}");
         assert_eq!(3, list_str.length);
     }
 
@@ -483,7 +483,7 @@ mod tests {
         let mut list = LinkedList::<i32>::new();
         list.insert_at_tail(1);
         list.insert_at_tail(2);
-        println!("Linked List is {}", list);
+        println!("Linked List is {list}");
         let retrived_item = list.get(1);
         assert!(retrived_item.is_some());
         assert_eq!(2, *retrived_item.unwrap());
@@ -494,7 +494,7 @@ mod tests {
         let mut list_str = LinkedList::<String>::new();
         list_str.insert_at_tail("A".to_string());
         list_str.insert_at_tail("B".to_string());
-        println!("Linked List is {}", list_str);
+        println!("Linked List is {list_str}");
         let retrived_item = list_str.get(1);
         assert!(retrived_item.is_some());
         assert_eq!("B", *retrived_item.unwrap());
