@@ -26,8 +26,11 @@ pub fn n_queens_solver(n: usize) -> Vec<Vec<String>> {
 
 /// Represents a solver for the N-Queens problem.
 struct NQueensSolver {
+    // The size of the chessboard
     size: usize,
+    // A 2D vector representing the chessboard where '.' denotes an empty space and 'Q' denotes a queen
     board: Vec<Vec<char>>,
+    // A vector to store all valid solutions
     solutions: Vec<Vec<String>>,
 }
 
@@ -42,12 +45,10 @@ impl NQueensSolver {
     ///
     /// A new `NQueensSolver` instance.
     fn new(size: usize) -> Self {
-        let board = vec![vec!['.'; size]; size];
-        let solutions = Vec::new();
         NQueensSolver {
             size,
-            board,
-            solutions,
+            board: vec![vec!['.'; size]; size],
+            solutions: Vec::new(),
         }
     }
 
@@ -72,29 +73,15 @@ impl NQueensSolver {
     ///
     /// `true` if it's safe to place a queen at the specified position, `false` otherwise.
     fn is_safe(&self, row: usize, col: usize) -> bool {
-        // Check if there is a queen in the same column
-        for (i, _) in self.board.iter().take(row).enumerate() {
-            if self.board[i][col] == 'Q' {
+        // Check column and diagonals
+        for i in 0..row {
+            if self.board[i][col] == 'Q'
+                || (col >= row - i && self.board[i][col - (row - i)] == 'Q')
+                || (col + row - i < self.size && self.board[i][col + (row - i)] == 'Q')
+            {
                 return false;
             }
         }
-
-        // Check if there is a queen in the left upper diagonal
-        for i in (0..row).rev() {
-            let j = col as isize - (row as isize - i as isize);
-            if j >= 0 && self.board[i][j as usize] == 'Q' {
-                return false;
-            }
-        }
-
-        // Check if there is a queen in the right upper diagonal
-        for i in (0..row).rev() {
-            let j = col + row - i;
-            if j < self.size && self.board[i][j] == 'Q' {
-                return false;
-            }
-        }
-
         true
     }
 
@@ -105,8 +92,8 @@ impl NQueensSolver {
     /// * `row` - The current row being processed.
     fn solve_helper(&mut self, row: usize) {
         if row == self.size {
-            let solution: Vec<String> = self.board.iter().map(|row| row.iter().collect()).collect();
-            self.solutions.push(solution);
+            self.solutions
+                .push(self.board.iter().map(|row| row.iter().collect()).collect());
             return;
         }
 
