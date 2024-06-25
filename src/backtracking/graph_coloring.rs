@@ -2,7 +2,7 @@
 //it colors the graph in such a way that no two adjacent vertices are of same color
 //if two adjacent vertices are found at same color it aims to solve that using backtracking
 
-
+use std::fmt::Write;
 // Checks whether no two adjacent vertices are of the same color
 fn is_safe(g: &[Vec<i32>], color: &[i32], v: usize, c: i32) -> bool {
     for (i, &val) in g[v].iter().enumerate() {
@@ -15,10 +15,14 @@ fn is_safe(g: &[Vec<i32>], color: &[i32], v: usize, c: i32) -> bool {
 
 // Displays the color assigned to each vertex
 fn display(color: &[i32], solution_number: &mut i32, output: &mut String) {
-    output.push_str(&format!("Solution {}:\n", solution_number));
+    writeln!(output, "Solution {solution_number}:").expect("Failed to write to output");
+
+    println!("{output}");
     *solution_number += 1;
     for (i, &c) in color.iter().enumerate() {
-        output.push_str(&format!("Vertex {} -> Color {}\n", i + 1, c));
+        writeln!(output, "Vertex {} -> Color {}", i + 1, c).expect("Failed to write to output");
+
+        println!("{output}");
     }
     output.push('\n');
 }
@@ -46,9 +50,6 @@ pub fn graph_coloring(
     }
     res
 }
-
-
-
 
 // Test function
 #[cfg(test)]
