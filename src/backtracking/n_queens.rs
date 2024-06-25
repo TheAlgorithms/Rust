@@ -59,7 +59,7 @@ impl NQueensSolver {
     /// A vector containing all solutions to the N-Queens problem.
     fn solve(&mut self) -> Vec<Vec<String>> {
         self.solve_helper(0);
-        self.solutions.clone()
+        std::mem::take(&mut self.solutions)
     }
 
     /// Checks if it's safe to place a queen at the specified position (row, col).
@@ -118,25 +118,104 @@ mod tests {
                 fn $name() {
                     let (n, expected_solutions) = $tc;
                     let solutions = n_queens_solver(n);
-                    assert_eq!(solutions.len(), expected_solutions.len());
-                    for (actual, expected) in solutions.iter().zip(expected_solutions.iter()) {
-                        assert_eq!(actual, expected);
-                    }
+                    assert_eq!(solutions, expected_solutions);
                 }
             )*
         };
     }
 
     test_n_queens_solver! {
+        test_0_queens: (0, vec![Vec::<String>::new()]),
+        test_1_queen: (1, vec![vec!["Q"]]),
+        test_2_queens:(2, Vec::<Vec<String>>::new()),
+        test_3_queens:(3, Vec::<Vec<String>>::new()),
         test_4_queens: (4, vec![
-            vec![".Q..", "...Q", "Q...", "..Q."],
-            vec!["..Q.", "Q...", "...Q", ".Q.."],
+            vec![".Q..",
+                 "...Q",
+                 "Q...",
+                 "..Q."],
+            vec!["..Q.",
+                 "Q...",
+                 "...Q",
+                 ".Q.."],
+        ]),
+        test_5_queens:(5, vec![
+            vec!["Q....",
+                 "..Q..",
+                 "....Q",
+                 ".Q...",
+                 "...Q."],
+            vec!["Q....",
+                 "...Q.",
+                 ".Q...",
+                 "....Q",
+                 "..Q.."],
+            vec![".Q...",
+                 "...Q.",
+                 "Q....",
+                 "..Q..",
+                 "....Q"],
+            vec![".Q...",
+                 "....Q",
+                 "..Q..",
+                 "Q....",
+                 "...Q."],
+            vec!["..Q..",
+                 "Q....",
+                 "...Q.",
+                 ".Q...",
+                 "....Q"],
+            vec!["..Q..",
+                 "....Q",
+                 ".Q...",
+                 "...Q.",
+                 "Q...."],
+            vec!["...Q.",
+                 "Q....",
+                 "..Q..",
+                 "....Q",
+                 ".Q..."],
+            vec!["...Q.",
+                 ".Q...",
+                 "....Q",
+                 "..Q..",
+                 "Q...."],
+            vec!["....Q",
+                 ".Q...",
+                 "...Q.",
+                 "Q....",
+                 "..Q.."],
+            vec!["....Q",
+                 "..Q..",
+                 "Q....",
+                 "...Q.",
+                 ".Q..."],
         ]),
         test_6_queens: (6, vec![
-            vec![".Q....", "...Q..", ".....Q", "Q.....", "..Q...", "....Q."],
-            vec!["..Q...", ".....Q", ".Q....", "....Q.", "Q.....", "...Q.."],
-            vec!["...Q..", "Q.....", "....Q.", ".Q....", ".....Q", "..Q..."],
-            vec!["....Q.", "..Q...", "Q.....", ".....Q", "...Q..", ".Q...."],
+            vec![".Q....",
+                 "...Q..",
+                 ".....Q",
+                 "Q.....",
+                 "..Q...",
+                 "....Q."],
+            vec!["..Q...",
+                 ".....Q",
+                 ".Q....",
+                 "....Q.",
+                 "Q.....",
+                 "...Q.."],
+            vec!["...Q..",
+                 "Q.....",
+                 "....Q.",
+                 ".Q....",
+                 ".....Q",
+                 "..Q..."],
+            vec!["....Q.",
+                 "..Q...",
+                 "Q.....",
+                 ".....Q",
+                 "...Q..",
+                 ".Q...."],
         ]),
     }
 }
