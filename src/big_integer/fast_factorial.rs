@@ -44,7 +44,7 @@ pub fn fast_factorial(n: usize) -> BigUint {
     a.resize(max_bits as usize, BigUint::one());
 
     // For every prime p, multiply a[i] by p if the ith bit of p's index is 1
-    for (p, i) in p_indeces.into_iter() {
+    for (p, i) in p_indeces {
         let mut bit = 1usize;
         while bit.ilog2() < max_bits {
             if (bit & i) > 0 {
