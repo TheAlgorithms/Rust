@@ -10,7 +10,7 @@ num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
 rand = "0.8"
 rand_chacha = "0.3"
-nalgebra = "0.32.3"
+nalgebra = "0.33.0"
 
 [dev-dependencies]
 quickcheck = "1.0"
@@ -19,3 +19,149 @@ quickcheck_macros = "1.0"
 [features]
 default = ["big-math"]
 big-math = ["dep:num-bigint", "dep:num-traits"]
+
+[lints.clippy]
+pedantic = "warn"
+restriction = "warn"
+nursery = "warn"
+cargo = "warn"
+# pedantic-lints:
+bool_to_int_with_if = { level = "allow", priority = 1 }
+cast_lossless = { level = "allow", priority = 1 }
+cast_possible_truncation = { level = "allow", priority = 1 }
+cast_possible_wrap = { level = "allow", priority = 1 }
+cast_precision_loss = { level = "allow", priority = 1 }
+cast_sign_loss = { level = "allow", priority = 1 }
+cloned_instead_of_copied = { level = "allow", priority = 1 }
+default_trait_access = { level = "allow", priority = 1 }
+doc_markdown = { level = "allow", priority = 1 }
+enum_glob_use = { level = "allow", priority = 1 }
+explicit_deref_methods = { level = "allow", priority = 1 }
+explicit_iter_loop = { level = "allow", priority = 1 }
+float_cmp = { level = "allow", priority = 1 }
+from_iter_instead_of_collect = { level = "allow", priority = 1 }
+if_not_else = { level = "allow", priority = 1 }
+implicit_clone = { level = "allow", priority = 1 }
+implicit_hasher = { level = "allow", priority = 1 }
+inefficient_to_string = { level = "allow", priority = 1 }
+items_after_statements = { level = "allow", priority = 1 }
+iter_without_into_iter = { level = "allow", priority = 1 }
+linkedlist = { level = "allow", priority = 1 }
+manual_assert = { level = "allow", priority = 1 }
+manual_let_else = { level = "allow", priority = 1 }
+manual_string_new = { level = "allow", priority = 1 }
+many_single_char_names = { level = "allow", priority = 1 }
+match_bool = { level = "allow", priority = 1 }
+match_on_vec_items = { level = "allow", priority = 1 }
+match_same_arms = { level = "allow", priority = 1 }
+match_wildcard_for_single_variants = { level = "allow", priority = 1 }
+missing_errors_doc = { level = "allow", priority = 1 }
+missing_fields_in_debug = { level = "allow", priority = 1 }
+missing_panics_doc = { level = "allow", priority = 1 }
+module_name_repetitions = { level = "allow", priority = 1 }
+must_use_candidate = { level = "allow", priority = 1 }
+needless_for_each = { level = "allow", priority = 1 }
+needless_pass_by_value = { level = "allow", priority = 1 }
+no_effect_underscore_binding = { level = "allow", priority = 1 }
+range_plus_one = { level = "allow", priority = 1 }
+redundant_closure_for_method_calls = { level = "allow", priority = 1 }
+redundant_else = { level = "allow", priority = 1 }
+return_self_not_must_use = { level = "allow", priority = 1 }
+semicolon_if_nothing_returned = { level = "allow", priority = 1 }
+should_panic_without_expect = { level = "allow", priority = 1 }
+similar_names = { level = "allow", priority = 1 }
+single_match_else = { level = "allow", priority = 1 }
+stable_sort_primitive = { level = "allow", priority = 1 }
+too_many_lines = { level = "allow", priority = 1 }
+trivially_copy_pass_by_ref = { level = "allow", priority = 1 }
+unnecessary_box_returns = { level = "allow", priority = 1 }
+unnecessary_wraps = { level = "allow", priority = 1 }
+unnested_or_patterns = { level = "allow", priority = 1 }
+unreadable_literal = { level = "allow", priority = 1 }
+unused_self = { level = "allow", priority = 1 }
+used_underscore_binding = { level = "allow", priority = 1 }
+# restriction-lints:
+absolute_paths = { level = "allow", priority = 1 }
+arithmetic_side_effects = { level = "allow", priority = 1 }
+as_conversions = { level = "allow", priority = 1 }
+assertions_on_result_states = { level = "allow", priority = 1 }
+blanket_clippy_restriction_lints = { level = "allow", priority = 1 }
+clone_on_ref_ptr = { level = "allow", priority = 1 }
+dbg_macro = { level = "allow", priority = 1 }
+decimal_literal_representation = { level = "allow", priority = 1 }
+default_numeric_fallback = { level = "allow", priority = 1 }
+deref_by_slicing = { level = "allow", priority = 1 }
+else_if_without_else = { level = "allow", priority = 1 }
+exhaustive_enums = { level = "allow", priority = 1 }
+exhaustive_structs = { level = "allow", priority = 1 }
+expect_used = { level = "allow", priority = 1 }
+float_arithmetic = { level = "allow", priority = 1 }
+float_cmp_const = { level = "allow", priority = 1 }
+get_unwrap = { level = "allow", priority = 1 }
+if_then_some_else_none = { level = "allow", priority = 1 }
+impl_trait_in_params = { level = "allow", priority = 1 }
+implicit_return = { level = "allow", priority = 1 }
+indexing_slicing = { level = "allow", priority = 1 }
+integer_division = { level = "allow", priority = 1 }
+integer_division_remainder_used = { level = "allow", priority = 1 }
+iter_over_hash_type = { level = "allow", priority = 1 }
+little_endian_bytes = { level = "allow", priority = 1 }
+map_err_ignore = { level = "allow", priority = 1 }
+min_ident_chars = { level = "allow", priority = 1 }
+missing_assert_message = { level = "allow", priority = 1 }
+missing_asserts_for_indexing = { level = "allow", priority = 1 }
+missing_docs_in_private_items = { level = "allow", priority = 1 }
+missing_inline_in_public_items = { level = "allow", priority = 1 }
+missing_trait_methods = { level = "allow", priority = 1 }
+mod_module_files = { level = "allow", priority = 1 }
+modulo_arithmetic = { level = "allow", priority = 1 }
+multiple_unsafe_ops_per_block = { level = "allow", priority = 1 }
+non_ascii_literal = { level = "allow", priority = 1 }
+panic = { level = "allow", priority = 1 }
+partial_pub_fields = { level = "allow", priority = 1 }
+pattern_type_mismatch = { level = "allow", priority = 1 }
+print_stderr = { level = "allow", priority = 1 }
+print_stdout = { level = "allow", priority = 1 }
+pub_use = { level = "allow", priority = 1 }
+pub_with_shorthand = { level = "allow", priority = 1 }
+question_mark_used = { level = "allow", priority = 1 }
+redundant_type_annotations = { level = "allow", priority = 1 }
+same_name_method = { level = "allow", priority = 1 }
+semicolon_outside_block = { level = "allow", priority = 1 }
+separated_literal_suffix = { level = "allow", priority = 1 }
+shadow_reuse = { level = "allow", priority = 1 }
+shadow_same = { level = "allow", priority = 1 }
+shadow_unrelated = { level = "allow", priority = 1 }
+single_call_fn = { level = "allow", priority = 1 }
+single_char_lifetime_names = { level = "allow", priority = 1 }
+std_instead_of_alloc = { level = "allow", priority = 1 }
+std_instead_of_core = { level = "allow", priority = 1 }
+str_to_string = { level = "allow", priority = 1 }
+string_add = { level = "allow", priority = 1 }
+string_slice = { level = "allow", priority = 1 }
+undocumented_unsafe_blocks = { level = "allow", priority = 1 }
+unnecessary_safety_comment = { level = "allow", priority = 1 }
+unneeded_field_pattern = { level = "allow", priority = 1 }
+unreachable = { level = "allow", priority = 1 }
+unseparated_literal_suffix = { level = "allow", priority = 1 }
+unwrap_in_result = { level = "allow", priority = 1 }
+unwrap_used = { level = "allow", priority = 1 }
+use_debug = { level = "allow", priority = 1 }
+wildcard_enum_match_arm = { level = "allow", priority = 1 }
+# nursery-lints:
+branches_sharing_code = { level = "allow", priority = 1 }
+cognitive_complexity = { level = "allow", priority = 1 }
+derive_partial_eq_without_eq = { level = "allow", priority = 1 }
+empty_line_after_doc_comments = { level = "allow", priority = 1 }
+fallible_impl_from = { level = "allow", priority = 1 }
+imprecise_flops = { level = "allow", priority = 1 }
+iter_on_single_items = { level = "allow", priority = 1 }
+missing_const_for_fn = { level = "allow", priority = 1 }
+nonstandard_macro_braces = { level = "allow", priority = 1 }
+option_if_let_else = { level = "allow", priority = 1 }
+redundant_clone = { level = "allow", priority = 1 }
+suboptimal_flops = { level = "allow", priority = 1 }
+suspicious_operation_groupings = { level = "allow", priority = 1 }
+use_self = { level = "allow", priority = 1 }
+# cargo-lints:
+cargo_common_metadata = { level = "allow", priority = 1 }

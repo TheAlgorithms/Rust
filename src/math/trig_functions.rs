@@ -187,7 +187,7 @@ mod tests {
                 }
             };
 
-            assert_eq!(format!("{:.5}", value), format!("{:.5}", expected_result));
+            assert_eq!(format!("{value:.5}"), format!("{:.5}", expected_result));
         }
     }
 

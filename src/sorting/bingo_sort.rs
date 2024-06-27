@@ -37,7 +37,7 @@ pub fn bingo_sort(vec: &mut [i32]) {
 fn print_array(arr: &[i32]) {
     print!("Sorted Array: ");
     for &element in arr {
-        print!("{} ", element);
+        print!("{element} ");
     }
     println!();
 }

@@ -66,7 +66,7 @@ pub fn binary_to_hexadecimal(binary_str: &str) -> String {
     }
 
     if is_negative {
-        format!("-{}", hexadecimal)
+        format!("-{hexadecimal}")
     } else {
         hexadecimal
     }
