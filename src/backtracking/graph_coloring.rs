@@ -1,30 +1,41 @@
-//! This module provides functionality for generating all possible colorings of a graph
+//! This module provides functionality for generating all possible colorings of a undirected (or directed) graph
 //! given a certain number of colors. It includes the GraphColoring struct and methods
 //! for validating color assignments and finding all valid colorings.
+
+/// Represents potential errors when coloring on an adjacency matrix.
+#[derive(Debug, PartialEq, Eq)]
+pub enum GraphColoringError {
+    // Indicates that the adjacency matrix is empty
+    EmptyGraph,
+    // Indicates that the adjacency matrix is not squared
+    NonSquareMatrix,
+}
 
 /// Generates all possible valid colorings of a graph.
 ///
 /// # Arguments
 ///
-/// * `adj_matrix` - A 2D vector representing the adjacency matrix of the graph.
+/// * `adjacency_matrix` - A 2D vector representing the adjacency matrix of the graph.
 /// * `num_colors` - The number of colors available for coloring the graph.
 ///
 /// # Returns
 ///
-/// * An `Option` containing a vector of solutions. Each solution is a vector of color assignments for the vertices.
+/// * A `Result` containing an `Option` with a vector of solutions or a `GraphColoringError` if
+/// there is an issue with the matrix.
 pub fn generate_colorings(
-    adj_matrix: Vec<Vec<bool>>,
+    adjacency_matrix: Vec<Vec<bool>>,
     num_colors: usize,
-) -> Option<Vec<Vec<usize>>> {
-    let mut graph_coloring = GraphColoring::new(adj_matrix, num_colors);
-    graph_coloring.find_solutions()
+) -> Result<Option<Vec<Vec<usize>>>, GraphColoringError> {
+    GraphColoring::new(adjacency_matrix)?.find_solutions(num_colors)
 }
 
 /// A struct representing a graph coloring problem.
 struct GraphColoring {
+    // The adjacency matrix of the graph
     adj_matrix: Vec<Vec<bool>>,
-    num_colors: usize,
+    // The current colors assigned to each vertex
     vertex_colors: Vec<usize>,
+    // Vector of all valid color assignments for the vertices found during the search
     solutions: Vec<Vec<usize>>,
 }
 
@@ -34,19 +45,28 @@ impl GraphColoring {
     /// # Arguments
     ///
     /// * `adj_matrix` - A 2D vector representing the adjacency matrix of the graph.
-    /// * `num_colors` - The number of colors available for coloring the graph.
     ///
     /// # Returns
     ///
-    /// * A new instance of GraphColoring.
-    fn new(adj_matrix: Vec<Vec<bool>>, num_colors: usize) -> Self {
+    /// * A new instance of GraphColoring or a `GraphColoringError` if the matrix is empty or non-square.
+    fn new(adj_matrix: Vec<Vec<bool>>) -> Result<Self, GraphColoringError> {
         let num_vertices = adj_matrix.len();
-        GraphColoring {
+
+        // Check if the adjacency matrix is empty
+        if num_vertices == 0 {
+            return Err(GraphColoringError::EmptyGraph);
+        }
+
+        // Check if the adjacency matrix is square
+        if adj_matrix.iter().any(|row| row.len() != num_vertices) {
+            return Err(GraphColoringError::NonSquareMatrix);
+        }
+
+        Ok(GraphColoring {
             adj_matrix,
-            num_colors,
             vertex_colors: vec![0; num_vertices],
             solutions: Vec::new(),
-        }
+        })
     }
 
     /// Returns the number of vertices in the graph.
@@ -66,7 +86,10 @@ impl GraphColoring {
     /// * `true` if the color can be assigned to the vertex, `false` otherwise.
     fn is_color_valid(&self, vertex: usize, color: usize) -> bool {
         for neighbor in 0..self.num_vertices() {
-            if self.adj_matrix[vertex][neighbor] && self.vertex_colors[neighbor] == color {
+            // Check outgoing edges from vertex and incoming edges to vertex
+            if (self.adj_matrix[vertex][neighbor] || self.adj_matrix[neighbor][vertex])
+                && self.vertex_colors[neighbor] == color
+            {
                 return false;
             }
         }
@@ -78,16 +101,17 @@ impl GraphColoring {
     /// # Arguments
     ///
     /// * `vertex` - The current vertex to be colored.
-    fn find_colorings(&mut self, vertex: usize) {
+    /// * `num_colors` - The number of colors available for coloring the graph.
+    fn find_colorings(&mut self, vertex: usize, num_colors: usize) {
         if vertex == self.num_vertices() {
             self.solutions.push(self.vertex_colors.clone());
             return;
         }
 
-        for color in 1..=self.num_colors {
+        for color in 1..=num_colors {
             if self.is_color_valid(vertex, color) {
                 self.vertex_colors[vertex] = color;
-                self.find_colorings(vertex + 1);
+                self.find_colorings(vertex + 1, num_colors);
                 self.vertex_colors[vertex] = 0;
             }
         }
@@ -95,15 +119,22 @@ impl GraphColoring {
 
     /// Finds all solutions for the graph coloring problem.
     ///
+    /// # Arguments
+    ///
+    /// * `num_colors` - The number of colors available for coloring the graph.
+    ///
     /// # Returns
     ///
-    /// * An `Option` containing a vector of solutions. Each solution is a vector of color assignments for the vertices.
-    fn find_solutions(&mut self) -> Option<Vec<Vec<usize>>> {
-        self.find_colorings(0);
+    /// * A `Result` containing an `Option` with a vector of solutions or a `GraphColoringError`.
+    fn find_solutions(
+        &mut self,
+        num_colors: usize,
+    ) -> Result<Option<Vec<Vec<usize>>>, GraphColoringError> {
+        self.find_colorings(0, num_colors);
         if self.solutions.is_empty() {
-            None
+            Ok(None)
         } else {
-            Some(std::mem::take(&mut self.solutions))
+            Ok(Some(std::mem::take(&mut self.solutions)))
         }
     }
 }
@@ -117,8 +148,8 @@ mod tests {
             $(
                 #[test]
                 fn $name() {
-                    let (adj_matrix, num_colors, expected) = $test_case;
-                    let actual = generate_colorings(adj_matrix, num_colors);
+                    let (adjacency_matrix, num_colors, expected) = $test_case;
+                    let actual = generate_colorings(adjacency_matrix, num_colors);
                     assert_eq!(actual, expected);
                 }
             )*
@@ -134,14 +165,14 @@ mod tests {
                 vec![true, false, true, false],
             ],
             3,
-            Some(vec![
+            Ok(Some(vec![
                 vec![1, 2, 3, 2],
                 vec![1, 3, 2, 3],
                 vec![2, 1, 3, 1],
                 vec![2, 3, 1, 3],
                 vec![3, 1, 2, 1],
                 vec![3, 2, 1, 2],
-            ])
+            ]))
         ),
         test_linear_graph_with_2_colors: (
             vec![
@@ -151,10 +182,10 @@ mod tests {
                 vec![false, false, true, false],
             ],
             2,
-            Some(vec![
+            Ok(Some(vec![
                 vec![1, 2, 1, 2],
                 vec![2, 1, 2, 1],
-            ])
+            ]))
         ),
         test_incomplete_graph_with_insufficient_colors: (
             vec![
@@ -163,23 +194,29 @@ mod tests {
                 vec![true, true, false],
             ],
             1,
-            None::<Vec<Vec<usize>>>
+            Ok(None::<Vec<Vec<usize>>>)
         ),
         test_empty_graph: (
             vec![],
             1,
-            Some(vec![
-                vec![],
-            ])
+            Err(GraphColoringError::EmptyGraph)
+        ),
+        test_non_square_matrix: (
+            vec![
+                vec![false, true, true],
+                vec![true, false, true],
+            ],
+            3,
+            Err(GraphColoringError::NonSquareMatrix)
         ),
         test_single_vertex_graph: (
             vec![
                 vec![false],
             ],
             1,
-            Some(vec![
+            Ok(Some(vec![
                 vec![1],
-            ])
+            ]))
         ),
         test_bipartite_graph_with_2_colors: (
             vec![
@@ -189,10 +226,10 @@ mod tests {
                 vec![true, false, true, false],
             ],
             2,
-            Some(vec![
+            Ok(Some(vec![
                 vec![1, 2, 1, 2],
                 vec![2, 1, 2, 1],
-            ])
+            ]))
         ),
         test_large_graph_with_3_colors: (
             vec![
@@ -208,14 +245,14 @@ mod tests {
                 vec![false, true, true, false, true, true, false, true, true, false],
             ],
             3,
-            Some(vec![
+            Ok(Some(vec![
                 vec![1, 2, 3, 1, 2, 3, 1, 2, 3, 1],
                 vec![1, 3, 2, 1, 3, 2, 1, 3, 2, 1],
                 vec![2, 1, 3, 2, 1, 3, 2, 1, 3, 2],
                 vec![2, 3, 1, 2, 3, 1, 2, 3, 1, 2],
                 vec![3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
                 vec![3, 2, 1, 3, 2, 1, 3, 2, 1, 3],
-            ])
+            ]))
         ),
         test_disconnected_graph: (
             vec![
@@ -224,7 +261,7 @@ mod tests {
                 vec![false, false, false],
             ],
             2,
-            Some(vec![
+            Ok(Some(vec![
                 vec![1, 1, 1],
                 vec![1, 1, 2],
                 vec![1, 2, 1],
@@ -233,7 +270,7 @@ mod tests {
                 vec![2, 1, 2],
                 vec![2, 2, 1],
                 vec![2, 2, 2],
-            ])
+            ]))
         ),
         test_no_valid_coloring: (
             vec![
@@ -242,7 +279,7 @@ mod tests {
                 vec![true, true, false],
             ],
             2,
-            None::<Vec<Vec<usize>>>
+            Ok(None::<Vec<Vec<usize>>>)
         ),
         test_complete_graph_with_3_vertices_and_3_colors: (
             vec![
@@ -251,14 +288,64 @@ mod tests {
                 vec![true, true, false],
             ],
             3,
-            Some(vec![
+            Ok(Some(vec![
                 vec![1, 2, 3],
                 vec![1, 3, 2],
                 vec![2, 1, 3],
                 vec![2, 3, 1],
                 vec![3, 1, 2],
                 vec![3, 2, 1],
-            ])
+            ]))
+        ),
+        test_directed_graph_with_3_colors: (
+            vec![
+                vec![false, true, false, true],
+                vec![false, false, true, false],
+                vec![true, false, false, true],
+                vec![true, false, false, false],
+            ],
+            3,
+            Ok(Some(vec![
+                vec![1, 2, 3, 2],
+                vec![1, 3, 2, 3],
+                vec![2, 1, 3, 1],
+                vec![2, 3, 1, 3],
+                vec![3, 1, 2, 1],
+                vec![3, 2, 1, 2],
+            ]))
+        ),
+        test_directed_graph_no_valid_coloring: (
+            vec![
+                vec![false, true, false, true],
+                vec![false, false, true, true],
+                vec![true, false, false, true],
+                vec![true, false, false, false],
+            ],
+            3,
+            Ok(None::<Vec<Vec<usize>>>)
+        ),
+        test_large_directed_graph_with_3_colors: (
+            vec![
+                vec![false, true, false, false, true, false, false, true, false, false],
+                vec![false, false, true, false, false, true, false, false, true, false],
+                vec![false, false, false, true, false, false, true, false, false, true],
+                vec![true, false, false, false, true, false, false, true, false, false],
+                vec![false, true, false, false, false, true, false, false, true, false],
+                vec![false, false, true, false, false, false, true, false, false, true],
+                vec![true, false, false, false, true, false, false, true, false, false],
+                vec![false, true, false, false, false, true, false, false, true, false],
+                vec![false, false, true, false, false, false, true, false, false, true],
+                vec![true, false, false, false, true, false, false, true, false, false],
+            ],
+            3,
+            Ok(Some(vec![
+                vec![1, 2, 3, 2, 3, 1, 2, 3, 1, 2],
+                vec![1, 3, 2, 3, 2, 1, 3, 2, 1, 3],
+                vec![2, 1, 3, 1, 3, 2, 1, 3, 2, 1],
+                vec![2, 3, 1, 3, 1, 2, 3, 1, 2, 3],
+                vec![3, 1, 2, 1, 2, 3, 1, 2, 3, 1],
+                vec![3, 2, 1, 2, 1, 3, 2, 1, 3, 2]
+            ]))
         ),
     }
 }
