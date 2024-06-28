@@ -6,9 +6,9 @@
 #[derive(Debug, PartialEq, Eq)]
 pub enum GraphColoringError {
     // Indicates that the adjacency matrix is empty
-    EmptyGraph,
+    EmptyAdjacencyMatrix,
     // Indicates that the adjacency matrix is not squared
-    NonSquareMatrix,
+    ImproperAdjacencyMatrix,
 }
 
 /// Generates all possible valid colorings of a graph.
@@ -54,12 +54,12 @@ impl GraphColoring {
 
         // Check if the adjacency matrix is empty
         if num_vertices == 0 {
-            return Err(GraphColoringError::EmptyGraph);
+            return Err(GraphColoringError::EmptyAdjacencyMatrix);
         }
 
         // Check if the adjacency matrix is square
         if adjacency_matrix.iter().any(|row| row.len() != num_vertices) {
-            return Err(GraphColoringError::NonSquareMatrix);
+            return Err(GraphColoringError::ImproperAdjacencyMatrix);
         }
 
         Ok(GraphColoring {
@@ -199,7 +199,7 @@ mod tests {
         test_empty_graph: (
             vec![],
             1,
-            Err(GraphColoringError::EmptyGraph)
+            Err(GraphColoringError::EmptyAdjacencyMatrix)
         ),
         test_non_square_matrix: (
             vec![
@@ -207,7 +207,7 @@ mod tests {
                 vec![true, false, true],
             ],
             3,
-            Err(GraphColoringError::NonSquareMatrix)
+            Err(GraphColoringError::ImproperAdjacencyMatrix)
         ),
         test_single_vertex_graph: (
             vec![
