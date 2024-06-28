@@ -32,7 +32,7 @@ pub fn generate_colorings(
 /// A struct representing a graph coloring problem.
 struct GraphColoring {
     // The adjacency matrix of the graph
-    adj_matrix: Vec<Vec<bool>>,
+    adjacency_matrix: Vec<Vec<bool>>,
     // The current colors assigned to each vertex
     vertex_colors: Vec<usize>,
     // Vector of all valid color assignments for the vertices found during the search
@@ -44,13 +44,13 @@ impl GraphColoring {
     ///
     /// # Arguments
     ///
-    /// * `adj_matrix` - A 2D vector representing the adjacency matrix of the graph.
+    /// * `adjacency_matrix` - A 2D vector representing the adjacency matrix of the graph.
     ///
     /// # Returns
     ///
     /// * A new instance of GraphColoring or a `GraphColoringError` if the matrix is empty or non-square.
-    fn new(adj_matrix: Vec<Vec<bool>>) -> Result<Self, GraphColoringError> {
-        let num_vertices = adj_matrix.len();
+    fn new(adjacency_matrix: Vec<Vec<bool>>) -> Result<Self, GraphColoringError> {
+        let num_vertices = adjacency_matrix.len();
 
         // Check if the adjacency matrix is empty
         if num_vertices == 0 {
@@ -58,12 +58,12 @@ impl GraphColoring {
         }
 
         // Check if the adjacency matrix is square
-        if adj_matrix.iter().any(|row| row.len() != num_vertices) {
+        if adjacency_matrix.iter().any(|row| row.len() != num_vertices) {
             return Err(GraphColoringError::NonSquareMatrix);
         }
 
         Ok(GraphColoring {
-            adj_matrix,
+            adjacency_matrix,
             vertex_colors: vec![0; num_vertices],
             solutions: Vec::new(),
         })
@@ -71,7 +71,7 @@ impl GraphColoring {
 
     /// Returns the number of vertices in the graph.
     fn num_vertices(&self) -> usize {
-        self.adj_matrix.len()
+        self.adjacency_matrix.len()
     }
 
     /// Checks if a given color can be assigned to a vertex without causing a conflict.
@@ -87,7 +87,7 @@ impl GraphColoring {
     fn is_color_valid(&self, vertex: usize, color: usize) -> bool {
         for neighbor in 0..self.num_vertices() {
             // Check outgoing edges from vertex and incoming edges to vertex
-            if (self.adj_matrix[vertex][neighbor] || self.adj_matrix[neighbor][vertex])
+            if (self.adjacency_matrix[vertex][neighbor] || self.adjacency_matrix[neighbor][vertex])
                 && self.vertex_colors[neighbor] == color
             {
                 return false;
