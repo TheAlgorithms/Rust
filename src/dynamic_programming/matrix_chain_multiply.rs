@@ -1,76 +1,75 @@
-// matrix_chain_multiply finds the minimum number of multiplications to perform a chain of matrix
-// multiplications. The input matrices represents the dimensions of matrices. For example [1,2,3,4]
-// represents matrices of dimension (1x2), (2x3), and (3x4)
-//
-// Lets say we are given [4, 3, 2, 1]. If we naively multiply left to right, we get:
-//
-// (4*3*2) + (4*2*1) = 20
-//
-// We can reduce the multiplications by reordering the matrix multiplications:
-//
-// (3*2*1) + (4*3*1) = 18
-//
-// We solve this problem with dynamic programming and tabulation. table[i][j] holds the optimal
-// number of multiplications in range matrices[i..j] (inclusive). Note this means that table[i][i]
-// and table[i][i+1] are always zero, since those represent a single vector/matrix and do not
-// require any multiplications.
-//
-// For any i, j, and k = i+1, i+2, ..., j-1:
-//
-// table[i][j] = min(table[i][k] + table[k][j] + matrices[i] * matrices[k] * matrices[j])
-//
-// table[i][k] holds the optimal solution to matrices[i..k]
-//
-// table[k][j] holds the optimal solution to matrices[k..j]
-//
-// matrices[i] * matrices[k] * matrices[j] computes the number of multiplications to join the two
-// matrices together.
-//
-// Runs in O(n^3) time and O(n^2) space.
+//! This module implements a dynamic programming solution to find the minimum
+//! number of multiplications needed to multiply a chain of matrices with given dimensions.
+//!
+//! The algorithm uses a dynamic programming approach with tabulation to calculate the minimum
+//! number of multiplications required for matrix chain multiplication.
+//!
+//! # Time Complexity
+//!
+//! The algorithm runs in O(n^3) time complexity and O(n^2) space complexity, where n is the
+//! number of matrices.
 
-pub fn matrix_chain_multiply(matrices: Vec<u32>) -> u32 {
-    let n = matrices.len();
-    if n <= 2 {
-        // No multiplications required.
+/// Calculates the minimum number of scalar multiplications required to multiply a chain
+/// of matrices with given dimensions.
+///
+/// # Arguments
+///
+/// * `dimensions`: A vector where each element represents the dimensions of consecutive matrices
+///   in the chain. For example, [1, 2, 3, 4] represents matrices of dimensions (1x2), (2x3), and (3x4).
+///
+/// # Returns
+///
+/// The minimum number of scalar multiplications needed to compute the product of the matrices
+/// in the optimal order.
+pub fn matrix_chain_multiply(dimensions: Vec<u32>) -> u32 {
+    if dimensions.len() <= 2 {
         return 0;
     }
-    let mut table = vec![vec![0; n]; n];
 
-    for length in 2..n {
-        for i in 0..n - length {
-            let j = i + length;
-            table[i][j] = u32::MAX;
-            for k in i + 1..j {
-                let multiplications =
-                    table[i][k] + table[k][j] + matrices[i] * matrices[k] * matrices[j];
-                if multiplications < table[i][j] {
-                    table[i][j] = multiplications;
-                }
-            }
-        }
-    }
+    let mut min_operations = vec![vec![0; dimensions.len()]; dimensions.len()];
 
-    table[0][n - 1]
+    (2..dimensions.len()).for_each(|chain_len| {
+        (0..dimensions.len() - chain_len).for_each(|start| {
+            let end = start + chain_len;
+            min_operations[start][end] = (start + 1..end)
+                .map(|split| {
+                    min_operations[start][split]
+                        + min_operations[split][end]
+                        + dimensions[start] * dimensions[split] * dimensions[end]
+                })
+                .min()
+                .unwrap_or(u32::MAX);
+        });
+    });
+
+    min_operations[0][dimensions.len() - 1]
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn basic() {
-        assert_eq!(matrix_chain_multiply(vec![1, 2, 3, 4]), 18);
-        assert_eq!(matrix_chain_multiply(vec![4, 3, 2, 1]), 18);
-        assert_eq!(matrix_chain_multiply(vec![40, 20, 30, 10, 30]), 26000);
-        assert_eq!(matrix_chain_multiply(vec![1, 2, 3, 4, 3]), 30);
-        assert_eq!(matrix_chain_multiply(vec![1, 2, 3, 4, 3]), 30);
-        assert_eq!(matrix_chain_multiply(vec![4, 10, 3, 12, 20, 7]), 1344);
+    macro_rules! test_cases {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (input, expected) = $test_case;
+                    assert_eq!(matrix_chain_multiply(input), expected);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn zero() {
-        assert_eq!(matrix_chain_multiply(vec![]), 0);
-        assert_eq!(matrix_chain_multiply(vec![10]), 0);
-        assert_eq!(matrix_chain_multiply(vec![10, 20]), 0);
+    test_cases! {
+        basic_chain_of_matrices: (vec![1, 2, 3, 4], 18),
+        matrices_in_reverse_order: (vec![4, 3, 2, 1], 18),
+        large_chain_of_matrices: (vec![40, 20, 30, 10, 30], 26000),
+        long_chain_of_matrices: (vec![1, 2, 3, 4, 3], 30),
+        complex_chain_of_matrices: (vec![4, 10, 3, 12, 20, 7], 1344),
+
+        empty_input: (vec![], 0),
+        single_matrix_input: (vec![10], 0),
+        two_matrix_input: (vec![10, 20], 0),
     }
 }
