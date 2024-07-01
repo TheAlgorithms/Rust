@@ -281,6 +281,28 @@ mod tests {
             2,
             Ok(None::<Vec<Vec<usize>>>)
         ),
+        test_more_colors_than_nodes: (
+            vec![
+                vec![true, true],
+                vec![true, true],
+            ],
+            3,
+            Ok(Some(vec![
+                vec![1, 2],
+                vec![1, 3],
+                vec![2, 1],
+                vec![2, 3],
+                vec![3, 1],
+                vec![3, 2],
+            ]))
+        ),
+        test_no_coloring_with_zero_colors: (
+            vec![
+                vec![true],
+            ],
+            0,
+            Ok(None::<Vec<Vec<usize>>>)
+        ),
         test_complete_graph_with_3_vertices_and_3_colors: (
             vec![
                 vec![false, true, true],
