@@ -64,7 +64,7 @@ impl GraphColoring {
 
         Ok(GraphColoring {
             adjacency_matrix,
-            vertex_colors: vec![0; num_vertices],
+            vertex_colors: vec![usize::MAX; num_vertices],
             solutions: Vec::new(),
         })
     }
@@ -108,11 +108,11 @@ impl GraphColoring {
             return;
         }
 
-        for color in 1..=num_colors {
+        for color in 0..num_colors {
             if self.is_color_valid(vertex, color) {
                 self.vertex_colors[vertex] = color;
                 self.find_colorings(vertex + 1, num_colors);
-                self.vertex_colors[vertex] = 0;
+                self.vertex_colors[vertex] = usize::MAX;
             }
         }
     }
@@ -166,12 +166,12 @@ mod tests {
             ],
             3,
             Ok(Some(vec![
-                vec![1, 2, 3, 2],
-                vec![1, 3, 2, 3],
-                vec![2, 1, 3, 1],
-                vec![2, 3, 1, 3],
-                vec![3, 1, 2, 1],
-                vec![3, 2, 1, 2],
+                vec![0, 1, 2, 1],
+                vec![0, 2, 1, 2],
+                vec![1, 0, 2, 0],
+                vec![1, 2, 0, 2],
+                vec![2, 0, 1, 0],
+                vec![2, 1, 0, 1],
             ]))
         ),
         test_linear_graph_with_2_colors: (
@@ -183,8 +183,8 @@ mod tests {
             ],
             2,
             Ok(Some(vec![
-                vec![1, 2, 1, 2],
-                vec![2, 1, 2, 1],
+                vec![0, 1, 0, 1],
+                vec![1, 0, 1, 0],
             ]))
         ),
         test_incomplete_graph_with_insufficient_colors: (
@@ -215,7 +215,7 @@ mod tests {
             ],
             1,
             Ok(Some(vec![
-                vec![1],
+                vec![0],
             ]))
         ),
         test_bipartite_graph_with_2_colors: (
@@ -227,8 +227,8 @@ mod tests {
             ],
             2,
             Ok(Some(vec![
-                vec![1, 2, 1, 2],
-                vec![2, 1, 2, 1],
+                vec![0, 1, 0, 1],
+                vec![1, 0, 1, 0],
             ]))
         ),
         test_large_graph_with_3_colors: (
@@ -246,12 +246,12 @@ mod tests {
             ],
             3,
             Ok(Some(vec![
-                vec![1, 2, 3, 1, 2, 3, 1, 2, 3, 1],
-                vec![1, 3, 2, 1, 3, 2, 1, 3, 2, 1],
-                vec![2, 1, 3, 2, 1, 3, 2, 1, 3, 2],
-                vec![2, 3, 1, 2, 3, 1, 2, 3, 1, 2],
-                vec![3, 1, 2, 3, 1, 2, 3, 1, 2, 3],
-                vec![3, 2, 1, 3, 2, 1, 3, 2, 1, 3],
+                vec![0, 1, 2, 0, 1, 2, 0, 1, 2, 0],
+                vec![0, 2, 1, 0, 2, 1, 0, 2, 1, 0],
+                vec![1, 0, 2, 1, 0, 2, 1, 0, 2, 1],
+                vec![1, 2, 0, 1, 2, 0, 1, 2, 0, 1],
+                vec![2, 0, 1, 2, 0, 1, 2, 0, 1, 2],
+                vec![2, 1, 0, 2, 1, 0, 2, 1, 0, 2],
             ]))
         ),
         test_disconnected_graph: (
@@ -262,14 +262,14 @@ mod tests {
             ],
             2,
             Ok(Some(vec![
+                vec![0, 0, 0],
+                vec![0, 0, 1],
+                vec![0, 1, 0],
+                vec![0, 1, 1],
+                vec![1, 0, 0],
+                vec![1, 0, 1],
+                vec![1, 1, 0],
                 vec![1, 1, 1],
-                vec![1, 1, 2],
-                vec![1, 2, 1],
-                vec![1, 2, 2],
-                vec![2, 1, 1],
-                vec![2, 1, 2],
-                vec![2, 2, 1],
-                vec![2, 2, 2],
             ]))
         ),
         test_no_valid_coloring: (
@@ -288,12 +288,12 @@ mod tests {
             ],
             3,
             Ok(Some(vec![
+                vec![0, 1],
+                vec![0, 2],
+                vec![1, 0],
                 vec![1, 2],
-                vec![1, 3],
+                vec![2, 0],
                 vec![2, 1],
-                vec![2, 3],
-                vec![3, 1],
-                vec![3, 2],
             ]))
         ),
         test_no_coloring_with_zero_colors: (
@@ -311,12 +311,12 @@ mod tests {
             ],
             3,
             Ok(Some(vec![
-                vec![1, 2, 3],
-                vec![1, 3, 2],
-                vec![2, 1, 3],
-                vec![2, 3, 1],
-                vec![3, 1, 2],
-                vec![3, 2, 1],
+                vec![0, 1, 2],
+                vec![0, 2, 1],
+                vec![1, 0, 2],
+                vec![1, 2, 0],
+                vec![2, 0, 1],
+                vec![2, 1, 0],
             ]))
         ),
         test_directed_graph_with_3_colors: (
@@ -328,12 +328,12 @@ mod tests {
             ],
             3,
             Ok(Some(vec![
-                vec![1, 2, 3, 2],
-                vec![1, 3, 2, 3],
-                vec![2, 1, 3, 1],
-                vec![2, 3, 1, 3],
-                vec![3, 1, 2, 1],
-                vec![3, 2, 1, 2],
+                vec![0, 1, 2, 1],
+                vec![0, 2, 1, 2],
+                vec![1, 0, 2, 0],
+                vec![1, 2, 0, 2],
+                vec![2, 0, 1, 0],
+                vec![2, 1, 0, 1],
             ]))
         ),
         test_directed_graph_no_valid_coloring: (
@@ -361,12 +361,12 @@ mod tests {
             ],
             3,
             Ok(Some(vec![
-                vec![1, 2, 3, 2, 3, 1, 2, 3, 1, 2],
-                vec![1, 3, 2, 3, 2, 1, 3, 2, 1, 3],
-                vec![2, 1, 3, 1, 3, 2, 1, 3, 2, 1],
-                vec![2, 3, 1, 3, 1, 2, 3, 1, 2, 3],
-                vec![3, 1, 2, 1, 2, 3, 1, 2, 3, 1],
-                vec![3, 2, 1, 2, 1, 3, 2, 1, 3, 2]
+                vec![0, 1, 2, 1, 2, 0, 1, 2, 0, 1],
+                vec![0, 2, 1, 2, 1, 0, 2, 1, 0, 2],
+                vec![1, 0, 2, 0, 2, 1, 0, 2, 1, 0],
+                vec![1, 2, 0, 2, 0, 1, 2, 0, 1, 2],
+                vec![2, 0, 1, 0, 1, 2, 0, 1, 2, 0],
+                vec![2, 1, 0, 1, 0, 2, 1, 0, 2, 1]
             ]))
         ),
     }
