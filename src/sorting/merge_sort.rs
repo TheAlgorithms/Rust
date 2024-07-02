@@ -1,54 +1,72 @@
+//! This module provides implementations of merge sort using both top-down and bottom-up approaches.
+
+/// Merges two sorted subarrays into a single sorted array.
+///
+/// The `merge` function takes a mutable slice `arr` and an index `mid` which splits the slice into
+/// two subarrays: `arr[..mid]` and `arr[mid..]`. These subarrays are then merged into a single
+/// sorted array.
+///
+/// # Parameters
+///
+/// - `arr`: The mutable slice to be sorted.
+/// - `mid`: The index at which to split the array into two subarrays.
 fn merge<T: Ord + Copy>(arr: &mut [T], mid: usize) {
-    // Create temporary vectors to support the merge.
     let left_half = arr[..mid].to_vec();
     let right_half = arr[mid..].to_vec();
 
-    // Indexes to track the positions while merging.
-    let mut l = 0;
-    let mut r = 0;
+    let mut left = 0;
+    let mut right = 0;
 
-    for v in arr {
-        // Choose either the smaller element, or from whichever vec is not exhausted.
-        if r == right_half.len() || (l < left_half.len() && left_half[l] < right_half[r]) {
-            *v = left_half[l];
-            l += 1;
+    for val in arr {
+        if right == right_half.len()
+            || (left < left_half.len() && left_half[left] < right_half[right])
+        {
+            *val = left_half[left];
+            left += 1;
         } else {
-            *v = right_half[r];
-            r += 1;
+            *val = right_half[right];
+            right += 1;
         }
     }
 }
 
+/// Sorts an array using the top-down merge sort algorithm.
+///
+/// The `top_down_merge_sort` function recursively divides the array into halves, sorts each half,
+/// and then merges the sorted halves. This function is a classic implementation of the merge sort
+/// algorithm that uses a divide-and-conquer approach.
+///
+/// # Parameters
+///
+/// - `arr`: The mutable slice to be sorted.
 pub fn top_down_merge_sort<T: Ord + Copy>(arr: &mut [T]) {
     if arr.len() > 1 {
         let mid = arr.len() / 2;
-        // Sort the left half recursively.
         top_down_merge_sort(&mut arr[..mid]);
-        // Sort the right half recursively.
         top_down_merge_sort(&mut arr[mid..]);
-        // Combine the two halves.
         merge(arr, mid);
     }
 }
 
-pub fn bottom_up_merge_sort<T: Copy + Ord>(a: &mut [T]) {
-    if a.len() > 1 {
-        let len: usize = a.len();
-        let mut sub_array_size: usize = 1;
-        while sub_array_size < len {
-            let mut start_index: usize = 0;
-            // still have more than one sub-arrays to merge
-            while len - start_index > sub_array_size {
-                let end_idx: usize = if start_index + 2 * sub_array_size > len {
-                    len
-                } else {
-                    start_index + 2 * sub_array_size
-                };
-                // merge a[start_index..start_index+sub_array_size] and a[start_index+sub_array_size..end_idx]
-                // NOTE: mid is a relative index number starting from `start_index`
-                merge(&mut a[start_index..end_idx], sub_array_size);
-                // update `start_index` to merge the next sub-arrays
-                start_index = end_idx;
+/// Sorts an array using the bottom-up merge sort algorithm.
+///
+/// The `bottom_up_merge_sort` function iteratively merges subarrays of increasing size until the
+/// entire array is sorted. This function is a non-recursive implementation of the merge sort algorithm
+/// that starts with small subarrays and progressively merges larger ones.
+///
+/// # Parameters
+///
+/// - `arr`: The mutable slice to be sorted.
+pub fn bottom_up_merge_sort<T: Copy + Ord>(arr: &mut [T]) {
+    if arr.len() > 1 {
+        let mut sub_array_size = 1;
+        while sub_array_size < arr.len() {
+            for start_index in (0..arr.len()).step_by(2 * sub_array_size) {
+                let mid = start_index + sub_array_size;
+                if mid < arr.len() {
+                    let end = usize::min(start_index + 2 * sub_array_size, arr.len());
+                    merge(&mut arr[start_index..end], mid - start_index);
+                }
             }
             sub_array_size *= 2;
         }
@@ -57,113 +75,50 @@ pub fn bottom_up_merge_sort<T: Copy + Ord>(a: &mut [T]) {
 
 #[cfg(test)]
 mod tests {
-    #[cfg(test)]
-    mod top_down_merge_sort {
-        use super::super::*;
-        use crate::sorting::have_same_elements;
-        use crate::sorting::is_sorted;
+    use crate::sorting::have_same_elements;
+    use crate::sorting::is_sorted;
 
-        #[test]
-        fn basic() {
-            let mut res = vec![10, 8, 4, 3, 1, 9, 2, 7, 5, 6];
-            let cloned = res.clone();
-            top_down_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
+    const MERGE_SORT_TEST_CASES_INT: &[&[usize]] = &[
+        &[],
+        &[10, 8, 4, 3, 1, 9, 2, 7, 5, 6],
+        &[1],
+        &[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        &[10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+    ];
 
-        #[test]
-        fn basic_string() {
-            let mut res = vec!["a", "bb", "d", "cc"];
-            let cloned = res.clone();
-            top_down_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
+    const MERGE_SORT_TEST_CASES_STR: &[&[&str]] = &[
+        &[""],
+        &["banana", "apple", "cherry", "date"],
+        &["apple"],
+        &["apple", "banana", "cherry", "date"],
+        &["date", "cherry", "banana", "apple"],
+    ];
 
-        #[test]
-        fn empty() {
-            let mut res = Vec::<u8>::new();
-            let cloned = res.clone();
-            top_down_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
+    macro_rules! merge_sort_tests {
+        ($function:ident) => {
+            mod $function {
+                use super::*;
 
-        #[test]
-        fn one_element() {
-            let mut res = vec![1];
-            let cloned = res.clone();
-            top_down_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
+                fn run_test_case<T: Ord + Copy + std::hash::Hash>(input: &[T]) {
+                    let mut arr = input.to_vec();
+                    super::super::$function(&mut arr);
+                    assert!(is_sorted(&arr) && have_same_elements(&arr, &input.to_vec()));
+                }
 
-        #[test]
-        fn pre_sorted() {
-            let mut res = vec![1, 2, 3, 4];
-            let cloned = res.clone();
-            top_down_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
-
-        #[test]
-        fn reverse_sorted() {
-            let mut res = vec![4, 3, 2, 1];
-            let cloned = res.clone();
-            top_down_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
+                #[test]
+                fn test_merge_sort() {
+                    for (int_input, str_input) in MERGE_SORT_TEST_CASES_INT
+                        .iter()
+                        .zip(MERGE_SORT_TEST_CASES_STR.iter())
+                    {
+                        run_test_case(*int_input);
+                        run_test_case(*str_input);
+                    }
+                }
+            }
+        };
     }
 
-    #[cfg(test)]
-    mod bottom_up_merge_sort {
-        use super::super::*;
-        use crate::sorting::have_same_elements;
-        use crate::sorting::is_sorted;
-
-        #[test]
-        fn basic() {
-            let mut res = vec![10, 8, 4, 3, 1, 9, 2, 7, 5, 6];
-            let cloned = res.clone();
-            bottom_up_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
-
-        #[test]
-        fn basic_string() {
-            let mut res = vec!["a", "bb", "d", "cc"];
-            let cloned = res.clone();
-            bottom_up_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
-
-        #[test]
-        fn empty() {
-            let mut res = Vec::<u8>::new();
-            let cloned = res.clone();
-            bottom_up_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
-
-        #[test]
-        fn one_element() {
-            let mut res = vec![1];
-            let cloned = res.clone();
-            bottom_up_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
-
-        #[test]
-        fn pre_sorted() {
-            let mut res = vec![1, 2, 3, 4];
-            let cloned = res.clone();
-            bottom_up_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
-
-        #[test]
-        fn reverse_sorted() {
-            let mut res = vec![4, 3, 2, 1];
-            let cloned = res.clone();
-            bottom_up_merge_sort(&mut res);
-            assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
-        }
-    }
+    merge_sort_tests!(top_down_merge_sort);
+    merge_sort_tests!(bottom_up_merge_sort);
 }
