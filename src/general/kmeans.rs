@@ -4,7 +4,6 @@ macro_rules! impl_kmeans {
     ($kind: ty, $modname: ident) => {
         // Since we can't overload methods in rust, we have to use namespacing
         pub mod $modname {
-            use std::$modname::INFINITY;
 
             /// computes sum of squared deviation between two identically sized vectors
             /// `x`, and `y`.
@@ -22,7 +21,7 @@ macro_rules! impl_kmeans {
                         // Find the argmin by folding using a tuple containing the argmin
                         // and the minimum distance.
                         let (argmin, _) = centroids.iter().enumerate().fold(
-                            (0_usize, INFINITY),
+                            (0_usize, <$kind>::INFINITY),
                             |(min_ix, min_dist), (ix, ci)| {
                                 let dist = distance(xi, ci);
                                 if dist < min_dist {
