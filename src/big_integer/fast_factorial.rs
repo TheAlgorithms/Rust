@@ -39,8 +39,7 @@ pub fn fast_factorial(n: usize) -> BigUint {
     let max_bits = p_indices.get(&2).unwrap().next_power_of_two().ilog2() + 1;
 
     // Create a Vec of 1's
-    let mut a = Vec::with_capacity(max_bits as usize);
-    a.resize(max_bits as usize, BigUint::one());
+    let mut a = vec![BigUint::one(); max_bits as usize];
 
     // For every prime p, multiply a[i] by p if the ith bit of p's index is 1
     for (p, i) in p_indices {
