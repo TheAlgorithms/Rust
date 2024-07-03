@@ -30,12 +30,11 @@ pub fn fast_factorial(n: usize) -> BigUint {
     // get list of primes that will be factors of n!
     let primes = sieve_of_eratosthenes(n);
 
-    let mut p_indices = BTreeMap::new();
-
     // Map the primes with their index
-    primes.into_iter().for_each(|p| {
-        p_indices.insert(p, index(p, n));
-    });
+    let p_indices = primes
+        .into_iter()
+        .map(|p| (p, index(p, n)))
+        .collect::<BTreeMap<_, _>>();
 
     let max_bits = p_indices.get(&2).unwrap().next_power_of_two().ilog2() + 1;
 
