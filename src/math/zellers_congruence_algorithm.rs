@@ -2,12 +2,11 @@
 
 pub fn zellers_congruence_algorithm(date: i32, month: i32, year: i32, as_string: bool) -> String {
     let q = date;
-    let mut m = month;
-    let mut y = year;
-    if month < 3 {
-        m = month + 12;
-        y = year - 1;
-    }
+    let (m, y) = if month < 3 {
+        (month + 12, year - 1)
+    } else {
+        (month, year)
+    };
     let day: i32 =
         (q + (26 * (m + 1) / 10) + (y % 100) + ((y % 100) / 4) + ((y / 100) / 4) + (5 * (y / 100)))
             % 7;

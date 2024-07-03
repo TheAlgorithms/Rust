@@ -96,11 +96,7 @@ fn _decode_token(string: &str) -> String {
 }
 
 fn _decode_part(string: &str) -> String {
-    string
-        .split(' ')
-        .map(_decode_token)
-        .collect::<Vec<String>>()
-        .join("")
+    string.split(' ').map(_decode_token).collect::<String>()
 }
 
 /// Convert morse code to ascii.
@@ -172,12 +168,7 @@ mod tests {
     #[test]
     fn decrypt_valid_character_set_invalid_morsecode() {
         let expected = format!(
-            "{}{}{}{} {}",
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
-            _UNKNOWN_MORSE_CHARACTER,
+            "{_UNKNOWN_MORSE_CHARACTER}{_UNKNOWN_MORSE_CHARACTER}{_UNKNOWN_MORSE_CHARACTER}{_UNKNOWN_MORSE_CHARACTER} {_UNKNOWN_MORSE_CHARACTER}",
         );
 
         let encypted = ".-.-.--.-.-. --------. ..---.-.-. .-.-.--.-.-. / .-.-.--.-.-.".to_string();

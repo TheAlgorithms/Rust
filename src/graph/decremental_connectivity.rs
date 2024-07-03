@@ -43,10 +43,7 @@ impl DecrementalConnectivity {
 
     pub fn delete(&mut self, u: usize, v: usize) {
         if !self.adjacent[u].contains(&v) || self.component[u] != self.component[v] {
-            panic!(
-                "delete called on the edge ({}, {}) which doesn't exist",
-                u, v
-            );
+            panic!("delete called on the edge ({u}, {v}) which doesn't exist");
         }
 
         self.adjacent[u].remove(&v);
@@ -148,7 +145,7 @@ fn has_cycle(
     visited[node] = true;
     for &neighbour in adjacent[node].iter() {
         if !adjacent[neighbour].contains(&node) {
-            panic!("the given graph does not strictly contain bidirectional edges\n {} -> {} exists, but the other direction does not", node, neighbour);
+            panic!("the given graph does not strictly contain bidirectional edges\n {node} -> {neighbour} exists, but the other direction does not");
         }
         if !visited[neighbour] {
             if has_cycle(adjacent, visited, neighbour, node) {
