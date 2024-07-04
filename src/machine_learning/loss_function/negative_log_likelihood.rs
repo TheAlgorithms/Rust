@@ -14,6 +14,9 @@
 // elements.
 //
 // https://towardsdatascience.com/cross-entropy-negative-log-likelihood-and-all-that-jazz-47a95bd2e81
+// http://neuralnetworksanddeeplearning.com/chap3.html
+// Derivation of the formula:
+// https://medium.com/@bhardwajprakarsh/negative-log-likelihood-loss-why-do-we-use-it-for-binary-classification-7625f9e3c944
 
 pub fn neg_log_likelihood(
     y_true: &[f64],
