@@ -10,7 +10,7 @@ num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
 rand = "0.8"
 rand_chacha = "0.3"
-nalgebra = "0.32.3"
+nalgebra = "0.33.0"
 
 [dev-dependencies]
 quickcheck = "1.0"
@@ -37,14 +37,12 @@ default_trait_access = { level = "allow", priority = 1 }
 doc_markdown = { level = "allow", priority = 1 }
 enum_glob_use = { level = "allow", priority = 1 }
 explicit_deref_methods = { level = "allow", priority = 1 }
-explicit_into_iter_loop = { level = "allow", priority = 1 }
 explicit_iter_loop = { level = "allow", priority = 1 }
 float_cmp = { level = "allow", priority = 1 }
 from_iter_instead_of_collect = { level = "allow", priority = 1 }
 if_not_else = { level = "allow", priority = 1 }
 implicit_clone = { level = "allow", priority = 1 }
 implicit_hasher = { level = "allow", priority = 1 }
-inefficient_to_string = { level = "allow", priority = 1 }
 items_after_statements = { level = "allow", priority = 1 }
 iter_without_into_iter = { level = "allow", priority = 1 }
 linkedlist = { level = "allow", priority = 1 }
@@ -76,7 +74,6 @@ stable_sort_primitive = { level = "allow", priority = 1 }
 too_many_lines = { level = "allow", priority = 1 }
 trivially_copy_pass_by_ref = { level = "allow", priority = 1 }
 unnecessary_box_returns = { level = "allow", priority = 1 }
-unnecessary_join = { level = "allow", priority = 1 }
 unnecessary_wraps = { level = "allow", priority = 1 }
 unnested_or_patterns = { level = "allow", priority = 1 }
 unreadable_literal = { level = "allow", priority = 1 }
@@ -105,6 +102,7 @@ impl_trait_in_params = { level = "allow", priority = 1 }
 implicit_return = { level = "allow", priority = 1 }
 indexing_slicing = { level = "allow", priority = 1 }
 integer_division = { level = "allow", priority = 1 }
+integer_division_remainder_used = { level = "allow", priority = 1 }
 iter_over_hash_type = { level = "allow", priority = 1 }
 little_endian_bytes = { level = "allow", priority = 1 }
 map_err_ignore = { level = "allow", priority = 1 }
@@ -158,11 +156,9 @@ fallible_impl_from = { level = "allow", priority = 1 }
 imprecise_flops = { level = "allow", priority = 1 }
 iter_on_single_items = { level = "allow", priority = 1 }
 missing_const_for_fn = { level = "allow", priority = 1 }
-needless_collect = { level = "allow", priority = 1 }
 nonstandard_macro_braces = { level = "allow", priority = 1 }
 option_if_let_else = { level = "allow", priority = 1 }
 redundant_clone = { level = "allow", priority = 1 }
-redundant_pub_crate = { level = "allow", priority = 1 }
 suboptimal_flops = { level = "allow", priority = 1 }
 suspicious_operation_groupings = { level = "allow", priority = 1 }
 use_self = { level = "allow", priority = 1 }

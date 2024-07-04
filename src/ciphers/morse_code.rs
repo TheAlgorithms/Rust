@@ -10,7 +10,7 @@ pub fn encode(message: &str) -> String {
         .chars()
         .map(|char| char.to_uppercase().to_string())
         .map(|letter| dictionary.get(letter.as_str()))
-        .map(|option| option.unwrap_or(&UNKNOWN_CHARACTER).to_string())
+        .map(|option| (*option.unwrap_or(&UNKNOWN_CHARACTER)).to_string())
         .collect::<Vec<String>>()
         .join(" ")
 }
@@ -89,18 +89,14 @@ fn _check_all_parts(string: &str) -> bool {
 }
 
 fn _decode_token(string: &str) -> String {
-    _morse_to_alphanumeric_dictionary()
+    (*_morse_to_alphanumeric_dictionary()
         .get(string)
-        .unwrap_or(&_UNKNOWN_MORSE_CHARACTER)
-        .to_string()
+        .unwrap_or(&_UNKNOWN_MORSE_CHARACTER))
+    .to_string()
 }
 
 fn _decode_part(string: &str) -> String {
-    string
-        .split(' ')
-        .map(_decode_token)
-        .collect::<Vec<String>>()
-        .join("")
+    string.split(' ').map(_decode_token).collect::<String>()
 }
 
 /// Convert morse code to ascii.

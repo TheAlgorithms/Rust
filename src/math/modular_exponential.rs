@@ -8,16 +8,16 @@
 ///
 /// # Returns
 ///
-/// A tuple (gcd, x) such that:
+/// A tuple (gcd, x1, x2) such that:
 /// gcd - the greatest common divisor of a and m.
-/// x - the coefficient such that `a * x` is equivalent to `gcd` modulo `m`.
-pub fn gcd_extended(a: i64, m: i64) -> (i64, i64) {
+/// x1, x2 - the coefficients such that `a * x1 + m * x2` is equivalent to `gcd` modulo `m`.
+pub fn gcd_extended(a: i64, m: i64) -> (i64, i64, i64) {
     if a == 0 {
-        (m, 0)
+        (m, 0, 1)
     } else {
-        let (gcd, x1) = gcd_extended(m % a, a);
-        let x = x1 - (m / a) * x1;
-        (gcd, x)
+        let (gcd, x1, x2) = gcd_extended(m % a, a);
+        let x = x2 - (m / a) * x1;
+        (gcd, x, x1)
     }
 }
 
@@ -36,7 +36,7 @@ pub fn gcd_extended(a: i64, m: i64) -> (i64, i64) {
 ///
 /// Panics if the inverse does not exist (i.e., `b` and `m` are not coprime).
 pub fn mod_inverse(b: i64, m: i64) -> i64 {
-    let (gcd, x) = gcd_extended(b, m);
+    let (gcd, x, _) = gcd_extended(b, m);
     if gcd != 1 {
         panic!("Inverse does not exist");
     } else {
@@ -97,6 +97,15 @@ mod tests {
     }
 
     #[test]
+    fn test_modular_inverse() {
+        assert_eq!(mod_inverse(7, 13), 2); // Inverse of 7 mod 13 is 2
+        assert_eq!(mod_inverse(5, 31), 25); // Inverse of 5 mod 31 is 25
+        assert_eq!(mod_inverse(10, 11), 10); // Inverse of 10 mod 1 is 10
+        assert_eq!(mod_inverse(123, 67), 6); // Inverse of 123 mod 67 is 6
+        assert_eq!(mod_inverse(9, 17), 2); // Inverse of 9 mod 17 is 2
+    }
+
+    #[test]
     fn test_modular_exponential_negative() {
         assert_eq!(
             modular_exponential(7, -2, 13),
@@ -111,8 +120,8 @@ mod tests {
             mod_inverse(10, 11).pow(8) % 11
         ); // Inverse of 10 mod 11 is 10, 10^8 % 11 = 10
         assert_eq!(
-            modular_exponential(123, -45, 67),
-            mod_inverse(123, 67).pow(45) % 67
+            modular_exponential(123, -5, 67),
+            mod_inverse(123, 67).pow(5) % 67
         ); // Inverse of 123 mod 67 is calculated via the function
     }
 
