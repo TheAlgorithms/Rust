@@ -43,7 +43,6 @@ from_iter_instead_of_collect = { level = "allow", priority = 1 }
 if_not_else = { level = "allow", priority = 1 }
 implicit_clone = { level = "allow", priority = 1 }
 implicit_hasher = { level = "allow", priority = 1 }
-inefficient_to_string = { level = "allow", priority = 1 }
 items_after_statements = { level = "allow", priority = 1 }
 iter_without_into_iter = { level = "allow", priority = 1 }
 linkedlist = { level = "allow", priority = 1 }
