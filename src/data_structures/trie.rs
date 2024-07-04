@@ -32,7 +32,7 @@ where
         Key: Eq + Hash,
     {
         let mut node = &mut self.root;
-        for c in key.into_iter() {
+        for c in key {
             node = node.children.entry(c).or_default();
         }
         node.value = Some(value);
@@ -43,7 +43,7 @@ where
         Key: Eq + Hash,
     {
         let mut node = &self.root;
-        for c in key.into_iter() {
+        for c in key {
             if node.children.contains_key(&c) {
                 node = node.children.get(&c).unwrap()
             } else {
