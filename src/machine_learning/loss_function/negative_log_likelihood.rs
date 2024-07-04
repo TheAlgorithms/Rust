@@ -20,12 +20,12 @@ pub fn neg_log_likelihood(
     y_pred: &[f64],
 ) -> Result<f64, NegativeLogLikelihoodLossError> {
     // Checks if the inputs are empty
-    if y_pred.is_empty() || y_true.is_empty() {
-        return Err(NegativeLogLikelihoodLossError::EmptyInputs);
-    }
-    // Checks if the length of the actual and predicted values are equal
     if y_true.len() != y_pred.len() {
         return Err(NegativeLogLikelihoodLossError::InputsHaveDifferentLength);
+    }
+    // Checks if the length of the actual and predicted values are equal
+    if y_pred.is_empty() {
+        return Err(NegativeLogLikelihoodLossError::EmptyInputs);
     }
     // Checks values are between 0 and 1
     if !are_all_values_in_range(y_true) || !are_all_values_in_range(y_pred) {
