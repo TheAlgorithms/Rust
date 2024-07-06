@@ -30,19 +30,19 @@ impl<T: Ord + Clone> BinarySearchTree<T> {
     }
 
     fn insert(&mut self, value: T) {
-        self.root = Self::insert_recursive(self.root.take(), value);
+        self.root = Some(Self::insert_recursive(self.root.take(), value));
     }
 
-    fn insert_recursive(root: Option<Box<TreeNode<T>>>, value: T) -> Option<Box<TreeNode<T>>> {
+    fn insert_recursive(root: Option<Box<TreeNode<T>>>, value: T) -> Box<TreeNode<T>> {
         match root {
-            None => Some(Box::new(TreeNode::new(value))),
+            None => Box::new(TreeNode::new(value)),
             Some(mut node) => {
                 if value <= node.value {
-                    node.left = Self::insert_recursive(node.left.take(), value);
+                    node.left = Some(Self::insert_recursive(node.left.take(), value));
                 } else {
-                    node.right = Self::insert_recursive(node.right.take(), value);
+                    node.right = Some(Self::insert_recursive(node.right.take(), value));
                 }
-                Some(node)
+                node
             }
         }
     }
