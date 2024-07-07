@@ -11,7 +11,7 @@ mod tests {
     use quickcheck::{Arbitrary, Gen};
     use std::collections::HashMap;
 
-    pub(crate) fn assert_permutations(original: &[i32], permutations: &[Vec<i32>]) {
+    pub fn assert_permutations(original: &[i32], permutations: &[Vec<i32>]) {
         if original.is_empty() {
             assert_eq!(vec![vec![] as Vec<i32>], permutations);
             return;
@@ -23,7 +23,7 @@ mod tests {
         }
     }
 
-    pub(crate) fn assert_valid_permutation(original: &[i32], permuted: &[i32]) {
+    pub fn assert_valid_permutation(original: &[i32], permuted: &[i32]) {
         assert_eq!(original.len(), permuted.len());
         let mut indices = HashMap::with_capacity(original.len());
         for value in original {
@@ -31,10 +31,7 @@ mod tests {
         }
         for permut_value in permuted {
             let count = indices.get_mut(permut_value).unwrap_or_else(|| {
-                panic!(
-                    "Value {} appears too many times in permutation",
-                    permut_value,
-                )
+                panic!("Value {permut_value} appears too many times in permutation")
             });
             *count -= 1; // use this value
             if *count == 0 {
@@ -81,7 +78,7 @@ mod tests {
     /// A Data Structure for testing permutations
     /// Holds a Vec<i32> with just a few items, so that it's not too long to compute permutations
     #[derive(Debug, Clone)]
-    pub(crate) struct NotTooBigVec {
+    pub struct NotTooBigVec {
         pub(crate) inner: Vec<i32>, // opaque type alias so that we can implement Arbitrary
     }
 

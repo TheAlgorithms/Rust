@@ -3,7 +3,7 @@ mod b_tree;
 mod binary_search_tree;
 mod fenwick_tree;
 mod floyds_algorithm;
-mod graph;
+pub mod graph;
 mod hash_table;
 mod heap;
 mod infix_to_postfix;

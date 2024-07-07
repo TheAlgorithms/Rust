@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
       - name: Setup Git Specs
         run: |
           git config --global user.name "$GITHUB_ACTOR"

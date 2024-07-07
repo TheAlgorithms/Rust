@@ -3,11 +3,17 @@
 ## Src
   * Backtracking
     * [All Combination Of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
+    * [Graph Coloring](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/graph_coloring.rs)
+    * [Hamiltonian Cycle](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/hamiltonian_cycle.rs)
+    * [Knight Tour](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/knight_tour.rs)
     * [N Queens](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/n_queens.rs)
+    * [Parentheses Generator](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/parentheses_generator.rs)
     * [Permutations](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/permutations.rs)
+    * [Rat In Maze](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/rat_in_maze.rs)
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
     * [Fast Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/fast_factorial.rs)
+    * [Multiply](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/multiply.rs)
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Bit Manipulation
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
@@ -92,6 +98,7 @@
     * [Rod Cutting](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/rod_cutting.rs)
     * [Snail](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/snail.rs)
     * [Subset Generation](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_generation.rs)
+    * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
@@ -113,6 +120,7 @@
     * [Jarvis Scan](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/jarvis_scan.rs)
     * [Point](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/point.rs)
     * [Polygon Points](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/polygon_points.rs)
+    * [Ramer Douglas Peucker](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/ramer_douglas_peucker.rs)
     * [Segment](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/segment.rs)
   * Graph
     * [Astar](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/astar.rs)
@@ -120,8 +128,10 @@
     * [Bipartite Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/bipartite_matching.rs)
     * [Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/breadth_first_search.rs)
     * [Centroid Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/centroid_decomposition.rs)
+    * [Decremental Connectivity](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/decremental_connectivity.rs)
     * [Depth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/depth_first_search.rs)
     * [Depth First Search Tic Tac Toe](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/depth_first_search_tic_tac_toe.rs)
+    * [Detect Cycle](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/detect_cycle.rs)
     * [Dijkstra](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dijkstra.rs)
     * [Dinic Maxflow](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dinic_maxflow.rs)
     * [Disjoint Set Union](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/disjoint_set_union.rs)
@@ -147,6 +157,7 @@
     * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * Loss Function
       * [Hinge Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/hinge_loss.rs)
+      * [Huber Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/huber_loss.rs)
       * [Kl Divergence Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/kl_divergence_loss.rs)
       * [Mean Absolute Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mean_absolute_error_loss.rs)
       * [Mean Squared Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mean_squared_error_loss.rs)
@@ -301,6 +312,7 @@
     * [Burrows Wheeler Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/string/burrows_wheeler_transform.rs)
     * [Duval Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/string/duval_algorithm.rs)
     * [Hamming Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/hamming_distance.rs)
+    * [Isomorphism](https://github.com/TheAlgorithms/Rust/blob/master/src/string/isomorphism.rs)
     * [Jaro Winkler Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/jaro_winkler_distance.rs)
     * [Knuth Morris Pratt](https://github.com/TheAlgorithms/Rust/blob/master/src/string/knuth_morris_pratt.rs)
     * [Levenshtein Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/string/levenshtein_distance.rs)
@@ -311,6 +323,7 @@
     * [Rabin Karp](https://github.com/TheAlgorithms/Rust/blob/master/src/string/rabin_karp.rs)
     * [Reverse](https://github.com/TheAlgorithms/Rust/blob/master/src/string/reverse.rs)
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/string/run_length_encoding.rs)
+    * [Shortest Palindrome](https://github.com/TheAlgorithms/Rust/blob/master/src/string/shortest_palindrome.rs)
     * [Suffix Array](https://github.com/TheAlgorithms/Rust/blob/master/src/string/suffix_array.rs)
     * [Suffix Array Manber Myers](https://github.com/TheAlgorithms/Rust/blob/master/src/string/suffix_array_manber_myers.rs)
     * [Suffix Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/string/suffix_tree.rs)
