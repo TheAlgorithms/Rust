@@ -29,7 +29,6 @@ fn search(trie: &Trie<char, bool>, s: &str, start: usize, memo: &mut Vec<Option<
         return res;
     }
 
-    let _node = trie;
     for end in start + 1..=s.len() {
         // Using trie.get to check if a substring is a word
         if trie.get(s[start..end].chars()).is_some() && search(trie, s, end, memo) {
