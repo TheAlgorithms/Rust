@@ -43,14 +43,6 @@ pub struct KnapsackSolution {
 ///
 /// where `num_items` is the number of items and `capacity` is the knapsack capacity.
 pub fn knapsack(capacity: usize, items: Vec<Item>) -> KnapsackSolution {
-    if items.is_empty() {
-        return KnapsackSolution {
-            optimal_profit: 0,
-            total_weight: 0,
-            item_indices: vec![],
-        };
-    }
-
     let num_items = items.len();
     let item_weights: Vec<usize> = items.iter().map(|item| item.weight).collect();
     let item_values: Vec<usize> = items.iter().map(|item| item.value).collect();
