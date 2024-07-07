@@ -74,7 +74,6 @@ stable_sort_primitive = { level = "allow", priority = 1 }
 too_many_lines = { level = "allow", priority = 1 }
 trivially_copy_pass_by_ref = { level = "allow", priority = 1 }
 unnecessary_box_returns = { level = "allow", priority = 1 }
-unnecessary_wraps = { level = "allow", priority = 1 }
 unnested_or_patterns = { level = "allow", priority = 1 }
 unreadable_literal = { level = "allow", priority = 1 }
 unused_self = { level = "allow", priority = 1 }
