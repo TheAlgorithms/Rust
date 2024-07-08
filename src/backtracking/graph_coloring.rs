@@ -26,7 +26,7 @@ pub fn generate_colorings(
     adjacency_matrix: Vec<Vec<bool>>,
     num_colors: usize,
 ) -> Result<Option<Vec<Vec<usize>>>, GraphColoringError> {
-    GraphColoring::new(adjacency_matrix)?.find_solutions(num_colors)
+    Ok(GraphColoring::new(adjacency_matrix)?.find_solutions(num_colors))
 }
 
 /// A struct representing a graph coloring problem.
@@ -126,15 +126,12 @@ impl GraphColoring {
     /// # Returns
     ///
     /// * A `Result` containing an `Option` with a vector of solutions or a `GraphColoringError`.
-    fn find_solutions(
-        &mut self,
-        num_colors: usize,
-    ) -> Result<Option<Vec<Vec<usize>>>, GraphColoringError> {
+    fn find_solutions(&mut self, num_colors: usize) -> Option<Vec<Vec<usize>>> {
         self.find_colorings(0, num_colors);
         if self.solutions.is_empty() {
-            Ok(None)
+            None
         } else {
-            Ok(Some(std::mem::take(&mut self.solutions)))
+            Some(std::mem::take(&mut self.solutions))
         }
     }
 }
