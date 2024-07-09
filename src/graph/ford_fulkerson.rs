@@ -17,7 +17,7 @@ pub enum FordFulkersonError {
 }
 
 /// Performs a Breadth-First Search (BFS) on the residual graph to find an augmenting path
-/// from the source vertex `source` to thie sink vertex `sink`.
+/// from the source vertex `source` to the sink vertex `sink`.
 ///
 /// # Arguments
 ///
