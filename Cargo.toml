@@ -43,7 +43,6 @@ from_iter_instead_of_collect = { level = "allow", priority = 1 }
 if_not_else = { level = "allow", priority = 1 }
 implicit_clone = { level = "allow", priority = 1 }
 implicit_hasher = { level = "allow", priority = 1 }
-inefficient_to_string = { level = "allow", priority = 1 }
 items_after_statements = { level = "allow", priority = 1 }
 iter_without_into_iter = { level = "allow", priority = 1 }
 linkedlist = { level = "allow", priority = 1 }
@@ -62,7 +61,6 @@ module_name_repetitions = { level = "allow", priority = 1 }
 must_use_candidate = { level = "allow", priority = 1 }
 needless_for_each = { level = "allow", priority = 1 }
 needless_pass_by_value = { level = "allow", priority = 1 }
-no_effect_underscore_binding = { level = "allow", priority = 1 }
 range_plus_one = { level = "allow", priority = 1 }
 redundant_closure_for_method_calls = { level = "allow", priority = 1 }
 redundant_else = { level = "allow", priority = 1 }
@@ -75,7 +73,6 @@ stable_sort_primitive = { level = "allow", priority = 1 }
 too_many_lines = { level = "allow", priority = 1 }
 trivially_copy_pass_by_ref = { level = "allow", priority = 1 }
 unnecessary_box_returns = { level = "allow", priority = 1 }
-unnecessary_wraps = { level = "allow", priority = 1 }
 unnested_or_patterns = { level = "allow", priority = 1 }
 unreadable_literal = { level = "allow", priority = 1 }
 unused_self = { level = "allow", priority = 1 }
