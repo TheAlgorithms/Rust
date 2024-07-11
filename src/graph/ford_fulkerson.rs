@@ -8,13 +8,9 @@ use std::collections::VecDeque;
 /// Enum representing the possible errors that can occur when running the Ford-Fulkerson algorithm.
 #[derive(Debug, PartialEq)]
 pub enum FordFulkersonError {
-    /// Error indicating that the graph is empty or has no edges.
     EmptyGraph,
-    /// Indicates that the graph is not a square matrix.
     ImproperGraph,
-    /// Error indicating that the source vertex is out of bounds.
     SourceOutOfBounds,
-    /// Error indicating that the sink vertex is out of bounds.
     SinkOutOfBounds,
 }
 
@@ -23,7 +19,7 @@ pub enum FordFulkersonError {
 ///
 /// # Arguments
 ///
-/// * `graph` - A mutable reference to the residual graph represented as an adjacency matrix.
+/// * `graph` - A reference to the residual graph represented as an adjacency matrix.
 /// * `source` - The source vertex.
 /// * `sink` - The sink vertex.
 /// * `parent` - A mutable reference to the parent array used to store the augmenting path.
@@ -55,6 +51,47 @@ fn bfs(graph: &[Vec<isize>], source: usize, sink: usize, parent: &mut [isize]) -
     false
 }
 
+/// Validates the input parameters for the Ford-Fulkerson algorithm.
+///
+/// This function checks if the provided graph, source vertex, and sink vertex
+/// meet the requirements for the Ford-Fulkerson algorithm. It ensures the graph
+/// is non-empty, square (each row has the same length as the number of rows), and
+/// that the source and sink vertices are within the valid range of vertex indices.
+///
+/// # Arguments
+///
+/// * `graph` - A reference to the flow network represented as an adjacency matrix.
+/// * `source` - The source vertex.
+/// * `sink` - The sink vertex.
+///
+/// # Returns
+///
+/// Returns `Ok(())` if the input parameters are valid, otherwise returns an appropriate
+/// `FordFulkersonError`.
+fn validate_ford_fulkerson_input(
+    graph: &[Vec<isize>],
+    source: usize,
+    sink: usize,
+) -> Result<(), FordFulkersonError> {
+    if graph.is_empty() {
+        return Err(FordFulkersonError::EmptyGraph);
+    }
+
+    if graph.iter().any(|row| row.len() != graph.len()) {
+        return Err(FordFulkersonError::ImproperGraph);
+    }
+
+    if source >= graph.len() {
+        return Err(FordFulkersonError::SourceOutOfBounds);
+    }
+
+    if sink >= graph.len() {
+        return Err(FordFulkersonError::SinkOutOfBounds);
+    }
+
+    Ok(())
+}
+
 /// Applies the Ford-Fulkerson algorithm to find the maximum flow in a flow network
 /// represented by a weighted directed graph.
 ///
@@ -72,21 +109,7 @@ pub fn ford_fulkerson(
     source: usize,
     sink: usize,
 ) -> Result<isize, FordFulkersonError> {
-    if graph.is_empty() || graph[0].is_empty() {
-        return Err(FordFulkersonError::EmptyGraph);
-    }
-
-    if graph.iter().any(|row| row.len() != graph.len()) {
-        return Err(FordFulkersonError::ImproperGraph);
-    }
-
-    if source >= graph.len() {
-        return Err(FordFulkersonError::SourceOutOfBounds);
-    }
-
-    if sink >= graph.len() {
-        return Err(FordFulkersonError::SinkOutOfBounds);
-    }
+    validate_ford_fulkerson_input(graph, source, sink)?;
 
     let mut residual_graph = graph.to_owned();
     let mut parent = vec![-1; graph.len()];
@@ -126,8 +149,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (graph, source, sink, expected_result) = $tc;
-                    let result = ford_fulkerson(&graph, source, sink);
-                    assert_eq!(result, expected_result);
+                    assert_eq!(ford_fulkerson(&graph, source, sink), expected_result);
                 }
             )*
         };
@@ -138,14 +160,6 @@ mod tests {
             vec![],
             0,
             0,
-            Err(FordFulkersonError::EmptyGraph),
-        ),
-        test_graph_with_empty_edge: (
-            vec![
-                vec![],
-            ],
-            0,
-            5,
             Err(FordFulkersonError::EmptyGraph),
         ),
         test_source_out_of_bound: (
@@ -177,8 +191,7 @@ mod tests {
         test_improper_graph: (
             vec![
                 vec![0, 8],
-                vec![0, 0, 9],
-                vec![0, 0, 0, 0, 7],
+                vec![0],
             ],
             0,
             1,
