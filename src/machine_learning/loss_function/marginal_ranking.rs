@@ -18,15 +18,18 @@ pub fn mrg_ranking_loss(
     x_second: &[f64],
     margin: f64,
     y_true: f64,
-) -> Option<f64> {
-    if x_first.len() != x_second.len() || x_first.is_empty() || x_second.is_empty() {
-        return None;
+) -> Result<f64, MarginalRankingLossError> {
+    if x_first.len() != x_second.len() {
+        return Err(MarginalRankingLossError::InputsHaveDifferentLength);
+    }
+    if x_first.is_empty() || x_second.is_empty() {
+        return Err(MarginalRankingLossError::EmptyInputs);
     }
     if margin < 0.0 {
-        return None;
+        return Err(MarginalRankingLossError::InvalidValues);
     }
     if y_true != 1.0 && y_true != -1.0 {
-        return None;
+        return Err(MarginalRankingLossError::InvalidValues);
     }
 
     let mut total_loss: f64 = 0.0;
@@ -34,7 +37,14 @@ pub fn mrg_ranking_loss(
         let loss: f64 = (margin - y_true * (f - s)).max(0.0);
         total_loss += loss;
     }
-    Some(total_loss / (x_first.len() as f64))
+    Ok(total_loss / (x_first.len() as f64))
+}
+
+#[derive(Debug, PartialEq, Eq)]
+pub enum MarginalRankingLossError {
+    InputsHaveDifferentLength,
+    EmptyInputs,
+    InvalidValues,
 }
 
 #[cfg(test)]
@@ -49,7 +59,7 @@ mod tests {
         let actual_value: f64 = -1.0;
         assert_eq!(
             mrg_ranking_loss(&first_values, &second_values, margin, actual_value),
-            Some(0.0)
+            Ok(0.0)
         );
     }
 
@@ -59,7 +69,10 @@ mod tests {
         let x_second: Vec<f64> = vec![2.0, 3.0];
         let margin: f64 = 1.0;
         let y_true: f64 = 1.0;
-        assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), None);
+        assert_eq!(
+            mrg_ranking_loss(&x_first, &x_second, margin, y_true),
+            Err(MarginalRankingLossError::InputsHaveDifferentLength)
+        );
     }
 
     #[test]
@@ -68,7 +81,10 @@ mod tests {
         let x_second: Vec<f64> = vec![2.0, 3.0, 4.0];
         let margin: f64 = 1.0;
         let y_true: f64 = 1.0;
-        assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), None);
+        assert_eq!(
+            mrg_ranking_loss(&x_first, &x_second, margin, y_true),
+            Err(MarginalRankingLossError::InputsHaveDifferentLength)
+        );
     }
 
     #[test]
@@ -77,7 +93,10 @@ mod tests {
         let x_second: Vec<f64> = vec![2.0, 3.0, 4.0];
         let margin: f64 = -1.0;
         let y_true: f64 = 1.0;
-        assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), None);
+        assert_eq!(
+            mrg_ranking_loss(&x_first, &x_second, margin, y_true),
+            Err(MarginalRankingLossError::InvalidValues)
+        );
     }
 
     #[test]
@@ -86,7 +105,10 @@ mod tests {
         let x_second: Vec<f64> = vec![2.0, 3.0, 4.0];
         let margin: f64 = 1.0;
         let y_true: f64 = 2.0;
-        assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), None);
+        assert_eq!(
+            mrg_ranking_loss(&x_first, &x_second, margin, y_true),
+            Err(MarginalRankingLossError::InvalidValues)
+        );
     }
 
     #[test]
@@ -95,7 +117,10 @@ mod tests {
         let x_second: Vec<f64> = vec![1.0, 2.0, 3.0];
         let margin: f64 = 1.0;
         let y_true: f64 = 1.0;
-        assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), None);
+        assert_eq!(
+            mrg_ranking_loss(&x_first, &x_second, margin, y_true),
+            Err(MarginalRankingLossError::InputsHaveDifferentLength)
+        );
     }
 
     #[test]
@@ -104,6 +129,9 @@ mod tests {
         let x_second: Vec<f64> = vec![];
         let margin: f64 = 1.0;
         let y_true: f64 = 1.0;
-        assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), None);
+        assert_eq!(
+            mrg_ranking_loss(&x_first, &x_second, margin, y_true),
+            Err(MarginalRankingLossError::InputsHaveDifferentLength)
+        );
     }
 }
