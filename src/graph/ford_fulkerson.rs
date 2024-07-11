@@ -10,10 +10,12 @@ use std::collections::VecDeque;
 pub enum FordFulkersonError {
     /// Error indicating that the graph is empty or has no edges.
     EmptyGraph,
+    /// Indicates that the graph is not a square matrix.
+    ImproperGraph,
     /// Error indicating that the source vertex is out of bounds.
-    InvalidSource,
+    SourceOutOfBounds,
     /// Error indicating that the sink vertex is out of bounds.
-    InvalidSink,
+    SinkOutOfBounds,
 }
 
 /// Performs a Breadth-First Search (BFS) on the residual graph to find an augmenting path
@@ -74,12 +76,16 @@ pub fn ford_fulkerson(
         return Err(FordFulkersonError::EmptyGraph);
     }
 
+    if graph.iter().any(|row| row.len() != graph.len()) {
+        return Err(FordFulkersonError::ImproperGraph);
+    }
+
     if source >= graph.len() {
-        return Err(FordFulkersonError::InvalidSource);
+        return Err(FordFulkersonError::SourceOutOfBounds);
     }
 
     if sink >= graph.len() {
-        return Err(FordFulkersonError::InvalidSink);
+        return Err(FordFulkersonError::SinkOutOfBounds);
     }
 
     let mut residual_graph = graph.to_owned();
@@ -142,7 +148,7 @@ mod tests {
             5,
             Err(FordFulkersonError::EmptyGraph),
         ),
-        test_invalid_source: (
+        test_source_out_of_bound: (
             vec![
                 vec![0, 8, 0, 0, 3, 0],
                 vec![0, 0, 9, 0, 0, 0],
@@ -153,9 +159,9 @@ mod tests {
             ],
             6,
             5,
-            Err(FordFulkersonError::InvalidSource),
+            Err(FordFulkersonError::SourceOutOfBounds),
         ),
-        test_invalid_sink: (
+        test_sink_out_of_bound: (
             vec![
                 vec![0, 8, 0, 0, 3, 0],
                 vec![0, 0, 9, 0, 0, 0],
@@ -166,7 +172,17 @@ mod tests {
             ],
             0,
             6,
-            Err(FordFulkersonError::InvalidSink),
+            Err(FordFulkersonError::SinkOutOfBounds),
+        ),
+        test_improper_graph: (
+            vec![
+                vec![0, 8],
+                vec![0, 0, 9],
+                vec![0, 0, 0, 0, 7],
+            ],
+            0,
+            1,
+            Err(FordFulkersonError::ImproperGraph),
         ),
         test_graph_with_small_flow: (
             vec![
