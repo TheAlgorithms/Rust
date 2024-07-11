@@ -1,17 +1,23 @@
-// Marginal Ranking
-//
-// The 'mrg_ranking_loss' function calculates the Marginal Ranking loss, which is a
-// loss function used for ranking problems in machine learning.
-//
-// ## Formula
-//
-// For a pair of values `x_first` and `x_second`, `margin`, and `y_true`,
-// the Marginal Ranking loss is calculated as:
-//
-//  - loss = `max(0, -y_true * (x_first - x_second) + margin)`.
-//
-// It returns the average loss by dividing the `total_loss` by total no. of
-// elements.
+/// Marginal Ranking
+///
+/// The 'mrg_ranking_loss' function calculates the Marginal Ranking loss, which is a
+/// loss function used for ranking problems in machine learning.
+///
+/// ## Formula
+///
+/// For a pair of values `x_first` and `x_second`, `margin`, and `y_true`,
+/// the Marginal Ranking loss is calculated as:
+///
+///  - loss = `max(0, -y_true * (x_first - x_second) + margin)`.
+///
+/// It returns the average loss by dividing the `total_loss` by total no. of
+/// elements.
+///
+/// Pytorch implementation:
+/// https://pytorch.org/docs/stable/generated/torch.nn.MarginRankingLoss.html
+/// https://gombru.github.io/2019/04/03/ranking_loss/
+/// https://vinija.ai/concepts/loss/#pairwise-ranking-loss
+///
 
 pub fn mrg_ranking_loss(
     x_first: &[f64],
