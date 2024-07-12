@@ -1,3 +1,6 @@
+//! This module provides functionality to check if there exists a subset of a given set of integers 
+//! that sums to a target value. The implementation uses a recursive backtracking approach.
+
 /// Checks if there exists a subset of the given set that sums to the target value.
 pub fn has_subset_with_sum(set: &[i32], target: i32) -> bool {
     backtrack(set, set.len(), target)
