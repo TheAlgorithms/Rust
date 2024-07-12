@@ -27,10 +27,10 @@ pub enum FordFulkersonError {
 /// # Returns
 ///
 /// Returns `true` if an augmenting path is found from `source` to `sink`, `false` otherwise.
-fn bfs(graph: &[Vec<isize>], source: usize, sink: usize, parent: &mut [isize]) -> bool {
+fn bfs(graph: &[Vec<usize>], source: usize, sink: usize, parent: &mut [usize]) -> bool {
     let mut visited = vec![false; graph.len()];
     visited[source] = true;
-    parent[source] = -1;
+    parent[source] = usize::MAX;
 
     let mut queue = VecDeque::new();
     queue.push_back(source);
@@ -39,7 +39,7 @@ fn bfs(graph: &[Vec<isize>], source: usize, sink: usize, parent: &mut [isize]) -
         for (previous_vertex, &capacity) in graph[current_vertex].iter().enumerate() {
             if !visited[previous_vertex] && capacity > 0 {
                 visited[previous_vertex] = true;
-                parent[previous_vertex] = current_vertex as isize;
+                parent[previous_vertex] = current_vertex;
                 if previous_vertex == sink {
                     return true;
                 }
@@ -69,7 +69,7 @@ fn bfs(graph: &[Vec<isize>], source: usize, sink: usize, parent: &mut [isize]) -
 /// Returns `Ok(())` if the input parameters are valid, otherwise returns an appropriate
 /// `FordFulkersonError`.
 fn validate_ford_fulkerson_input(
-    graph: &[Vec<isize>],
+    graph: &[Vec<usize>],
     source: usize,
     sink: usize,
 ) -> Result<(), FordFulkersonError> {
@@ -105,29 +105,29 @@ fn validate_ford_fulkerson_input(
 ///
 /// Returns the maximum flow and the residual graph
 pub fn ford_fulkerson(
-    graph: &[Vec<isize>],
+    graph: &[Vec<usize>],
     source: usize,
     sink: usize,
-) -> Result<isize, FordFulkersonError> {
+) -> Result<usize, FordFulkersonError> {
     validate_ford_fulkerson_input(graph, source, sink)?;
 
     let mut residual_graph = graph.to_owned();
-    let mut parent = vec![-1; graph.len()];
+    let mut parent = vec![usize::MAX; graph.len()];
     let mut max_flow = 0;
 
     while bfs(&residual_graph, source, sink, &mut parent) {
-        let mut path_flow = isize::MAX;
+        let mut path_flow = usize::MAX;
         let mut previous_vertex = sink;
 
         while previous_vertex != source {
-            let current_vertex = parent[previous_vertex] as usize;
+            let current_vertex = parent[previous_vertex];
             path_flow = path_flow.min(residual_graph[current_vertex][previous_vertex]);
             previous_vertex = current_vertex;
         }
 
         previous_vertex = sink;
         while previous_vertex != source {
-            let current_vertex = parent[previous_vertex] as usize;
+            let current_vertex = parent[previous_vertex];
             residual_graph[current_vertex][previous_vertex] -= path_flow;
             residual_graph[previous_vertex][current_vertex] += path_flow;
             previous_vertex = current_vertex;
@@ -289,16 +289,6 @@ mod tests {
             ],
             0,
             0,
-            Ok(0),
-        ),
-        test_negative_capacity: (
-            vec![
-                vec![0, -10, 0],
-                vec![0, 0, -5],
-                vec![0, 0, 0],
-            ],
-            0,
-            2,
             Ok(0),
         ),
         test_self_loop: (
