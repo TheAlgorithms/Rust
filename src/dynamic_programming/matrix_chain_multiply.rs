@@ -21,7 +21,7 @@
 ///
 /// The minimum number of scalar multiplications needed to compute the product of the matrices
 /// in the optimal order.
-pub fn matrix_chain_multiply(dimensions: Vec<u32>) -> u32 {
+pub fn matrix_chain_multiply(dimensions: Vec<usize>) -> usize {
     if dimensions.len() <= 2 {
         return 0;
     }
@@ -38,7 +38,7 @@ pub fn matrix_chain_multiply(dimensions: Vec<u32>) -> u32 {
                         + dimensions[start] * dimensions[split] * dimensions[end]
                 })
                 .min()
-                .unwrap_or(u32::MAX);
+                .unwrap_or(usize::MAX);
         });
     });
 
@@ -67,7 +67,6 @@ mod tests {
         large_chain_of_matrices: (vec![40, 20, 30, 10, 30], 26000),
         long_chain_of_matrices: (vec![1, 2, 3, 4, 3], 30),
         complex_chain_of_matrices: (vec![4, 10, 3, 12, 20, 7], 1344),
-
         empty_input: (vec![], 0),
         single_matrix_input: (vec![10], 0),
         two_matrix_input: (vec![10, 20], 0),
