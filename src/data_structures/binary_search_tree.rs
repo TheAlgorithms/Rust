@@ -3,6 +3,7 @@ use std::ops::Deref;
 
 /// This struct implements as Binary Search Tree (BST), which is a
 /// simple data structure for storing sorted data
+#[derive(Debug)]
 pub struct BinarySearchTree<T>
 where
     T: Ord,
@@ -37,31 +38,32 @@ where
     /// Find a value in this tree. Returns True if value is in this
     /// tree, and false otherwise
     pub fn search(&self, value: &T) -> bool {
-        match &self.value {
-            Some(key) => {
-                match key.cmp(value) {
-                    Ordering::Equal => {
-                        // key == value
-                        true
+        let mut curr = self;
+
+        while let Some(key) = &curr.value {
+            match key.cmp(value) {
+                Ordering::Equal => {
+                    // key == value
+                    return true;
+                }
+                Ordering::Greater => {
+                    // key > value
+                    match &curr.left {
+                        Some(node) => curr = node,
+                        None => return false,
                     }
-                    Ordering::Greater => {
-                        // key > value
-                        match &self.left {
-                            Some(node) => node.search(value),
-                            None => false,
-                        }
-                    }
-                    Ordering::Less => {
-                        // key < value
-                        match &self.right {
-                            Some(node) => node.search(value),
-                            None => false,
-                        }
+                }
+                Ordering::Less => {
+                    // key < value
+                    match &curr.right {
+                        Some(node) => curr = node,
+                        None => return false,
                     }
                 }
             }
-            None => false,
         }
+
+        false
     }
 
     /// Returns a new iterator which iterates over this tree in order
@@ -71,109 +73,117 @@ where
 
     /// Insert a value into the appropriate location in this tree.
     pub fn insert(&mut self, value: T) {
-        match &self.value {
-            None => self.value = Some(value),
-            Some(key) => {
-                let target_node = if value < *key {
-                    &mut self.left
-                } else {
-                    &mut self.right
-                };
-                match target_node {
-                    Some(ref mut node) => {
-                        node.insert(value);
-                    }
-                    None => {
-                        let mut node = BinarySearchTree::new();
-                        node.value = Some(value);
-                        *target_node = Some(Box::new(node));
-                    }
+        let mut curr = self;
+
+        while let Some(curr_value) = &curr.value {
+            let target_node = if &value < curr_value {
+                &mut curr.left
+            } else {
+                &mut curr.right
+            };
+
+            match target_node {
+                None => {
+                    let mut node = BinarySearchTree::new();
+                    node.value = Some(value);
+                    *target_node = Some(Box::new(node));
+                    return;
                 }
+                Some(x) => curr = x,
             }
         }
+
+        curr.value = Some(value);
     }
 
     /// Returns the smallest value in this tree
     pub fn minimum(&self) -> Option<&T> {
-        match &self.left {
-            Some(node) => node.minimum(),
-            None => self.value.as_ref(),
+        let mut curr = self;
+        while let Some(left) = &curr.left {
+            curr = left;
         }
+
+        curr.value.as_ref()
     }
 
     /// Returns the largest value in this tree
     pub fn maximum(&self) -> Option<&T> {
-        match &self.right {
-            Some(node) => node.maximum(),
-            None => self.value.as_ref(),
+        let mut curr = self;
+        while let Some(right) = &curr.right {
+            curr = right;
         }
+
+        curr.value.as_ref()
     }
 
     /// Returns the largest value in this tree smaller than value
     pub fn floor(&self, value: &T) -> Option<&T> {
-        match &self.value {
-            Some(key) => {
-                match key.cmp(value) {
-                    Ordering::Greater => {
-                        // key > value
-                        match &self.left {
-                            Some(node) => node.floor(value),
-                            None => None,
-                        }
+        let mut curr = self;
+        let mut last_floor = None;
+        while let Some(key) = &curr.value {
+            match key.cmp(value) {
+                Ordering::Greater => {
+                    // key > value
+                    match &curr.left {
+                        Some(node) => curr = node,
+                        None => return last_floor,
                     }
-                    Ordering::Less => {
-                        // key < value
-                        match &self.right {
-                            Some(node) => {
-                                let val = node.floor(value);
-                                match val {
-                                    Some(_) => val,
-                                    None => Some(key),
-                                }
-                            }
-                            None => Some(key),
-                        }
-                    }
-                    Ordering::Equal => Some(key),
                 }
+                Ordering::Less => {
+                    // key < value
+                    match &curr.right {
+                        Some(node) => {
+                            last_floor = if Some(value) < node.value.as_ref() {
+                                Some(key)
+                            } else {
+                                node.value.as_ref()
+                            };
+                            curr = node;
+                        }
+                        None => return Some(key),
+                    }
+                }
+                Ordering::Equal => return Some(key),
             }
-            None => None,
         }
+
+        None
     }
 
     /// Returns the smallest value in this tree larger than value
     pub fn ceil(&self, value: &T) -> Option<&T> {
-        match &self.value {
-            Some(key) => {
-                match key.cmp(value) {
-                    Ordering::Less => {
-                        // key < value
-                        match &self.right {
-                            Some(node) => node.ceil(value),
-                            None => None,
-                        }
-                    }
-                    Ordering::Greater => {
-                        // key > value
-                        match &self.left {
-                            Some(node) => {
-                                let val = node.ceil(value);
-                                match val {
-                                    Some(_) => val,
-                                    None => Some(key),
-                                }
-                            }
-                            None => Some(key),
-                        }
-                    }
-                    Ordering::Equal => {
-                        // key == value
-                        Some(key)
+        let mut curr = self;
+        let mut last_ceil = None;
+        while let Some(key) = &curr.value {
+            match key.cmp(value) {
+                Ordering::Less => {
+                    // key < value
+                    match &curr.right {
+                        Some(node) => curr = node,
+                        None => return last_ceil,
                     }
                 }
+                Ordering::Greater => {
+                    // key > value
+                    match &curr.left {
+                        Some(node) => {
+                            last_ceil = if Some(value) > node.value.as_ref() {
+                                Some(key)
+                            } else {
+                                node.value.as_ref()
+                            };
+                            curr = node;
+                        }
+                        None => return last_ceil,
+                    }
+                }
+                Ordering::Equal => {
+                    // key == value
+                    return Some(key);
+                }
             }
-            None => None,
         }
+        last_ceil
     }
 }
 
