@@ -2,12 +2,12 @@
 //! that sums to a target value. The implementation uses a recursive backtracking approach.
 
 /// Checks if there exists a subset of the given set that sums to the target value.
-pub fn has_subset_with_sum(set: &[i32], target: i32) -> bool {
+pub fn has_subset_with_sum(set: &[isize], target: isize) -> bool {
     backtrack(set, set.len(), target)
 }
 
 /// Recursive helper function to check for a subset sum using backtracking.
-fn backtrack(set: &[i32], remaining_items: usize, target: i32) -> bool {
+fn backtrack(set: &[isize], remaining_items: usize, target: isize) -> bool {
     // Found a subset with the required sum
     if target == 0 {
         return true;
