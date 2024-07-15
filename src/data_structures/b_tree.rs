@@ -146,20 +146,16 @@ where
 
     pub fn search(&self, key: T) -> bool {
         let mut current_node = &self.root;
-        let mut index: isize;
         loop {
-            index = isize::try_from(current_node.keys.len()).ok().unwrap() - 1;
-            while index >= 0 && current_node.keys[index as usize] > key {
-                index -= 1;
-            }
-
-            let u_index: usize = usize::try_from(index + 1).ok().unwrap();
-            if index >= 0 && current_node.keys[u_index - 1] == key {
-                break true;
-            } else if current_node.is_leaf() {
-                break false;
-            } else {
-                current_node = &current_node.children[u_index];
+            match current_node.keys.binary_search(&key) {
+                Ok(_) => return true,
+                Err(index) => {
+                    if current_node.is_leaf() {
+                        return false;
+                    } else {
+                        current_node = &current_node.children[index];
+                    }
+                }
             }
         }
     }
