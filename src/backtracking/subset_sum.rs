@@ -6,7 +6,6 @@ pub fn has_subset_with_sum(set: &[isize], target: isize) -> bool {
     backtrack(set, set.len(), target)
 }
 
-/// Recursive helper function to check for a subset sum using backtracking.
 fn backtrack(set: &[isize], remaining_items: usize, target: isize) -> bool {
     // Found a subset with the required sum
     if target == 0 {
