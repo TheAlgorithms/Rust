@@ -50,5 +50,6 @@ mod tests {
         test_negative_sum: (&[1, 2, 3, 4, 5], -1, false),
         test_negative_sum_with_negatives: (&[-7, -3, -2, 5, 8], -4, true),
         test_negative_sum_with_negatives_no_solution: (&[-7, -3, -2, 5, 8], -14, false),
+        test_even_inputs_odd_target: (&[2, 4, 6, 2, 8, -2, 10, 12, -24, 8, 12, 18], 3, false),
     }
 }
