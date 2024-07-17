@@ -1,6 +1,7 @@
 mod avl_tree;
 mod b_tree;
 mod binary_search_tree;
+mod circular_deque;
 mod fenwick_tree;
 mod floyds_algorithm;
 pub mod graph;
@@ -25,6 +26,7 @@ mod veb_tree;
 pub use self::avl_tree::AVLTree;
 pub use self::b_tree::BTree;
 pub use self::binary_search_tree::BinarySearchTree;
+pub use self::circular_deque::CircularDeque;
 pub use self::fenwick_tree::FenwickTree;
 pub use self::floyds_algorithm::{detect_cycle, has_cycle};
 pub use self::graph::DirectedGraph;
