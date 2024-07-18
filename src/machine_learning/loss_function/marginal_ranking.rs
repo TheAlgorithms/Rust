@@ -32,7 +32,7 @@ pub fn marginal_ranking_loss(
         return Err(MarginalRankingLossError::EmptyInputs);
     }
     if margin < 0.0 {
-        return Err(MarginalRankingLossError::InvalidValues);
+        return Err(MarginalRankingLossError::NegativeMargin);
     }
     if y_true != 1.0 && y_true != -1.0 {
         return Err(MarginalRankingLossError::InvalidValues);
@@ -51,6 +51,7 @@ pub enum MarginalRankingLossError {
     InputsHaveDifferentLength,
     EmptyInputs,
     InvalidValues,
+    NegativeMargin,
 }
 
 #[cfg(test)]
