@@ -8,6 +8,6 @@ mod mean_squared_error_loss;
 pub use self::hinge_loss::hng_loss;
 pub use self::huber_loss::huber_loss;
 pub use self::kl_divergence_loss::kld_loss;
-pub use self::marginal_ranking::mrg_ranking_loss;
+pub use self::marginal_ranking::marginal_ranking_loss;
 pub use self::mean_absolute_error_loss::mae_loss;
 pub use self::mean_squared_error_loss::mse_loss;
