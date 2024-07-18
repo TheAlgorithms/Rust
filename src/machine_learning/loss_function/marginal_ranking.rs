@@ -1,6 +1,6 @@
 /// Marginal Ranking
 ///
-/// The 'mrg_ranking_loss' function calculates the Marginal Ranking loss, which is a
+/// The 'marginal_ranking_loss' function calculates the Marginal Ranking loss, which is a
 /// loss function used for ranking problems in machine learning.
 ///
 /// ## Formula
@@ -19,7 +19,7 @@
 /// https://vinija.ai/concepts/loss/#pairwise-ranking-loss
 ///
 
-pub fn mrg_ranking_loss(
+pub fn marginal_ranking_loss(
     x_first: &[f64],
     x_second: &[f64],
     margin: f64,
@@ -63,7 +63,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (x_first, x_second, margin, y_true, expected) = $inputs;
-                    assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), expected);
+                    assert_eq!(marginal_ranking_loss(&x_first, &x_second, margin, y_true), expected);
                 }
             )*
         }
@@ -85,7 +85,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (x_first, x_second, margin, y_true, expected) = $inputs;
-                    assert_eq!(mrg_ranking_loss(&x_first, &x_second, margin, y_true), Ok(expected));
+                    assert_eq!(marginal_ranking_loss(&x_first, &x_second, margin, y_true), Ok(expected));
                 }
             )*
         }
