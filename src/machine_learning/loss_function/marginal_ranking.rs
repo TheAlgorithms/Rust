@@ -38,11 +38,11 @@ pub fn marginal_ranking_loss(
         return Err(MarginalRankingLossError::InvalidValues);
     }
 
-    let mut total_loss: f64 = 0.0;
-    for (f, s) in x_first.iter().zip(x_second.iter()) {
-        let loss: f64 = (margin - y_true * (f - s)).max(0.0);
-        total_loss += loss;
-    }
+    let total_loss: f64 = x_first
+        .iter()
+        .zip(x_second.iter())
+        .map(|(f, s)| (margin - y_true * (f - s)).max(0.0))
+        .sum();
     Ok(total_loss / (x_first.len() as f64))
 }
 
@@ -76,7 +76,7 @@ mod tests {
         invalid_length1: (vec![1.0, 2.0], vec![2.0, 3.0, 4.0], 1.0, 1.0, Err(MarginalRankingLossError::InputsHaveDifferentLength)),
         invalid_length2: (vec![], vec![1.0, 2.0, 3.0], 1.0, 1.0, Err(MarginalRankingLossError::InputsHaveDifferentLength)),
         invalid_length3: (vec![1.0, 2.0, 3.0], vec![], 1.0, 1.0, Err(MarginalRankingLossError::InputsHaveDifferentLength)),
-        invalid_values: (vec![1.0, 2.0, 3.0], vec![2.0, 3.0, 4.0], -1.0, 1.0, Err(MarginalRankingLossError::InvalidValues)),
+        invalid_values: (vec![1.0, 2.0, 3.0], vec![2.0, 3.0, 4.0], -1.0, 1.0, Err(MarginalRankingLossError::NegativeMargin)),
         invalid_y_true: (vec![1.0, 2.0, 3.0], vec![2.0, 3.0, 4.0], 1.0, 2.0, Err(MarginalRankingLossError::InvalidValues)),
         empty_inputs: (vec![], vec![], 1.0, 1.0, Err(MarginalRankingLossError::EmptyInputs)),
     }
