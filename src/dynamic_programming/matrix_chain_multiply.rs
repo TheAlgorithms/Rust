@@ -64,8 +64,8 @@ mod tests {
     test_cases! {
         basic_chain_of_matrices: (vec![1, 2, 3, 4], 18),
         matrices_in_reverse_order: (vec![4, 3, 2, 1], 18),
-        large_chain_of_matrices: (vec![40, 20, 30, 10, 30], 26000),
-        long_chain_of_matrices: (vec![1, 2, 3, 4, 3], 30),
+        chain_of_large_matrices: (vec![40, 20, 30, 10, 30], 26000),
+        long_chain_of_matrices: (vec![1, 2, 3, 4, 3, 5, 7, 6, 10], 182),
         complex_chain_of_matrices: (vec![4, 10, 3, 12, 20, 7], 1344),
         empty_input: (vec![], 0),
         single_matrix_input: (vec![10], 0),
