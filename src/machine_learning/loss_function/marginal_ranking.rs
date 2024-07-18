@@ -63,8 +63,9 @@ mod tests {
             $(
                 #[test]
                 fn $name() {
-                    let (x_first, x_second, margin, y_true, expected) = $inputs;
-                    assert_eq!(marginal_ranking_loss(&x_first, &x_second, margin, y_true), expected);
+                    let (vec_a, vec_b, margin, y_true, expected) = $inputs;
+                    assert_eq!(marginal_ranking_loss(&vec_a, &vec_b, margin, y_true), expected);
+                    assert_eq!(marginal_ranking_loss(&vec_b, &vec_a, margin, y_true), expected);
                 }
             )*
         }
