@@ -10,6 +10,7 @@
     * [Parentheses Generator](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/parentheses_generator.rs)
     * [Permutations](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/permutations.rs)
     * [Rat In Maze](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/rat_in_maze.rs)
+    * [Subset Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/subset_sum.rs)
     * [Sudoku](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/sudoku.rs)
   * Big Integer
     * [Fast Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/fast_factorial.rs)
@@ -160,6 +161,7 @@
       * [Kl Divergence Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/kl_divergence_loss.rs)
       * [Mean Absolute Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mean_absolute_error_loss.rs)
       * [Mean Squared Error Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/mean_squared_error_loss.rs)
+      * [Negative Log Likelihood](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/negative_log_likelihood.rs)
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)

@@ -6,6 +6,7 @@ mod n_queens;
 mod parentheses_generator;
 mod permutations;
 mod rat_in_maze;
+mod subset_sum;
 mod sudoku;
 
 pub use all_combination_of_size_k::generate_all_combinations;
@@ -16,4 +17,5 @@ pub use n_queens::n_queens_solver;
 pub use parentheses_generator::generate_parentheses;
 pub use permutations::permute;
 pub use rat_in_maze::find_path_in_maze;
+pub use subset_sum::has_subset_with_sum;
 pub use sudoku::sudoku_solver;
