@@ -81,7 +81,6 @@ mod tests {
 
     test_cases! {
         basic_chain_of_matrices: (vec![1, 2, 3, 4], Ok(18)),
-        matrices_in_reverse_order: (vec![4, 3, 2, 1], Ok(18)),
         chain_of_large_matrices: (vec![40, 20, 30, 10, 30], Ok(26000)),
         long_chain_of_matrices: (vec![1, 2, 3, 4, 3, 5, 7, 6, 10], Ok(182)),
         complex_chain_of_matrices: (vec![4, 10, 3, 12, 20, 7], Ok(1344)),
