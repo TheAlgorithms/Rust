@@ -9,6 +9,13 @@
 //! The algorithm runs in O(n^3) time complexity and O(n^2) space complexity, where n is the
 //! number of matrices.
 
+/// Custom error types for matrix chain multiplication
+#[derive(Debug, PartialEq)]
+pub enum MatrixChainMultiplicationError {
+    EmptyDimensions,
+    InsufficientDimensions,
+}
+
 /// Calculates the minimum number of scalar multiplications required to multiply a chain
 /// of matrices with given dimensions.
 ///
@@ -21,9 +28,19 @@
 ///
 /// The minimum number of scalar multiplications needed to compute the product of the matrices
 /// in the optimal order.
-pub fn matrix_chain_multiply(dimensions: Vec<usize>) -> usize {
-    if dimensions.len() <= 2 {
-        return 0;
+///
+/// # Errors
+///
+/// Returns an error if the input is invalid (i.e., empty or length less than 2).
+pub fn matrix_chain_multiply(
+    dimensions: Vec<usize>,
+) -> Result<usize, MatrixChainMultiplicationError> {
+    if dimensions.is_empty() {
+        return Err(MatrixChainMultiplicationError::EmptyDimensions);
+    }
+
+    if dimensions.len() == 1 {
+        return Err(MatrixChainMultiplicationError::InsufficientDimensions);
     }
 
     let mut min_operations = vec![vec![0; dimensions.len()]; dimensions.len()];
@@ -42,7 +59,7 @@ pub fn matrix_chain_multiply(dimensions: Vec<usize>) -> usize {
         });
     });
 
-    min_operations[0][dimensions.len() - 1]
+    Ok(min_operations[0][dimensions.len() - 1])
 }
 
 #[cfg(test)]
@@ -55,20 +72,21 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (input, expected) = $test_case;
-                    assert_eq!(matrix_chain_multiply(input), expected);
+                    assert_eq!(matrix_chain_multiply(input.clone()), expected);
+                    assert_eq!(matrix_chain_multiply(input.into_iter().rev().collect()), expected);
                 }
             )*
         };
     }
 
     test_cases! {
-        basic_chain_of_matrices: (vec![1, 2, 3, 4], 18),
-        matrices_in_reverse_order: (vec![4, 3, 2, 1], 18),
-        chain_of_large_matrices: (vec![40, 20, 30, 10, 30], 26000),
-        long_chain_of_matrices: (vec![1, 2, 3, 4, 3, 5, 7, 6, 10], 182),
-        complex_chain_of_matrices: (vec![4, 10, 3, 12, 20, 7], 1344),
-        empty_input: (vec![], 0),
-        single_matrix_input: (vec![10], 0),
-        two_matrix_input: (vec![10, 20], 0),
+        basic_chain_of_matrices: (vec![1, 2, 3, 4], Ok(18)),
+        matrices_in_reverse_order: (vec![4, 3, 2, 1], Ok(18)),
+        chain_of_large_matrices: (vec![40, 20, 30, 10, 30], Ok(26000)),
+        long_chain_of_matrices: (vec![1, 2, 3, 4, 3, 5, 7, 6, 10], Ok(182)),
+        complex_chain_of_matrices: (vec![4, 10, 3, 12, 20, 7], Ok(1344)),
+        empty_input: (vec![], Err(MatrixChainMultiplicationError::EmptyDimensions)),
+        single_matrix_input: (vec![10], Err(MatrixChainMultiplicationError::InsufficientDimensions)),
+        two_matrix_input: (vec![10, 20], Ok(0)),
     }
 }
