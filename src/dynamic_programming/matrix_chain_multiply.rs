@@ -85,8 +85,8 @@ mod tests {
         chain_of_large_matrices: (vec![40, 20, 30, 10, 30], Ok(26000)),
         long_chain_of_matrices: (vec![1, 2, 3, 4, 3, 5, 7, 6, 10], Ok(182)),
         complex_chain_of_matrices: (vec![4, 10, 3, 12, 20, 7], Ok(1344)),
-        empty_input: (vec![], Err(MatrixChainMultiplicationError::EmptyDimensions)),
-        single_matrix_input: (vec![10], Err(MatrixChainMultiplicationError::InsufficientDimensions)),
-        two_matrix_input: (vec![10, 20], Ok(0)),
+        empty_dimensions_input: (vec![], Err(MatrixChainMultiplicationError::EmptyDimensions)),
+        single_dimensions_input: (vec![10], Err(MatrixChainMultiplicationError::InsufficientDimensions)),
+        single_matrix_input: (vec![10, 20], Ok(0)),
     }
 }
