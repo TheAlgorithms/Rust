@@ -1,4 +1,4 @@
-// Function to convert infix expression to postfix expression
+/// Function to convert [infix expression](https://en.wikipedia.org/wiki/Infix_notation) to [postfix expression](https://en.wikipedia.org/wiki/Reverse_Polish_notation)
 pub fn infix_to_postfix(infix: &str) -> String {
     let mut postfix = String::new();
     let mut stack: Vec<char> = Vec::new();
