@@ -4,7 +4,7 @@ pub fn infix_to_postfix(infix: &str) -> String {
     let mut stack: Vec<char> = Vec::new();
 
     // Define the precedence of operators
-    let precedence = |op: char| -> i32 {
+    let precedence = |op: char| -> u8 {
         match op {
             '+' | '-' => 1,
             '*' | '/' => 2,
@@ -44,7 +44,6 @@ pub fn infix_to_postfix(infix: &str) -> String {
 
     while let Some(top) = stack.pop() {
         if top == '(' {
-            // If there are unmatched parentheses, it's an error.
             return "Error: Unmatched parentheses".to_string();
         }
         postfix.push(top);
