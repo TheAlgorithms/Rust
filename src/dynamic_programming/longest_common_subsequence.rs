@@ -9,9 +9,9 @@
 ///
 /// The longest common subsequence (LCS) of two strings is the longest sequence that can
 /// be derived from both strings by deleting some elements without changing the order of
-/// the remaining elements. When there are multiple possible LCSs of the same length, the specific LCS returned
-/// depends on the order of the input sequences and how ties are resolved in the dynamic
-/// programming table.
+/// the remaining elements. When there are multiple possible LCSs of the same length,
+/// the specific LCS returned depends on the order of the input sequences and how ties
+/// are resolved in the dynamic programming table.
 ///
 /// ## Note
 /// The function may return different LCSs for the same pair of strings depending on the
@@ -31,7 +31,6 @@ pub fn longest_common_subsequence(first_seq: &str, second_seq: &str) -> String {
     lcs_chars.into_iter().collect()
 }
 
-/// Initializes the LCS length table using dynamic programming.
 fn initialize_lcs_lengths(first_seq_chars: &[char], second_seq_chars: &[char]) -> Vec<Vec<usize>> {
     let first_seq_len = first_seq_chars.len();
     let second_seq_len = second_seq_chars.len();
@@ -52,7 +51,6 @@ fn initialize_lcs_lengths(first_seq_chars: &[char], second_seq_chars: &[char]) -
     lcs_lengths
 }
 
-/// Reconstructs the longest common subsequence from the LCS length table.
 fn reconstruct_lcs(
     first_seq_chars: &[char],
     second_seq_chars: &[char],
