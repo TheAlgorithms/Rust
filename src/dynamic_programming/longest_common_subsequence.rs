@@ -6,6 +6,21 @@
 //! that multi-byte characters are managed properly.
 
 /// Computes the longest common subsequence of two input strings.
+///
+/// The longest common subsequence (LCS) of two strings is the longest sequence that can
+/// be derived from both strings by deleting some elements without changing the order of
+/// the remaining elements. When there are multiple possible LCSs of the same length, the specific LCS returned
+/// depends on the order of the input sequences and how ties are resolved in the dynamic
+/// programming table.
+///
+/// ## Note
+/// The function may return different LCSs for the same pair of strings depending on the
+/// order of the inputs and the nature of the sequences.
+///
+///  For example:
+/// `longest_common_subsequence("hello, world!", "world, hello!")` returns `"hello!"`
+/// but
+/// `longest_common_subsequence("world, hello!", "hello, world!")` returns `"world!"`
 pub fn longest_common_subsequence(first_seq: &str, second_seq: &str) -> String {
     let first_seq_chars = first_seq.chars().collect::<Vec<char>>();
     let second_seq_chars = second_seq.chars().collect::<Vec<char>>();
