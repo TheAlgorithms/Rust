@@ -1,5 +1,5 @@
-//! This module provides an implementation of the Longest Common Subsequence (LCS) algorithm.
-//! The LCS problem is the task of finding the longest subsequence common to two sequences.
+//! This module implements the Longest Common Subsequence (LCS) algorithm.
+//! The LCS problem is finding the longest subsequence common to two sequences.
 //! It differs from the problem of finding common substrings: unlike substrings, subsequences
 //! are not required to occupy consecutive positions within the original sequences.
 //! This implementation handles Unicode strings efficiently and correctly, ensuring
@@ -9,18 +9,22 @@
 ///
 /// The longest common subsequence (LCS) of two strings is the longest sequence that can
 /// be derived from both strings by deleting some elements without changing the order of
-/// the remaining elements. When there are multiple possible LCSs of the same length,
-/// the specific LCS returned depends on the order of the input sequences and how ties
-/// are resolved in the dynamic programming table.
+/// the remaining elements.
 ///
 /// ## Note
 /// The function may return different LCSs for the same pair of strings depending on the
-/// order of the inputs and the nature of the sequences.
+/// order of the inputs and the nature of the sequences. This is due to the way the dynamic
+/// programming algorithm resolves ties when multiple common subsequences of the same length
+/// exist. The order of the input strings can influence the specific path taken through the
+/// DP table, resulting in different valid LCS outputs.
 ///
 ///  For example:
 /// `longest_common_subsequence("hello, world!", "world, hello!")` returns `"hello!"`
 /// but
 /// `longest_common_subsequence("world, hello!", "hello, world!")` returns `"world!"`
+///
+/// This difference arises because the dynamic programming table is filled differently based
+/// on the input order, leading to different tie-breaking decisions and thus different LCS results.
 pub fn longest_common_subsequence(first_seq: &str, second_seq: &str) -> String {
     let first_seq_chars = first_seq.chars().collect::<Vec<char>>();
     let second_seq_chars = second_seq.chars().collect::<Vec<char>>();
