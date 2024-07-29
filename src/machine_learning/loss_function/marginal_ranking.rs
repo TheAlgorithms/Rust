@@ -25,6 +25,22 @@ pub fn marginal_ranking_loss(
     margin: f64,
     y_true: f64,
 ) -> Result<f64, MarginalRankingLossError> {
+    check_input(x_first, x_second, margin, y_true)?;
+
+    let total_loss: f64 = x_first
+        .iter()
+        .zip(x_second.iter())
+        .map(|(f, s)| (margin - y_true * (f - s)).max(0.0))
+        .sum();
+    Ok(total_loss / (x_first.len() as f64))
+}
+
+fn check_input(
+    x_first: &[f64],
+    x_second: &[f64],
+    margin: f64,
+    y_true: f64,
+) -> Result<(), MarginalRankingLossError> {
     if x_first.len() != x_second.len() {
         return Err(MarginalRankingLossError::InputsHaveDifferentLength);
     }
@@ -38,12 +54,7 @@ pub fn marginal_ranking_loss(
         return Err(MarginalRankingLossError::InvalidValues);
     }
 
-    let total_loss: f64 = x_first
-        .iter()
-        .zip(x_second.iter())
-        .map(|(f, s)| (margin - y_true * (f - s)).max(0.0))
-        .sum();
-    Ok(total_loss / (x_first.len() as f64))
+    Ok(())
 }
 
 #[derive(Debug, PartialEq, Eq)]
