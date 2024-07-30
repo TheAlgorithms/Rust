@@ -123,6 +123,7 @@ pub use self::greatest_common_divisor::{
     greatest_common_divisor_stein,
 };
 pub use self::huber_loss::huber_loss;
+pub use self::infix_to_postfix::infix_to_postfix;
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::interpolation::{lagrange_polynomial_interpolation, linear_interpolation};
 pub use self::interquartile_range::interquartile_range;
@@ -176,6 +177,5 @@ pub use self::trig_functions::sine_no_radian_arg;
 pub use self::trig_functions::tan;
 pub use self::trig_functions::tan_no_radian_arg;
 pub use self::vector_cross_product::cross_product;
-pub use self::infix_to_postfix::infix_to_postfix;
 pub use self::vector_cross_product::vector_magnitude;
 pub use self::zellers_congruence_algorithm::zellers_congruence_algorithm;
