@@ -52,7 +52,6 @@
     * [Decimal To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_hexadecimal.rs)
     * [Hexadecimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
     * [Hexadecimal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_decimal.rs)
-    * [Infix To Postfix](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/infix_to_postfix.rs)
     * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
   * Data Structures
@@ -205,6 +204,7 @@
     * [Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interest.rs)
     * [Interpolation](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interpolation.rs)
     * [Interquartile Range](https://github.com/TheAlgorithms/Rust/blob/master/src/math/interquartile_range.rs)
+    * [Infix To Postfix](https://github.com/TheAlgorithms/Rust/blob/master/src/math/infix_to_postfix.rs)
     * [Karatsuba Multiplication](https://github.com/TheAlgorithms/Rust/blob/master/src/math/karatsuba_multiplication.rs)
     * [Lcm Of N Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/lcm_of_n_numbers.rs)
     * [Leaky Relu](https://github.com/TheAlgorithms/Rust/blob/master/src/math/leaky_relu.rs)
