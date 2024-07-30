@@ -74,24 +74,24 @@ impl BipartiteMatching {
                 // else set the vertex distance as infinite because it is matched
                 // this will be considered the next time
 
-                *d_i = i32::max_value();
+                *d_i = i32::MAX;
             }
         }
-        dist[0] = i32::max_value();
+        dist[0] = i32::MAX;
         while !q.is_empty() {
             let u = *q.front().unwrap();
             q.pop_front();
             if dist[u] < dist[0] {
                 for i in 0..self.adj[u].len() {
                     let v = self.adj[u][i];
-                    if dist[self.mt2[v] as usize] == i32::max_value() {
+                    if dist[self.mt2[v] as usize] == i32::MAX {
                         dist[self.mt2[v] as usize] = dist[u] + 1;
                         q.push_back(self.mt2[v] as usize);
                     }
                 }
             }
         }
-        dist[0] != i32::max_value()
+        dist[0] != i32::MAX
     }
     fn dfs(&mut self, u: i32, dist: &mut Vec<i32>) -> bool {
         if u == 0 {
@@ -105,14 +105,14 @@ impl BipartiteMatching {
                 return true;
             }
         }
-        dist[u as usize] = i32::max_value();
+        dist[u as usize] = i32::MAX;
         false
     }
     pub fn hopcroft_karp(&mut self) -> i32 {
         // NOTE: how to use: https://cses.fi/paste/7558dba8d00436a847eab8/
         self.mt2 = vec![0; self.num_vertices_grp2 + 1];
         self.mt1 = vec![0; self.num_vertices_grp1 + 1];
-        let mut dist = vec![i32::max_value(); self.num_vertices_grp1 + 1];
+        let mut dist = vec![i32::MAX; self.num_vertices_grp1 + 1];
         let mut res = 0;
         while self.bfs(&mut dist) {
             for u in 1..self.num_vertices_grp1 + 1 {

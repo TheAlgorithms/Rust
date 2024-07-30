@@ -35,7 +35,7 @@ pub fn egg_drop(eggs: u32, floors: u32) -> u32 {
     // Complete solutions vector using optimal substructure property
     for i in 2..=eggs_index {
         for j in 2..=floors_index {
-            egg_drops[i][j] = std::u32::MAX;
+            egg_drops[i][j] = u32::MAX;
 
             for k in 1..=j {
                 let res = 1 + std::cmp::max(egg_drops[i - 1][k - 1], egg_drops[i][j - k]);
