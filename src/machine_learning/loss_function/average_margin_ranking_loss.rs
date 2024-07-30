@@ -1,12 +1,12 @@
 /// Marginal Ranking
 ///
-/// The 'marginal_ranking_loss' function calculates the Marginal Ranking loss, which is a
+/// The 'average_margin_ranking_loss' function calculates the Margin Ranking loss, which is a
 /// loss function used for ranking problems in machine learning.
 ///
 /// ## Formula
 ///
 /// For a pair of values `x_first` and `x_second`, `margin`, and `y_true`,
-/// the Marginal Ranking loss is calculated as:
+/// the Margin Ranking loss is calculated as:
 ///
 ///  - loss = `max(0, -y_true * (x_first - x_second) + margin)`.
 ///
@@ -19,7 +19,7 @@
 /// https://vinija.ai/concepts/loss/#pairwise-ranking-loss
 ///
 
-pub fn marginal_ranking_loss(
+pub fn average_margin_ranking_loss(
     x_first: &[f64],
     x_second: &[f64],
     margin: f64,
@@ -75,8 +75,8 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (vec_a, vec_b, margin, y_true, expected) = $inputs;
-                    assert_eq!(marginal_ranking_loss(&vec_a, &vec_b, margin, y_true), expected);
-                    assert_eq!(marginal_ranking_loss(&vec_b, &vec_a, margin, y_true), expected);
+                    assert_eq!(average_margin_ranking_loss(&vec_a, &vec_b, margin, y_true), expected);
+                    assert_eq!(average_margin_ranking_loss(&vec_b, &vec_a, margin, y_true), expected);
                 }
             )*
         }
@@ -92,19 +92,19 @@ mod tests {
         empty_inputs: (vec![], vec![], 1.0, 1.0, Err(MarginalRankingLossError::EmptyInputs)),
     }
 
-    macro_rules! test_marginal_ranking_loss {
+    macro_rules! test_average_margin_ranking_loss {
         ($($name:ident: $inputs:expr,)*) => {
             $(
                 #[test]
                 fn $name() {
                     let (x_first, x_second, margin, y_true, expected) = $inputs;
-                    assert_eq!(marginal_ranking_loss(&x_first, &x_second, margin, y_true), Ok(expected));
+                    assert_eq!(average_margin_ranking_loss(&x_first, &x_second, margin, y_true), Ok(expected));
                 }
             )*
         }
     }
 
-    test_marginal_ranking_loss! {
+    test_average_margin_ranking_loss! {
         set_0: (vec![1.0, 2.0, 3.0], vec![2.0, 3.0, 4.0], 1.0, -1.0, 0.0),
         set_1: (vec![1.0, 2.0, 3.0], vec![2.0, 3.0, 4.0], 1.0, 1.0, 2.0),
         set_2: (vec![1.0, 2.0, 3.0], vec![1.0, 2.0, 3.0], 0.0, 1.0, 0.0),
