@@ -107,7 +107,8 @@ mod tests {
                       "bcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgha",
                       "bcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgh"),
         unicode_characters: ("你好，世界", "再见，世界", "，世界"),
-        spaces_and_punctuation: ("hello, world!", "world, hello!", "hello!"),
+        spaces_and_punctuation_0: ("hello, world!", "world, hello!", "hello!"),
+        spaces_and_punctuation_1: ("hello, world!", "world, hello!", "hello!"), // longest_common_subsequence is not symmetric
         random_case_1: ("abcdef", "xbcxxxe", "bce"),
         random_case_2: ("xyz", "abc", ""),
         random_case_3: ("abracadabra", "avadakedavra", "aaadara"),
