@@ -27,17 +27,16 @@ pub fn coin_change(coins: &[usize], amount: usize) -> Option<usize> {
     let mut min_coins = vec![None; amount + 1];
     min_coins[0] = Some(0);
 
-    (0..=amount).for_each(|current_amount| {
+    (0..=amount).for_each(|curr_amount| {
         coins
             .iter()
-            .filter(|&&coin| current_amount >= coin)
+            .filter(|&&coin| curr_amount >= coin)
             .for_each(|&coin| {
-                if let Some(previous_min_coins) = min_coins[current_amount - coin] {
-                    min_coins[current_amount] = Some(
-                        min_coins[current_amount]
-                            .map_or(previous_min_coins + 1, |current_min_coins| {
-                                current_min_coins.min(previous_min_coins + 1)
-                            }),
+                if let Some(prev_min_coins) = min_coins[curr_amount - coin] {
+                    min_coins[curr_amount] = Some(
+                        min_coins[curr_amount].map_or(prev_min_coins + 1, |curr_min_coins| {
+                            curr_min_coins.min(prev_min_coins + 1)
+                        }),
                     );
                 }
             });
@@ -76,5 +75,17 @@ mod tests {
         test_large_denomination_multiple_coins: (vec![10, 50, 100], 1000, Some(10)),
         test_small_amount_not_possible: (vec![5, 10], 1, None),
         test_non_divisible_amount: (vec![2], 3, None),
+        test_all_multiples: (vec![1, 2, 4, 8], 15, Some(4)),
+        test_large_amount_mixed_coins: (vec![1, 5, 10, 25], 999, Some(45)),
+        test_prime_coins_and_amount: (vec![2, 3, 5, 7], 17, Some(3)),
+        test_coins_larger_than_amount: (vec![5, 10, 20], 1, None),
+        test_repeating_denominations: (vec![1, 1, 1, 5], 8, Some(4)),
+        test_non_standard_denominations: (vec![1, 4, 6, 9], 15, Some(2)),
+        test_very_large_denominations: (vec![1000, 2000, 5000], 1, None),
+        test_large_amount_performance: (vec![1, 5, 10, 25, 50, 100, 200, 500], 9999, Some(29)),
+        test_powers_of_two: (vec![1, 2, 4, 8, 16, 32, 64], 127, Some(7)),
+        test_fibonacci_sequence: (vec![1, 2, 3, 5, 8, 13, 21, 34], 55, Some(2)),
+        test_mixed_small_large: (vec![1, 100, 1000, 10000], 11001, Some(3)),
+        test_impossible_combinations: (vec![2, 4, 6, 8], 7, None),
     }
 }
