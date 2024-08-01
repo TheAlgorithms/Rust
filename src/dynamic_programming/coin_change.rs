@@ -88,5 +88,7 @@ mod tests {
         test_mixed_small_large: (vec![1, 100, 1000, 10000], 11001, Some(3)),
         test_impossible_combinations: (vec![2, 4, 6, 8], 7, None),
         test_greedy_approach_does_not_work: (vec![1, 12, 20], 24, Some(2)),
+        test_zero_denominations_no_solution: (vec![0], 1, None),
+        test_zero_denominations_solution: (vec![0], 0, Some(0)),
     }
 }
