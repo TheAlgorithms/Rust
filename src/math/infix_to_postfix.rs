@@ -63,25 +63,28 @@ pub fn infix_to_postfix(infix: &str) -> Result<String, InfixToPostfixError> {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_infix_to_postfix() {
-        assert_eq!(infix_to_postfix("a-b+c-d*e"), Ok(String::from("ab-c+de*-")));
-        assert_eq!(
-            infix_to_postfix("a*(b+c)+d/(e+f)"),
-            Ok(String::from("abc+*def+/+"))
-        );
-        assert_eq!(
-            infix_to_postfix("(a-b+c)*(d+e*f)"),
-            Ok(String::from("ab-c+def*+*"))
-        );
+    macro_rules! test_infix_to_postfix {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (infix, expected) = $inputs;
+                    assert_eq!(infix_to_postfix(infix), expected)
+                }
+            )*
+        }
     }
 
-    #[test]
-    fn infix_with_error() {
-        assert!(infix_to_postfix("(a-b)*#")
-            .is_err_and(|e| matches!(e, InfixToPostfixError::UnknownCharacter('#'))));
-
-        assert!(infix_to_postfix("((a-b)")
-            .is_err_and(|e| matches!(e, InfixToPostfixError::UnmatchedParent)));
+    test_infix_to_postfix! {
+        single_symbol: ("x", Ok(String::from("x"))),
+        simple_sum: ("x+y", Ok(String::from("xy+"))),
+        multiply_sum_left: ("x*(y+z)", Ok(String::from("xyz+*"))),
+        multiply_sum_right: ("(x+y)*z", Ok(String::from("xy+z*"))),
+        multiply_two_sums: ("(a+b)*(c+d)", Ok(String::from("ab+cd+*"))),
+        regular_0: ("a-b+c-d*e", Ok(String::from("ab-c+de*-"))),
+        regular_1: ("a*(b+c)+d/(e+f)", Ok(String::from("abc+*def+/+"))),
+        regular_2: ("(a-b+c)*(d+e*f)", Ok(String::from("ab-c+def*+*"))),
+        unknown_character: ("(a-b)*#", Err(InfixToPostfixError::UnknownCharacter('#'))),
+        unmatched_paren: ("((a-b)", Err(InfixToPostfixError::UnmatchedParent)),
     }
 }
