@@ -60,5 +60,6 @@ mod tests {
         test_large_input: (&[1; 1000], 1000),
         test_all_zero_input: (&[0; 100], 0),
         test_very_large_prices: (&[1000000, 2000000, 3000000], 3000000),
+        test_greedy_does_not_work: (&[2, 5, 7, 8], 10),
     }
 }
