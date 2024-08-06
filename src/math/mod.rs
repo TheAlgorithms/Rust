@@ -34,6 +34,7 @@ mod gcd_of_n_numbers;
 mod geometric_series;
 mod greatest_common_divisor;
 mod huber_loss;
+mod infix_to_postfix;
 mod interest;
 mod interpolation;
 mod interquartile_range;
@@ -122,6 +123,7 @@ pub use self::greatest_common_divisor::{
     greatest_common_divisor_stein,
 };
 pub use self::huber_loss::huber_loss;
+pub use self::infix_to_postfix::infix_to_postfix;
 pub use self::interest::{compound_interest, simple_interest};
 pub use self::interpolation::{lagrange_polynomial_interpolation, linear_interpolation};
 pub use self::interquartile_range::interquartile_range;
