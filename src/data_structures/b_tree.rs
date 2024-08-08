@@ -165,19 +165,46 @@ where
 mod test {
     use super::BTree;
 
-    #[test]
-    fn test_search() {
-        let mut tree = BTree::new(2);
-        tree.insert(10);
-        tree.insert(20);
-        tree.insert(30);
-        tree.insert(5);
-        tree.insert(6);
-        tree.insert(7);
-        tree.insert(11);
-        tree.insert(12);
-        tree.insert(15);
-        assert!(tree.search(15));
-        assert!(!tree.search(16));
+    macro_rules! test_search {
+        ($($name:ident: $number_of_children:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let mut tree = BTree::new($number_of_children);
+                tree.insert(10);
+                tree.insert(20);
+                tree.insert(30);
+                tree.insert(5);
+                tree.insert(6);
+                tree.insert(7);
+                tree.insert(11);
+                tree.insert(12);
+                tree.insert(15);
+                assert!(!tree.search(4));
+                assert!(tree.search(5));
+                assert!(tree.search(6));
+                assert!(tree.search(7));
+                assert!(!tree.search(8));
+                assert!(!tree.search(9));
+                assert!(tree.search(10));
+                assert!(tree.search(11));
+                assert!(tree.search(12));
+                assert!(!tree.search(13));
+                assert!(!tree.search(14));
+                assert!(tree.search(15));
+                assert!(!tree.search(16));
+            }
+        )*
+        }
+    }
+
+    test_search! {
+        children_2: 2,
+        children_3: 3,
+        children_4: 4,
+        children_5: 5,
+        children_10: 10,
+        children_60: 60,
+        children_101: 101,
     }
 }
