@@ -8,6 +8,7 @@ mod tests {
 
     #[test]
     fn palindromes() {
+        assert!(is_palindrome(""));
         assert!(is_palindrome("abcba"));
         assert!(is_palindrome("abba"));
         assert!(is_palindrome("a"));
