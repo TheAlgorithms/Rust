@@ -12,7 +12,7 @@
 /// # Returns
 ///
 /// * `Some(usize)` - The minimum number of drops required if the number of eggs is greater than 0.
-/// * `None` - If the number of eggs is less than or equal to 0.
+/// * `None` - If the number of eggs 0.
 pub fn egg_drop(eggs: usize, floors: usize) -> Option<usize> {
     if eggs == 0 {
         return None;
