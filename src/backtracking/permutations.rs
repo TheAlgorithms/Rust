@@ -5,7 +5,8 @@
 ///
 /// # Arguments
 ///
-/// * `nums` - A vector of integers.
+/// * `nums` - A vector of integers. The input vector is sorted before generating
+/// permutations to handle duplicates effectively.
 ///
 /// # Returns
 ///
@@ -25,12 +26,12 @@ pub fn permute(mut nums: Vec<isize>) -> Vec<Vec<isize>> {
 ///
 /// # Arguments
 ///
-/// * `nums` - A reference to the original vector of integers.
+/// * `nums` - A reference to the sorted vector of integers.
 /// * `current` - A mutable reference to the vector holding the current permutation.
 /// * `used` - A mutable reference to a vector tracking which elements are used.
 /// * `permutations` - A mutable reference to the vector holding all generated distinct permutations.
 fn generate(
-    nums: &Vec<isize>,
+    nums: &[isize],
     current: &mut Vec<isize>,
     used: &mut Vec<bool>,
     permutations: &mut Vec<Vec<isize>>,
@@ -90,6 +91,9 @@ mod tests {
             vec![1, 1, 2],
             vec![1, 2, 1],
             vec![2, 1, 1],
+        ]),
+        test_permute_all_duplicates: (vec![1, 1, 1, 1], vec![
+            vec![1, 1, 1, 1],
         ]),
         test_permute_negative: (vec![-1, -2, -3], vec![
             vec![-3, -2, -1],
