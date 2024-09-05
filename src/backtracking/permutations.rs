@@ -1,46 +1,62 @@
-/*
-The permutations problem involves finding all possible permutations
-of a given collection of distinct integers. For instance, given [1, 2, 3],
-the goal is to generate permutations like
- [1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], and [3, 2, 1].
- This implementation uses a backtracking algorithm to generate all possible permutations.
-*/
+//! This module provides a function to generate all possible distinct permutations
+//! of a given collection of integers using a backtracking algorithm.
 
-pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
-    let mut result = Vec::new(); // Vector to store the resulting permutations
-    let mut current_permutation = Vec::new(); // Vector to store the current permutation being constructed
-    let mut used = vec![false; nums.len()]; // A boolean array to keep track of used elements
+/// Generates all possible distinct permutations of a given vector of integers.
+///
+/// # Arguments
+///
+/// * `nums` - A vector of integers. The input vector is sorted before generating
+/// permutations to handle duplicates effectively.
+///
+/// # Returns
+///
+/// A vector containing all possible distinct permutations of the input vector.
+pub fn permute(mut nums: Vec<isize>) -> Vec<Vec<isize>> {
+    let mut permutations = Vec::new();
+    let mut current = Vec::new();
+    let mut used = vec![false; nums.len()];
 
-    backtrack(&nums, &mut current_permutation, &mut used, &mut result); // Call the backtracking function
+    nums.sort();
+    generate(&nums, &mut current, &mut used, &mut permutations);
 
-    result // Return the list of permutations
+    permutations
 }
 
-fn backtrack(
-    nums: &Vec<i32>,
-    current_permutation: &mut Vec<i32>,
+/// Helper function for the `permute` function to generate distinct permutations recursively.
+///
+/// # Arguments
+///
+/// * `nums` - A reference to the sorted slice of integers.
+/// * `current` - A mutable reference to the vector holding the current permutation.
+/// * `used` - A mutable reference to a vector tracking which elements are used.
+/// * `permutations` - A mutable reference to the vector holding all generated distinct permutations.
+fn generate(
+    nums: &[isize],
+    current: &mut Vec<isize>,
     used: &mut Vec<bool>,
-    result: &mut Vec<Vec<i32>>,
+    permutations: &mut Vec<Vec<isize>>,
 ) {
-    if current_permutation.len() == nums.len() {
-        // If the current permutation is of the same length as the input,
-        // it is a complete permutation, so add it to the result.
-        result.push(current_permutation.clone());
+    if current.len() == nums.len() {
+        permutations.push(current.clone());
         return;
     }
 
-    for i in 0..nums.len() {
-        if used[i] {
-            continue; // Skip used elements
+    for idx in 0..nums.len() {
+        if used[idx] {
+            continue;
         }
 
-        current_permutation.push(nums[i]); // Add the current element to the permutation
-        used[i] = true; // Mark the element as used
+        if idx > 0 && nums[idx] == nums[idx - 1] && !used[idx - 1] {
+            continue;
+        }
 
-        backtrack(nums, current_permutation, used, result); // Recursively generate the next permutation
+        current.push(nums[idx]);
+        used[idx] = true;
 
-        current_permutation.pop(); // Backtrack by removing the last element
-        used[i] = false; // Mark the element as unused for the next iteration
+        generate(nums, current, used, permutations);
+
+        current.pop();
+        used[idx] = false;
     }
 }
 
@@ -48,16 +64,78 @@ fn backtrack(
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_permute() {
-        // Test case: Generate permutations for [1, 2, 3]
-        let permutations = permute(vec![1, 2, 3]);
+    macro_rules! permute_tests {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (input, expected) = $test_case;
+                    assert_eq!(permute(input), expected);
+                }
+            )*
+        }
+    }
 
-        assert_eq!(permutations.len(), 6); // There should be 6 permutations
-
-        // Verification for some of the permutations
-        assert!(permutations.contains(&vec![1, 2, 3]));
-        assert!(permutations.contains(&vec![1, 3, 2]));
-        assert!(permutations.contains(&vec![2, 1, 3]));
+    permute_tests! {
+        test_permute_basic: (vec![1, 2, 3], vec![
+            vec![1, 2, 3],
+            vec![1, 3, 2],
+            vec![2, 1, 3],
+            vec![2, 3, 1],
+            vec![3, 1, 2],
+            vec![3, 2, 1],
+        ]),
+        test_permute_empty: (Vec::<isize>::new(), vec![vec![]]),
+        test_permute_single: (vec![1], vec![vec![1]]),
+        test_permute_duplicates: (vec![1, 1, 2], vec![
+            vec![1, 1, 2],
+            vec![1, 2, 1],
+            vec![2, 1, 1],
+        ]),
+        test_permute_all_duplicates: (vec![1, 1, 1, 1], vec![
+            vec![1, 1, 1, 1],
+        ]),
+        test_permute_negative: (vec![-1, -2, -3], vec![
+            vec![-3, -2, -1],
+            vec![-3, -1, -2],
+            vec![-2, -3, -1],
+            vec![-2, -1, -3],
+            vec![-1, -3, -2],
+            vec![-1, -2, -3],
+        ]),
+        test_permute_mixed: (vec![-1, 0, 1], vec![
+            vec![-1, 0, 1],
+            vec![-1, 1, 0],
+            vec![0, -1, 1],
+            vec![0, 1, -1],
+            vec![1, -1, 0],
+            vec![1, 0, -1],
+        ]),
+        test_permute_larger: (vec![1, 2, 3, 4], vec![
+            vec![1, 2, 3, 4],
+            vec![1, 2, 4, 3],
+            vec![1, 3, 2, 4],
+            vec![1, 3, 4, 2],
+            vec![1, 4, 2, 3],
+            vec![1, 4, 3, 2],
+            vec![2, 1, 3, 4],
+            vec![2, 1, 4, 3],
+            vec![2, 3, 1, 4],
+            vec![2, 3, 4, 1],
+            vec![2, 4, 1, 3],
+            vec![2, 4, 3, 1],
+            vec![3, 1, 2, 4],
+            vec![3, 1, 4, 2],
+            vec![3, 2, 1, 4],
+            vec![3, 2, 4, 1],
+            vec![3, 4, 1, 2],
+            vec![3, 4, 2, 1],
+            vec![4, 1, 2, 3],
+            vec![4, 1, 3, 2],
+            vec![4, 2, 1, 3],
+            vec![4, 2, 3, 1],
+            vec![4, 3, 1, 2],
+            vec![4, 3, 2, 1],
+        ]),
     }
 }
