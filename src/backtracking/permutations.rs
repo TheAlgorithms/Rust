@@ -26,7 +26,7 @@ pub fn permute(mut nums: Vec<isize>) -> Vec<Vec<isize>> {
 ///
 /// # Arguments
 ///
-/// * `nums` - A reference to the sorted vector of integers.
+/// * `nums` - A reference to the sorted slice of integers.
 /// * `current` - A mutable reference to the vector holding the current permutation.
 /// * `used` - A mutable reference to a vector tracking which elements are used.
 /// * `permutations` - A mutable reference to the vector holding all generated distinct permutations.
