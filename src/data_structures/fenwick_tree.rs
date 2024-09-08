@@ -1,7 +1,7 @@
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
 /// A Fenwick Tree (also known as a Binary Indexed Tree) that supports efficient
-/// prefix sum and range sum queries, as well as point updates.
+/// prefix sum, range sum and point queries, as well as point updates.
 pub struct FenwickTree<T>
 where
     T: Add<Output = T> + AddAssign + Sub<Output = T> + SubAssign + Copy + Default,
@@ -46,6 +46,9 @@ where
     ///
     /// This operation also propagates the update to subsequent elements in the tree.
     ///
+    /// **Note**: The `index` parameter is zero-based from the user's perspective,
+    /// while the tree uses one-based indexing internally.
+    ///
     /// # Arguments
     ///
     /// * `index` - The zero-based index where the value should be added.
@@ -72,6 +75,9 @@ where
     /// Computes the sum of elements from the start of the tree up to a specified index.
     ///
     /// This operation efficiently calculates the prefix sum using the tree structure.
+    ///
+    /// **Note**: The `index` parameter is zero-based, while the tree uses one-based
+    /// indexing internally.
     ///
     /// # Arguments
     ///
@@ -100,6 +106,8 @@ where
     ///
     /// This operation calculates the range sum by performing two prefix sum queries.
     ///
+    /// **Note**: The `left` and `right` parameters are zero-based.
+    ///
     /// # Arguments
     ///
     /// * `left` - The zero-based starting index of the range.
@@ -107,9 +115,8 @@ where
     ///
     /// # Returns
     ///
-    /// A `Result` containing the range sum (`Ok(sum)`) or an error:
-    /// * `FenwickTreeError::IndexOutOfBounds` if the right index is out of bounds.
-    /// * `FenwickTreeError::InvalidRange` if the left index is greater than the right index.
+    /// A `Result` containing the range sum (`Ok(sum)`) or an error (`FenwickTreeError::InvalidRange`)
+    /// if the left index is greater than the right index or the right index is out of bounds.
     pub fn range_query(&self, left: usize, right: usize) -> Result<T, FenwickTreeError> {
         if left > right || right >= self.data.len() - 1 {
             return Err(FenwickTreeError::InvalidRange);
@@ -129,6 +136,8 @@ where
     ///
     /// This operation determines the value at `index` by subtracting the prefix sum up to `index - 1`
     /// from the prefix sum up to `index`.
+    ///
+    /// **Note**: The `index` parameter is zero-based.
     ///
     /// # Arguments
     ///
@@ -158,6 +167,8 @@ where
     /// This operation updates the value at `index` by computing the difference between the
     /// desired value and the current value, then applying that difference using `update`.
     ///
+    /// **Note**: The `index` parameter is zero-based.
+    ///
     /// # Arguments
     ///
     /// * `index` - The zero-based index of the element to set.
@@ -185,8 +196,7 @@ where
 ///
 /// The value of the lowest set bit in `x`.
 const fn lowbit(x: usize) -> usize {
-    let x = x as isize;
-    (x & (-x)) as usize
+    x & (!x + 1)
 }
 
 #[cfg(test)]
