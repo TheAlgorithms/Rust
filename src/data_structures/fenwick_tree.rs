@@ -2,6 +2,9 @@ use std::ops::{Add, AddAssign, Sub, SubAssign};
 
 /// A Fenwick Tree (also known as a Binary Indexed Tree) that supports efficient
 /// prefix sum, range sum and point queries, as well as point updates.
+///
+/// The Fenwick Tree uses **1-based** indexing internally but presents a **0-based** interface to the user.
+/// This design improves efficiency and simplifies both internal operations and external usage.
 pub struct FenwickTree<T>
 where
     T: Add<Output = T> + AddAssign + Sub<Output = T> + SubAssign + Copy + Default,
@@ -46,9 +49,6 @@ where
     ///
     /// This operation also propagates the update to subsequent elements in the tree.
     ///
-    /// **Note**: The `index` parameter is zero-based from the user's perspective,
-    /// while the tree uses one-based indexing internally.
-    ///
     /// # Arguments
     ///
     /// * `index` - The zero-based index where the value should be added.
@@ -76,9 +76,6 @@ where
     ///
     /// This operation efficiently calculates the prefix sum using the tree structure.
     ///
-    /// **Note**: The `index` parameter is zero-based, while the tree uses one-based
-    /// indexing internally.
-    ///
     /// # Arguments
     ///
     /// * `index` - The zero-based index up to which the sum should be computed.
@@ -105,8 +102,6 @@ where
     /// Computes the sum of elements within a specified range `[left, right]`.
     ///
     /// This operation calculates the range sum by performing two prefix sum queries.
-    ///
-    /// **Note**: The `left` and `right` parameters are zero-based.
     ///
     /// # Arguments
     ///
@@ -137,8 +132,6 @@ where
     /// This operation determines the value at `index` by subtracting the prefix sum up to `index - 1`
     /// from the prefix sum up to `index`.
     ///
-    /// **Note**: The `index` parameter is zero-based.
-    ///
     /// # Arguments
     ///
     /// * `index` - The zero-based index of the element to retrieve.
@@ -167,8 +160,6 @@ where
     /// This operation updates the value at `index` by computing the difference between the
     /// desired value and the current value, then applying that difference using `update`.
     ///
-    /// **Note**: The `index` parameter is zero-based.
-    ///
     /// # Arguments
     ///
     /// * `index` - The zero-based index of the element to set.
@@ -187,6 +178,11 @@ where
 ///
 /// This function isolates the lowest set bit in the binary representation of `x`.
 /// It's used to navigate the Fenwick Tree by determining the next index to update or query.
+///
+///
+/// In a Fenwick Tree, operations like updating and querying use bitwise manipulation
+/// (via the lowbit function). These operations naturally align with 1-based indexing,
+/// making traversal between parent and child nodes more straightforward.
 ///
 /// # Arguments
 ///
