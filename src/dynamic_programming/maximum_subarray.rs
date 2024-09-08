@@ -1,4 +1,4 @@
-//! This module provides a function to find the the largest sum of the subarray
+//! This module provides a function to find the largest sum of the subarray
 //! in a given array of integers using dynamic programming. It also includes
 //! tests to verify the correctness of the implementation.
 
