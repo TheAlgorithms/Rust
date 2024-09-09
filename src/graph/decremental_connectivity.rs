@@ -4,7 +4,7 @@ use std::collections::HashSet;
 /// Meaning deletion of an edge (u,v) and checking whether two vertecies are still connected.
 ///
 /// # Complexity
-/// The preprocessing phase runs in O(n) time, where n is the the number of vertecies in the forest.
+/// The preprocessing phase runs in O(n) time, where n is the number of vertecies in the forest.
 /// Deletion runs in O(log n) and checking for connectivity runs in O(1) time.
 ///
 /// # Sources
