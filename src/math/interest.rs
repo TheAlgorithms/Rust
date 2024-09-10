@@ -14,7 +14,7 @@ pub fn simple_interest(principal: f64, annual_rate: f64, years: f64) -> (f64, f6
 
 // function to calculate compound interest compounded over periods or continuously
 pub fn compound_interest(principal: f64, annual_rate: f64, years: f64, period: Option<f64>) -> f64 {
-    // checks if the the period is None type, if so calculates continuous compounding interest
+    // checks if the period is None type, if so calculates continuous compounding interest
     let value = if period.is_none() {
         principal * E.powf(annual_rate * years)
     } else {

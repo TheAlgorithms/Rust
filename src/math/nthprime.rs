@@ -1,5 +1,5 @@
 // Generate the nth prime number.
-// Algorithm is inspired by the the optimized version of the Sieve of Eratosthenes.
+// Algorithm is inspired by the optimized version of the Sieve of Eratosthenes.
 pub fn nthprime(nth: u64) -> u64 {
     let mut total_prime: u64 = 0;
     let mut size_factor: u64 = 2;
