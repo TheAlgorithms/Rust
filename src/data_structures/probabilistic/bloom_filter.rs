@@ -59,6 +59,7 @@ impl<Item: Hash, const CAPACITY: usize> BloomFilter<Item> for BasicBloomFilter<C
 /// We want to store `"Bloom"`. Its hash modulo `CAPACITY` is `5`. Which means we need to set `1` at the last index.
 /// It can be performed by doing `000000 | 000001`
 /// Meaning we can hash the item value, use a modulo to find the index, and do a binary `or` between the current number and the index
+#[allow(dead_code)]
 #[derive(Debug, Default)]
 struct SingleBinaryBloomFilter {
     fingerprint: u128, // let's use 128 bits, the equivalent of using CAPACITY=128 in the previous example
