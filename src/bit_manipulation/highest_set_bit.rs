@@ -44,6 +44,9 @@ mod tests {
 
     test_find_highest_set_bit! {
         test_positive_number: (18, Some(4)),
-        test_zero: (0, None),
+        test_0: (0, None),
+        test_1: (1, Some(0)),
+        test_2: (2, Some(1)),
+        test_3: (3, Some(1)),
     }
 }

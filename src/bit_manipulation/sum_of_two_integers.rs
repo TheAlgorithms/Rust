@@ -33,22 +33,23 @@ mod tests {
             $(
                 #[test]
                 fn $name() {
-                    let (a, b, expected) = $test_case;
-                    assert_eq!(add_two_integers(a, b), expected);
+                    let (a, b) = $test_case;
+                    assert_eq!(add_two_integers(a, b), a + b);
+                    assert_eq!(add_two_integers(b, a), a + b);
                 }
             )*
         };
     }
 
     test_add_two_integers! {
-        test_add_two_integers_positive: (3, 5, 8),
-        test_add_two_integers_large_positive: (100, 200, 300),
-        test_add_two_integers_edge_positive: (65535, 1, 65536),
-        test_add_two_integers_negative: (-10, 6, -4),
-        test_add_two_integers_both_negative: (-50, -30, -80),
-        test_add_two_integers_edge_negative: (-1, -1, -2),
-        test_add_two_integers_zero: (0, 0, 0),
-        test_add_two_integers_zero_with_positive: (0, 42, 42),
-        test_add_two_integers_zero_with_negative: (0, -42, -42),
+        test_add_two_integers_positive: (3, 5),
+        test_add_two_integers_large_positive: (100, 200),
+        test_add_two_integers_edge_positive: (65535, 1),
+        test_add_two_integers_negative: (-10, 6),
+        test_add_two_integers_both_negative: (-50, -30),
+        test_add_two_integers_edge_negative: (-1, -1),
+        test_add_two_integers_zero: (0, 0),
+        test_add_two_integers_zero_with_positive: (0, 42),
+        test_add_two_integers_zero_with_negative: (0, -42),
     }
 }
