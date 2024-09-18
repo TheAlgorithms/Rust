@@ -1,5 +1,12 @@
+//! This module provides functionality to check if a given string is a pangram.
+//!
+//! A pangram is a sentence that contains every letter of the alphabet at least once.
+//! This module can distinguish between a non-pangram, a regular pangram, and a
+//! perfect pangram, where each letter appears exactly once.
+
 use std::collections::HashSet;
 
+/// Represents the status of a string in relation to the pangram classification.
 #[derive(PartialEq, Debug)]
 pub enum PangramStatus {
     NotPangram,
@@ -7,48 +14,34 @@ pub enum PangramStatus {
     PerfectPangram,
 }
 
-/// Function that checks if the slice is a pangram
+/// Determines if the input string is a pangram, and classifies it as either a regular or perfect pangram.
 ///
-/// ## Arguments
+/// # Arguments
 ///
-/// * `pangram_str` - the slice that will be checked if is a pangram
+/// * `pangram_str` - A reference to the string slice to be checked for pangram status.
 ///
-/// ## Examples
+/// # Returns
 ///
-/// ```
-/// use the_algorithms_rust::string::is_pangram;
-/// use std::collections::HashSet;
-/// use the_algorithms_rust::string::PangramStatus;
-///
-/// assert_eq!(
-///    is_pangram("This is not a pangram"),
-///    PangramStatus::NotPangram
-/// );
-///
-/// assert_eq!(
-///    is_pangram("The quick brown fox jumps over the lazy dog"),
-///    PangramStatus::Pangram
-/// );
-///
-/// assert_eq!(
-///    is_pangram("Mr. Jock, TV quiz PhD, bags few lynx"),
-///    PangramStatus::PerfectPangram
-/// );
-/// ```
+/// A `PangramStatus` enum indicating whether the string is a pangram, and if so, whether it is a perfect pangram.
 pub fn is_pangram(pangram_str: &str) -> PangramStatus {
     let alphabet: HashSet<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
+    let mut letter_counts = std::collections::HashMap::new();
 
-    let letters_used: HashSet<char> = pangram_str
+    for ch in pangram_str
         .to_lowercase()
         .chars()
         .filter(|c| c.is_ascii_alphabetic())
-        .collect();
+    {
+        *letter_counts.entry(ch).or_insert(0) += 1;
+    }
 
-    if letters_used != alphabet {
+    let unique_letters: HashSet<_> = letter_counts.keys().cloned().collect();
+
+    if unique_letters != alphabet {
         return PangramStatus::NotPangram;
-    };
+    }
 
-    if pangram_str.chars().filter(|c| c.is_alphabetic()).count() == alphabet.len() {
+    if letter_counts.values().all(|&count| count == 1) {
         PangramStatus::PerfectPangram
     } else {
         PangramStatus::Pangram
@@ -59,46 +52,26 @@ pub fn is_pangram(pangram_str: &str) -> PangramStatus {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_not_pangram() {
-        assert_eq!(
-            is_pangram("This is not a pangram"),
-            PangramStatus::NotPangram
-        );
-        assert_eq!(is_pangram("today is a good day"), PangramStatus::NotPangram);
-        assert_eq!(
-            is_pangram(
-                "this is almost a pangram but it does not have bcfghjkqwxy and the last letter"
-            ),
-            PangramStatus::NotPangram
-        );
+    macro_rules! pangram_tests {
+        ($($name:ident: $tc:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (input, expected) = $tc;
+                    assert_eq!(is_pangram(input), expected);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn test_pangram() {
-        assert_eq!(
-            is_pangram("The quick brown fox jumps over the lazy dog"),
-            PangramStatus::Pangram
-        );
-        assert_eq!(
-            is_pangram("A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent"),
-            PangramStatus::Pangram
-        );
-        assert_eq!(
-            is_pangram("Amazingly few discotheques provide jukeboxes"),
-            PangramStatus::Pangram
-        );
-        assert_eq!(
-            is_pangram("How vexingly quick daft zebras jump"),
-            PangramStatus::Pangram
-        );
-    }
-
-    #[test]
-    fn test_perfect_pangram() {
-        assert_eq!(
-            is_pangram("Mr. Jock, TV quiz PhD, bags few lynx"),
-            PangramStatus::PerfectPangram
-        );
+    pangram_tests! {
+        test_not_pangram_simple: ("This is not a pangram", PangramStatus::NotPangram),
+        test_not_pangram_day: ("today is a good day", PangramStatus::NotPangram),
+        test_not_pangram_almost: ("this is almost a pangram but it does not have bcfghjkqwxy and the last letter", PangramStatus::NotPangram),
+        test_pangram_standard: ("The quick brown fox jumps over the lazy dog", PangramStatus::Pangram),
+        test_pangram_boxer: ("A mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent", PangramStatus::Pangram),
+        test_pangram_discotheques: ("Amazingly few discotheques provide jukeboxes", PangramStatus::Pangram),
+        test_pangram_zebras: ("How vexingly quick daft zebras jump", PangramStatus::Pangram),
+        test_perfect_pangram_jock: ("Mr. Jock, TV quiz PhD, bags few lynx", PangramStatus::PerfectPangram),
     }
 }
