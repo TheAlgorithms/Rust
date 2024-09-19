@@ -1,19 +1,22 @@
-/**
- * This algorithm demonstrates how to add two integers without using the + operator
- * but instead relying on bitwise operations, like bitwise XOR and AND, to simulate
- * the addition. It leverages bit manipulation to compute the sum efficiently.
- */
+//! This module provides a function to add two integers without using the `+` operator.
+//! It relies on bitwise operations (XOR and AND) to compute the sum, simulating the addition process.
 
-pub fn add_two_integers(a: i32, b: i32) -> i32 {
-    let mut a = a;
-    let mut b = b;
+/// Adds two integers using bitwise operations.
+///
+/// # Arguments
+///
+/// * `a` - The first integer to be added.
+/// * `b` - The second integer to be added.
+///
+/// # Returns
+///
+/// * `isize` - The result of adding the two integers.
+pub fn add_two_integers(mut a: isize, mut b: isize) -> isize {
     let mut carry;
-    let mut sum;
 
-    // Iterate until there is no carry left
     while b != 0 {
-        sum = a ^ b; // XOR operation to find the sum without carry
-        carry = (a & b) << 1; // AND operation to find the carry, shifted left by 1
+        let sum = a ^ b;
+        carry = (a & b) << 1;
         a = sum;
         b = carry;
     }
@@ -23,26 +26,30 @@ pub fn add_two_integers(a: i32, b: i32) -> i32 {
 
 #[cfg(test)]
 mod tests {
-    use super::add_two_integers;
+    use super::*;
 
-    #[test]
-    fn test_add_two_integers_positive() {
-        assert_eq!(add_two_integers(3, 5), 8);
-        assert_eq!(add_two_integers(100, 200), 300);
-        assert_eq!(add_two_integers(65535, 1), 65536);
+    macro_rules! test_add_two_integers {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (a, b) = $test_case;
+                    assert_eq!(add_two_integers(a, b), a + b);
+                    assert_eq!(add_two_integers(b, a), a + b);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn test_add_two_integers_negative() {
-        assert_eq!(add_two_integers(-10, 6), -4);
-        assert_eq!(add_two_integers(-50, -30), -80);
-        assert_eq!(add_two_integers(-1, -1), -2);
-    }
-
-    #[test]
-    fn test_add_two_integers_zero() {
-        assert_eq!(add_two_integers(0, 0), 0);
-        assert_eq!(add_two_integers(0, 42), 42);
-        assert_eq!(add_two_integers(0, -42), -42);
+    test_add_two_integers! {
+        test_add_two_integers_positive: (3, 5),
+        test_add_two_integers_large_positive: (100, 200),
+        test_add_two_integers_edge_positive: (65535, 1),
+        test_add_two_integers_negative: (-10, 6),
+        test_add_two_integers_both_negative: (-50, -30),
+        test_add_two_integers_edge_negative: (-1, -1),
+        test_add_two_integers_zero: (0, 0),
+        test_add_two_integers_zero_with_positive: (0, 42),
+        test_add_two_integers_zero_with_negative: (0, -42),
     }
 }

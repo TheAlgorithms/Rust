@@ -146,6 +146,10 @@ unwrap_used = { level = "allow", priority = 1 }
 use_debug = { level = "allow", priority = 1 }
 wildcard_enum_match_arm = { level = "allow", priority = 1 }
 renamed_function_params = { level = "allow", priority = 1 }
+allow_attributes_without_reason = { level = "allow", priority = 1 }
+allow_attributes = { level = "allow", priority = 1 }
+cfg_not_test = { level = "allow", priority = 1 }
+field_scoped_visibility_modifiers = { level = "allow", priority = 1 }
 # nursery-lints:
 branches_sharing_code = { level = "allow", priority = 1 }
 cognitive_complexity = { level = "allow", priority = 1 }
@@ -163,6 +167,7 @@ suspicious_operation_groupings = { level = "allow", priority = 1 }
 use_self = { level = "allow", priority = 1 }
 while_float = { level = "allow", priority = 1 }
 needless_pass_by_ref_mut = { level = "allow", priority = 1 }
+set_contains_or_insert = { level = "allow", priority = 1 }
 # cargo-lints:
 cargo_common_metadata = { level = "allow", priority = 1 }
 # style-lints:
