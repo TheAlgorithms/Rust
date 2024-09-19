@@ -1,27 +1,32 @@
-// Saddleback search is a technique used to find an element in a sorted 2D matrix in O(m + n) time,
-// where m is the number of rows, and n is the number of columns. It works by starting from the
-// top-right corner of the matrix and moving left or down based on the comparison of the current
-// element with the target element.
 use std::cmp::Ordering;
 
-pub fn saddleback_search(matrix: &[Vec<i32>], element: i32) -> (usize, usize) {
-    // Initialize left and right indices
+/// Performs Saddleback search on a sorted 2D matrix.
+///
+/// The Saddleback search algorithm finds the position of a target element in a matrix where
+/// each row and each column is sorted in ascending order. The search starts from the top-right
+/// corner of the matrix and moves left or down based on comparisons with the target element.
+///
+/// # Arguments
+///
+/// * `matrix` - A 2D vector representing the sorted matrix.
+/// * `element` - The target element to search for.
+///
+/// # Returns
+///
+/// Returns a tuple (row, column) where both indices are 1-based. If the element is not found, returns (0, 0).
+pub fn saddleback_search(matrix: &[Vec<isize>], element: isize) -> (usize, usize) {
     let mut left_index = 0;
     let mut right_index = matrix[0].len() - 1;
 
-    // Start searching
     while left_index < matrix.len() {
         match element.cmp(&matrix[left_index][right_index]) {
-            // If the current element matches the target element, return its position (indices are 1-based)
             Ordering::Equal => return (left_index + 1, right_index + 1),
             Ordering::Greater => {
-                // If the target element is greater, move to the next row (downwards)
                 left_index += 1;
             }
             Ordering::Less => {
-                // If the target element is smaller, move to the previous column (leftwards)
                 if right_index == 0 {
-                    break; // If we reach the left-most column, exit the loop
+                    break;
                 } else {
                     right_index -= 1;
                 }
@@ -29,7 +34,6 @@ pub fn saddleback_search(matrix: &[Vec<i32>], element: i32) -> (usize, usize) {
         }
     }
 
-    // If the element is not found, return (0, 0)
     (0, 0)
 }
 
@@ -37,49 +41,72 @@ pub fn saddleback_search(matrix: &[Vec<i32>], element: i32) -> (usize, usize) {
 mod tests {
     use super::*;
 
-    // Test when the element is not present in the matrix
-    #[test]
-    fn test_element_not_found() {
-        let matrix = vec![vec![1, 10, 100], vec![2, 20, 200], vec![3, 30, 300]];
-        assert_eq!(saddleback_search(&matrix, 123), (0, 0));
+    macro_rules! saddleback_tests {
+        ($($name:ident: $tc:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (matrix, element, expected) = $tc;
+                    assert_eq!(saddleback_search(&matrix, element), expected);
+                }
+            )*
+        };
     }
 
-    // Test when the element is at the top-left corner of the matrix
-    #[test]
-    fn test_element_at_top_left() {
-        let matrix = vec![vec![1, 10, 100], vec![2, 20, 200], vec![3, 30, 300]];
-        assert_eq!(saddleback_search(&matrix, 1), (1, 1));
-    }
-
-    // Test when the element is at the bottom-right corner of the matrix
-    #[test]
-    fn test_element_at_bottom_right() {
-        let matrix = vec![vec![1, 10, 100], vec![2, 20, 200], vec![3, 30, 300]];
-        assert_eq!(saddleback_search(&matrix, 300), (3, 3));
-    }
-
-    // Test when the element is at the top-right corner of the matrix
-    #[test]
-    fn test_element_at_top_right() {
-        let matrix = vec![vec![1, 10, 100], vec![2, 20, 200], vec![3, 30, 300]];
-        assert_eq!(saddleback_search(&matrix, 100), (1, 3));
-    }
-
-    // Test when the element is at the bottom-left corner of the matrix
-    #[test]
-    fn test_element_at_bottom_left() {
-        let matrix = vec![vec![1, 10, 100], vec![2, 20, 200], vec![3, 30, 300]];
-        assert_eq!(saddleback_search(&matrix, 3), (3, 1));
-    }
-
-    // Additional test case: Element in the middle of the matrix
-    #[test]
-    fn test_element_in_middle() {
-        let matrix = vec![
-            vec![1, 10, 100, 1000],
-            vec![2, 20, 200, 2000],
-            vec![3, 30, 300, 3000],
-        ];
-        assert_eq!(saddleback_search(&matrix, 200), (2, 3));
+    saddleback_tests! {
+        test_element_not_found: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20, 200],
+                vec![3, 30, 300]
+            ],
+            123,
+            (0, 0),
+        ),
+        test_element_at_top_left: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20, 200],
+                vec![3, 30, 300]
+            ],
+            1,
+            (1, 1),
+        ),
+        test_element_at_bottom_right: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20, 200],
+                vec![3, 30, 300]
+            ],
+            300,
+            (3, 3),
+        ),
+        test_element_at_top_right: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20, 200],
+                vec![3, 30, 300]
+            ],
+            100,
+            (1, 3),
+        ),
+        test_element_at_bottom_left: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20, 200],
+                vec![3, 30, 300]
+            ],
+            3,
+            (3, 1),
+        ),
+        test_element_in_middle: (
+            vec![
+                vec![1, 10, 100, 1000],
+                vec![2, 20, 200, 2000],
+                vec![3, 30, 300, 3000],
+            ],
+            200,
+            (2, 3),
+        ),
     }
 }
