@@ -66,6 +66,7 @@
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Lazy Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/lazy_segment_tree.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
+    * [Plus-Minus-One Range Minimum Query](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/plus_minus_rmq.rs)
     * [Postfix Evaluation](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/postfix_evaluation.rs)
     * Probabilistic
       * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
