@@ -1,11 +1,19 @@
-/*
-The counting bits algorithm, also known as the "population count" or "Hamming weight,"
-calculates the number of set bits (1s) in the binary representation of an unsigned integer.
-It uses a technique known as Brian Kernighan's algorithm, which efficiently clears the least
-significant set bit in each iteration.
-*/
+//! This module implements a function to count the number of set bits (1s)
+//! in the binary representation of an unsigned integer.
+//! It uses Brian Kernighan's algorithm, which efficiently clears the least significant
+//! set bit in each iteration until all bits are cleared.
+//! The algorithm runs in O(k), where k is the number of set bits.
 
-pub fn count_set_bits(mut n: u32) -> u32 {
+/// Counts the number of set bits in an unsigned integer.
+///
+/// # Arguments
+///
+/// * `n` - An unsigned 32-bit integer whose set bits will be counted.
+///
+/// # Returns
+///
+/// * `usize` - The number of set bits (1s) in the binary representation of the input number.
+pub fn count_set_bits(mut n: usize) -> usize {
     // Initialize a variable to keep track of the count of set bits
     let mut count = 0;
     while n > 0 {
@@ -24,23 +32,23 @@ pub fn count_set_bits(mut n: u32) -> u32 {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_count_set_bits_zero() {
-        assert_eq!(count_set_bits(0), 0);
+    macro_rules! test_count_set_bits {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (input, expected) = $test_case;
+                    assert_eq!(count_set_bits(input), expected);
+                }
+            )*
+        };
     }
-
-    #[test]
-    fn test_count_set_bits_one() {
-        assert_eq!(count_set_bits(1), 1);
-    }
-
-    #[test]
-    fn test_count_set_bits_power_of_two() {
-        assert_eq!(count_set_bits(16), 1); // 16 is 2^4, only one set bit
-    }
-
-    #[test]
-    fn test_count_set_bits_all_set_bits() {
-        assert_eq!(count_set_bits(u32::MAX), 32); // Maximum value for u32, all set bits
+    test_count_set_bits! {
+        test_count_set_bits_zero: (0, 0),
+        test_count_set_bits_one: (1, 1),
+        test_count_set_bits_power_of_two: (16, 1),
+        test_count_set_bits_all_set_bits: (usize::MAX, std::mem::size_of::<usize>() * 8),
+        test_count_set_bits_alternating_bits: (0b10101010, 4),
+        test_count_set_bits_mixed_bits: (0b11011011, 6),
     }
 }
