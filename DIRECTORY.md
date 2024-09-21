@@ -66,7 +66,6 @@
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Lazy Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/lazy_segment_tree.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
-    * [Postfix Evaluation](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/postfix_evaluation.rs)
     * Probabilistic
       * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
       * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
@@ -225,6 +224,7 @@
     * [Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_numbers.rs)
     * [Perfect Square](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_square.rs)
     * [Pollard Rho](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pollard_rho.rs)
+    * [Postfix Evaluation](https://github.com/TheAlgorithms/Rust/blob/master/src/math/postfix_evaluation.rs)
     * [Prime Check](https://github.com/TheAlgorithms/Rust/blob/master/src/math/prime_check.rs)
     * [Prime Factors](https://github.com/TheAlgorithms/Rust/blob/master/src/math/prime_factors.rs)
     * [Prime Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/prime_numbers.rs)
