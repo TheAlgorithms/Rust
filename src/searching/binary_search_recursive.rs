@@ -1,31 +1,42 @@
 use std::cmp::Ordering;
 
-pub fn binary_search_rec<T: Ord>(
-    list_of_items: &[T],
-    target: &T,
-    left: &usize,
-    right: &usize,
-) -> Option<usize> {
+/// Recursively performs a binary search for a specified item within a sorted array.
+///
+/// This function can handle both ascending and descending ordered arrays. It
+/// takes a reference to the item to search for and a slice of the array. If
+/// the item is found, it returns the index of the item within the array. If
+/// the item is not found, it returns `None`.
+///
+/// # Parameters
+///
+/// - `item`: A reference to the item to search for.
+/// - `arr`: A slice of the sorted array in which to search.
+/// - `left`: The left bound of the current search range.
+/// - `right`: The right bound of the current search range.
+/// - `is_asc`: A boolean indicating whether the array is sorted in ascending order.
+///
+/// # Returns
+///
+/// An `Option<usize>` which is:
+/// - `Some(index)` if the item is found at the given index.
+/// - `None` if the item is not found in the array.
+pub fn binary_search_rec<T: Ord>(item: &T, arr: &[T], left: usize, right: usize) -> Option<usize> {
     if left >= right {
         return None;
     }
 
-    let is_asc = list_of_items[0] < list_of_items[list_of_items.len() - 1];
+    let is_asc = arr.len() > 1 && arr[0] < arr[arr.len() - 1];
+    let mid = left + (right - left) / 2;
+    let cmp_result = item.cmp(&arr[mid]);
 
-    let middle: usize = left + (right - left) / 2;
-
-    if is_asc {
-        match target.cmp(&list_of_items[middle]) {
-            Ordering::Less => binary_search_rec(list_of_items, target, left, &middle),
-            Ordering::Greater => binary_search_rec(list_of_items, target, &(middle + 1), right),
-            Ordering::Equal => Some(middle),
+    match (is_asc, cmp_result) {
+        (true, Ordering::Less) | (false, Ordering::Greater) => {
+            binary_search_rec(item, arr, left, mid)
         }
-    } else {
-        match target.cmp(&list_of_items[middle]) {
-            Ordering::Less => binary_search_rec(list_of_items, target, &(middle + 1), right),
-            Ordering::Greater => binary_search_rec(list_of_items, target, left, &middle),
-            Ordering::Equal => Some(middle),
+        (true, Ordering::Greater) | (false, Ordering::Less) => {
+            binary_search_rec(item, arr, mid + 1, right)
         }
+        (_, Ordering::Equal) => Some(mid),
     }
 }
 
@@ -33,124 +44,51 @@ pub fn binary_search_rec<T: Ord>(
 mod tests {
     use super::*;
 
-    const LEFT: usize = 0;
-
-    #[test]
-    fn fail_empty_list() {
-        let list_of_items = vec![];
-        assert_eq!(
-            binary_search_rec(&list_of_items, &1, &LEFT, &list_of_items.len()),
-            None
-        );
+    macro_rules! test_cases {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (item, arr, expected) = $test_case;
+                    assert_eq!(binary_search_rec(&item, arr, 0, arr.len()), expected);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn success_one_item() {
-        let list_of_items = vec![30];
-        assert_eq!(
-            binary_search_rec(&list_of_items, &30, &LEFT, &list_of_items.len()),
-            Some(0)
-        );
-    }
-
-    #[test]
-    fn success_search_strings_asc() {
-        let say_hello_list = vec!["hi", "olá", "salut"];
-        let right = say_hello_list.len();
-        assert_eq!(
-            binary_search_rec(&say_hello_list, &"hi", &LEFT, &right),
-            Some(0)
-        );
-        assert_eq!(
-            binary_search_rec(&say_hello_list, &"salut", &LEFT, &right),
-            Some(2)
-        );
-    }
-
-    #[test]
-    fn success_search_strings_desc() {
-        let say_hello_list = vec!["salut", "olá", "hi"];
-        let right = say_hello_list.len();
-        assert_eq!(
-            binary_search_rec(&say_hello_list, &"hi", &LEFT, &right),
-            Some(2)
-        );
-        assert_eq!(
-            binary_search_rec(&say_hello_list, &"salut", &LEFT, &right),
-            Some(0)
-        );
-    }
-
-    #[test]
-    fn fail_search_strings_asc() {
-        let say_hello_list = vec!["hi", "olá", "salut"];
-        for target in &["adiós", "你好"] {
-            assert_eq!(
-                binary_search_rec(&say_hello_list, target, &LEFT, &say_hello_list.len()),
-                None
-            );
-        }
-    }
-
-    #[test]
-    fn fail_search_strings_desc() {
-        let say_hello_list = vec!["salut", "olá", "hi"];
-        for target in &["adiós", "你好"] {
-            assert_eq!(
-                binary_search_rec(&say_hello_list, target, &LEFT, &say_hello_list.len()),
-                None
-            );
-        }
-    }
-
-    #[test]
-    fn success_search_integers_asc() {
-        let integers = vec![0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
-        for (index, target) in integers.iter().enumerate() {
-            assert_eq!(
-                binary_search_rec(&integers, target, &LEFT, &integers.len()),
-                Some(index)
-            )
-        }
-    }
-
-    #[test]
-    fn success_search_integers_desc() {
-        let integers = vec![90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
-        for (index, target) in integers.iter().enumerate() {
-            assert_eq!(
-                binary_search_rec(&integers, target, &LEFT, &integers.len()),
-                Some(index)
-            )
-        }
-    }
-
-    #[test]
-    fn fail_search_integers() {
-        let integers = vec![0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
-        for target in &[100, 444, 336] {
-            assert_eq!(
-                binary_search_rec(&integers, target, &LEFT, &integers.len()),
-                None
-            );
-        }
-    }
-
-    #[test]
-    fn success_search_string_in_middle_of_unsorted_list() {
-        let unsorted_strings = vec!["salut", "olá", "hi"];
-        assert_eq!(
-            binary_search_rec(&unsorted_strings, &"olá", &LEFT, &unsorted_strings.len()),
-            Some(1)
-        );
-    }
-
-    #[test]
-    fn success_search_integer_in_middle_of_unsorted_list() {
-        let unsorted_integers = vec![90, 80, 70];
-        assert_eq!(
-            binary_search_rec(&unsorted_integers, &80, &LEFT, &unsorted_integers.len()),
-            Some(1)
-        );
+    test_cases! {
+        empty: ("a", &[] as &[&str], None),
+        one_item_found: ("a", &["a"], Some(0)),
+        one_item_not_found: ("b", &["a"], None),
+        search_strings_asc_start: ("a", &["a", "b", "c", "d", "google", "zoo"], Some(0)),
+        search_strings_asc_middle: ("google", &["a", "b", "c", "d", "google", "zoo"], Some(4)),
+        search_strings_asc_last: ("zoo", &["a", "b", "c", "d", "google", "zoo"], Some(5)),
+        search_strings_asc_not_found: ("x", &["a", "b", "c", "d", "google", "zoo"], None),
+        search_strings_desc_start: ("zoo", &["zoo", "google", "d", "c", "b", "a"], Some(0)),
+        search_strings_desc_middle: ("google", &["zoo", "google", "d", "c", "b", "a"], Some(1)),
+        search_strings_desc_last: ("a", &["zoo", "google", "d", "c", "b", "a"], Some(5)),
+        search_strings_desc_not_found: ("x", &["zoo", "google", "d", "c", "b", "a"], None),
+        search_ints_asc_start: (1, &[1, 2, 3, 4], Some(0)),
+        search_ints_asc_middle: (3, &[1, 2, 3, 4], Some(2)),
+        search_ints_asc_end: (4, &[1, 2, 3, 4], Some(3)),
+        search_ints_asc_not_found: (5, &[1, 2, 3, 4], None),
+        search_ints_desc_start: (4, &[4, 3, 2, 1], Some(0)),
+        search_ints_desc_middle: (3, &[4, 3, 2, 1], Some(1)),
+        search_ints_desc_end: (1, &[4, 3, 2, 1], Some(3)),
+        search_ints_desc_not_found: (5, &[4, 3, 2, 1], None),
+        with_gaps_0: (0, &[1, 3, 8, 11], None),
+        with_gaps_1: (1, &[1, 3, 8, 11], Some(0)),
+        with_gaps_2: (2, &[1, 3, 8, 11], None),
+        with_gaps_3: (3, &[1, 3, 8, 11], Some(1)),
+        with_gaps_4: (4, &[1, 3, 8, 10], None),
+        with_gaps_5: (5, &[1, 3, 8, 10], None),
+        with_gaps_6: (6, &[1, 3, 8, 10], None),
+        with_gaps_7: (7, &[1, 3, 8, 11], None),
+        with_gaps_8: (8, &[1, 3, 8, 11], Some(2)),
+        with_gaps_9: (9, &[1, 3, 8, 11], None),
+        with_gaps_10: (10, &[1, 3, 8, 11], None),
+        with_gaps_11: (11, &[1, 3, 8, 11], Some(3)),
+        with_gaps_12: (12, &[1, 3, 8, 11], None),
+        with_gaps_13: (13, &[1, 3, 8, 11], None),
     }
 }
