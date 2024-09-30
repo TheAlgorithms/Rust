@@ -157,7 +157,6 @@ derive_partial_eq_without_eq = { level = "allow", priority = 1 }
 empty_line_after_doc_comments = { level = "allow", priority = 1 }
 fallible_impl_from = { level = "allow", priority = 1 }
 imprecise_flops = { level = "allow", priority = 1 }
-iter_on_single_items = { level = "allow", priority = 1 }
 missing_const_for_fn = { level = "allow", priority = 1 }
 nonstandard_macro_braces = { level = "allow", priority = 1 }
 option_if_let_else = { level = "allow", priority = 1 }
