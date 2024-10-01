@@ -50,9 +50,9 @@ pub fn astar<V: Ord + Copy, E: Ord + Copy + Add<Output = E> + Zero>(
         state: start,
     });
     while let Some(Candidate {
-        estimated_weight: _,
         real_weight,
         state: current,
+        ..
     }) = queue.pop()
     {
         if current == target {
