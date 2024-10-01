@@ -39,7 +39,6 @@ enum_glob_use = { level = "allow", priority = 1 }
 explicit_deref_methods = { level = "allow", priority = 1 }
 explicit_iter_loop = { level = "allow", priority = 1 }
 float_cmp = { level = "allow", priority = 1 }
-from_iter_instead_of_collect = { level = "allow", priority = 1 }
 if_not_else = { level = "allow", priority = 1 }
 implicit_clone = { level = "allow", priority = 1 }
 implicit_hasher = { level = "allow", priority = 1 }

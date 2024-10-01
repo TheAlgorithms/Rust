@@ -128,7 +128,7 @@ mod tests {
 
     #[test]
     fn test_union_find() {
-        let mut uf = UnionFind::from_iter(0..10);
+        let mut uf = (0..10).collect::<UnionFind<_>>();
         assert_eq!(uf.find(&0), Some(0));
         assert_eq!(uf.find(&1), Some(1));
         assert_eq!(uf.find(&2), Some(2));
