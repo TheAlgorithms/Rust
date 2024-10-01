@@ -34,8 +34,7 @@ pub fn breadth_first_search(graph: &Graph, root: Node, target: Node) -> Option<V
 
         // Check the neighboring nodes for any that we've not visited yet.
         for neighbor in currentnode.neighbors(graph) {
-            if !visited.contains(&neighbor) {
-                visited.insert(neighbor);
+            if visited.insert(neighbor) {
                 queue.push_back(neighbor);
             }
         }

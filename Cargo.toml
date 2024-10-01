@@ -167,7 +167,6 @@ suspicious_operation_groupings = { level = "allow", priority = 1 }
 use_self = { level = "allow", priority = 1 }
 while_float = { level = "allow", priority = 1 }
 needless_pass_by_ref_mut = { level = "allow", priority = 1 }
-set_contains_or_insert = { level = "allow", priority = 1 }
 # cargo-lints:
 cargo_common_metadata = { level = "allow", priority = 1 }
 # style-lints:
