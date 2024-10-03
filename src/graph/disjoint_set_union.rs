@@ -38,7 +38,7 @@ impl DisjointSetUnion {
             });
         }
 
-        DisjointSetUnion { nodes }
+        Self { nodes }
     }
 
     /// Finds the representative (root) of the set containing `element` with path compression.
