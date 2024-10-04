@@ -388,28 +388,28 @@ mod test {
     #[test]
     fn insert() {
         let mut kd_tree: KDTree<f64, 2> = KDTree::new();
-        assert_eq!(kd_tree.insert([2.0, 3.0]), true);
+        assert!(kd_tree.insert([2.0, 3.0]));
         // Cannot insert the same point again
-        assert_eq!(kd_tree.insert([2.0, 3.0]), false);
-        assert_eq!(kd_tree.insert([2.0, 3.1]), true);
+        assert!(!kd_tree.insert([2.0, 3.0]));
+        assert!(kd_tree.insert([2.0, 3.1]));
     }
 
     #[test]
     fn contains() {
         let points = vec![[2.0, 3.0], [5.0, 4.0], [9.0, 6.0], [4.0, 7.0]];
         let kd_tree = KDTree::build(points);
-        assert_eq!(kd_tree.contains(&[5.0, 4.0]), true);
-        assert_eq!(kd_tree.contains(&[5.0, 4.1]), false);
+        assert!(kd_tree.contains(&[5.0, 4.0]));
+        assert!(!kd_tree.contains(&[5.0, 4.1]));
     }
 
     #[test]
     fn remove() {
         let points = vec![[2.0, 3.0], [5.0, 4.0], [9.0, 6.0], [4.0, 7.0]];
         let mut kd_tree = KDTree::build(points);
-        assert_eq!(kd_tree.delete(&[5.0, 4.0]), true);
+        assert!(kd_tree.delete(&[5.0, 4.0]));
         // Cannot remove twice
-        assert_eq!(kd_tree.delete(&[5.0, 4.0]), false);
-        assert_eq!(kd_tree.contains(&[5.0, 4.0]), false);
+        assert!(!kd_tree.delete(&[5.0, 4.0]));
+        assert!(!kd_tree.contains(&[5.0, 4.0]));
     }
 
     #[test]
@@ -432,9 +432,9 @@ mod test {
     #[test]
     fn is_empty() {
         let mut kd_tree = KDTree::new();
-        assert_eq!(kd_tree.is_empty(), true);
+        assert!(kd_tree.is_empty());
         kd_tree.insert([1.5, 3.0]);
-        assert_eq!(kd_tree.is_empty(), false);
+        assert!(!kd_tree.is_empty());
     }
 
     #[test]
