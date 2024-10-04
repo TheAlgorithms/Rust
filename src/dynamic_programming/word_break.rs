@@ -5,17 +5,18 @@ use crate::data_structures::Trie;
 ///
 /// # Arguments
 /// * `s` - The input string to be segmented.
-/// * `word_dict` - A list of words forming the dictionary.
+/// * `word_dict` - A slice of words forming the dictionary.
 ///
 /// # Returns
 /// * `bool` - `true` if the string can be segmented, `false` otherwise.
-pub fn word_break(s: &str, word_dict: Vec<&str>) -> bool {
+pub fn word_break(s: &str, word_dict: &[&str]) -> bool {
     let mut trie = Trie::new();
-    for word in word_dict {
+    for &word in word_dict {
         trie.insert(word.chars(), true);
     }
 
-    let mut memo = vec![None; s.len()];
+    // Memoization vector: one extra space to handle out-of-bound end case.
+    let mut memo = vec![None; s.len() + 1];
     search(&trie, s, 0, &mut memo)
 }
 
@@ -31,7 +32,7 @@ pub fn word_break(s: &str, word_dict: Vec<&str>) -> bool {
 /// # Returns
 /// * `bool` - `true` if the substring can be segmented, `false` otherwise.
 fn search(trie: &Trie<char, bool>, s: &str, start: usize, memo: &mut Vec<Option<bool>>) -> bool {
-    if start >= s.len() {
+    if start == s.len() {
         return true;
     }
 
@@ -60,7 +61,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (input, dict, expected) = $test_case;
-                    assert_eq!(word_break(input, dict), expected);
+                    assert_eq!(word_break(input, &dict), expected);
                 }
             )*
         }
