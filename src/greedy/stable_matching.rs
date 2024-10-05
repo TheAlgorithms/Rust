@@ -154,4 +154,46 @@ mod tests {
 
         assert_eq!(matches, expected_matches);
     }
+    #[test]
+    fn test_woman_prefers_new_man() {
+        let men_preferences = HashMap::from([
+            (
+                "A".to_string(),
+                vec!["X".to_string(), "Y".to_string(), "Z".to_string()],
+            ),
+            (
+                "B".to_string(),
+                vec!["X".to_string(), "Y".to_string(), "Z".to_string()],
+            ),
+            (
+                "C".to_string(),
+                vec!["X".to_string(), "Y".to_string(), "Z".to_string()],
+            ),
+        ]);
+
+        let women_preferences = HashMap::from([
+            (
+                "X".to_string(),
+                vec!["B".to_string(), "A".to_string(), "C".to_string()],
+            ),
+            (
+                "Y".to_string(),
+                vec!["A".to_string(), "B".to_string(), "C".to_string()],
+            ),
+            (
+                "Z".to_string(),
+                vec!["A".to_string(), "B".to_string(), "C".to_string()],
+            ),
+        ]);
+
+        let matches = stable_matching(&men_preferences, &women_preferences);
+
+        let expected_matches = HashMap::from([
+            ("A".to_string(), "Y".to_string()),
+            ("B".to_string(), "X".to_string()),
+            ("C".to_string(), "Z".to_string()),
+        ]);
+
+        assert_eq!(matches, expected_matches);
+    }
 }
