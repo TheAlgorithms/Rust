@@ -73,5 +73,14 @@ mod tests {
         test_pangram_discotheques: ("Amazingly few discotheques provide jukeboxes", PangramStatus::Pangram),
         test_pangram_zebras: ("How vexingly quick daft zebras jump", PangramStatus::Pangram),
         test_perfect_pangram_jock: ("Mr. Jock, TV quiz PhD, bags few lynx", PangramStatus::PerfectPangram),
+        test_empty_string: ("", PangramStatus::NotPangram),
+        test_repeated_letter: ("aaaaa", PangramStatus::NotPangram),
+        test_non_alphabetic: ("12345!@#$%", PangramStatus::NotPangram),
+        test_mixed_case_pangram: ("ThE QuiCk BroWn FoX JumPs OveR tHe LaZy DoG", PangramStatus::Pangram),
+        test_perfect_pangram_with_symbols: ("Mr. Jock, TV quiz PhD, bags few lynx!", PangramStatus::PerfectPangram),
+        test_long_non_pangram: (&"a".repeat(1000), PangramStatus::NotPangram),
+        test_near_pangram_missing_one_letter: ("The quick brown fox jumps over the lazy do", PangramStatus::NotPangram),
+        test_near_pangram_missing_two_letters: ("The quick brwn f jumps ver the lazy dg", PangramStatus::NotPangram),
+        test_near_pangram_with_special_characters: ("Th3 qu!ck brown f0x jumps 0v3r th3 l@zy d0g.", PangramStatus::NotPangram),
     }
 }
