@@ -1,4 +1,4 @@
-//! This module provides a generic implementation of a Trie (prefix tree) in Rust.
+//! This module provides a generic implementation of a Trie (prefix tree).
 //! A Trie is a tree-like data structure that is commonly used to store sequences of keys
 //! (such as strings, integers, or other iterable types) where each node represents one element
 //! of the key, and values can be associated with full sequences.
