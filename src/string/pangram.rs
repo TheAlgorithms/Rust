@@ -35,9 +35,9 @@ pub fn is_pangram(pangram_str: &str) -> PangramStatus {
     }
 
     let alphabet: HashSet<char> = ('a'..='z').collect();
-    let unique_letters: HashSet<_> = letter_counts.keys().cloned().collect();
+    let used_letters: HashSet<_> = letter_counts.keys().cloned().collect();
 
-    if unique_letters != alphabet {
+    if used_letters != alphabet {
         return PangramStatus::NotPangram;
     }
 
