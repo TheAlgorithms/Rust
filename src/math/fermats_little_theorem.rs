@@ -128,7 +128,7 @@ mod tests {
         let carmichael_numbers = vec![561, 1105, 1729, 2465, 2821, 6601];
         for &n in &carmichael_numbers {
             let result = fermats_little_theorem(n, 10);
-            assert!(result == false || result == true);
+            assert!(result || !result);
         }
     }
 }
