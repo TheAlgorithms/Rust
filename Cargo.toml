@@ -39,7 +39,6 @@ enum_glob_use = { level = "allow", priority = 1 }
 explicit_deref_methods = { level = "allow", priority = 1 }
 explicit_iter_loop = { level = "allow", priority = 1 }
 float_cmp = { level = "allow", priority = 1 }
-from_iter_instead_of_collect = { level = "allow", priority = 1 }
 if_not_else = { level = "allow", priority = 1 }
 implicit_clone = { level = "allow", priority = 1 }
 implicit_hasher = { level = "allow", priority = 1 }
@@ -138,7 +137,6 @@ string_add = { level = "allow", priority = 1 }
 string_slice = { level = "allow", priority = 1 }
 undocumented_unsafe_blocks = { level = "allow", priority = 1 }
 unnecessary_safety_comment = { level = "allow", priority = 1 }
-unneeded_field_pattern = { level = "allow", priority = 1 }
 unreachable = { level = "allow", priority = 1 }
 unseparated_literal_suffix = { level = "allow", priority = 1 }
 unwrap_in_result = { level = "allow", priority = 1 }
@@ -157,7 +155,6 @@ derive_partial_eq_without_eq = { level = "allow", priority = 1 }
 empty_line_after_doc_comments = { level = "allow", priority = 1 }
 fallible_impl_from = { level = "allow", priority = 1 }
 imprecise_flops = { level = "allow", priority = 1 }
-iter_on_single_items = { level = "allow", priority = 1 }
 missing_const_for_fn = { level = "allow", priority = 1 }
 nonstandard_macro_braces = { level = "allow", priority = 1 }
 option_if_let_else = { level = "allow", priority = 1 }
@@ -167,7 +164,6 @@ suspicious_operation_groupings = { level = "allow", priority = 1 }
 use_self = { level = "allow", priority = 1 }
 while_float = { level = "allow", priority = 1 }
 needless_pass_by_ref_mut = { level = "allow", priority = 1 }
-set_contains_or_insert = { level = "allow", priority = 1 }
 # cargo-lints:
 cargo_common_metadata = { level = "allow", priority = 1 }
 # style-lints:

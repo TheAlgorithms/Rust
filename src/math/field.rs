@@ -236,7 +236,7 @@ mod tests {
             for gen in 1..P - 1 {
                 // every field element != 0 generates the whole field additively
                 let gen = PrimeField::from(gen as i64);
-                let mut generated: HashSet<PrimeField<P>> = [gen].into_iter().collect();
+                let mut generated: HashSet<PrimeField<P>> = std::iter::once(gen).collect();
                 let mut x = gen;
                 for _ in 0..P {
                     x = x + gen;
