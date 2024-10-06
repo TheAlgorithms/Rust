@@ -24,7 +24,6 @@ pub enum PangramStatus {
 ///
 /// A `PangramStatus` enum indicating whether the string is a pangram, and if so, whether it is a perfect pangram.
 pub fn is_pangram(pangram_str: &str) -> PangramStatus {
-    let alphabet: HashSet<char> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
     let mut letter_counts = std::collections::HashMap::new();
 
     for ch in pangram_str
@@ -35,6 +34,7 @@ pub fn is_pangram(pangram_str: &str) -> PangramStatus {
         *letter_counts.entry(ch).or_insert(0) += 1;
     }
 
+    let alphabet: HashSet<char> = ('a'..='z').collect();
     let unique_letters: HashSet<_> = letter_counts.keys().cloned().collect();
 
     if unique_letters != alphabet {
