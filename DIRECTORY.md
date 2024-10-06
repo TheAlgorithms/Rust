@@ -301,6 +301,7 @@
     * [Selection Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/selection_sort.rs)
     * [Shell Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/shell_sort.rs)
     * [Sleep Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/sleep_sort.rs)
+    * [Smooth Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/smooth_sort.rs)
     * [Sort Utils](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/sort_utils.rs)
     * [Stooge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/stooge_sort.rs)
     * [Tim Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tim_sort.rs)
