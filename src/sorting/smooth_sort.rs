@@ -64,7 +64,6 @@ fn heapify_leonardo(nums: &mut Vec<i32>, index: usize, sizes: &Vec<usize>, heaps
     }
 }
 
-//tests
 #[cfg(test)]
 mod tests {
     use super::*;
