@@ -1,6 +1,8 @@
 use std::collections::{HashMap, VecDeque};
 
-fn initialize_men(men_preferences: &HashMap<String, Vec<String>>) -> (VecDeque<String>, HashMap<String, usize>) {
+fn initialize_men(
+    men_preferences: &HashMap<String, Vec<String>>,
+) -> (VecDeque<String>, HashMap<String, usize>) {
     let mut free_men = VecDeque::new();
     let mut next_proposal = HashMap::new();
 
@@ -12,7 +14,9 @@ fn initialize_men(men_preferences: &HashMap<String, Vec<String>>) -> (VecDeque<S
     (free_men, next_proposal)
 }
 
-fn initialize_women(women_preferences: &HashMap<String, Vec<String>>) -> HashMap<String, Option<String>> {
+fn initialize_women(
+    women_preferences: &HashMap<String, Vec<String>>,
+) -> HashMap<String, Option<String>> {
     let mut current_partner = HashMap::new();
     for woman in women_preferences.keys() {
         current_partner.insert(woman.clone(), None);
@@ -20,7 +24,9 @@ fn initialize_women(women_preferences: &HashMap<String, Vec<String>>) -> HashMap
     current_partner
 }
 
-fn precompute_woman_ranks(women_preferences: &HashMap<String, Vec<String>>) -> HashMap<String, HashMap<String, usize>> {
+fn precompute_woman_ranks(
+    women_preferences: &HashMap<String, Vec<String>>,
+) -> HashMap<String, HashMap<String, usize>> {
     let mut woman_ranks = HashMap::new();
     for (woman, preferences) in women_preferences {
         let mut rank_map = HashMap::new();
@@ -51,7 +57,14 @@ fn process_proposal(
     if let Some(current_man) = current_partner[woman].clone() {
         // Woman is currently engaged, check if she prefers the new man
         if woman_prefers_new_man(woman, man, &current_man, woman_ranks) {
-            engage_man(man, woman, free_men, current_partner, man_engaged, Some(current_man));
+            engage_man(
+                man,
+                woman,
+                free_men,
+                current_partner,
+                man_engaged,
+                Some(current_man),
+            );
         } else {
             // Woman rejects the proposal, so the man remains free
             free_men.push_back(man.to_string());
@@ -123,8 +136,6 @@ pub fn stable_matching(
 
     finalize_matches(man_engaged)
 }
-
-
 
 #[cfg(test)]
 mod tests {
