@@ -49,7 +49,7 @@ fn remove_from_leonardo_heap(
     }
 }
 
-fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], heaps: usize) {
+fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: usize) {
     let mut current = index;
     let mut heap_size = sizes[heaps];
 
@@ -58,8 +58,12 @@ fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], heaps: usiz
             break; 
         }
         
-        let left_child = current.checked_sub(heap_size).expect("Underflow error: heap_size is too large");
-        let right_child = current.checked_sub(1).expect("Underflow error: current is too small");    
+        let left_child = current
+            .checked_sub(heap_size)
+            .expect("Underflow error: heap_size is too large");
+        let right_child = current
+            .checked_sub(1)
+            .expect("Underflow error: current is too small");    
     
         if nums[current] < nums[left_child] {
             nums.swap(current, left_child);
