@@ -33,6 +33,7 @@ mod tim_sort;
 mod tree_sort;
 mod wave_sort;
 mod wiggle_sort;
+mod smooth_sort;
 
 pub use self::bead_sort::bead_sort;
 pub use self::binary_insertion_sort::binary_insertion_sort;
@@ -69,6 +70,7 @@ pub use self::tim_sort::tim_sort;
 pub use self::tree_sort::tree_sort;
 pub use self::wave_sort::wave_sort;
 pub use self::wiggle_sort::wiggle_sort;
+pub use self::smooth_sort::smooth_sort;
 
 #[cfg(test)]
 use std::cmp;
