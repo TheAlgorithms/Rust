@@ -52,6 +52,7 @@ fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: 
     let mut current = index;
     while heaps > 1 && heaps <= sizes.len() {
         let heap_size = sizes[heaps - 1];
+    }
 
     while heaps > 1 {
         if current < heap_size {
