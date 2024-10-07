@@ -19,7 +19,8 @@ fn add_to_leonardo_heap(
     index: usize,
     sizes: &mut Vec<usize>,
     heaps: &mut usize,
-    ) {
+
+) {
     if *heaps >= 2 && sizes[*heaps - 2] == sizes[*heaps - 1] + 1 {
         sizes[*heaps - 2] += 1;
         sizes.pop();
@@ -37,7 +38,8 @@ fn remove_from_leonardo_heap(
     index: usize,
     sizes: &mut Vec<usize>,
     heaps: &mut usize,
-    ) {
+
+) {
     let size = sizes.pop().unwrap();
     *heaps -= 1;
     if size >= 2 {
