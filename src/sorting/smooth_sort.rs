@@ -1,4 +1,4 @@
-pub fn smooth_sort(nums: &mut Vec<i32>) {
+pub fn smooth_sort(nums: &mut [i32]) {
     let n = nums.len();
     if n <= 1 {
         return;
@@ -14,12 +14,7 @@ pub fn smooth_sort(nums: &mut Vec<i32>) {
     }
 }
 
-fn add_to_leonardo_heap(
-    nums: &mut [i32],
-    index: usize,
-    sizes: &mut Vec<usize>,
-    heaps: &mut usize,
-) {
+fn add_to_leonardo_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, heaps: &mut usize) {
     if *heaps >= 2 && sizes[*heaps - 2] == sizes[*heaps - 1] + 1 {
         sizes[*heaps - 2] += 1;
         sizes.pop();
