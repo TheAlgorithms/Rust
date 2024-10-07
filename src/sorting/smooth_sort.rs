@@ -1,17 +1,18 @@
 pub fn smooth_sort(nums: &mut [i32]) {
-    if nums.len() <= 1 {
+    let n = nums.len();
+    if n <= 1 {
         return;
     }
+    
+    let mut sizes = vec![0; n];
+    let mut heaps = 0;
 
-    let mut leonardo_heap_sizes = Vec::new();
-    let mut num_of_heaps = 0;
-
-    for i in 0..nums.len() {
-        add_to_leonardo_heap(nums, i, &mut leonardo_heap_sizes, &mut num_of_heaps);
+    for i in 0..n {
+        add_to_leonardo_heap(nums, i, &mut sizes, &mut heaps);
     }
-
-    for i in (0..nums.len()).rev() {
-        remove_from_leonardo_heap(nums, i, &mut leonardo_heap_sizes, &mut num_of_heaps);
+    
+    for i in (0..n).rev() {
+        remove_from_leonardo_heap(nums, i, &mut sizes, &mut heaps);
     }
 }
 
@@ -28,32 +29,24 @@ fn add_to_leonardo_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, 
     heapify_leonardo(nums, index, sizes, *heaps);
 }
 
-fn remove_from_leonardo_heap(
-    nums: &mut [i32],
-    index: usize,
-    sizes: &mut Vec<usize>,
-    heaps: &mut usize,
-) {
-    let size = sizes.pop().unwrap();
+fn remove_from_leonardo_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, heaps: &mut usize) {
+    let size = sizes.pop().unwrap_or(0);
     *heaps -= 1;
     if size >= 2 {
         sizes.push(size - 1);
         sizes.push(size - 2);
         *heaps += 2;
-
-        if index + 1 >= size {
-            heapify_leonardo(nums, index.saturating_sub(size - 1), sizes, *heaps - 2);
-            heapify_leonardo(nums, index.saturating_sub(1), sizes, *heaps - 1);
-        }
+        heapify_leonardo(nums, index - size + 1, sizes, *heaps - 2);
+        heapify_leonardo(nums, index - 1, sizes, *heaps - 1);
     }
 }
 
-fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: usize) {
+fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &Vec<usize>, mut heaps: usize) {
     let mut current = index;
-    while heaps > 1 && heaps <= sizes.len() {
-        let heap_size = sizes[heaps - 1];
+    let mut heap_size = sizes[heaps];
 
-        if current < heap_size {
+    while heaps > 1 {
+        if heap_size > current {
             break;
         }
 
@@ -71,6 +64,7 @@ fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: 
         }
 
         heaps -= 1;
+        heap_size -= 1;
     }
 }
 
