@@ -26,6 +26,7 @@ mod radix_sort;
 mod selection_sort;
 mod shell_sort;
 mod sleep_sort;
+mod smooth_sort;
 #[cfg(test)]
 mod sort_utils;
 mod stooge_sort;
@@ -33,7 +34,6 @@ mod tim_sort;
 mod tree_sort;
 mod wave_sort;
 mod wiggle_sort;
-mod smooth_sort;
 
 pub use self::bead_sort::bead_sort;
 pub use self::binary_insertion_sort::binary_insertion_sort;
@@ -65,12 +65,12 @@ pub use self::radix_sort::radix_sort;
 pub use self::selection_sort::selection_sort;
 pub use self::shell_sort::shell_sort;
 pub use self::sleep_sort::sleep_sort;
+pub use self::smooth_sort::smooth_sort;
 pub use self::stooge_sort::stooge_sort;
 pub use self::tim_sort::tim_sort;
 pub use self::tree_sort::tree_sort;
 pub use self::wave_sort::wave_sort;
 pub use self::wiggle_sort::wiggle_sort;
-pub use self::smooth_sort::smooth_sort;
 
 #[cfg(test)]
 use std::cmp;
