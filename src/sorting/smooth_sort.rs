@@ -41,9 +41,9 @@ fn remove_from_leonardo_heap(
         sizes.push(size - 2);
         *heaps += 2;
 
-        if index >= size - 1 {
-            heapify_leonardo(nums, index - size + 1, sizes, *heaps - 2);
-            heapify_leonardo(nums, index - 1, sizes, *heaps - 1);
+        if index + 1 >= size {
+            heapify_leonardo(nums, index.saturating_sub(size - 1), sizes, *heaps - 2);
+            heapify_leonardo(nums, index.saturating_sub(1), sizes, *heaps - 1);
         }
     }
 }
@@ -57,13 +57,8 @@ fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: 
             break;
         }
 
-        let left_child = current
-            .checked_sub(heap_size)
-            .unwrap_or(0);
-
-        let right_child = current
-            .checked_sub(1)
-            .unwrap_or(0);
+        let left_child = current.saturating_sub(heap_size);
+        let right_child = current.saturating_sub(1);
 
         if nums[current] < nums[left_child] {
             nums.swap(current, left_child);
