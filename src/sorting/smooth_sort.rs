@@ -50,15 +50,16 @@ fn remove_from_leonardo_heap(
 
 fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: usize) {
     let mut current = index;
-    let mut heap_size = sizes[heaps];
+    while heaps > 1 && heaps <= sizes.len() {
+        let heap_size = sizes[heaps - 1];
 
     while heaps > 1 {
         if current < heap_size {
             break;
         }
 
-        let left_child = if current >= heap_size { current - heap_size } else { break };
-        let right_child = if current > 0 { current - 1 } else { break };
+        let left_child = current.saturating_sub(heap_size);
+        let right_child = current.saturating_sub(1);
 
         if nums[current] < nums[left_child] {
             nums.swap(current, left_child);
@@ -71,7 +72,6 @@ fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: 
         }
 
         heaps -= 1;
-        heap_size = sizes[heaps];
     }
 }
 
