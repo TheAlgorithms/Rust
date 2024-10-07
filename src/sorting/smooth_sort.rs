@@ -15,7 +15,7 @@ pub fn smooth_sort(nums: &mut Vec<i32>) {
 }
 
 fn add_to_leonardo_heap(
-    nums: &mut Vec<i32>,
+    nums: &mut [i32],
     index: usize,
     sizes: &mut Vec<usize>,
     heaps: &mut usize,
@@ -33,7 +33,7 @@ fn add_to_leonardo_heap(
 }
 
 fn remove_from_leonardo_heap(
-    nums: &mut Vec<i32>,
+    nums: &mut [i32],
     index: usize,
     sizes: &mut Vec<usize>,
     heaps: &mut usize,
@@ -55,16 +55,16 @@ fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: 
 
     while heaps > 1 {
         if heap_size > current {
-            break; 
+            break;
         }
-        
+
         let left_child = current
             .checked_sub(heap_size)
             .expect("Underflow error: heap_size is too large");
         let right_child = current
             .checked_sub(1)
-            .expect("Underflow error: current is too small");    
-    
+            .expect("Underflow error: current is too small");
+
         if nums[current] < nums[left_child] {
             nums.swap(current, left_child);
             current = left_child;
@@ -74,7 +74,7 @@ fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: 
         } else {
             break;
         }
-    
+
         heaps -= 1;
         heap_size -= 1;
     }
