@@ -4,18 +4,19 @@ pub fn smooth_sort(nums: &mut [i32]) {
         return;
     }
     
-    let mut heap_sizes = Vec::new();
-    let mut heap_count = 0;
+    let mut sizes = Vec::new();
+    let mut heaps = 0;
 
     for i in 0..n {
-        add_to_heap(nums, i, &mut heap_sizes, &mut heap_count);
+        add_to_leonardo_heap(nums, i, &mut sizes, &mut heaps);
     }
+    
     for i in (0..n).rev() {
-        remove_from_heap(nums, i, &mut heap_sizes, &mut heap_count);
+        remove_from_leonardo_heap(nums, i, &mut sizes, &mut heaps);
     }
 }
 
-fn add_to_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, heaps: &mut usize) {
+fn add_to_leonardo_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, heaps: &mut usize) {
     if *heaps >= 2 && sizes[*heaps - 2] == sizes[*heaps - 1] + 1 {
         sizes[*heaps - 2] += 1;
         sizes.pop();
@@ -25,22 +26,22 @@ fn add_to_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, heaps: &m
     } else {
         sizes.push(1);
     }
-    heapify(nums, index, sizes, *heaps);
+    heapify_leonardo(nums, index, sizes, *heaps);
 }
 
-fn remove_from_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, heaps: &mut usize) {
+fn remove_from_leonardo_heap(nums: &mut [i32], index: usize, sizes: &mut Vec<usize>, heaps: &mut usize) {
     let size = sizes.pop().unwrap();
     *heaps -= 1;
     if size >= 2 {
         sizes.push(size - 1);
         sizes.push(size - 2);
         *heaps += 2;
-        heapify(nums, index - size + 1, sizes, *heaps - 2);
-        heapify(nums, index - 1, sizes, *heaps - 1);
+        heapify_leonardo(nums, index - size + 1, sizes, *heaps - 2);
+        heapify_leonardo(nums, index - 1, sizes, *heaps - 1);
     }
 }
 
-fn heapify(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: usize) {
+fn heapify_leonardo(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: usize) {
     let mut current = index;
     let mut heap_size = sizes[heaps];
 
@@ -52,10 +53,10 @@ fn heapify(nums: &mut [i32], index: usize, sizes: &[usize], mut heaps: usize) {
         let left_child = current.saturating_sub(heap_size);
         let right_child = current.saturating_sub(1);
 
-        if left_child < nums.len() && nums[current] < nums[left_child] {
+        if nums[current] < nums[left_child] {
             nums.swap(current, left_child);
             current = left_child;
-        } else if right_child < nums.len() && nums[current] < nums[right_child] {
+        } else if nums[current] < nums[right_child] {
             nums.swap(current, right_child);
             current = right_child;
         } else {
@@ -97,5 +98,12 @@ mod tests {
         let mut arr = vec![100, 200, 5, 10, 15];
         smooth_sort(&mut arr);
         assert_eq!(arr, vec![5, 10, 15, 100, 200]);
+    }
+
+    #[test]
+    fn smooth_sort_simple_test() {
+        let mut arr = vec![2, 1];
+        smooth_sort(&mut arr);
+        assert_eq!(arr, vec![1, 2]);
     }
 }
