@@ -1,112 +1,95 @@
 use std::collections::{HashMap, VecDeque};
 
-pub fn stable_matching(
-    men_preferences: &HashMap<String, Vec<String>>,
-    women_preferences: &HashMap<String, Vec<String>>,
-) -> HashMap<String, String> {
-    let (mut free_men, mut current_partner, mut man_engaged, mut next_proposal) =
-        initialize_data_structures(men_preferences, women_preferences);
-
-    while let Some(man) = free_men.pop_front() {
-        handle_proposal(
-            &man,
-            &mut free_men,
-            &mut current_partner,
-            &mut man_engaged,
-            &mut next_proposal,
-            men_preferences,
-            women_preferences,
-        );
-    }
-
-    extract_stable_matches(man_engaged)
-}
-
-fn initialize_data_structures(
-    men_preferences: &HashMap<String, Vec<String>>,
-    women_preferences: &HashMap<String, Vec<String>>,
-) -> (
-    VecDeque<String>,
-    HashMap<String, Option<String>>,
-    HashMap<String, Option<String>>,
-    HashMap<String, usize>,
-) {
-    let mut free_men: VecDeque<String> = VecDeque::new();
-    let mut current_partner: HashMap<String, Option<String>> = HashMap::new();
-    let mut man_engaged: HashMap<String, Option<String>> = HashMap::new();
-    let mut next_proposal: HashMap<String, usize> = HashMap::new();
+fn initialize_men(men_preferences: &HashMap<String, Vec<String>>) -> (VecDeque<String>, HashMap<String, usize>) {
+    let mut free_men = VecDeque::new();
+    let mut next_proposal = HashMap::new();
 
     for man in men_preferences.keys() {
         free_men.push_back(man.clone());
         next_proposal.insert(man.clone(), 0);
     }
 
+    (free_men, next_proposal)
+}
+
+fn initialize_women(women_preferences: &HashMap<String, Vec<String>>) -> HashMap<String, Option<String>> {
+    let mut current_partner = HashMap::new();
     for woman in women_preferences.keys() {
         current_partner.insert(woman.clone(), None);
     }
-
-    (free_men, current_partner, man_engaged, next_proposal)
+    current_partner
 }
 
-fn handle_proposal(
+fn precompute_woman_ranks(women_preferences: &HashMap<String, Vec<String>>) -> HashMap<String, HashMap<String, usize>> {
+    let mut woman_ranks = HashMap::new();
+    for (woman, preferences) in women_preferences {
+        let mut rank_map = HashMap::new();
+        for (rank, man) in preferences.iter().enumerate() {
+            rank_map.insert(man.clone(), rank);
+        }
+        woman_ranks.insert(woman.clone(), rank_map);
+    }
+    woman_ranks
+}
+
+fn process_proposal(
     man: &str,
     free_men: &mut VecDeque<String>,
     current_partner: &mut HashMap<String, Option<String>>,
     man_engaged: &mut HashMap<String, Option<String>>,
     next_proposal: &mut HashMap<String, usize>,
     men_preferences: &HashMap<String, Vec<String>>,
-    women_preferences: &HashMap<String, Vec<String>>,
+    woman_ranks: &HashMap<String, HashMap<String, usize>>,
 ) {
     let man_pref_list = &men_preferences[man];
-    let next_woman_idx = *next_proposal.get(man).unwrap();
+    let next_woman_idx = next_proposal[man];
     let woman = &man_pref_list[next_woman_idx];
 
+    // Update man's next proposal index
     next_proposal.insert(man.to_string(), next_woman_idx + 1);
 
     if let Some(current_man) = current_partner[woman].clone() {
-        if woman_prefers_new_man(woman, man, &current_man, women_preferences) {
-            update_engagement(
-                man,
-                woman,
-                current_man,
-                free_men,
-                current_partner,
-                man_engaged,
-            );
+        // Woman is currently engaged, check if she prefers the new man
+        if woman_prefers_new_man(woman, man, &current_man, woman_ranks) {
+            engage_man(man, woman, free_men, current_partner, man_engaged, Some(current_man));
         } else {
+            // Woman rejects the proposal, so the man remains free
             free_men.push_back(man.to_string());
         }
     } else {
-        man_engaged.insert(man.to_string(), Some(woman.to_string()));
-        current_partner.insert(woman.to_string(), Some(man.to_string()));
+        // Woman is not engaged, so engage her with this man
+        engage_man(man, woman, free_men, current_partner, man_engaged, None);
     }
-}
-
-fn update_engagement(
-    man: &str,
-    woman: &str,
-    current_man: String,
-    free_men: &mut VecDeque<String>,
-    current_partner: &mut HashMap<String, Option<String>>,
-    man_engaged: &mut HashMap<String, Option<String>>,
-) {
-    man_engaged.insert(man.to_string(), Some(woman.to_string()));
-    current_partner.insert(woman.to_string(), Some(man.to_string()));
-    free_men.push_back(current_man);
 }
 
 fn woman_prefers_new_man(
     woman: &str,
     man1: &str,
     man2: &str,
-    preferences: &HashMap<String, Vec<String>>,
+    woman_ranks: &HashMap<String, HashMap<String, usize>>,
 ) -> bool {
-    let woman_preferences = &preferences[woman];
-    woman_preferences.iter().position(|m| m == man1).unwrap()
-        < woman_preferences.iter().position(|m| m == man2).unwrap()
+    let ranks = &woman_ranks[woman];
+    ranks[man1] < ranks[man2]
 }
 
-fn extract_stable_matches(man_engaged: HashMap<String, Option<String>>) -> HashMap<String, String> {
+fn engage_man(
+    man: &str,
+    woman: &str,
+    free_men: &mut VecDeque<String>,
+    current_partner: &mut HashMap<String, Option<String>>,
+    man_engaged: &mut HashMap<String, Option<String>>,
+    current_man: Option<String>,
+) {
+    man_engaged.insert(man.to_string(), Some(woman.to_string()));
+    current_partner.insert(woman.to_string(), Some(man.to_string()));
+
+    if let Some(current_man) = current_man {
+        // The current man is now free
+        free_men.push_back(current_man);
+    }
+}
+
+fn finalize_matches(man_engaged: HashMap<String, Option<String>>) -> HashMap<String, String> {
     let mut stable_matches = HashMap::new();
     for (man, woman_option) in man_engaged {
         if let Some(woman) = woman_option {
@@ -115,6 +98,34 @@ fn extract_stable_matches(man_engaged: HashMap<String, Option<String>>) -> HashM
     }
     stable_matches
 }
+
+pub fn stable_matching(
+    men_preferences: &HashMap<String, Vec<String>>,
+    women_preferences: &HashMap<String, Vec<String>>,
+) -> HashMap<String, String> {
+    let (mut free_men, mut next_proposal) = initialize_men(men_preferences);
+    let mut current_partner = initialize_women(women_preferences);
+    let mut man_engaged = HashMap::new();
+
+    let woman_ranks = precompute_woman_ranks(women_preferences);
+
+    while let Some(man) = free_men.pop_front() {
+        process_proposal(
+            &man,
+            &mut free_men,
+            &mut current_partner,
+            &mut man_engaged,
+            &mut next_proposal,
+            men_preferences,
+            &woman_ranks,
+        );
+    }
+
+    finalize_matches(man_engaged)
+}
+
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
