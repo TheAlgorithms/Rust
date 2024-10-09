@@ -13,6 +13,8 @@ use std::vec::Vec;
 /// * `edges` - A vector of tuples representing the directed edges in the graph, where each tuple
 ///             is of the form `(u, v)` indicating a directed edge from `u` to `v`.
 ///
+/// The function checks if an Eulerian path exists and, if so, constructs and returns one valid path.
+///
 /// # Returns
 ///
 /// An `Option` containing a vector representing the Eulerian path if it exists, or `None` if no such path exists.
@@ -338,6 +340,40 @@ mod tests {
                 (1, 3)
             ],
             None::<Vec<usize>>
+        ),
+        test_single_edge: (
+            2,
+            vec![(0, 1)],
+            Some(vec![0, 1])
+        ),
+        test_multiple_eulerian_paths: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 0),
+                (0, 3),
+                (3, 0)
+            ],
+            Some(vec![0, 3, 0, 1, 2, 0])
+        ),
+        test_dag_path: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 3)
+            ],
+            Some(vec![0, 1, 2, 3])
+        ),
+        test_parallel_edges_case: (
+            2,
+            vec![
+                (0, 1),
+                (0, 1),
+                (1, 0)
+            ],
+            Some(vec![0, 1, 0, 1])
         ),
     }
 }
