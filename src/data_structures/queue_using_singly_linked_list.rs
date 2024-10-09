@@ -1,1 +1,344 @@
 
+//! A queue implementation using a singly linked list
+//! The queue follows FIFO (First-In First-Out) principle
+
+#![allow(unused)]
+
+use std::collections::VecDeque;
+use std::fmt::Debug;
+use std::marker::PhantomData;
+
+#[derive(Debug, Clone)]
+struct Node<T> {
+    element: T,
+    next: Option<Box<Node<T>>>,
+}
+
+impl<T> Node<T> {
+    fn new(element: T) -> Box<Self> {
+        Box::new(Self {
+            element,
+            next: None,
+        })
+    }
+}
+
+/// Queue Implementation using Singly Linked List logic
+#[derive(Clone)]
+struct Queue<T> {
+    length: usize,
+    head: Option<Box<Node<T>>>,
+    tail: Option<Box<Node<T>>>,
+    // Act like we own the boxes or nodes, since we are gonna construct and mutate them
+    _marker: PhantomData<Box<Node<T>>>,
+}
+
+// Implementing default for our Queue
+impl<T> Default for Queue<T> {
+    fn default() -> Self {
+        Queue::new()
+    }
+}
+
+// Implement iterator for the queue
+struct QueueIterator<'a, T> {
+    current: &'a Option<Box<Node<T>>>, 
+    _marker: PhantomData<&'a T>
+}
+
+// Implementing Drop for Queue
+impl<T> Drop for Queue<T> {
+    fn drop(&mut self) {
+        // Dequeue the queue until its empty
+        if let Some(_) = self.dequeue() {}
+    }
+}
+
+// Debug implementation for our Queue
+impl<T> Debug for Queue<T> where T: Debug + Clone {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut output = String::from("Queue ( elements: [");
+        for elem in self.iter() {
+            output.push_str(&format!(" {:?} ", elem));
+        }
+
+        output.push_str(&format!("], length: {} )", self.len())); 
+
+        write!(f, "{}", output)
+    }
+}
+
+// QueueIterator implementation
+impl<'a, T: Debug + Clone> Iterator for QueueIterator<'a, T> {
+    type Item = &'a T; 
+
+    fn next(&mut self) -> Option<Self::Item> {
+        // Initially, current is set to the current tail, 
+        // It will walk the tail when a user calls next
+        self.current.as_ref().map(|node| {
+            self.current = &node.next; 
+
+            &node.element
+        })
+    }
+}
+
+// Implementation for the queue
+impl<T> Queue<T> {
+    pub fn new() -> Self {
+        Self {
+            length: 0,
+            head: None,
+            tail: None,
+            _marker: PhantomData,
+        }
+    }
+
+    // Iter function
+    pub fn iter(&self) -> QueueIterator<'_, T> {
+        QueueIterator {
+            current: &self.tail, 
+            _marker: PhantomData
+        }
+    }
+
+    /// The enqueue method, more of like the `push_back` of a linked list
+    pub fn enqueue(&mut self, element: T) where T: Clone {
+        // We create a new node
+        let mut new_node = Node::new(element);
+        // We make new_node's next to point to the old tail
+        new_node.next = self.tail.take();
+
+        // Here, we are setting the old_tail's next to point to the new pointer
+        if let Some(old_tail) = &mut self.tail {
+            old_tail.next = Some(Box::clone(&new_node));
+        }
+
+        // Making the new_node the tail
+        self.tail = Some(new_node.clone());
+
+        // If the list is empty, we first assign the new_node to the head before the tail
+        if self.head.is_none() {
+            self.head = Some(Box::clone(&new_node));
+        }
+
+        // Increment the length
+        self.length += 1;
+    }
+
+    /// The `dequeue` method, more of like the `pop_front` method of a singly linked list
+    pub fn dequeue(&mut self) -> Option<T> {
+        // We take the old head, and get next pointer the old head had been pointing to, we get that node,
+        // making it the new head
+        let result = self.head.take().map(|mut old_head| {
+            if let Some(next_node) = old_head.next.take() {
+                self.head = Some(next_node);
+            }
+
+            if self.head.is_none() {
+                self.tail = None;
+
+                // When the head is popped, the element is none, meaning
+                // it will not decrement length
+                // Check whether the length is zero, then the list is empty, so it will skip, else
+                // decrement 1 from the length
+                if !self.is_empty() {
+                    self.length -= 1;
+                }
+            }
+
+            old_head.element
+        });
+
+        // If the list wasn't empty (or popped a node), decrement the length
+        // SAFETY: this will prevent the length from going below usize::MIN, because
+        // a user may try to dequeue an empty queue, which would lead to negatives
+        // which are not supported by the usize
+        if result.is_some() {
+            self.length -= 1;
+        }
+
+        result
+    }
+
+    /// Reference to the first element in the queue
+    pub fn peek_front(&self) -> Option<&T> {
+        self.head.as_ref().map(|head| &head.element)
+    }
+
+    // Reference to value at the end of the queue
+    pub fn peek_back(&self) -> Option<&T> {
+        self.tail.as_ref().map(|tail| &tail.element)
+    }
+
+    // Get element by index from the queue
+    pub fn get(&self, index: usize) -> Option<&T> {
+        let mut counter = 0;
+        let mut current = &self.head;
+
+        // If index == 0, it returns the first element from the queue, using the peek_front
+        if index == 0 {
+            return self.peek_front();
+
+        // if index is the last, then returns last element using peek_back
+        } else if index == (self.len() - 1) {
+            return self.peek_back();
+
+        // Else, returns none, if index is out of bounds
+        } else if index > (self.len() - 1) {
+            return None;
+        }
+
+        let mut get_node: Option<&T> = None;
+
+        // If the node was not got we also index through the tail
+        if get_node.is_none() {
+            // Setting current to now be the tail
+            current = &self.tail;
+            // And also reset counter to 0, because the head will have atmost 1 element
+            counter += 1;
+
+            while let Some(node) = &current {
+                if counter == index {
+                    get_node = Some(&(*node).element);
+                }
+
+                // Increment counter
+                counter += 1;
+
+                current = &node.next;
+            }
+        }
+
+        get_node
+    }
+
+    /// Insert element at nth position in the queue 
+    pub fn insert(&mut self, index: usize, element: T) where T: Clone {
+        let mut counter = 0;
+        // Initialize a new node 
+        let mut new_node = Node::new(element.clone());
+
+        // If the index is greater the last index, then panic
+        if self.len() - 1 < index {
+            panic!("Trying to insert element to index out of bounds")
+        }
+
+        // If the length is zero, then just insert at the tail
+        if self.len() == 0 {
+            self.tail = Some(Box::clone(&new_node));
+        } else {
+            // If length is greater than zero, we assign current to zero, initially
+            let mut current = self.tail.as_mut().unwrap(); 
+
+            // Create a for loop to end at the index selected by user, then assign 
+            // the node at that index to current
+            // I made it (index - 1) so that it gets the previous node instead of the exact 
+            // node inorder for current.next to point to the exact node, when it reaches the node
+            for _ in 0..index - 1 {
+                current = current.next.as_mut().unwrap();
+            }
+
+            // We set the new_node's next to be current next node
+            new_node.next = current.next.clone();
+            // Then we set the current's next node to point to the new_node
+            current.next = Some(new_node);
+        }
+    }
+
+    /// Gets the length of the queue
+    pub fn len(&self) -> usize {
+        self.length
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.length == 0
+    }
+}
+
+
+mod tests {
+    use crate::Queue;
+
+    #[test]
+    fn test_enqueue() {
+        // Creating a new queue
+        let mut queue = Queue::<i32>::new();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        assert_eq!(queue.len(), 3);
+    }
+
+    #[test]
+    fn test_dequeue() {
+        let mut queue = Queue::<i32>::new();
+        // Enqueue a couple of values
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+
+        // Then dequeue some values
+        queue.dequeue();
+        queue.dequeue();
+
+        assert_eq!(queue.len(), 2);
+    }
+
+    #[test]
+    fn test_queue_length() {
+        use std::collections::VecDeque;
+        let mut queue = Queue::new();
+
+        // Enqueue a couple of elements
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        assert_eq!(queue.len(), 3);
+    }
+
+    #[test]
+    fn test_get_from_queue() {
+        let mut queue = Queue::new();
+
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(5);
+
+        let result = queue.get(1);
+        println!("{:#?}", result);
+
+        assert!(result.is_some());
+    }
+
+    #[test]
+    fn test_queue_insert() {
+        let mut queue = Queue::default();
+
+        queue.enqueue(1);
+        queue.enqueue(3);
+        queue.enqueue(4);
+        queue.insert(2, 2);
+
+        assert_eq!(queue.len(), 4);
+    }
+
+    #[test]
+    fn queue_iter() {
+        let mut queue = Queue::<i32>::new(); 
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+
+        println!("{:?}", queue); 
+        
+        for i in queue.iter() {
+            println!("Item: {}", i); 
+        }
+
+        assert!(true);
+    }
+}
