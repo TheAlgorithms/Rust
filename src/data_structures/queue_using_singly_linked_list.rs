@@ -241,8 +241,12 @@ impl<T> Queue<T> {
 
             // We set the new_node's next to be current next node
             new_node.next = current.next.clone();
+            
             // Then we set the current's next node to point to the new_node
             current.next = Some(new_node);
+
+            // Increment the length
+            self.length += 1;
         }
     }
 
