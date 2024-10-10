@@ -1,16 +1,16 @@
 //! A queue implementation using a singly linked list
 //! The queue follows FIFO (First-In First-Out) principle
-//! The [enqueue] method's time complexity is O(1) 
-//! The [dequeue] method's time complexity is O(1) 
-//! The [insert] method's time complexity is O(n) 
-//! The [delete] method's time complexity is O(n) 
-//! The [peek_front] method's time complexity is O(1) 
-//! The [peek_back] method's time complexity is O(1) 
-//! The [len] method's time complexity is O(1) 
-//! The [is_empty] method's time complexity is O(1) 
-//! 
+//! The [enqueue] method's time complexity is O(1)
+//! The [dequeue] method's time complexity is O(1)
+//! The [insert] method's time complexity is O(n)
+//! The [delete] method's time complexity is O(n)
+//! The [peek_front] method's time complexity is O(1)
+//! The [peek_back] method's time complexity is O(1)
+//! The [len] method's time complexity is O(1)
+//! The [is_empty] method's time complexity is O(1)
+//!
 //! I implemented Iterator, Default and Debug trait for our Queue data structure
-//! 
+//!
 
 use std::fmt::Debug;
 use std::marker::PhantomData;
@@ -49,8 +49,8 @@ impl<T> Default for Queue<T> {
 
 // Implement iterator for the queue
 struct QueueIterator<'a, T> {
-    current: &'a Option<Box<Node<T>>>, 
-    _marker: PhantomData<&'a T>
+    current: &'a Option<Box<Node<T>>>,
+    _marker: PhantomData<&'a T>,
 }
 
 // Implementing Drop for Queue
@@ -62,14 +62,17 @@ impl<T> Drop for Queue<T> {
 }
 
 // Debug implementation for our Queue
-impl<T> Debug for Queue<T> where T: Debug {
+impl<T> Debug for Queue<T>
+where
+    T: Debug,
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut output = String::from("Queue ( elements: [");
         for elem in self.iter() {
             output.push_str(&format!(" {:?} ", elem));
         }
 
-        output.push_str(&format!("], length: {} )", self.len())); 
+        output.push_str(&format!("], length: {} )", self.len()));
 
         write!(f, "{}", output)
     }
@@ -77,13 +80,13 @@ impl<T> Debug for Queue<T> where T: Debug {
 
 // QueueIterator implementation
 impl<'a, T> Iterator for QueueIterator<'a, T> {
-    type Item = &'a T; 
+    type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
-        // Initially, current is set to the current tail, 
+        // Initially, current is set to the current tail,
         // It will walk the tail when a user calls next
         self.current.as_ref().map(|node| {
-            self.current = &node.next; 
+            self.current = &node.next;
 
             &node.element
         })
@@ -104,13 +107,16 @@ impl<T> Queue<T> {
     // Iter method, will enably us to iterate through our queue
     pub fn iter(&self) -> QueueIterator<'_, T> {
         QueueIterator {
-            current: &self.tail, 
-            _marker: PhantomData
+            current: &self.tail,
+            _marker: PhantomData,
         }
     }
 
     /// The enqueue method, more of like the `push_back` of a linked list
-    pub fn enqueue(&mut self, element: T) where T: Clone {
+    pub fn enqueue(&mut self, element: T)
+    where
+        T: Clone,
+    {
         // We create a new node
         let mut new_node = Node::new(element);
         // We make new_node's next to point to the old tail
@@ -205,14 +211,14 @@ impl<T> Queue<T> {
             // And also reset counter to 0, because the head will have atmost 1 element
             counter += 1;
 
-            // We traverse to the node to get from the queue 
+            // We traverse to the node to get from the queue
             while let Some(node) = &current {
-                // If the selected index matches the pointer, then set get_node 
+                // If the selected index matches the pointer, then set get_node
                 // to node at that index
                 if counter == index {
                     get_node = Some(&(*node).element);
                     // Break the loop after getting the element at given index
-                    break; 
+                    break;
                 }
 
                 // Increment counter
@@ -225,10 +231,13 @@ impl<T> Queue<T> {
         get_node
     }
 
-    /// Insert element at nth position in the queue 
-    pub fn insert(&mut self, index: usize, element: T) where T: Clone {
+    /// Insert element at nth position in the queue
+    pub fn insert(&mut self, index: usize, element: T)
+    where
+        T: Clone,
+    {
         let mut counter = 0;
-        // Initialize a new node 
+        // Initialize a new node
         let mut new_node = Node::new(element.clone());
 
         // If the index is greater the last index, then panic
@@ -241,11 +250,11 @@ impl<T> Queue<T> {
             self.tail = Some(Box::clone(&new_node));
         } else {
             // If length is greater than zero, we assign current to zero, initially
-            let mut current = self.tail.as_mut().unwrap(); 
+            let mut current = self.tail.as_mut().unwrap();
 
-            // Create a for loop to end at the index selected by user, then assign 
+            // Create a for loop to end at the index selected by user, then assign
             // the node at that index to current
-            // I made it (index - 1) so that it gets the previous node instead of the exact 
+            // I made it (index - 1) so that it gets the previous node instead of the exact
             // node inorder for current.next to point to the exact node, when it reaches the node
             for _ in 0..index - 1 {
                 current = current.next.as_mut().unwrap();
@@ -261,39 +270,42 @@ impl<T> Queue<T> {
         }
     }
 
-    pub fn delete(&mut self, index: usize) -> Option<T> where T: Clone {
+    pub fn delete(&mut self, index: usize) -> Option<T>
+    where
+        T: Clone,
+    {
         // Index out of bounds
         if index >= self.length {
-            return None; 
+            return None;
         }
-    
+
         if index == 0 {
             // Deleting the head (equivalent to dequeue)
             let deleted_node = self.dequeue();
             return deleted_node;
         } else {
             let mut current = self.tail.as_mut()?;
-    
+
             // Traverse to the node just before the one to delete
             for _ in 0..index - 1 {
                 current = current.next.as_mut()?;
             }
-    
+
             // The node to delete is current.next
             let mut to_delete = current.next.take()?; // Take ownership of the node to delete
-    
+
             // Re-link the current node to skip over the deleted node
             current.next = to_delete.next.take();
-    
+
             // If the deleted node was the last node, update the tail pointer
             if current.next.is_none() {
                 // If there is no next node, set tail to the current node
                 self.tail = Some(current.clone());
             }
-    
+
             // Decrease the queue length
             self.length -= 1;
-    
+
             // Return the deleted element
             Some(to_delete.element)
         }
@@ -304,12 +316,11 @@ impl<T> Queue<T> {
         self.length
     }
 
-    /// Check whether the queue is empty or not 
+    /// Check whether the queue is empty or not
     pub fn is_empty(&self) -> bool {
         self.length == 0
     }
 }
-
 
 /// The queue implementation tests
 mod tests {
@@ -356,7 +367,7 @@ mod tests {
 
     #[test]
     fn test_peek_front() {
-        let mut queue = Queue::default(); 
+        let mut queue = Queue::default();
 
         queue.enqueue(1);
         queue.enqueue(2);
@@ -365,9 +376,9 @@ mod tests {
         assert_eq!(Some(&3), queue.peek_front());
     }
 
-    #[test] 
+    #[test]
     fn peek_back() {
-        let mut queue = Queue::default(); 
+        let mut queue = Queue::default();
 
         queue.enqueue(1);
         queue.enqueue(2);
@@ -404,15 +415,15 @@ mod tests {
 
     #[test]
     fn queue_iter() {
-        let mut queue = Queue::<i32>::new(); 
+        let mut queue = Queue::<i32>::new();
         queue.enqueue(2);
         queue.enqueue(3);
         queue.enqueue(4);
 
-        println!("{:?}", queue); 
-        
+        println!("{:?}", queue);
+
         for i in queue.iter() {
-            println!("Item: {}", i); 
+            println!("Item: {}", i);
         }
 
         assert!(true);
@@ -420,14 +431,14 @@ mod tests {
 
     #[test]
     fn test_queue_delete() {
-        let mut queue = Queue::default(); 
+        let mut queue = Queue::default();
 
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
 
         queue.delete(1);
-        
+
         assert!(false);
         assert_eq!(queue.len(), 1);
 
@@ -435,3 +446,5 @@ mod tests {
         assert!(queue.delete(1).is_some());
     }
 }
+
+fn main() {}
