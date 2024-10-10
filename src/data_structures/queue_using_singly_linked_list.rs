@@ -57,7 +57,7 @@ struct QueueIterator<'a, T> {
 impl<T> Drop for Queue<T> {
     fn drop(&mut self) {
         // Dequeue the queue until its empty
-        if let Some(_) = self.dequeue() {}
+        while self.dequeue().is_some() {}
     }
 }
 
@@ -216,7 +216,7 @@ impl<T> Queue<T> {
                 // If the selected index matches the pointer, then set get_node
                 // to node at that index
                 if counter == index {
-                    get_node = Some(&(*node).element);
+                    get_node = Some(&node.element);
                     // Break the loop after getting the element at given index
                     break;
                 }
@@ -236,7 +236,6 @@ impl<T> Queue<T> {
     where
         T: Clone,
     {
-        let mut counter = 0;
         // Initialize a new node
         let mut new_node = Node::new(element.clone());
 
@@ -246,7 +245,7 @@ impl<T> Queue<T> {
         }
 
         // If the length is zero, then just insert at the tail
-        if self.len() == 0 {
+        if self.is_empty() {
             self.tail = Some(Box::clone(&new_node));
         } else {
             // If length is greater than zero, we assign current to zero, initially
@@ -282,7 +281,7 @@ impl<T> Queue<T> {
         if index == 0 {
             // Deleting the head (equivalent to dequeue)
             let deleted_node = self.dequeue();
-            return deleted_node;
+            deleted_node
         } else {
             let mut current = self.tail.as_mut()?;
 
@@ -324,7 +323,7 @@ impl<T> Queue<T> {
 
 /// The queue implementation tests
 mod tests {
-    use crate::Queue;
+    use super::*;
 
     #[test]
     fn test_enqueue() {
@@ -446,5 +445,3 @@ mod tests {
         assert!(queue.delete(1).is_some());
     }
 }
-
-fn main() {}
