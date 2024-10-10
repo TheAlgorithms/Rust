@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 //! A queue implementation using a singly linked list
 //! The queue follows FIFO (First-In First-Out) principle
 //! The [enqueue] method's time complexity is O(1)
@@ -50,7 +48,7 @@ impl<T> Default for LinkedListQueue<T> {
 }
 
 // Implement iterator for the queue
-pub struct LinkedListQueueIterator<'a, T> {
+pub struct LinkedListQueueIter<'a, T> {
     current: &'a Option<Box<Node<T>>>,
     _marker: PhantomData<&'a T>,
 }
@@ -69,22 +67,22 @@ where
     T: Debug,
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        use std::fmt::Write as _; 
+        use std::fmt::Write as _;
 
         let mut output = String::from("LinkedListQueue ( elements: [");
-        
+
         for elem in self.iter() {
             let _ = write!(output, " {:?} ", elem);
         }
-        
+
         let _ = write!(output, "], length: {} )", self.len());
 
-        write!(f, "{}", output) 
+        write!(f, "{}", output)
     }
 }
 
 // LinkedListQueueIterator implementation
-impl<'a, T> Iterator for LinkedListQueueIterator<'a, T> {
+impl<'a, T> Iterator for LinkedListQueueIter<'a, T> {
     type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -110,8 +108,8 @@ impl<T> LinkedListQueue<T> {
     }
 
     // Iter method, will enably us to iterate through our queue
-    pub fn iter(&self) -> LinkedListQueueIterator<'_, T> {
-        LinkedListQueueIterator {
+    pub fn iter(&self) -> LinkedListQueueIter<'_, T> {
+        LinkedListQueueIter {
             current: &self.tail,
             _marker: PhantomData,
         }
@@ -312,6 +310,11 @@ impl<T> LinkedListQueue<T> {
         }
     }
 
+    /// Empty the queue
+    pub fn drain(&mut self) {
+        while self.dequeue().is_some() {}
+    }
+
     /// Gets the length of the queue
     pub fn len(&self) -> usize {
         self.length
@@ -326,7 +329,7 @@ impl<T> LinkedListQueue<T> {
 /// The queue implementation tests
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::LinkedListQueue;
 
     #[test]
     fn test_enqueue() {
