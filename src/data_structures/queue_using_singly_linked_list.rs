@@ -75,7 +75,7 @@ where
                 write!(f, ", ")?;
             }
             is_first = false;
-            write!(f, "{:?}", elem)?;
+            write!(f, "{elem:?}")?;
         }
         write!(f, "], length: {} )", self.len())
     }
