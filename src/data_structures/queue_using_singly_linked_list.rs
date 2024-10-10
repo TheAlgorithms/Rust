@@ -1,14 +1,21 @@
-
 //! A queue implementation using a singly linked list
 //! The queue follows FIFO (First-In First-Out) principle
+//! The [enqueue] method's time complexity is O(1) 
+//! The [dequeue] method's time complexity is O(1) 
+//! The [insert] method's time complexity is O(n) 
+//! The [delete] method's time complexity is O(n) 
+//! The [peek_front] method's time complexity is O(1) 
+//! The [peek_back] method's time complexity is O(1) 
+//! The [len] method's time complexity is O(1) 
+//! The [is_empty] method's time complexity is O(1) 
+//! 
+//! I implemented Iterator, Default and Debug trait for our Queue data structure
+//! 
 
-#![allow(unused)]
-
-use std::collections::VecDeque;
 use std::fmt::Debug;
 use std::marker::PhantomData;
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 struct Node<T> {
     element: T,
     next: Option<Box<Node<T>>>,
@@ -55,7 +62,7 @@ impl<T> Drop for Queue<T> {
 }
 
 // Debug implementation for our Queue
-impl<T> Debug for Queue<T> where T: Debug + Clone {
+impl<T> Debug for Queue<T> where T: Debug {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut output = String::from("Queue ( elements: [");
         for elem in self.iter() {
@@ -69,7 +76,7 @@ impl<T> Debug for Queue<T> where T: Debug + Clone {
 }
 
 // QueueIterator implementation
-impl<'a, T: Debug + Clone> Iterator for QueueIterator<'a, T> {
+impl<'a, T> Iterator for QueueIterator<'a, T> {
     type Item = &'a T; 
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -94,7 +101,7 @@ impl<T> Queue<T> {
         }
     }
 
-    // Iter function
+    // Iter method, will enably us to iterate through our queue
     pub fn iter(&self) -> QueueIterator<'_, T> {
         QueueIterator {
             current: &self.tail, 
@@ -130,13 +137,13 @@ impl<T> Queue<T> {
     pub fn dequeue(&mut self) -> Option<T> {
         // We take the old head, and get next pointer the old head had been pointing to, we get that node,
         // making it the new head
-        let result = self.head.take().map(|mut old_head| {
-            if let Some(next_node) = old_head.next.take() {
-                self.head = Some(next_node);
+        let result = self.tail.take().map(|mut old_tail| {
+            if let Some(next_node) = old_tail.next.take() {
+                self.tail = Some(next_node);
             }
 
-            if self.head.is_none() {
-                self.tail = None;
+            if self.tail.is_none() {
+                self.head = None;
 
                 // When the head is popped, the element is none, meaning
                 // it will not decrement length
@@ -147,7 +154,7 @@ impl<T> Queue<T> {
                 }
             }
 
-            old_head.element
+            old_tail.element
         });
 
         // If the list wasn't empty (or popped a node), decrement the length
@@ -198,9 +205,14 @@ impl<T> Queue<T> {
             // And also reset counter to 0, because the head will have atmost 1 element
             counter += 1;
 
+            // We traverse to the node to get from the queue 
             while let Some(node) = &current {
+                // If the selected index matches the pointer, then set get_node 
+                // to node at that index
                 if counter == index {
                     get_node = Some(&(*node).element);
+                    // Break the loop after getting the element at given index
+                    break; 
                 }
 
                 // Increment counter
@@ -241,12 +253,49 @@ impl<T> Queue<T> {
 
             // We set the new_node's next to be current next node
             new_node.next = current.next.clone();
-            
-            // Then we set the current's next node to point to the new_node
-            current.next = Some(new_node);
 
             // Increment the length
             self.length += 1;
+            // Then we set the current's next node to point to the new_node
+            current.next = Some(new_node);
+        }
+    }
+
+    pub fn delete(&mut self, index: usize) -> Option<T> where T: Clone {
+        // Index out of bounds
+        if index >= self.length {
+            return None; 
+        }
+    
+        if index == 0 {
+            // Deleting the head (equivalent to dequeue)
+            let deleted_node = self.dequeue();
+            return deleted_node;
+        } else {
+            let mut current = self.tail.as_mut()?;
+    
+            // Traverse to the node just before the one to delete
+            for _ in 0..index - 1 {
+                current = current.next.as_mut()?;
+            }
+    
+            // The node to delete is current.next
+            let mut to_delete = current.next.take()?; // Take ownership of the node to delete
+    
+            // Re-link the current node to skip over the deleted node
+            current.next = to_delete.next.take();
+    
+            // If the deleted node was the last node, update the tail pointer
+            if current.next.is_none() {
+                // If there is no next node, set tail to the current node
+                self.tail = Some(current.clone());
+            }
+    
+            // Decrease the queue length
+            self.length -= 1;
+    
+            // Return the deleted element
+            Some(to_delete.element)
         }
     }
 
@@ -255,12 +304,14 @@ impl<T> Queue<T> {
         self.length
     }
 
+    /// Check whether the queue is empty or not 
     pub fn is_empty(&self) -> bool {
         self.length == 0
     }
 }
 
 
+/// The queue implementation tests
 mod tests {
     use crate::Queue;
 
@@ -293,7 +344,6 @@ mod tests {
 
     #[test]
     fn test_queue_length() {
-        use std::collections::VecDeque;
         let mut queue = Queue::new();
 
         // Enqueue a couple of elements
@@ -302,6 +352,28 @@ mod tests {
         queue.enqueue(3);
 
         assert_eq!(queue.len(), 3);
+    }
+
+    #[test]
+    fn test_peek_front() {
+        let mut queue = Queue::default(); 
+
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        assert_eq!(Some(&3), queue.peek_front());
+    }
+
+    #[test] 
+    fn peek_back() {
+        let mut queue = Queue::default(); 
+
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        assert_eq!(Some(&1), queue.peek_back());
     }
 
     #[test]
@@ -344,5 +416,22 @@ mod tests {
         }
 
         assert!(true);
+    }
+
+    #[test]
+    fn test_queue_delete() {
+        let mut queue = Queue::default(); 
+
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        queue.delete(1);
+        
+        assert!(false);
+        assert_eq!(queue.len(), 1);
+
+        // Whether to see whether an option of variant Some is returned
+        assert!(queue.delete(1).is_some());
     }
 }
