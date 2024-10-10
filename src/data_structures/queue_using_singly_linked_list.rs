@@ -430,4 +430,19 @@ mod tests {
         // Whether to see whether an option of variant Some is returned
         assert!(queue.delete(1).is_some());
     }
+
+    #[test]
+    fn test_queue_drain() {
+        let mut queue = LinkedListQueue::default();
+
+        // Enqueue some elements
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        // Then drain the queue
+        queue.drain();
+
+        assert_eq!(queue.len(), 0);
+    }
 }
