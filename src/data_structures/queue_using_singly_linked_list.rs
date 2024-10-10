@@ -1,5 +1,5 @@
 //! This module is about a queue implemented using a singly linked list
-//! 
+//!
 //! The queue follows FIFO (First-In First-Out) principle
 //! The [enqueue] method's time complexity is O(1)
 //! The [dequeue] method's time complexity is O(1)
@@ -68,17 +68,16 @@ where
     T: Debug,
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        use std::fmt::Write as _;
-
-        let mut output = String::from("LinkedListQueue ( elements: [");
-
+        write!(f, "LinkedListQueue ( elements: [")?;
+        let mut is_first = true;
         for elem in self.iter() {
-            let _ = write!(output, " {elem:?} ").is_ok();
+            if !is_first {
+                write!(f, ", ")?;
+            }
+            is_first = false;
+            write!(f, "{:?}", elem)?;
         }
-
-        let _ = write!(output, "], length: {} )", self.len()).is_ok();
-
-        write!(f, "{output}")
+        write!(f, "], length: {} )", self.len())
     }
 }
 
@@ -340,8 +339,6 @@ mod tests {
         queue.enqueue(2);
         queue.enqueue(3);
 
-        println!("{:?}", queue.len());
-
         assert_eq!(queue.len(), 3);
     }
 
@@ -398,13 +395,11 @@ mod tests {
     #[test]
     fn test_get_from_queue() {
         let mut queue = LinkedListQueue::new();
-
         queue.enqueue(2);
         queue.enqueue(3);
         queue.enqueue(5);
 
         let result = queue.get(1);
-        println!("{result:#?}", );
 
         assert!(result.is_some());
     }
