@@ -79,6 +79,7 @@
     * [Trie](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/trie.rs)
     * [Union Find](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/union_find.rs)
     * [Veb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/veb_tree.rs)
+    * [Linked List Queue]([https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs](https://github.com/Ismael144/Rust-algorithms/blob/master/src/data_structures/queue_using_singly_linked_list.rs))
   * Dynamic Programming
     * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
     * [Egg Dropping](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/egg_dropping.rs)
