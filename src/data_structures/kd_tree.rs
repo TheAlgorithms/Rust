@@ -1,3 +1,27 @@
+
+/// A k-d tree implementation supporting the following operations:
+/// 
+/// Main functions:
+/// 
+/// new() -> Create an empty k-d tree 
+/// build() -> Generate a balance k-d tree from a vector of points
+/// insert() -> Add a point to a k-d tree
+/// delete() -> Remove a point from a k-d tree
+/// contains() -> Search for a point in a k-d tree
+/// n_nearest_neighbors -> Search the nearest neighbors of a given point from a k-d tree with their respective distances
+/// len() -> Determine the number of points stored in a kd-tree
+/// is_empty() -> Determine whether or not there are points in a k-d tree
+/// 
+/// Helper functions:
+/// 
+/// distance() -> Calculate the Euclidean distance between two points
+/// min_node() -> Determine the minimum node from a given k-d tree with respect to a given axis
+/// min_node_on_axis() -> Determine the minimum node among three nodes on a given axis
+/// 
+/// Check each function's definition for more details
+/// 
+/// TODO: Implement a `range_search` function to return a set of points found within a given boundary
+
 use num_traits::{abs, real::Real, Signed};
 use std::iter::Sum;
 
@@ -36,7 +60,6 @@ impl<T: PartialOrd + Copy, const K: usize> Default for KDTree<T, K> {
 
 impl<T: PartialOrd + Copy, const K: usize> KDTree<T, K> {
     // Create and empty kd-tree
-    // #[must_use]
     pub fn new() -> Self {
         KDTree {
             root: None,
@@ -49,7 +72,7 @@ impl<T: PartialOrd + Copy, const K: usize> KDTree<T, K> {
         search_rec(&self.root, point, 0)
     }
 
-    // Returns true if successfully delete a point, false otherwise
+    // Returns true if successfully insert a point, false otherwise
     pub fn insert(&mut self, point: [T; K]) -> bool {
         let inserted: bool = insert_rec(&mut self.root, point, 0);
         if inserted {
@@ -58,7 +81,7 @@ impl<T: PartialOrd + Copy, const K: usize> KDTree<T, K> {
         inserted
     }
 
-    // Returns true if successfully delete a point
+    // Returns true if successfully delete a point, false otherwise
     pub fn delete(&mut self, point: &[T; K]) -> bool {
         let deleted = delete_rec(&mut self.root, point, 0);
         if deleted {
@@ -78,25 +101,16 @@ impl<T: PartialOrd + Copy, const K: usize> KDTree<T, K> {
     }
 
     // Returns the number of points in a kd-tree
-    // #[must_use]
     pub fn len(&self) -> usize {
         self.size
     }
 
-    // Returns the depth a kd-tree
-    // #[must_use]
-    pub fn depth(&self) -> usize {
-        depth_rec(&self.root, 0, 0)
-    }
-
     // Determine whether there exist points in a kd-tree or not
-    // #[must_use]
     pub fn is_empty(&self) -> bool {
         self.root.is_none()
     }
 
     // Returns a kd-tree built from a vector points
-    // #[must_use]
     pub fn build(points: Vec<[T; K]>) -> KDTree<T, K> {
         let mut tree: KDTree<T, K> = KDTree::new();
         if points.is_empty() {
@@ -109,15 +123,6 @@ impl<T: PartialOrd + Copy, const K: usize> KDTree<T, K> {
         }
     }
 
-    /// Returns a `KDTree` containing both trees
-    /// Merging two KDTrees by collecting points and rebuilding
-    // #[must_use]
-    pub fn merge(&mut self, other: &mut Self) -> Self {
-        let mut points: Vec<[T; K]> = Vec::new();
-        collect_points(&self.root, &mut points);
-        collect_points(&other.root, &mut points);
-        KDTree::build(points)
-    }
 }
 
 // Helper functions ............................................................................
@@ -228,37 +233,6 @@ fn build_rec<T: PartialOrd + Copy, const K: usize>(
         node.right = build_rec(points[median + 1..].to_vec(), depth + 1);
 
         Some(Box::new(node))
-    }
-}
-
-// Returns the depth of the deepest branch of a kd-tree.
-fn depth_rec<T: PartialOrd + Copy, const K: usize>(
-    kd_tree: &Option<Box<KDNode<T, K>>>,
-    left_depth: usize,
-    right_depth: usize,
-) -> usize {
-    if let Some(kd_node) = kd_tree {
-        match (&kd_node.left, &kd_node.right) {
-            (None, None) => left_depth.max(right_depth),
-            (None, Some(_)) => depth_rec(&kd_node.left, left_depth + 1, right_depth),
-            (Some(_), None) => depth_rec(&kd_node.right, left_depth, right_depth + 1),
-            (Some(_), Some(_)) => depth_rec(&kd_node.left, left_depth + 1, right_depth)
-                .max(depth_rec(&kd_node.right, left_depth, right_depth + 1)),
-        }
-    } else {
-        left_depth.max(right_depth)
-    }
-}
-
-// Collect all points from a given `KDTree` into a vector
-fn collect_points<T: PartialOrd + Copy, const K: usize>(
-    kd_node: &Option<Box<KDNode<T, K>>>,
-    points: &mut Vec<[T; K]>,
-) {
-    if let Some(current_node) = kd_node {
-        points.push(current_node.point);
-        collect_points(&current_node.left, points);
-        collect_points(&current_node.right, points);
     }
 }
 
@@ -383,88 +357,111 @@ fn n_nearest_neighbors<T, const K: usize>(
 
 #[cfg(test)]
 mod test {
+    /// Tests for the following operations:
+    /// 
+    /// insert(), contains(), delete(), n_nearest_neighbors(), len(), is_empty()
+    /// This test uses a 2-Dimensional point
+    /// 
+    /// TODO: Create a global constant(K for example) to hold the dimension to be tested and adjust each test case to make use of K for points allocation. 
+
     use super::KDTree;
 
     #[test]
     fn insert() {
-        let mut kd_tree: KDTree<f64, 2> = KDTree::new();
-        assert!(kd_tree.insert([2.0, 3.0]));
-        // Cannot insert the same point again
-        assert!(!kd_tree.insert([2.0, 3.0]));
-        assert!(kd_tree.insert([2.0, 3.1]));
+        let points = (0..100).map(|_| {
+            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
+        }).collect::<Vec<[f64; 2]>>();
+        let mut kd_tree = KDTree::build(points);
+        let point = [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0];
+
+        assert!(kd_tree.insert(point));
+        // Cannot insert twice
+        assert!(!kd_tree.insert(point));
     }
 
     #[test]
     fn contains() {
-        let points = vec![[2.0, 3.0], [5.0, 4.0], [9.0, 6.0], [4.0, 7.0]];
-        let kd_tree = KDTree::build(points);
-        assert!(kd_tree.contains(&[5.0, 4.0]));
-        assert!(!kd_tree.contains(&[5.0, 4.1]));
+        let points = (0..100).map(|_| {
+            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
+        }).collect::<Vec<[f64; 2]>>();
+        let mut kd_tree = KDTree::build(points);
+        let point = [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0];
+        kd_tree.insert(point);
+
+        assert!(kd_tree.contains(&point));
     }
 
     #[test]
-    fn remove() {
-        let points = vec![[2.0, 3.0], [5.0, 4.0], [9.0, 6.0], [4.0, 7.0]];
+    fn delete() {
+        let points = (0..100).map(|_| {
+            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
+        }).collect::<Vec<[f64; 2]>>();
+        let point = points[(rand::random::<f64>() * 100.0).round() as usize].clone();
         let mut kd_tree = KDTree::build(points);
-        assert!(kd_tree.delete(&[5.0, 4.0]));
-        // Cannot remove twice
-        assert!(!kd_tree.delete(&[5.0, 4.0]));
-        assert!(!kd_tree.contains(&[5.0, 4.0]));
+
+        assert!(kd_tree.delete(&point));
+        // Cannot delete twice
+        assert!(!kd_tree.delete(&point));
+        // Ensure point is no longer present in k-d tree
+        assert!(!kd_tree.contains(&point));
     }
 
     #[test]
     fn nearest_neighbors() {
-        let points = vec![
-            [2.0, 3.0],
-            [5.0, 4.0],
-            [9.0, 6.0],
-            [4.0, 7.0],
-            [8.0, 1.0],
-            [7.0, 2.0],
+        // Test with large data set
+        let points_1 = (0..1000).map(|_| {
+            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
+        }).collect::<Vec<[f64; 2]>>();
+        let kd_tree_1 = KDTree::build(points_1);
+        let target = [50.0, 50.0];
+        let neighbors_1 = kd_tree_1.nearest_neighbors(&target, 10);
+    
+        // Confirm we have exactly 10 nearest neighbors
+        assert_eq!(neighbors_1.len(), 10);
+
+        // `14.14` is the approximate distance between [40.0, 40.0] and [50.0, 50.0] & 
+        // [50.0, 50.0] and [60.0, 60.0] 
+        // so our closest neighbors are expected to be found between the bounding box [40.0, 40.0] - [60.0, 60.0] 
+        // with a distance from [50.0, 50.0] less than or equal 14.14
+        for neighbor in neighbors_1 {
+            assert!(neighbor.0 <= 14.14);
+        }
+
+        // Test with small data set
+        let points_2 = vec![[2.0, 3.0],[5.0, 4.0],[9.0, 6.0],[4.0, 7.0],[8.0, 1.0],
+[7.0, 2.0],
         ];
-        let kd_tree = KDTree::build(points);
-        // for the point [5.0, 3.0] it's obvious that [5.0, 4.0] is one of its closest neighbor with a distance of 1.0
-        assert!(kd_tree
-            .nearest_neighbors(&[5.0, 3.0], 2)
-            .contains(&(1.0, [5.0, 4.0])));
+        let kd_tree_2 = KDTree::build(points_2);
+        let neighbors_2 = kd_tree_2.nearest_neighbors(&[6.0, 3.0], 3);
+        let expected_neighbors = vec![[7.0, 2.0], [5.0, 4.0], [8.0, 1.0]];
+        let neighbors = neighbors_2.iter().map(|a| a.1).collect::<Vec<[f64; 2]>>();
+
+        // Confirm we have exactly 10 nearest neighbors
+        assert_eq!(neighbors.len(), 3);
+
+        // With a small set of data, we can manually calculate our 3 nearest neighbors
+        // and compare with those obtained from our method
+        assert_eq!(neighbors, expected_neighbors);
     }
 
     #[test]
     fn is_empty() {
         let mut kd_tree = KDTree::new();
+
         assert!(kd_tree.is_empty());
+
         kd_tree.insert([1.5, 3.0]);
+
         assert!(!kd_tree.is_empty());
     }
 
     #[test]
-    fn len_and_depth() {
-        let points = vec![
-            [2.0, 3.0],
-            [5.0, 4.0],
-            [9.0, 6.0],
-            [4.0, 7.0],
-            [8.0, 1.0],
-            [7.0, 2.0],
-        ];
-        let size = points.len();
-        let tree = KDTree::build(points);
-        assert_eq!(tree.len(), size);
-        assert_eq!(tree.depth(), 2);
-    }
-
-    #[test]
-    fn merge() {
-        let points_1 = vec![[2.0, 3.0], [5.0, 4.0], [9.0, 6.0]];
-        let points_2 = vec![[4.0, 7.0], [8.0, 1.0], [7.0, 2.0]];
-
-        let mut kd_tree_1 = KDTree::build(points_1);
-        let mut kd_tree_2 = KDTree::build(points_2);
-
-        let kd_tree_3 = kd_tree_1.merge(&mut kd_tree_2);
-
-        // Making sure the resulted kd-tree contains points from both kd-trees
-        assert!(kd_tree_3.contains(&[9.0, 6.0]));
-        assert!(kd_tree_3.contains(&[8.0, 1.0]));
+    fn len() {
+        let points = (0..1000).map(|_| {
+            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
+        }).collect::<Vec<[f64; 2]>>();
+        let kd_tree = KDTree::build(points);
+        
+        assert_eq!(kd_tree.len(), 1000);
     }
 }
