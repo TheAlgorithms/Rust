@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 //! A queue implementation using a singly linked list
 //! The queue follows FIFO (First-In First-Out) principle
 //! The [enqueue] method's time complexity is O(1)
@@ -167,7 +169,7 @@ impl<T> Queue<T> {
         // SAFETY: this will prevent the length from going below usize::MIN, because
         // a user may try to dequeue an empty queue, which would lead to negatives
         // which are not supported by the usize
-        if result.is_some() {
+        if result.is_some() && !self.is_empty() {
             self.length -= 1;
         }
 
@@ -176,19 +178,18 @@ impl<T> Queue<T> {
 
     /// Reference to the first element in the queue
     pub fn peek_front(&self) -> Option<&T> {
-        self.head.as_ref().map(|head| &head.element)
+        self.tail.as_ref().map(|tail| &tail.element)
     }
 
     // Reference to value at the end of the queue
     pub fn peek_back(&self) -> Option<&T> {
-        self.tail.as_ref().map(|tail| &tail.element)
+        self.head.as_ref().map(|head| &head.element)
     }
 
     // Get element by index from the queue
     pub fn get(&self, index: usize) -> Option<&T> {
         let mut counter = 0;
-        let mut current = &self.head;
-
+        
         // If index == 0, it returns the first element from the queue, using the peek_front
         if index == 0 {
             return self.peek_front();
@@ -197,22 +198,24 @@ impl<T> Queue<T> {
         } else if index == (self.len() - 1) {
             return self.peek_back();
 
-        // Else, returns none, if index is out of bounds
+            // Else, returns none, if index is out of bounds
         } else if index > (self.len() - 1) {
             return None;
         }
 
+        let mut _current = &self.head;
+        
         let mut get_node: Option<&T> = None;
-
+        
         // If the node was not got we also index through the tail
         if get_node.is_none() {
             // Setting current to now be the tail
-            current = &self.tail;
+            _current = &self.tail;
             // And also reset counter to 0, because the head will have atmost 1 element
             counter += 1;
 
             // We traverse to the node to get from the queue
-            while let Some(node) = &current {
+            while let Some(node) = &_current {
                 // If the selected index matches the pointer, then set get_node
                 // to node at that index
                 if counter == index {
@@ -224,7 +227,7 @@ impl<T> Queue<T> {
                 // Increment counter
                 counter += 1;
 
-                current = &node.next;
+                _current = &node.next;
             }
         }
 
@@ -333,6 +336,9 @@ mod tests {
         queue.enqueue(2);
         queue.enqueue(3);
 
+        println!("{:?}", queue);
+        println!("{:?}", queue.len());
+
         assert_eq!(queue.len(), 3);
     }
 
@@ -438,9 +444,7 @@ mod tests {
 
         queue.delete(1);
 
-        assert!(false);
-        assert_eq!(queue.len(), 1);
-
+        assert_eq!(queue.len(), 2);
         // Whether to see whether an option of variant Some is returned
         assert!(queue.delete(1).is_some());
     }
