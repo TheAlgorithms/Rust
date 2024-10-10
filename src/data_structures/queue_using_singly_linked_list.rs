@@ -11,7 +11,7 @@
 //! The [len] method's time complexity is O(1)
 //! The [is_empty] method's time complexity is O(1)
 //!
-//! I implemented Iterator, Default and Debug trait for our Queue data structure
+//! I implemented Iterator, Default and Debug trait for our LinkedListQueue data structure
 //!
 
 use std::fmt::Debug;
@@ -32,9 +32,9 @@ impl<T> Node<T> {
     }
 }
 
-/// Queue Implementation using Singly Linked List logic
+/// LinkedListQueue Implementation using Singly Linked List logic
 #[derive(Clone)]
-pub struct Queue<T> {
+pub struct LinkedListQueue<T> {
     length: usize,
     head: Option<Box<Node<T>>>,
     tail: Option<Box<Node<T>>>,
@@ -42,46 +42,49 @@ pub struct Queue<T> {
     _marker: PhantomData<Box<Node<T>>>,
 }
 
-// Implementing default for our Queue
-impl<T> Default for Queue<T> {
+// Implementing default for our LinkedListQueue
+impl<T> Default for LinkedListQueue<T> {
     fn default() -> Self {
-        Queue::new()
+        LinkedListQueue::new()
     }
 }
 
 // Implement iterator for the queue
-struct QueueIterator<'a, T> {
+pub struct LinkedListQueueIterator<'a, T> {
     current: &'a Option<Box<Node<T>>>,
     _marker: PhantomData<&'a T>,
 }
 
-// Implementing Drop for Queue
-impl<T> Drop for Queue<T> {
+// Implementing Drop for LinkedListQueue
+impl<T> Drop for LinkedListQueue<T> {
     fn drop(&mut self) {
         // Dequeue the queue until its empty
         while self.dequeue().is_some() {}
     }
 }
 
-// Debug implementation for our Queue
-impl<T> Debug for Queue<T>
+// Debug implementation for our LinkedListQueue
+impl<T> Debug for LinkedListQueue<T>
 where
     T: Debug,
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut output = String::from("Queue ( elements: [");
+        use std::fmt::Write as _; 
+
+        let mut output = String::from("LinkedListQueue ( elements: [");
+        
         for elem in self.iter() {
-            output.push_str(&format!(" {:?} ", elem));
+            let _ = write!(output, " {:?} ", elem);
         }
+        
+        let _ = write!(output, "], length: {} )", self.len());
 
-        output.push_str(&format!("], length: {} )", self.len()));
-
-        write!(f, "{}", output)
+        write!(f, "{}", output) 
     }
 }
 
-// QueueIterator implementation
-impl<'a, T> Iterator for QueueIterator<'a, T> {
+// LinkedListQueueIterator implementation
+impl<'a, T> Iterator for LinkedListQueueIterator<'a, T> {
     type Item = &'a T;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -96,7 +99,7 @@ impl<'a, T> Iterator for QueueIterator<'a, T> {
 }
 
 // Implementation for the queue
-impl<T> Queue<T> {
+impl<T> LinkedListQueue<T> {
     pub fn new() -> Self {
         Self {
             length: 0,
@@ -107,8 +110,8 @@ impl<T> Queue<T> {
     }
 
     // Iter method, will enably us to iterate through our queue
-    pub fn iter(&self) -> QueueIterator<'_, T> {
-        QueueIterator {
+    pub fn iter(&self) -> LinkedListQueueIterator<'_, T> {
+        LinkedListQueueIterator {
             current: &self.tail,
             _marker: PhantomData,
         }
@@ -328,7 +331,7 @@ mod tests {
     #[test]
     fn test_enqueue() {
         // Creating a new queue
-        let mut queue = Queue::<i32>::new();
+        let mut queue = LinkedListQueue::<i32>::new();
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
@@ -341,7 +344,7 @@ mod tests {
 
     #[test]
     fn test_dequeue() {
-        let mut queue = Queue::<i32>::new();
+        let mut queue = LinkedListQueue::<i32>::new();
         // Enqueue a couple of values
         queue.enqueue(1);
         queue.enqueue(2);
@@ -357,7 +360,7 @@ mod tests {
 
     #[test]
     fn test_queue_length() {
-        let mut queue = Queue::new();
+        let mut queue = LinkedListQueue::new();
 
         // Enqueue a couple of elements
         queue.enqueue(1);
@@ -369,7 +372,7 @@ mod tests {
 
     #[test]
     fn test_peek_front() {
-        let mut queue = Queue::default();
+        let mut queue = LinkedListQueue::default();
 
         queue.enqueue(1);
         queue.enqueue(2);
@@ -380,7 +383,7 @@ mod tests {
 
     #[test]
     fn peek_back() {
-        let mut queue = Queue::default();
+        let mut queue = LinkedListQueue::default();
 
         queue.enqueue(1);
         queue.enqueue(2);
@@ -391,7 +394,7 @@ mod tests {
 
     #[test]
     fn test_get_from_queue() {
-        let mut queue = Queue::new();
+        let mut queue = LinkedListQueue::new();
 
         queue.enqueue(2);
         queue.enqueue(3);
@@ -405,7 +408,7 @@ mod tests {
 
     #[test]
     fn test_queue_insert() {
-        let mut queue = Queue::default();
+        let mut queue = LinkedListQueue::default();
 
         queue.enqueue(1);
         queue.enqueue(3);
@@ -416,24 +419,8 @@ mod tests {
     }
 
     #[test]
-    fn queue_iter() {
-        let mut queue = Queue::<i32>::new();
-        queue.enqueue(2);
-        queue.enqueue(3);
-        queue.enqueue(4);
-
-        println!("{:?}", queue);
-
-        for i in queue.iter() {
-            println!("Item: {}", i);
-        }
-
-        assert!(true);
-    }
-
-    #[test]
     fn test_queue_delete() {
-        let mut queue = Queue::default();
+        let mut queue = LinkedListQueue::default();
 
         queue.enqueue(1);
         queue.enqueue(2);
