@@ -5,6 +5,7 @@ mod fenwick_tree;
 mod floyds_algorithm;
 pub mod graph;
 mod hash_table;
+mod queue_using_singly_linked_list;
 mod heap;
 mod lazy_segment_tree;
 mod linked_list;
@@ -19,8 +20,8 @@ mod treap;
 mod trie;
 mod union_find;
 mod veb_tree;
-mod queue_using_singly_linked_list;
 
+pub use self::queue_using_singly_linked_list::LinkedListQueue;
 pub use self::avl_tree::AVLTree;
 pub use self::b_tree::BTree;
 pub use self::binary_search_tree::BinarySearchTree;
@@ -44,5 +45,4 @@ pub use self::treap::Treap;
 pub use self::trie::Trie;
 pub use self::union_find::UnionFind;
 pub use self::veb_tree::VebTree;
-pub use self::queue_using_singly_linked_list::LinkedListQueue;
 
