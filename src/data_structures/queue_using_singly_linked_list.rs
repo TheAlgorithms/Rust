@@ -34,7 +34,7 @@ impl<T> Node<T> {
 
 /// Queue Implementation using Singly Linked List logic
 #[derive(Clone)]
-struct Queue<T> {
+pub struct Queue<T> {
     length: usize,
     head: Option<Box<Node<T>>>,
     tail: Option<Box<Node<T>>>,
@@ -189,7 +189,6 @@ impl<T> Queue<T> {
     // Get element by index from the queue
     pub fn get(&self, index: usize) -> Option<&T> {
         let mut counter = 0;
-        
         // If index == 0, it returns the first element from the queue, using the peek_front
         if index == 0 {
             return self.peek_front();
@@ -204,9 +203,7 @@ impl<T> Queue<T> {
         }
 
         let mut _current = &self.head;
-        
         let mut get_node: Option<&T> = None;
-        
         // If the node was not got we also index through the tail
         if get_node.is_none() {
             // Setting current to now be the tail
