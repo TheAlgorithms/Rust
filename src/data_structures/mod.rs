@@ -19,6 +19,7 @@ mod treap;
 mod trie;
 mod union_find;
 mod veb_tree;
+mod queue_using_singly_linked_list;
 
 pub use self::avl_tree::AVLTree;
 pub use self::b_tree::BTree;
@@ -43,3 +44,5 @@ pub use self::treap::Treap;
 pub use self::trie::Trie;
 pub use self::union_find::UnionFind;
 pub use self::veb_tree::VebTree;
+pub use self::queue_using_singly_linked_list::LinkedListQueue;
+
