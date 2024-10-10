@@ -280,8 +280,7 @@ impl<T> Queue<T> {
 
         if index == 0 {
             // Deleting the head (equivalent to dequeue)
-            let deleted_node = self.dequeue();
-            deleted_node
+            self.dequeue()
         } else {
             let mut current = self.tail.as_mut()?;
 
@@ -322,6 +321,7 @@ impl<T> Queue<T> {
 }
 
 /// The queue implementation tests
+#[cfg(test)]
 mod tests {
     use super::*;
 
