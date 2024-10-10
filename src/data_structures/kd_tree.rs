@@ -1,9 +1,8 @@
-
 /// A k-d tree implementation supporting the following operations:
-/// 
+///
 /// Main functions:
-/// 
-/// new() -> Create an empty k-d tree 
+///
+/// new() -> Create an empty k-d tree
 /// build() -> Generate a balance k-d tree from a vector of points
 /// insert() -> Add a point to a k-d tree
 /// delete() -> Remove a point from a k-d tree
@@ -11,17 +10,16 @@
 /// n_nearest_neighbors -> Search the nearest neighbors of a given point from a k-d tree with their respective distances
 /// len() -> Determine the number of points stored in a kd-tree
 /// is_empty() -> Determine whether or not there are points in a k-d tree
-/// 
+///
 /// Helper functions:
-/// 
+///
 /// distance() -> Calculate the Euclidean distance between two points
 /// min_node() -> Determine the minimum node from a given k-d tree with respect to a given axis
 /// min_node_on_axis() -> Determine the minimum node among three nodes on a given axis
-/// 
+///
 /// Check each function's definition for more details
-/// 
+///
 /// TODO: Implement a `range_search` function to return a set of points found within a given boundary
-
 use num_traits::{abs, real::Real, Signed};
 use std::iter::Sum;
 
@@ -122,7 +120,6 @@ impl<T: PartialOrd + Copy, const K: usize> KDTree<T, K> {
             tree
         }
     }
-
 }
 
 // Helper functions ............................................................................
@@ -358,21 +355,28 @@ fn n_nearest_neighbors<T, const K: usize>(
 #[cfg(test)]
 mod test {
     /// Tests for the following operations:
-    /// 
+    ///
     /// insert(), contains(), delete(), n_nearest_neighbors(), len(), is_empty()
     /// This test uses a 2-Dimensional point
-    /// 
-    /// TODO: Create a global constant(K for example) to hold the dimension to be tested and adjust each test case to make use of K for points allocation. 
-
+    ///
+    /// TODO: Create a global constant(K for example) to hold the dimension to be tested and adjust each test case to make use of K for points allocation.
     use super::KDTree;
 
     #[test]
     fn insert() {
-        let points = (0..100).map(|_| {
-            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
-        }).collect::<Vec<[f64; 2]>>();
+        let points = (0..100)
+            .map(|_| {
+                [
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                ]
+            })
+            .collect::<Vec<[f64; 2]>>();
         let mut kd_tree = KDTree::build(points);
-        let point = [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0];
+        let point = [
+            (rand::random::<f64>() * 1000.0).round() / 10.0,
+            (rand::random::<f64>() * 1000.0).round() / 10.0,
+        ];
 
         assert!(kd_tree.insert(point));
         // Cannot insert twice
@@ -381,11 +385,19 @@ mod test {
 
     #[test]
     fn contains() {
-        let points = (0..100).map(|_| {
-            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
-        }).collect::<Vec<[f64; 2]>>();
+        let points = (0..100)
+            .map(|_| {
+                [
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                ]
+            })
+            .collect::<Vec<[f64; 2]>>();
         let mut kd_tree = KDTree::build(points);
-        let point = [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0];
+        let point = [
+            (rand::random::<f64>() * 1000.0).round() / 10.0,
+            (rand::random::<f64>() * 1000.0).round() / 10.0,
+        ];
         kd_tree.insert(point);
 
         assert!(kd_tree.contains(&point));
@@ -393,10 +405,15 @@ mod test {
 
     #[test]
     fn delete() {
-        let points = (0..100).map(|_| {
-            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
-        }).collect::<Vec<[f64; 2]>>();
-        let point = points[(rand::random::<f64>() * 100.0).round() as usize].clone();
+        let points = (0..100)
+            .map(|_| {
+                [
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                ]
+            })
+            .collect::<Vec<[f64; 2]>>();
+        let point = points[(rand::random::<f64>() * 100.0).round() as usize];
         let mut kd_tree = KDTree::build(points);
 
         assert!(kd_tree.delete(&point));
@@ -409,27 +426,37 @@ mod test {
     #[test]
     fn nearest_neighbors() {
         // Test with large data set
-        let points_1 = (0..1000).map(|_| {
-            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
-        }).collect::<Vec<[f64; 2]>>();
+        let points_1 = (0..1000)
+            .map(|_| {
+                [
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                ]
+            })
+            .collect::<Vec<[f64; 2]>>();
         let kd_tree_1 = KDTree::build(points_1);
         let target = [50.0, 50.0];
         let neighbors_1 = kd_tree_1.nearest_neighbors(&target, 10);
-    
+
         // Confirm we have exactly 10 nearest neighbors
         assert_eq!(neighbors_1.len(), 10);
 
-        // `14.14` is the approximate distance between [40.0, 40.0] and [50.0, 50.0] & 
-        // [50.0, 50.0] and [60.0, 60.0] 
-        // so our closest neighbors are expected to be found between the bounding box [40.0, 40.0] - [60.0, 60.0] 
+        // `14.14` is the approximate distance between [40.0, 40.0] and [50.0, 50.0] &
+        // [50.0, 50.0] and [60.0, 60.0]
+        // so our closest neighbors are expected to be found between the bounding box [40.0, 40.0] - [60.0, 60.0]
         // with a distance from [50.0, 50.0] less than or equal 14.14
         for neighbor in neighbors_1 {
             assert!(neighbor.0 <= 14.14);
         }
 
         // Test with small data set
-        let points_2 = vec![[2.0, 3.0],[5.0, 4.0],[9.0, 6.0],[4.0, 7.0],[8.0, 1.0],
-[7.0, 2.0],
+        let points_2 = vec![
+            [2.0, 3.0],
+            [5.0, 4.0],
+            [9.0, 6.0],
+            [4.0, 7.0],
+            [8.0, 1.0],
+            [7.0, 2.0],
         ];
         let kd_tree_2 = KDTree::build(points_2);
         let neighbors_2 = kd_tree_2.nearest_neighbors(&[6.0, 3.0], 3);
@@ -457,11 +484,16 @@ mod test {
 
     #[test]
     fn len() {
-        let points = (0..1000).map(|_| {
-            [(rand::random::<f64>() * 1000.0).round() / 10.0, (rand::random::<f64>() * 1000.0).round() / 10.0]
-        }).collect::<Vec<[f64; 2]>>();
+        let points = (0..1000)
+            .map(|_| {
+                [
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                    (rand::random::<f64>() * 1000.0).round() / 10.0,
+                ]
+            })
+            .collect::<Vec<[f64; 2]>>();
         let kd_tree = KDTree::build(points);
-        
+
         assert_eq!(kd_tree.len(), 1000);
     }
 }
