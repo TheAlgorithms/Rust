@@ -66,6 +66,7 @@
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Lazy Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/lazy_segment_tree.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
+    * [Queue](https://github.com/Ismael144/Rust-algorithms/blob/master/src/data_structures/queue_using_singly_linked_list.rs)
     * Probabilistic
       * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
       * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
