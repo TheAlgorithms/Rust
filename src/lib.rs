@@ -11,6 +11,7 @@ pub mod dynamic_programming;
 pub mod general;
 pub mod geometry;
 pub mod graph;
+pub mod greedy;
 pub mod machine_learning;
 pub mod math;
 pub mod navigation;
