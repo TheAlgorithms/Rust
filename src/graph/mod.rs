@@ -38,7 +38,7 @@ pub use self::detect_cycle::DetectCycle;
 pub use self::dijkstra::dijkstra;
 pub use self::dinic_maxflow::DinicMaxFlow;
 pub use self::disjoint_set_union::DisjointSetUnion;
-pub use self::eulerian_path::EulerianPath;
+pub use self::eulerian_path::find_eulerian_path;
 pub use self::floyd_warshall::floyd_warshall;
 pub use self::ford_fulkerson::ford_fulkerson;
 pub use self::graph_enumeration::enumerate_graph;
