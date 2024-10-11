@@ -55,11 +55,12 @@ impl EulerianPathSolver {
         }
     }
 
-    /// Computes the Eulerian path if it exists.
+    /// Find the Eulerian path if it exists.
     ///
     /// # Returns
     ///
     /// An `Option<Vec<usize>>` containing the Eulerian path if found; otherwise, `None`.
+    ///
     /// If multiple Eulerian paths exist, the one found will be returned, but it may not be unique.
     fn find_path(&mut self) -> Option<Vec<usize>> {
         self.initialize_degrees();
@@ -94,7 +95,7 @@ impl EulerianPathSolver {
         }
     }
 
-    /// Checks if an Eulerian path is possible in the graph.
+    /// Checks if an Eulerian path exists in the graph.
     ///
     /// # Returns
     ///
