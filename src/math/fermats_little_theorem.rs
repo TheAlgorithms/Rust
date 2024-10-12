@@ -1,6 +1,5 @@
 use rand::prelude::*;
 use rand::rngs::StdRng;
-use rand::SeedableRng;
 
 use super::modular_exponential;
 
