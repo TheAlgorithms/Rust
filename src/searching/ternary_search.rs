@@ -72,18 +72,20 @@ fn match_compare<T: Ord>(
 
     // Handling the edge case where the search narrows down to a single element
     if first_mid == second_mid && first_mid == *left {
-        if arr[*left] != *item {
-            *left += 1;
-            return false;
-        }
-
-        return true;
+        return match &arr[*left] {
+            x if x == item => true,
+            _ => {
+                *left += 1;
+                false
+            }
+        };
     }
 
     let cmp_first_mid = item.cmp(&arr[first_mid]);
     let cmp_second_mid = item.cmp(&arr[second_mid]);
 
     match (is_asc, cmp_first_mid, cmp_second_mid) {
+        // If the item matches either midpoint, it returns the index
         (_, Ordering::Equal, _) => {
             *left = first_mid;
             return true;
@@ -92,10 +94,15 @@ fn match_compare<T: Ord>(
             *left = second_mid;
             return true;
         }
+        // If the item is smaller than the element at first_mid (in ascending order)
+        // or greater than it (in descending order), it narrows the search to the first third.
         (true, Ordering::Less, _) | (false, Ordering::Greater, _) => {
             *right = first_mid.saturating_sub(1)
         }
+        // If the item is greater than the element at second_mid (in ascending order)
+        // or smaller than it (in descending order), it narrows the search to the last third.
         (true, _, Ordering::Greater) | (false, _, Ordering::Less) => *left = second_mid + 1,
+        // Otherwise, it searches the middle third.
         (_, _, _) => {
             *left = first_mid + 1;
             *right = second_mid - 1;
