@@ -32,7 +32,7 @@ fn count_letters(s: &str) -> Result<HashMap<char, usize>, IsogramError> {
     let mut letter_counts = HashMap::new();
 
     for ch in s.to_ascii_lowercase().chars() {
-        if !ch.is_ascii_alphabetic() && ch != ' ' {
+        if !ch.is_ascii_alphabetic() && !ch.is_whitespace() {
             return Err(IsogramError::NonAlphabeticCharacter);
         }
 
