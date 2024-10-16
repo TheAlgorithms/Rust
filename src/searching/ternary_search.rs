@@ -139,6 +139,9 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (item, arr, expected) = $test_case;
+                    if let Some(expected_index) = expected {
+                        assert_eq!(arr[expected_index], item);
+                    }
                     assert_eq!(ternary_search(&item, arr), expected);
                 }
             )*
