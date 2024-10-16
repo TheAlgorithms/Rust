@@ -1,101 +1,123 @@
-use std::collections::LinkedList;
-use std::vec::Vec;
+//! This module provides functionality to find an Eulerian path in a directed graph.
+//! An Eulerian path visits every edge exactly once. The algorithm checks if an Eulerian
+//! path exists and, if so, constructs and returns the path.
 
-/// Struct representing an Eulerian Path in a directed graph.
-pub struct EulerianPath {
-    n: usize,                // Number of nodes in the graph
-    edge_count: usize,       // Total number of edges in the graph
-    in_degree: Vec<usize>,   // In-degrees of nodes
-    out_degree: Vec<usize>,  // Out-degrees of nodes
-    path: LinkedList<usize>, // Linked list to store the Eulerian path
-    graph: Vec<Vec<usize>>,  // Adjacency list representing the directed graph
+use std::collections::LinkedList;
+
+/// Finds an Eulerian path in a directed graph.
+///
+/// # Arguments
+///
+/// * `node_count` - The number of nodes in the graph.
+/// * `edge_list` - A vector of tuples representing directed edges, where each tuple is of the form `(start, end)`.
+///
+/// # Returns
+///
+/// An `Option<Vec<usize>>` containing the Eulerian path if it exists; otherwise, `None`.
+pub fn find_eulerian_path(node_count: usize, edge_list: Vec<(usize, usize)>) -> Option<Vec<usize>> {
+    let mut adjacency_list = vec![Vec::new(); node_count];
+    for (start, end) in edge_list {
+        adjacency_list[start].push(end);
+    }
+
+    let mut eulerian_solver = EulerianPathSolver::new(adjacency_list);
+    eulerian_solver.find_path()
 }
 
-impl EulerianPath {
-    /// Creates a new instance of EulerianPath.
+/// Struct to represent the solver for finding an Eulerian path in a directed graph.
+pub struct EulerianPathSolver {
+    node_count: usize,
+    edge_count: usize,
+    in_degrees: Vec<usize>,
+    out_degrees: Vec<usize>,
+    eulerian_path: LinkedList<usize>,
+    adjacency_list: Vec<Vec<usize>>,
+}
+
+impl EulerianPathSolver {
+    /// Creates a new instance of `EulerianPathSolver`.
     ///
     /// # Arguments
     ///
-    /// * `graph` - A directed graph represented as an adjacency list.
+    /// * `adjacency_list` - The graph represented as an adjacency list.
     ///
     /// # Returns
     ///
-    /// A new EulerianPath instance.
-    pub fn new(graph: Vec<Vec<usize>>) -> Self {
-        let n = graph.len();
+    /// A new instance of `EulerianPathSolver`.
+    pub fn new(adjacency_list: Vec<Vec<usize>>) -> Self {
         Self {
-            n,
+            node_count: adjacency_list.len(),
             edge_count: 0,
-            in_degree: vec![0; n],
-            out_degree: vec![0; n],
-            path: LinkedList::new(),
-            graph,
+            in_degrees: vec![0; adjacency_list.len()],
+            out_degrees: vec![0; adjacency_list.len()],
+            eulerian_path: LinkedList::new(),
+            adjacency_list,
         }
     }
 
-    /// Finds an Eulerian path in the directed graph.
+    /// Find the Eulerian path if it exists.
     ///
     /// # Returns
     ///
-    /// An `Option` containing the Eulerian path if it exists, or `None` if no Eulerian path exists.
-    pub fn find_eulerian_path(&mut self) -> Option<Vec<usize>> {
-        self.initialize();
+    /// An `Option<Vec<usize>>` containing the Eulerian path if found; otherwise, `None`.
+    ///
+    /// If multiple Eulerian paths exist, the one found will be returned, but it may not be unique.
+    fn find_path(&mut self) -> Option<Vec<usize>> {
+        self.initialize_degrees();
 
         if !self.has_eulerian_path() {
             return None;
         }
 
-        let start_node = self.find_start_node();
-        self.traverse(start_node);
+        let start_node = self.get_start_node();
+        self.depth_first_search(start_node);
 
-        if self.path.len() != self.edge_count + 1 {
+        if self.eulerian_path.len() != self.edge_count + 1 {
             return None;
         }
 
-        let mut solution = Vec::with_capacity(self.edge_count + 1);
-        while let Some(node) = self.path.pop_front() {
-            solution.push(node);
+        let mut path = Vec::with_capacity(self.edge_count + 1);
+        while let Some(node) = self.eulerian_path.pop_front() {
+            path.push(node);
         }
 
-        Some(solution)
+        Some(path)
     }
 
-    /// Initializes the degree vectors and counts the total number of edges in the graph.
-    fn initialize(&mut self) {
-        for (from, neighbors) in self.graph.iter().enumerate() {
-            for &to in neighbors {
-                self.in_degree[to] += 1;
-                self.out_degree[from] += 1;
+    /// Initializes in-degrees and out-degrees for each node and counts total edges.
+    fn initialize_degrees(&mut self) {
+        for (start_node, neighbors) in self.adjacency_list.iter().enumerate() {
+            for &end_node in neighbors {
+                self.in_degrees[end_node] += 1;
+                self.out_degrees[start_node] += 1;
                 self.edge_count += 1;
             }
         }
     }
 
-    /// Checks if the graph has an Eulerian path.
+    /// Checks if an Eulerian path exists in the graph.
     ///
     /// # Returns
     ///
-    /// `true` if an Eulerian path exists, `false` otherwise.
+    /// `true` if an Eulerian path exists; otherwise, `false`.
     fn has_eulerian_path(&self) -> bool {
         if self.edge_count == 0 {
             return false;
         }
 
         let (mut start_nodes, mut end_nodes) = (0, 0);
-        for i in 0..self.n {
-            let in_degree = self.in_degree[i] as i32;
-            let out_degree = self.out_degree[i] as i32;
-
-            if (out_degree - in_degree) > 1 || (in_degree - out_degree) > 1 {
-                return false;
-            } else if (out_degree - in_degree) == 1 {
-                start_nodes += 1;
-            } else if (in_degree - out_degree) == 1 {
-                end_nodes += 1;
+        for i in 0..self.node_count {
+            let (in_degree, out_degree) =
+                (self.in_degrees[i] as isize, self.out_degrees[i] as isize);
+            match out_degree - in_degree {
+                1 => start_nodes += 1,
+                -1 => end_nodes += 1,
+                degree_diff if degree_diff.abs() > 1 => return false,
+                _ => (),
             }
         }
 
-        (end_nodes == 0 && start_nodes == 0) || (end_nodes == 1 && start_nodes == 1)
+        (start_nodes == 0 && end_nodes == 0) || (start_nodes == 1 && end_nodes == 1)
     }
 
     /// Finds the starting node for the Eulerian path.
@@ -103,31 +125,29 @@ impl EulerianPath {
     /// # Returns
     ///
     /// The index of the starting node.
-    fn find_start_node(&self) -> usize {
-        let mut start = 0;
-        for i in 0..self.n {
-            if self.out_degree[i] - self.in_degree[i] == 1 {
+    fn get_start_node(&self) -> usize {
+        for i in 0..self.node_count {
+            if self.out_degrees[i] > self.in_degrees[i] {
                 return i;
             }
-            if self.out_degree[i] > 0 {
-                start = i;
-            }
         }
-        start
+        (0..self.node_count)
+            .find(|&i| self.out_degrees[i] > 0)
+            .unwrap_or(0)
     }
 
-    /// Traverses the graph to find the Eulerian path recursively.
+    /// Performs depth-first search to construct the Eulerian path.
     ///
     /// # Arguments
     ///
-    /// * `at` - The current node being traversed.
-    fn traverse(&mut self, at: usize) {
-        while self.out_degree[at] != 0 {
-            let next = self.graph[at][self.out_degree[at] - 1];
-            self.out_degree[at] -= 1;
-            self.traverse(next);
+    /// * `curr_node` - The current node being visited in the DFS traversal.
+    fn depth_first_search(&mut self, curr_node: usize) {
+        while self.out_degrees[curr_node] > 0 {
+            let next_node = self.adjacency_list[curr_node][self.out_degrees[curr_node] - 1];
+            self.out_degrees[curr_node] -= 1;
+            self.depth_first_search(next_node);
         }
-        self.path.push_front(at);
+        self.eulerian_path.push_front(curr_node);
     }
 }
 
@@ -135,59 +155,226 @@ impl EulerianPath {
 mod tests {
     use super::*;
 
-    /// Creates an empty graph with `n` nodes.
-    fn create_empty_graph(n: usize) -> Vec<Vec<usize>> {
-        vec![Vec::new(); n]
+    macro_rules! test_cases {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (n, edges, expected) = $test_case;
+                    assert_eq!(find_eulerian_path(n, edges), expected);
+                }
+            )*
+        }
     }
 
-    /// Adds a directed edge from `from` to `to` in the graph.
-    fn add_directed_edge(graph: &mut [Vec<usize>], from: usize, to: usize) {
-        graph[from].push(to);
-    }
-
-    #[test]
-    fn good_path_test() {
-        let n = 7;
-        let mut graph = create_empty_graph(n);
-
-        add_directed_edge(&mut graph, 1, 2);
-        add_directed_edge(&mut graph, 1, 3);
-        add_directed_edge(&mut graph, 2, 2);
-        add_directed_edge(&mut graph, 2, 4);
-        add_directed_edge(&mut graph, 2, 4);
-        add_directed_edge(&mut graph, 3, 1);
-        add_directed_edge(&mut graph, 3, 2);
-        add_directed_edge(&mut graph, 3, 5);
-        add_directed_edge(&mut graph, 4, 3);
-        add_directed_edge(&mut graph, 4, 6);
-        add_directed_edge(&mut graph, 5, 6);
-        add_directed_edge(&mut graph, 6, 3);
-
-        let mut solver = EulerianPath::new(graph);
-
-        assert_eq!(
-            solver.find_eulerian_path().unwrap(),
-            vec![1, 3, 5, 6, 3, 2, 4, 3, 1, 2, 2, 4, 6]
-        );
-    }
-
-    #[test]
-    fn small_path_test() {
-        let n = 5;
-        let mut graph = create_empty_graph(n);
-
-        add_directed_edge(&mut graph, 0, 1);
-        add_directed_edge(&mut graph, 1, 2);
-        add_directed_edge(&mut graph, 1, 4);
-        add_directed_edge(&mut graph, 1, 3);
-        add_directed_edge(&mut graph, 2, 1);
-        add_directed_edge(&mut graph, 4, 1);
-
-        let mut solver = EulerianPath::new(graph);
-
-        assert_eq!(
-            solver.find_eulerian_path().unwrap(),
-            vec![0, 1, 4, 1, 2, 1, 3]
-        );
+    test_cases! {
+        test_eulerian_cycle: (
+            7,
+            vec![
+                (1, 2),
+                (1, 3),
+                (2, 2),
+                (2, 4),
+                (2, 4),
+                (3, 1),
+                (3, 2),
+                (3, 5),
+                (4, 3),
+                (4, 6),
+                (5, 6),
+                (6, 3)
+            ],
+            Some(vec![1, 3, 5, 6, 3, 2, 4, 3, 1, 2, 2, 4, 6])
+        ),
+        test_simple_path: (
+            5,
+            vec![
+                (0, 1),
+                (1, 2),
+                (1, 4),
+                (1, 3),
+                (2, 1),
+                (4, 1)
+            ],
+            Some(vec![0, 1, 4, 1, 2, 1, 3])
+        ),
+        test_disconnected_graph: (
+            4,
+            vec![
+                (0, 1),
+                (2, 3)
+            ],
+            None::<Vec<usize>>
+        ),
+        test_single_cycle: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 3),
+                (3, 0)
+            ],
+            Some(vec![0, 1, 2, 3, 0])
+        ),
+        test_empty_graph: (
+            3,
+            vec![],
+            None::<Vec<usize>>
+        ),
+        test_unbalanced_path: (
+            3,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 0),
+                (0, 2)
+            ],
+            Some(vec![0, 2, 0, 1, 2])
+        ),
+        test_no_eulerian_path: (
+            3,
+            vec![
+                (0, 1),
+                (0, 2)
+            ],
+            None::<Vec<usize>>
+        ),
+        test_complex_eulerian_path: (
+            6,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 3),
+                (3, 4),
+                (4, 0),
+                (0, 5),
+                (5, 0),
+                (2, 0)
+            ],
+            Some(vec![2, 0, 5, 0, 1, 2, 3, 4, 0])
+        ),
+        test_single_node_self_loop: (
+            1,
+            vec![(0, 0)],
+            Some(vec![0, 0])
+        ),
+        test_complete_graph: (
+            3,
+            vec![
+                (0, 1),
+                (0, 2),
+                (1, 0),
+                (1, 2),
+                (2, 0),
+                (2, 1)
+            ],
+            Some(vec![0, 2, 1, 2, 0, 1, 0])
+        ),
+        test_multiple_disconnected_components: (
+            6,
+            vec![
+                (0, 1),
+                (2, 3),
+                (4, 5)
+            ],
+            None::<Vec<usize>>
+        ),
+        test_unbalanced_graph_with_path: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 3),
+                (3, 1)
+            ],
+            Some(vec![0, 1, 2, 3, 1])
+        ),
+        test_node_with_no_edges: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2)
+            ],
+            Some(vec![0, 1, 2])
+        ),
+        test_multiple_edges_between_same_nodes: (
+            3,
+            vec![
+                (0, 1),
+                (1, 2),
+                (1, 2),
+                (2, 0)
+            ],
+            Some(vec![1, 2, 0, 1, 2])
+        ),
+        test_larger_graph_with_eulerian_path: (
+            10,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 3),
+                (3, 4),
+                (4, 5),
+                (5, 6),
+                (6, 7),
+                (7, 8),
+                (8, 9),
+                (9, 0),
+                (1, 6),
+                (6, 3),
+                (3, 8)
+            ],
+            Some(vec![1, 6, 3, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8])
+        ),
+        test_no_edges_multiple_nodes: (
+            5,
+            vec![],
+            None::<Vec<usize>>
+        ),
+        test_multiple_start_and_end_nodes: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 0),
+                (0, 2),
+                (1, 3)
+            ],
+            None::<Vec<usize>>
+        ),
+        test_single_edge: (
+            2,
+            vec![(0, 1)],
+            Some(vec![0, 1])
+        ),
+        test_multiple_eulerian_paths: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 0),
+                (0, 3),
+                (3, 0)
+            ],
+            Some(vec![0, 3, 0, 1, 2, 0])
+        ),
+        test_dag_path: (
+            4,
+            vec![
+                (0, 1),
+                (1, 2),
+                (2, 3)
+            ],
+            Some(vec![0, 1, 2, 3])
+        ),
+        test_parallel_edges_case: (
+            2,
+            vec![
+                (0, 1),
+                (0, 1),
+                (1, 0)
+            ],
+            Some(vec![0, 1, 0, 1])
+        ),
     }
 }

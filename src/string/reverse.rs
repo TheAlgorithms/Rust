@@ -1,3 +1,12 @@
+/// Reverses the given string.
+///
+/// # Arguments
+///
+/// * `text` - A string slice that holds the string to be reversed.
+///
+/// # Returns
+///
+/// * A new `String` that is the reverse of the input string.
 pub fn reverse(text: &str) -> String {
     text.chars().rev().collect()
 }
