@@ -1,6 +1,6 @@
 name: build
 
-'on':
+on:
   pull_request:
   workflow_dispatch:
   schedule:
@@ -11,22 +11,31 @@ jobs:
     name: cargo fmt
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: cargo fmt
-      run: cargo fmt --all -- --check
-   
+      - uses: actions/checkout@v4
+      - name: cargo fmt
+        run: cargo fmt --all -- --check
+
   clippy:
     name: cargo clippy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: cargo clippy
-      run: cargo clippy --all --all-targets -- -D warnings
-  
+      - uses: actions/checkout@v4
+      - name: cargo clippy
+        run: cargo clippy --all --all-targets -- -D warnings
+
   test:
     name: cargo test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: cargo test
-      run: cargo test
+      - uses: actions/checkout@v4
+      - name: cargo test
+        run: cargo test --all -- --test-threads=1
+
+      - name: Install codecov
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          sudo mv codecov /usr/local/bin
+
+      - name: Upload coverage to Codecov
+        run: codecov -f target/debug/deps/*.gcov -t ${{ secrets.CODECOV_TOKEN }} || echo "Codecov upload failed"
