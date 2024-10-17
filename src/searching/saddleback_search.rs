@@ -108,5 +108,14 @@ mod tests {
             200,
             (2, 3),
         ),
+        test_element_smaller_than_min: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20, 200],
+                vec![3, 30, 300],
+            ],
+            0,
+            (0, 0),
+        ),
     }
 }
