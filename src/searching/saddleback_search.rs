@@ -13,14 +13,14 @@ use std::cmp::Ordering;
 ///
 /// # Returns
 ///
-/// Returns a tuple (row, column) where both indices are 1-based. If the element is not found, returns (0, 0).
-pub fn saddleback_search(matrix: &[Vec<isize>], element: isize) -> (usize, usize) {
+/// Returns `Some((row, column))` where both indices are 1-based. If the element is not found, returns `None`.
+pub fn saddleback_search(matrix: &[Vec<isize>], element: isize) -> Option<(usize, usize)> {
     let mut left_index = 0;
     let mut right_index = matrix[0].len() - 1;
 
     while left_index < matrix.len() {
         match element.cmp(&matrix[left_index][right_index]) {
-            Ordering::Equal => return (left_index + 1, right_index + 1),
+            Ordering::Equal => return Some((left_index + 1, right_index + 1)),
             Ordering::Greater => {
                 left_index += 1;
             }
@@ -34,7 +34,7 @@ pub fn saddleback_search(matrix: &[Vec<isize>], element: isize) -> (usize, usize
         }
     }
 
-    (0, 0)
+    None
 }
 
 #[cfg(test)]
@@ -61,7 +61,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             123,
-            (0, 0),
+            None,
         ),
         test_element_at_top_left: (
             vec![
@@ -70,7 +70,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             1,
-            (1, 1),
+            Some((1, 1)),
         ),
         test_element_at_bottom_right: (
             vec![
@@ -79,7 +79,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             300,
-            (3, 3),
+            Some((3, 3)),
         ),
         test_element_at_top_right: (
             vec![
@@ -88,7 +88,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             100,
-            (1, 3),
+            Some((1, 3)),
         ),
         test_element_at_bottom_left: (
             vec![
@@ -97,7 +97,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             3,
-            (3, 1),
+            Some((3, 1)),
         ),
         test_element_in_middle: (
             vec![
@@ -106,7 +106,7 @@ mod tests {
                 vec![3, 30, 300, 3000],
             ],
             200,
-            (2, 3),
+            Some((2, 3)),
         ),
         test_element_smaller_than_min: (
             vec![
@@ -115,7 +115,7 @@ mod tests {
                 vec![3, 30, 300],
             ],
             0,
-            (0, 0),
+            None,
         ),
     }
 }
