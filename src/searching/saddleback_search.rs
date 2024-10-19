@@ -47,6 +47,9 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (matrix, element, expected) = $tc;
+                    if let Some(expected_pos) = expected {
+                        assert_eq!(matrix[expected_pos.0][expected_pos.1], element);
+                    }
                     assert_eq!(saddleback_search(&matrix, element), expected);
                 }
             )*
