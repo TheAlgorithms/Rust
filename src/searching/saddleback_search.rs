@@ -120,5 +120,28 @@ mod tests {
             0,
             None::<(usize, usize)>,
         ),
+        test_horizontal: (
+            vec![
+                vec![1, 10, 100],
+            ],
+            100,
+            Some((0, 2)),
+        ),
+        test_vertical: (
+            vec![
+                vec![1],
+                vec![2],
+                vec![3],
+            ],
+            2,
+            Some((1, 0)),
+        ),
+        test_single_element: (
+            vec![
+                vec![1],
+            ],
+            1,
+            Some((0, 0)),
+        ),
     }
 }
