@@ -158,7 +158,7 @@ fn matrix_multiply(multiplier: &[Vec<u128>], multiplicand: &[Vec<u128>]) -> Vec<
     // of columns as the multiplicand has rows.
     let mut result: Vec<Vec<u128>> = vec![];
     let mut temp;
-    // Using variable to compare lenghts of rows in multiplicand later
+    // Using variable to compare lengths of rows in multiplicand later
     let row_right_length = multiplicand[0].len();
     for row_left in 0..multiplier.len() {
         if multiplier[row_left].len() != multiplicand.len() {
@@ -195,7 +195,7 @@ pub fn nth_fibonacci_number_modulo_m(n: i64, m: i64) -> i128 {
 fn get_pisano_sequence_and_period(m: i64) -> (i128, Vec<i128>) {
     let mut a = 0;
     let mut b = 1;
-    let mut lenght: i128 = 0;
+    let mut length: i128 = 0;
     let mut pisano_sequence: Vec<i128> = vec![a, b];
 
     // Iterating through all the fib numbers to get the sequence
@@ -213,12 +213,12 @@ fn get_pisano_sequence_and_period(m: i64) -> (i128, Vec<i128>) {
             // This is a less elegant way to do it.
             pisano_sequence.pop();
             pisano_sequence.pop();
-            lenght = pisano_sequence.len() as i128;
+            length = pisano_sequence.len() as i128;
             break;
         }
     }
 
-    (lenght, pisano_sequence)
+    (length, pisano_sequence)
 }
 
 /// last_digit_of_the_sum_of_nth_fibonacci_number(n) returns the last digit of the sum of n fibonacci numbers.
@@ -328,7 +328,7 @@ mod tests {
     }
 
     #[test]
-    /// Check that the itterative and recursive fibonacci
+    /// Check that the iterative and recursive fibonacci
     /// produce the same value. Both are combinatorial ( F(0) = F(1) = 1 )
     fn test_iterative_and_recursive_equivalence() {
         assert_eq!(fibonacci(0), recursive_fibonacci(0));
