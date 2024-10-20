@@ -20,6 +20,7 @@ mod word_break;
 
 pub use self::coin_change::coin_change;
 pub use self::egg_dropping::egg_drop;
+pub use self::fibonacci::binary_lifting_fibonacci;
 pub use self::fibonacci::classical_fibonacci;
 pub use self::fibonacci::fibonacci;
 pub use self::fibonacci::last_digit_of_the_sum_of_nth_fibonacci_number;
