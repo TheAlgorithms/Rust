@@ -1,5 +1,11 @@
 use std::cmp::Ordering;
 
+/// Custom error type to represent errors related to matrix validation.
+#[derive(Debug, PartialEq, Eq)]
+pub enum MatrixError {
+    NonRectangularMatrix,
+}
+
 /// Performs Saddleback search on a sorted 2D matrix.
 ///
 /// The Saddleback search algorithm finds the position of a target element in a matrix where
@@ -13,14 +19,27 @@ use std::cmp::Ordering;
 ///
 /// # Returns
 ///
-/// Returns `Some((row, column))` where both indices are 0-based. If the element is not found, returns `None`.
-pub fn saddleback_search(matrix: &[Vec<isize>], element: isize) -> Option<(usize, usize)> {
+/// Returns `Ok(Some((row, column)))` where both indices are 0-based if the element is found.
+/// Returns `Ok(None)` if the element is not found.
+/// Returns `Err(MatrixError)` if the matrix is not rectangular.
+pub fn saddleback_search(
+    matrix: &[Vec<isize>],
+    element: isize,
+) -> Result<Option<(usize, usize)>, MatrixError> {
+    if matrix.is_empty() || matrix.iter().all(|row| row.is_empty()) {
+        return Ok(None);
+    }
+
+    if matrix.iter().any(|row| row.len() != matrix[0].len()) {
+        return Err(MatrixError::NonRectangularMatrix);
+    }
+
     let mut left_index = 0;
     let mut right_index = matrix[0].len() - 1;
 
     while left_index < matrix.len() {
         match element.cmp(&matrix[left_index][right_index]) {
-            Ordering::Equal => return Some((left_index, right_index)),
+            Ordering::Equal => return Ok(Some((left_index, right_index))),
             Ordering::Greater => {
                 left_index += 1;
             }
@@ -34,7 +53,7 @@ pub fn saddleback_search(matrix: &[Vec<isize>], element: isize) -> Option<(usize
         }
     }
 
-    None
+    Ok(None)
 }
 
 #[cfg(test)]
@@ -47,9 +66,6 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (matrix, element, expected) = $tc;
-                    if let Some(expected_pos) = expected {
-                        assert_eq!(matrix[expected_pos.0][expected_pos.1], element);
-                    }
                     assert_eq!(saddleback_search(&matrix, element), expected);
                 }
             )*
@@ -64,7 +80,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             123,
-            None::<(usize, usize)>,
+            Ok(None::<(usize, usize)>),
         ),
         test_element_at_top_left: (
             vec![
@@ -73,7 +89,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             1,
-            Some((0, 0)),
+            Ok(Some((0, 0))),
         ),
         test_element_at_bottom_right: (
             vec![
@@ -82,7 +98,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             300,
-            Some((2, 2)),
+            Ok(Some((2, 2))),
         ),
         test_element_at_top_right: (
             vec![
@@ -91,7 +107,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             100,
-            Some((0, 2)),
+            Ok(Some((0, 2))),
         ),
         test_element_at_bottom_left: (
             vec![
@@ -100,7 +116,7 @@ mod tests {
                 vec![3, 30, 300]
             ],
             3,
-            Some((2, 0)),
+            Ok(Some((2, 0))),
         ),
         test_element_in_middle: (
             vec![
@@ -109,7 +125,7 @@ mod tests {
                 vec![3, 30, 300, 3000],
             ],
             200,
-            Some((1, 2)),
+            Ok(Some((1, 2))),
         ),
         test_element_smaller_than_min: (
             vec![
@@ -118,14 +134,14 @@ mod tests {
                 vec![3, 30, 300],
             ],
             0,
-            None::<(usize, usize)>,
+            Ok(None::<(usize, usize)>),
         ),
         test_horizontal: (
             vec![
                 vec![1, 10, 100],
             ],
             100,
-            Some((0, 2)),
+            Ok(Some((0, 2))),
         ),
         test_vertical: (
             vec![
@@ -134,14 +150,47 @@ mod tests {
                 vec![3],
             ],
             2,
-            Some((1, 0)),
+            Ok(Some((1, 0))),
         ),
         test_single_element: (
             vec![
                 vec![1],
             ],
             1,
-            Some((0, 0)),
+            Ok(Some((0, 0))),
+        ),
+        test_empty_matrix: (
+            vec![],
+            1,
+            Ok(None::<(usize, usize)>),
+        ),
+        test_non_rectangular_matrix: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20],
+                vec![3, 30, 300],
+            ],
+            20,
+            Err::<Option<(usize, usize)>, MatrixError>(MatrixError::NonRectangularMatrix),
+        ),
+        test_empty_row: (
+            vec![
+                vec![1, 2, 3],
+                vec![],
+                vec![4, 5, 6],
+            ],
+            3,
+            Err::<Option<(usize, usize)>, MatrixError>(MatrixError::NonRectangularMatrix),
+        ),
+        test_full_empty_rows: (
+            vec![
+                vec![],
+                vec![],
+                vec![],
+                vec![],
+            ],
+            1,
+            Ok(None::<(usize, usize)>),
         ),
     }
 }
