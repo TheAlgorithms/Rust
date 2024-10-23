@@ -12,7 +12,7 @@
 /// -> Wikipedia reference: https://en.wikipedia.org/wiki/Mile
 
 /// Universal Units on Length
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub enum LengthUnit {
     Millimeter,
     Centimeter,
@@ -64,6 +64,8 @@ pub fn length_conversion(input: f64, from: LengthUnit, to: LengthUnit) -> f64 {
 
 #[cfg(test)]
 mod length_conversion_tests {
+    use std::collections::HashMap;
+
     use super::LengthUnit::*;
     use super::*;
 
@@ -115,6 +117,23 @@ mod length_conversion_tests {
             for u2 in units.clone() {
                 assert_eq!(length_conversion(0f64, u1, u2), 0f64);
             }
+        }
+    }
+
+    #[test]
+    fn length_of_one_meter() {
+        let map = HashMap::from([
+            (Millimeter, 1000f64),
+            (Centimeter, 100f64),
+            (Kilometer, 0.001f64),
+            (Inch, 39.37007874015748f64),
+            (Foot, 3.280839895013123f64),
+            (Yard, 1.0936132983377078f64),
+            (Mile, 0.0006213727366498068f64),
+        ]);
+
+        for (k, v) in map {
+            assert_eq!(length_conversion(1f64, Meter, k), v);
         }
     }
 }
