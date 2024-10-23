@@ -12,6 +12,7 @@
 /// -> Wikipedia reference: https://en.wikipedia.org/wiki/Mile
 
 /// Universal Units on Length
+#[derive(Clone, Copy)]
 pub enum LengthUnit {
     Millimeter,
     Centimeter,
@@ -84,7 +85,6 @@ mod length_conversion_tests {
 
     #[test]
     fn other_to_other() {
-        // ---------------
         assert_eq!(length_conversion(1.0, Kilometer, Inch), 39370.07874015748);
         assert_eq!(length_conversion(3.0, Kilometer, Mile), 1.8641182099494205);
         assert_eq!(length_conversion(4.0, Foot, Yard), 1.3333333333333335);
@@ -103,5 +103,18 @@ mod length_conversion_tests {
             length_conversion(3.0, Millimeter, Inch),
             0.11811023622047245
         );
+    }
+
+    #[test]
+    fn zero_to_zero() {
+        let units = vec![
+            Millimeter, Centimeter, Meter, Kilometer, Inch, Foot, Yard, Mile,
+        ];
+
+        for u1 in units.clone() {
+            for u2 in units.clone() {
+                assert_eq!(length_conversion(0f64, u1, u2), 0f64);
+            }
+        }
     }
 }
