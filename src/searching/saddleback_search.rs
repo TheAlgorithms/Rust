@@ -72,16 +72,16 @@ pub fn saddleback_search(
     element: isize,
     check_sorted: bool,
 ) -> Result<Option<(usize, usize)>, MatrixError> {
+    if check_sorted && !is_sorted(matrix) {
+        return Err(MatrixError::NotSorted);
+    }
+
     if matrix.is_empty() || matrix.iter().all(|row| row.is_empty()) {
         return Ok(None);
     }
 
     if matrix.iter().any(|row| row.len() != matrix[0].len()) {
         return Err(MatrixError::NonRectangularInput);
-    }
-
-    if check_sorted && !is_sorted(matrix) {
-        return Err(MatrixError::NotSorted);
     }
 
     let mut left_index = 0;
@@ -242,11 +242,20 @@ mod tests {
             1,
             Ok(None::<(usize, usize)>),
         ),
-        test_unsorted_matrix_with_check: (
+        test_unsorted_matrix_row_wise: (
             vec![
                 vec![1, 10, 100],
                 vec![20, 200, 2],
                 vec![3, 30, 300],
+            ],
+            200,
+            Err::<Option<(usize, usize)>, MatrixError>(MatrixError::NotSorted),
+        ),
+        test_unsorted_matrix_column_wise: (
+            vec![
+                vec![1, 10, 100],
+                vec![2, 20, 30],
+                vec![3, 15, 300],
             ],
             200,
             Err::<Option<(usize, usize)>, MatrixError>(MatrixError::NotSorted),
