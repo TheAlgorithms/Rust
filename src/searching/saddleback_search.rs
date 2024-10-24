@@ -9,11 +9,6 @@ pub enum MatrixError {
 
 /// Checks if the given matrix (vector of vectors) is sorted row-wise and column-wise.
 ///
-/// A matrix is considered sorted if
-///
-/// * Each row is sorted in non-decreasing order.
-/// * Each column is sorted in non-decreasing order.
-///
 /// # Arguments
 ///
 /// * `matrix` - A vector of vectors representing the matrix to check.
@@ -22,10 +17,6 @@ pub enum MatrixError {
 ///
 /// Returns `true` if the matrix is sorted both row-wise and column-wise. Otherwise, returns `false`.
 fn is_sorted(matrix: &[Vec<isize>]) -> bool {
-    if matrix.is_empty() || matrix.iter().all(|row| row.is_empty()) {
-        return true;
-    }
-
     let rows = matrix.len();
     let cols = matrix[0].len();
 
@@ -72,16 +63,16 @@ pub fn saddleback_search(
     element: isize,
     check_sorted: bool,
 ) -> Result<Option<(usize, usize)>, MatrixError> {
-    if check_sorted && !is_sorted(matrix) {
-        return Err(MatrixError::NotSorted);
-    }
-
     if matrix.is_empty() || matrix.iter().all(|row| row.is_empty()) {
         return Ok(None);
     }
 
     if matrix.iter().any(|row| row.len() != matrix[0].len()) {
         return Err(MatrixError::NonRectangularInput);
+    }
+
+    if check_sorted && !is_sorted(matrix) {
+        return Err(MatrixError::NotSorted);
     }
 
     let mut left_index = 0;
