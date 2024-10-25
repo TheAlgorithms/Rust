@@ -15,6 +15,7 @@ pub fn reverse(text: &str) -> String {
 mod tests {
     use super::*;
 
+    // Macro for generating test cases
     macro_rules! test_cases {
         ($($name:ident: $test_case:expr,)*) => {
             $(
@@ -27,6 +28,7 @@ mod tests {
         };
     }
 
+    // Using the macro to define various test cases
     test_cases! {
         test_simple_palindrome: ("racecar", "racecar"),
         test_non_palindrome: ("abcdef", "fedcba"),
