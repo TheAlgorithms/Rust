@@ -22,7 +22,7 @@ pub fn check_anagram(s: &str, t: &str) -> Result<bool, AnagramError> {
     let s_cleaned = clean_string(s)?;
     let t_cleaned = clean_string(t)?;
 
-    Ok(char_frequency(&s_cleaned) == char_frequency(&t_cleaned))
+    Ok(char_count(&s_cleaned) == char_count(&t_cleaned))
 }
 
 /// Cleans the input string by removing spaces and converting to lowercase.
@@ -58,7 +58,7 @@ fn clean_string(s: &str) -> Result<String, AnagramError> {
 /// # Returns
 ///
 /// * A `HashMap` where the keys are characters and values are their frequencies.
-fn char_frequency(s: &str) -> HashMap<char, usize> {
+fn char_count(s: &str) -> HashMap<char, usize> {
     let mut freq = HashMap::new();
     for c in s.chars() {
         *freq.entry(c).or_insert(0) += 1;
