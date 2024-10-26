@@ -49,7 +49,7 @@ fn clean_string(s: &str) -> Result<String, AnagramError> {
         .collect()
 }
 
-/// Computes the frequency of characters in a string.
+/// Computes the histogram of characters in a string.
 ///
 /// # Arguments
 ///
