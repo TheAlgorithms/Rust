@@ -197,6 +197,7 @@
     * [Fast Fourier Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_fourier_transform.rs)
     * [Fast Power](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fast_power.rs)
     * [Faster Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/faster_perfect_numbers.rs)
+    * [Fermat's Little Theorem](https://github.com/TheAlgorithms/Rust/blob/master/src/math/fermats_little_theorem.rs)
     * [Field](https://github.com/TheAlgorithms/Rust/blob/master/src/math/field.rs)
     * [Frizzy Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/frizzy_number.rs)
     * [Gaussian Elimination](https://github.com/TheAlgorithms/Rust/blob/master/src/math/gaussian_elimination.rs)

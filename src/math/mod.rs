@@ -26,6 +26,7 @@ mod factors;
 mod fast_fourier_transform;
 mod fast_power;
 mod faster_perfect_numbers;
+mod fermats_little_theorem;
 mod field;
 mod frizzy_number;
 mod gaussian_elimination;
@@ -113,6 +114,7 @@ pub use self::fast_fourier_transform::{
 };
 pub use self::fast_power::fast_power;
 pub use self::faster_perfect_numbers::generate_perfect_numbers;
+pub use self::fermats_little_theorem::fermats_little_theorem;
 pub use self::field::{Field, PrimeField};
 pub use self::frizzy_number::get_nth_frizzy;
 pub use self::gaussian_elimination::gaussian_elimination;
