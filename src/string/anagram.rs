@@ -57,13 +57,13 @@ fn clean_string(s: &str) -> Result<String, AnagramError> {
 ///
 /// # Returns
 ///
-/// * A `HashMap` where the keys are characters and values are their frequencies.
+/// * A `HashMap` where the keys are characters and values are their count.
 fn char_count(s: &str) -> HashMap<char, usize> {
-    let mut freq = HashMap::new();
+    let mut res = HashMap::new();
     for c in s.chars() {
-        *freq.entry(c).or_insert(0) += 1;
+        *res.entry(c).or_insert(0) += 1;
     }
-    freq
+    res
 }
 
 #[cfg(test)]
