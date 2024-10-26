@@ -8,6 +8,7 @@ pub mod compression;
 pub mod conversions;
 pub mod data_structures;
 pub mod dynamic_programming;
+pub mod financial;
 pub mod general;
 pub mod geometry;
 pub mod graph;
@@ -19,7 +20,6 @@ pub mod number_theory;
 pub mod searching;
 pub mod sorting;
 pub mod string;
-pub mod financial;
 
 #[cfg(test)]
 mod tests {
