@@ -11,7 +11,6 @@
 /// -> Wikipedia reference: https://en.wikipedia.org/wiki/Yard
 /// -> Wikipedia reference: https://en.wikipedia.org/wiki/Mile
 
-/// Universal Units on Length
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub enum LengthUnit {
     Millimeter,
@@ -24,15 +23,6 @@ pub enum LengthUnit {
     Mile,
 }
 
-/// Private methods
-/// This is a n*n problem
-/// It's gonna be 56 functions or 56 cases in match statement
-/// It's hard to write code for every unit to unit so I solve this problem
-/// by converting input to meter and than convert it to output
-/// This function give you a number (let's call it n)
-/// So if you multiple a value in this unit to n you will get meters
-///
-/// m * in-unit = meter
 fn unit_to_meter_multiplier(from: LengthUnit) -> f64 {
     match from {
         LengthUnit::Millimeter => 0.001,
