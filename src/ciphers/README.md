@@ -1,4 +1,7 @@
 ## Ciphers
+Ciphers are methods or algorithms used to encrypt and decrypt information, securing data from unauthorized access by transforming readable data (plaintext) into unreadable format (ciphertext) and vice versa. They are foundational in cryptography, ensuring that sensitive information, such as passwords or financial data, remains confidential.
+
+In Rust, you can implement ciphers by leveraging its powerful type system, memory safety features, and libraries for cryptographic functions. Rust's libraries, such as rust-crypto, ring, and aes-gcm-siv, provide tools for both symmetric and asymmetric encryption.
 
 ### [Caesar](./caesar.rs)
 ![alt text][caesar]
