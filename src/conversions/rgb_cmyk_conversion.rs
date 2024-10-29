@@ -33,24 +33,24 @@ pub fn rgb_to_cmyk(rgb: (u8, u8, u8)) -> (u8, u8, u8, u8) {
 mod tests {
     use super::*;
 
-    #[test]
-    fn rgb_to_cmyk_test() {
-        // white
-        assert_eq!(rgb_to_cmyk(255, 255, 255), (0, 0, 0, 0));
+    macro_rules! test_rgb_to_cmyk {
+        ($($name:ident: $tc:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (r, g, b, cmyk) = $tc;
+                    assert_eq!(rgb_to_cmyk(r, g, b), cmyk);
+                }
+            )*
+        }
+    }
 
-        // gray
-        assert_eq!(rgb_to_cmyk(128, 128, 128), (0, 0, 0, 49));
-
-        // black
-        assert_eq!(rgb_to_cmyk(0, 0, 0), (0, 0, 0, 100));
-
-        // red
-        assert_eq!(rgb_to_cmyk(255, 0, 0), (0, 100, 100, 0));
-
-        // green
-        assert_eq!(rgb_to_cmyk(0, 255, 0), (100, 0, 100, 0));
-
-        // blue
-        assert_eq!(rgb_to_cmyk(0, 0, 255), (100, 100, 0, 0));
+    test_rgb_to_cmyk! {
+        white: (255, 255, 255, (0, 0, 0, 0)),
+        gray: (128, 128, 128, (0, 0, 0, 49)),
+        black: (0, 0, 0, (0, 0, 0, 100)),
+        red: (255, 0, 0, (0, 100, 100, 0)),
+        green: (0, 255, 0, (100, 0, 100, 0)),
+        blue: (0, 0, 255, (100, 100, 0, 0)),
     }
 }
