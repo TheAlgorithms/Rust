@@ -12,7 +12,7 @@
 ///
 /// ### Returns
 /// (C, M, Y, K)
-pub fn rgb_to_cmyk(r: u8, g: u8, b: u8) -> (u8, u8, u8, u8) {
+pub fn rgb_to_cmyk(rgb: (u8, u8, u8)) -> (u8, u8, u8, u8) {
     // Safety: no need to check if input is positive and less than 255 because it's u8
 
     // change scale from [0,255] to [0,1]
