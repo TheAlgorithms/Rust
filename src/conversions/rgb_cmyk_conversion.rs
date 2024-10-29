@@ -16,7 +16,11 @@ pub fn rgb_to_cmyk(rgb: (u8, u8, u8)) -> (u8, u8, u8, u8) {
     // Safety: no need to check if input is positive and less than 255 because it's u8
 
     // change scale from [0,255] to [0,1]
-    let (r, g, b) = (r as f64 / 255f64, g as f64 / 255f64, b as f64 / 255f64);
+    let (r, g, b) = (
+        rgb.0 as f64 / 255f64,
+        rgb.1 as f64 / 255f64,
+        rgb.2 as f64 / 255f64,
+    );
 
     match 1f64 - r.max(g).max(b) {
         1f64 => (0, 0, 0, 100), // pure black
@@ -39,7 +43,7 @@ mod tests {
                 #[test]
                 fn $name() {
                     let (r, g, b, cmyk) = $tc;
-                    assert_eq!(rgb_to_cmyk(r, g, b), cmyk);
+                    assert_eq!(rgb_to_cmyk((r, g, b)), cmyk);
                 }
             )*
         }
