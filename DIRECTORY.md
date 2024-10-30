@@ -56,6 +56,7 @@
     * [Length Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/length_conversion.rs)
     * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
+    * [RGB to CMYK](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_cmyk_conversion.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
