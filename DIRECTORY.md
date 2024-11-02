@@ -53,8 +53,10 @@
     * [Decimal To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_hexadecimal.rs)
     * [Hexadecimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
     * [Hexadecimal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_decimal.rs)
+    * [Length Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/length_conversion.rs)
     * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
+    * [Rgb Cmyk Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_cmyk_conversion.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
