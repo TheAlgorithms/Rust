@@ -16,7 +16,7 @@ pub struct Edge {
 
 impl Edge {
     /// Creates a new edge with the specified source, destination, and cost.
-    fn new(source: usize, destination: usize, cost: usize) -> Self {
+    pub fn new(source: usize, destination: usize, cost: usize) -> Self {
         Self {
             source,
             destination,
@@ -150,9 +150,7 @@ mod tests {
             vec![
                 Edge::new(0, 1, 4),
                 Edge::new(0, 2, 6),
-                // Component 1 (vertices 0, 1, 2)
                 Edge::new(3, 4, 2),
-                // Component 2 (vertices 3, 4)
             ],
             5,
             None
