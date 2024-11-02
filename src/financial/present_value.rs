@@ -18,7 +18,11 @@ pub fn present_value(discount_rate: f64, cash_flows: Vec<f64>) -> Result<f64, Pr
         .map(|(i, &cash_flow)| cash_flow / (1.0 + discount_rate).powi(i as i32))
         .sum::<f64>();
 
-    Ok((present_value * 100.0).round() / 100.0)
+    Ok(round(present_value))
+}
+
+fn round(value:f64)->f64{
+    ( value * 100.0).round() / 100.0
 }
 
 #[cfg(test)]
@@ -66,4 +70,26 @@ mod tests {
             present_value(0.0, vec![109129.39, 30923.23, 15098.93, 29734.0, 39.0]).unwrap()
         );
     }
+    #[test]
+    fn test_round_function() {
+       
+        assert_eq!(
+            0.55,
+            round(0.55434)
+        );
+
+        assert_eq!(
+            10.45,
+            round(10.453)
+        );
+
+        
+        assert_eq!(
+           1111_f64,
+            round(1111_f64)
+        );
+
+
+    }
+
 }
