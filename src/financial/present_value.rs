@@ -21,10 +21,9 @@ pub fn present_value(discount_rate: f64, cash_flows: Vec<f64>) -> Result<f64, Pr
     Ok(round(present_value))
 }
 
-fn round(value:f64)->f64{
-    ( value * 100.0).round() / 100.0
+fn round(value: f64) -> f64 {
+    (value * 100.0).round() / 100.0
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -66,8 +65,7 @@ mod tests {
         }
     }
 
-
-    test_present_value!{
+    test_present_value! {
         general_inputs1:((0.13, vec![10.0, 20.70, -293.0, 297.0]),4.69),
         general_inputs2:((0.07, vec![-109129.39, 30923.23, 15098.93, 29734.0, 39.0]),-42739.63),
         general_inputs3:((0.07, vec![109129.39, 30923.23, 15098.93, 29734.0, 39.0]), 175519.15),
@@ -75,15 +73,14 @@ mod tests {
 
     }
 
-    test_present_value_Err!{
+    test_present_value_Err! {
         negative_discount_rate:((-1.0, vec![10.0, 20.70, -293.0, 297.0]), PresentValueError::NegetiveDiscount),
         empty_cash_flow:((1.0, vec![]), PresentValueError::EmptyCashFlow),
 
     }
-    test_round!{
+    test_round! {
             test1:(0.55434,  0.55),
             test2:(10.453,  10.45),
             test3:(1111_f64,  1111_f64),
     }
 }
-
