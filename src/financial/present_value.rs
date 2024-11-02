@@ -25,71 +25,65 @@ fn round(value:f64)->f64{
     ( value * 100.0).round() / 100.0
 }
 
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_present_value() {
-        assert_eq!(
-            4.69,
-            present_value(0.13, vec![10.0, 20.70, -293.0, 297.0]).unwrap()
-        );
-
-        assert_eq!(
-            -42739.63,
-            present_value(0.07, vec![-109129.39, 30923.23, 15098.93, 29734.0, 39.0]).unwrap()
-        );
-
-        assert_eq!(
-            175519.15,
-            present_value(0.07, vec![109129.39, 30923.23, 15098.93, 29734.0, 39.0]).unwrap()
-        );
+    macro_rules! test_present_value {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let ((discount_rate,cash_flows), expected) = $inputs;
+                    assert_eq!(present_value(discount_rate,cash_flows).unwrap(), expected);
+                }
+            )*
+        }
     }
 
-    #[test]
-    fn test_present_value_negative_discount_rate() {
-        assert_eq!(
-            PresentValueError::NegetiveDiscount,
-            present_value(-1.0, vec![10.0, 20.70, -293.0, 297.0]).unwrap_err()
-        );
+    macro_rules! test_present_value_Err {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let ((discount_rate,cash_flows), expected) = $inputs;
+                    assert_eq!(present_value(discount_rate,cash_flows).unwrap_err(), expected);
+                }
+            )*
+        }
     }
 
-    #[test]
-    fn test_present_value_empty_cash_flow() {
-        assert_eq!(
-            PresentValueError::EmptyCashFlow,
-            present_value(1.0, vec![]).unwrap_err()
-        );
+    macro_rules! test_round {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (input, expected) = $inputs;
+                    assert_eq!(round(input), expected);
+                }
+            )*
+        }
     }
 
-    #[test]
-    fn test_present_value_zero_discount_rate() {
-        assert_eq!(
-            184924.55,
-            present_value(0.0, vec![109129.39, 30923.23, 15098.93, 29734.0, 39.0]).unwrap()
-        );
-    }
-    #[test]
-    fn test_round_function() {
-       
-        assert_eq!(
-            0.55,
-            round(0.55434)
-        );
 
-        assert_eq!(
-            10.45,
-            round(10.453)
-        );
-
-        
-        assert_eq!(
-           1111_f64,
-            round(1111_f64)
-        );
-
+    test_present_value!{
+        general_inputs1:((0.13, vec![10.0, 20.70, -293.0, 297.0]),4.69),
+        general_inputs2:((0.07, vec![-109129.39, 30923.23, 15098.93, 29734.0, 39.0]),-42739.63),
+        general_inputs3:((0.07, vec![109129.39, 30923.23, 15098.93, 29734.0, 39.0]), 175519.15),
+        zero_input:((0.0, vec![109129.39, 30923.23, 15098.93, 29734.0, 39.0]),  184924.55),
 
     }
 
+    test_present_value_Err!{
+        negative_discount_rate:((-1.0, vec![10.0, 20.70, -293.0, 297.0]), PresentValueError::NegetiveDiscount),
+        empty_cash_flow:((1.0, vec![]), PresentValueError::EmptyCashFlow),
+
+    }
+    test_round!{
+            test1:(0.55434,  0.55),
+            test2:(10.453,  10.45),
+            test3:(1111_f64,  1111_f64),
+    }
 }
+
