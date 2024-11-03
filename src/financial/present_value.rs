@@ -1,3 +1,8 @@
+/// In economics and finance, present value (PV), also known as present discounted value,
+/// is the value of an expected income stream determined as of the date of valuation.
+///
+/// -> Wikipedia reference: https://en.wikipedia.org/wiki/Present_value
+
 #[derive(PartialEq, Eq, Debug)]
 pub enum PresentValueError {
     NegetiveDiscount,
