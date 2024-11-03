@@ -23,7 +23,7 @@
 /// A reference to the optimized parameter vector `x`.
 
 pub fn gradient_descent(
-    derivative_fn: fn(&[f64]) -> Vec<f64>,
+    derivative_fn: impl Fn(&[f64]) -> Vec<f64>,
     x: &mut Vec<f64>,
     learning_rate: f64,
     num_iterations: i32,
