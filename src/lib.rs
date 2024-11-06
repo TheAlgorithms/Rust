@@ -16,6 +16,7 @@ pub mod graph;
 pub mod greedy;
 pub mod machine_learning;
 pub mod math;
+pub mod matrix;
 pub mod navigation;
 pub mod number_theory;
 pub mod searching;
