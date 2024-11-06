@@ -6,6 +6,9 @@
 ///   attraction or repulsion between two point charges is directly proportional
 ///   to the product of the magnitudes of charges and inversely proportional to
 ///   the square of the distance between them.
+///
+/// -> Wikipedia reference: https://en.wikipedia.org/wiki/Coulomb%27s_law
+
 const COULOMBS_CONSTANT: f64 = 8.9875517923e9;
 #[derive(PartialEq, Eq, Debug)]
 pub enum CoulombsLawError {
