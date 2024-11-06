@@ -1,5 +1,3 @@
-
-
 ///find row and column of given key in given matrix
 /// m is row count and n is column count
 #[derive(PartialEq, Eq, Debug)]
