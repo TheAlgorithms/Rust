@@ -8,6 +8,7 @@ pub mod compression;
 pub mod conversions;
 pub mod data_structures;
 pub mod dynamic_programming;
+pub mod electronics;
 pub mod financial;
 pub mod general;
 pub mod geometry;
