@@ -14,7 +14,6 @@ const COULOMBS_CONSTANT: f64 = 8.9875517923e9;
 pub enum CoulombsLawError {
     ExtraZeroArg(String),
     NegativeDistance(String),
-    NoneZeroArg(String),
 }
 pub fn coulombs_law(
     force: f64,
@@ -51,16 +50,12 @@ pub fn coulombs_law(
             "charge2: {}",
             calculate_charge(charge1, force, distance)
         ));
-    } else if distance == 0.0 {
+    } else {
         return Ok(format!(
             "distance: {}",
             calculate_distance(charge_product, force)
         ));
     }
-
-    Err(CoulombsLawError::NoneZeroArg(String::from(
-        "Exactly one argument must be 0",
-    )))
 }
 fn calculate_distance(charge_product: f64, force: f64) -> f64 {
     (COULOMBS_CONSTANT * charge_product / force.abs()).sqrt()
