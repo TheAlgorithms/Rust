@@ -50,12 +50,11 @@ pub fn coulombs_law(
             "charge2: {}",
             calculate_charge(charge1, force, distance)
         ));
-    } else {
-        return Ok(format!(
-            "distance: {}",
-            calculate_distance(charge_product, force)
-        ));
     }
+    Ok(format!(
+        "distance: {}",
+        calculate_distance(charge_product, force)
+    ))
 }
 fn calculate_distance(charge_product: f64, force: f64) -> f64 {
     (COULOMBS_CONSTANT * charge_product / force.abs()).sqrt()
