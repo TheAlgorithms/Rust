@@ -81,6 +81,7 @@ mod tests {
         key_not_found_test: ((vec![vec![1.0,1.0],vec![1.0,1.0]],2,2,4.0), SortedMatrixErr::KeyNotFound),
         invalid_m_test: ((vec![vec![1.0,1.0],vec![1.0,1.0]],0,2,4.0), SortedMatrixErr::InvalidArgument(String::from("m must be greater than or equal to 1"))),
         invalid_n_test: ((vec![vec![1.0,1.0],vec![1.0,1.0]],2,0,4.0), SortedMatrixErr::InvalidArgument(String::from("n must be greater than or equal to 1"))),
+        invalid_mat_test: ((vec![],2,1,4.0), SortedMatrixErr::InvalidArgument(String::from("mat must be non-empty"))),
     }
 
     test_search_in_a_sorted_matrix! {
