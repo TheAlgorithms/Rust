@@ -1,11 +1,16 @@
 use std::cmp::min;
 
+/// Represents possible errors that can occur when calculating the minimum cost path in a matrix.
+#[derive(Debug, PartialEq, Eq)]
+pub enum MatrixError {
+    /// Error indicating that the matrix is empty or has empty rows.
+    EmptyMatrix,
+    /// Error indicating that the matrix is not rectangular in shape.
+    NonRectangularMatrix,
+}
+
 /// Computes the minimum cost path from the top-left to the bottom-right
 /// corner of a matrix, where movement is restricted to right and down directions.
-///
-/// The function calculates the minimum path cost by updating a `cost` vector that
-/// stores cumulative path costs for the current row as it iterates through each
-/// row of the input `matrix`.
 ///
 /// # Arguments
 ///
@@ -14,8 +19,9 @@ use std::cmp::min;
 ///
 /// # Returns
 ///
-/// * A single `usize` value representing the minimum path cost to reach the
-///   bottom-right corner from the top-left corner of the matrix.
+/// * `Ok(usize)` - The minimum path cost to reach the bottom-right corner from
+///   the top-left corner of the matrix.
+/// * `Err(MatrixError)` - An error if the matrix is empty or improperly formatted.
 ///
 /// # Complexity
 ///
@@ -23,8 +29,18 @@ use std::cmp::min;
 ///   and `n` is the number of columns in the input matrix.
 /// * Space complexity: `O(n)`, as only a single row of cumulative costs
 ///   is stored at any time.
-pub fn minimum_cost_path(matrix: Vec<Vec<usize>>) -> usize {
-    // Initialize the first row of the cost vector using a scan over the first row of matrix
+pub fn minimum_cost_path(matrix: Vec<Vec<usize>>) -> Result<usize, MatrixError> {
+    // Check if the matrix is rectangular
+    if !matrix.iter().all(|row| row.len() == matrix[0].len()) {
+        return Err(MatrixError::NonRectangularMatrix);
+    }
+
+    // Check if the matrix is empty or contains empty rows
+    if matrix.is_empty() || matrix.iter().all(|row| row.is_empty()) {
+        return Err(MatrixError::EmptyMatrix);
+    }
+
+    // Initialize the first row of the cost vector
     let mut cost = matrix[0]
         .iter()
         .scan(0, |acc, &val| {
@@ -45,7 +61,7 @@ pub fn minimum_cost_path(matrix: Vec<Vec<usize>>) -> usize {
     }
 
     // The last element in cost contains the minimum path cost to the bottom-right corner
-    cost[matrix[0].len() - 1]
+    Ok(cost[matrix[0].len() - 1])
 }
 
 #[cfg(test)]
@@ -71,19 +87,19 @@ mod tests {
                 vec![2, 1, 3],
                 vec![3, 2, 1]
             ],
-            7
+            Ok(7)
         ),
         single_element: (
             vec![
                 vec![5]
             ],
-            5
+            Ok(5)
         ),
         single_row: (
             vec![
                 vec![1, 3, 2, 1, 5]
             ],
-            12
+            Ok(12)
         ),
         single_column: (
             vec![
@@ -91,8 +107,9 @@ mod tests {
                 vec![3],
                 vec![2],
                 vec![1],
-                vec![5]],
-            12
+                vec![5]
+            ],
+            Ok(12)
         ),
         large_matrix: (
             vec![
@@ -101,7 +118,7 @@ mod tests {
                 vec![3, 2, 1, 3],
                 vec![4, 3, 2, 1]
             ],
-            10
+            Ok(10)
         ),
         uniform_matrix: (
             vec![
@@ -109,7 +126,7 @@ mod tests {
                 vec![1, 1, 1],
                 vec![1, 1, 1]
             ],
-            5
+            Ok(5)
         ),
         increasing_values: (
             vec![
@@ -117,7 +134,7 @@ mod tests {
                 vec![4, 5, 6],
                 vec![7, 8, 9]
             ],
-            21
+            Ok(21)
         ),
         high_cost_path: (
             vec![
@@ -125,7 +142,7 @@ mod tests {
                 vec![1, 100, 1],
                 vec![1, 1, 1]
             ],
-            5
+            Ok(5)
         ),
         complex_matrix: (
             vec![
@@ -134,7 +151,27 @@ mod tests {
                 vec![2, 1, 8, 2],
                 vec![3, 6, 9, 4]
             ],
-            23
+            Ok(23)
+        ),
+        empty_matrix: (
+            vec![],
+            Err(MatrixError::EmptyMatrix)
+        ),
+        empty_row: (
+            vec![
+                vec![],
+                vec![],
+                vec![]
+            ],
+            Err(MatrixError::EmptyMatrix)
+        ),
+        non_rectangular: (
+            vec![
+                vec![1, 2, 3],
+                vec![4, 5],
+                vec![6, 7, 8]
+            ],
+            Err(MatrixError::NonRectangularMatrix)
         ),
     }
 }
