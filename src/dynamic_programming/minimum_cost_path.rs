@@ -1,80 +1,140 @@
-/// Minimum Cost Path via Dynamic Programming
-
-/// Find the minimum cost traced by all possible paths from top left to bottom right in
-/// a given matrix, by allowing only right and down movement
-
-/// For example, in matrix,
-/// [2, 1, 4]
-/// [2, 1, 3]
-/// [3, 2, 1]
-/// The minimum cost path is 7
-
-/// # Arguments:
-///   * `matrix` - The input matrix.
-/// # Complexity
-///   - time complexity: O( rows * columns ),
-///   - space complexity: O( rows * columns )
 use std::cmp::min;
 
-pub fn minimum_cost_path(mut matrix: Vec<Vec<usize>>) -> usize {
-    // Add rows and columns variables for better readability
-    let rows = matrix.len();
-    let columns = matrix[0].len();
+/// Computes the minimum cost path from the top-left to the bottom-right
+/// corner of a matrix, where movement is restricted to right and down directions.
+///
+/// The function calculates the minimum path cost by updating a `cost` vector that
+/// stores cumulative path costs for the current row as it iterates through each
+/// row of the input `matrix`.
+///
+/// # Arguments
+///
+/// * `matrix` - A 2D vector of positive integers, where each element represents
+///              the cost to step on that cell.
+///
+/// # Returns
+///
+/// * A single `usize` value representing the minimum path cost to reach the
+///   bottom-right corner from the top-left corner of the matrix.
+///
+/// # Complexity
+///
+/// * Time complexity: `O(m * n)`, where `m` is the number of rows
+///   and `n` is the number of columns in the input matrix.
+/// * Space complexity: `O(n)`, as only a single row of cumulative costs
+///   is stored at any time.
+pub fn minimum_cost_path(matrix: Vec<Vec<usize>>) -> usize {
+    // Initialize the first row of the cost vector using a scan over the first row of matrix
+    let mut cost = matrix[0]
+        .iter()
+        .scan(0, |acc, &val| {
+            *acc += val;
+            Some(*acc)
+        })
+        .collect::<Vec<_>>();
 
-    // Preprocessing the first row
-    for i in 1..columns {
-        matrix[0][i] += matrix[0][i - 1];
-    }
+    // Process each row from the second to the last
+    for row in matrix.iter().skip(1) {
+        // Update the first element of cost for this row
+        cost[0] += row[0];
 
-    // Preprocessing the first column
-    for i in 1..rows {
-        matrix[i][0] += matrix[i - 1][0];
-    }
-
-    // Updating path cost for the remaining positions
-    // For each position, cost to reach it from top left is
-    // Sum of value of that position and minimum of upper and left position value
-
-    for i in 1..rows {
-        for j in 1..columns {
-            matrix[i][j] += min(matrix[i - 1][j], matrix[i][j - 1]);
+        // Update the rest of the elements in the current row of cost
+        for col in 1..matrix[0].len() {
+            cost[col] = row[col] + min(cost[col - 1], cost[col]);
         }
     }
 
-    // Return cost for bottom right element
-    matrix[rows - 1][columns - 1]
+    // The last element in cost contains the minimum path cost to the bottom-right corner
+    cost[matrix[0].len() - 1]
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn basic() {
-        // For test case in example
-        let matrix = vec![vec![2, 1, 4], vec![2, 1, 3], vec![3, 2, 1]];
-        assert_eq!(minimum_cost_path(matrix), 7);
-
-        // For a randomly generated matrix
-        let matrix = vec![vec![1, 2, 3], vec![4, 5, 6]];
-        assert_eq!(minimum_cost_path(matrix), 12);
+    macro_rules! minimum_cost_path_tests {
+        ($($name:ident: $test_case:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (matrix, expected) = $test_case;
+                    assert_eq!(minimum_cost_path(matrix), expected);
+                }
+            )*
+        };
     }
 
-    #[test]
-    fn one_element_matrix() {
-        let matrix = vec![vec![2]];
-        assert_eq!(minimum_cost_path(matrix), 2);
-    }
-
-    #[test]
-    fn one_row() {
-        let matrix = vec![vec![1, 3, 2, 1, 5]];
-        assert_eq!(minimum_cost_path(matrix), 12);
-    }
-
-    #[test]
-    fn one_column() {
-        let matrix = vec![vec![1], vec![3], vec![2], vec![1], vec![5]];
-        assert_eq!(minimum_cost_path(matrix), 12);
+    minimum_cost_path_tests! {
+        basic: (
+            vec![
+                vec![2, 1, 4],
+                vec![2, 1, 3],
+                vec![3, 2, 1]
+            ],
+            7
+        ),
+        single_element: (
+            vec![
+                vec![5]
+            ],
+            5
+        ),
+        single_row: (
+            vec![
+                vec![1, 3, 2, 1, 5]
+            ],
+            12
+        ),
+        single_column: (
+            vec![
+                vec![1],
+                vec![3],
+                vec![2],
+                vec![1],
+                vec![5]],
+            12
+        ),
+        large_matrix: (
+            vec![
+                vec![1, 3, 1, 5],
+                vec![2, 1, 4, 2],
+                vec![3, 2, 1, 3],
+                vec![4, 3, 2, 1]
+            ],
+            10
+        ),
+        uniform_matrix: (
+            vec![
+                vec![1, 1, 1],
+                vec![1, 1, 1],
+                vec![1, 1, 1]
+            ],
+            5
+        ),
+        increasing_values: (
+            vec![
+                vec![1, 2, 3],
+                vec![4, 5, 6],
+                vec![7, 8, 9]
+            ],
+            21
+        ),
+        high_cost_path: (
+            vec![
+                vec![1, 100, 1],
+                vec![1, 100, 1],
+                vec![1, 1, 1]
+            ],
+            5
+        ),
+        complex_matrix: (
+            vec![
+                vec![5, 9, 6, 8],
+                vec![1, 4, 7, 3],
+                vec![2, 1, 8, 2],
+                vec![3, 6, 9, 4]
+            ],
+            23
+        ),
     }
 }
