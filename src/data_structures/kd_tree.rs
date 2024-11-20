@@ -364,7 +364,7 @@ mod test {
 
     #[test]
     fn insert() {
-        let points = (0..100)
+        let points: Vec<[f64; 2]> = (0..100)
             .map(|_| {
                 [
                     (rand::random::<f64>() * 1000.0).round() / 10.0,
@@ -385,7 +385,7 @@ mod test {
 
     #[test]
     fn contains() {
-        let points = (0..100)
+        let points: Vec<[f64; 2]> = (0..100)
             .map(|_| {
                 [
                     (rand::random::<f64>() * 1000.0).round() / 10.0,
@@ -405,7 +405,7 @@ mod test {
 
     #[test]
     fn delete() {
-        let points = (0..100)
+        let points: Vec<[f64; 2]> = (0..100)
             .map(|_| {
                 [
                     (rand::random::<f64>() * 1000.0).round() / 10.0,
@@ -426,7 +426,7 @@ mod test {
     #[test]
     fn nearest_neighbors() {
         // Test with large data set
-        let points_1 = (0..1000)
+        let points_1: Vec<[f64; 2]> = (0..1000)
             .map(|_| {
                 [
                     (rand::random::<f64>() * 1000.0).round() / 10.0,
@@ -450,7 +450,7 @@ mod test {
         }
 
         // Test with small data set
-        let points_2 = vec![
+        let points_2: Vec<[f64; 2]> = vec![
             [2.0, 3.0],
             [5.0, 4.0],
             [9.0, 6.0],
@@ -473,7 +473,7 @@ mod test {
 
     #[test]
     fn is_empty() {
-        let mut kd_tree = KDTree::new();
+        let mut kd_tree: KDTree<f64, 2> = KDTree::new();
 
         assert!(kd_tree.is_empty());
 
@@ -484,7 +484,7 @@ mod test {
 
     #[test]
     fn len() {
-        let points = (0..1000)
+        let points: Vec<[f64; 2]> = (0..1000)
             .map(|_| {
                 [
                     (rand::random::<f64>() * 1000.0).round() / 10.0,
