@@ -215,7 +215,7 @@ pub struct VebTreeIter<'a> {
 }
 
 impl<'a> VebTreeIter<'a> {
-    pub fn new(tree: &'a VebTree) -> VebTreeIter {
+    pub fn new(tree: &'a VebTree) -> VebTreeIter<'a> {
         let curr = if tree.empty() { None } else { Some(tree.min) };
         VebTreeIter { tree, curr }
     }
