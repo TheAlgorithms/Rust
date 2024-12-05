@@ -76,6 +76,7 @@ unnested_or_patterns = { level = "allow", priority = 1 }
 unreadable_literal = { level = "allow", priority = 1 }
 unused_self = { level = "allow", priority = 1 }
 used_underscore_binding = { level = "allow", priority = 1 }
+ref_option = { level = "allow", priority = 1 }
 # restriction-lints:
 absolute_paths = { level = "allow", priority = 1 }
 arithmetic_side_effects = { level = "allow", priority = 1 }
@@ -148,6 +149,8 @@ allow_attributes_without_reason = { level = "allow", priority = 1 }
 allow_attributes = { level = "allow", priority = 1 }
 cfg_not_test = { level = "allow", priority = 1 }
 field_scoped_visibility_modifiers = { level = "allow", priority = 1 }
+unused_trait_names = { level = "allow", priority = 1 }
+used_underscore_items = { level = "allow", priority = 1 }
 # nursery-lints:
 branches_sharing_code = { level = "allow", priority = 1 }
 cognitive_complexity = { level = "allow", priority = 1 }
@@ -169,3 +172,6 @@ too_long_first_doc_paragraph = { level = "allow", priority = 1 }
 cargo_common_metadata = { level = "allow", priority = 1 }
 # style-lints:
 doc_lazy_continuation = { level = "allow", priority = 1 }
+needless_return = { level = "allow", priority = 1 }
+# complexity-lints
+needless_lifetimes = { level = "allow", priority = 1 }
