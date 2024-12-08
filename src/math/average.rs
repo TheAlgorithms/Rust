@@ -6,16 +6,30 @@ The mode is the most frequently occurring value on the list.
 
 Reference: https://www.britannica.com/science/mean-median-and-mode
 
-This program approximates the mean, median and mode of a finite sequence.
+There is also the geometric mean, often used in finance, which is much more suited for rates and other multiplicative
+relationships. The geometric mean is the Nth root of the product of a finite sequence of numbers.
+
+This program approximates the mean, geometric mean, median and mode of a finite sequence.
 Note: Floats sequences are not allowed for `mode` function.
 "]
 use std::collections::HashMap;
 use std::collections::HashSet;
 
-use num_traits::Num;
+use num_traits::{Num, FromPrimitive, ToPrimitive, One};
 
 fn sum<T: Num + Copy>(sequence: Vec<T>) -> T {
     sequence.iter().fold(T::zero(), |acc, x| acc + *x)
+}
+
+fn product<T: Num + Copy + One + FromPrimitive + ToPrimitive>(sequence: &Vec<T>) -> Option<f64> {
+    if sequence.is_empty() {
+        None
+    } else {
+        sequence.iter()
+            .copied()
+            .fold(T::one(), |acc, x| acc * x)
+            .to_f64()
+    }
 }
 
 /// # Argument
@@ -32,6 +46,22 @@ pub fn mean<T: Num + Copy + num_traits::FromPrimitive>(sequence: Vec<T>) -> Opti
 
 fn mean_of_two<T: Num + Copy>(a: T, b: T) -> T {
     (a + b) / (T::one() + T::one())
+}
+
+
+/// # Argument
+///
+/// * `sequence` - A vector of numbers.
+/// Returns geometric mean of `sequence`.
+pub fn geometric_mean<T: Num + Copy + One + FromPrimitive + ToPrimitive>(sequence: &Vec<T>) -> Option<f64> {
+    if sequence.is_empty() {
+        return None;
+    }
+    if sequence.iter().any(|&x| x.to_f64() <= Some(0.0)) {
+        return None;
+    }
+    let product_result = product(sequence)?;
+    Some(product_result.powf(1.0 / sequence.len() as f64))
 }
 
 /// # Argument
@@ -119,4 +149,62 @@ mod test {
         assert!(mean(Vec::<f64>::new()).is_none());
         assert!(mean(Vec::<i32>::new()).is_none());
     }
+
+    // Tests for product function
+    // Empty Product is empty
+    #[test]
+    fn test_product_empty() {
+        let sequence: Vec<i32> = vec![];
+        let result = product(&sequence);
+        assert_eq!(result, None); 
+    }
+
+    // Product of a single value is the value
+    #[test]
+    fn test_product_single_element() {
+        let sequence = vec![10];
+        let result = product(&sequence);
+        assert_eq!(result, Some(10.0));
+    }
+    // Product generic test
+    #[test]
+    fn test_product_floats() {
+        let sequence = vec![1.5, 2.0, 4.0];
+        let result = product(&sequence);
+        assert_eq!(result, Some(12.0));
+    }
+
+    // Tests for geometric mean function
+    // Empty sequence returns nothing
+    #[test]
+    fn test_geometric_mean_empty() {
+        let sequence: Vec<f64> = vec![];
+        let result = geometric_mean(&sequence);
+        assert_eq!(result, None);
+    }
+
+    // Geometric mean of a single value is the value itself.
+    #[test]
+    fn test_geometric_mean_single_element() { 
+        let sequence = vec![5.0];
+        let result = geometric_mean(&sequence);
+        assert_eq!(result, Some(5.0));
+    }
+
+    // Geometric means are not defined for negative values
+    #[test]
+    fn test_geometric_mean_negative() {
+        let sequence = vec![1.0, -3.0, 2.0];
+        let result = geometric_mean(&sequence);
+        assert_eq!(result, None);
+    }
+
+    // Geometric mean generic test
+    #[test]
+    fn test_geometric_mean_floats() {
+        let sequence = vec![0.5, 0.5, 0.3, 0.2];
+        let result = geometric_mean(&sequence);
+        assert_eq!(result, Some(0.34996355115805833));
+    }
+
 }
