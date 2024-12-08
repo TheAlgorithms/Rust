@@ -15,17 +15,19 @@ Note: Floats sequences are not allowed for `mode` function.
 use std::collections::HashMap;
 use std::collections::HashSet;
 
-use num_traits::{Num, FromPrimitive, ToPrimitive, One};
+use num_traits::{FromPrimitive, Num, One, ToPrimitive};
 
 fn sum<T: Num + Copy>(sequence: Vec<T>) -> T {
     sequence.iter().fold(T::zero(), |acc, x| acc + *x)
 }
 
-fn product<T: Num + Copy + One + FromPrimitive + ToPrimitive>(sequence: &Vec<T>) -> Option<f64> {
+#[allow(dead_code)]
+fn product<T: Num + Copy + One + FromPrimitive + ToPrimitive>(sequence: &[T]) -> Option<f64> {
     if sequence.is_empty() {
         None
     } else {
-        sequence.iter()
+        sequence
+            .iter()
             .copied()
             .fold(T::one(), |acc, x| acc * x)
             .to_f64()
@@ -48,12 +50,14 @@ fn mean_of_two<T: Num + Copy>(a: T, b: T) -> T {
     (a + b) / (T::one() + T::one())
 }
 
-
 /// # Argument
 ///
 /// * `sequence` - A vector of numbers.
 /// Returns geometric mean of `sequence`.
-pub fn geometric_mean<T: Num + Copy + One + FromPrimitive + ToPrimitive>(sequence: &Vec<T>) -> Option<f64> {
+#[allow(dead_code)]
+pub fn geometric_mean<T: Num + Copy + One + FromPrimitive + ToPrimitive>(
+    sequence: &[T],
+) -> Option<f64> {
     if sequence.is_empty() {
         return None;
     }
@@ -156,7 +160,7 @@ mod test {
     fn test_product_empty() {
         let sequence: Vec<i32> = vec![];
         let result = product(&sequence);
-        assert_eq!(result, None); 
+        assert_eq!(result, None);
     }
 
     // Product of a single value is the value
@@ -185,7 +189,7 @@ mod test {
 
     // Geometric mean of a single value is the value itself.
     #[test]
-    fn test_geometric_mean_single_element() { 
+    fn test_geometric_mean_single_element() {
         let sequence = vec![5.0];
         let result = geometric_mean(&sequence);
         assert_eq!(result, Some(5.0));
@@ -206,5 +210,4 @@ mod test {
         let result = geometric_mean(&sequence);
         assert_eq!(result, Some(0.34996355115805833));
     }
-
 }
