@@ -12,7 +12,7 @@ use std::{
 
 // A map of predefined prime numbers for different bit lengths, as specified in RFC 3526
 static PRIMES: LazyLock<HashMap<u8, BigUint>> = LazyLock::new(|| {
-    let mut m:HashMap<u8, BigUint> = HashMap::new();
+    let mut m: HashMap<u8, BigUint> = HashMap::new();
     m.insert(
         // 1536-bit
         5,
@@ -25,8 +25,9 @@ static PRIMES: LazyLock<HashMap<u8, BigUint>> = LazyLock::new(|| {
                 C2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F\
                 83655D23DCA3AD961C62F356208552BB9ED529077096966D\
                 670C354E4ABC9804F1746C08CA237327FFFFFFFFFFFFFFFF",
-            16
-        ).unwrap()
+            16,
+        )
+        .unwrap(),
     );
     m.insert(
         // 2048-bit
@@ -43,14 +44,15 @@ static PRIMES: LazyLock<HashMap<u8, BigUint>> = LazyLock::new(|| {
             E39E772C180E86039B2783A2EC07A28FB5C55DF06F4C52C9\
             DE2BCBF6955817183995497CEA956AE515D2261898FA0510\
             15728E5A8AACAA68FFFFFFFFFFFFFFFF",
-            16
-        ).unwrap()
+            16,
+        )
+        .unwrap(),
     );
 
     m.insert(
-    // 3072-bit
-    15,
-    BigUint::parse_bytes(
+        // 3072-bit
+        15,
+        BigUint::parse_bytes(
             b"FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1\
             29024E088A67CC74020BBEA63B139B22514A08798E3404DD\
             EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245\
@@ -67,13 +69,14 @@ static PRIMES: LazyLock<HashMap<u8, BigUint>> = LazyLock::new(|| {
             F12FFA06D98A0864D87602733EC86A64521F2B18177B200C\
             BBE117577A615D6C770988C0BAD946E208E24FA074E5AB31\
             43DB5BFCE0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF",
-            16
-        ).unwrap()
+            16,
+        )
+        .unwrap(),
     );
     m.insert(
-    // 4096-bit
-    16,
-    BigUint::parse_bytes(
+        // 4096-bit
+        16,
+        BigUint::parse_bytes(
             b"FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1\
             29024E088A67CC74020BBEA63B139B22514A08798E3404DD\
             EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245\
@@ -96,13 +99,14 @@ static PRIMES: LazyLock<HashMap<u8, BigUint>> = LazyLock::new(|| {
             1F612970CEE2D7AFB81BDD762170481CD0069127D5B05AA9\
             93B4EA988D8FDDC186FFB7DC90A6C08F4DF435C934063199\
             FFFFFFFFFFFFFFFF",
-            16
-        ).unwrap()
+            16,
+        )
+        .unwrap(),
     );
     m.insert(
-    // 6144-bit
-    17,
-     BigUint::parse_bytes(
+        // 6144-bit
+        17,
+        BigUint::parse_bytes(
             b"FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E08\
              8A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B\
              302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9\
@@ -131,15 +135,16 @@ static PRIMES: LazyLock<HashMap<u8, BigUint>> = LazyLock::new(|| {
              B7C5DA76F550AA3D8A1FBFF0EB19CCB1A313D55CDA56C9EC2EF29632\
              387FE8D76E3C0468043E8F663F4860EE12BF2D5B0B7474D6E694F91E\
              6DCC4024FFFFFFFFFFFFFFFF",
-            16
-        ).unwrap()
+            16,
+        )
+        .unwrap(),
     );
 
     m.insert(
-    // 8192-bit
-    18,
-    BigUint::parse_bytes(
-             b"FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1\
+        // 8192-bit
+        18,
+        BigUint::parse_bytes(
+            b"FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1\
                29024E088A67CC74020BBEA63B139B22514A08798E3404DD\
                EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245\
                E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7ED\
@@ -182,8 +187,9 @@ static PRIMES: LazyLock<HashMap<u8, BigUint>> = LazyLock::new(|| {
                4009438B481C6CD7889A002ED5EE382BC9190DA6FC026E47\
                9558E4475677E9AA9E3050E2765694DFC81F56E880B96E71\
                60C980DD98EDD3DFFFFFFFFFFFFFFFFF",
-            16
-        ).unwrap()
+            16,
+        )
+        .unwrap(),
     );
     m
 });
