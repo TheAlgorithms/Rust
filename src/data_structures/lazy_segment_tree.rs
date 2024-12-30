@@ -1,7 +1,5 @@
 use std::fmt::{Debug, Display};
-use std::ops::Add;
-use std::ops::AddAssign;
-use std::ops::Range;
+use std::ops::{Add, AddAssign, Range};
 
 pub struct LazySegmentTree<T: Debug + Default + Ord + Copy + Display + AddAssign + Add<Output = T>>
 {
