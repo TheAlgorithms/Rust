@@ -19,7 +19,6 @@ fn sum<T: Num + Copy>(sequence: Vec<T>) -> T {
     sequence.iter().fold(T::zero(), |acc, x| acc + *x)
 }
 
-#[allow(dead_code)]
 fn product<T: Num + Copy + One + FromPrimitive + ToPrimitive>(sequence: &[T]) -> Option<f64> {
     if sequence.is_empty() {
         None
