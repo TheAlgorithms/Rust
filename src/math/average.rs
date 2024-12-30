@@ -6,8 +6,6 @@ The mode is the most frequently occurring value on the list.
 
 Reference: https://www.britannica.com/science/mean-median-and-mode
 
-There is also the geometric mean, often used in finance, which is much more suited for rates and other multiplicative
-relationships. The geometric mean is the Nth root of the product of a finite sequence of numbers.
 
 This program approximates the mean, geometric mean, median and mode of a finite sequence.
 Note: Floats sequences are not allowed for `mode` function.
