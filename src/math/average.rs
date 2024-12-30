@@ -174,36 +174,22 @@ mod test {
         assert_eq!(result, Some(12.0));
     }
 
-    // Tests for geometric mean function
-    // Empty sequence returns nothing
-    #[test]
-    fn test_geometric_mean_empty() {
-        let sequence: Vec<f64> = vec![];
-        let result = geometric_mean(&sequence);
-        assert_eq!(result, None);
+    macro_rules! test_geometric_mean {
+        ($($name:ident: $inputs:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let (sequence, expected) = $inputs;
+                assert_eq!(geometric_mean(&sequence), expected);
+            }
+        )*
+        }
     }
 
-    // Geometric mean of a single value is the value itself.
-    #[test]
-    fn test_geometric_mean_single_element() {
-        let sequence = vec![5.0];
-        let result = geometric_mean(&sequence);
-        assert_eq!(result, Some(5.0));
-    }
-
-    // Geometric means are not defined for negative values
-    #[test]
-    fn test_geometric_mean_negative() {
-        let sequence = vec![1.0, -3.0, 2.0];
-        let result = geometric_mean(&sequence);
-        assert_eq!(result, None);
-    }
-
-    // Geometric mean generic test
-    #[test]
-    fn test_geometric_mean_floats() {
-        let sequence = vec![0.5, 0.5, 0.3, 0.2];
-        let result = geometric_mean(&sequence);
-        assert_eq!(result, Some(0.34996355115805833));
+    test_geometric_mean! {
+        empty: (Vec::<f64>::new(), None),
+        single: (vec![5.0], Some(5.0)),
+        negative: (vec![1.0, -3.0, 2.0], None),
+        regular: (vec![0.5, 0.5, 0.3, 0.2], Some(0.34996355115805833)),
     }
 }
