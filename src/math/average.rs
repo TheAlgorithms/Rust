@@ -51,7 +51,6 @@ fn mean_of_two<T: Num + Copy>(a: T, b: T) -> T {
 ///
 /// * `sequence` - A vector of numbers.
 /// Returns geometric mean of `sequence`.
-#[allow(dead_code)]
 pub fn geometric_mean<T: Num + Copy + One + FromPrimitive + ToPrimitive>(
     sequence: &[T],
 ) -> Option<f64> {
