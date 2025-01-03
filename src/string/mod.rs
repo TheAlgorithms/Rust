@@ -3,6 +3,7 @@ mod anagram;
 mod autocomplete_using_trie;
 mod boyer_moore_search;
 mod burrows_wheeler_transform;
+mod count_vowels;
 mod duval_algorithm;
 mod hamming_distance;
 mod isogram;
@@ -30,6 +31,7 @@ pub use self::boyer_moore_search::boyer_moore_search;
 pub use self::burrows_wheeler_transform::{
     burrows_wheeler_transform, inv_burrows_wheeler_transform,
 };
+pub use self::count_vowels::count_vowels;
 pub use self::duval_algorithm::duval_algorithm;
 pub use self::hamming_distance::hamming_distance;
 pub use self::isogram::is_isogram;
