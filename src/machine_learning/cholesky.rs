@@ -38,7 +38,7 @@ mod tests {
     fn test_cholesky() {
         // Test case 1
         let mat1 = vec![25.0, 15.0, -5.0, 15.0, 18.0, 0.0, -5.0, 0.0, 11.0];
-        let res1 = cholesky(mat1.clone(), 3);
+        let res1 = cholesky(mat1, 3);
 
         // The expected Cholesky decomposition values
         #[allow(clippy::useless_vec)]
@@ -92,7 +92,7 @@ mod tests {
     #[test]
     fn matrix_with_all_zeros() {
         let mat3 = vec![0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-        let res3 = cholesky(mat3.clone(), 3);
+        let res3 = cholesky(mat3, 3);
         let expected3 = vec![0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
         assert_eq!(res3, expected3);
     }
