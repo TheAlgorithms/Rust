@@ -20,7 +20,7 @@
 use std::f32::consts::E;
 
 pub fn softmax(array: Vec<f32>) -> Vec<f32> {
-    let mut softmax_array = array.clone();
+    let mut softmax_array = array;
 
     for value in &mut softmax_array {
         *value = E.powf(*value);

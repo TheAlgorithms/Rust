@@ -160,7 +160,6 @@ imprecise_flops = { level = "allow", priority = 1 }
 missing_const_for_fn = { level = "allow", priority = 1 }
 nonstandard_macro_braces = { level = "allow", priority = 1 }
 option_if_let_else = { level = "allow", priority = 1 }
-redundant_clone = { level = "allow", priority = 1 }
 suboptimal_flops = { level = "allow", priority = 1 }
 suspicious_operation_groupings = { level = "allow", priority = 1 }
 use_self = { level = "allow", priority = 1 }
