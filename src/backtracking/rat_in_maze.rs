@@ -60,7 +60,7 @@ pub fn find_path_in_maze(
     }
 
     // If validations pass, proceed with finding the path
-    let mut maze_instance = Maze::new(maze.to_owned());
+    let maze_instance = Maze::new(maze.to_owned());
     Ok(maze_instance.find_path(start_x, start_y))
 }
 
@@ -114,7 +114,7 @@ impl Maze {
     /// # Returns
     ///
     /// A solution matrix if a path is found or None if not found.
-    fn find_path(&mut self, start_x: usize, start_y: usize) -> Option<Vec<Vec<bool>>> {
+    fn find_path(&self, start_x: usize, start_y: usize) -> Option<Vec<Vec<bool>>> {
         let mut solution = vec![vec![false; self.width()]; self.height()];
         if self.solve(start_x as isize, start_y as isize, &mut solution) {
             Some(solution)

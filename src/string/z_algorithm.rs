@@ -42,7 +42,7 @@ fn calculate_z_value<T: Eq>(
 /// # Returns
 /// The initialized Z-array value for the current index.
 fn initialize_z_array_from_previous_match(
-    z_array: &mut [usize],
+    z_array: &[usize],
     i: usize,
     match_end: usize,
     last_match: usize,
@@ -92,8 +92,7 @@ fn match_with_z_array<T: Eq>(
 
     for i in start_index..size {
         if i <= match_end {
-            z_array[i] =
-                initialize_z_array_from_previous_match(&mut z_array, i, match_end, last_match);
+            z_array[i] = initialize_z_array_from_previous_match(&z_array, i, match_end, last_match);
         }
 
         z_array[i] = calculate_z_value(input_string, pattern, i, z_array[i]);
