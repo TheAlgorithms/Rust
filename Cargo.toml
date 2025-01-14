@@ -93,7 +93,6 @@ exhaustive_structs = { level = "allow", priority = 1 }
 expect_used = { level = "allow", priority = 1 }
 float_arithmetic = { level = "allow", priority = 1 }
 float_cmp_const = { level = "allow", priority = 1 }
-get_unwrap = { level = "allow", priority = 1 }
 if_then_some_else_none = { level = "allow", priority = 1 }
 impl_trait_in_params = { level = "allow", priority = 1 }
 implicit_return = { level = "allow", priority = 1 }

@@ -36,7 +36,7 @@ pub fn fast_factorial(n: usize) -> BigUint {
         .map(|p| (p, index(p, n)))
         .collect::<BTreeMap<_, _>>();
 
-    let max_bits = p_indices.get(&2).unwrap().next_power_of_two().ilog2() + 1;
+    let max_bits = p_indices[&2].next_power_of_two().ilog2() + 1;
 
     // Create a Vec of 1's
     let mut a = vec![BigUint::one(); max_bits as usize];
