@@ -39,8 +39,8 @@ fn get_primes(s: u64) -> Vec<u64> {
 
 fn count_prime(primes: Vec<u64>, n: u64) -> Option<u64> {
     let mut counter: u64 = 0;
-    for i in 2..primes.len() {
-        counter += primes.get(i).unwrap();
+    for (i, prime) in primes.iter().enumerate().skip(2) {
+        counter += prime;
         if counter == n {
             return Some(i as u64);
         }

@@ -213,7 +213,7 @@ pub fn nth_fibonacci_number_modulo_m(n: i64, m: i64) -> i128 {
     let (length, pisano_sequence) = get_pisano_sequence_and_period(m);
 
     let remainder = n % length as i64;
-    pisano_sequence.get(remainder as usize).unwrap().to_owned()
+    pisano_sequence[remainder as usize].to_owned()
 }
 
 /// get_pisano_sequence_and_period(m) returns the Pisano Sequence and period for the specified integer m.
