@@ -24,12 +24,12 @@ pub fn solve_two_satisfiability(
     let mut sccs = SCCs::new(num_verts);
     let mut adj = Graph::new();
     adj.resize(num_verts, vec![]);
-    expression.iter().for_each(|cond| {
+    for cond in expression.iter() {
         let v1 = variable(cond.0);
         let v2 = variable(cond.1);
         adj[v1 ^ 1].push(v2);
         adj[v2 ^ 1].push(v1);
-    });
+    }
     sccs.find_components(&adj);
     result.resize(num_variables + 1, false);
     for var in (2..num_verts).step_by(2) {
