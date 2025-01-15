@@ -57,7 +57,6 @@ missing_fields_in_debug = { level = "allow", priority = 1 }
 missing_panics_doc = { level = "allow", priority = 1 }
 module_name_repetitions = { level = "allow", priority = 1 }
 must_use_candidate = { level = "allow", priority = 1 }
-needless_for_each = { level = "allow", priority = 1 }
 needless_pass_by_value = { level = "allow", priority = 1 }
 range_plus_one = { level = "allow", priority = 1 }
 redundant_closure_for_method_calls = { level = "allow", priority = 1 }

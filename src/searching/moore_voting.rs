@@ -46,7 +46,7 @@ pub fn moore_voting(arr: &[i32]) -> i32 {
     let mut cnt = 0; // initializing cnt
     let mut ele = 0; // initializing ele
 
-    arr.iter().for_each(|&item| {
+    for &item in arr.iter() {
         if cnt == 0 {
             cnt = 1;
             ele = item;
@@ -55,7 +55,7 @@ pub fn moore_voting(arr: &[i32]) -> i32 {
         } else {
             cnt -= 1;
         }
-    });
+    }
 
     let cnt_check = arr.iter().filter(|&&x| x == ele).count();
 
