@@ -17,7 +17,7 @@ pub fn mae_loss(predicted: &[f64], actual: &[f64]) -> f64 {
     let mut total_loss: f64 = 0.0;
     for (p, a) in predicted.iter().zip(actual.iter()) {
         let diff: f64 = p - a;
-        let absolute_diff: f64 = diff.abs();
+        let absolute_diff = diff.abs();
         total_loss += absolute_diff;
     }
     total_loss / (predicted.len() as f64)

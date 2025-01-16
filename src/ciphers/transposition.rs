@@ -10,7 +10,7 @@ use std::ops::Range;
 /// Encrypts or decrypts a message, using multiple keys. The
 /// encryption is based on the columnar transposition method.
 pub fn transposition(decrypt_mode: bool, msg: &str, key: &str) -> String {
-    let key_uppercase: String = key.to_uppercase();
+    let key_uppercase = key.to_uppercase();
     let mut cipher_msg: String = msg.to_string();
 
     let keys: Vec<&str> = match decrypt_mode {
@@ -61,7 +61,7 @@ fn encrypt(mut msg: String, key_order: Vec<usize>) -> String {
     let mut encrypted_msg: String = String::from("");
     let mut encrypted_vec: Vec<String> = Vec::new();
 
-    let msg_len: usize = msg.len();
+    let msg_len = msg.len();
     let key_len: usize = key_order.len();
 
     let mut msg_index: usize = msg_len;
@@ -75,7 +75,7 @@ fn encrypt(mut msg: String, key_order: Vec<usize>) -> String {
 
         // Loop every nth character, determined by key length, to create a column
         while index < msg_index {
-            let ch: char = msg.remove(index);
+            let ch = msg.remove(index);
             chars.push(ch);
 
             index += key_index;
@@ -123,7 +123,7 @@ fn decrypt(mut msg: String, key_order: Vec<usize>) -> String {
     let mut decrypted_vec: Vec<String> = Vec::new();
     let mut indexed_vec: Vec<(usize, String)> = Vec::new();
 
-    let msg_len: usize = msg.len();
+    let msg_len = msg.len();
     let key_len: usize = key_order.len();
 
     // Split the message into columns, determined by 'message length divided by keyword length'.

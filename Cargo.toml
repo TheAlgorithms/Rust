@@ -119,7 +119,6 @@ print_stdout = { level = "allow", priority = 1 }
 pub_use = { level = "allow", priority = 1 }
 pub_with_shorthand = { level = "allow", priority = 1 }
 question_mark_used = { level = "allow", priority = 1 }
-redundant_type_annotations = { level = "allow", priority = 1 }
 same_name_method = { level = "allow", priority = 1 }
 semicolon_outside_block = { level = "allow", priority = 1 }
 separated_literal_suffix = { level = "allow", priority = 1 }
