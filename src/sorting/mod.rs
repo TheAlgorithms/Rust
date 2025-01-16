@@ -82,17 +82,16 @@ where
 {
     use std::collections::HashSet;
 
-    match a.len() == b.len() {
-        true => {
-            // This is O(n^2) but performs better on smaller data sizes
-            //b.iter().all(|item| a.contains(item))
+    if a.len() == b.len() {
+        // This is O(n^2) but performs better on smaller data sizes
+        //b.iter().all(|item| a.contains(item))
 
-            // This is O(n), performs well on larger data sizes
-            let set_a: HashSet<&T> = a.iter().collect();
-            let set_b: HashSet<&T> = b.iter().collect();
-            set_a == set_b
-        }
-        false => false,
+        // This is O(n), performs well on larger data sizes
+        let set_a: HashSet<&T> = a.iter().collect();
+        let set_b: HashSet<&T> = b.iter().collect();
+        set_a == set_b
+    } else {
+        false
     }
 }
 

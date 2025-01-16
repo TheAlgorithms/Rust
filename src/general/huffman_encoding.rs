@@ -155,9 +155,10 @@ impl HuffmanEncoding {
                 result.push(state.symbol.unwrap());
                 state = &dict.root;
             }
-            match self.get_bit(i) {
-                false => state = state.left.as_ref().unwrap(),
-                true => state = state.right.as_ref().unwrap(),
+            state = if self.get_bit(i) {
+                state.right.as_ref().unwrap()
+            } else {
+                state.left.as_ref().unwrap()
             }
         }
         if self.num_bits > 0 {
