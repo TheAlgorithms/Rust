@@ -13,9 +13,10 @@ pub fn transposition(decrypt_mode: bool, msg: &str, key: &str) -> String {
     let key_uppercase = key.to_uppercase();
     let mut cipher_msg: String = msg.to_string();
 
-    let keys: Vec<&str> = match decrypt_mode {
-        false => key_uppercase.split_whitespace().collect(),
-        true => key_uppercase.split_whitespace().rev().collect(),
+    let keys: Vec<&str> = if decrypt_mode {
+        key_uppercase.split_whitespace().rev().collect()
+    } else {
+        key_uppercase.split_whitespace().collect()
     };
 
     for cipher_key in keys.iter() {
@@ -47,9 +48,10 @@ pub fn transposition(decrypt_mode: bool, msg: &str, key: &str) -> String {
 
         // Determines whether to encrypt or decrypt the message,
         // and returns the result
-        cipher_msg = match decrypt_mode {
-            false => encrypt(cipher_msg, key_order),
-            true => decrypt(cipher_msg, key_order),
+        cipher_msg = if decrypt_mode {
+            decrypt(cipher_msg, key_order)
+        } else {
+            encrypt(cipher_msg, key_order)
         };
     }
 
