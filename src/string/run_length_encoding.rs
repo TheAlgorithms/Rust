@@ -29,7 +29,7 @@ pub fn run_length_decoding(target: &str) -> String {
     if target.trim().is_empty() {
         return "".to_string();
     }
-    let mut character_count: String = String::new();
+    let mut character_count = String::new();
     let mut decoded_target = String::new();
 
     for c in target.chars() {

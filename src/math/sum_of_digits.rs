@@ -14,7 +14,7 @@
 /// ```
 pub fn sum_digits_iterative(num: i32) -> u32 {
     // convert to unsigned integer
-    let mut num: u32 = num.unsigned_abs();
+    let mut num = num.unsigned_abs();
     // initialize sum
     let mut result: u32 = 0;
 
@@ -43,7 +43,7 @@ pub fn sum_digits_iterative(num: i32) -> u32 {
 /// ```
 pub fn sum_digits_recursive(num: i32) -> u32 {
     // convert to unsigned integer
-    let num: u32 = num.unsigned_abs();
+    let num = num.unsigned_abs();
     // base case
     if num < 10 {
         return num;
