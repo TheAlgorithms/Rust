@@ -152,9 +152,8 @@ where
                 Err(index) => {
                     if current_node.is_leaf() {
                         return false;
-                    } else {
-                        current_node = &current_node.children[index];
                     }
+                    current_node = &current_node.children[index];
                 }
             }
         }

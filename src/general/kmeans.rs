@@ -88,9 +88,8 @@ macro_rules! impl_kmeans {
                     {
                         // We need to use `return` to break out of the `loop`
                         return clustering;
-                    } else {
-                        clustering = new_clustering;
                     }
+                    clustering = new_clustering;
                 }
             }
         }

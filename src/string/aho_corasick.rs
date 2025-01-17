@@ -51,9 +51,8 @@ impl AhoCorasick {
                                 child.lengths.extend(node.borrow().lengths.clone());
                                 child.suffix = Rc::downgrade(node);
                                 break;
-                            } else {
-                                suffix = suffix.unwrap().borrow().suffix.upgrade();
                             }
+                            suffix = suffix.unwrap().borrow().suffix.upgrade();
                         }
                     }
                 }

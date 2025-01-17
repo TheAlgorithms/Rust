@@ -16,9 +16,8 @@ pub fn ternary_search_max_rec(
             return ternary_search_max_rec(f, mid1, end, absolute_precision);
         } else if r1 > r2 {
             return ternary_search_max_rec(f, start, mid2, absolute_precision);
-        } else {
-            return ternary_search_max_rec(f, mid1, mid2, absolute_precision);
         }
+        return ternary_search_max_rec(f, mid1, mid2, absolute_precision);
     }
     f(start)
 }
@@ -41,9 +40,8 @@ pub fn ternary_search_min_rec(
             return ternary_search_min_rec(f, start, mid2, absolute_precision);
         } else if r1 > r2 {
             return ternary_search_min_rec(f, mid1, end, absolute_precision);
-        } else {
-            return ternary_search_min_rec(f, mid1, mid2, absolute_precision);
         }
+        return ternary_search_min_rec(f, mid1, mid2, absolute_precision);
     }
     f(start)
 }

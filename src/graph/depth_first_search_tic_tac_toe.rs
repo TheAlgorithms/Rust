@@ -95,14 +95,13 @@ fn main() {
             if result.is_none() {
                 println!("Not a valid empty coordinate.");
                 continue;
-            } else {
-                board[move_pos.y as usize][move_pos.x as usize] = Players::PlayerX;
+            }
+            board[move_pos.y as usize][move_pos.x as usize] = Players::PlayerX;
 
-                if win_check(Players::PlayerX, &board) {
-                    display_board(&board);
-                    println!("Player X Wins!");
-                    return;
-                }
+            if win_check(Players::PlayerX, &board) {
+                display_board(&board);
+                println!("Player X Wins!");
+                return;
             }
 
             //Find the best game plays from the current board state

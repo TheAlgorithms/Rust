@@ -43,12 +43,11 @@ pub fn jaro_winkler_distance(str1: &str, str2: &str) -> f64 {
     let jaro: f64 = {
         if match_count == 0 {
             return 0.0;
-        } else {
-            (1_f64 / 3_f64)
-                * (match_count as f64 / str1.len() as f64
-                    + match_count as f64 / str2.len() as f64
-                    + (match_count - transpositions) as f64 / match_count as f64)
         }
+        (1_f64 / 3_f64)
+            * (match_count as f64 / str1.len() as f64
+                + match_count as f64 / str2.len() as f64
+                + (match_count - transpositions) as f64 / match_count as f64)
     };
 
     let mut prefix_len = 0.0;
