@@ -59,7 +59,6 @@ must_use_candidate = { level = "allow", priority = 1 }
 needless_pass_by_value = { level = "allow", priority = 1 }
 range_plus_one = { level = "allow", priority = 1 }
 redundant_closure_for_method_calls = { level = "allow", priority = 1 }
-redundant_else = { level = "allow", priority = 1 }
 return_self_not_must_use = { level = "allow", priority = 1 }
 semicolon_if_nothing_returned = { level = "allow", priority = 1 }
 should_panic_without_expect = { level = "allow", priority = 1 }

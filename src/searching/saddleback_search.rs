@@ -22,9 +22,8 @@ pub fn saddleback_search(matrix: &[Vec<i32>], element: i32) -> (usize, usize) {
                 // If the target element is smaller, move to the previous column (leftwards)
                 if right_index == 0 {
                     break; // If we reach the left-most column, exit the loop
-                } else {
-                    right_index -= 1;
                 }
+                right_index -= 1;
             }
         }
     }
