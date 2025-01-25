@@ -4,7 +4,16 @@ use std::collections::HashMap;
 
 const IMPOSSIBLE_NB: usize = 999_999_999_999;
 
-// saves all the precalculations needed
+// saves the precalculations
+// will be moved around a lot
+// alphabet : the common alphabet
+// chains : the strings among which the common subsequence is
+// d : the number of strings
+// f : for each point, an heuristic function
+// g : for each point, the number of ancestors
+// ms : the table of suffix tables
+// mt : the lookup table
+// parents : the ancestor tree
 struct Context {
     alphabet: Vec<char>,
     chains: Vec<Vec<char>>,
@@ -53,21 +62,21 @@ impl Context {
     }
 }
 
-// ascend back up the parent tree to form the common string
+// ascend back up the parent tree to form the common subsequence
 fn common_seq(ctx: &Context, p: &Vec<usize>) -> String {
     let ref_str: &Vec<char> = &ctx.chains[0];
-    let mut common_sequence: Vec<char> = vec![];
+    let mut common_subsequence: Vec<char> = vec![];
     // Gaining mutability
     let mut p = p;
 
     while ctx.parents[p].is_some() {
-        common_sequence.push(ref_str[p[0]]);
+        common_subsequence.push(ref_str[p[0]]);
 
         // getting the parent of current point
         p = ctx.parents[p].as_ref().unwrap();
     }
 
-    common_sequence.iter().rev().collect::<String>()
+    common_subsequence.iter().rev().collect::<String>()
 }
 
 /// Heuristic to find the smallest common alphabet among the strings
