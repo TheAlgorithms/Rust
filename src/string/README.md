@@ -36,6 +36,8 @@ __Properties__
 
 [manacher-wiki]: https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher's_algorithm
 
+### [Multiple longest common subsequence](./multiple_longest_common_subsequence.rs)
+From [A research paper](https://github.com/epita-rs/MLCS/blob/main/paper.pdf): A fast Heuristic Search Algorithm for finding the longest common subsequence among multiple strings.
 
 ### [Rabin Karp](./rabin_karp.rs)
 From [Wikipedia][rabin-karp-wiki]: a string-searching algorithm created by Richard M. Karp and Michael O. Rabin that uses hashing
