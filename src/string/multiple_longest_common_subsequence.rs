@@ -4,7 +4,7 @@ use std::collections::HashMap;
 
 const IMPOSSIBLE_NB: usize = 999_999_999_999;
 
-// saves all the ctx needed to perform the algo in one place
+// saves all the precalculations needed
 struct Context {
     alphabet: Vec<char>,
     chains: Vec<Vec<char>>,
@@ -26,7 +26,7 @@ impl Context {
 
         let ms: Vec<Vec<Vec<u64>>> = matrices_score(&chains);
 
-        // an impossible to reach point, father of all
+        // an impossible to reach point, father of all points
         let p0 = vec![IMPOSSIBLE_NB; d];
 
         let mut parents: HashMap<_, Option<Vec<usize>>> = HashMap::new();
@@ -70,12 +70,15 @@ fn common_seq(ctx: &Context, p: &Vec<usize>) -> String {
     common_sequence.iter().rev().collect::<String>()
 }
 
-// given the list of strings, finds the minimal alphabet
-// @detail finds the shortest string
-// gets his alphabet
+/// Heuristic to find the smallest common alphabet among the strings
+/// gets the shortest string and remove duplicates
+///
+/// # Arguments
+/// # 'chains' The strings among wich the mlcs is
+///
+/// # Returns
+/// A vector
 fn get_alphabet(chains: &[Vec<char>]) -> Vec<char> {
-    // OPTI comment
-    // use hashmap to keep track of inserted values
     let mut alphabet: Vec<char> = chains
         .iter()
         .min_by_key(|s| s.len())
@@ -89,18 +92,22 @@ fn get_alphabet(chains: &[Vec<char>]) -> Vec<char> {
 
 /// CF Initqueue
 fn get_starting_p(ctx: &Context) -> Vec<Vec<usize>> {
-    // OPTI : we may be passing the alphabet param directly as an iterator
     let mut successors: Vec<Vec<usize>> = vec![];
 
-    // for all alphabet letters
+    // for each alphabet letter, finds the next match
+    // meaning the a point where all strings share a character
+    // example: In ["AB", "BC", "CB", "BF"],
+    // A match for the letter B would be p = (1, 0, 1, 0)
     for (ch_idx, _) in ctx.alphabet.iter().enumerate() {
         // for each string, finds the next position of that letter
         let mut succ: Vec<usize> = vec![];
         for i in 0..(ctx.chains.len()) {
+            // gets the next position of the current letter
             let next_ch_idx = ctx.mt[ch_idx][i][0];
             succ.push(next_ch_idx);
         }
 
+        // once the vector is complete, we add it to the successors
         successors.push(succ);
     }
 
@@ -108,14 +115,16 @@ fn get_starting_p(ctx: &Context) -> Vec<Vec<usize>> {
 }
 
 /// Finds all succcesors of the point p
+/// A successor of p = (p_1, p_2, etc, p_n) is a point q = (q_1, q_2, etc, q_n)
+/// such that q_1 > p_1, q_2 > p_2, etc, q_n > p_n
 /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
 ///
 /// # Arguments
 /// # 'Context' A struct containing informations
-/// # 'p' a vector
+/// # 'p' The point under examination
 ///
 /// # Returns
-/// An array of vectors
+/// An array of the successors
 fn get_successors(ctx: &Context, p: &[usize]) -> Vec<Vec<usize>> {
     let mut successors: Vec<Vec<usize>> = vec![];
 
@@ -125,6 +134,7 @@ fn get_successors(ctx: &Context, p: &[usize]) -> Vec<Vec<usize>> {
         let mut succ: Vec<usize> = vec![];
         for (i, p_ith_elt) in p.iter().enumerate().take(ctx.chains.len()) {
             let next_ch_idx = ctx.mt[ch_idx][i][p_ith_elt + 1];
+            // in case the letter is not rechable in the string
             if next_ch_idx == IMPOSSIBLE_NB {
                 break;
             }
@@ -132,9 +142,11 @@ fn get_successors(ctx: &Context, p: &[usize]) -> Vec<Vec<usize>> {
             succ.push(next_ch_idx);
         }
 
+        // the vector is complete, hence we add it to the successors
         if succ.len() == ctx.chains.len() {
             successors.push(succ);
         }
+        // else we discard it and move on to the next letter
     }
     successors
 }
@@ -155,7 +167,7 @@ fn heuristic(ctx: &Context, p: &[usize]) -> u64 {
     *similarity.iter().min().unwrap()
 }
 
-/// Runs the successors a first time
+/// Add the first matches to the queue
 /// For each starting point found, sets an impossible point as parent
 /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
 ///
@@ -163,7 +175,6 @@ fn heuristic(ctx: &Context, p: &[usize]) -> u64 {
 ///
 /// * `ctx' - A structure containing informations
 /// * 'queue' - The priority queue of points  
-///
 fn init_queue(ctx: &mut Context, queue: &mut Vec<Vec<usize>>) {
     *queue = get_starting_p(ctx);
 
@@ -173,16 +184,14 @@ fn init_queue(ctx: &mut Context, queue: &mut Vec<Vec<usize>>) {
     reorder_queue(ctx, queue);
 }
 
-/// Computes the suffix tables used for the MLCS-Astar
-/// (Multiple-Longest-Common-Substring) matching algorithm.
+/// Computes the suffix tables between each pair of string 
+/// used by the MLCS-Astar heuristic function
 /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
 ///
 /// # Arguments
 ///
-/// * `chains` - A slice of collected strings from which the suffix table is computed.
-///
-/// # Returns
-///
+/// * `chains` - A slice of collected strings 
+///            - from which the suffix tables are computed.
 fn matrices_score(chains: &[Vec<char>]) -> Vec<Vec<Vec<u64>>> {
     let mut scores: Vec<Vec<Vec<u64>>> = vec![];
     for s1 in chains.iter() {
@@ -194,8 +203,8 @@ fn matrices_score(chains: &[Vec<char>]) -> Vec<Vec<Vec<u64>>> {
     scores
 }
 
-/// Builds the mt table used for accessing the index of the next char
-/// updates the common alphabet at the same time
+/// Builds the lookup table used for accessing the index of the next char
+/// updates the alphabet to be the alphabet of the letters common to all strings
 ///
 /// # Arguments
 /// # 'chains' the strings as a matrix of char
@@ -215,24 +224,39 @@ fn mt_table(chains: &Vec<Vec<char>>, alphabet: &mut Vec<char>) -> Vec<Vec<Vec<us
             let mut v: Vec<usize> = vec![IMPOSSIBLE_NB; s.len()];
             let mut lpos = IMPOSSIBLE_NB;
 
+            // iterating backwards on the string
             for i in (0..(s.len())).rev() {
                 if s[i] == ch {
                     lpos = i;
                 }
-
+                // pushing the index of the last encounter with the current letter
                 v[i] = lpos;
             }
 
             chain.push(v);
 
+            // if the letter was never seen in the current string
+            // then it can't part of the common alphabet
             if lpos == IMPOSSIBLE_NB {
+                // removing that letter
                 alphabet.retain(|&x| x != ch);
                 chain = vec![];
                 break;
             }
         }
 
+        // the letter was seen at leat once
         if !chain.is_empty() {
+            // pushing an array or array
+            // example on ["AB", "ABAA"]
+            // string1 => {
+            //              'A' => {0, IMPOSSIBLE_NB}
+            //              'B' => {1, 1}
+            //             }
+            // string2 => {
+            //              'A' => {0, 2, 2, 3}
+            //              'B' => {1, 1, IMPOSSIBLE_NB, IMPOSSIBLE_NB}
+            //             }
             mt.push(chain);
         }
     }
@@ -294,6 +318,7 @@ pub fn multiple_longest_common_subsequence(chains: &Vec<&str>) -> String {
                 }
             }
         }
+        // sorting the queue
         reorder_queue(&ctx, &mut queue);
     }
     String::from("")
@@ -312,8 +337,7 @@ fn reorder_queue(ctx: &Context, queue: &mut [Vec<usize>]) {
     });
 }
 
-// given two strings s1 and s2 we compute the score matrix
-// @return matrix of size (m + 1) (n + 1)
+/// Computes the suffix table
 fn score_matrix(s1: &[char], s2: &[char]) -> Vec<Vec<u64>> {
     let m = s1.len();
     let n = s2.len();
