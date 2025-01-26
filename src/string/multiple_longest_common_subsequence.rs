@@ -193,13 +193,13 @@ fn init_queue(ctx: &mut Context, queue: &mut Vec<Vec<usize>>) {
     reorder_queue(ctx, queue);
 }
 
-/// Computes the suffix tables between each pair of string 
+/// Computes the suffix tables between each pair of string
 /// used by the MLCS-Astar heuristic function
 /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
 ///
 /// # Arguments
 ///
-/// * `chains` - A slice of collected strings 
+/// * `chains` - A slice of collected strings
 ///            - from which the suffix tables are computed.
 fn matrices_score(chains: &[Vec<char>]) -> Vec<Vec<Vec<u64>>> {
     let mut scores: Vec<Vec<Vec<u64>>> = vec![];
