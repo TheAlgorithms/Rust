@@ -109,7 +109,7 @@ impl<T: Hash, const WIDTH: usize, const DEPTH: usize> Default
         let hashers = std::array::from_fn(|_| RandomState::new());
 
         Self {
-            phantom: Default::default(),
+            phantom: std::marker::PhantomData,
             counts: [[0; WIDTH]; DEPTH],
             hashers,
         }
