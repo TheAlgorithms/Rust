@@ -1,4 +1,4 @@
-use rand::prelude::random;
+use rand::random;
 
 fn get_distance(p1: &(f64, f64), p2: &(f64, f64)) -> f64 {
     let dx: f64 = p1.0 - p2.0;
