@@ -110,7 +110,7 @@ fn main() {
                 Some(x) => {
                     //Interactive Tic-Tac-Toe play needs the "rand = "0.8.3" crate.
                     //#[cfg(not(test))]
-                    //let random_selection = rand::thread_rng().gen_range(0..x.positions.len());
+                    //let random_selection = rand::rng().gen_range(0..x.positions.len());
                     let random_selection = 0;
 
                     let response_pos = x.positions[random_selection];
