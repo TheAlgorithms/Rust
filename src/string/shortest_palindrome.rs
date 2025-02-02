@@ -51,7 +51,7 @@ pub fn compute_suffix(chars: &[char]) -> Vec<usize> {
         while j > 0 && chars[j] != chars[i] {
             j = suffix[j - 1];
         }
-        suffix[i] = j + if chars[j] == chars[i] { 1 } else { 0 };
+        suffix[i] = j + (chars[j] == chars[i]) as usize;
     }
     suffix
 }
@@ -72,13 +72,13 @@ pub fn compute_suffix(chars: &[char]) -> Vec<usize> {
 /// `reversed[0..=i]`.
 pub fn compute_prefix_match(original: &[char], reversed: &[char], suffix: &[usize]) -> Vec<usize> {
     let mut match_table = vec![0; original.len()];
-    match_table[0] = if original[0] == reversed[0] { 1 } else { 0 };
+    match_table[0] = usize::from(original[0] == reversed[0]);
     for i in 1..original.len() {
         let mut j = match_table[i - 1];
         while j > 0 && reversed[i] != original[j] {
             j = suffix[j - 1];
         }
-        match_table[i] = j + if reversed[i] == original[j] { 1 } else { 0 };
+        match_table[i] = j + usize::from(reversed[i] == original[j]);
     }
     match_table
 }

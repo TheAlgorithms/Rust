@@ -24,7 +24,6 @@ restriction = "warn"
 nursery = "warn"
 cargo = "warn"
 # pedantic-lints:
-bool_to_int_with_if = { level = "allow", priority = 1 }
 cast_lossless = { level = "allow", priority = 1 }
 cast_possible_truncation = { level = "allow", priority = 1 }
 cast_possible_wrap = { level = "allow", priority = 1 }
