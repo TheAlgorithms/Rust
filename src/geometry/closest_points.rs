@@ -83,8 +83,7 @@ fn closest_points_aux(
                 (dr, (r1, r2))
             }
         }
-        (Some((a, b)), None) => (a.euclidean_distance(&b), (a, b)),
-        (None, Some((a, b))) => (a.euclidean_distance(&b), (a, b)),
+        (Some((a, b)), None) | (None, Some((a, b))) => (a.euclidean_distance(&b), (a, b)),
         (None, None) => unreachable!(),
     };
 
