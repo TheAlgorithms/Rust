@@ -47,8 +47,7 @@ pub fn miller_rabin(number: u64, bases: &[u64]) -> u64 {
             0 => {
                 panic!("0 is invalid input for Miller-Rabin. 0 is not prime by definition, but has no witness");
             }
-            2 => return 0,
-            3 => return 0,
+            2 | 3 => return 0,
             _ => return number,
         }
     }
