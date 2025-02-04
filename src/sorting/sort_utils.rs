@@ -8,7 +8,7 @@ pub fn generate_random_vec(n: u32, range_l: i32, range_r: i32) -> Vec<i32> {
     let mut count = n;
 
     while count > 0 {
-        arr.push(rng.random_range(range_l..range_r + 1));
+        arr.push(rng.random_range(range_l..=range_r));
         count -= 1;
     }
 

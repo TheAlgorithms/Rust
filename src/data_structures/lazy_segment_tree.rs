@@ -235,7 +235,10 @@ mod tests {
     fn check_single_interval_min(array: Vec<i32>) -> TestResult {
         let mut seg_tree = LazySegmentTree::from_vec(&array, min);
         for (i, value) in array.into_iter().enumerate() {
-            let res = seg_tree.query(i..(i + 1));
+            let res = seg_tree.query(Range {
+                start: i,
+                end: i + 1,
+            });
             if res != Some(value) {
                 return TestResult::error(format!("Expected {:?}, got {:?}", Some(value), res));
             }
@@ -247,7 +250,10 @@ mod tests {
     fn check_single_interval_max(array: Vec<i32>) -> TestResult {
         let mut seg_tree = LazySegmentTree::from_vec(&array, max);
         for (i, value) in array.into_iter().enumerate() {
-            let res = seg_tree.query(i..(i + 1));
+            let res = seg_tree.query(Range {
+                start: i,
+                end: i + 1,
+            });
             if res != Some(value) {
                 return TestResult::error(format!("Expected {:?}, got {:?}", Some(value), res));
             }
@@ -259,7 +265,10 @@ mod tests {
     fn check_single_interval_sum(array: Vec<i32>) -> TestResult {
         let mut seg_tree = LazySegmentTree::from_vec(&array, max);
         for (i, value) in array.into_iter().enumerate() {
-            let res = seg_tree.query(i..(i + 1));
+            let res = seg_tree.query(Range {
+                start: i,
+                end: i + 1,
+            });
             if res != Some(value) {
                 return TestResult::error(format!("Expected {:?}, got {:?}", Some(value), res));
             }
