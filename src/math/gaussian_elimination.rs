@@ -38,7 +38,7 @@ fn echelon(matrix: &mut [Vec<f32>], i: usize, j: usize) {
     if matrix[i][i] == 0f32 {
     } else {
         let factor = matrix[j + 1][i] / matrix[i][i];
-        (i..size + 1).for_each(|k| {
+        (i..=size).for_each(|k| {
             matrix[j + 1][k] -= factor * matrix[i][k];
         });
     }
@@ -48,9 +48,9 @@ fn eliminate(matrix: &mut [Vec<f32>], i: usize) {
     let size = matrix.len();
     if matrix[i][i] == 0f32 {
     } else {
-        for j in (1..i + 1).rev() {
+        for j in (1..=i).rev() {
             let factor = matrix[j - 1][i] / matrix[i][i];
-            for k in (0..size + 1).rev() {
+            for k in (0..=size).rev() {
                 matrix[j - 1][k] -= factor * matrix[i][k];
             }
         }

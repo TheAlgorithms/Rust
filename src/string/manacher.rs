@@ -69,7 +69,7 @@ pub fn manacher(s: String) -> String {
         .map(|(idx, _)| idx)
         .unwrap();
     let radius_of_max = (length_of_palindrome[center_of_max] - 1) / 2;
-    let answer = &chars[(center_of_max - radius_of_max)..(center_of_max + radius_of_max + 1)]
+    let answer = &chars[(center_of_max - radius_of_max)..=(center_of_max + radius_of_max)]
         .iter()
         .collect::<String>();
     answer.replace('#', "")

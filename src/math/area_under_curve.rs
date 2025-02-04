@@ -12,7 +12,7 @@ pub fn area_under_curve(start: f64, end: f64, func: fn(f64) -> f64, step_count: 
     let mut fx1 = func(start);
     let mut fx2: f64;
 
-    for eval_point in (1..step_count + 1).map(|x| (x as f64 * step_length) + start) {
+    for eval_point in (1..=step_count).map(|x| (x as f64 * step_length) + start) {
         fx2 = func(eval_point);
         area += (fx2 + fx1).abs() * step_length * 0.5;
         fx1 = fx2;

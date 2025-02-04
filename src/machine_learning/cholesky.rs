@@ -4,7 +4,7 @@ pub fn cholesky(mat: Vec<f64>, n: usize) -> Vec<f64> {
     }
     let mut res = vec![0.0; mat.len()];
     for i in 0..n {
-        for j in 0..(i + 1) {
+        for j in 0..=i {
             let mut s = 0.0;
             for k in 0..j {
                 s += res[i * n + k] * res[j * n + k];

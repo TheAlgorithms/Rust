@@ -17,7 +17,7 @@ pub fn compute_totient(n: i32) -> vec::Vec<i32> {
     }
 
     // Compute other Phi values
-    for p in 2..n + 1 {
+    for p in 2..=n {
         // If phi[p] is not computed already,
         // then number p is prime
         if phi[(p) as usize] == p {
@@ -27,7 +27,7 @@ pub fn compute_totient(n: i32) -> vec::Vec<i32> {
 
             // Update phi values of all
             // multiples of p
-            for i in ((2 * p)..n + 1).step_by(p as usize) {
+            for i in ((2 * p)..=n).step_by(p as usize) {
                 phi[(i) as usize] = (phi[i as usize] / p) * (p - 1);
             }
         }
