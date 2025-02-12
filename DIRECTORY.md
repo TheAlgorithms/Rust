@@ -298,6 +298,7 @@
     * [Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/insertion_sort.rs)
     * [Intro Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/intro_sort.rs)
     * [Merge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort.rs)
+	* [Merge Sort Inplace](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/merge_sort_inplace.rs)
     * [Odd Even Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/odd_even_sort.rs)
     * [Pancake Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/pancake_sort.rs)
     * [Patience Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/patience_sort.rs)
