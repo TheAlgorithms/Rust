@@ -4,11 +4,11 @@ fn merge<T: Ord>(array: &mut [T], mid: usize) {
     let mut right = mid;
 
     while left < right && right < len {
-        if &array[left] < &array[right] {
+        if array[left] < array[right] {
             left += 1;
         } else {
             let tmp = right;
-            while right < len && &array[left] > &array[right] {
+            while right < len && array[left] > array[right] {
                 right += 1;
             }
             let rotate_mid = tmp - left;
