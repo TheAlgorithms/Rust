@@ -142,6 +142,7 @@ unused_trait_names = { level = "allow", priority = 1 }
 used_underscore_items = { level = "allow", priority = 1 }
 arbitrary_source_item_ordering = { level = "allow", priority = 1 }
 map_with_unused_argument_over_ranges = { level = "allow", priority = 1 }
+needless_raw_strings = { level = "allow", priority = 1 }
 # nursery-lints:
 branches_sharing_code = { level = "allow", priority = 1 }
 cognitive_complexity = { level = "allow", priority = 1 }
@@ -162,5 +163,7 @@ cargo_common_metadata = { level = "allow", priority = 1 }
 # style-lints:
 doc_lazy_continuation = { level = "allow", priority = 1 }
 needless_return = { level = "allow", priority = 1 }
+unnecessary_map_or = { level = "allow", priority = 1 }
 # complexity-lints
 needless_lifetimes = { level = "allow", priority = 1 }
+precedence = { level = "allow", priority = 1 }
