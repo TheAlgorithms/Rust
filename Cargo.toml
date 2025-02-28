@@ -163,7 +163,6 @@ cargo_common_metadata = { level = "allow", priority = 1 }
 # style-lints:
 doc_lazy_continuation = { level = "allow", priority = 1 }
 needless_return = { level = "allow", priority = 1 }
-unnecessary_map_or = { level = "allow", priority = 1 }
 # complexity-lints
 needless_lifetimes = { level = "allow", priority = 1 }
 precedence = { level = "allow", priority = 1 }
