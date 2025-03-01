@@ -1,4 +1,4 @@
-#[doc = r"# Average
+#[doc = "# Average
 Mean, Median, and Mode, in mathematics, the three principal ways of designating the average value of a list of numbers.
 The arithmetic mean is found by adding the numbers and dividing the sum by the number of numbers in the list.
 This is what is most often meant by an average. The median is the middle value in a list ordered from smallest to largest.
