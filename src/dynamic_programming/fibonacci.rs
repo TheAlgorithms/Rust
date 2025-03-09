@@ -226,7 +226,7 @@ fn get_pisano_sequence_and_period(m: i64) -> (i128, Vec<i128>) {
     let mut pisano_sequence: Vec<i128> = vec![a, b];
 
     // Iterating through all the fib numbers to get the sequence
-    for _i in 0..(m * m) + 1 {
+    for _i in 0..=(m * m) {
         let c = (a + b) % m as i128;
 
         // adding number into the sequence

@@ -93,7 +93,7 @@ mod tests {
         let mut hash_table = HashTable::new();
         let initial_capacity = hash_table.elements.capacity();
 
-        for i in 0..initial_capacity * 3 / 4 + 1 {
+        for i in 0..=initial_capacity * 3 / 4 {
             hash_table.insert(TestKey(i), TestKey(i + 10));
         }
 

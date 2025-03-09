@@ -5,7 +5,7 @@
 //! original message. The most commonly referred to Transposition Cipher is the
 //! COLUMNAR TRANSPOSITION cipher, which is demonstrated below.
 
-use std::ops::Range;
+use std::ops::RangeInclusive;
 
 /// Encrypts or decrypts a message, using multiple keys. The
 /// encryption is based on the columnar transposition method.
@@ -142,8 +142,8 @@ fn decrypt(mut msg: String, key_order: Vec<usize>) -> String {
 
     split_large.iter_mut().rev().for_each(|key_index| {
         counter -= 1;
-        let range: Range<usize> =
-            ((*key_index * split_size) + counter)..(((*key_index + 1) * split_size) + counter + 1);
+        let range: RangeInclusive<usize> =
+            ((*key_index * split_size) + counter)..=(((*key_index + 1) * split_size) + counter);
 
         let slice: String = msg[range.clone()].to_string();
         indexed_vec.push((*key_index, slice));

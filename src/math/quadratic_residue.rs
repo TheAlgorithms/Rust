@@ -152,9 +152,9 @@ pub fn tonelli_shanks(a: i64, odd_prime: u64) -> Option<u64> {
     let power_mod_p = |b, e| fast_power(b as usize, e as usize, p as usize) as u128;
 
     // find generator: choose a random non-residue n mod p
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     let n = loop {
-        let n = rng.gen_range(0..p);
+        let n = rng.random_range(0..p);
         if legendre_symbol(n as u64, p as u64) == -1 {
             break n;
         }

@@ -110,7 +110,7 @@ fn main() {
                 Some(x) => {
                     //Interactive Tic-Tac-Toe play needs the "rand = "0.8.3" crate.
                     //#[cfg(not(test))]
-                    //let random_selection = rand::thread_rng().gen_range(0..x.positions.len());
+                    //let random_selection = rand::rng().gen_range(0..x.positions.len());
                     let random_selection = 0;
 
                     let response_pos = x.positions[random_selection];
@@ -280,14 +280,10 @@ fn append_playaction(
         (Players::Blank, _, _) => panic!("Unreachable state."),
 
         //Winning scores
-        (Players::PlayerX, Players::PlayerX, Players::PlayerX) => {
+        (Players::PlayerX, Players::PlayerX, Players::PlayerX)
+        | (Players::PlayerO, Players::PlayerO, Players::PlayerO) => {
             play_actions.positions.push(appendee.position);
         }
-        (Players::PlayerX, Players::PlayerX, _) => {}
-        (Players::PlayerO, Players::PlayerO, Players::PlayerO) => {
-            play_actions.positions.push(appendee.position);
-        }
-        (Players::PlayerO, Players::PlayerO, _) => {}
 
         //Non-winning to Winning scores
         (Players::PlayerX, _, Players::PlayerX) => {
@@ -302,21 +298,18 @@ fn append_playaction(
         }
 
         //Losing to Neutral scores
-        (Players::PlayerX, Players::PlayerO, Players::Blank) => {
-            play_actions.side = Players::Blank;
-            play_actions.positions.clear();
-            play_actions.positions.push(appendee.position);
-        }
-
-        (Players::PlayerO, Players::PlayerX, Players::Blank) => {
+        (Players::PlayerX, Players::PlayerO, Players::Blank)
+        | (Players::PlayerO, Players::PlayerX, Players::Blank) => {
             play_actions.side = Players::Blank;
             play_actions.positions.clear();
             play_actions.positions.push(appendee.position);
         }
 
         //Ignoring lower scored plays
-        (Players::PlayerX, Players::Blank, Players::PlayerO) => {}
-        (Players::PlayerO, Players::Blank, Players::PlayerX) => {}
+        (Players::PlayerX, Players::PlayerX, _)
+        | (Players::PlayerO, Players::PlayerO, _)
+        | (Players::PlayerX, Players::Blank, Players::PlayerO)
+        | (Players::PlayerO, Players::Blank, Players::PlayerX) => {}
 
         //No change hence append only
         (_, _, _) => {

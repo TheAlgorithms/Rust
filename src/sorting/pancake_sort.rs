@@ -17,8 +17,8 @@ where
             .map(|(idx, _)| idx)
             .unwrap();
         if max_index != i {
-            arr[0..max_index + 1].reverse();
-            arr[0..i + 1].reverse();
+            arr[0..=max_index].reverse();
+            arr[0..=i].reverse();
         }
     }
     arr.to_vec()

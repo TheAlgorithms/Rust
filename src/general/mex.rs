@@ -6,7 +6,7 @@ use std::collections::BTreeSet;
 /// O(nlog(n)) implementation
 pub fn mex_using_set(arr: &[i64]) -> i64 {
     let mut s: BTreeSet<i64> = BTreeSet::new();
-    for i in 0..arr.len() + 1 {
+    for i in 0..=arr.len() {
         s.insert(i as i64);
     }
     for x in arr {

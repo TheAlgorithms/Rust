@@ -12,7 +12,7 @@
 pub fn pascal_triangle(num_rows: i32) -> Vec<Vec<i32>> {
     let mut ans: Vec<Vec<i32>> = vec![];
 
-    for i in 1..num_rows + 1 {
+    for i in 1..=num_rows {
         let mut vec: Vec<i32> = vec![1];
 
         let mut res: i32 = 1;

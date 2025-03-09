@@ -322,21 +322,21 @@ mod test {
     #[test]
     fn test_10_256() {
         let mut rng = StdRng::seed_from_u64(0);
-        let elements: Vec<u32> = (0..10).map(|_| rng.gen_range(0..255)).collect();
+        let elements: Vec<u32> = (0..10).map(|_| rng.random_range(0..255)).collect();
         test_veb_tree(256, elements, Vec::new());
     }
 
     #[test]
     fn test_100_256() {
         let mut rng = StdRng::seed_from_u64(0);
-        let elements: Vec<u32> = (0..100).map(|_| rng.gen_range(0..255)).collect();
+        let elements: Vec<u32> = (0..100).map(|_| rng.random_range(0..255)).collect();
         test_veb_tree(256, elements, Vec::new());
     }
 
     #[test]
     fn test_100_300() {
         let mut rng = StdRng::seed_from_u64(0);
-        let elements: Vec<u32> = (0..100).map(|_| rng.gen_range(0..255)).collect();
+        let elements: Vec<u32> = (0..100).map(|_| rng.random_range(0..255)).collect();
         test_veb_tree(300, elements, Vec::new());
     }
 }

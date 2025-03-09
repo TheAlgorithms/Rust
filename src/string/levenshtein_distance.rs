@@ -50,11 +50,7 @@ pub fn naive_levenshtein_distance(string1: &str, string2: &str) -> usize {
 
     let updated_matrix = (1..=string1.len()).fold(distance_matrix, |matrix, i| {
         (1..=string2.len()).fold(matrix, |mut inner_matrix, j| {
-            let cost = if string1.as_bytes()[i - 1] == string2.as_bytes()[j - 1] {
-                0
-            } else {
-                1
-            };
+            let cost = usize::from(string1.as_bytes()[i - 1] != string2.as_bytes()[j - 1]);
             inner_matrix[i][j] = (inner_matrix[i - 1][j - 1] + cost)
                 .min(inner_matrix[i][j - 1] + 1)
                 .min(inner_matrix[i - 1][j] + 1);

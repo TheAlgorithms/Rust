@@ -7,8 +7,7 @@ authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 [dependencies]
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
-rand = "0.8"
-rand_chacha = "0.3"
+rand = "0.9"
 nalgebra = "0.33.0"
 
 [dev-dependencies]
@@ -25,14 +24,12 @@ restriction = "warn"
 nursery = "warn"
 cargo = "warn"
 # pedantic-lints:
-bool_to_int_with_if = { level = "allow", priority = 1 }
 cast_lossless = { level = "allow", priority = 1 }
 cast_possible_truncation = { level = "allow", priority = 1 }
 cast_possible_wrap = { level = "allow", priority = 1 }
 cast_precision_loss = { level = "allow", priority = 1 }
 cast_sign_loss = { level = "allow", priority = 1 }
 cloned_instead_of_copied = { level = "allow", priority = 1 }
-default_trait_access = { level = "allow", priority = 1 }
 doc_markdown = { level = "allow", priority = 1 }
 enum_glob_use = { level = "allow", priority = 1 }
 explicit_deref_methods = { level = "allow", priority = 1 }
@@ -49,7 +46,6 @@ manual_let_else = { level = "allow", priority = 1 }
 manual_string_new = { level = "allow", priority = 1 }
 many_single_char_names = { level = "allow", priority = 1 }
 match_on_vec_items = { level = "allow", priority = 1 }
-match_same_arms = { level = "allow", priority = 1 }
 match_wildcard_for_single_variants = { level = "allow", priority = 1 }
 missing_errors_doc = { level = "allow", priority = 1 }
 missing_fields_in_debug = { level = "allow", priority = 1 }
@@ -57,7 +53,6 @@ missing_panics_doc = { level = "allow", priority = 1 }
 module_name_repetitions = { level = "allow", priority = 1 }
 must_use_candidate = { level = "allow", priority = 1 }
 needless_pass_by_value = { level = "allow", priority = 1 }
-range_plus_one = { level = "allow", priority = 1 }
 redundant_closure_for_method_calls = { level = "allow", priority = 1 }
 return_self_not_must_use = { level = "allow", priority = 1 }
 semicolon_if_nothing_returned = { level = "allow", priority = 1 }
@@ -145,6 +140,8 @@ cfg_not_test = { level = "allow", priority = 1 }
 field_scoped_visibility_modifiers = { level = "allow", priority = 1 }
 unused_trait_names = { level = "allow", priority = 1 }
 used_underscore_items = { level = "allow", priority = 1 }
+arbitrary_source_item_ordering = { level = "allow", priority = 1 }
+map_with_unused_argument_over_ranges = { level = "allow", priority = 1 }
 # nursery-lints:
 branches_sharing_code = { level = "allow", priority = 1 }
 cognitive_complexity = { level = "allow", priority = 1 }
@@ -167,3 +164,4 @@ doc_lazy_continuation = { level = "allow", priority = 1 }
 needless_return = { level = "allow", priority = 1 }
 # complexity-lints
 needless_lifetimes = { level = "allow", priority = 1 }
+precedence = { level = "allow", priority = 1 }

@@ -45,13 +45,13 @@ impl BipartiteMatching {
     // Note: It does not modify self.mt1, it only works on self.mt2
     pub fn kuhn(&mut self) {
         self.mt2 = vec![-1; self.num_vertices_grp2 + 1];
-        for v in 1..self.num_vertices_grp1 + 1 {
+        for v in 1..=self.num_vertices_grp1 {
             self.used = vec![false; self.num_vertices_grp1 + 1];
             self.try_kuhn(v);
         }
     }
     pub fn print_matching(&self) {
-        for i in 1..self.num_vertices_grp2 + 1 {
+        for i in 1..=self.num_vertices_grp2 {
             if self.mt2[i] == -1 {
                 continue;
             }
@@ -115,7 +115,7 @@ impl BipartiteMatching {
         let mut dist = vec![i32::MAX; self.num_vertices_grp1 + 1];
         let mut res = 0;
         while self.bfs(&mut dist) {
-            for u in 1..self.num_vertices_grp1 + 1 {
+            for u in 1..=self.num_vertices_grp1 {
                 if self.mt1[u] == 0 && self.dfs(u as i32, &mut dist) {
                     res += 1;
                 }

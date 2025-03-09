@@ -22,7 +22,7 @@ pub fn binary_insertion_sort<T: Ord + Clone>(arr: &mut [T]) {
         let key = arr[i].clone();
         let index = _binary_search(&arr[..i], &key);
 
-        arr[index..i + 1].rotate_right(1);
+        arr[index..=i].rotate_right(1);
         arr[index] = key;
     }
 }
