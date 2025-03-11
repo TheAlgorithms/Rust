@@ -194,6 +194,7 @@
     * [Doomsday](https://github.com/TheAlgorithms/Rust/blob/master/src/math/doomsday.rs)
     * [Elliptic Curve](https://github.com/TheAlgorithms/Rust/blob/master/src/math/elliptic_curve.rs)
     * [Euclidean Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/math/euclidean_distance.rs)
+    * [Euler Totient](https://github.com/TheAlgorithms/Rust/blob/master/src/math/euler_totient.rs)
     * [Exponential Linear Unit](https://github.com/TheAlgorithms/Rust/blob/master/src/math/exponential_linear_unit.rs)
     * [Extended Euclidean Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/extended_euclidean_algorithm.rs)
     * [Factorial](https://github.com/TheAlgorithms/Rust/blob/master/src/math/factorial.rs)
