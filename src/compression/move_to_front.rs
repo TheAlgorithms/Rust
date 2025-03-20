@@ -43,18 +43,18 @@ mod test {
                 #[test]
                 fn $name() {
                     assert_eq!(move_to_front_encode($text), $encoded);
-                    assert_eq!(move_to_front_decode(&$encoded), $text);
+                    assert_eq!(move_to_front_decode($encoded), $text);
                 }
             )*
         }
     }
 
     test_mtf! {
-        empty: ("", vec![]),
-        single_char: ("@", vec![64]),
-        repeated_chars: ("aaba", vec![97, 0, 98, 1]),
-        mixed_chars: ("aZ!", vec![97, 91, 35]),
-        word: ("banana", vec![98, 98, 110, 1, 1, 1]),
-        special_chars: ("\0\n\t", vec![0, 10, 10]),
+        empty: ("", &[]),
+        single_char: ("@", &[64]),
+        repeated_chars: ("aaba", &[97, 0, 98, 1]),
+        mixed_chars: ("aZ!", &[97, 91, 35]),
+        word: ("banana", &[98, 98, 110, 1, 1, 1]),
+        special_chars: ("\0\n\t", &[0, 10, 10]),
     }
 }
