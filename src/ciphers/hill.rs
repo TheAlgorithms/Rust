@@ -101,7 +101,7 @@ mod tests {
 
     #[test]
     fn test_numbers_to_text_conversion() {
-        assert_eq!(numbers_to_text(&vec![0, 1, 2, 23, 24, 25]), "ABCXYZ");
+        assert_eq!(numbers_to_text(&[0, 1, 2, 23, 24, 25]), "ABCXYZ");
     }
 
     #[test]
