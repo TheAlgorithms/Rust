@@ -1,7 +1,11 @@
 // https://en.wikipedia.org/wiki/Move-to-front_transform
 
+fn blank_char_table() -> Vec<char> {
+    (0..=255).map(|ch| ch as u8 as char).collect()
+}
+
 pub fn move_to_front_encode(text: &str) -> Vec<u8> {
-    let mut char_table: Vec<char> = (0..=255).map(|ch| ch as u8 as char).collect();
+    let mut char_table = blank_char_table();
     let mut result = Vec::new();
 
     for ch in text.chars() {
@@ -16,7 +20,7 @@ pub fn move_to_front_encode(text: &str) -> Vec<u8> {
 }
 
 pub fn move_to_front_decode(encoded: &[u8]) -> String {
-    let mut char_table: Vec<char> = (0..=255).map(|ch| ch as u8 as char).collect();
+    let mut char_table = blank_char_table();
     let mut result = String::new();
 
     for &pos in encoded {
@@ -33,23 +37,24 @@ pub fn move_to_front_decode(encoded: &[u8]) -> String {
 mod test {
     use super::*;
 
-    #[test]
-    fn test_move_to_front_encode() {
-        assert_eq!(move_to_front_encode(""), []);
-        assert_eq!(move_to_front_encode("@"), [64]);
-        assert_eq!(move_to_front_encode("aaba"), [97, 0, 98, 1]);
-        assert_eq!(move_to_front_encode("aZ!"), [97, 91, 35]);
-        assert_eq!(move_to_front_encode("banana"), [98, 98, 110, 1, 1, 1]);
-        assert_eq!(move_to_front_encode("\0\n\t"), [0, 10, 10]);
+    macro_rules! test_mtf {
+        ($($name:ident: ($text:expr, $encoded:expr),)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    assert_eq!(move_to_front_encode($text), $encoded);
+                    assert_eq!(move_to_front_decode(&$encoded), $text);
+                }
+            )*
+        }
     }
 
-    #[test]
-    fn test_move_to_front_decode() {
-        assert_eq!(move_to_front_decode(&[]), "");
-        assert_eq!(move_to_front_decode(&[64]), "@");
-        assert_eq!(move_to_front_decode(&[97, 0, 98, 1]), "aaba");
-        assert_eq!(move_to_front_decode(&[97, 91, 35]), "aZ!");
-        assert_eq!(move_to_front_decode(&[98, 98, 110, 1, 1, 1]), "banana");
-        assert_eq!(move_to_front_decode(&[0, 10, 10]), "\0\n\t");
+    test_mtf! {
+        empty: ("", vec![]),
+        single_char: ("@", vec![64]),
+        repeated_chars: ("aaba", vec![97, 0, 98, 1]),
+        mixed_chars: ("aZ!", vec![97, 91, 35]),
+        word: ("banana", vec![98, 98, 110, 1, 1, 1]),
+        special_chars: ("\0\n\t", vec![0, 10, 10]),
     }
 }
