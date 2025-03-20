@@ -46,6 +46,7 @@
     * [Xor](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/xor.rs)
   * Compression
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
+    * [Move-To-Front Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/move_to_front.rs)
   * Conversions
     * [Binary To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
     * [Binary To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_hexadecimal.rs)
