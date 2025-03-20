@@ -1,7 +1,6 @@
 // https://en.wikipedia.org/wiki/Move-to-front_transform
 
 pub fn move_to_front_encode(text: &str) -> Vec<u8> {
-    dbg!(text);
     let mut char_table: Vec<char> = (0..=255).map(|ch| ch as u8 as char).collect();
     let mut result = Vec::new();
 
