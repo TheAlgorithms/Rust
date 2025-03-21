@@ -16,6 +16,7 @@ mod heap_sort;
 mod insertion_sort;
 mod intro_sort;
 mod merge_sort;
+mod merge_sort_inplace;
 mod odd_even_sort;
 mod pancake_sort;
 mod patience_sort;
@@ -54,6 +55,8 @@ pub use self::insertion_sort::insertion_sort;
 pub use self::intro_sort::intro_sort;
 pub use self::merge_sort::bottom_up_merge_sort;
 pub use self::merge_sort::top_down_merge_sort;
+pub use self::merge_sort_inplace::bottom_up_merge_sort_inplace;
+pub use self::merge_sort_inplace::top_down_merge_sort_inplace;
 pub use self::odd_even_sort::odd_even_sort;
 pub use self::pancake_sort::pancake_sort;
 pub use self::patience_sort::patience_sort;
@@ -69,7 +72,6 @@ pub use self::tim_sort::tim_sort;
 pub use self::tree_sort::tree_sort;
 pub use self::wave_sort::wave_sort;
 pub use self::wiggle_sort::wiggle_sort;
-
 #[cfg(test)]
 use std::cmp;
 
