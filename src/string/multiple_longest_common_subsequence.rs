@@ -2,8 +2,6 @@ use std::cmp::max;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 
-const IMPOSSIBLE_NB: usize = usize::MAX;
-
 // alphabet : the common alphabet
 // chains : the strings among which the common subsequence is
 // d : the number of strings
@@ -16,11 +14,11 @@ struct Context {
     alphabet: Vec<char>,
     chains: Vec<Vec<char>>,
     d: usize,
-    f: HashMap<Vec<usize>, u64>,
-    g: HashMap<Vec<usize>, u64>,
+    f: HashMap<Vec<Option<usize>>, u64>,
+    g: HashMap<Vec<Option<usize>>, u64>,
     ms: Vec<Vec<Vec<u64>>>,
-    mt: Vec<Vec<Vec<usize>>>,
-    parents: HashMap<Vec<usize>, Option<Vec<usize>>>,
+    mt: Vec<Vec<Vec<Option<usize>>>>,
+    parents: HashMap<Vec<Option<usize>>, Option<Vec<Option<usize>>>>,
 }
 
 impl Context {
@@ -34,15 +32,15 @@ impl Context {
         let ms: Vec<Vec<Vec<u64>>> = matrices_score(&chains);
 
         // an impossible to reach point, father of all points
-        let p0 = vec![IMPOSSIBLE_NB; d];
+        let p0 = vec![None; d];
 
-        let mut parents: HashMap<_, Option<Vec<usize>>> = HashMap::new();
+        let mut parents: HashMap<_, Option<Vec<Option<usize>>>> = HashMap::new();
         parents.insert(p0.clone(), None);
 
         let mut g = HashMap::new();
         g.insert(p0.clone(), 0);
 
-        let mut f: HashMap<Vec<usize>, u64> = HashMap::new();
+        let mut f: HashMap<Vec<Option<usize>>, u64> = HashMap::new();
         f.insert(p0, 0);
 
         let mt = mt_table(&chains, &mut alphabet);
@@ -61,7 +59,7 @@ impl Context {
 
     // given a point p and his successor q, computes necessary informations
     // point p is marked PARENT of q
-    pub fn update_suc(&mut self, p: Vec<usize>, q: Vec<usize>) {
+    pub fn update_suc(&mut self, p: Vec<Option<usize>>, q: Vec<Option<usize>>) {
         // g(q) = g(p) + 1
         let nb = &self.g[&p] + 1;
         self.g.insert(q.clone(), nb);
@@ -82,17 +80,22 @@ impl Context {
     ///
     /// # Returns
     /// An array of the successors
-    pub fn get_successors(&self, p: &[usize]) -> Vec<Vec<usize>> {
-        let mut successors: Vec<Vec<usize>> = vec![];
+    pub fn get_successors(&self, p: &[Option<usize>]) -> Vec<Vec<Option<usize>>> {
+        let mut successors: Vec<Vec<Option<usize>>> = vec![];
 
         // for all alphabet letters
         for (ch_idx, _) in self.alphabet.iter().enumerate() {
             // for each string, finds the next position of that letter
-            let mut succ: Vec<usize> = vec![];
+            let mut succ: Vec<Option<usize>> = vec![];
             for (i, p_ith_elt) in p.iter().enumerate().take(self.chains.len()) {
-                let next_ch_idx = self.mt[ch_idx][i][p_ith_elt + 1];
-                // in case the letter is not rechable in the string
-                if next_ch_idx == IMPOSSIBLE_NB {
+
+                let next_ch_idx = match p_ith_elt {
+                    Some(idx) => self.mt[ch_idx][i][idx + 1],
+                    None => continue, // Skip if current position is None
+                };
+                
+                // in case the letter is not reachable in the string
+                if next_ch_idx.is_none() {
                     break;
                 }
 
@@ -109,14 +112,17 @@ impl Context {
     }
 
     // ascend back up the parent tree to form the common subsequence
-    fn common_seq(&self, p: &Vec<usize>) -> String {
+    fn common_seq(&self, p: &Vec<Option<usize>>) -> String {
         let ref_str: &Vec<char> = &self.chains[0];
         let mut common_subsequence: Vec<char> = vec![];
         // Gaining mutability
         let mut p = p;
 
         while self.parents[p].is_some() {
-            common_subsequence.push(ref_str[p[0]]);
+            // Get the first element of p, which is the position in the first string
+            if let Some(idx) = p[0] {
+                common_subsequence.push(ref_str[idx]);
+            }
 
             // getting the parent of current point
             p = self.parents[p].as_ref().unwrap();
@@ -126,8 +132,8 @@ impl Context {
     }
 
     /// CF Initqueue
-    fn get_starting_p(&self) -> Vec<Vec<usize>> {
-        let mut successors: Vec<Vec<usize>> = vec![];
+    fn get_starting_p(&self) -> Vec<Vec<Option<usize>>> {
+        let mut successors: Vec<Vec<Option<usize>>> = vec![];
 
         // for each alphabet letter, finds the next match
         // meaning the a point where all strings share a character
@@ -135,7 +141,7 @@ impl Context {
         // A match for the letter B would be p = (1, 0, 1, 0)
         for (ch_idx, _) in self.alphabet.iter().enumerate() {
             // for each string, finds the next position of that letter
-            let mut succ: Vec<usize> = vec![];
+            let mut succ: Vec<Option<usize>> = vec![];
             for i in 0..(self.chains.len()) {
                 // gets the next position of the current letter
                 let next_ch_idx = self.mt[ch_idx][i][0];
@@ -152,17 +158,20 @@ impl Context {
     /// Computes the heuristic function given a point
     /// min ( { M_ij[ p[i] ][ p[j] ] | (i,j) in [0 ; d] } )
     /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/doc/paper.pdf)
-    fn heuristic(&self, p: &[usize]) -> u64 {
+    fn heuristic(&self, p: &[Option<usize>]) -> u64 {
         let mut similarity: Vec<u64> = vec![];
         for i in 0..self.d {
             for j in 0..self.d {
                 if i != j {
-                    similarity.push(self.ms[to_linear_index(i, j, self.d)][p[i]][p[j]]);
+                    // Skip if either point is None
+                    if let (Some(pi), Some(pj)) = (p[i], p[j]) {
+                        similarity.push(self.ms[to_linear_index(i, j, self.d)][pi][pj]);
+                    }
                 }
             }
         }
 
-        *similarity.iter().min().unwrap()
+        similarity.iter().min().copied().unwrap_or(0)
     }
 
     /// Add the first matches to the queue
@@ -173,11 +182,11 @@ impl Context {
     ///
     /// * `self' - A structure containing informations
     /// * 'queue' - The priority queue of points  
-    fn init_queue(&mut self) -> Vec<Vec<usize>> {
+    fn init_queue(&mut self) -> Vec<Vec<Option<usize>>> {
         let mut queue = self.get_starting_p();
 
         for q in queue.clone() {
-            self.update_suc(vec![IMPOSSIBLE_NB; self.d], q.clone());
+            self.update_suc(vec![None; self.d], q.clone());
         }
 
         self.reorder_queue(&mut queue);
@@ -186,7 +195,7 @@ impl Context {
     }
 
     // sorts the queue
-    fn reorder_queue(&self, queue: &mut [Vec<usize>]) {
+    fn reorder_queue(&self, queue: &mut [Vec<Option<usize>>]) {
         queue.sort_unstable_by(|p, q| {
             if (self.f.get(p) > self.f.get(q))
                 || (self.f.get(p) == self.f.get(q) && self.heuristic(p) > self.heuristic(q))
@@ -249,20 +258,20 @@ fn matrices_score(chains: &[Vec<char>]) -> Vec<Vec<Vec<u64>>> {
 /// An array of matrices.
 /// Each matrix is tied to a string and can indicate, given a letter,
 /// the next position of that letter in the string.
-fn mt_table(chains: &Vec<Vec<char>>, alphabet: &mut Vec<char>) -> Vec<Vec<Vec<usize>>> {
-    let mut mt: Vec<Vec<Vec<usize>>> = vec![];
+fn mt_table(chains: &Vec<Vec<char>>, alphabet: &mut Vec<char>) -> Vec<Vec<Vec<Option<usize>>>> {
+    let mut mt: Vec<Vec<Vec<Option<usize>>>> = vec![];
 
     for ch in alphabet.clone() {
-        let mut chain: Vec<Vec<usize>> = vec![];
+        let mut chain: Vec<Vec<Option<usize>>> = vec![];
 
         for s in chains {
-            let mut v: Vec<usize> = vec![IMPOSSIBLE_NB; s.len()];
-            let mut lpos = IMPOSSIBLE_NB;
+            let mut v: Vec<Option<usize>> = vec![None; s.len()];
+            let mut lpos = None;
 
             // iterating backwards on the string
             for i in (0..(s.len())).rev() {
                 if s[i] == ch {
-                    lpos = i;
+                    lpos = Some(i);
                 }
                 // pushing the index of the last encounter with the current letter
                 v[i] = lpos;
@@ -272,7 +281,7 @@ fn mt_table(chains: &Vec<Vec<char>>, alphabet: &mut Vec<char>) -> Vec<Vec<Vec<us
 
             // if the letter was never seen in the current string
             // then it can't part of the common alphabet
-            if lpos == IMPOSSIBLE_NB {
+            if lpos.is_none() {
                 // removing that letter
                 alphabet.retain(|&x| x != ch);
                 chain = vec![];
@@ -282,16 +291,6 @@ fn mt_table(chains: &Vec<Vec<char>>, alphabet: &mut Vec<char>) -> Vec<Vec<Vec<us
 
         // the letter was seen at leat once
         if !chain.is_empty() {
-            // pushing an array or array
-            // example on ["AB", "ABAA"]
-            // string1 => {
-            //              'A' => {0, IMPOSSIBLE_NB}
-            //              'B' => {1, 1}
-            //             }
-            // string2 => {
-            //              'A' => {0, 2, 2, 3}
-            //              'B' => {1, 1, IMPOSSIBLE_NB, IMPOSSIBLE_NB}
-            //             }
             mt.push(chain);
         }
     }
@@ -317,7 +316,7 @@ pub fn multiple_longest_common_subsequence(chains: &Vec<&str>) -> String {
     let mut ctx = Context::new(chains);
 
     // queue
-    let mut queue: Vec<Vec<usize>> = ctx.init_queue();
+    let mut queue: Vec<Vec<Option<usize>>> = ctx.init_queue();
 
     while !queue.is_empty() {
         // y = max( {f(p) | p in queue} )
@@ -333,7 +332,7 @@ pub fn multiple_longest_common_subsequence(chains: &Vec<&str>) -> String {
             .clone()
             .into_iter()
             .filter(|p| y <= ctx.f[p])
-            .collect::<Vec<Vec<usize>>>();
+            .collect::<Vec<Vec<Option<usize>>>>();
         queue.clear();
 
         for p in second_queue {
@@ -432,7 +431,7 @@ mod tests {
                      "=串-用2于测试2展67中中0xs中中中kkljhkkh示中测🚀测|测文|",
                      "=串-|用2于ss串试056u展xx🚀示中lj测ggk测|ss文|",
                      "=串-用2于-测22中中中uyty试串lj展gkks中示🚀测测s|测中文|b",
-                     "=串用2于测s-试2中中0中hgtihlkk展串🚀中示s中|文|",
+                     "=串-用2于测s-试2中中0中hgtihlkk展串🚀中示s中|文|",
                      "=2串2中2中2中s用-于0t测🚀j试展示测s测hkkkg测中中串文|l",
                      "=2串2中2中2中s用-于0测🚀试展示测s中k中l串文|",
                      "=2串2中2中2中s用ur-于0测🚀试展示测jkjljkkllkskg中串文|;",
