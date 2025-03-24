@@ -2,10 +2,8 @@ use std::cmp::max;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 
-const IMPOSSIBLE_NB: usize = 999_999_999_999;
+const IMPOSSIBLE_NB: usize = usize::MAX;
 
-// saves the precalculations
-// will be moved around a lot
 // alphabet : the common alphabet
 // chains : the strings among which the common subsequence is
 // d : the number of strings
@@ -60,24 +58,148 @@ impl Context {
             parents,
         }
     }
-}
 
-// ascend back up the parent tree to form the common subsequence
-fn common_seq(ctx: &Context, p: &Vec<usize>) -> String {
-    let ref_str: &Vec<char> = &ctx.chains[0];
-    let mut common_subsequence: Vec<char> = vec![];
-    // Gaining mutability
-    let mut p = p;
+    // given a point p and his successor q, computes necessary informations
+    // point p is marked PARENT of q
+    pub fn update_suc(&mut self, p: Vec<usize>, q: Vec<usize>) {
+        // g(q) = g(p) + 1
+        let nb = &self.g[&p] + 1;
+        self.g.insert(q.clone(), nb);
+        // saves the cost function for point p : h(p) + g(p)
+        self.f.insert(q.clone(), self.heuristic(&q) + nb);
+        // saves the fact that p is the parent of q
+        self.parents.insert(q, Some(p));
+    }
+    
+    /// Finds all succcesors of the point p
+    /// A successor of p = (p_1, p_2, etc, p_n) is a point q = (q_1, q_2, etc, q_n)
+    /// such that q_1 > p_1, q_2 > p_2, etc, q_n > p_n
+    /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/doc/paper.pdf)
+    ///
+    /// # Arguments
+    /// # 'Context' A struct containing informations
+    /// # 'p' The point under examination
+    ///
+    /// # Returns
+    /// An array of the successors
+    pub fn get_successors(&self, p: &[usize]) -> Vec<Vec<usize>> {
+        let mut successors: Vec<Vec<usize>> = vec![];
 
-    while ctx.parents[p].is_some() {
-        common_subsequence.push(ref_str[p[0]]);
+        // for all alphabet letters
+        for (ch_idx, _) in self.alphabet.iter().enumerate() {
+            // for each string, finds the next position of that letter
+            let mut succ: Vec<usize> = vec![];
+            for (i, p_ith_elt) in p.iter().enumerate().take(self.chains.len()) {
+                let next_ch_idx = self.mt[ch_idx][i][p_ith_elt + 1];
+                // in case the letter is not rechable in the string
+                if next_ch_idx == IMPOSSIBLE_NB {
+                    break;
+                }
 
-        // getting the parent of current point
-        p = ctx.parents[p].as_ref().unwrap();
+                succ.push(next_ch_idx);
+            }
+
+            // the vector is complete, hence we add it to the successors
+            if succ.len() == self.chains.len() {
+                successors.push(succ);
+            }
+            // else we discard it and move on to the next letter
+        }
+        successors
     }
 
-    common_subsequence.iter().rev().collect::<String>()
+    // ascend back up the parent tree to form the common subsequence
+    fn common_seq(&self, p: &Vec<usize>) -> String {
+        let ref_str: &Vec<char> = &self.chains[0];
+        let mut common_subsequence: Vec<char> = vec![];
+        // Gaining mutability
+        let mut p = p;
+
+        while self.parents[p].is_some() {
+            common_subsequence.push(ref_str[p[0]]);
+
+            // getting the parent of current point
+            p = self.parents[p].as_ref().unwrap();
+        }
+
+        common_subsequence.iter().rev().collect::<String>()
+    }
+
+    /// CF Initqueue
+    fn get_starting_p(&self) -> Vec<Vec<usize>> {
+        let mut successors: Vec<Vec<usize>> = vec![];
+
+        // for each alphabet letter, finds the next match
+        // meaning the a point where all strings share a character
+        // example: In ["AB", "BC", "CB", "BF"],
+        // A match for the letter B would be p = (1, 0, 1, 0)
+        for (ch_idx, _) in self.alphabet.iter().enumerate() {
+            // for each string, finds the next position of that letter
+            let mut succ: Vec<usize> = vec![];
+            for i in 0..(self.chains.len()) {
+                // gets the next position of the current letter
+                let next_ch_idx = self.mt[ch_idx][i][0];
+                succ.push(next_ch_idx);
+            }
+
+            // once the vector is complete, we add it to the successors
+            successors.push(succ);
+        }
+
+        successors
+    }
+
+    /// Computes the heuristic function given a point
+    /// min ( { M_ij[ p[i] ][ p[j] ] | (i,j) in [0 ; d] } )
+    /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/doc/paper.pdf)
+    fn heuristic(&self, p: &[usize]) -> u64 {
+        let mut similarity: Vec<u64> = vec![];
+        for i in 0..self.d {
+            for j in 0..self.d {
+                if i != j {
+                    similarity.push(self.ms[to_linear_index(i, j, self.d)][p[i]][p[j]]);
+                }
+            }
+        }
+
+        *similarity.iter().min().unwrap()
+    }
+
+    /// Add the first matches to the queue
+    /// For each starting point found, sets an impossible point as parent
+    /// [Documentation](https://github.com/epita-rs/MLCS/blob/main/doc/paper.pdf)
+    ///
+    /// # Arguments
+    ///
+    /// * `self' - A structure containing informations
+    /// * 'queue' - The priority queue of points  
+    fn init_queue(&mut self) -> Vec<Vec<usize>> {
+        let mut queue = self.get_starting_p();
+
+        for q in queue.clone() {
+            self.update_suc(vec![IMPOSSIBLE_NB; self.d], q.clone());
+        }
+
+        self.reorder_queue(&mut queue);
+
+        queue
+    }
+
+    // sorts the queue
+    fn reorder_queue(&self, queue: &mut [Vec<usize>]) {
+        queue.sort_unstable_by(|p, q| {
+            if (self.f.get(p) > self.f.get(q))
+                || (self.f.get(p) == self.f.get(q) && self.heuristic(p) > self.heuristic(q))
+            {
+                Ordering::Greater
+            } else {
+                Ordering::Less
+            }
+        });
+    }
+
 }
+
 
 /// Heuristic to find the smallest common alphabet among the strings
 /// gets the shortest string and remove duplicates
@@ -99,103 +221,9 @@ fn get_alphabet(chains: &[Vec<char>]) -> Vec<char> {
     alphabet
 }
 
-/// CF Initqueue
-fn get_starting_p(ctx: &Context) -> Vec<Vec<usize>> {
-    let mut successors: Vec<Vec<usize>> = vec![];
-
-    // for each alphabet letter, finds the next match
-    // meaning the a point where all strings share a character
-    // example: In ["AB", "BC", "CB", "BF"],
-    // A match for the letter B would be p = (1, 0, 1, 0)
-    for (ch_idx, _) in ctx.alphabet.iter().enumerate() {
-        // for each string, finds the next position of that letter
-        let mut succ: Vec<usize> = vec![];
-        for i in 0..(ctx.chains.len()) {
-            // gets the next position of the current letter
-            let next_ch_idx = ctx.mt[ch_idx][i][0];
-            succ.push(next_ch_idx);
-        }
-
-        // once the vector is complete, we add it to the successors
-        successors.push(succ);
-    }
-
-    successors
-}
-
-/// Finds all succcesors of the point p
-/// A successor of p = (p_1, p_2, etc, p_n) is a point q = (q_1, q_2, etc, q_n)
-/// such that q_1 > p_1, q_2 > p_2, etc, q_n > p_n
-/// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
-///
-/// # Arguments
-/// # 'Context' A struct containing informations
-/// # 'p' The point under examination
-///
-/// # Returns
-/// An array of the successors
-fn get_successors(ctx: &Context, p: &[usize]) -> Vec<Vec<usize>> {
-    let mut successors: Vec<Vec<usize>> = vec![];
-
-    // for all alphabet letters
-    for (ch_idx, _) in ctx.alphabet.iter().enumerate() {
-        // for each string, finds the next position of that letter
-        let mut succ: Vec<usize> = vec![];
-        for (i, p_ith_elt) in p.iter().enumerate().take(ctx.chains.len()) {
-            let next_ch_idx = ctx.mt[ch_idx][i][p_ith_elt + 1];
-            // in case the letter is not rechable in the string
-            if next_ch_idx == IMPOSSIBLE_NB {
-                break;
-            }
-
-            succ.push(next_ch_idx);
-        }
-
-        // the vector is complete, hence we add it to the successors
-        if succ.len() == ctx.chains.len() {
-            successors.push(succ);
-        }
-        // else we discard it and move on to the next letter
-    }
-    successors
-}
-
-/// Computes the heuristic function given a point
-/// min ( { M_ij[ p[i] ][ p[j] ] | (i,j) in [0 ; d] } )
-/// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
-fn heuristic(ctx: &Context, p: &[usize]) -> u64 {
-    let mut similarity: Vec<u64> = vec![];
-    for i in 0..ctx.d {
-        for j in 0..ctx.d {
-            if i != j {
-                similarity.push(ctx.ms[translate(i, j, ctx.d)][p[i]][p[j]]);
-            }
-        }
-    }
-
-    *similarity.iter().min().unwrap()
-}
-
-/// Add the first matches to the queue
-/// For each starting point found, sets an impossible point as parent
-/// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
-///
-/// # Arguments
-///
-/// * `ctx' - A structure containing informations
-/// * 'queue' - The priority queue of points  
-fn init_queue(ctx: &mut Context, queue: &mut Vec<Vec<usize>>) {
-    *queue = get_starting_p(ctx);
-
-    for q in queue.clone() {
-        update_suc(ctx, vec![IMPOSSIBLE_NB; ctx.d], q.clone());
-    }
-    reorder_queue(ctx, queue);
-}
-
 /// Computes the suffix tables between each pair of string
 /// used by the MLCS-Astar heuristic function
-/// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
+/// [Documentation](https://github.com/epita-rs/MLCS/blob/main/doc/paper.pdf)
 ///
 /// # Arguments
 ///
@@ -275,7 +303,7 @@ fn mt_table(chains: &Vec<Vec<char>>, alphabet: &mut Vec<char>) -> Vec<Vec<Vec<us
 
 /// Finds one of the longest_common_subsequence among multiple strings
 /// using a similar approach to the A* algorithm in graph theory
-/// [Documentation](https://github.com/epita-rs/MLCS/blob/main/paper.pdf)
+/// [Documentation](https://github.com/epita-rs/MLCS/blob/main/doc/paper.pdf)
 /// # Arguments
 ///
 /// * `S` - Array of strings.
@@ -291,8 +319,7 @@ pub fn multiple_longest_common_subsequence(chains: &Vec<&str>) -> String {
     let mut ctx = Context::new(chains);
 
     // queue
-    let mut queue: Vec<Vec<usize>> = vec![];
-    init_queue(&mut ctx, &mut queue);
+    let mut queue: Vec<Vec<usize>> = ctx.init_queue();
 
     while !queue.is_empty() {
         // y = max( {f(p) | p in queue} )
@@ -312,39 +339,27 @@ pub fn multiple_longest_common_subsequence(chains: &Vec<&str>) -> String {
         queue.clear();
 
         for p in second_queue {
-            if heuristic(&ctx, &p) == 0 {
+            if ctx.heuristic(&p) == 0 {
                 // An MLCS match was found
-                return common_seq(&ctx, &p);
+                return ctx.common_seq(&p);
             }
             // inserting all succesors in the queue
-            let succs = get_successors(&ctx, &p);
+            let succs = ctx.get_successors(&p);
             for q in succs {
                 // basically saying if the queue queue does not already
                 // contain the point q
                 if !queue.contains(&q) {
-                    update_suc(&mut ctx, p.clone(), q.clone());
+                    ctx.update_suc(p.clone(), q.clone());
                     queue.push(q);
                 }
             }
         }
         // sorting the queue
-        reorder_queue(&ctx, &mut queue);
+        ctx.reorder_queue(&mut queue);
     }
     String::from("")
 }
 
-// sorts the queue
-fn reorder_queue(ctx: &Context, queue: &mut [Vec<usize>]) {
-    queue.sort_unstable_by(|p, q| {
-        if (ctx.f.get(p) > ctx.f.get(q))
-            || (ctx.f.get(p) == ctx.f.get(q) && heuristic(ctx, p) > heuristic(ctx, q))
-        {
-            Ordering::Greater
-        } else {
-            Ordering::Less
-        }
-    });
-}
 
 /// Computes the suffix table
 fn score_matrix(s1: &[char], s2: &[char]) -> Vec<Vec<u64>> {
@@ -367,22 +382,11 @@ fn score_matrix(s1: &[char], s2: &[char]) -> Vec<Vec<u64>> {
     matrix
 }
 
-//given given 2D coordinates, translates into 1D coordinates
-fn translate(i: usize, j: usize, d: usize) -> usize {
+//given given 2D coordinates, to_linear_indexs into 1D coordinates
+fn to_linear_index(i: usize, j: usize, d: usize) -> usize {
     i * d + j
 }
 
-// given a point p and his successor q, computes necessary informations
-// point p is marked PARENT of q
-fn update_suc(ctx: &mut Context, p: Vec<usize>, q: Vec<usize>) {
-    // g(q) = g(p) + 1
-    let nb = &ctx.g[&p] + 1;
-    ctx.g.insert(q.clone(), nb);
-    // saves the cost function for point p : h(p) + g(p)
-    ctx.f.insert(q.clone(), heuristic(ctx, &q) + nb);
-    // saves the fact that p is the parent of q
-    ctx.parents.insert(q, Some(p));
-}
 
 #[cfg(test)]
 mod tests {
