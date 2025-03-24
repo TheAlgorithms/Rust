@@ -70,7 +70,7 @@ impl Context {
         // saves the fact that p is the parent of q
         self.parents.insert(q, Some(p));
     }
-    
+
     /// Finds all succcesors of the point p
     /// A successor of p = (p_1, p_2, etc, p_n) is a point q = (q_1, q_2, etc, q_n)
     /// such that q_1 > p_1, q_2 > p_2, etc, q_n > p_n
@@ -197,9 +197,7 @@ impl Context {
             }
         });
     }
-
 }
-
 
 /// Heuristic to find the smallest common alphabet among the strings
 /// gets the shortest string and remove duplicates
@@ -360,7 +358,6 @@ pub fn multiple_longest_common_subsequence(chains: &Vec<&str>) -> String {
     String::from("")
 }
 
-
 /// Computes the suffix table
 fn score_matrix(s1: &[char], s2: &[char]) -> Vec<Vec<u64>> {
     let m = s1.len();
@@ -386,7 +383,6 @@ fn score_matrix(s1: &[char], s2: &[char]) -> Vec<Vec<u64>> {
 fn to_linear_index(i: usize, j: usize, d: usize) -> usize {
     i * d + j
 }
-
 
 #[cfg(test)]
 mod tests {
