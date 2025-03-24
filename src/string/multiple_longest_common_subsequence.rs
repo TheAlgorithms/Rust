@@ -88,12 +88,11 @@ impl Context {
             // for each string, finds the next position of that letter
             let mut succ: Vec<Option<usize>> = vec![];
             for (i, p_ith_elt) in p.iter().enumerate().take(self.chains.len()) {
-
                 let next_ch_idx = match p_ith_elt {
                     Some(idx) => self.mt[ch_idx][i][idx + 1],
                     None => continue, // Skip if current position is None
                 };
-                
+
                 // in case the letter is not reachable in the string
                 if next_ch_idx.is_none() {
                     break;
