@@ -241,4 +241,19 @@ mod tests {
             Some((Point::new(0., 40.), Point::new(0., 42.)))
         );
     }
+    #[test]
+fn large_number_of_points() {
+    let mut vals = vec![];
+    for i in 0..1000 {
+        vals.push(Point::new(i as f64, (i * i % 100) as f64));
+    }
+    vals.push(Point::new(500.0, 20.0));
+    vals.push(Point::new(500.000001, 20.0));
+
+    assert_display!(
+        closest_points(&vals),
+        Some((Point::new(500.0, 20.0), Point::new(500.000001, 20.0)))
+    );
+}
+
 }
