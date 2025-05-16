@@ -144,7 +144,7 @@ impl<T> LinkedList<T> {
     }
 
     pub fn delete_ith(&mut self, index: u32) -> Option<T> {
-        if self.length < index {
+        if self.length <= index {
             panic!("Index out of bounds");
         }
 
@@ -152,7 +152,7 @@ impl<T> LinkedList<T> {
             return self.delete_head();
         }
 
-        if self.length == index {
+        if self.length - 1 == index {
             return self.delete_tail();
         }
 
@@ -498,5 +498,15 @@ mod tests {
         let retrived_item = list_str.get(1);
         assert!(retrived_item.is_some());
         assert_eq!("B", *retrived_item.unwrap());
+    }
+
+    #[test]
+    #[should_panic(expected = "Index out of bounds")]
+    fn delete_ith_panics_if_index_equals_length() {
+        let mut list = LinkedList::<i32>::new();
+        list.insert_at_tail(1);
+        list.insert_at_tail(2);
+        // length is 2, so index 2 is out of bounds
+        list.delete_ith(2);
     }
 }
