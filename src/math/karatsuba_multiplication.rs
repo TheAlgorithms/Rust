@@ -35,9 +35,8 @@ fn _multiply(num1: i128, num2: i128) -> i128 {
 }
 
 fn normalize(mut a: String, n: usize) -> String {
-    for (counter, _) in (a.len()..n).enumerate() {
-        a.insert(counter, '0');
-    }
+    let padding = n.saturating_sub(a.len());
+    a.insert_str(0, &"0".repeat(padding));
     a
 }
 #[cfg(test)]
