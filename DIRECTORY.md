@@ -262,6 +262,7 @@
     * [Haversine](https://github.com/TheAlgorithms/Rust/blob/master/src/navigation/haversine.rs)
   * Number Theory
     * [Compute Totient](https://github.com/TheAlgorithms/Rust/blob/master/src/number_theory/compute_totient.rs)
+    * [Euler Totient](https://github.com/TheAlgorithms/Rust/blob/master/src/number_theory/euler_totient.rs)
     * [Kth Factor](https://github.com/TheAlgorithms/Rust/blob/master/src/number_theory/kth_factor.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
