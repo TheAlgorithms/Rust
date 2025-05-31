@@ -34,37 +34,73 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_small_numbers() {
-        assert_eq!(euler_totient(1), 1);
-        assert_eq!(euler_totient(2), 1);
-        assert_eq!(euler_totient(3), 2);
-        assert_eq!(euler_totient(4), 2);
-        assert_eq!(euler_totient(5), 4);
-        assert_eq!(euler_totient(6), 2);
+    fn test_euler_totient_comprehensive() {
+        let test_cases = vec![
+            // Edges cases 
+            (1, 1),
+
+            // small numbers
+            (2, 1),(3, 2),(4, 2),
+            (5, 4),(6, 2),
+
+            //Prime numbers (φ(p) = p - 1)
+            (7, 6),(11, 10),(13, 12),
+            (17, 16),(19,18),
+
+            // Prime powers (φ(p^k) = p^(k-1) * (p-1))
+            (8, 4),   // 2^3
+            (9, 6),   // 3^2  
+            (16, 8),  // 2^4
+            (25, 20), // 5^2
+            (27, 18), // 3^3
+            (32, 16), // 2^5
+
+            // Composite numbers
+            (10, 4),  // 2 * 5
+            (12, 4),  // 2^2 * 3
+            (15, 8),  // 3 * 5
+            (18, 6),  // 2 * 3^2
+            (20, 8),  // 2^2 * 5
+            (30, 8),  // 2 * 3 * 5
+            // Large numbers 
+            (50, 20), // 2 * 5^2
+            (100, 40),// 2^2 * 5^2
+            (1000, 400) // 2^3 * 5^3     
+        ];
+        
+        for (input, expected) in test_cases {
+            assert_eq!(
+                euler_totient(input), 
+                expected, 
+                "φ({}) should be {}", 
+                input, 
+                expected
+            );
+        }
     }
 
     #[test]
-    fn test_prime_numbers() {
-        // For prime p, φ(p) = p - 1
-        assert_eq!(euler_totient(7), 6);
-        assert_eq!(euler_totient(11), 10);
-        assert_eq!(euler_totient(13), 12);
-        assert_eq!(euler_totient(17), 16);
+    fn test_edge_cases() {
+        let edge_cases = vec![
+            (2, 1),    // Smallest prime
+            (4, 2),    // Power of 2
+            (6, 2),    // 2 * 3 (two small primes)
+            (35, 24),  // 5 * 7 (two larger primes)
+            (77, 60),  // 7 * 11 (ensures the final `if num > 1` branch)
+            (128, 64), // Large power of 2
+        ];
+        
+        for (input, expected) in edge_cases {
+            assert_eq!(euler_totient(input), expected);
+        }
     }
 
     #[test]
-    fn test_prime_powers() {
-        // For prime power p^k, φ(p^k) = p^(k-1) * (p-1)
-        assert_eq!(euler_totient(9), 6); // 3^2, φ(9) = 3^1 * 2 = 6
-        assert_eq!(euler_totient(25), 20); // 5^2, φ(25) = 5^1 * 4 = 20
-        assert_eq!(euler_totient(8), 4); // 2^3, φ(8) = 2^2 * 1 = 4
-    }
-
-    #[test]
-    fn test_larger_numbers() {
-        assert_eq!(euler_totient(10), 4);
-        assert_eq!(euler_totient(12), 4);
-        assert_eq!(euler_totient(100), 40);
-        assert_eq!(euler_totient(1000), 400);
+    fn test_prime_property() {
+        // For any prime p, φ(p) = p - 1
+        let primes = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
+        for p in primes {
+            assert_eq!(euler_totient(p), p - 1, "φ({}) should be {}", p, p - 1);
+        }
     }
 }
