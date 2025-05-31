@@ -97,10 +97,10 @@ mod tests {
 
     #[test]
     fn test_prime_property() {
-    // For any prime p, φ(p) = p - 1
-    let primes = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
-    for p in primes {
-        assert_eq!(euler_totient(p), p - 1, "φ({p}) should be {}", p - 1);
+        // For any prime p, φ(p) = p - 1
+        let primes = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
+        for p in primes {
+            assert_eq!(euler_totient(p), p - 1, "φ({p}) should be {}", p - 1);
+        }
     }
-}
 }
