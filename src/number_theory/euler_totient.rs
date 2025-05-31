@@ -36,44 +36,46 @@ mod tests {
     #[test]
     fn test_euler_totient_comprehensive() {
         let test_cases = vec![
-            // Edges cases 
+            // Edges cases
             (1, 1),
-
             // small numbers
-            (2, 1),(3, 2),(4, 2),
-            (5, 4),(6, 2),
-
+            (2, 1),
+            (3, 2),
+            (4, 2),
+            (5, 4),
+            (6, 2),
             //Prime numbers (φ(p) = p - 1)
-            (7, 6),(11, 10),(13, 12),
-            (17, 16),(19,18),
-
+            (7, 6),
+            (11, 10),
+            (13, 12),
+            (17, 16),
+            (19, 18),
             // Prime powers (φ(p^k) = p^(k-1) * (p-1))
             (8, 4),   // 2^3
-            (9, 6),   // 3^2  
+            (9, 6),   // 3^2
             (16, 8),  // 2^4
             (25, 20), // 5^2
             (27, 18), // 3^3
             (32, 16), // 2^5
-
             // Composite numbers
-            (10, 4),  // 2 * 5
-            (12, 4),  // 2^2 * 3
-            (15, 8),  // 3 * 5
-            (18, 6),  // 2 * 3^2
-            (20, 8),  // 2^2 * 5
-            (30, 8),  // 2 * 3 * 5
-            // Large numbers 
-            (50, 20), // 2 * 5^2
-            (100, 40),// 2^2 * 5^2
-            (1000, 400) // 2^3 * 5^3     
+            (10, 4), // 2 * 5
+            (12, 4), // 2^2 * 3
+            (15, 8), // 3 * 5
+            (18, 6), // 2 * 3^2
+            (20, 8), // 2^2 * 5
+            (30, 8), // 2 * 3 * 5
+            // Large numbers
+            (50, 20),    // 2 * 5^2
+            (100, 40),   // 2^2 * 5^2
+            (1000, 400), // 2^3 * 5^3
         ];
-        
+
         for (input, expected) in test_cases {
             assert_eq!(
-                euler_totient(input), 
-                expected, 
-                "φ({}) should be {}", 
-                input, 
+                euler_totient(input),
+                expected,
+                "φ({}) should be {}",
+                input,
                 expected
             );
         }
@@ -89,7 +91,7 @@ mod tests {
             (77, 60),  // 7 * 11 (ensures the final `if num > 1` branch)
             (128, 64), // Large power of 2
         ];
-        
+
         for (input, expected) in edge_cases {
             assert_eq!(euler_totient(input), expected);
         }
