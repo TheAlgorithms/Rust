@@ -28,7 +28,6 @@ pub fn euler_totient(n: u64) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-
     macro_rules! test_euler_totient {
         ($($name:ident: $test_case:expr,)*) => {
             $(
