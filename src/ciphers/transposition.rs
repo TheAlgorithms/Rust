@@ -161,7 +161,7 @@ fn decrypt(mut msg: String, key_order: Vec<usize>) -> String {
 
     for key in key_order {
         if let Some((_, column)) = indexed_vec.iter().find(|(key_index, _)| key_index == &key) {
-            decrypted_vec.push(column.to_string());
+            decrypted_vec.push(column.clone());
         }
     }
 

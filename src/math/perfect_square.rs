@@ -18,7 +18,7 @@ pub fn perfect_square_binary_search(n: i32) -> bool {
     let mut right = n;
 
     while left <= right {
-        let mid = (left + right) / 2;
+        let mid = i32::midpoint(left, right);
         let mid_squared = mid * mid;
 
         match mid_squared.cmp(&n) {

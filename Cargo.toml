@@ -31,7 +31,6 @@ cast_precision_loss = { level = "allow", priority = 1 }
 cast_sign_loss = { level = "allow", priority = 1 }
 cloned_instead_of_copied = { level = "allow", priority = 1 }
 doc_markdown = { level = "allow", priority = 1 }
-enum_glob_use = { level = "allow", priority = 1 }
 explicit_deref_methods = { level = "allow", priority = 1 }
 explicit_iter_loop = { level = "allow", priority = 1 }
 float_cmp = { level = "allow", priority = 1 }
@@ -166,6 +165,5 @@ doc_lazy_continuation = { level = "allow", priority = 1 }
 needless_return = { level = "allow", priority = 1 }
 doc_overindented_list_items = { level = "allow", priority = 1 }
 # complexity-lints
-needless_lifetimes = { level = "allow", priority = 1 }
 precedence = { level = "allow", priority = 1 }
 manual_div_ceil = { level = "allow", priority = 1 }
