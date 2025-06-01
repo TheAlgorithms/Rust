@@ -50,7 +50,7 @@ mod tests {
         prime_13: (13, 12),
         prime_17: (17, 16),
         prime_19: (19, 18),
-   
+
         // Small
         small_4: (4, 2),
         small_6: (6, 2),
