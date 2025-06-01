@@ -1,8 +1,4 @@
 pub fn euler_totient(n: u64) -> u64 {
-    if n == 1 {
-        return 1;
-    }
-
     let mut result = n;
     let mut num = n;
     let mut p = 2;
