@@ -61,7 +61,7 @@ mod tests {
         prime_power_2_to_2: (4, 2),
         prime_power_2_to_3: (8, 4),
         prime_power_3_to_2: (9, 6),
-        prime_power_2_to_4: (16, 8), 
+        prime_power_2_to_4: (16, 8),
         prime_power_5_to_2: (25, 20),
         prime_power_3_to_3: (27, 18),
         prime_power_2_to_5: (32, 16),
