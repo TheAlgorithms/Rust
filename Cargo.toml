@@ -69,7 +69,6 @@ unused_self = { level = "allow", priority = 1 }
 used_underscore_binding = { level = "allow", priority = 1 }
 ref_option = { level = "allow", priority = 1 }
 unnecessary_semicolon = { level = "allow", priority = 1 }
-elidable_lifetime_names = { level = "allow", priority = 1 }
 # restriction-lints:
 absolute_paths = { level = "allow", priority = 1 }
 arithmetic_side_effects = { level = "allow", priority = 1 }

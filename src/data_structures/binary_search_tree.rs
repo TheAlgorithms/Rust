@@ -184,7 +184,7 @@ where
     stack: Vec<&'a BinarySearchTree<T>>,
 }
 
-impl<'a, T> BinarySearchTreeIter<'a, T>
+impl<T> BinarySearchTreeIter<'_, T>
 where
     T: Ord,
 {

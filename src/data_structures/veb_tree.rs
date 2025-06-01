@@ -221,7 +221,7 @@ impl<'a> VebTreeIter<'a> {
     }
 }
 
-impl<'a> Iterator for VebTreeIter<'a> {
+impl Iterator for VebTreeIter<'_> {
     type Item = u32;
 
     fn next(&mut self) -> Option<u32> {
