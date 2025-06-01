@@ -51,23 +51,21 @@ mod tests {
         prime_17: (17, 16),
         prime_19: (19, 18),
 
-        // Small
-        small_4: (4, 2),
-        small_6: (6, 2),
-
-        composite_10: (10, 4), // 2 * 5
-        composite_15: (15, 8), // 3 * 5
+        composite_6: (6, 2),     // 2 * 3
+        composite_10: (10, 4),   // 2 * 5
+        composite_15: (15, 8),   // 3 * 5
         composite_12: (12, 4),   // 2^2 * 3
         composite_18: (18, 6),   // 2 * 3^2
         composite_20: (20, 8),   // 2^2 * 5
         composite_30: (30, 8),   // 2 * 3 * 5
-        // ...
+
+        prime_power_2_to_2: (4, 2),
         prime_power_2_to_3: (8, 4),
         prime_power_3_to_2: (9, 6),
-        prime_power_2_to_4: (16, 8),   // 2^4
-        prime_power_5_to_2: (25, 20),  // 5^2
-        prime_power_3_to_3: (27, 18),  // 3^3
-        prime_power_2_to_5: (32, 16),  // 2^5
+        prime_power_2_to_4: (16, 8), 
+        prime_power_5_to_2: (25, 20),
+        prime_power_3_to_3: (27, 18),
+        prime_power_2_to_5: (32, 16),
 
         // Large numbers
         large_50: (50, 20),      // 2 * 5^2
