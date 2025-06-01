@@ -107,7 +107,7 @@ impl PCG32 {
     }
 }
 
-impl<'a> Iterator for IterMut<'a> {
+impl Iterator for IterMut<'_> {
     type Item = u32;
     fn next(&mut self) -> Option<Self::Item> {
         Some(self.pcg.get_u32())
