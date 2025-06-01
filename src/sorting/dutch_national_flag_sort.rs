@@ -11,7 +11,7 @@ pub enum Colors {
     White, //  | Define the three colors of the Dutch Flag: 🇳🇱
     Blue,  // /
 }
-use Colors::*;
+use Colors::{Blue, Red, White};
 
 // Algorithm implementation
 pub fn dutch_national_flag_sort(mut sequence: Vec<Colors>) -> Vec<Colors> {
