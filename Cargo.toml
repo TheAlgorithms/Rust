@@ -70,7 +70,6 @@ used_underscore_binding = { level = "allow", priority = 1 }
 ref_option = { level = "allow", priority = 1 }
 unnecessary_semicolon = { level = "allow", priority = 1 }
 elidable_lifetime_names = { level = "allow", priority = 1 }
-manual_midpoint = { level = "allow", priority = 1 }
 # restriction-lints:
 absolute_paths = { level = "allow", priority = 1 }
 arithmetic_side_effects = { level = "allow", priority = 1 }
@@ -146,7 +145,6 @@ used_underscore_items = { level = "allow", priority = 1 }
 arbitrary_source_item_ordering = { level = "allow", priority = 1 }
 map_with_unused_argument_over_ranges = { level = "allow", priority = 1 }
 precedence_bits = { level = "allow", priority = 1 }
-string_to_string = { level = "allow", priority = 1 }
 # nursery-lints:
 branches_sharing_code = { level = "allow", priority = 1 }
 cognitive_complexity = { level = "allow", priority = 1 }

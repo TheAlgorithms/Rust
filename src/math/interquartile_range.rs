@@ -13,7 +13,7 @@ pub fn find_median(numbers: &[f64]) -> f64 {
     let mid = length / 2;
 
     if length % 2 == 0 {
-        (numbers[mid - 1] + numbers[mid]) / 2.0
+        f64::midpoint(numbers[mid - 1], numbers[mid])
     } else {
         numbers[mid]
     }
