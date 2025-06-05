@@ -97,6 +97,7 @@
     * [Maximal Square](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/maximal_square.rs)
     * [Maximum Subarray](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/maximum_subarray.rs)
     * [Minimum Cost Path](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/minimum_cost_path.rs)
+    * [Optimal Binary Seacrh Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/optimal_bst.rs)
     * [Rod Cutting](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/rod_cutting.rs)
     * [Snail](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/snail.rs)
     * [Subset Generation](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_generation.rs)
