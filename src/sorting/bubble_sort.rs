@@ -71,7 +71,6 @@ mod tests {
         bubble_sort(&mut ve3);
         assert!(is_sorted(&ve3) && have_same_elements(&ve3, &cloned));
     }
-    /// Takes much time 
     #[test]
     fn long() {
         let mut ve3: Vec<i32> = (10..39000).collect();
