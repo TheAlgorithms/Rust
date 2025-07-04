@@ -255,6 +255,7 @@
     * [Tanh](https://github.com/TheAlgorithms/Rust/blob/master/src/math/tanh.rs)
     * [Trapezoidal Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trapezoidal_integration.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
+    * [Triangular Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/triangular_number.rs)
     * [Trig Functions](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trig_functions.rs)
     * [Vector Cross Product](https://github.com/TheAlgorithms/Rust/blob/master/src/math/vector_cross_product.rs)
     * [Zellers Congruence Algorithm](https://github.com/TheAlgorithms/Rust/blob/master/src/math/zellers_congruence_algorithm.rs)
