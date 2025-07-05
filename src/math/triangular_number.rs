@@ -1,8 +1,8 @@
 // Triangular Numbers: Function to the Nth Triangular Number
 // Wikipedia Reference : https://en.wikipedia.org/wiki/Triangular_number
-
-pub fn triangular_number(n: u64) -> u64 {
-    let m: u64 = (n | 1) * ((n + 1) / 2);
+use num_bigint::BigUint;
+pub fn triangular_number(n: u64) -> BigUint {
+    let m: BigUint = ((n | 1) * ((n + 1) / 2)).into();
     m
 }
 
@@ -23,8 +23,8 @@ mod tests {
     }
 
     test_triangular_number! {
-        input_5: (6, 21),
-        input_9: (10, 55),
-        input_10: (100, 5050),
+        input_5: (6, BigUint::from(21u32)),
+        input_9: (10, BigUint::from(55u32)),
+        input_10: (100, BigUint::from(5050u32)),
     }
 }
