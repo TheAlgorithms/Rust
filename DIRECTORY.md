@@ -253,6 +253,7 @@
     * [Sum Of Harmonic Series](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sum_of_harmonic_series.rs)
     * [Sylvester Sequence](https://github.com/TheAlgorithms/Rust/blob/master/src/math/sylvester_sequence.rs)
     * [Tanh](https://github.com/TheAlgorithms/Rust/blob/master/src/math/tanh.rs)
+    * [Tetrahedral Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/tetrahedral_number.rs)
     * [Trapezoidal Integration](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trapezoidal_integration.rs)
     * [Trial Division](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trial_division.rs)
     * [Trig Functions](https://github.com/TheAlgorithms/Rust/blob/master/src/math/trig_functions.rs)
