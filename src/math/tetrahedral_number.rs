@@ -6,7 +6,7 @@
 // (n + 2) choose 3.
 
 pub fn tetrahedral_number(n: u64) -> u64 {
-   ((n) * (n + 1) * (n + 2)) / 6
+    ((n) * (n + 1) * (n + 2)) / 6
 }
 
 #[cfg(test)]
