@@ -1,3 +1,4 @@
 allowed-duplicate-crates = [
-    "glam",
+    "zerocopy",
+    "zerocopy-derive",
 ]

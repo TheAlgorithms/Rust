@@ -8,7 +8,7 @@ authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
 rand = "0.9"
-nalgebra = "0.34.0"
+nalgebra = "0.33.0"
 
 [dev-dependencies]
 quickcheck = "1.0"
