@@ -1,5 +1,5 @@
-mod present_value;
 mod black_scholes;
+mod present_value;
 
-pub use present_value::present_value;
-pub use black_scholes::black_scholes;
+pub use self::black_scholes::black_scholes;
+pub use self::present_value::present_value;
