@@ -271,7 +271,7 @@ fn h2b(h: &[u8], n: usize) -> Vec<bool> {
 }
 
 fn b2h(s: &[bool]) -> Vec<u8> {
-    let m = if s.len() % U8BITS != 0 {
+    let m = if !s.len().is_multiple_of(U8BITS) {
         (s.len() / 8) + 1
     } else {
         s.len() / 8

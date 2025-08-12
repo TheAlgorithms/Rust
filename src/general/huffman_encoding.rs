@@ -110,8 +110,9 @@ impl<T: Clone + Copy + Ord> HuffmanDictionary<T> {
     }
     pub fn encode(&self, data: &[T]) -> HuffmanEncoding {
         let mut result = HuffmanEncoding::new();
-        data.iter()
-            .for_each(|value| result.add_data(self.alphabet[value]));
+        for value in data.iter() {
+            result.add_data(self.alphabet[value]);
+        }
         result
     }
 }
