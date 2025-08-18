@@ -100,7 +100,7 @@ impl<T: Ord> AVLTree<T> {
     }
 
     /// Returns an iterator that visits the values in the tree in ascending order.
-    pub fn iter(&self) -> Iter<'_,T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         Iter {
             node_iter: self.node_iter(),
         }

@@ -36,6 +36,7 @@ pub trait SelectionStrategy<Rng: rand::Rng> {
 
 /// A roulette wheel selection strategy
 /// https://en.wikipedia.org/wiki/Fitness_proportionate_selection
+#[allow(dead_code)]
 pub struct RouletteWheel<Rng: rand::Rng> {
     rng: Rng,
 }
@@ -84,6 +85,7 @@ impl<Rng: rand::Rng> SelectionStrategy<Rng> for RouletteWheel<Rng> {
     }
 }
 
+#[allow(dead_code)]
 pub struct Tournament<const K: usize, Rng: rand::Rng> {
     rng: Rng,
 }

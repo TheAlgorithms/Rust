@@ -85,7 +85,7 @@ impl<T: Ord> Treap<T> {
     }
 
     /// Returns an iterator that visits the nodes in the tree in order.
-    fn node_iter(&self) -> NodeIter<'_,T> {
+    fn node_iter(&self) -> NodeIter<'_, T> {
         let mut node_iter = NodeIter { stack: Vec::new() };
         // Initialize stack with path to leftmost child
         let mut child = &self.root;
@@ -97,7 +97,7 @@ impl<T: Ord> Treap<T> {
     }
 
     /// Returns an iterator that visits the values in the tree in ascending order.
-    pub fn iter(&self) -> Iter<'_,T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         Iter {
             node_iter: self.node_iter(),
         }
