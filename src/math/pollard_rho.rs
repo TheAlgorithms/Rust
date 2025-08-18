@@ -201,7 +201,7 @@ mod test {
     use super::*;
 
     fn check_is_proper_factor(number: u64, factor: u64) -> bool {
-        factor > 1 && factor < number && ((number % factor) == 0)
+        factor > 1 && factor < number && number.is_multiple_of(factor)
     }
 
     fn check_factorization(number: u64, factors: &[u64]) -> bool {

@@ -52,44 +52,41 @@ pub fn black_scholes(
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn my_test() {
-        macro_rules! test_black_scholes {
-            ($($name:ident: $inputs:expr,)*) => {
-                $(
-                    fn $name() {
-                        let (spot_price, strike_price, time_to_maturity, risk_free_rate, volatility) = $inputs;
-                        let expected = black_scholes(spot_price, strike_price, time_to_maturity, risk_free_rate, volatility).unwrap();
-                        assert!(expected >= 0.0);
-                    }
-                )*
-            }
+    macro_rules! test_black_scholes {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (spot_price, strike_price, time_to_maturity, risk_free_rate, volatility) = $inputs;
+                    let expected = black_scholes(spot_price, strike_price, time_to_maturity, risk_free_rate, volatility).unwrap();
+                    assert!(expected >= 0.0);
+                }
+            )*
         }
+    }
 
-        macro_rules! test_black_scholes_Err {
-            ($($name:ident: $inputs:expr,)*) => {
-                $(
-                    #[test]
-                    fn $name() {
-                        let (spot_price, strike_price, time_to_maturity, risk_free_rate, volatility) = $inputs;
-                        assert_eq!(black_scholes(spot_price, strike_price, time_to_maturity, risk_free_rate, volatility).unwrap_err(), BlackScholesError::InvalidParameters);
-                    }
-                )*
-            }
+    macro_rules! test_black_scholes_Err {
+        ($($name:ident: $inputs:expr,)*) => {
+            $(
+                #[test]
+                fn $name() {
+                    let (spot_price, strike_price, time_to_maturity, risk_free_rate, volatility) = $inputs;
+                    assert_eq!(black_scholes(spot_price, strike_price, time_to_maturity, risk_free_rate, volatility).unwrap_err(), BlackScholesError::InvalidParameters);
+                }
+            )*
         }
+    }
 
-        test_black_scholes! {
-            valid_parameters: (100.0, 100.0, 1.0, 0.05, 0.2),
-            another_valid_case: (150.0, 100.0, 2.0, 0.03, 0.25),
-        }
+    test_black_scholes! {
+        valid_parameters: (100.0, 100.0, 1.0, 0.05, 0.2),
+        another_valid_case: (150.0, 100.0, 2.0, 0.03, 0.25),
+    }
 
-        test_black_scholes_Err! {
-            negative_spot_price: (-100.0, 100.0, 1.0, 0.05, 0.2),
-            zero_strike_price: (100.0, 0.0, 1.0, 0.05, 0.2),
-            negative_time_to_maturity: (100.0, 100.0, -1.0, 0.05, 0.2),
-            negative_risk_free_rate: (100.0, 100.0, 1.0, -0.05, 0.2),
-            negative_volatility: (100.0, 100.0, 1.0, 0.05, -0.2),
-        }
+    test_black_scholes_Err! {
+        negative_spot_price: (-100.0, 100.0, 1.0, 0.05, 0.2),
+        zero_strike_price: (100.0, 0.0, 1.0, 0.05, 0.2),
+        negative_time_to_maturity: (100.0, 100.0, -1.0, 0.05, 0.2),
+        negative_risk_free_rate: (100.0, 100.0, 1.0, -0.05, 0.2),
+        negative_volatility: (100.0, 100.0, 1.0, 0.05, -0.2),
     }
 }

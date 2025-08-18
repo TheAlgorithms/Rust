@@ -174,7 +174,9 @@ mod tests {
     use super::*;
     fn get_frequency(bytes: &[u8]) -> Vec<(u8, u64)> {
         let mut cnts: Vec<u64> = vec![0; 256];
-        bytes.iter().for_each(|&b| cnts[b as usize] += 1);
+        for &b in bytes.iter() {
+            cnts[b as usize] += 1;
+        }
         let mut result = vec![];
         cnts.iter()
             .enumerate()
