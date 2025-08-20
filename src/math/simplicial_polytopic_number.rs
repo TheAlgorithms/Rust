@@ -36,13 +36,13 @@ mod tests {
     }
 
     test_simplicial_polytopic_number! {
-        input_0: ((1, 1), 1),
-        input_1: ((2, 1), 2),
-        input_2: ((2, 2), 3),
-        input_3: ((3, 3), 10),
-        input_4: ((2, 4), 5),
-        input_5: ((5, 5), 126),
-        input_6: ((9, 6), 3003),
-        input_7: ((6, 10), 3003),
+        input_0: ((1, 1), 1), // 1st natural number = 1
+        input_1: ((2, 1), 2), // 2nd natural number = 2
+        input_2: ((2, 2), 3), // 2nd triangular number = 3
+        input_3: ((3, 3), 10), // 3rd tetrahedral number = 10
+        input_4: ((2, 4), 5), // 2nd pentatope number = 5
+        input_5: ((5, 5), 126), // 5th 5_simplex = 126
+        input_6: ((9, 6), 3003), // 9th 6_simplex = 3003
+        input_7: ((6, 10), 3003), // 6th 10_simplex = 3003
     }
 }
