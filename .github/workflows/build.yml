@@ -14,7 +14,7 @@ jobs:
     name: cargo fmt
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: cargo fmt
       run: cargo fmt --all -- --check
 
@@ -22,7 +22,7 @@ jobs:
     name: cargo clippy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: cargo clippy
       run: cargo clippy --all --all-targets -- -D warnings
 
@@ -30,6 +30,6 @@ jobs:
     name: cargo test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: cargo test
       run: cargo test
