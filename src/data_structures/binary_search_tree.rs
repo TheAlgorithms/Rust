@@ -188,7 +188,7 @@ impl<T> BinarySearchTreeIter<'_, T>
 where
     T: Ord,
 {
-    pub fn new(tree: &BinarySearchTree<T>) -> BinarySearchTreeIter<T> {
+    pub fn new(tree: &BinarySearchTree<T>) -> BinarySearchTreeIter<'_, T> {
         let mut iter = BinarySearchTreeIter { stack: vec![tree] };
         iter.stack_push_left();
         iter
