@@ -58,7 +58,7 @@ impl VebTree {
         self.max
     }
 
-    pub fn iter(&self) -> VebTreeIter {
+    pub fn iter(&self) -> VebTreeIter<'_> {
         VebTreeIter::new(self)
     }
 
