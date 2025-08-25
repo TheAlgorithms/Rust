@@ -21,6 +21,7 @@ pub trait BloomFilter<Item: Hash> {
 /// When looking for an item, we hash its value and retrieve the boolean at index `hash(item) % CAPACITY`
 /// If it's `false` it's absolutely sure the item isn't present
 /// If it's `true` the item may be present, or maybe another one produces the same hash
+#[allow(dead_code)]
 #[derive(Debug)]
 struct BasicBloomFilter<const CAPACITY: usize> {
     vec: [bool; CAPACITY],

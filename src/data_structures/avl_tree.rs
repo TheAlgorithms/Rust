@@ -85,7 +85,7 @@ impl<T: Ord> AVLTree<T> {
     }
 
     /// Returns an iterator that visits the nodes in the tree in order.
-    fn node_iter(&self) -> NodeIter<T> {
+    fn node_iter(&self) -> NodeIter<'_, T> {
         let cap = self.root.as_ref().map_or(0, |n| n.height);
         let mut node_iter = NodeIter {
             stack: Vec::with_capacity(cap),
@@ -100,7 +100,7 @@ impl<T: Ord> AVLTree<T> {
     }
 
     /// Returns an iterator that visits the values in the tree in ascending order.
-    pub fn iter(&self) -> Iter<T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         Iter {
             node_iter: self.node_iter(),
         }
