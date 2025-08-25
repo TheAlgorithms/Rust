@@ -6,8 +6,8 @@
 ///
 /// # Examples
 /// ```
-/// use crate::big_integer::multiply;
 /// assert_eq!(multiply("123", "456"), "56088");
+/// use crate::big_integer::multiply;
 /// assert_eq!(multiply("99", "99"), "9801");
 /// ```
 pub fn multiply(num1: &str, num2: &str) -> String {
