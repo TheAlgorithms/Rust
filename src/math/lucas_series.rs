@@ -55,10 +55,10 @@ pub fn dynamic_lucas_number_logn(n: u32) -> u32 {
 fn matrix_multiply(a: [[u32; 2]; 2], b: [[u32; 2]; 2]) -> [[u32; 2]; 2] {
     let mut result = [[0u32; 2]; 2];
 
-    for i in 0..2 {
+    for (i, a_row) in a.iter().enumerate() {
         for j in 0..2 {
-            for k in 0..2 {
-                result[i][j] = result[i][j].wrapping_add(a[i][k].wrapping_mul(b[k][j]));
+            for (k, &a_ik) in a_row.iter().enumerate() {
+                result[i][j] = result[i][j].wrapping_add(a_ik.wrapping_mul(b[k][j]));
             }
         }
     }
