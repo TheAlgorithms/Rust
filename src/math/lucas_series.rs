@@ -16,12 +16,54 @@ pub fn dynamic_lucas_number(n: u32) -> u32 {
     let mut b = 1;
 
     for _ in 0..n {
-        let temp = a;
-        a = b;
-        b += temp;
+        (a, b) = (b, a + b);
     }
 
     a
+}
+
+pub fn dynamic_lucas_number_logn(n: u32) -> u32 {
+    if n == 0 {
+        return 2;
+    } else if n == 1 {
+        return 1;
+    }
+
+    // Matrix exponentiation: [[1, 1], [1, 0]]^n
+    // say n = 11
+    // We can write 11 as 1011 in binary
+    // which is 2^3 * 1 + 2^1 * 1 + 2^0 * 1
+    let mut matrix = [[1u32, 1u32], [1u32, 0u32]];
+    let mut result = [[1u32, 0u32], [0u32, 1u32]]; // Identity matrix
+    let mut power = n - 1;
+
+    while power > 0 {
+        if power & 1 == 1 {
+            result = matrix_multiply(result, matrix);
+        }
+        // always square the matrix, this will generate
+        // the following sequence for each iteration of
+        // i: matrix^(2^i) for i = 1, 2, 3...
+        matrix = matrix_multiply(matrix, matrix);
+        power >>= 1;
+    }
+
+    // Return L(n) = result[0][0] * L(1) + result[0][1] * L(0) = result[0][0] * 1 + result[0][1] * 2
+    result[0][0] + 2 * result[0][1]
+}
+
+fn matrix_multiply(a: [[u32; 2]; 2], b: [[u32; 2]; 2]) -> [[u32; 2]; 2] {
+    let mut result = [[0u32; 2]; 2];
+
+    for i in 0..2 {
+        for j in 0..2 {
+            for k in 0..2 {
+                result[i][j] = result[i][j].wrapping_add(a[i][k].wrapping_mul(b[k][j]));
+            }
+        }
+    }
+
+    result
 }
 
 #[cfg(test)]
@@ -36,6 +78,7 @@ mod tests {
                 let (n, expected) = $inputs;
                 assert_eq!(recursive_lucas_number(n), expected);
                 assert_eq!(dynamic_lucas_number(n), expected);
+                assert_eq!(dynamic_lucas_number_logn(n), expected);
             }
         )*
         }
