@@ -135,6 +135,7 @@ pub use self::least_square_approx::least_square_approx;
 pub use self::linear_sieve::LinearSieve;
 pub use self::logarithm::log;
 pub use self::lucas_series::dynamic_lucas_number;
+pub use self::lucas_series::dynamic_lucas_number_logn;
 pub use self::lucas_series::recursive_lucas_number;
 pub use self::matrix_ops::Matrix;
 pub use self::mersenne_primes::{get_mersenne_primes, is_mersenne_prime};
