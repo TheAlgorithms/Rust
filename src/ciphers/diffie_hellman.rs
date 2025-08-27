@@ -228,10 +228,7 @@ impl DiffieHellman {
     // Both parties now have the same shared secret key s which can be used for encryption or authentication.
 
     pub fn new(group: Option<u8>) -> Self {
-        let mut _group: u8 = 14;
-        if let Some(x) = group {
-            _group = x;
-        }
+        let _group = group.unwrap_or(14);
 
         if !PRIMES.contains_key(&_group) {
             panic!("group not in primes")
