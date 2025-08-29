@@ -76,6 +76,60 @@ where
         }
         node.value.as_ref()
     }
+
+    /// Removes a value from the Trie associated with a sequence of keys.
+    ///
+    /// # Arguments
+    /// - `key`: An iterable sequence of keys (e.g., characters in a string or integers in a vector).
+    ///
+    /// # Returns
+    /// An `Option` containing the removed value if the sequence of keys existed in the Trie,
+    /// or `None` if it did not exist.
+    pub fn delete(&mut self, key: impl IntoIterator<Item = Key>) -> Option<Type>
+    where
+        Key: Eq + Hash + Clone,
+    {
+        let key_vec: Vec<Key> = key.into_iter().collect();
+        if key_vec.is_empty() {
+            return self.root.value.take();
+        }
+
+        Self::delete_recursive(&mut self.root, &key_vec, 0)
+    }
+
+    /// Recursive helper function for deletion.
+    ///
+    /// # Arguments
+    /// - `node`: The current node being processed.
+    /// - `key`: The complete key sequence as a vector.
+    /// - `index`: The current position in the key sequence.
+    ///
+    /// # Returns
+    /// An `Option` containing the removed value if found, or `None` if not found.
+    fn delete_recursive(node: &mut Node<Key, Type>, key: &[Key], index: usize) -> Option<Type>
+    where
+        Key: Eq + Hash,
+    {
+        if index == key.len() {
+            // We've reached the end of the key sequence
+            return node.value.take();
+        }
+
+        let current_key = &key[index];
+        if let Some(child_node) = node.children.get_mut(current_key) {
+            let removed_value = Self::delete_recursive(child_node, key, index + 1);
+
+            // Remove child node if it has no value and no children
+            if child_node.value.is_none() && child_node.children.is_empty() {
+                node.children.remove(current_key);
+            }
+
+            removed_value
+        } else {
+            // Key not found
+            None
+        }
+    }
 }
 
 #[cfg(test)]
@@ -151,5 +205,53 @@ mod tests {
         assert_eq!(trie.get("appl".chars()), None);
         assert_eq!(trie.get("apple".chars()), Some(&10));
         assert_eq!(trie.get("applepie".chars()), None);
+    }
+
+    #[test]
+    fn test_delete_basic() {
+        let mut trie = Trie::new();
+        trie.insert("foo".chars(), 42);
+        trie.insert("bar".chars(), 100);
+
+        assert_eq!(trie.delete("foo".chars()), Some(42));
+        assert_eq!(trie.get("foo".chars()), None);
+        assert_eq!(trie.get("bar".chars()), Some(&100));
+        assert_eq!(trie.delete("nonexistent".chars()), None);
+    }
+
+    #[test]
+    fn test_delete_overlapping_keys() {
+        let mut trie = Trie::new();
+        trie.insert("car".chars(), 1);
+        trie.insert("cart".chars(), 2);
+        trie.insert("carter".chars(), 3);
+
+        assert_eq!(trie.delete("cart".chars()), Some(2));
+        assert_eq!(trie.get("car".chars()), Some(&1));
+        assert_eq!(trie.get("cart".chars()), None);
+        assert_eq!(trie.get("carter".chars()), Some(&3));
+    }
+
+    #[test]
+    fn test_delete_empty_key_and_cleanup() {
+        let mut trie: Trie<char, i32> = Trie::new();
+        trie.insert("".chars(), 42);
+        trie.insert("hello".chars(), 1);
+
+        assert_eq!(trie.delete("".chars()), Some(42));
+        assert_eq!(trie.get("".chars()), None);
+        assert_eq!(trie.delete("hello".chars()), Some(1));
+        assert_eq!(trie.delete("".chars()), None);
+    }
+
+    #[test]
+    fn test_delete_with_integers() {
+        let mut trie = Trie::new();
+        trie.insert(vec![1, 2, 3], "first");
+        trie.insert(vec![1, 2, 3, 4], "second");
+
+        assert_eq!(trie.delete(vec![1, 2, 3]), Some("first"));
+        assert_eq!(trie.get(vec![1, 2, 3]), None);
+        assert_eq!(trie.get(vec![1, 2, 3, 4]), Some(&"second"));
     }
 }
