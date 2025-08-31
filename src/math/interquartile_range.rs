@@ -12,7 +12,7 @@ pub fn find_median(numbers: &[f64]) -> f64 {
     let length = numbers.len();
     let mid = length / 2;
 
-    if length % 2 == 0 {
+    if length.is_multiple_of(2) {
         f64::midpoint(numbers[mid - 1], numbers[mid])
     } else {
         numbers[mid]
@@ -29,7 +29,7 @@ pub fn interquartile_range(numbers: &[f64]) -> f64 {
 
     let length = numbers.len();
     let mid = length / 2;
-    let (q1, q3) = if length % 2 == 0 {
+    let (q1, q3) = if length.is_multiple_of(2) {
         let first_half = &numbers[0..mid];
         let second_half = &numbers[mid..length];
         (find_median(first_half), find_median(second_half))

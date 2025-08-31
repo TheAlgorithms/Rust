@@ -192,7 +192,9 @@ mod tests {
         polynomial.append(&mut vec![0.0; 4]);
         let permutation = fast_fourier_transform_input_permutation(polynomial.len());
         let mut fft = fast_fourier_transform(&polynomial, &permutation);
-        fft.iter_mut().for_each(|num| *num *= *num);
+        for num in fft.iter_mut() {
+            *num *= *num;
+        }
         let ifft = inverse_fast_fourier_transform(&fft, &permutation);
         let expected = [1.0, 2.0, 1.0, 4.0, 4.0, 0.0, 4.0, 0.0, 0.0];
         for (x, y) in ifft.iter().zip(expected.iter()) {
@@ -210,7 +212,9 @@ mod tests {
         polynomial.append(&mut vec![0.0f64; n]);
         let permutation = fast_fourier_transform_input_permutation(polynomial.len());
         let mut fft = fast_fourier_transform(&polynomial, &permutation);
-        fft.iter_mut().for_each(|num| *num *= *num);
+        for num in fft.iter_mut() {
+            *num *= *num;
+        }
         let ifft = inverse_fast_fourier_transform(&fft, &permutation);
         let expected = (0..((n << 1) - 1)).map(|i| std::cmp::min(i + 1, (n << 1) - 1 - i) as f64);
         for (&x, y) in ifft.iter().zip(expected) {
