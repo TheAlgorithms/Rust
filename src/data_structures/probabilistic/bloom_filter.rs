@@ -23,7 +23,6 @@ pub trait BloomFilter<Item: Hash> {
 /// If it's `true` the item may be present, or maybe another one produces the same hash
 #[allow(dead_code)]
 #[derive(Debug)]
-#[allow(dead_code)]
 struct BasicBloomFilter<const CAPACITY: usize> {
     vec: [bool; CAPACITY],
 }
