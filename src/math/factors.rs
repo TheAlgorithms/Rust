@@ -7,7 +7,7 @@ pub fn factors(number: u64) -> Vec<u64> {
     let mut factors: Vec<u64> = Vec::new();
 
     for i in 1..=((number as f64).sqrt() as u64) {
-        if number % i == 0 {
+        if number.is_multiple_of(i) {
             factors.push(i);
             if i != number / i {
                 factors.push(number / i);

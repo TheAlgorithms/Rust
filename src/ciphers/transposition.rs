@@ -42,9 +42,9 @@ pub fn transposition(decrypt_mode: bool, msg: &str, key: &str) -> String {
 
         key_ascii.sort_by_key(|&(index, _)| index);
 
-        key_ascii
-            .into_iter()
-            .for_each(|(_, key)| key_order.push(key.into()));
+        for (_, key) in key_ascii {
+            key_order.push(key.into());
+        }
 
         // Determines whether to encrypt or decrypt the message,
         // and returns the result

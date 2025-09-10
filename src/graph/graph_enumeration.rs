@@ -41,7 +41,9 @@ mod tests {
         let mut result = enumerate_graph(&graph);
         let expected = vec![vec![], vec![2, 3], vec![1, 3, 4], vec![1, 2], vec![2]];
 
-        result.iter_mut().for_each(|v| v.sort_unstable());
+        for v in result.iter_mut() {
+            v.sort_unstable();
+        }
         assert_eq!(result, expected);
     }
 
@@ -55,7 +57,9 @@ mod tests {
         let mut result = enumerate_graph(&graph);
         let expected = vec![vec![], vec![2, 3], vec![1, 3, 4], vec![1, 2], vec![2]];
 
-        result.iter_mut().for_each(|v| v.sort_unstable());
+        for v in result.iter_mut() {
+            v.sort_unstable();
+        }
         assert_eq!(result, expected);
     }
 }
