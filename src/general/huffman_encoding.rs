@@ -187,7 +187,7 @@ impl HuffmanEncoding {
         self.num_bits += data.bits as u64;
     }
 
-    #[inline(always)]
+    #[inline]
     fn get_bit(&self, pos: u64) -> bool {
         (self.data[(pos >> 6) as usize] & (1 << (pos & 63))) != 0
     }
