@@ -78,12 +78,12 @@ pub struct HuffmanDictionary<T> {
 
 impl<T: Clone + Copy + Ord> HuffmanDictionary<T> {
     /// Creates a new Huffman dictionary from alphabet symbols and their frequencies.
-    /// 
+    ///
     /// Returns `None` if the alphabet is empty.
-    /// 
+    ///
     /// # Arguments
     /// * `alphabet` - A slice of tuples containing symbols and their frequencies
-    /// 
+    ///
     /// # Example
     /// ```
     /// # use the_algorithms_rust::general::HuffmanDictionary;
