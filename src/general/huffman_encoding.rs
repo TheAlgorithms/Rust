@@ -288,7 +288,7 @@ mod tests {
 
     #[test]
     fn minimal_decode_end_check() {
-        let freq = vec![('a' as u8, 1), ('b' as u8, 1)];
+        let freq = vec![(b'a' as u8, 1), (b'b' as u8, 1)];
         let bytes = b"ab";
 
         let dict = HuffmanDictionary::new(&freq).unwrap();
