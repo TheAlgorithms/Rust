@@ -301,6 +301,36 @@ mod tests {
     }
 
     #[test]
+    fn test_decode_corrupted_stream_dead_end() {
+        // Create a dictionary with three symbols to ensure a deeper tree.
+        // This makes hitting a dead-end (None pointer) easier.
+        let freq = vec![(b'a', 1), (b'b', 1), (b'c', 1)];
+        let bytes = b"ab";
+        let dict = HuffmanDictionary::new(&freq).unwrap();
+
+        let encoded = dict.encode(bytes);
+
+        // Manually corrupt the stream to stop mid-symbol.
+        // We will truncate num_bits by a small amount (e.g., 1 bit).
+        // This forces the loop to stop on an *intermediate* node.
+        let corrupted_encoding = HuffmanEncoding {
+            data: encoded.data,
+            // Shorten the bit count by one. The total length of the 'ab' stream
+            // is likely 4 or 5 bits. This forces the loop to end one bit early,
+            // leaving the state on an internal node.
+            num_bits: encoded
+                .num_bits
+                .checked_sub(1)
+                .expect("Encoding should be > 0 bits"),
+        };
+
+        // Assert that the decode fails gracefully.
+        // The loop finishes, the final 'if self.num_bits > 0' executes,
+        // and result.push(state.symbol?) fails because state.symbol is None.
+        assert_eq!(corrupted_encoding.decode(&dict), None);
+    }
+
+    #[test]
     fn small_text() {
         let text = "Hello world";
         let bytes = text.as_bytes();
