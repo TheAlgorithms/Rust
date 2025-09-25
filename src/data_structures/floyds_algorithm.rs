@@ -91,5 +91,12 @@ mod tests {
 
         assert!(has_cycle(&linked_list));
         assert_eq!(detect_cycle(&linked_list), Some(3));
+
+        // Break the cycle before the list is dropped
+        unsafe {
+            if let Some(mut tail) = linked_list.tail {
+                tail.as_mut().next = None;
+            }
+        }
     }
 }
