@@ -268,6 +268,39 @@ mod tests {
     }
 
     #[test]
+    fn test_decode_empty_encoding_struct() {
+        // Create a minimal but VALID HuffmanDictionary.
+        // This is required because decode() expects a dictionary, even though
+        // the content of the dictionary doesn't matter when num_bits == 0.
+        let freq = vec![('a' as u8, 1)];
+        let dict = HuffmanDictionary::new(&freq).unwrap();
+
+        // Manually create the target state: an encoding with 0 bits.
+        let empty_encoding = HuffmanEncoding {
+            data: vec![],
+            num_bits: 0,
+        };
+
+        let result = empty_encoding.decode(&dict);
+
+        assert_eq!(result, Some(vec![]));
+    }
+
+    #[test]
+    fn minimal_decode_end_check() {
+        let freq = vec![('a' as u8, 1), ('b' as u8, 1)];
+        let bytes = b"ab";
+
+        let dict = HuffmanDictionary::new(&freq).unwrap();
+        let encoded = dict.encode(bytes);
+
+        // This decode will go through the main loop and hit the final 'if self.num_bits > 0' check.
+        let decoded = encoded.decode(&dict).unwrap();
+
+        assert_eq!(decoded, bytes);
+    }
+
+    #[test]
     fn small_text() {
         let text = "Hello world";
         let bytes = text.as_bytes();
