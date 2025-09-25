@@ -272,7 +272,7 @@ mod tests {
         // Create a minimal but VALID HuffmanDictionary.
         // This is required because decode() expects a dictionary, even though
         // the content of the dictionary doesn't matter when num_bits == 0.
-        let freq = vec![(b'a' as u8, 1)];
+        let freq = vec![(b'a', 1)];
         let dict = HuffmanDictionary::new(&freq).unwrap();
 
         // Manually create the target state: an encoding with 0 bits.
@@ -288,7 +288,7 @@ mod tests {
 
     #[test]
     fn minimal_decode_end_check() {
-        let freq = vec![(b'a' as u8, 1), (b'b' as u8, 1)];
+        let freq = vec![(b'a', 1), (b'b', 1)]; 
         let bytes = b"ab";
 
         let dict = HuffmanDictionary::new(&freq).unwrap();
