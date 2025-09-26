@@ -16,7 +16,7 @@ pub fn kld_loss(actual: &[f64], predicted: &[f64]) -> f64 {
     let loss: f64 = actual
         .iter()
         .zip(predicted.iter())
-        .map(|(&a, &p)| (a + eps) * ((a + eps) / (p + eps)).ln())
+        .map(|(&a, &p)| ((a + eps) * ((a + eps) / (p + eps)).ln()))
         .sum();
     loss
 }
