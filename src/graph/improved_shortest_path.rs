@@ -494,7 +494,230 @@ mod tests {
         assert_eq!(bucket_result, improved_result);
 
         // Bucket approach should be faster for small integer weights
-        println!("Bucket duration: {:?}", bucket_duration);
-        println!("Improved duration: {:?}", improved_duration);
+        println!("Bucket duration: {bucket_duration:?}");
+        println!("Improved duration: {improved_duration:?}");
+    }
+
+    #[test]
+    fn test_zero_trait_implementations() {
+        use super::Zero;
+        // Test all Zero trait implementations
+        assert_eq!(usize::zero(), 0);
+        assert_eq!(isize::zero(), 0);
+        assert_eq!(u32::zero(), 0);
+        assert_eq!(i32::zero(), 0);
+        assert_eq!(u64::zero(), 0);
+        assert_eq!(i64::zero(), 0);
+        assert_eq!(f32::zero(), 0.0);
+        assert_eq!(f64::zero(), 0.0);
+    }
+
+    #[test]
+    fn test_vertex_distance_ordering() {
+        use super::VertexDistance;
+
+        // Test ordering behavior for min-heap (reverse ordering)
+        let vd1 = VertexDistance {
+            vertex: 1,
+            distance: 5,
+        };
+        let vd2 = VertexDistance {
+            vertex: 2,
+            distance: 3,
+        };
+
+        // vd2 should be "greater" (comes first in min-heap) due to smaller distance
+        assert!(vd2 > vd1);
+
+        // Test equality
+        let vd3 = VertexDistance {
+            vertex: 1,
+            distance: 5,
+        };
+        assert_eq!(vd1.cmp(&vd3), std::cmp::Ordering::Equal);
+
+        // Test same distance, different vertices
+        let vd4 = VertexDistance {
+            vertex: 3,
+            distance: 5,
+        };
+        assert_ne!(vd1.cmp(&vd4), std::cmp::Ordering::Equal);
+    }
+
+    #[test]
+    fn test_improved_shortest_path_edge_cases() {
+        // Test empty graph
+        let empty_graph: Graph<i32, i32> = BTreeMap::new();
+        let result = improved_shortest_path(&empty_graph, 0);
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[&0], None);
+
+        // Test graph with only one vertex and no edges
+        let mut single_vertex: Graph<i32, i32> = BTreeMap::new();
+        single_vertex.insert(0, BTreeMap::new());
+        let result = improved_shortest_path(&single_vertex, 0);
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[&0], None);
+
+        // Test disconnected vertices
+        let mut disconnected: Graph<i32, i32> = BTreeMap::new();
+        disconnected.insert(0, BTreeMap::new());
+        disconnected.insert(1, BTreeMap::new());
+        disconnected.insert(2, BTreeMap::new());
+        let result = improved_shortest_path(&disconnected, 0);
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[&0], None);
+    }
+
+    #[test]
+    fn test_bucket_shortest_path_edge_cases() {
+        // Test with max_weight = 0
+        let mut graph = BTreeMap::new();
+        add_edge(&mut graph, 0, 1, 0);
+
+        let result = bucket_shortest_path(&graph, 0, 0);
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 0)));
+
+        // Test with weights exceeding max_weight
+        let mut graph = BTreeMap::new();
+        add_edge(&mut graph, 0, 1, 5);
+        add_edge(&mut graph, 1, 2, 3);
+
+        let result = bucket_shortest_path(&graph, 0, 3);
+        // Should still work but may not find optimal path for vertex 2
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 5)));
+    }
+
+    #[test]
+    fn test_adaptive_shortest_path_edge_cases() {
+        // Test with empty graph
+        let empty_graph: Graph<i32, usize> = BTreeMap::new();
+        let result = adaptive_shortest_path(&empty_graph, 0, 10);
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[&0], None);
+
+        // Test threshold behavior - should choose bucket for small weights
+        let mut small_weights = BTreeMap::new();
+        add_edge(&mut small_weights, 0, 1, 2);
+        add_edge(&mut small_weights, 1, 2, 1);
+
+        let result = adaptive_shortest_path(&small_weights, 0, 5);
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 2)));
+        assert_eq!(result[&2], Some((1, 3)));
+
+        // Test threshold behavior - should choose improved for large weights
+        let mut large_weights = BTreeMap::new();
+        add_edge(&mut large_weights, 0, 1, 10);
+        add_edge(&mut large_weights, 1, 2, 15);
+
+        let result = adaptive_shortest_path(&large_weights, 0, 5);
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 10)));
+        assert_eq!(result[&2], Some((1, 25)));
+    }
+
+    #[test]
+    fn test_priority_queue_behavior() {
+        // Test that priority queue correctly handles duplicate vertices
+        let mut graph = BTreeMap::new();
+        add_edge(&mut graph, 0, 1, 5);
+        add_edge(&mut graph, 0, 2, 3);
+        add_edge(&mut graph, 2, 1, 1); // This creates a shorter path to 1
+
+        let result = improved_shortest_path(&graph, 0);
+
+        // Should find shortest path: 0 -> 2 -> 1 (distance 4)
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&2], Some((0, 3)));
+        assert_eq!(result[&1].unwrap().1, 4); // Distance should be 4, not 5
+    }
+
+    #[test]
+    fn test_bucket_algorithm_empty_buckets() {
+        // Test bucket algorithm with gaps in distances
+        let mut graph = BTreeMap::new();
+        add_edge(&mut graph, 0, 1, 2);
+        add_edge(&mut graph, 1, 2, 5); // Creates gap in bucket indices
+
+        let result = bucket_shortest_path(&graph, 0, 10);
+
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 2)));
+        assert_eq!(result[&2], Some((1, 7)));
+    }
+
+    #[test]
+    fn test_visited_vertex_skipping() {
+        // Test that already visited vertices are properly skipped
+        let mut graph = BTreeMap::new();
+        add_edge(&mut graph, 0, 1, 1);
+        add_edge(&mut graph, 0, 2, 2);
+        add_edge(&mut graph, 1, 2, 1); // Creates multiple paths to vertex 2
+
+        let result = improved_shortest_path(&graph, 0);
+
+        // Should find optimal path: 0 -> 1 -> 2 (distance 2)
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 1)));
+        assert_eq!(result[&2].unwrap().1, 2);
+    }
+
+    #[test]
+    fn test_different_numeric_types() {
+        // Test with different numeric types to ensure trait implementations work
+        let mut graph_u32: Graph<u32, u32> = BTreeMap::new();
+        graph_u32.insert(0, BTreeMap::new());
+        graph_u32.insert(1, BTreeMap::new());
+        graph_u32.entry(0).or_default().insert(1, 5);
+
+        let result_u32 = improved_shortest_path(&graph_u32, 0);
+        assert_eq!(result_u32[&1], Some((0, 5)));
+
+        // Test with i64 (which implements Ord)
+        let mut graph_i64: Graph<i64, i64> = BTreeMap::new();
+        graph_i64.insert(0, BTreeMap::new());
+        graph_i64.insert(1, BTreeMap::new());
+        graph_i64.entry(0).or_default().insert(1, 314);
+
+        let result_i64 = improved_shortest_path(&graph_i64, 0);
+        assert_eq!(result_i64[&1], Some((0, 314)));
+    }
+
+    #[test]
+    fn test_visited_vertex_continue_coverage() {
+        // Test to specifically cover the continue statement when vertex is already visited
+        // This happens when a vertex appears multiple times in the priority queue
+        let mut graph = BTreeMap::new();
+        add_edge(&mut graph, 0, 1, 1);
+        add_edge(&mut graph, 0, 2, 2);
+        add_edge(&mut graph, 1, 2, 1);
+        add_edge(&mut graph, 2, 3, 1);
+
+        // This creates a scenario where vertex 2 might be processed multiple times
+        // due to different paths: 0->2 (weight 2) and 0->1->2 (weight 2)
+        let result = improved_shortest_path(&graph, 0);
+
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 1)));
+        assert_eq!(result[&2].unwrap().1, 2); // Should find shortest path
+        assert_eq!(result[&3].unwrap().1, 3); // 0->1->2->3 or 0->2->3
+    }
+
+    #[test]
+    fn test_bucket_visited_vertex_continue_coverage() {
+        // Test to cover the continue statement in bucket algorithm
+        let mut graph = BTreeMap::new();
+        add_edge(&mut graph, 0, 1, 1);
+        add_edge(&mut graph, 0, 2, 2);
+        add_edge(&mut graph, 1, 2, 1);
+
+        let result = bucket_shortest_path(&graph, 0, 5);
+
+        assert_eq!(result[&0], None);
+        assert_eq!(result[&1], Some((0, 1)));
+        assert_eq!(result[&2].unwrap().1, 2);
     }
 }
