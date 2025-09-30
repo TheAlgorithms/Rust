@@ -169,5 +169,3 @@ doc_overindented_list_items = { level = "allow", priority = 1 }
 # complexity-lints
 precedence = { level = "allow", priority = 1 }
 manual_div_ceil = { level = "allow", priority = 1 }
-# perf-lints
-cloned_ref_to_slice_refs = { level = "allow", priority = 1 }
