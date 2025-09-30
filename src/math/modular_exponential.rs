@@ -37,11 +37,11 @@ pub fn gcd_extended(a: i64, m: i64) -> (i64, i64, i64) {
 /// Panics if the inverse does not exist (i.e., `b` and `m` are not coprime).
 pub fn mod_inverse(b: i64, m: i64) -> i64 {
     let (gcd, x, _) = gcd_extended(b, m);
-    if gcd != 1 {
-        panic!("Inverse does not exist");
-    } else {
+    if gcd == 1 {
         // Ensure the modular inverse is positive
         (x % m + m) % m
+    } else {
+        panic!("Inverse does not exist");
     }
 }
 

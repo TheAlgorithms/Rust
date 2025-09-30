@@ -103,11 +103,11 @@ pub fn tan<T: Into<f64> + Copy>(x: T, tol: f64) -> f64 {
     let cos_val = cosine(x, tol);
 
     /* Cover special cases for division */
-    if cos_val != 0f64 {
+    if cos_val == 0f64 {
+        f64::NAN
+    } else {
         let sin_val = sine(x, tol);
         sin_val / cos_val
-    } else {
-        f64::NAN
     }
 }
 
@@ -116,11 +116,11 @@ pub fn cotan<T: Into<f64> + Copy>(x: T, tol: f64) -> f64 {
     let sin_val = sine(x, tol);
 
     /* Cover special cases for division */
-    if sin_val != 0f64 {
+    if sin_val == 0f64 {
+        f64::NAN
+    } else {
         let cos_val = cosine(x, tol);
         cos_val / sin_val
-    } else {
-        f64::NAN
     }
 }
 
