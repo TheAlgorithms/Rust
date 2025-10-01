@@ -153,8 +153,9 @@ impl<T: Clone + Copy + Ord> HuffmanDictionary<T> {
     }
     pub fn encode(&self, data: &[T]) -> HuffmanEncoding {
         let mut result = HuffmanEncoding::new();
-        data.iter()
-            .for_each(|value| result.add_data(self.alphabet[value]));
+        for value in data.iter() {
+            result.add_data(self.alphabet[value]);
+        }
         result
     }
 }
@@ -237,7 +238,9 @@ mod tests {
     use super::*;
     fn get_frequency(bytes: &[u8]) -> Vec<(u8, u64)> {
         let mut cnts: Vec<u64> = vec![0; 256];
-        bytes.iter().for_each(|&b| cnts[b as usize] += 1);
+        for &b in bytes.iter() {
+            cnts[b as usize] += 1;
+        }
         let mut result = vec![];
         cnts.iter()
             .enumerate()
