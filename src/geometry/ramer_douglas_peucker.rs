@@ -104,7 +104,7 @@ mod tests {
 
         assert_eq!(ramer_douglas_peucker(&[], epsilon), vec![]);
         assert_eq!(
-            ramer_douglas_peucker(&[a.clone()], epsilon),
+            ramer_douglas_peucker(std::slice::from_ref(&a), epsilon),
             vec![a.clone()]
         );
         assert_eq!(
