@@ -145,6 +145,7 @@
     * [Ford Fulkerson](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/ford_fulkerson.rs)
     * [Graph Enumeration](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/graph_enumeration.rs)
     * [Heavy Light Decomposition](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/heavy_light_decomposition.rs)
+    * [Improved Shortest Path](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/improved_shortest_path.rs)
     * [Kosaraju](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/kosaraju.rs)
     * [Lee Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lee_breadth_first_search.rs)
     * [Lowest Common Ancestor](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lowest_common_ancestor.rs)
