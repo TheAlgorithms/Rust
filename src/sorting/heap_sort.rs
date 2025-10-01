@@ -30,10 +30,10 @@ fn build_heap<T: Ord>(arr: &mut [T], is_max_heap: bool) {
 /// * `i` - The index to start fixing the heap violation.
 /// * `is_max_heap` - A boolean indicating whether to maintain a max heap or a min heap.
 fn heapify<T: Ord>(arr: &mut [T], i: usize, is_max_heap: bool) {
-    let comparator: fn(&T, &T) -> Ordering = if !is_max_heap {
-        |a, b| b.cmp(a)
-    } else {
+    let comparator: fn(&T, &T) -> Ordering = if is_max_heap {
         |a, b| a.cmp(b)
+    } else {
+        |a, b| b.cmp(a)
     };
 
     let mut idx = i;

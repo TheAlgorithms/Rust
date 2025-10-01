@@ -103,10 +103,10 @@ fn match_with_z_array<T: Eq>(
         }
     }
 
-    if !only_full_matches {
-        z_array
-    } else {
+    if only_full_matches {
         find_full_matches(&z_array, pattern_size)
+    } else {
+        z_array
     }
 }
 

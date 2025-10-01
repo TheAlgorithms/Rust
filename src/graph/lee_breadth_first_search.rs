@@ -47,10 +47,10 @@ pub fn lee(matrix: Vec<Vec<i32>>, source: (usize, usize), destination: (usize, u
         }
     }
 
-    if min_dist != isize::MAX {
-        min_dist
-    } else {
+    if min_dist == isize::MAX {
         -1
+    } else {
+        min_dist
     }
 }
 

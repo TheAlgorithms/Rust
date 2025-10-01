@@ -182,10 +182,10 @@ impl<F: Field, const A: i64, const B: i64> Add for EllipticCurve<F, A, B> {
             // mirrored
             Self::infinity()
         } else {
-            let slope = if self.x != p.x {
-                (self.y - p.y) / (self.x - p.x)
-            } else {
+            let slope = if self.x == p.x {
                 ((self.x * self.x).integer_mul(3) + F::from_integer(A)) / self.y.integer_mul(2)
+            } else {
+                (self.y - p.y) / (self.x - p.x)
             };
             let x = slope * slope - self.x - p.x;
             let y = -self.y + slope * (self.x - x);

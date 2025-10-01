@@ -68,10 +68,10 @@ impl BTreeProps {
             }
             None => Vec::with_capacity(self.max_keys),
         };
-        let right_children = if !child.is_leaf() {
-            Some(child.children.split_off(self.mid_key_index + 1))
-        } else {
+        let right_children = if child.is_leaf() {
             None
+        } else {
+            Some(child.children.split_off(self.mid_key_index + 1))
         };
         let new_child_node: Node<T> = Node::new(self.degree, Some(right_keys), right_children);
 
