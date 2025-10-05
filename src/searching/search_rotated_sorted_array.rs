@@ -71,4 +71,38 @@ mod tests {
         assert_eq!(search_rotated_sorted_array(&single, &1), Some(0));
         assert_eq!(search_rotated_sorted_array(&single, &2), None);
     }
+
+    #[test]
+    fn non_rotated_array() {
+        // already sorted ascending
+        let arr = vec![0, 1, 2, 3, 4, 5];
+        assert_eq!(search_rotated_sorted_array(&arr, &0), Some(0));
+        assert_eq!(search_rotated_sorted_array(&arr, &5), Some(5));
+        assert_eq!(search_rotated_sorted_array(&arr, &3), Some(3));
+        assert_eq!(search_rotated_sorted_array(&arr, &6), None);
+    }
+
+    #[test]
+    fn small_rotations_and_edges() {
+        // rotation by 1
+        let arr1 = vec![5, 0, 1, 2, 3, 4];
+        assert_eq!(search_rotated_sorted_array(&arr1, &5), Some(0));
+        assert_eq!(search_rotated_sorted_array(&arr1, &4), Some(5));
+
+        // rotation by len-1 (same as rotation by -1)
+        let arr2 = vec![1, 2, 3, 4, 5, 0];
+        assert_eq!(search_rotated_sorted_array(&arr2, &0), Some(5));
+        assert_eq!(search_rotated_sorted_array(&arr2, &1), Some(0));
+    }
+
+    #[test]
+    fn two_elements_varieties() {
+        let a = vec![1, 2];
+        assert_eq!(search_rotated_sorted_array(&a, &1), Some(0));
+        assert_eq!(search_rotated_sorted_array(&a, &2), Some(1));
+
+        let b = vec![2, 1];
+        assert_eq!(search_rotated_sorted_array(&b, &1), Some(1));
+        assert_eq!(search_rotated_sorted_array(&b, &2), Some(0));
+    }
 }
