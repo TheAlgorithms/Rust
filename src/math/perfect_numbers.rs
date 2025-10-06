@@ -2,7 +2,8 @@ pub fn is_perfect_number(num: usize) -> bool {
     let mut sum = 0;
 
     for i in 1..num - 1 {
-        if num % i == 0 {
+        // changed % operation to is_multiple_of()
+        if num.is_multiple_of(i) {
             sum += i;
         }
     }

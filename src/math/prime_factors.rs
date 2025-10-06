@@ -5,14 +5,16 @@ pub fn prime_factors(n: u64) -> Vec<u64> {
     let mut n = n;
     let mut factors = Vec::new();
     while i * i <= n {
-        if n % i != 0 {
+        // changed % operation to is_multiple_of()
+        // changed function a bit to remove clippy warnings
+        if n.is_multiple_of(i) {
+            n /= i;
+            factors.push(i);
+        } else {
             if i != 2 {
                 i += 1;
             }
             i += 1;
-        } else {
-            n /= i;
-            factors.push(i);
         }
     }
     if n > 1 {
