@@ -10,8 +10,8 @@ pub fn aliquot_sum(number: u64) -> u64 {
     if number == 0 {
         panic!("Input has to be positive.")
     }
-
-    (1..=number / 2).filter(|&d| number % d == 0).sum()
+    // changed % operator to .is_multiple_of()
+    (1..=number / 2).filter(|&d| number.is_multiple_of(d)).sum()
 }
 
 #[cfg(test)]

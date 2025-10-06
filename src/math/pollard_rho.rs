@@ -137,7 +137,8 @@ pub fn pollard_rho_get_one_factor(number: u64, seed: &mut u32, check_is_prime: b
 fn get_small_factors(mut number: u64, primes: &[usize]) -> (u64, Vec<u64>) {
     let mut result: Vec<u64> = Vec::new();
     for p in primes {
-        while (number % *p as u64) == 0 {
+        // changed % operation to is_multiple_of()
+        while number.is_multiple_of(*p as u64) {
             number /= *p as u64;
             result.push(*p as u64);
         }
@@ -201,7 +202,8 @@ mod test {
     use super::*;
 
     fn check_is_proper_factor(number: u64, factor: u64) -> bool {
-        factor > 1 && factor < number && ((number % factor) == 0)
+        // changed % operation to is_multiple_of()
+        factor > 1 && factor < number && (number.is_multiple_of(factor))
     }
 
     fn check_factorization(number: u64, factors: &[u64]) -> bool {

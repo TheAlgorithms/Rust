@@ -1,7 +1,8 @@
 pub fn prime_check(num: usize) -> bool {
     if (num > 1) & (num < 4) {
         return true;
-    } else if (num < 2) || (num % 2 == 0) {
+    // changed % operation to is_multiple_of()
+    } else if (num < 2) || (num.is_multiple_of(2)) {
         return false;
     }
 

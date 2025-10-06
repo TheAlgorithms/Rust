@@ -6,10 +6,12 @@ pub fn euler_totient(n: u64) -> u64 {
     // Find  all prime factors and apply formula
     while p * p <= num {
         // Check if p is a divisor of n
-        if num % p == 0 {
+        // Changed % operation to is_multiple_of()
+        if num.is_multiple_of(p) {
             // If yes, then it is a prime factor
             // Apply the formula: result = result * (1 - 1/p)
-            while num % p == 0 {
+            // Changed % operation to is_multiple_of()
+            while num.is_multiple_of(p) {
                 num /= p;
             }
             result -= result / p;

@@ -5,7 +5,8 @@ pub fn prime_factors(n: u64) -> Vec<u64> {
     let mut n = n;
     let mut factors = Vec::new();
     while i * i <= n {
-        if n % i != 0 {
+        // changed % operation to is_multiple_of()
+        if !(n.is_multiple_of(i)) {
             if i != 2 {
                 i += 1;
             }
