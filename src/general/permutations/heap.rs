@@ -23,7 +23,7 @@ fn heap_recurse<T: Clone + Debug>(arr: &mut [T], k: usize, collector: &mut Vec<V
     // Heap's algorithm has a more clever way of permuting the elements so that we never need to swap back!
     for i in 0..k {
         // now deal with [a, b]
-        let swap_idx = if k % 2 == 0 { i } else { 0 };
+        let swap_idx = if k.is_multiple_of(2) { i } else { 0 };
         arr.swap(swap_idx, k - 1);
         heap_recurse(arr, k - 1, collector);
     }

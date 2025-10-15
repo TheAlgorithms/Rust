@@ -78,7 +78,7 @@ fn is_residue(x: u64, modulus: u64) -> bool {
 ///
 /// <https://en.wikipedia.org/wiki/Legendre_symbol>
 pub fn legendre_symbol(a: u64, odd_prime: u64) -> i64 {
-    debug_assert!(odd_prime % 2 != 0, "prime must be odd");
+    debug_assert!(!odd_prime.is_multiple_of(2), "odd_prime must be odd");
     if a == 0 {
         0
     } else if is_residue(a, odd_prime) {
