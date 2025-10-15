@@ -11,13 +11,20 @@ name: code_ql
     - cron: '10 7 * * 1'
 
 jobs:
-  analyze_actions:
-    name: Analyze Actions
+  analyze:
+    name: Analyze
     runs-on: 'ubuntu-latest'
     permissions:
       actions: read
       contents: read
       security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - actions
+          - rust
 
     steps:
       - name: Checkout repository
@@ -26,10 +33,11 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: 'actions'
+          languages: ${{ matrix.language }}
+          build-mode: none
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:actions"
+          category: "/language:${{matrix.language}}"
 ...
