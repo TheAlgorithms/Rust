@@ -55,7 +55,7 @@ fn add(a: &mut Word, b: Word) {
 
 #[inline]
 const fn ceil(dividend: usize, divisor: usize) -> usize {
-    (dividend / divisor) + ((dividend % divisor != 0) as usize)
+    (dividend / divisor) + (!dividend.is_multiple_of(divisor) as usize)
 }
 
 fn g(v: &mut [Word; 16], a: usize, b: usize, c: usize, d: usize, x: Word, y: Word) {
