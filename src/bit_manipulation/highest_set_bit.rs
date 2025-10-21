@@ -15,15 +15,8 @@ pub fn find_highest_set_bit(num: usize) -> Option<usize> {
         return None;
     }
 
-    let mut position = 0;
-    let mut n = num;
-
-    while n > 0 {
-        n >>= 1;
-        position += 1;
-    }
-
-    Some(position - 1)
+    let zc = num.leading_zeros();
+    Some((usize::BITS - zc - 1) as usize)
 }
 
 #[cfg(test)]
