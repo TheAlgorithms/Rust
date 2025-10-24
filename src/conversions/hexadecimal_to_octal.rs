@@ -12,7 +12,7 @@ pub fn hexadecimal_to_octal(hex_str: &str) -> Result<String, &'static str> {
     }
 
     // Validate hexadecimal string
-    if !hex_str.chars().all(|c| c.is_digit(16)) {
+    if !hex_str.chars().all(|c| c.is_ascii_hexdigit()) {
         return Err("Invalid hexadecimal string");
     }
 

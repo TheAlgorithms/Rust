@@ -25,7 +25,7 @@ pub fn octal_to_hexadecimal(octal_str: &str) -> Result<String, &'static str> {
     }
 
     // Convert decimal to hexadecimal
-    Ok(format!("{:X}", decimal))
+    Ok(format!("{decimal:X}"))
 }
 
 #[cfg(test)]
