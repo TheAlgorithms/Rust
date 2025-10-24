@@ -50,13 +50,17 @@
   * Conversions
     * [Binary To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
     * [Binary To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_hexadecimal.rs)
+    * [Binary To Octal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_octal.rs)
     * [Decimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
     * [Decimal To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_hexadecimal.rs)
+    * [Decimal To Octal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_octal.rs)
     * [Hexadecimal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
     * [Hexadecimal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_decimal.rs)
+    * [Hexadecimal To Octal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_octal.rs)
     * [Length Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/length_conversion.rs)
     * [Octal To Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal To Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
+    * [Octal To Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_hexadecimal.rs)
     * [Rgb Cmyk Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_cmyk_conversion.rs)
   * Data Structures
     * [Avl Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
