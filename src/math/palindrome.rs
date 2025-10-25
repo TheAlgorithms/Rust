@@ -18,10 +18,10 @@ pub fn is_palindrome(number: u64) -> bool {
     while n > 0 {
         // Get the last digit
         let remainder = n % 10;
-        
+
         // Build the reversed number
         reversed_number = (reversed_number * 10) + remainder;
-        
+
         // Remove the last digit
         n /= 10;
     }
