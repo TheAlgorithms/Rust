@@ -228,6 +228,7 @@
     * [Modular Exponential](https://github.com/TheAlgorithms/Rust/blob/master/src/math/modular_exponential.rs)
     * [Newton Raphson](https://github.com/TheAlgorithms/Rust/blob/master/src/math/newton_raphson.rs)
     * [Nthprime](https://github.com/TheAlgorithms/Rust/blob/master/src/math/nthprime.rs)
+    * [Palindrome Number](https://github.com/TheAlgorithms/Rust/blob/master/src/math/palindrome.rs)
     * [Pascal Triangle](https://github.com/TheAlgorithms/Rust/blob/master/src/math/pascal_triangle.rs)
     * [Perfect Cube](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_cube.rs)
     * [Perfect Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/math/perfect_numbers.rs)
