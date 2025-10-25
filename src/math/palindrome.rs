@@ -36,34 +36,34 @@ mod tests {
 
     #[test]
     fn standard_palindrome() {
-        assert_eq!(true, is_palindrome(121));
+        assert!(is_palindrome(121));
     }
 
     #[test]
     fn standard_non_palindrome() {
-        assert_eq!(false, is_palindrome(123));
+        assert!(!is_palindrome(123));
     }
 
     #[test]
     fn single_digit() {
         // Single digits are always palindromes
-        assert_eq!(true, is_palindrome(7));
+        assert!(is_palindrome(7));
     }
 
     #[test]
     fn zero() {
         // Zero is a palindrome
-        assert_eq!(true, is_palindrome(0));
+        assert!(is_palindrome(0));
     }
 
     #[test]
     fn large_palindrome() {
-        assert_eq!(true, is_palindrome(123454321));
+        assert!(is_palindrome(123454321));
     }
 
     #[test]
     fn number_ending_in_zero() {
         // No number > 0 that ends in 0 can be a palindrome
-        assert_eq!(false, is_palindrome(120));
+        assert!(!is_palindrome(120));
     }
 }
