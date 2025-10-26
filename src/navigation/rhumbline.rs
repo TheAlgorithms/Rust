@@ -15,9 +15,10 @@ pub fn rhumb_dist(lat1: f64, long1: f64, lat2: f64, long2: f64) -> f64 {
     }
 
     let del_psi = ((phi2 / 2.00 + PI / 4.00).tan() / (phi1 / 2.00 + PI / 4.00).tan()).ln();
-    let q = match del_psi.abs() > 1e-12 {
-        true => del_phi / del_psi,
-        false => phi1.cos(),
+    let q = if del_psi.abs() > 1e-12 {
+        del_phi / del_psi
+    } else {
+        phi1.cos()
     };
 
     (del_phi.powf(2.00) + (q * del_lambda).powf(2.00)).sqrt() * EARTH_RADIUS
@@ -29,9 +30,9 @@ pub fn rhumb_bearing(lat1: f64, long1: f64, lat2: f64, long2: f64) -> f64 {
     let mut del_lambda = (long2 - long1) * PI / 180.00;
 
     if del_lambda > PI {
-        del_lambda -= 2.00 * PI;
+        del_lambda -= 2.0 * PI;
     } else if del_lambda < -PI {
-        del_lambda += 2.00 * PI;
+        del_lambda += 2.0 * PI;
     }
 
     let del_psi = ((phi2 / 2.00 + PI / 4.00).tan() / (phi1 / 2.00 + PI / 4.00).tan()).ln();
@@ -48,9 +49,10 @@ pub fn rhumb_destination(lat: f64, long: f64, distance: f64, bearing: f64) -> (f
     let phi2 = (phi1 + del_phi).clamp(-PI / 2.0, PI / 2.0);
 
     let del_psi = ((phi2 / 2.00 + PI / 4.00).tan() / (phi1 / 2.0 + PI / 4.0).tan()).ln();
-    let q = match del_psi.abs() > 1e-12 {
-        true => del_phi / del_psi,
-        false => phi1.cos(),
+    let q = if del_psi.abs() > 1e-12 {
+        del_phi / del_psi
+    } else {
+        phi1.cos()
     };
 
     let del_lambda = del * theta.sin() / q;
