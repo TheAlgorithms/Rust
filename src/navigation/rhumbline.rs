@@ -61,7 +61,7 @@ pub fn rhumb_destination(lat: f64, long: f64, distance: f64, bearing: f64) -> (f
     (phi2 * 180.00 / PI, lambda2 * 180.00 / PI)
 }
 
-//TESTS
+// TESTS
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -83,5 +83,27 @@ mod tests {
         let (lat, lng) = rhumb_destination(28.5457, 77.1928, 1000.00, 305.0);
         assert!((lat - 28.550).abs() < 0.010);
         assert!((lng - 77.1851).abs() < 0.010);
+    }
+    // edge cases
+
+    #[test]
+    fn test_rhumb_distance_cross_antimeridian() {
+        // Test when del_lambda > PI (line 12)
+        let distance = rhumb_dist(0.0, 170.0, 0.0, -170.0);
+        assert!(distance > 0.0);
+    }
+
+    #[test]
+    fn test_rhumb_distance_cross_antimeridian_negative() {
+        // Test when del_lambda < -PI (line 14)
+        let distance = rhumb_dist(0.0, -170.0, 0.0, 170.0);
+        assert!(distance > 0.0);
+    }
+
+    #[test]
+    fn test_rhumb_distance_to_equator() {
+        // Test when del_psi is near zero (line 21 - the else branch)
+        let distance = rhumb_dist(0.0, 0.0, 0.0, 1.0);
+        assert!(distance > 0.0);
     }
 }
