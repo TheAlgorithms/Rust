@@ -25,6 +25,7 @@
 /// # Returns
 ///
 /// A reference to the optimized parameter vector `x`.
+#[allow(dead_code)]
 pub fn momentum(
     derivative: impl Fn(&[f64]) -> Vec<f64>,
     x: &mut Vec<f64>,
