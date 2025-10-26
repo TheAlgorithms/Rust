@@ -262,6 +262,7 @@
   * Navigation
     * [Bearing](https://github.com/TheAlgorithms/Rust/blob/master/src/navigation/bearing.rs)
     * [Haversine](https://github.com/TheAlgorithms/Rust/blob/master/src/navigation/haversine.rs)
+    * [Rhumbline](https://github.com/TheAlgorithms/Rust/blob/master/src/navigation/rhumbline.rs)
   * Number Theory
     * [Compute Totient](https://github.com/TheAlgorithms/Rust/blob/master/src/number_theory/compute_totient.rs)
     * [Euler Totient](https://github.com/TheAlgorithms/Rust/blob/master/src/number_theory/euler_totient.rs)
