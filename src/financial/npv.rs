@@ -18,10 +18,11 @@ mod tests {
 
     #[test]
     fn test_npv_basic() {
-        let cash_flows = vec![-1000.00, 300.00, 400.00, -50.00];
+        let cash_flows = vec![-1000.0, 300.0, 400.0, -50.0];
         let rate = 0.10;
         let result = npv(&cash_flows, rate);
-        assert!((result - 27.30).abs() < 0.05); //small margin of error
+        // Calculated value ≈ -434.25
+        assert!((result - (-434.25)).abs() < 0.05); // Allow small margin of error
     }
 
     #[test]
@@ -31,9 +32,10 @@ mod tests {
         let result = npv(&cash_flows, rate);
         assert!((result - 250.0).abs() < 0.05);
     }
-    // for empty entry
+
     #[test]
     fn test_npv_empty() {
+        // For empty cash flows: NPV should be 0
         let cash_flows: Vec<f64> = vec![];
         let rate = 0.05;
         let result = npv(&cash_flows, rate);

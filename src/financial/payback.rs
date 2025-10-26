@@ -17,14 +17,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_payback_period() {
+    fn test_payback() {
         let cash_flows = vec![-1000.0, 300.0, 400.0, 500.0];
-        assert_eq!(payback_period(&cash_flows), Some(3)); // paid back in year 3
+        assert_eq!(payback(&cash_flows), Some(3)); // paid back in year 3
     }
 
     #[test]
     fn test_no_payback() {
         let cash_flows = vec![-1000.0, 100.0, 100.0, 100.0];
-        assert_eq!(payback_period(&cash_flows), None); // never paid back
+        assert_eq!(payback(&cash_flows), None); // never paid back
     }
 }
