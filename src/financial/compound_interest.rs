@@ -3,9 +3,7 @@
 // n = number of times interest is compounded per year and t = time (in years)
 
 pub fn compound_interest(principal: f64, rate: f64, comp_per_year: u32, years: f64) -> f64 {
-    let amount =
-        principal * (1.00 + rate / comp_per_year as f64).powf(comp_per_year as f64 * years);
-    amount
+    principal * (1.00 + rate / comp_per_year as f64).powf(comp_per_year as f64 * years)
 }
 
 #[cfg(test)]
