@@ -105,6 +105,12 @@
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * Financial
     * [Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/present_value.rs)
+    * [Net Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv.rs)
+    * [NPV Sensitivity](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv_sensitivity.rs)
+    * [Compound Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/compound_interest.rs)
+    * [Payback Period](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/payback.rs)
+    * [Finance Ratios](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/finance_ratios.rs)
+    * [Treynor Ratio](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/treynor_ratio.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
     * [Fisher Yates Shuffle](https://github.com/TheAlgorithms/Rust/blob/master/src/general/fisher_yates_shuffle.rs)
