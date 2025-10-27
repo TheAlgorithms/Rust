@@ -31,8 +31,8 @@ mod tests {
     #[test]
     fn test_npv_sensitivity() {
         let cashflows = [-1000.00, 400.00, 400.00, 400.00];
-        let rates = vec![0.05, 0.1, 0.2];
-        let expected = vec![89.30, -5.26, -157.41];
+        let rates = [0.05, 0.1, 0.2];
+        let expected = [89.30, -5.26, -157.41];
         let out = npv_sensitivity(&cashflows, &rates);
         assert_eq!(out.len(), 3);
         // value check
