@@ -17,7 +17,7 @@ mod tests {
         let times_per_year = 4; // interest compounded quarterly
         let years = 2.0; // 2 years tenure
         let result = compound_interest(principal, rate, times_per_year, years);
-        assert!((result - 1104.486).abs() < 0.001); // expected value rounded up to 3 decimal
+        assert!((result - 1104.486).abs() < 0.001); // expected value rounded to 3 decimal
                                                     // places
     }
 }
