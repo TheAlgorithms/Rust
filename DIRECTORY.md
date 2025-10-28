@@ -294,6 +294,8 @@
     * [Ternary Search Min Max](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_min_max.rs)
     * [Ternary Search Min Max Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_min_max_recursive.rs)
     * [Ternary Search Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/ternary_search_recursive.rs)
+  * Signal Analysis
+    * [YIN](https://github.com/TheAlgorithms/Rust/blob/master/src/signal_analysis/yin.rs)
   * Sorting
     * [Bead Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/bead_sort.rs)
     * [Binary Insertion Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/binary_insertion_sort.rs)
