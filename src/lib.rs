@@ -16,6 +16,7 @@ pub mod math;
 pub mod navigation;
 pub mod number_theory;
 pub mod searching;
+pub mod signal_analysis;
 pub mod sorting;
 pub mod string;
 
