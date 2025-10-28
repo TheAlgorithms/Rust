@@ -58,8 +58,8 @@ impl Yin {
     }
 
     pub fn yin(&self, frequencies: &[f64]) -> YinResult {
-        let df = df_values(frequencies, self.max_lag);
-        let cmndf = cmndf_values(&df, self.max_lag);
+        let df = difference_function_values(frequencies, self.max_lag);
+        let cmndf = cumulative_mean_normalized_difference_function(&df, self.max_lag);
         let best_lag = find_cmndf_argmin(&cmndf, self.min_lag, self.max_lag, self.threshold);
         YinResult {
             sample_rate: self.sample_rate,
@@ -70,15 +70,15 @@ impl Yin {
 }
 
 #[allow(clippy::needless_range_loop)]
-fn df_values(frequencies: &[f64], max_lag: usize) -> Vec<f64> {
+fn difference_function_values(frequencies: &[f64], max_lag: usize) -> Vec<f64> {
     let mut df_list = vec![0.0; max_lag + 1];
     for lag in 1..=max_lag {
-        df_list[lag] = df(frequencies, lag);
+        df_list[lag] = difference_function(frequencies, lag);
     }
     df_list
 }
 
-fn df(f: &[f64], lag: usize) -> f64 {
+fn difference_function(f: &[f64], lag: usize) -> f64 {
     let mut sum = 0.0;
     let n = f.len();
     for i in 0..(n - lag) {
@@ -88,8 +88,7 @@ fn df(f: &[f64], lag: usize) -> f64 {
     sum
 }
 
-// Cumulative Mean Normalized Difference Function
-fn cmndf_values(df: &[f64], max_lag: usize) -> Vec<f64> {
+fn cumulative_mean_normalized_difference_function(df: &[f64], max_lag: usize) -> Vec<f64> {
     let mut cmndf = vec![0.0; max_lag + 1];
     cmndf[0] = 1.0;
     let mut sum = 0.0;
