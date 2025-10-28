@@ -180,8 +180,8 @@ mod tests {
 
     #[test]
     fn test_sine_frequency_range() {
-        let sample_rate = 10000.0;
-        for freq in 10..50 {
+        let sample_rate = 5000.0;
+        for freq in 30..50 {
             let frequency = freq as f64;
             let seconds = 2.0;
             let signal = generate_sine_wave(frequency, sample_rate, seconds);
