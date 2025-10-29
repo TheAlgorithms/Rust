@@ -15,6 +15,7 @@ mod floyd_warshall;
 mod ford_fulkerson;
 mod graph_enumeration;
 mod heavy_light_decomposition;
+mod improved_shortest_path;
 mod kosaraju;
 mod lee_breadth_first_search;
 mod lowest_common_ancestor;
@@ -43,6 +44,9 @@ pub use self::floyd_warshall::floyd_warshall;
 pub use self::ford_fulkerson::ford_fulkerson;
 pub use self::graph_enumeration::enumerate_graph;
 pub use self::heavy_light_decomposition::HeavyLightDecomposition;
+pub use self::improved_shortest_path::{
+    adaptive_shortest_path, bucket_shortest_path, improved_shortest_path,
+};
 pub use self::kosaraju::kosaraju;
 pub use self::lee_breadth_first_search::lee;
 pub use self::lowest_common_ancestor::{LowestCommonAncestorOffline, LowestCommonAncestorOnline};
