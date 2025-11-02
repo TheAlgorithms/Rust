@@ -94,13 +94,14 @@ fn difference_function(f: &[f64], lag: usize) -> f64 {
     sum
 }
 
+const EPSILON: f64 = 1e-10;
 fn cumulative_mean_normalized_difference_function(df: &[f64], max_lag: usize) -> Vec<f64> {
     let mut cmndf = vec![0.0; max_lag + 1];
     cmndf[0] = 1.0;
     let mut sum = 0.0;
     for lag in 1..=max_lag {
         sum += df[lag];
-        cmndf[lag] = lag as f64 * df[lag] / if sum == 0.0 { 1e-10 } else { sum };
+        cmndf[lag] = lag as f64 * df[lag] / if sum == 0.0 { EPSILON } else { sum };
     }
     cmndf
 }
