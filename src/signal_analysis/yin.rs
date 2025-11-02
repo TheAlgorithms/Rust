@@ -57,14 +57,20 @@ impl Yin {
         }
     }
 
-    pub fn yin(&self, frequencies: &[f64]) -> YinResult {
+    pub fn yin(&self, frequencies: &[f64]) -> Result<YinResult, String> {
         let df = difference_function_values(frequencies, self.max_lag);
         let cmndf = cumulative_mean_normalized_difference_function(&df, self.max_lag);
         let best_lag = find_cmndf_argmin(&cmndf, self.min_lag, self.max_lag, self.threshold);
-        YinResult {
-            sample_rate: self.sample_rate,
-            best_lag,
-            cmndf,
+        match best_lag {
+            _ if best_lag == 0 => Err(format!(
+                "Could not find lag value which minimizes CMNDF below the given threshold {}",
+                self.threshold
+            )),
+            _ => Ok(YinResult {
+                sample_rate: self.sample_rate,
+                best_lag,
+                cmndf,
+            }),
         }
     }
 }
@@ -162,20 +168,23 @@ mod tests {
             max_expected_frequency,
             sample_rate,
         );
+
         let result = yin.yin(signal.as_slice());
+        assert!(result.is_ok());
+        let yin_result = result.unwrap();
 
         assert!(diff_from_actual_frequency_smaller_than_threshold(
-            result.get_frequency(),
+            yin_result.get_frequency(),
             frequency,
             1.0
         ));
         assert!(diff_from_actual_frequency_smaller_than_threshold(
-            result.get_frequency_with_interpolation(),
+            yin_result.get_frequency_with_interpolation(),
             frequency,
             1.0,
         ));
 
-        assert!(interpolation_better_than_raw_result(result, frequency));
+        assert!(interpolation_better_than_raw_result(yin_result, frequency));
     }
 
     #[test]
@@ -196,22 +205,24 @@ mod tests {
                 sample_rate,
             );
             let result = yin.yin(signal.as_slice());
+            assert!(result.is_ok());
+            let yin_result = result.unwrap();
 
             if (sample_rate as i32 % freq) == 0 {
-                assert_eq!(result.get_frequency(), frequency);
+                assert_eq!(yin_result.get_frequency(), frequency);
             } else {
                 assert!(diff_from_actual_frequency_smaller_than_threshold(
-                    result.get_frequency(),
+                    yin_result.get_frequency(),
                     frequency,
                     1.0
                 ));
                 assert!(diff_from_actual_frequency_smaller_than_threshold(
-                    result.get_frequency_with_interpolation(),
+                    yin_result.get_frequency_with_interpolation(),
                     frequency,
                     1.0,
                 ));
 
-                assert!(interpolation_better_than_raw_result(result, frequency));
+                assert!(interpolation_better_than_raw_result(yin_result, frequency));
             }
         }
     }
@@ -243,9 +254,11 @@ mod tests {
             .collect();
 
         let result = yin.yin(&combined_signal);
+        assert!(result.is_ok());
+        let yin_result = result.unwrap();
 
         assert!(diff_from_actual_frequency_smaller_than_threshold(
-            result.get_frequency(),
+            yin_result.get_frequency(),
             frequency_1,
             1.0
         ));
@@ -278,16 +291,48 @@ mod tests {
             .collect();
 
         let result = yin.yin(&combined_signal);
+        assert!(result.is_ok());
+        let yin_result = result.unwrap();
 
         let expected_frequency = (frequency_1 - frequency_2).abs();
         assert!(diff_from_actual_frequency_smaller_than_threshold(
-            result.get_frequency(),
+            yin_result.get_frequency(),
             expected_frequency,
             1.0
         ));
         assert!(interpolation_better_than_raw_result(
-            result,
+            yin_result,
             expected_frequency
         ));
+    }
+
+    #[test]
+    fn test_err() {
+        let sample_rate = 2500.0;
+        let seconds = 2.0;
+        let frequency = 440.0;
+
+        // Can't find frequency 440 between 500 and 700
+        let min_expected_frequency = 500.0;
+        let max_expected_frequency = 700.0;
+        let yin = Yin::init(
+            0.1,
+            min_expected_frequency,
+            max_expected_frequency,
+            sample_rate,
+        );
+
+        let signal = generate_sine_wave(frequency, sample_rate, seconds);
+        let result = yin.yin(&signal);
+        assert!(result.is_err());
+
+        let yin_with_suitable_frequency_range = Yin::init(
+            0.1,
+            min_expected_frequency - 100.0,
+            max_expected_frequency,
+            sample_rate,
+        );
+        let result = yin_with_suitable_frequency_range.yin(&signal);
+        assert!(result.is_ok());
     }
 }
