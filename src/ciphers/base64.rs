@@ -69,7 +69,7 @@ pub fn base64_decode(data: &str) -> Result<Vec<u8>, (&str, u8)> {
     'decodeloop: loop {
         while collected_bits < 8 {
             if let Some(nextbyte) = databytes.next() {
-                // Finds the first occurence of the latest byte
+                // Finds the first occurrence of the latest byte
                 if let Some(idx) = CHARSET.iter().position(|&x| x == nextbyte) {
                     byte_buffer |= ((idx & 0b00111111) as u16) << (10 - collected_bits);
                     collected_bits += 6;
