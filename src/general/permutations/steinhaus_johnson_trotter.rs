@@ -8,7 +8,7 @@ pub fn steinhaus_johnson_trotter_permute<T: Clone>(array: &[T]) -> Vec<Vec<T>> {
     res.push(array.clone());
     while i < len {
         if inversion_vector[i] < i {
-            if i % 2 == 0 {
+            if i.is_multiple_of(2) {
                 array.swap(0, i);
             } else {
                 array.swap(inversion_vector[i], i);
