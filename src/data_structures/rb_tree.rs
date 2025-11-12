@@ -372,7 +372,7 @@ unsafe fn delete_fixup<K: Ord, V>(tree: &mut RBTree<K, V>, mut parent: *mut RBNo
         if parent.is_null() {
             break;
         }
-        
+
         /*
          * Loop invariants:
          * - node is black (or null on first iteration)
