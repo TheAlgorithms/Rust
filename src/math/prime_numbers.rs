@@ -9,7 +9,7 @@ pub fn prime_numbers(max: usize) -> Vec<usize> {
         let mut status = true;
 
         for j in (3..stop).step_by(2) {
-            if i % j == 0 {
+            if i.is_multiple_of(j) {
                 status = false;
                 break;
             }

@@ -303,7 +303,7 @@ fn key_expansion(init_key: &[Byte], num_rounds: usize) -> Vec<Byte> {
 
     for i in nk..nb * (nr + 1) {
         let mut temp_word = key[i - 1];
-        if i % nk == 0 {
+        if i.is_multiple_of(nk) {
             temp_word = sub_word(rot_word(temp_word), AesMode::Encryption) ^ RCON[i / nk];
         } else if nk > 6 && i % nk == 4 {
             temp_word = sub_word(temp_word, AesMode::Encryption);
