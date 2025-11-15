@@ -56,7 +56,7 @@ fn count_letters(s: &str) -> Result<HashMap<char, usize>, IsogramError> {
 /// # Return
 ///
 /// - `Ok(true)` if all characters appear only once, or `Ok(false)` if any character appears more than once.
-/// - `Err(IsogramError::NonAlphabeticCharacter) if the input contains any non-alphabetic characters.
+/// - `Err(IsogramError::NonAlphabeticCharacter)` if the input contains any non-alphabetic characters.
 pub fn is_isogram(s: &str) -> Result<bool, IsogramError> {
     let letter_counts = count_letters(s)?;
     Ok(letter_counts.values().all(|&count| count == 1))
@@ -89,7 +89,7 @@ mod tests {
         isogram_sentences: ("The big dwarf only jumps", Ok(true)),
         isogram_french: ("Lampez un fort whisky", Ok(true)),
         isogram_portuguese: ("Velho traduz sim", Ok(true)),
-        isogram_spanis: ("Centrifugadlos", Ok(true)),
+        isogram_spanish: ("Centrifugadlos", Ok(true)),
         invalid_isogram_with_repeated_char: ("hello", Ok(false)),
         invalid_isogram_with_numbers: ("abc123", Err(IsogramError::NonAlphabeticCharacter)),
         invalid_isogram_with_special_char: ("abc!", Err(IsogramError::NonAlphabeticCharacter)),
