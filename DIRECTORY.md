@@ -31,7 +31,7 @@
     * [Chacha](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/chacha.rs)
     * [Diffie Hellman](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/diffie_hellman.rs)
     * [Hashing Traits](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/hashing_traits.rs)
-    * [Kerninghan](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/kerninghan.rs)
+    * [Kernighan](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/kernighan.rs)
     * [Morse Code](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/morse_code.rs)
     * [Polybius](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/polybius.rs)
     * [Rail Fence](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rail_fence.rs)
