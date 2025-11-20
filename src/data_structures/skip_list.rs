@@ -264,7 +264,7 @@ impl<'a, K: Ord, V> Iter<'a, K, V> {
 }
 
 impl<'a, K: Ord, V> Iterator for Iter<'a, K, V> {
-    type Item = &'a V;
+    type Item = (&'a K, &'a V);
 
     fn next(&mut self) -> Option<Self::Item> {
         unsafe {
@@ -275,13 +275,18 @@ impl<'a, K: Ord, V> Iterator for Iter<'a, K, V> {
                 return None;
             }
             self.current_node = forward_0;
-            return (*forward_0).value.as_ref();
+            return match ((*forward_0).key.as_ref(), (*forward_0).value.as_ref()) {
+                (Some(key), Some(value)) => Some((key, value)),
+                _ => None,
+            };
         }
     }
 }
 
 #[cfg(test)]
 mod test {
+    use std::collections::HashMap;
+
     #[test]
     fn insert_and_delete() {
         let mut skip_list = super::SkipList::<&'static str, i32>::new(8);
@@ -310,8 +315,8 @@ mod test {
         skip_list.insert("a", 12);
         skip_list.insert("c", 11);
 
-        let result: Vec<&i32> = skip_list.iter().collect();
-        assert_eq!(result, vec![&12, &11, &22]);
+        let result: Vec<(&&'static str, &i32)> = skip_list.iter().collect();
+        assert_eq!(result, vec![(&"a", &12), (&"c", &11), (&"h", &22)]);
     }
 
     #[test]
