@@ -32,6 +32,7 @@ pub struct SkipList<K: Ord, V> {
     header: *mut Node<K, V>,
     level: usize,
     max_level: usize,
+    marker: PhantomData<Node<K, V>>,
 }
 
 impl<K: Ord, V> SkipList<K, V> {
@@ -44,6 +45,7 @@ impl<K: Ord, V> SkipList<K, V> {
             header: Box::into_raw(node),
             level: 0,
             max_level,
+            marker: PhantomData,
         }
     }
 
@@ -285,8 +287,6 @@ impl<'a, K: Ord, V> Iterator for Iter<'a, K, V> {
 
 #[cfg(test)]
 mod test {
-    use std::collections::HashMap;
-
     #[test]
     fn insert_and_delete() {
         let mut skip_list = super::SkipList::<&'static str, i32>::new(8);
