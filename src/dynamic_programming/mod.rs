@@ -1,3 +1,4 @@
+mod abbreviation;
 mod coin_change;
 mod egg_dropping;
 mod fibonacci;
@@ -19,6 +20,7 @@ mod subset_generation;
 mod trapped_rainwater;
 mod word_break;
 
+pub use self::abbreviation::abbreviation;
 pub use self::coin_change::coin_change;
 pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::binary_lifting_fibonacci;
