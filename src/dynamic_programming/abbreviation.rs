@@ -110,6 +110,6 @@ mod tests {
         test_AbcDE_ABDE: ("AbcDE", "ABDE") => true,
         test_AbcDE_AFDE: ("AbcDE", "AFDE") => false,
         test_ABCD_ABCD: ("ABCD", "ABCD") => true,
-        test_abcdE_ABCDE: ("abcdE", "ABCDE") => true
+        test_abcdE_ABCDE: ("abcdE", "ABCDE") => true,
     }
 }
