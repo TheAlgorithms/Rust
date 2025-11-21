@@ -84,18 +84,18 @@ mod tests {
 
     abbreviation_tests! {
         // Original test cases from the problem
-        test_daBcd_ABC: ("daBcd", "ABC") => true,
-        test_dBcd_ABC: ("dBcd", "ABC") => false,
+        test_dabcd_to_abc: ("daBcd", "ABC") => true,
+        test_dbcd_to_abc: ("dBcd", "ABC") => false,
 
         // Additional test cases
-        test_AbcE_ABE: ("AbcE", "ABE") => true,
-        test_AbcE_ABC: ("AbcE", "ABC") => false,
-        test_abcde_ABCDE: ("abcde", "ABCDE") => true,
-        test_abcde_ABCD: ("abcde", "ABCD") => false,
-        test_ABCDE_ABCDE: ("ABCDE", "ABCDE") => true,
-        test_ABCDE_ABCD: ("ABCDE", "ABCD") => false,
-        test_aBcDe_ABCDE: ("aBcDe", "ABCDE") => true,
-        test_aBcDe_ABCD: ("aBcDe", "ABCD") => true,
+        test_abce_to_abe: ("AbcE", "ABE") => true,
+        test_abce_to_abc: ("AbcE", "ABC") => false,
+        test_lowercase_abcde_to_abcde: ("abcde", "ABCDE") => true,
+        test_lowercase_abcde_to_abcd: ("abcde", "ABCD") => false,
+        test_uppercase_abcde_to_abcde: ("ABCDE", "ABCDE") => true,
+        test_uppercase_abcde_to_abcd: ("ABCDE", "ABCD") => false,
+        test_mixed_abcde_to_abcde: ("aBcDe", "ABCDE") => true,
+        test_mixed_abcde_to_abcd: ("aBcDe", "ABCD") => true,
 
         // Edge test cases
         test_empty_both: ("", "") => true,
@@ -109,9 +109,9 @@ mod tests {
         test_complex_1: ("LLZOSYAMQRMBTZXTQMQcKGLR", "LLZOSYAMBTZXMQKLR") => false,
         test_complex_2: ("MGYXKOVSMAHKOLAZZKWXKS", "MGXKOVSAHKOLZKKDP") => false,
         test_complex_3: ("bfBQZcnjXPMNWMZ", "BQZCNJXPMNWMZ") => true,
-        test_AbcDE_ABDE: ("AbcDE", "ABDE") => true,
-        test_AbcDE_AFDE: ("AbcDE", "AFDE") => false,
-        test_ABCD_ABCD: ("ABCD", "ABCD") => true,
-        test_abcdE_ABCDE: ("abcdE", "ABCDE") => true,
+        test_abcde_to_abde: ("AbcDE", "ABDE") => true,
+        test_abcde_to_afde: ("AbcDE", "AFDE") => false,
+        test_abcd_to_abcd: ("ABCD", "ABCD") => true,
+        test_abcde_with_trailing_e: ("abcdE", "ABCDE") => true,
     }
 }
