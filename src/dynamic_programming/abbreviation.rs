@@ -91,7 +91,7 @@ mod tests {
         test_abce_to_abe: ("AbcE", "ABE") => true,
         test_abce_to_abc: ("AbcE", "ABC") => false,
         test_lowercase_abcde_to_abcde: ("abcde", "ABCDE") => true,
-        test_lowercase_abcde_to_abcd: ("abcde", "ABCD") => false,
+        test_lowercase_abcde_to_abcd: ("abcde", "ABCD") => true,
         test_uppercase_abcde_to_abcde: ("ABCDE", "ABCDE") => true,
         test_uppercase_abcde_to_abcd: ("ABCDE", "ABCD") => false,
         test_mixed_abcde_to_abcde: ("aBcDe", "ABCDE") => true,
