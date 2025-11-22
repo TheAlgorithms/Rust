@@ -19,7 +19,7 @@ macro_rules! quarter_round {
 /// seems to be a sane choice.
 ///
 /// The 16 input numbers can be thought of as the elements of a 4x4 matrix like
-/// the one bellow, on which we do the main operations of the cipher.
+/// the one below, on which we do the main operations of the cipher.
 ///
 /// ```text
 /// +----+----+----+----+
@@ -33,7 +33,7 @@ macro_rules! quarter_round {
 /// +----+----+----+----+
 /// ```
 ///
-/// As per the diagram bellow, `input[0, 5, 10, 15]` are the constants mentioned
+/// As per the diagram below, `input[0, 5, 10, 15]` are the constants mentioned
 /// above, `input[1, 2, 3, 4, 11, 12, 13, 14]` is filled with the key, and
 /// `input[6, 7, 8, 9]` should be filled with nonce and counter values. The output
 /// of the function is stored in `output` variable and can be XORed with the
