@@ -164,6 +164,7 @@ cargo_common_metadata = { level = "allow", priority = 1 }
 doc_lazy_continuation = { level = "allow", priority = 1 }
 needless_return = { level = "allow", priority = 1 }
 doc_overindented_list_items = { level = "allow", priority = 1 }
+needless_range_loop = { level = "allow", priority = 1 }
 # complexity-lints
 precedence = { level = "allow", priority = 1 }
 manual_div_ceil = { level = "allow", priority = 1 }
