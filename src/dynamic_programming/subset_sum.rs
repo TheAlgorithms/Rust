@@ -1,6 +1,8 @@
-// Subset Sum Problem in Rust
-// Time Complexity: O(n * sum) where n is array length and sum is the target sum
-// Space Complexity: O(n * sum) for the DP table
+//! This module provides a solution to the subset sum problem using dynamic programming.
+//!
+//! # Complexity
+//! - Time complexity: O(n * sum) where n is array length and sum is the target sum
+//! - Space complexity: O(n * sum) for the DP table
 /// Determines if there exists a subset of the given array that sums to the target value.
 /// Uses dynamic programming to solve the subset sum problem.
 ///
