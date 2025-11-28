@@ -9,7 +9,7 @@
 /// * `required_sum` - The target sum to check for.
 ///
 /// # Returns
-/// * A boolean indicating whether a subset exists that sums to the target
+/// * `bool` - A boolean indicating whether a subset exists that sums to the target.
 pub fn is_sum_subset(arr: &[i32], required_sum: i32) -> bool {
     let n = arr.len();
 
