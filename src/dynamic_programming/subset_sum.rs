@@ -5,8 +5,8 @@
 /// Uses dynamic programming to solve the subset sum problem.
 ///
 /// # Arguments
-/// * arr - A slice of integers representing the input array
-/// * required_sum - The target sum to check for
+/// * `arr` - A slice of integers representing the input array.
+/// * `required_sum` - The target sum to check for.
 ///
 /// # Returns
 /// * A boolean indicating whether a subset exists that sums to the target
