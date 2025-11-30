@@ -106,6 +106,7 @@
     * [Snail](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/snail.rs)
     * [Subset Generation](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_generation.rs)
     * [Task Assignment](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/task_assignment.rs)
+    * [Subset Sum](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/subset_sum.rs)
     * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * Financial
