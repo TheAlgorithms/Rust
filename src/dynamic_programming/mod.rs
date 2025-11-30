@@ -47,7 +47,7 @@ pub use self::optimal_bst::optimal_search_tree;
 pub use self::rod_cutting::rod_cut;
 pub use self::snail::snail;
 pub use self::subset_generation::list_subset;
-pub use self::task_assignment::count_task_assignments;
 pub use self::subset_sum::is_sum_subset;
+pub use self::task_assignment::count_task_assignments;
 pub use self::trapped_rainwater::trapped_rainwater;
 pub use self::word_break::word_break;
