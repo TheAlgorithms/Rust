@@ -16,8 +16,8 @@ mod optimal_bst;
 mod rod_cutting;
 mod snail;
 mod subset_generation;
-mod task_assignment;
 mod subset_sum;
+mod task_assignment;
 mod trapped_rainwater;
 mod word_break;
 
