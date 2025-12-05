@@ -37,9 +37,10 @@
 /// assert_eq!(catalan_numbers(0), vec![1]);
 /// ```
 ///
-/// # Panics
+/// # Warning
 ///
-/// Panics if `upper_limit` would cause integer overflow during computation.
+/// This will overflow the 64-bit unsigned integer for large values of `upper_limit`.
+/// For example, C(21) and beyond will cause overflow.
 pub fn catalan_numbers(upper_limit: usize) -> Vec<u64> {
     let mut catalan_list = vec![0u64; upper_limit + 1];
 
