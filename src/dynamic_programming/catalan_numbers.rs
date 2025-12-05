@@ -28,6 +28,7 @@
 /// A vector containing Catalan numbers from C(0) to C(upper_limit)
 ///
 /// # Complexity
+///
 /// * Time complexity: O(n²)
 /// * Space complexity: O(n)
 ///
