@@ -243,7 +243,7 @@ impl<K: Ord, V> Drop for SkipList<K, V> {
     }
 }
 
-pub fn random_value(max: usize) -> usize {
+fn random_value(max: usize) -> usize {
     let mut v = 1usize;
     loop {
         if random_range(1usize..10usize) > 5 && v < max {
