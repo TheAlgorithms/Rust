@@ -28,6 +28,10 @@ impl<K: Ord, V> Node<K, V> {
     }
 }
 
+/// A probabilistic data structure that maintains a sorted collection of key-value pairs.
+///
+/// A skip list is a data structure that allows O(log n) search, insertion, and deletion
+/// on average by maintaining multiple levels of linked lists with probabilistic balancing.
 pub struct SkipList<K: Ord, V> {
     header: *mut Node<K, V>,
     level: usize,
