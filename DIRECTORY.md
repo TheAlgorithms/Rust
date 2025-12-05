@@ -87,7 +87,7 @@
     * [Union Find](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/union_find.rs)
     * [Veb Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/veb_tree.rs)
   * Dynamic Programming
-  * [Catalan Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/catalan_numbers.rs)
+    * [Catalan Numbers](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/catalan_numbers.rs)
     * [Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs)
     * [Egg Dropping](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/egg_dropping.rs)
     * [Fibonacci](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/fibonacci.rs)
