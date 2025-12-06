@@ -1,3 +1,4 @@
+mod catalan_numbers;
 mod coin_change;
 mod egg_dropping;
 mod fibonacci;
@@ -22,6 +23,7 @@ mod task_assignment;
 mod trapped_rainwater;
 mod word_break;
 
+pub use self::catalan_numbers::catalan_numbers;
 pub use self::coin_change::coin_change;
 pub use self::egg_dropping::egg_drop;
 pub use self::fibonacci::binary_lifting_fibonacci;
