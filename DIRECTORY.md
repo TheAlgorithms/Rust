@@ -112,6 +112,7 @@
     * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * Financial
+    * [Black Scholes](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/black_scholes.rs)
     * [Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/present_value.rs)
     * [Net Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv.rs)
     * [NPV Sensitivity](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv_sensitivity.rs)

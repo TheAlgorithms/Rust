@@ -1,3 +1,4 @@
+mod black_scholes;
 mod compound_interest;
 mod finance_ratios;
 mod npv;
@@ -5,6 +6,7 @@ mod npv_sensitivity;
 mod payback;
 mod present_value;
 mod treynor_ratio;
+pub use self::black_scholes::black_scholes;
 pub use compound_interest::compound_interest;
 pub use npv::npv;
 pub use npv_sensitivity::npv_sensitivity;
