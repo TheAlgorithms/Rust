@@ -367,6 +367,12 @@ unsafe fn delete_fixup<K: Ord, V>(tree: &mut RBTree<K, V>, mut parent: *mut RBNo
     let mut sr: *mut RBNode<K, V>;
 
     loop {
+        // rb-tree will keep color balance up to root,
+        // if parent is null, we are done.
+        if parent.is_null() {
+            break;
+        }
+
         /*
          * Loop invariants:
          * - node is black (or null on first iteration)
@@ -646,5 +652,24 @@ mod tests {
         tree.delete(&11);
         let s: String = tree.iter().map(|x| x.value).collect();
         assert_eq!(s, "hlo orl!");
+    }
+
+    #[test]
+    fn delete_edge_case_null_pointer_guard() {
+        let mut tree = RBTree::<i8, i8>::new();
+        tree.insert(4, 4);
+        tree.insert(2, 2);
+        tree.insert(5, 5);
+        tree.insert(0, 0);
+        tree.insert(3, 3);
+        tree.insert(-1, -1);
+        tree.insert(1, 1);
+        tree.insert(-2, -2);
+        tree.insert(6, 6);
+        tree.insert(7, 7);
+        tree.insert(8, 8);
+        tree.delete(&1);
+        tree.delete(&3);
+        tree.delete(&-1);
     }
 }
