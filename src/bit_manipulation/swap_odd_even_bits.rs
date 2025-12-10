@@ -14,7 +14,7 @@
 /// # Examples
 ///
 /// ```
-/// use rust_algorithms::bit_manipulation::swap_odd_even_bits;
+/// use the_algorithms_rust::bit_manipulation::swap_odd_even_bits;
 ///
 /// assert_eq!(swap_odd_even_bits(0), 0);
 /// assert_eq!(swap_odd_even_bits(1), 2);
@@ -28,26 +28,12 @@
 pub fn swap_odd_even_bits(num: u32) -> u32 {
     // Get all even bits - 0xAAAAAAAA is a 32-bit number with all even bits set to 1
     let even_bits = num & 0xAAAAAAAA;
-    
+
     // Get all odd bits - 0x55555555 is a 32-bit number with all odd bits set to 1
     let odd_bits = num & 0x55555555;
-    
+
     // Right shift even bits and left shift odd bits and swap them
     (even_bits >> 1) | (odd_bits << 1)
-}
-
-/// Formats binary representation of two numbers for display.
-///
-/// # Arguments
-///
-/// * `before` - The original number
-/// * `after` - The transformed number
-///
-/// # Returns
-///
-/// A formatted string showing both numbers in binary
-fn show_bits(before: u32, after: u32) -> String {
-    format!("{:>5}: {:08b}\n{:>5}: {:08b}", before, before, after, after)
 }
 
 #[cfg(test)]
@@ -64,39 +50,23 @@ mod tests {
         assert_eq!(swap_odd_even_bits(5), 10);
         assert_eq!(swap_odd_even_bits(6), 9);
         assert_eq!(swap_odd_even_bits(23), 43);
+        assert_eq!(swap_odd_even_bits(24), 36);
     }
 
     #[test]
-    fn test_show_bits() {
-        assert_eq!(
-            show_bits(0, swap_odd_even_bits(0)),
-            "    0: 00000000\n    0: 00000000"
-        );
-        assert_eq!(
-            show_bits(1, swap_odd_even_bits(1)),
-            "    1: 00000001\n    2: 00000010"
-        );
-        assert_eq!(
-            show_bits(23, swap_odd_even_bits(23)),
-            "   23: 00010111\n   43: 00101011"
-        );
+    fn test_edge_cases() {
+        // All bits set
+        assert_eq!(swap_odd_even_bits(0xFFFFFFFF), 0xFFFFFFFF);
+
+        // Alternating patterns
+        assert_eq!(swap_odd_even_bits(0xAAAAAAAA), 0x55555555);
+        assert_eq!(swap_odd_even_bits(0x55555555), 0xAAAAAAAA);
     }
 
     #[test]
-    fn test_display_output() {
-        let test_cases = vec![0, 1, 2, 3, 4, 23, 24];
-        
-        for i in test_cases {
-            let result = show_bits(i, swap_odd_even_bits(i));
-            println!("{}\n", result);
-        }
-    }
-}
-
-fn main() {
-    println!("Swapping odd and even bits:\n");
-    
-    for i in [0, 1, 2, 3, 4, 23, 24] {
-        println!("{}\n", show_bits(i, swap_odd_even_bits(i)));
+    fn test_power_of_two() {
+        assert_eq!(swap_odd_even_bits(16), 32);
+        assert_eq!(swap_odd_even_bits(32), 16);
+        assert_eq!(swap_odd_even_bits(64), 128);
     }
 }
