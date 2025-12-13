@@ -29,7 +29,7 @@ pub const C: [u32; 4] = [0x61707865, 0x3320646e, 0x79622d32, 0x6b206574];
 /// data.
 ///
 /// The 16 input numbers can be thought of as the elements of a 4x4 matrix like
-/// the one bellow, on which we do the main operations of the cipher.
+/// the one below, on which we do the main operations of the cipher.
 ///
 /// ```text
 /// +----+----+----+----+
@@ -43,7 +43,7 @@ pub const C: [u32; 4] = [0x61707865, 0x3320646e, 0x79622d32, 0x6b206574];
 /// +----+----+----+----+
 /// ```
 ///
-/// As per the diagram bellow, `input[0, 1, 2, 3]` are the constants mentioned
+/// As per the diagram below, `input[0, 1, 2, 3]` are the constants mentioned
 /// above, `input[4..=11]` is filled with the key, and `input[6..=9]` should be
 /// filled with nonce and counter values. The output of the function is stored
 /// in `output` variable and can be XORed with the plain text to produce the
