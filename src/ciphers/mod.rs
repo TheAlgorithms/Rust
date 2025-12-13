@@ -12,6 +12,7 @@ mod morse_code;
 mod polybius;
 mod rail_fence;
 mod rot13;
+mod rsa_cipher;
 mod salsa;
 mod sha256;
 mod sha3;
@@ -20,6 +21,7 @@ mod theoretical_rot13;
 mod transposition;
 mod vigenere;
 mod xor;
+
 pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
 pub use self::another_rot13::another_rot13;
 pub use self::baconian_cipher::{baconian_decode, baconian_encode};
@@ -35,6 +37,9 @@ pub use self::morse_code::{decode, encode};
 pub use self::polybius::{decode_ascii, encode_ascii};
 pub use self::rail_fence::{rail_fence_decrypt, rail_fence_encrypt};
 pub use self::rot13::rot13;
+pub use self::rsa_cipher::{
+    decrypt, decrypt_text, encrypt, encrypt_text, generate_keypair, PrivateKey, PublicKey,
+};
 pub use self::salsa::salsa20;
 pub use self::sha256::SHA256;
 pub use self::sha3::{sha3_224, sha3_256, sha3_384, sha3_512};
