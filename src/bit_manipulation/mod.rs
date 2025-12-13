@@ -1,3 +1,4 @@
+mod binary_coded_decimal;
 mod counting_bits;
 mod highest_set_bit;
 mod n_bits_gray_code;
@@ -5,6 +6,7 @@ mod reverse_bits;
 mod sum_of_two_integers;
 mod swap_odd_even_bits;
 
+pub use binary_coded_decimal::binary_coded_decimal;
 pub use counting_bits::count_set_bits;
 pub use highest_set_bit::find_highest_set_bit;
 pub use n_bits_gray_code::generate_gray_code;

@@ -2,7 +2,7 @@
 
 ## Src
   * Backtracking
-    * [All Combination Of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
+    * [All Combinations of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
     * [Graph Coloring](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/graph_coloring.rs)
     * [Hamiltonian Cycle](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/hamiltonian_cycle.rs)
     * [Knight Tour](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/knight_tour.rs)
@@ -17,6 +17,7 @@
     * [Multiply](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/multiply.rs)
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Bit Manipulation
+    * [Binary Coded Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/binary_coded_decimal.rs)
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
     * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/highest_set_bit.rs)
     * [N Bits Gray Code](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/n_bits_gray_code.rs)
@@ -104,7 +105,7 @@
     * [Maximal Square](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/maximal_square.rs)
     * [Maximum Subarray](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/maximum_subarray.rs)
     * [Minimum Cost Path](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/minimum_cost_path.rs)
-    * [Optimal Bst](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/optimal_bst.rs)
+    * [Optimal BST](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/optimal_bst.rs)
     * [Rod Cutting](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/rod_cutting.rs)
     * [Smith-Waterman](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/smith_waterman.rs)
     * [Snail](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/snail.rs)
