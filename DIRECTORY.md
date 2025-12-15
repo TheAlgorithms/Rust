@@ -24,6 +24,7 @@
     * [Reverse Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/reverse_bits.rs)
     * [Sum of Two Integers](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/sum_of_two_integers.rs)
     * [Swap Odd and Even Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/swap_odd_even_bits.rs)
+    * [Two's Complement](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/twos_complement.rs)
   * Ciphers
     * [AES](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/aes.rs)
     * [Another ROT13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
