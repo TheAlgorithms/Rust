@@ -87,87 +87,87 @@ mod tests {
     #[test]
     fn test_zero() {
         // 0 is considered a power of 2 by the algorithm (2^(-∞) interpretation)
-        assert_eq!(is_power_of_two(0).unwrap(), true);
+        assert!(is_power_of_two(0).unwrap());
     }
 
     #[test]
     fn test_one() {
         // 1 = 2^0
-        assert_eq!(is_power_of_two(1).unwrap(), true);
+        assert!(is_power_of_two(1).unwrap());
     }
 
     #[test]
     fn test_powers_of_two() {
-        assert_eq!(is_power_of_two(2).unwrap(), true); // 2^1
-        assert_eq!(is_power_of_two(4).unwrap(), true); // 2^2
-        assert_eq!(is_power_of_two(8).unwrap(), true); // 2^3
-        assert_eq!(is_power_of_two(16).unwrap(), true); // 2^4
-        assert_eq!(is_power_of_two(32).unwrap(), true); // 2^5
-        assert_eq!(is_power_of_two(64).unwrap(), true); // 2^6
-        assert_eq!(is_power_of_two(128).unwrap(), true); // 2^7
-        assert_eq!(is_power_of_two(256).unwrap(), true); // 2^8
-        assert_eq!(is_power_of_two(512).unwrap(), true); // 2^9
-        assert_eq!(is_power_of_two(1024).unwrap(), true); // 2^10
-        assert_eq!(is_power_of_two(2048).unwrap(), true); // 2^11
-        assert_eq!(is_power_of_two(4096).unwrap(), true); // 2^12
-        assert_eq!(is_power_of_two(8192).unwrap(), true); // 2^13
-        assert_eq!(is_power_of_two(16384).unwrap(), true); // 2^14
-        assert_eq!(is_power_of_two(32768).unwrap(), true); // 2^15
-        assert_eq!(is_power_of_two(65536).unwrap(), true); // 2^16
+        assert!(is_power_of_two(2).unwrap()); // 2^1
+        assert!(is_power_of_two(4).unwrap()); // 2^2
+        assert!(is_power_of_two(8).unwrap()); // 2^3
+        assert!(is_power_of_two(16).unwrap()); // 2^4
+        assert!(is_power_of_two(32).unwrap()); // 2^5
+        assert!(is_power_of_two(64).unwrap()); // 2^6
+        assert!(is_power_of_two(128).unwrap()); // 2^7
+        assert!(is_power_of_two(256).unwrap()); // 2^8
+        assert!(is_power_of_two(512).unwrap()); // 2^9
+        assert!(is_power_of_two(1024).unwrap()); // 2^10
+        assert!(is_power_of_two(2048).unwrap()); // 2^11
+        assert!(is_power_of_two(4096).unwrap()); // 2^12
+        assert!(is_power_of_two(8192).unwrap()); // 2^13
+        assert!(is_power_of_two(16384).unwrap()); // 2^14
+        assert!(is_power_of_two(32768).unwrap()); // 2^15
+        assert!(is_power_of_two(65536).unwrap()); // 2^16
     }
 
     #[test]
     fn test_non_powers_of_two() {
-        assert_eq!(is_power_of_two(3).unwrap(), false);
-        assert_eq!(is_power_of_two(5).unwrap(), false);
-        assert_eq!(is_power_of_two(6).unwrap(), false);
-        assert_eq!(is_power_of_two(7).unwrap(), false);
-        assert_eq!(is_power_of_two(9).unwrap(), false);
-        assert_eq!(is_power_of_two(10).unwrap(), false);
-        assert_eq!(is_power_of_two(11).unwrap(), false);
-        assert_eq!(is_power_of_two(12).unwrap(), false);
-        assert_eq!(is_power_of_two(13).unwrap(), false);
-        assert_eq!(is_power_of_two(14).unwrap(), false);
-        assert_eq!(is_power_of_two(15).unwrap(), false);
-        assert_eq!(is_power_of_two(17).unwrap(), false);
-        assert_eq!(is_power_of_two(18).unwrap(), false);
+        assert!(!is_power_of_two(3).unwrap());
+        assert!(!is_power_of_two(5).unwrap());
+        assert!(!is_power_of_two(6).unwrap());
+        assert!(!is_power_of_two(7).unwrap());
+        assert!(!is_power_of_two(9).unwrap());
+        assert!(!is_power_of_two(10).unwrap());
+        assert!(!is_power_of_two(11).unwrap());
+        assert!(!is_power_of_two(12).unwrap());
+        assert!(!is_power_of_two(13).unwrap());
+        assert!(!is_power_of_two(14).unwrap());
+        assert!(!is_power_of_two(15).unwrap());
+        assert!(!is_power_of_two(17).unwrap());
+        assert!(!is_power_of_two(18).unwrap());
     }
 
     #[test]
     fn test_specific_non_powers() {
-        assert_eq!(is_power_of_two(6).unwrap(), false);
-        assert_eq!(is_power_of_two(17).unwrap(), false);
-        assert_eq!(is_power_of_two(100).unwrap(), false);
-        assert_eq!(is_power_of_two(1000).unwrap(), false);
+        assert!(!is_power_of_two(6).unwrap());
+        assert!(!is_power_of_two(17).unwrap());
+        assert!(!is_power_of_two(100).unwrap());
+        assert!(!is_power_of_two(1000).unwrap());
     }
 
     #[test]
     fn test_large_powers_of_two() {
-        assert_eq!(is_power_of_two(131072).unwrap(), true); // 2^17
-        assert_eq!(is_power_of_two(262144).unwrap(), true); // 2^18
-        assert_eq!(is_power_of_two(524288).unwrap(), true); // 2^19
-        assert_eq!(is_power_of_two(1048576).unwrap(), true); // 2^20
+        assert!(is_power_of_two(131072).unwrap()); // 2^17
+        assert!(is_power_of_two(262144).unwrap()); // 2^18
+        assert!(is_power_of_two(524288).unwrap()); // 2^19
+        assert!(is_power_of_two(1048576).unwrap()); // 2^20
     }
 
     #[test]
     fn test_numbers_near_powers_of_two() {
         // One less than powers of 2
-        assert_eq!(is_power_of_two(3).unwrap(), false); // 2^2 - 1
-        assert_eq!(is_power_of_two(7).unwrap(), false); // 2^3 - 1
-        assert_eq!(is_power_of_two(15).unwrap(), false); // 2^4 - 1
-        assert_eq!(is_power_of_two(31).unwrap(), false); // 2^5 - 1
-        assert_eq!(is_power_of_two(63).unwrap(), false); // 2^6 - 1
-        assert_eq!(is_power_of_two(127).unwrap(), false); // 2^7 - 1
-        assert_eq!(is_power_of_two(255).unwrap(), false); // 2^8 - 1
+        assert!(!is_power_of_two(3).unwrap()); // 2^2 - 1
+        assert!(!is_power_of_two(7).unwrap()); // 2^3 - 1
+        assert!(!is_power_of_two(15).unwrap()); // 2^4 - 1
+        assert!(!is_power_of_two(31).unwrap()); // 2^5 - 1
+        assert!(!is_power_of_two(63).unwrap()); // 2^6 - 1
+        assert!(!is_power_of_two(127).unwrap()); // 2^7 - 1
+        assert!(!is_power_of_two(255).unwrap()); // 2^8 - 1
 
         // One more than powers of 2
-        assert_eq!(is_power_of_two(3).unwrap(), false); // 2^1 + 1
-        assert_eq!(is_power_of_two(5).unwrap(), false); // 2^2 + 1
-        assert_eq!(is_power_of_two(9).unwrap(), false); // 2^3 + 1
-        assert_eq!(is_power_of_two(17).unwrap(), false); // 2^4 + 1
-        assert_eq!(is_power_of_two(33).unwrap(), false); // 2^5 + 1
-        assert_eq!(is_power_of_two(65).unwrap(), false); // 2^6 + 1
-        assert_eq!(is_power_of_two(129).unwrap(), false); // 2^7 + 1
+        assert!(!is_power_of_two(3).unwrap()); // 2^1 + 1
+        assert!(!is_power_of_two(5).unwrap()); // 2^2 + 1
+        assert!(!is_power_of_two(9).unwrap()); // 2^3 + 1
+        assert!(!is_power_of_two(17).unwrap()); // 2^4 + 1
+        assert!(!is_power_of_two(33).unwrap()); // 2^5 + 1
+        assert!(!is_power_of_two(65).unwrap()); // 2^6 + 1
+        assert!(!is_power_of_two(129).unwrap()); // 2^7 + 1
     }
 
     #[test]
@@ -191,9 +191,8 @@ mod tests {
         // Test 2^0 through 2^30
         for i in 0..=30 {
             let power = 1u32 << i; // 2^i
-            assert_eq!(
+            assert!(
                 is_power_of_two(power as i32).unwrap(),
-                true,
                 "2^{i} = {power} should be a power of 2"
             );
         }
@@ -204,14 +203,13 @@ mod tests {
         // Test that between consecutive powers of 2, only the powers return true
         for i in 1..10 {
             let power = 1 << i; // 2^i
-            assert_eq!(is_power_of_two(power).unwrap(), true);
+            assert!(is_power_of_two(power).unwrap());
 
             // Check numbers between this power and the next
             let next_power = 1 << (i + 1);
             for num in (power + 1)..next_power {
-                assert_eq!(
-                    is_power_of_two(num).unwrap(),
-                    false,
+                assert!(
+                    !is_power_of_two(num).unwrap(),
                     "{num} should not be a power of 2"
                 );
             }
@@ -223,20 +221,20 @@ mod tests {
         // Verify the bit manipulation logic for specific examples
         // For 8: 1000 & 0111 = 0000 ✓
         assert_eq!(8 & 7, 0);
-        assert_eq!(is_power_of_two(8).unwrap(), true);
+        assert!(is_power_of_two(8).unwrap());
 
         // For 16: 10000 & 01111 = 00000 ✓
         assert_eq!(16 & 15, 0);
-        assert_eq!(is_power_of_two(16).unwrap(), true);
+        assert!(is_power_of_two(16).unwrap());
 
         // For 6: 110 & 101 = 100 ✗
         assert_ne!(6 & 5, 0);
-        assert_eq!(is_power_of_two(6).unwrap(), false);
+        assert!(!is_power_of_two(6).unwrap());
     }
 
     #[test]
     fn test_edge_case_max_i32_power_of_two() {
         // Largest power of 2 that fits in i32: 2^30 = 1073741824
-        assert_eq!(is_power_of_two(1073741824).unwrap(), true);
+        assert!(is_power_of_two(1073741824).unwrap());
     }
 }
