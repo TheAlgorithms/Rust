@@ -20,6 +20,7 @@
     * [Binary Coded Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/binary_coded_decimal.rs)
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
     * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/highest_set_bit.rs)
+    * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/is_power_of_two.rs)
     * [N Bits Gray Code](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/n_bits_gray_code.rs)
     * [Previous Power of Two](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/find_previous_power_of_two.rs)
     * [Reverse Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/reverse_bits.rs)
