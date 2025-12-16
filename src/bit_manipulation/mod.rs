@@ -1,5 +1,6 @@
 mod binary_coded_decimal;
 mod counting_bits;
+mod find_previous_power_of_two;
 mod highest_set_bit;
 mod n_bits_gray_code;
 mod reverse_bits;
@@ -9,6 +10,7 @@ mod twos_complement;
 
 pub use self::binary_coded_decimal::binary_coded_decimal;
 pub use self::counting_bits::count_set_bits;
+pub use self::find_previous_power_of_two::find_previous_power_of_two;
 pub use self::highest_set_bit::find_highest_set_bit;
 pub use self::n_bits_gray_code::generate_gray_code;
 pub use self::reverse_bits::reverse_bits;
