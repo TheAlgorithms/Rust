@@ -32,15 +32,23 @@ pub fn binary_count_trailing_zeros(num: u64) -> u32 {
 /// # Examples
 ///
 /// ```
-/// # use the_algorithms_rust::bit_manipulation::binary_count_trailing_zeros_bitwise;
+/// // This function uses bit manipulation: log2(num & -num)
+/// // where num & -num isolates the rightmost set bit
+/// # fn binary_count_trailing_zeros_bitwise(num: u64) -> u32 {
+/// #     if num == 0 { return 0; }
+/// #     let rightmost_set_bit = num & (num.wrapping_neg());
+/// #     63 - rightmost_set_bit.leading_zeros()
+/// # }
 /// assert_eq!(binary_count_trailing_zeros_bitwise(25), 0);
 /// assert_eq!(binary_count_trailing_zeros_bitwise(36), 2);
+/// assert_eq!(binary_count_trailing_zeros_bitwise(16), 4);
 /// ```
+#[allow(dead_code)]
 pub fn binary_count_trailing_zeros_bitwise(num: u64) -> u32 {
     if num == 0 {
         return 0;
     }
-    
+
     let rightmost_set_bit = num & (num.wrapping_neg());
     63 - rightmost_set_bit.leading_zeros()
 }
@@ -73,9 +81,33 @@ mod tests {
     }
 
     #[test]
-    fn test_bitwise_implementation() {
-        let test_cases = vec![0, 1, 2, 4, 8, 16, 25, 36, 58, 1024, 4294967296];
-        
+    fn test_bitwise_vs_builtin() {
+        // Test that bitwise implementation matches built-in trailing_zeros()
+        let test_cases = vec![
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            16,
+            25,
+            36,
+            58,
+            64,
+            100,
+            128,
+            256,
+            512,
+            1024,
+            4294967296,
+            u64::MAX - 1,
+            u64::MAX,
+        ];
+
         for num in test_cases {
             assert_eq!(
                 binary_count_trailing_zeros(num),
