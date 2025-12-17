@@ -28,6 +28,7 @@
     * [Swap Odd and Even Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/swap_odd_even_bits.rs)
     * [Trailing Zeros](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/binary_count_trailing_zeros.rs)
     * [Two's Complement](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/twos_complement.rs)
+    * [Unique Number](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/find_unique_number.rs)
   * Ciphers
     * [AES](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/aes.rs)
     * [Another ROT13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
