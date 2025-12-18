@@ -25,6 +25,7 @@
     * [N Bits Gray Code](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/n_bits_gray_code.rs)
     * [Previous Power of Two](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/find_previous_power_of_two.rs)
     * [Reverse Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/reverse_bits.rs)
+    * [Rightmost Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/rightmost_set_bit.rs)
     * [Sum of Two Integers](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/sum_of_two_integers.rs)
     * [Swap Odd and Even Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/swap_odd_even_bits.rs)
     * [Trailing Zeros](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/binary_count_trailing_zeros.rs)
