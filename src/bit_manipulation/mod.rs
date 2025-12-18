@@ -1,6 +1,7 @@
 mod binary_coded_decimal;
 mod binary_count_trailing_zeros;
 mod counting_bits;
+mod find_missing_number;
 mod find_previous_power_of_two;
 mod find_unique_number;
 mod highest_set_bit;
@@ -14,6 +15,7 @@ mod twos_complement;
 pub use self::binary_coded_decimal::binary_coded_decimal;
 pub use self::binary_count_trailing_zeros::binary_count_trailing_zeros;
 pub use self::counting_bits::count_set_bits;
+pub use self::find_missing_number::find_missing_number;
 pub use self::find_previous_power_of_two::find_previous_power_of_two;
 pub use self::find_unique_number::find_unique_number;
 pub use self::highest_set_bit::find_highest_set_bit;
