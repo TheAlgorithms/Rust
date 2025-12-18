@@ -1,6 +1,6 @@
 # List of all files
 
-## Src
+## src
   * Backtracking
     * [All Combinations of Size K](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/all_combination_of_size_k.rs)
     * [Graph Coloring](https://github.com/TheAlgorithms/Rust/blob/master/src/backtracking/graph_coloring.rs)
@@ -21,6 +21,7 @@
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
     * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/highest_set_bit.rs)
     * [Is Power of Two](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/is_power_of_two.rs)
+    * [Missing Number](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/find_missing_number.rs)
     * [N Bits Gray Code](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/n_bits_gray_code.rs)
     * [Previous Power of Two](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/find_previous_power_of_two.rs)
     * [Reverse Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/reverse_bits.rs)
