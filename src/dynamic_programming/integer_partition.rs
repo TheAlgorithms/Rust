@@ -31,6 +31,7 @@
 /// assert_eq!(partition(7), 15);
 /// assert_eq!(partition(100), 190569292);
 /// ```
+#[allow(clippy::large_stack_arrays)]
 pub fn partition(m: i32) -> u128 {
     // Validate input
     assert!(m > 0, "Input must be a positive integer greater than 0");
