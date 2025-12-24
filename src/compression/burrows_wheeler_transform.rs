@@ -247,7 +247,7 @@ mod tests {
         for s in test_strings {
             let result = bwt_transform(s);
             let recovered = reverse_bwt(&result.bwt_string, result.idx_original_string);
-            assert_eq!(recovered, s, "Roundtrip failed for '{}'", s);
+            assert_eq!(recovered, s, "Roundtrip failed for '{s}'");
         }
     }
 
