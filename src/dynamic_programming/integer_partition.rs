@@ -33,14 +33,19 @@
 /// assert_eq!(partition(7), 15);
 /// assert_eq!(partition(100), 190569292);
 /// ```
+#[allow(clippy::large_stack_arrays)]
 pub fn partition(m: i32) -> u128 {
     // Validate input
     assert!(m > 0, "Input must be a positive integer greater than 0");
 
     let m = m as usize;
 
-    // Initialize memo table with zeros
-    let mut memo = vec![vec![0u128; m]; m + 1];
+    // Initialize memo table with zeros using iterative construction
+    // to avoid large stack allocations
+    let mut memo: Vec<Vec<u128>> = Vec::with_capacity(m + 1);
+    for _ in 0..=m {
+        memo.push(vec![0u128; m]);
+    }
 
     // Base case: there's one way to partition into 0 parts (empty partition)
     for i in 0..=m {
@@ -64,6 +69,7 @@ pub fn partition(m: i32) -> u128 {
 }
 
 #[cfg(test)]
+#[allow(clippy::large_stack_arrays)]
 mod tests {
     use super::*;
 
@@ -78,11 +84,13 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::large_stack_arrays)]
     fn test_partition_100() {
         assert_eq!(partition(100), 190569292);
     }
 
     #[test]
+    #[allow(clippy::large_stack_arrays)]
     fn test_partition_1000() {
         assert_eq!(partition(1000), 24061467864032622473692149727991);
     }
