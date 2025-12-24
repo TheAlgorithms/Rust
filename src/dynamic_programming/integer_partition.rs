@@ -9,6 +9,8 @@
 //! * <https://en.wikipedia.org/wiki/Partition_(number_theory)>
 //! * <https://en.wikipedia.org/wiki/Partition_function_(number_theory)>
 
+#![allow(clippy::large_stack_arrays)]
+
 /// Calculates the number of partitions of a positive integer using dynamic programming.
 ///
 /// # Arguments
@@ -31,7 +33,6 @@
 /// assert_eq!(partition(7), 15);
 /// assert_eq!(partition(100), 190569292);
 /// ```
-#[allow(clippy::large_stack_arrays)]
 pub fn partition(m: i32) -> u128 {
     // Validate input
     assert!(m > 0, "Input must be a positive integer greater than 0");
