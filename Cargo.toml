@@ -67,6 +67,7 @@ used_underscore_binding = { level = "allow", priority = 1 }
 ref_option = { level = "allow", priority = 1 }
 unnecessary_semicolon = { level = "allow", priority = 1 }
 ignore_without_reason = { level = "allow", priority = 1 }
+large_stack_arrays = { level = "allow", priority = 1 }
 # restriction-lints:
 absolute_paths = { level = "allow", priority = 1 }
 arithmetic_side_effects = { level = "allow", priority = 1 }
