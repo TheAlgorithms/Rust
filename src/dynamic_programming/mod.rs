@@ -3,6 +3,7 @@ mod coin_change;
 mod egg_dropping;
 mod fibonacci;
 mod fractional_knapsack;
+mod integer_partition;
 mod is_subsequence;
 mod knapsack;
 mod longest_common_subsequence;
@@ -27,16 +28,13 @@ mod word_break;
 pub use self::catalan_numbers::catalan_numbers;
 pub use self::coin_change::coin_change;
 pub use self::egg_dropping::egg_drop;
-pub use self::fibonacci::binary_lifting_fibonacci;
-pub use self::fibonacci::classical_fibonacci;
-pub use self::fibonacci::fibonacci;
-pub use self::fibonacci::last_digit_of_the_sum_of_nth_fibonacci_number;
-pub use self::fibonacci::logarithmic_fibonacci;
-pub use self::fibonacci::matrix_fibonacci;
-pub use self::fibonacci::memoized_fibonacci;
-pub use self::fibonacci::nth_fibonacci_number_modulo_m;
-pub use self::fibonacci::recursive_fibonacci;
+pub use self::fibonacci::{
+    binary_lifting_fibonacci, classical_fibonacci, fibonacci,
+    last_digit_of_the_sum_of_nth_fibonacci_number, logarithmic_fibonacci, matrix_fibonacci,
+    memoized_fibonacci, nth_fibonacci_number_modulo_m, recursive_fibonacci,
+};
 pub use self::fractional_knapsack::fractional_knapsack;
+pub use self::integer_partition::partition;
 pub use self::is_subsequence::is_subsequence;
 pub use self::knapsack::knapsack;
 pub use self::longest_common_subsequence::longest_common_subsequence;
