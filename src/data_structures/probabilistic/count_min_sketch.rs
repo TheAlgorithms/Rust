@@ -90,8 +90,8 @@ pub trait CountMinSketch {
 /// But an interesting property is that the count we return for "TEST" cannot be underestimated
 pub struct HashCountMinSketch<Item: Hash, const WIDTH: usize, const DEPTH: usize> {
     phantom: std::marker::PhantomData<Item>, // just a marker for Item to be used
-    counts: [[usize; WIDTH]; DEPTH],
-    hashers: [RandomState; DEPTH],
+    counts: Vec<[usize; WIDTH]>,
+    hashers: Vec<RandomState>,
 }
 
 impl<Item: Hash, const WIDTH: usize, const DEPTH: usize> Debug
@@ -106,11 +106,11 @@ impl<T: Hash, const WIDTH: usize, const DEPTH: usize> Default
     for HashCountMinSketch<T, WIDTH, DEPTH>
 {
     fn default() -> Self {
-        let hashers = std::array::from_fn(|_| RandomState::new());
+        let hashers = (0..DEPTH).map(|_| RandomState::new()).collect();
 
         Self {
             phantom: std::marker::PhantomData,
-            counts: [[0; WIDTH]; DEPTH],
+            counts: (0..DEPTH).map(|_| [0; WIDTH]).collect(),
             hashers,
         }
     }
@@ -183,14 +183,14 @@ mod tests {
         let mut sketch: HashCountMinSketch<&str, 5, 7> = HashCountMinSketch::default();
         sketch.increment("test");
         // Inspect internal state:
-        for counts in sketch.counts {
+        for counts in &sketch.counts {
             let zeroes = counts.iter().filter(|count| **count == 0).count();
             assert_eq!(4, zeroes);
             let ones = counts.iter().filter(|count| **count == 1).count();
             assert_eq!(1, ones);
         }
         sketch.increment("test");
-        for counts in sketch.counts {
+        for counts in &sketch.counts {
             let zeroes = counts.iter().filter(|count| **count == 0).count();
             assert_eq!(4, zeroes);
             let twos = counts.iter().filter(|count| **count == 2).count();
