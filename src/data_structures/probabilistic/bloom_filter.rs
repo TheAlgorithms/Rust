@@ -24,13 +24,13 @@ pub trait BloomFilter<Item: Hash> {
 #[allow(dead_code)]
 #[derive(Debug)]
 struct BasicBloomFilter<const CAPACITY: usize> {
-    vec: Vec<bool>,
+    vec: [bool; CAPACITY],
 }
 
 impl<const CAPACITY: usize> Default for BasicBloomFilter<CAPACITY> {
     fn default() -> Self {
         Self {
-            vec: vec![false; CAPACITY],
+            vec: [false; CAPACITY],
         }
     }
 }
