@@ -106,11 +106,13 @@ impl<T: Hash, const WIDTH: usize, const DEPTH: usize> Default
     for HashCountMinSketch<T, WIDTH, DEPTH>
 {
     fn default() -> Self {
-        let hashers = (0..DEPTH).map(|_| RandomState::new()).collect();
+        let hashers = std::iter::repeat_with(RandomState::new)
+            .take(DEPTH)
+            .collect();
 
         Self {
             phantom: std::marker::PhantomData,
-            counts: (0..DEPTH).map(|_| [0; WIDTH]).collect(),
+            counts: vec![[0; WIDTH]; DEPTH],
             hashers,
         }
     }
