@@ -373,7 +373,7 @@ mod tests {
         for text in texts {
             let compressed = compressor.compress(text);
             let decompressed = compressor.decompress(&compressed);
-            assert_eq!(text, decompressed, "Round trip failed for text: {}", text);
+            assert_eq!(text, decompressed, "Round trip failed for text: {text}");
         }
     }
 
