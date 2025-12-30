@@ -511,9 +511,6 @@ mod tests {
         // Test the demonstrate function
         let result = demonstrate_huffman_from_file(test_file);
         assert!(result.is_ok());
-
-        // Clean up
-        let _ = std::fs::remove_file(test_file);
     }
 
     #[test]
@@ -527,9 +524,6 @@ mod tests {
         // Test with empty file
         let result = demonstrate_huffman_from_file(test_file);
         assert!(result.is_ok());
-
-        // Clean up
-        let _ = std::fs::remove_file(test_file);
     }
 }
 
