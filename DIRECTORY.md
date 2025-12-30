@@ -19,6 +19,7 @@
   * Bit Manipulation
     * [Binary Coded Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/binary_coded_decimal.rs)
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
+    * [Hamming Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/hamming_distance.rs)
     * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/highest_set_bit.rs)
     * [Is Power of Two](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/is_power_of_two.rs)
     * [Missing Number](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/find_missing_number.rs)
