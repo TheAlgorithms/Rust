@@ -415,7 +415,7 @@ mod tests {
 
         // Verify all characters have codes
         for ch in text.chars() {
-            assert!(codes.contains_key(&ch), "Missing code for '{}'", ch);
+            assert!(codes.contains_key(&ch), "Missing code for '{ch}'");
         }
 
         // Verify decoding returns original text
@@ -436,7 +436,7 @@ mod tests {
         for text in test_cases {
             let (encoded, codes) = huffman_encode(text);
             let decoded = huffman_decode(&encoded, &codes);
-            assert_eq!(decoded, text, "Failed roundtrip for: '{}'", text);
+            assert_eq!(decoded, text, "Failed roundtrip for: '{text}'");
         }
     }
 
@@ -444,9 +444,9 @@ mod tests {
     fn test_frequency_based_encoding() {
         // In "aaabbc", 'a' should have shorter code than 'b' or 'c'
         let (_, codes) = huffman_encode("aaabbc");
-        let a_len = codes.get(&'a').unwrap().len();
-        let b_len = codes.get(&'b').unwrap().len();
-        let c_len = codes.get(&'c').unwrap().len();
+        let a_len = codes[&'a'].len();
+        let b_len = codes[&'b'].len();
+        let c_len = codes[&'c'].len();
 
         // 'a' appears most frequently, so should have shortest or equal code
         assert!(a_len <= b_len);
@@ -513,7 +513,7 @@ mod tests {
         assert!(result.is_ok());
 
         // Clean up
-        std::fs::remove_file(test_file).ok();
+        let _ = std::fs::remove_file(test_file);
     }
 
     #[test]
@@ -529,7 +529,7 @@ mod tests {
         assert!(result.is_ok());
 
         // Clean up
-        std::fs::remove_file(test_file).ok();
+        let _ = std::fs::remove_file(test_file);
     }
 }
 
