@@ -58,6 +58,7 @@
   * Compression
     * [Burrows-Wheeler Transform](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/burrows_wheeler_transform.rs)
     * [Huffman Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/huffman_encoding.rs)
+    * [LZ77](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/lz77.rs)
     * [Move to Front](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/move_to_front.rs)
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
   * Conversions
