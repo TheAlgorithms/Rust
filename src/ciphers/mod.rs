@@ -19,6 +19,7 @@ mod sha3;
 mod tea;
 mod theoretical_rot13;
 mod transposition;
+mod vernam;
 mod vigenere;
 mod xor;
 
@@ -46,5 +47,6 @@ pub use self::sha3::{sha3_224, sha3_256, sha3_384, sha3_512};
 pub use self::tea::{tea_decrypt, tea_encrypt};
 pub use self::theoretical_rot13::theoretical_rot13;
 pub use self::transposition::transposition;
+pub use self::vernam::{vernam_decrypt, vernam_encrypt};
 pub use self::vigenere::vigenere;
 pub use self::xor::xor;
