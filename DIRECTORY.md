@@ -76,6 +76,7 @@
     * [Octal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
     * [Octal to Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_hexadecimal.rs)
+    * [Order of Magnitude Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/order_of_magnitude_conversion.rs)
     * [RGB-CMYK Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_cmyk_conversion.rs)
   * Data Structures
     * [AVL Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
