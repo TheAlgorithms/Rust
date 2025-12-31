@@ -11,7 +11,9 @@ mod length_conversion;
 mod octal_to_binary;
 mod octal_to_decimal;
 mod octal_to_hexadecimal;
+mod order_of_magnitude_conversion;
 mod rgb_cmyk_conversion;
+
 pub use self::binary_to_decimal::binary_to_decimal;
 pub use self::binary_to_hexadecimal::binary_to_hexadecimal;
 pub use self::binary_to_octal::binary_to_octal;
@@ -25,4 +27,7 @@ pub use self::length_conversion::length_conversion;
 pub use self::octal_to_binary::octal_to_binary;
 pub use self::octal_to_decimal::octal_to_decimal;
 pub use self::octal_to_hexadecimal::octal_to_hexadecimal;
+pub use self::order_of_magnitude_conversion::{
+    convert_metric_length, metric_length_conversion, MetricLengthUnit,
+};
 pub use self::rgb_cmyk_conversion::rgb_to_cmyk;
