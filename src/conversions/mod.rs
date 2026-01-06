@@ -13,6 +13,7 @@ mod octal_to_decimal;
 mod octal_to_hexadecimal;
 mod order_of_magnitude_conversion;
 mod rgb_cmyk_conversion;
+mod roman_numerals;
 
 pub use self::binary_to_decimal::binary_to_decimal;
 pub use self::binary_to_hexadecimal::binary_to_hexadecimal;
@@ -31,3 +32,4 @@ pub use self::order_of_magnitude_conversion::{
     convert_metric_length, metric_length_conversion, MetricLengthUnit,
 };
 pub use self::rgb_cmyk_conversion::rgb_to_cmyk;
+pub use self::roman_numerals::{int_to_roman, roman_to_int};
