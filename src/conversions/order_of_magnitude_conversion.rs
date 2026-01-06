@@ -1,10 +1,31 @@
 //! Length Unit Conversion
 //!
 //! This module provides conversion between metric length units ranging from
-//! meters to yottametres (10^24 meters).
+//! meters to yottameters (10^24 meters).
 //!
-//! Available units: Meter, Kilometer, Megametre, Gigametre, Terametre,
-//! Petametre, Exametre, Zettametre, Yottametre
+//! Available units: Meter, Kilometer, Megameter, Gigameter, Terameter,
+//! Petameter, Exameter, Zettameter, Yottameter
+//!
+//! ## Spelling Convention
+//!
+//! This module uses **American spellings** (meter, kilometer, etc.) for all
+//! official API elements including enum variants and documentation, following
+//! standard programming conventions and SI guidelines.
+//!
+//! However, the `FromStr` implementation **accepts both American and British spellings**
+//! for maximum compatibility:
+//! - American: "meter", "kilometer", "megameter", etc.
+//! - British: "metre", "kilometre", "megametre", etc.
+//!
+//! ```
+//! use the_algorithms_rust::conversions::MetricLengthUnit;
+//! use std::str::FromStr;
+//!
+//! // Both spellings work!
+//! let american: MetricLengthUnit = "megameter".parse().unwrap();
+//! let british: MetricLengthUnit = "megametre".parse().unwrap();
+//! assert_eq!(american, british); // Same enum variant
+//! ```
 //!
 //! # References
 //!
@@ -24,20 +45,20 @@ pub enum MetricLengthUnit {
     Meter,
     /// Kilometer (km) - 10^3 meters
     Kilometer,
-    /// Megametre (Mm) - 10^6 meters
-    Megametre,
-    /// Gigametre (Gm) - 10^9 meters
-    Gigametre,
-    /// Terametre (Tm) - 10^12 meters
-    Terametre,
-    /// Petametre (Pm) - 10^15 meters
-    Petametre,
-    /// Exametre (Em) - 10^18 meters
-    Exametre,
-    /// Zettametre (Zm) - 10^21 meters
-    Zettametre,
-    /// Yottametre (Ym) - 10^24 meters
-    Yottametre,
+    /// Megameter (Mm) - 10^6 meters
+    Megameter,
+    /// Gigameter (Gm) - 10^9 meters
+    Gigameter,
+    /// Terameter (Tm) - 10^12 meters
+    Terameter,
+    /// Petameter (Pm) - 10^15 meters
+    Petameter,
+    /// Exameter (Em) - 10^18 meters
+    Exameter,
+    /// Zettameter (Zm) - 10^21 meters
+    Zettameter,
+    /// Yottameter (Ym) - 10^24 meters
+    Yottameter,
 }
 
 impl MetricLengthUnit {
@@ -50,19 +71,19 @@ impl MetricLengthUnit {
     ///
     /// assert_eq!(MetricLengthUnit::Meter.exponent(), 0);
     /// assert_eq!(MetricLengthUnit::Kilometer.exponent(), 3);
-    /// assert_eq!(MetricLengthUnit::Megametre.exponent(), 6);
+    /// assert_eq!(MetricLengthUnit::Megameter.exponent(), 6);
     /// ```
     pub fn exponent(&self) -> i32 {
         match self {
             MetricLengthUnit::Meter => 0,
             MetricLengthUnit::Kilometer => 3,
-            MetricLengthUnit::Megametre => 6,
-            MetricLengthUnit::Gigametre => 9,
-            MetricLengthUnit::Terametre => 12,
-            MetricLengthUnit::Petametre => 15,
-            MetricLengthUnit::Exametre => 18,
-            MetricLengthUnit::Zettametre => 21,
-            MetricLengthUnit::Yottametre => 24,
+            MetricLengthUnit::Megameter => 6,
+            MetricLengthUnit::Gigameter => 9,
+            MetricLengthUnit::Terameter => 12,
+            MetricLengthUnit::Petameter => 15,
+            MetricLengthUnit::Exameter => 18,
+            MetricLengthUnit::Zettameter => 21,
+            MetricLengthUnit::Yottameter => 24,
         }
     }
 
@@ -80,13 +101,13 @@ impl MetricLengthUnit {
         match self {
             MetricLengthUnit::Meter => "m",
             MetricLengthUnit::Kilometer => "km",
-            MetricLengthUnit::Megametre => "Mm",
-            MetricLengthUnit::Gigametre => "Gm",
-            MetricLengthUnit::Terametre => "Tm",
-            MetricLengthUnit::Petametre => "Pm",
-            MetricLengthUnit::Exametre => "Em",
-            MetricLengthUnit::Zettametre => "Zm",
-            MetricLengthUnit::Yottametre => "Ym",
+            MetricLengthUnit::Megameter => "Mm",
+            MetricLengthUnit::Gigameter => "Gm",
+            MetricLengthUnit::Terameter => "Tm",
+            MetricLengthUnit::Petameter => "Pm",
+            MetricLengthUnit::Exameter => "Em",
+            MetricLengthUnit::Zettameter => "Zm",
+            MetricLengthUnit::Yottameter => "Ym",
         }
     }
 }
@@ -97,6 +118,7 @@ impl FromStr for MetricLengthUnit {
     /// Parses a unit from a string (case-insensitive, handles plurals).
     ///
     /// Accepts both full names (e.g., "meter", "meters") and symbols (e.g., "m", "km").
+    /// **Accepts both American and British spellings** (e.g., "megameter" and "megametre").
     ///
     /// # Example
     ///
@@ -104,7 +126,15 @@ impl FromStr for MetricLengthUnit {
     /// use the_algorithms_rust::conversions::MetricLengthUnit;
     /// use std::str::FromStr;
     ///
+    /// // American spellings (official)
     /// assert_eq!(MetricLengthUnit::from_str("meter").unwrap(), MetricLengthUnit::Meter);
+    /// assert_eq!(MetricLengthUnit::from_str("megameter").unwrap(), MetricLengthUnit::Megameter);
+    ///
+    /// // British spellings (also accepted)
+    /// assert_eq!(MetricLengthUnit::from_str("metre").unwrap(), MetricLengthUnit::Meter);
+    /// assert_eq!(MetricLengthUnit::from_str("megametre").unwrap(), MetricLengthUnit::Megameter);
+    ///
+    /// // Symbols and case-insensitive
     /// assert_eq!(MetricLengthUnit::from_str("km").unwrap(), MetricLengthUnit::Kilometer);
     /// assert_eq!(MetricLengthUnit::from_str("METERS").unwrap(), MetricLengthUnit::Meter);
     /// ```
@@ -113,15 +143,15 @@ impl FromStr for MetricLengthUnit {
         let sanitized = s.to_lowercase().trim_end_matches('s').to_string();
 
         match sanitized.as_str() {
-            "meter" | "m" => Ok(MetricLengthUnit::Meter),
-            "kilometer" | "km" => Ok(MetricLengthUnit::Kilometer),
-            "megametre" | "megameter" | "mm" => Ok(MetricLengthUnit::Megametre),
-            "gigametre" | "gigameter" | "gm" => Ok(MetricLengthUnit::Gigametre),
-            "terametre" | "terameter" | "tm" => Ok(MetricLengthUnit::Terametre),
-            "petametre" | "petameter" | "pm" => Ok(MetricLengthUnit::Petametre),
-            "exametre" | "exameter" | "em" => Ok(MetricLengthUnit::Exametre),
-            "zettametre" | "zettameter" | "zm" => Ok(MetricLengthUnit::Zettametre),
-            "yottametre" | "yottameter" | "ym" => Ok(MetricLengthUnit::Yottametre),
+            "meter" | "metre" | "m" => Ok(MetricLengthUnit::Meter),
+            "kilometer" | "kilometre" | "km" => Ok(MetricLengthUnit::Kilometer),
+            "megameter" | "megametre" | "mm" => Ok(MetricLengthUnit::Megameter),
+            "gigameter" | "gigametre" | "gm" => Ok(MetricLengthUnit::Gigameter),
+            "terameter" | "terametre" | "tm" => Ok(MetricLengthUnit::Terameter),
+            "petameter" | "petametre" | "pm" => Ok(MetricLengthUnit::Petameter),
+            "exameter" | "exametre" | "em" => Ok(MetricLengthUnit::Exameter),
+            "zettameter" | "zettametre" | "zm" => Ok(MetricLengthUnit::Zettameter),
+            "yottameter" | "yottametre" | "ym" => Ok(MetricLengthUnit::Yottameter),
             _ => Err(format!(
                 "Invalid unit: '{s}'. Valid units are: m, km, Mm, Gm, Tm, Pm, Em, Zm, Ym"
             )),
@@ -223,26 +253,26 @@ mod tests {
     fn test_unit_exponents() {
         assert_eq!(MetricLengthUnit::Meter.exponent(), 0);
         assert_eq!(MetricLengthUnit::Kilometer.exponent(), 3);
-        assert_eq!(MetricLengthUnit::Megametre.exponent(), 6);
-        assert_eq!(MetricLengthUnit::Gigametre.exponent(), 9);
-        assert_eq!(MetricLengthUnit::Terametre.exponent(), 12);
-        assert_eq!(MetricLengthUnit::Petametre.exponent(), 15);
-        assert_eq!(MetricLengthUnit::Exametre.exponent(), 18);
-        assert_eq!(MetricLengthUnit::Zettametre.exponent(), 21);
-        assert_eq!(MetricLengthUnit::Yottametre.exponent(), 24);
+        assert_eq!(MetricLengthUnit::Megameter.exponent(), 6);
+        assert_eq!(MetricLengthUnit::Gigameter.exponent(), 9);
+        assert_eq!(MetricLengthUnit::Terameter.exponent(), 12);
+        assert_eq!(MetricLengthUnit::Petameter.exponent(), 15);
+        assert_eq!(MetricLengthUnit::Exameter.exponent(), 18);
+        assert_eq!(MetricLengthUnit::Zettameter.exponent(), 21);
+        assert_eq!(MetricLengthUnit::Yottameter.exponent(), 24);
     }
 
     #[test]
     fn test_unit_symbols() {
         assert_eq!(MetricLengthUnit::Meter.symbol(), "m");
         assert_eq!(MetricLengthUnit::Kilometer.symbol(), "km");
-        assert_eq!(MetricLengthUnit::Megametre.symbol(), "Mm");
-        assert_eq!(MetricLengthUnit::Gigametre.symbol(), "Gm");
-        assert_eq!(MetricLengthUnit::Terametre.symbol(), "Tm");
-        assert_eq!(MetricLengthUnit::Petametre.symbol(), "Pm");
-        assert_eq!(MetricLengthUnit::Exametre.symbol(), "Em");
-        assert_eq!(MetricLengthUnit::Zettametre.symbol(), "Zm");
-        assert_eq!(MetricLengthUnit::Yottametre.symbol(), "Ym");
+        assert_eq!(MetricLengthUnit::Megameter.symbol(), "Mm");
+        assert_eq!(MetricLengthUnit::Gigameter.symbol(), "Gm");
+        assert_eq!(MetricLengthUnit::Terameter.symbol(), "Tm");
+        assert_eq!(MetricLengthUnit::Petameter.symbol(), "Pm");
+        assert_eq!(MetricLengthUnit::Exameter.symbol(), "Em");
+        assert_eq!(MetricLengthUnit::Zettameter.symbol(), "Zm");
+        assert_eq!(MetricLengthUnit::Yottameter.symbol(), "Ym");
     }
 
     #[test]
@@ -256,8 +286,8 @@ mod tests {
             MetricLengthUnit::Kilometer
         );
         assert_eq!(
-            MetricLengthUnit::from_str("megametre").unwrap(),
-            MetricLengthUnit::Megametre
+            MetricLengthUnit::from_str("megameter").unwrap(),
+            MetricLengthUnit::Megameter
         );
     }
 
@@ -273,11 +303,11 @@ mod tests {
         );
         assert_eq!(
             MetricLengthUnit::from_str("Mm").unwrap(),
-            MetricLengthUnit::Megametre
+            MetricLengthUnit::Megameter
         );
         assert_eq!(
             MetricLengthUnit::from_str("Gm").unwrap(),
-            MetricLengthUnit::Gigametre
+            MetricLengthUnit::Gigameter
         );
     }
 
@@ -310,6 +340,66 @@ mod tests {
     }
 
     #[test]
+    fn test_from_str_british_spellings() {
+        // Test that British spellings work (uses 're' instead of 'er')
+        assert_eq!(
+            MetricLengthUnit::from_str("metre").unwrap(),
+            MetricLengthUnit::Meter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("kilometre").unwrap(),
+            MetricLengthUnit::Kilometer
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("megametre").unwrap(),
+            MetricLengthUnit::Megameter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("gigametre").unwrap(),
+            MetricLengthUnit::Gigameter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("terametre").unwrap(),
+            MetricLengthUnit::Terameter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("petametre").unwrap(),
+            MetricLengthUnit::Petameter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("exametre").unwrap(),
+            MetricLengthUnit::Exameter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("zettametre").unwrap(),
+            MetricLengthUnit::Zettameter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("yottametre").unwrap(),
+            MetricLengthUnit::Yottameter
+        );
+
+        // British spellings with plurals
+        assert_eq!(
+            MetricLengthUnit::from_str("metres").unwrap(),
+            MetricLengthUnit::Meter
+        );
+        assert_eq!(
+            MetricLengthUnit::from_str("kilometres").unwrap(),
+            MetricLengthUnit::Kilometer
+        );
+    }
+
+    #[test]
+    fn test_from_str_american_and_british_equivalent() {
+        // Verify American and British spellings parse to the same enum variant
+        let american = MetricLengthUnit::from_str("megameter").unwrap();
+        let british = MetricLengthUnit::from_str("megametre").unwrap();
+        assert_eq!(american, british);
+        assert_eq!(american, MetricLengthUnit::Megameter);
+    }
+
+    #[test]
     fn test_from_str_invalid() {
         assert!(MetricLengthUnit::from_str("wrongUnit").is_err());
         assert!(MetricLengthUnit::from_str("inch").is_err());
@@ -324,62 +414,62 @@ mod tests {
     }
 
     #[test]
-    fn test_convert_length_meter_to_megametre() {
+    fn test_convert_length_meter_to_megameter() {
         let result =
-            convert_metric_length(1.0, MetricLengthUnit::Meter, MetricLengthUnit::Megametre);
+            convert_metric_length(1.0, MetricLengthUnit::Meter, MetricLengthUnit::Megameter);
         assert_eq!(result, 1e-6);
     }
 
     #[test]
-    fn test_convert_length_gigametre_to_meter() {
+    fn test_convert_length_gigameter_to_meter() {
         let result =
-            convert_metric_length(1.0, MetricLengthUnit::Gigametre, MetricLengthUnit::Meter);
+            convert_metric_length(1.0, MetricLengthUnit::Gigameter, MetricLengthUnit::Meter);
         assert_eq!(result, 1_000_000_000.0);
     }
 
     #[test]
-    fn test_convert_length_gigametre_to_terametre() {
+    fn test_convert_length_gigameter_to_terameter() {
         let result = convert_metric_length(
             1.0,
-            MetricLengthUnit::Gigametre,
-            MetricLengthUnit::Terametre,
+            MetricLengthUnit::Gigameter,
+            MetricLengthUnit::Terameter,
         );
         assert_eq!(result, 0.001);
     }
 
     #[test]
-    fn test_convert_length_petametre_to_terametre() {
+    fn test_convert_length_petameter_to_terameter() {
         let result = convert_metric_length(
             1.0,
-            MetricLengthUnit::Petametre,
-            MetricLengthUnit::Terametre,
+            MetricLengthUnit::Petameter,
+            MetricLengthUnit::Terameter,
         );
         assert_eq!(result, 1000.0);
     }
 
     #[test]
-    fn test_convert_length_petametre_to_exametre() {
+    fn test_convert_length_petameter_to_exameter() {
         let result =
-            convert_metric_length(1.0, MetricLengthUnit::Petametre, MetricLengthUnit::Exametre);
+            convert_metric_length(1.0, MetricLengthUnit::Petameter, MetricLengthUnit::Exameter);
         assert_eq!(result, 0.001);
     }
 
     #[test]
-    fn test_convert_length_terametre_to_zettametre() {
+    fn test_convert_length_terameter_to_zettameter() {
         let result = convert_metric_length(
             1.0,
-            MetricLengthUnit::Terametre,
-            MetricLengthUnit::Zettametre,
+            MetricLengthUnit::Terameter,
+            MetricLengthUnit::Zettameter,
         );
         assert_eq!(result, 1e-9);
     }
 
     #[test]
-    fn test_convert_length_yottametre_to_zettametre() {
+    fn test_convert_length_yottameter_to_zettameter() {
         let result = convert_metric_length(
             1.0,
-            MetricLengthUnit::Yottametre,
-            MetricLengthUnit::Zettametre,
+            MetricLengthUnit::Yottameter,
+            MetricLengthUnit::Zettameter,
         );
         assert_eq!(result, 1000.0);
     }
@@ -419,6 +509,26 @@ mod tests {
     }
 
     #[test]
+    fn test_length_conversion_str_british_spellings() {
+        // Test that British spellings work in string-based API
+        let result = metric_length_conversion(1.0, "metre", "kilometre").unwrap();
+        assert_eq!(result, 0.001);
+
+        let result = metric_length_conversion(1000.0, "kilometre", "metre").unwrap();
+        assert_eq!(result, 1_000_000.0);
+
+        let result = metric_length_conversion(1.0, "gigametre", "megametre").unwrap();
+        assert_eq!(result, 1000.0);
+
+        // Mix American and British
+        let result = metric_length_conversion(1.0, "meter", "kilometre").unwrap();
+        assert_eq!(result, 0.001);
+
+        let result = metric_length_conversion(1.0, "megametre", "meter").unwrap();
+        assert_eq!(result, 1_000_000.0);
+    }
+
+    #[test]
     fn test_length_conversion_str_invalid_from() {
         let result = metric_length_conversion(1.0, "wrongUnit", "meter");
         assert!(result.is_err());
@@ -449,9 +559,9 @@ mod tests {
         let units = [
             MetricLengthUnit::Meter,
             MetricLengthUnit::Kilometer,
-            MetricLengthUnit::Megametre,
-            MetricLengthUnit::Gigametre,
-            MetricLengthUnit::Terametre,
+            MetricLengthUnit::Megameter,
+            MetricLengthUnit::Gigameter,
+            MetricLengthUnit::Terameter,
         ];
 
         for &from in &units {
