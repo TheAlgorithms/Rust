@@ -79,6 +79,7 @@
     * [Octal to Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_hexadecimal.rs)
     * [Order of Magnitude Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/order_of_magnitude_conversion.rs)
     * [RGB-CMYK Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_cmyk_conversion.rs)
+    * [Roman Numerals](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/roman_numerals.rs)
   * Data Structures
     * [AVL Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B-Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
