@@ -318,7 +318,7 @@ mod tests {
         for i in 1..=3999 {
             let roman = int_to_roman(i).unwrap();
             let back = roman_to_int(&roman).unwrap();
-            assert_eq!(i, back, "Roundtrip failed for {}: {} -> {}", i, roman, back);
+            assert_eq!(i, back, "Roundtrip failed for {i}: {roman} -> {back}");
         }
     }
 
