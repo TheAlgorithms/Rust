@@ -340,7 +340,7 @@ mod tests {
     #[test]
     fn test_invalid_key_a_is_one() {
         let symbols_len = SYMBOLS.len();
-        let key = 1 * symbols_len + 5; // key_a = 1
+        let key = symbols_len + 5; // key_a = 1
 
         let result = affine_encrypt(key, "test");
         assert!(result.is_err());
@@ -350,7 +350,7 @@ mod tests {
     #[test]
     fn test_invalid_key_b_is_zero() {
         let symbols_len = SYMBOLS.len();
-        let key = 5 * symbols_len + 0; // key_b = 0
+        let key = 5 * symbols_len; // key_b = 0
 
         let result = affine_encrypt(key, "test");
         assert!(result.is_err());
@@ -360,12 +360,8 @@ mod tests {
     #[test]
     fn test_invalid_key_not_coprime() {
         let symbols_len = SYMBOLS.len();
-        // Find a key_a that's not coprime with symbols_len
-        let key_a = 2; // 2 is not coprime with 95 (symbols_len) if it's odd... actually let me check
-                       // SYMBOLS has 95 characters, gcd(2, 95) = 1, so this would work
-                       // Let's use a number that won't be coprime
-        let key = 5 * symbols_len + 10; // key_a = 5
-                                        // gcd(5, 95) = 5, so this should fail
+        // Use key_a = 5, since gcd(5, 95) = 5 (not coprime)
+        let key = 5 * symbols_len + 10; // key_a = 5, key_b = 10
 
         let result = affine_encrypt(key, "test");
         assert!(result.is_err());
