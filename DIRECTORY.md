@@ -18,6 +18,7 @@
     * [Poly1305](https://github.com/TheAlgorithms/Rust/blob/master/src/big_integer/poly1305.rs)
   * Bit Manipulation
     * [Binary Coded Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/binary_coded_decimal.rs)
+    * [Binary Shifts](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/binary_shifts.rs)
     * [Counting Bits](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/counting_bits.rs)
     * [Hamming Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/hamming_distance.rs)
     * [Highest Set Bit](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/highest_set_bit.rs)
