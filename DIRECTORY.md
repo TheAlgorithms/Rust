@@ -39,6 +39,7 @@
     * [Another ROT13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Baconian Cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/baconian_cipher.rs)
     * [Base16](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base16.rs)
+    * [Base32](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base32.rs)
     * [Base64](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base64.rs)
     * [Blake2B](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/blake2b.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)

@@ -3,6 +3,7 @@ mod affine_cipher;
 mod another_rot13;
 mod baconian_cipher;
 mod base16;
+mod base32;
 mod base64;
 mod blake2b;
 mod caesar;
@@ -30,6 +31,7 @@ pub use self::affine_cipher::{affine_decrypt, affine_encrypt, affine_generate_ke
 pub use self::another_rot13::another_rot13;
 pub use self::baconian_cipher::{baconian_decode, baconian_encode};
 pub use self::base16::{base16_decode, base16_encode};
+pub use self::base32::{base32_decode, base32_encode};
 pub use self::base64::{base64_decode, base64_encode};
 pub use self::blake2b::blake2b;
 pub use self::caesar::caesar;
