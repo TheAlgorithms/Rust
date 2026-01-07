@@ -230,7 +230,7 @@ mod tests {
         for original in test_cases {
             let encoded = base32_encode(original);
             let decoded = base32_decode(&encoded).unwrap();
-            assert_eq!(decoded, original, "Failed for: {:?}", original);
+            assert_eq!(decoded, original, "Failed for: {original:?}");
         }
     }
 
@@ -267,9 +267,9 @@ mod tests {
 
         for (input, expected) in test_cases {
             let encoded = base32_encode(input);
-            assert_eq!(encoded, expected, "Encoding failed for: {:?}", input);
+            assert_eq!(encoded, expected, "Encoding failed for: {input:?}");
             let decoded = base32_decode(&encoded).unwrap();
-            assert_eq!(decoded, input, "Roundtrip failed for: {:?}", input);
+            assert_eq!(decoded, input, "Roundtrip failed for: {input:?}");
         }
     }
 }
