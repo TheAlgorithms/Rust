@@ -1,5 +1,6 @@
 mod binary_coded_decimal;
 mod binary_count_trailing_zeros;
+mod binary_shifts;
 mod counting_bits;
 mod find_missing_number;
 mod find_previous_power_of_two;
@@ -16,6 +17,9 @@ mod twos_complement;
 
 pub use self::binary_coded_decimal::binary_coded_decimal;
 pub use self::binary_count_trailing_zeros::binary_count_trailing_zeros;
+pub use self::binary_shifts::{
+    arithmetic_left_shift, arithmetic_right_shift, logical_left_shift, logical_right_shift,
+};
 pub use self::counting_bits::count_set_bits;
 pub use self::find_missing_number::find_missing_number;
 pub use self::find_previous_power_of_two::find_previous_power_of_two;
