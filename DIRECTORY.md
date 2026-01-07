@@ -34,6 +34,7 @@
     * [Unique Number](https://github.com/TheAlgorithms/Rust/blob/master/src/bit_manipulation/find_unique_number.rs)
   * Ciphers
     * [AES](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/aes.rs)
+    * [Affine Cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/affine_cipher.rs)
     * [Another ROT13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/another_rot13.rs)
     * [Baconian Cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/baconian_cipher.rs)
     * [Base64](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base64.rs)
