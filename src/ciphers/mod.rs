@@ -1,4 +1,5 @@
 mod aes;
+mod affine_cipher;
 mod another_rot13;
 mod baconian_cipher;
 mod base64;
@@ -24,6 +25,7 @@ mod vigenere;
 mod xor;
 
 pub use self::aes::{aes_decrypt, aes_encrypt, AesKey};
+pub use self::affine_cipher::{affine_decrypt, affine_encrypt, affine_generate_key};
 pub use self::another_rot13::another_rot13;
 pub use self::baconian_cipher::{baconian_decode, baconian_encode};
 pub use self::base64::{base64_decode, base64_encode};
