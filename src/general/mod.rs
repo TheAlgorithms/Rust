@@ -7,6 +7,7 @@ mod kadane_algorithm;
 mod kmeans;
 mod mex;
 mod permutations;
+mod subarray_sum_equals_k;
 mod two_sum;
 
 pub use self::convex_hull::convex_hull_graham;
@@ -22,4 +23,5 @@ pub use self::mex::mex_using_sort;
 pub use self::permutations::{
     heap_permute, permute, permute_unique, steinhaus_johnson_trotter_permute,
 };
+pub use self::subarray_sum_equals_k::subarray_sum_equals_k;
 pub use self::two_sum::two_sum;
