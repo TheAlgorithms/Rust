@@ -111,4 +111,16 @@ mod tests {
         let result = k_nearest_neighbors(training_data, test_point, 10);
         assert_eq!(result, None);
     }
+
+    #[test]
+    fn test_euclidean_distance_different_dimensions() {
+        let training_data = vec![
+            (vec![1.0, 2.0], 0.0),
+            (vec![2.0, 3.0], 0.0),
+            (vec![5.0], 1.0),
+        ];
+        let test_point = vec![1.5, 2.5];
+        let result = k_nearest_neighbors(training_data, test_point, 2);
+        assert_eq!(result, Some(0.0));
+    }
 }
