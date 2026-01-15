@@ -222,7 +222,7 @@ mod tests {
         for addr in test_addresses {
             let decimal = ipv4_to_decimal(addr).unwrap();
             let result = decimal_to_ipv4(decimal).unwrap();
-            assert_eq!(addr, result, "Round trip failed for {}", addr);
+            assert_eq!(addr, result, "Round trip failed for {addr}");
         }
     }
 
@@ -240,7 +240,7 @@ mod tests {
         for addr in test_addresses {
             let result1 = ipv4_to_decimal(addr).unwrap();
             let result2 = alt_ipv4_to_decimal(addr).unwrap();
-            assert_eq!(result1, result2, "Methods disagree for address: {}", addr);
+            assert_eq!(result1, result2, "Methods disagree for address: {addr}");
         }
     }
 
