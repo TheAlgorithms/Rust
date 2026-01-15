@@ -77,6 +77,7 @@
     * [Hexadecimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
     * [Hexadecimal to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_decimal.rs)
     * [Hexadecimal to Octal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_octal.rs)
+    * [IPv4 Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/ipv4_conversion.rs)
     * [Length Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/length_conversion.rs)
     * [Octal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_binary.rs)
     * [Octal to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
