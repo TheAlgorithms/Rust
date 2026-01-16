@@ -4,6 +4,7 @@ mod k_nearest_neighbors;
 mod linear_regression;
 mod logistic_regression;
 mod loss_function;
+mod naive_bayes;
 mod optimization;
 
 pub use self::cholesky::cholesky;
@@ -18,5 +19,6 @@ pub use self::loss_function::kld_loss;
 pub use self::loss_function::mae_loss;
 pub use self::loss_function::mse_loss;
 pub use self::loss_function::neg_log_likelihood;
+pub use self::naive_bayes::naive_bayes;
 pub use self::optimization::gradient_descent;
 pub use self::optimization::Adam;
