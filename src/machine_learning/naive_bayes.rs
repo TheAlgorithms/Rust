@@ -74,7 +74,6 @@ fn gaussian_log_pdf(x: f64, mean: f64, variance: f64) -> f64 {
     log_coefficient + exponent_term
 }
 
-
 pub fn train_naive_bayes(training_data: Vec<(Vec<f64>, f64)>) -> Option<Vec<ClassStatistics>> {
     if training_data.is_empty() {
         return None;
@@ -122,7 +121,6 @@ pub fn train_naive_bayes(training_data: Vec<(Vec<f64>, f64)>) -> Option<Vec<Clas
     Some(class_stats)
 }
 
-
 pub fn predict_naive_bayes(model: &[ClassStatistics], test_point: &[f64]) -> Option<f64> {
     if model.is_empty() || test_point.is_empty() {
         return None;
@@ -157,7 +155,6 @@ pub fn predict_naive_bayes(model: &[ClassStatistics], test_point: &[f64]) -> Opt
 
     best_class
 }
-
 
 pub fn naive_bayes(training_data: Vec<(Vec<f64>, f64)>, test_point: Vec<f64>) -> Option<f64> {
     let model = train_naive_bayes(training_data)?;
