@@ -16,6 +16,7 @@ mod order_of_magnitude_conversion;
 mod rgb_cmyk_conversion;
 mod rgb_hsv_conversion;
 mod roman_numerals;
+mod speed;
 mod time_units;
 
 pub use self::binary_to_decimal::binary_to_decimal;
@@ -38,4 +39,5 @@ pub use self::order_of_magnitude_conversion::{
 pub use self::rgb_cmyk_conversion::rgb_to_cmyk;
 pub use self::rgb_hsv_conversion::{hsv_to_rgb, rgb_to_hsv, ColorError, Hsv, Rgb};
 pub use self::roman_numerals::{int_to_roman, roman_to_int};
+pub use self::speed::{convert_speed, SpeedUnit};
 pub use self::time_units::convert_time;
