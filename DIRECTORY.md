@@ -86,6 +86,7 @@
     * [RGB-CMYK Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_cmyk_conversion.rs)
     * [RGB-HSV Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_hsv_conversion.rs)
     * [Roman Numerals](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/roman_numerals.rs)
+    * [Speed](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/speed.rs)
     * [Time Units](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/time_units.rs)
   * Data Structures
     * [AVL Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
