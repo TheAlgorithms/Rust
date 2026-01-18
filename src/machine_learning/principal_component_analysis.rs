@@ -319,7 +319,7 @@ mod test {
         assert!(eigenvalue > 0.0);
         assert_eq!(eigenvector.len(), 3);
 
-        let norm: f64 = eigenvector.iter().map(|x| x * x).sum::<f64>().sqrt();
+        let norm = eigenvector.iter().map(|x| x * x).sum::<f64>().sqrt();
         assert!((norm - 1.0).abs() < 1e-6);
     }
 }
