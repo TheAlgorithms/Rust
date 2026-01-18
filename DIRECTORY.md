@@ -209,6 +209,7 @@
     * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
     * [Logistic Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/logistic_regression.rs)
     * [Naive Bayes](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/naive_bayes.rs)
+    * [Principal Component Analysis](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/principal_component_analysis.rs)
     * Loss Function
       * [Average Margin Ranking Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/average_margin_ranking_loss.rs)
       * [Hinge Loss](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/hinge_loss.rs)
