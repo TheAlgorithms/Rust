@@ -6,6 +6,8 @@ mod logistic_regression;
 mod loss_function;
 mod naive_bayes;
 mod optimization;
+mod perceptron;
+mod principal_component_analysis;
 
 pub use self::cholesky::cholesky;
 pub use self::k_means::k_means;
@@ -22,3 +24,6 @@ pub use self::loss_function::neg_log_likelihood;
 pub use self::naive_bayes::naive_bayes;
 pub use self::optimization::gradient_descent;
 pub use self::optimization::Adam;
+pub use self::perceptron::classify;
+pub use self::perceptron::perceptron;
+pub use self::principal_component_analysis::principal_component_analysis;
