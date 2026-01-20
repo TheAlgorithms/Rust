@@ -204,6 +204,7 @@
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Machine Learning
     * [Cholesky](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/cholesky.rs)
+    * [Decision Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/decision_tree.rs)
     * [K-Means](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_means.rs)
     * [K-Nearest Neighbors](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/k_nearest_neighbors.rs)
     * [Linear Regression](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/linear_regression.rs)
