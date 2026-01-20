@@ -1,4 +1,5 @@
 mod cholesky;
+mod decision_tree;
 mod k_means;
 mod k_nearest_neighbors;
 mod linear_regression;
@@ -10,6 +11,7 @@ mod perceptron;
 mod principal_component_analysis;
 
 pub use self::cholesky::cholesky;
+pub use self::decision_tree::decision_tree;
 pub use self::k_means::k_means;
 pub use self::k_nearest_neighbors::k_nearest_neighbors;
 pub use self::linear_regression::linear_regression;
