@@ -30,7 +30,7 @@ fn calculate_entropy(labels: &[f64]) -> f64 {
     for &label in labels {
         let mut found = false;
         for (i, &existing_label) in unique_labels.iter().enumerate() {
-            if (existing_label as f64 - label as f64).abs() < 1e-10 {
+            if (existing_label - label).abs() < 1e-10 {
                 counts[i] += 1;
                 found = true;
                 break;
@@ -76,7 +76,7 @@ fn find_best_split(data: &[(Vec<f64>, f64)], feature_index: usize) -> Option<(f6
 
     for i in 1..num_samples {
         if feature_values[i].0 != feature_values[i - 1].0 {
-            let threshold = (feature_values[i].0 + feature_values[i - 1].0) / 2.0;
+            let threshold = f64::midpoint(feature_values[i].0, feature_values[i - 1].0);
 
             let left_labels: Vec<f64> = feature_values[..i]
                 .iter()
@@ -152,7 +152,7 @@ fn get_majority_class(labels: &[f64]) -> f64 {
     for &label in labels {
         let mut found = false;
         for (i, &existing_label) in unique_labels.iter().enumerate() {
-            if (existing_label as f64 - label as f64).abs() < 1e-10 {
+            if (existing_label - label).abs() < 1e-10 {
                 counts[i] += 1;
                 found = true;
                 break;
@@ -324,6 +324,7 @@ impl DecisionTree {
         Some(predict_tree(&self.tree, test_point))
     }
 
+    #[allow(dead_code)]
     pub fn predict_batch(&self, test_points: &[Vec<f64>]) -> Vec<Option<f64>> {
         test_points
             .iter()
