@@ -17,8 +17,8 @@ mod rgb_cmyk_conversion;
 mod rgb_hsv_conversion;
 mod roman_numerals;
 mod speed;
-mod time_units;
 mod temperature;
+mod time_units;
 
 pub use self::binary_to_decimal::binary_to_decimal;
 pub use self::binary_to_hexadecimal::binary_to_hexadecimal;
@@ -41,7 +41,6 @@ pub use self::rgb_cmyk_conversion::rgb_to_cmyk;
 pub use self::rgb_hsv_conversion::{hsv_to_rgb, rgb_to_hsv, ColorError, Hsv, Rgb};
 pub use self::roman_numerals::{int_to_roman, roman_to_int};
 pub use self::speed::{convert_speed, SpeedUnit};
-pub use self::time_units::convert_time;
 pub use self::temperature::{
     celsius_to_delisle, celsius_to_fahrenheit, celsius_to_kelvin, celsius_to_newton,
     celsius_to_rankine, celsius_to_reaumur, celsius_to_romer, delisle_to_celsius,
@@ -58,3 +57,4 @@ pub use self::temperature::{
     romer_to_delisle, romer_to_fahrenheit, romer_to_kelvin, romer_to_newton, romer_to_rankine,
     romer_to_reaumur,
 };
+pub use self::time_units::convert_time;
