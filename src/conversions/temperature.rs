@@ -157,12 +157,7 @@ mod tests {
                 let back = convert_temperature(converted, *to_unit, *from_unit);
                 assert!(
                     approx_eq(back, temp),
-                    "Round trip failed: {:?} -> {:?} -> {:?}: {} != {}",
-                    from_unit,
-                    to_unit,
-                    from_unit,
-                    back,
-                    temp
+                    "Round trip failed: {from_unit:?} -> {to_unit:?} -> {from_unit:?}: {back} != {temp}"
                 );
             }
         }
