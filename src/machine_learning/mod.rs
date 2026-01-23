@@ -9,6 +9,7 @@ mod naive_bayes;
 mod optimization;
 mod perceptron;
 mod principal_component_analysis;
+mod random_forest;
 mod support_vector_classifier;
 
 pub use self::cholesky::cholesky;
@@ -25,4 +26,5 @@ pub use self::naive_bayes::naive_bayes;
 pub use self::optimization::{gradient_descent, Adam};
 pub use self::perceptron::{classify, perceptron};
 pub use self::principal_component_analysis::principal_component_analysis;
+pub use self::random_forest::random_forest;
 pub use self::support_vector_classifier::{Kernel, SVCError, SVC};
