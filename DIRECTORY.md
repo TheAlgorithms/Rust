@@ -202,6 +202,7 @@
     * [Topological Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/topological_sort.rs)
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * Greedy
+    * [Gas Station](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/gas_station.rs)
     * [Minimum Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/minimum_coin_changes.rs)
     * [Stable Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/stable_matching.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
