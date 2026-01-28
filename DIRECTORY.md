@@ -59,6 +59,7 @@
     * [Tea](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/tea.rs)
     * [Theoretical ROT13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/theoretical_rot13.rs)
     * [Transposition](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/transposition.rs)
+    * [Trifid](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/trifid.rs)
     * [Vernam](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/vernam.rs)
     * [Vigenere](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/vigenere.rs)
     * [XOR](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/xor.rs)
