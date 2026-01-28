@@ -211,7 +211,7 @@ mod tests {
         let alphabet = "EPSDUCVWYM.ZLKXNBTFGORIJHAQ";
         let encrypted = trifid_encrypt(msg, alphabet, 5).unwrap();
         let decrypted = trifid_decrypt(&encrypted, alphabet, 5).unwrap();
-        assert_eq!(decrypted, msg.replace(" ", ""));
+        assert_eq!(decrypted, msg.replace(' ', ""));
     }
 
     #[test]
