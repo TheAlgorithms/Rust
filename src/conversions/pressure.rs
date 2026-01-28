@@ -396,7 +396,7 @@ mod tests {
             unit_string.into_pressure_unit().unwrap(),
             PressureUnit::Kilopascal
         );
-        
+
         let invalid_string = String::from("invalid");
         assert!(invalid_string.into_pressure_unit().is_err());
 
@@ -415,7 +415,10 @@ mod tests {
         assert_eq!(format!("{}", PressureUnit::Millibar), "mbar");
         assert_eq!(format!("{}", PressureUnit::Psi), "psi");
         assert_eq!(format!("{}", PressureUnit::Ksi), "ksi");
-        assert_eq!(format!("{}", PressureUnit::OunceForcePerSquareInch), "ozf/in²");
+        assert_eq!(
+            format!("{}", PressureUnit::OunceForcePerSquareInch),
+            "ozf/in²"
+        );
         assert_eq!(format!("{}", PressureUnit::Barad), "Ba");
         assert_eq!(format!("{}", PressureUnit::Pieze), "pz");
         assert_eq!(format!("{}", PressureUnit::MillimeterMercury), "mmHg");
