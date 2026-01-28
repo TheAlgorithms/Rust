@@ -116,6 +116,11 @@ fn decrypt_part(message_part: &str, char_to_num: &CharToNum) -> (String, String,
     }
 
     let part_len = message_part.len();
+
+    if part_len == 0 {
+        return (String::new(), String::new(), String::new());
+    }
+
     let chars: Vec<char> = this_part.chars().collect();
 
     let mut result = Vec::new();
@@ -253,5 +258,38 @@ mod tests {
         assert_eq!(a, "11111");
         assert_eq!(b, "21131");
         assert_eq!(c, "21122");
+    }
+
+    #[test]
+    fn test_decrypt_part_single_char() {
+        let mut char_to_num = HashMap::new();
+        char_to_num.insert('A', "111".to_string());
+
+        let (a, b, c) = decrypt_part("A", &char_to_num);
+        assert_eq!(a, "1");
+        assert_eq!(b, "1");
+        assert_eq!(c, "1");
+    }
+
+    #[test]
+    fn test_decrypt_part_empty() {
+        let char_to_num = HashMap::new();
+        let (a, b, c) = decrypt_part("", &char_to_num);
+        assert_eq!(a, "");
+        assert_eq!(b, "");
+        assert_eq!(c, "");
+    }
+
+    #[test]
+    fn test_decrypt_part_with_unmapped_chars() {
+        let mut char_to_num = HashMap::new();
+        char_to_num.insert('A', "111".to_string());
+        // 'B' and 'C' are not in the mapping, so this_part will only contain A's trigram
+        // With message_part length of 3, chunks will be size 3, giving us one chunk "111"
+        // The padding logic will add two empty strings
+        let (a, b, c) = decrypt_part("ABC", &char_to_num);
+        assert_eq!(a, "111");
+        assert_eq!(b, "");
+        assert_eq!(c, "");
     }
 }
