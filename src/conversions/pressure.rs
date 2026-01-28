@@ -387,4 +387,86 @@ mod tests {
         // Test pieze conversion
         assert!(approx_eq(convert_pressure(1.0, "pz", "kpa").unwrap(), 1.0));
     }
+
+    #[test]
+    fn test_additional_coverage() {
+        // Test String (owned) conversion
+        let unit_string = String::from("kPa");
+        assert_eq!(
+            unit_string.into_pressure_unit().unwrap(),
+            PressureUnit::Kilopascal
+        );
+        
+        let invalid_string = String::from("invalid");
+        assert!(invalid_string.into_pressure_unit().is_err());
+
+        // Test Display implementation for all units
+        assert_eq!(format!("{}", PressureUnit::Pascal), "Pa");
+        assert_eq!(format!("{}", PressureUnit::Kilopascal), "kPa");
+        assert_eq!(format!("{}", PressureUnit::Megapascal), "MPa");
+        assert_eq!(format!("{}", PressureUnit::Gigapascal), "GPa");
+        assert_eq!(format!("{}", PressureUnit::Hectopascal), "hPa");
+        assert_eq!(format!("{}", PressureUnit::Atmosphere), "atm");
+        assert_eq!(format!("{}", PressureUnit::TechnicalAtmosphere), "at");
+        assert_eq!(format!("{}", PressureUnit::TotalAtmosphere), "ata");
+        assert_eq!(format!("{}", PressureUnit::Torr), "Torr");
+        assert_eq!(format!("{}", PressureUnit::Millitorr), "mTorr");
+        assert_eq!(format!("{}", PressureUnit::Bar), "bar");
+        assert_eq!(format!("{}", PressureUnit::Millibar), "mbar");
+        assert_eq!(format!("{}", PressureUnit::Psi), "psi");
+        assert_eq!(format!("{}", PressureUnit::Ksi), "ksi");
+        assert_eq!(format!("{}", PressureUnit::OunceForcePerSquareInch), "ozf/in²");
+        assert_eq!(format!("{}", PressureUnit::Barad), "Ba");
+        assert_eq!(format!("{}", PressureUnit::Pieze), "pz");
+        assert_eq!(format!("{}", PressureUnit::MillimeterMercury), "mmHg");
+        assert_eq!(format!("{}", PressureUnit::CentimeterMercury), "cmHg");
+        assert_eq!(format!("{}", PressureUnit::InchMercury), "inHg");
+        assert_eq!(format!("{}", PressureUnit::MillimeterWater), "mmH₂O");
+        assert_eq!(format!("{}", PressureUnit::CentimeterWater), "cmH₂O");
+        assert_eq!(format!("{}", PressureUnit::InchWater), "inH₂O");
+        assert_eq!(format!("{}", PressureUnit::MeterSeawater), "msw");
+        assert_eq!(format!("{}", PressureUnit::FootSeawater), "fsw");
+
+        // Test Millitorr conversion factor
+        assert!(approx_eq(
+            convert_pressure(1.0, "mtorr", "pa").unwrap(),
+            101_325.0 / 760_000.0
+        ));
+        assert!(approx_eq(
+            convert_pressure(1000.0, "mtorr", "torr").unwrap(),
+            1.0
+        ));
+
+        // Test OunceForcePerSquareInch conversion factor
+        assert!(approx_eq(
+            convert_pressure(1.0, "ozf/in2", "pa").unwrap(),
+            430.922_330_823
+        ));
+        assert!(approx_eq(
+            convert_pressure(16.0, "ozf/in2", "psi").unwrap(),
+            1.0
+        ));
+
+        // Test CentimeterMercury conversion factor
+        assert!(approx_eq(
+            convert_pressure(1.0, "cmhg", "pa").unwrap(),
+            101_325.0 / 76.0
+        ));
+        assert!(approx_eq(
+            convert_pressure(76.0, "cmhg", "atm").unwrap(),
+            1.0
+        ));
+
+        // Test CentimeterWater conversion factor
+        assert!(approx_eq(
+            convert_pressure(1.0, "cmh2o", "pa").unwrap(),
+            98.0665
+        ));
+
+        // Test InchWater conversion factor
+        assert!(approx_eq(
+            convert_pressure(1.0, "inh2o", "pa").unwrap(),
+            249.088_908_333
+        ));
+    }
 }
