@@ -20,6 +20,7 @@ mod roman_numerals;
 mod speed;
 mod temperature;
 mod time_units;
+mod weight;
 
 pub use self::binary_to_decimal::binary_to_decimal;
 pub use self::binary_to_hexadecimal::binary_to_hexadecimal;
@@ -45,3 +46,4 @@ pub use self::roman_numerals::{int_to_roman, roman_to_int};
 pub use self::speed::{convert_speed, SpeedUnit};
 pub use self::temperature::{convert_temperature, TemperatureUnit};
 pub use self::time_units::convert_time;
+pub use self::weight::{convert_weight, WeightUnit};

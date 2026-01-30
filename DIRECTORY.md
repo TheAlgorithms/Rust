@@ -91,6 +91,7 @@
     * [Speed](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/speed.rs)
     * [Time Units](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/time_units.rs)
     * [Temperature](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/temperature.rs)
+    * [Weight](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/weight.rs)
   * Data Structures
     * [AVL Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/avl_tree.rs)
     * [B-Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
