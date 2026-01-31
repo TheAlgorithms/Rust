@@ -13,6 +13,7 @@ mod octal_to_binary;
 mod octal_to_decimal;
 mod octal_to_hexadecimal;
 mod order_of_magnitude_conversion;
+mod pressure;
 mod rectangular_to_polar;
 mod rgb_cmyk_conversion;
 mod rgb_hsv_conversion;
@@ -21,6 +22,7 @@ mod speed;
 mod temperature;
 mod time_units;
 mod volume;
+mod weight;
 
 pub use self::binary_to_decimal::binary_to_decimal;
 pub use self::binary_to_hexadecimal::binary_to_hexadecimal;
@@ -39,6 +41,7 @@ pub use self::octal_to_hexadecimal::octal_to_hexadecimal;
 pub use self::order_of_magnitude_conversion::{
     convert_metric_length, metric_length_conversion, MetricLengthUnit,
 };
+pub use self::pressure::{convert_pressure, PressureUnit};
 pub use self::rectangular_to_polar::rectangular_to_polar;
 pub use self::rgb_cmyk_conversion::rgb_to_cmyk;
 pub use self::rgb_hsv_conversion::{hsv_to_rgb, rgb_to_hsv, ColorError, Hsv, Rgb};
@@ -47,3 +50,4 @@ pub use self::speed::{convert_speed, SpeedUnit};
 pub use self::temperature::{convert_temperature, TemperatureUnit};
 pub use self::time_units::convert_time;
 pub use self::volume::{convert_volume, VolumeUnit};
+pub use self::weight::{convert_weight, WeightUnit};
