@@ -13,6 +13,7 @@ mod octal_to_binary;
 mod octal_to_decimal;
 mod octal_to_hexadecimal;
 mod order_of_magnitude_conversion;
+mod pressure;
 mod rectangular_to_polar;
 mod rgb_cmyk_conversion;
 mod rgb_hsv_conversion;
@@ -39,6 +40,7 @@ pub use self::octal_to_hexadecimal::octal_to_hexadecimal;
 pub use self::order_of_magnitude_conversion::{
     convert_metric_length, metric_length_conversion, MetricLengthUnit,
 };
+pub use self::pressure::{convert_pressure, PressureUnit};
 pub use self::rectangular_to_polar::rectangular_to_polar;
 pub use self::rgb_cmyk_conversion::rgb_to_cmyk;
 pub use self::rgb_hsv_conversion::{hsv_to_rgb, rgb_to_hsv, ColorError, Hsv, Rgb};
