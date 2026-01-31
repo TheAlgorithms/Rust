@@ -85,6 +85,7 @@
     * [Octal to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_decimal.rs)
     * [Octal to Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/octal_to_hexadecimal.rs)
     * [Order of Magnitude Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/order_of_magnitude_conversion.rs)
+    * [Pressure](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/pressure.rs)
     * [Rectangular to Polar](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rectangular_to_polar.rs)
     * [RGB-CMYK Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_cmyk_conversion.rs)
     * [RGB-HSV Conversion](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/rgb_hsv_conversion.rs)
