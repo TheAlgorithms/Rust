@@ -1,4 +1,3 @@
-#![allow(clippy::doc_paragraphs_missing_punctuation)]
 pub mod backtracking;
 pub mod big_integer;
 pub mod bit_manipulation;
