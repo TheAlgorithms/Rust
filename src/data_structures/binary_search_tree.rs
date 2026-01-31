@@ -212,8 +212,8 @@ where
             None
         } else {
             let node = self.stack.pop().unwrap();
-            if node.right.is_some() {
-                self.stack.push(node.right.as_ref().unwrap().deref());
+            if let Some(right_node) = &node.right {
+                self.stack.push(right_node.deref());
                 self.stack_push_left();
             }
             node.value.as_ref()
