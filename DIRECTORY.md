@@ -76,6 +76,7 @@
     * [Decimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_binary.rs)
     * [Decimal to Hexadecimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_hexadecimal.rs)
     * [Decimal to Octal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/decimal_to_octal.rs)
+    * [Energy](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/energy.rs)
     * [Hexadecimal to Binary](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_binary.rs)
     * [Hexadecimal to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_decimal.rs)
     * [Hexadecimal to Octal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/hexadecimal_to_octal.rs)
