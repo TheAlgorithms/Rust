@@ -7,7 +7,7 @@ authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 [dependencies]
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
-rand = "0.9"
+rand = "0.10"
 nalgebra = "0.34.0"
 ndarray = "0.17.2"
 
