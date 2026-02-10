@@ -1,6 +1,6 @@
 use std::cmp::{Ord, Ordering};
 
-use rand::Rng;
+use rand::RngExt;
 
 fn _quick_sort_3_ways<T: Ord>(arr: &mut [T], lo: usize, hi: usize) {
     if lo >= hi {

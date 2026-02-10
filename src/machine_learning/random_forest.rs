@@ -1,5 +1,5 @@
 use rand::seq::SliceRandom;
-use rand::Rng;
+use rand::RngExt;
 
 /// Train a single decision tree on a bootstrap sample with random feature subset
 #[allow(dead_code)]

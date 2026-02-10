@@ -10,7 +10,7 @@
 use std::rc::Rc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use rand::Rng;
+use rand::RngExt;
 
 use super::{fast_power, PCG32};
 

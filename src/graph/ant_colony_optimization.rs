@@ -14,7 +14,7 @@
 //! - [Ant Colony Optimization Algorithms](https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms)
 //! - [Travelling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)
 
-use rand::Rng;
+use rand::RngExt;
 use std::collections::HashSet;
 
 /// Represents a 2D city with coordinates

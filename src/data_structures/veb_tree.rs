@@ -235,7 +235,7 @@ impl Iterator for VebTreeIter<'_> {
 #[cfg(test)]
 mod test {
     use super::VebTree;
-    use rand::{rngs::StdRng, Rng, SeedableRng};
+    use rand::{rngs::StdRng, RngExt, SeedableRng};
 
     fn test_veb_tree(size: u32, mut elements: Vec<u32>, exclude: Vec<u32>) {
         // Insert elements

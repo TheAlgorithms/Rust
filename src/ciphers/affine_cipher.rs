@@ -244,7 +244,7 @@ pub fn affine_decrypt(key: usize, message: &str) -> Result<String, String> {
 /// assert!(key >= 2);
 /// ```
 pub fn affine_generate_key() -> usize {
-    use rand::Rng;
+    use rand::RngExt;
     let mut rng = rand::rng();
     let symbols_len = SYMBOLS.len();
 
