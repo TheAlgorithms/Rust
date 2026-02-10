@@ -179,7 +179,8 @@
     * [Ramer Douglas Peucker](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/ramer_douglas_peucker.rs)
     * [Segment](https://github.com/TheAlgorithms/Rust/blob/master/src/geometry/segment.rs)
   * Graph
-    * [Astar](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/astar.rs)
+    * [Ant Colony Optimization](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/ant_colony_optimization.rs)
+    * [A*](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/astar.rs)
     * [Bellman-Ford](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/bellman_ford.rs)
     * [Bipartite Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/bipartite_matching.rs)
     * [Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/breadth_first_search.rs)
