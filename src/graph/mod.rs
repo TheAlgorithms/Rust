@@ -1,3 +1,4 @@
+mod ant_colony_optimization;
 mod astar;
 mod bellman_ford;
 mod bipartite_matching;
@@ -26,6 +27,7 @@ mod tarjans_ssc;
 mod topological_sort;
 mod two_satisfiability;
 
+pub use self::ant_colony_optimization::ant_colony_optimization;
 pub use self::astar::astar;
 pub use self::bellman_ford::bellman_ford;
 pub use self::bipartite_matching::BipartiteMatching;
