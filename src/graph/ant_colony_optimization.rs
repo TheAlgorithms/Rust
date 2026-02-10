@@ -322,7 +322,7 @@ mod tests {
         // Verify all cities are visited exactly once (except start/end)
         let mut visited = std::collections::HashSet::new();
         for &city in &route[0..route.len() - 1] {
-            assert!(visited.insert(city), "City {} visited multiple times", city);
+            assert!(visited.insert(city), "City {city} visited multiple times");
         }
         assert_eq!(visited.len(), cities.len());
 
