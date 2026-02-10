@@ -355,4 +355,34 @@ mod tests {
         let result = ant_colony_optimization(cities, 10, 20, 0.7, 1.0, 5.0, 10.0);
         assert!(result.is_some());
     }
+
+    #[test]
+    fn test_zero_ants() {
+        // Test with zero ants - should return None as no solutions are constructed
+        let cities = vec![(0.0, 0.0), (1.0, 1.0), (2.0, 0.0)];
+        let result = ant_colony_optimization(cities, 0, 20, 0.7, 1.0, 5.0, 10.0);
+        assert!(result.is_none());
+    }
+
+    #[test]
+    fn test_zero_iterations() {
+        // Test with zero iterations - should return None as no solutions are found
+        let cities = vec![(0.0, 0.0), (1.0, 1.0), (2.0, 0.0)];
+        let result = ant_colony_optimization(cities, 10, 0, 0.7, 1.0, 5.0, 10.0);
+        assert!(result.is_none());
+    }
+
+    #[test]
+    fn test_extreme_parameters() {
+        // Test with extreme beta value and many iterations to potentially trigger
+        // the rounding fallback in select_next_city
+        let cities = vec![(0.0, 0.0), (1.0, 0.0), (2.0, 0.0), (3.0, 0.0), (4.0, 0.0)];
+        // Very high beta makes distance dominate, low alpha reduces pheromone influence
+        // This creates extreme probability distributions that may trigger rounding edge cases
+        let result = ant_colony_optimization(cities, 50, 100, 0.5, 0.1, 100.0, 10.0);
+        assert!(result.is_some());
+        let (route, _) = result.unwrap();
+        // Should still produce valid route
+        assert_eq!(route.len(), 6); // 5 cities + return to start
+    }
 }
