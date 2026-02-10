@@ -1,15 +1,15 @@
 [package]
 name = "the_algorithms_rust"
-edition = "2021"
 version = "0.1.0"
+edition = "2021"
 authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 
 [dependencies]
+nalgebra = "0.34.0"
+ndarray = "0.17.2"
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
 rand = "0.10"
-nalgebra = "0.34.0"
-ndarray = "0.17.2"
 
 [dev-dependencies]
 quickcheck = "1.0"
@@ -20,10 +20,31 @@ default = ["big-math"]
 big-math = ["dep:num-bigint", "dep:num-traits"]
 
 [lints.clippy]
+cargo = "warn"
+nursery = "warn"
 pedantic = "warn"
 restriction = "warn"
-nursery = "warn"
-cargo = "warn"
+# cargo-lints:
+cargo_common_metadata = { level = "allow", priority = 1 }
+multiple_crate_versions = { level = "allow", priority = 1 }
+# complexity-lints:
+manual_div_ceil = { level = "allow", priority = 1 }
+precedence = { level = "allow", priority = 1 }
+# nursery-lints:
+branches_sharing_code = { level = "allow", priority = 1 }
+cognitive_complexity = { level = "allow", priority = 1 }
+derive_partial_eq_without_eq = { level = "allow", priority = 1 }
+empty_line_after_doc_comments = { level = "allow", priority = 1 }
+fallible_impl_from = { level = "allow", priority = 1 }
+imprecise_flops = { level = "allow", priority = 1 }
+missing_const_for_fn = { level = "allow", priority = 1 }
+nonstandard_macro_braces = { level = "allow", priority = 1 }
+option_if_let_else = { level = "allow", priority = 1 }
+suboptimal_flops = { level = "allow", priority = 1 }
+suspicious_operation_groupings = { level = "allow", priority = 1 }
+too_long_first_doc_paragraph = { level = "allow", priority = 1 }
+use_self = { level = "allow", priority = 1 }
+while_float = { level = "allow", priority = 1 }
 # pedantic-lints:
 cast_lossless = { level = "allow", priority = 1 }
 cast_possible_truncation = { level = "allow", priority = 1 }
@@ -35,10 +56,12 @@ doc_markdown = { level = "allow", priority = 1 }
 explicit_deref_methods = { level = "allow", priority = 1 }
 explicit_iter_loop = { level = "allow", priority = 1 }
 float_cmp = { level = "allow", priority = 1 }
+ignore_without_reason = { level = "allow", priority = 1 }
 implicit_clone = { level = "allow", priority = 1 }
 implicit_hasher = { level = "allow", priority = 1 }
 items_after_statements = { level = "allow", priority = 1 }
 iter_without_into_iter = { level = "allow", priority = 1 }
+large_stack_arrays = { level = "allow", priority = 1 }
 linkedlist = { level = "allow", priority = 1 }
 manual_assert = { level = "allow", priority = 1 }
 manual_let_else = { level = "allow", priority = 1 }
@@ -52,6 +75,7 @@ module_name_repetitions = { level = "allow", priority = 1 }
 must_use_candidate = { level = "allow", priority = 1 }
 needless_pass_by_value = { level = "allow", priority = 1 }
 redundant_closure_for_method_calls = { level = "allow", priority = 1 }
+ref_option = { level = "allow", priority = 1 }
 return_self_not_must_use = { level = "allow", priority = 1 }
 semicolon_if_nothing_returned = { level = "allow", priority = 1 }
 should_panic_without_expect = { level = "allow", priority = 1 }
@@ -61,20 +85,21 @@ stable_sort_primitive = { level = "allow", priority = 1 }
 too_many_lines = { level = "allow", priority = 1 }
 trivially_copy_pass_by_ref = { level = "allow", priority = 1 }
 unnecessary_box_returns = { level = "allow", priority = 1 }
+unnecessary_semicolon = { level = "allow", priority = 1 }
 unnested_or_patterns = { level = "allow", priority = 1 }
 unreadable_literal = { level = "allow", priority = 1 }
 unused_self = { level = "allow", priority = 1 }
 used_underscore_binding = { level = "allow", priority = 1 }
-ref_option = { level = "allow", priority = 1 }
-unnecessary_semicolon = { level = "allow", priority = 1 }
-ignore_without_reason = { level = "allow", priority = 1 }
-large_stack_arrays = { level = "allow", priority = 1 }
 # restriction-lints:
 absolute_paths = { level = "allow", priority = 1 }
+allow_attributes = { level = "allow", priority = 1 }
+allow_attributes_without_reason = { level = "allow", priority = 1 }
+arbitrary_source_item_ordering = { level = "allow", priority = 1 }
 arithmetic_side_effects = { level = "allow", priority = 1 }
 as_conversions = { level = "allow", priority = 1 }
 assertions_on_result_states = { level = "allow", priority = 1 }
 blanket_clippy_restriction_lints = { level = "allow", priority = 1 }
+cfg_not_test = { level = "allow", priority = 1 }
 clone_on_ref_ptr = { level = "allow", priority = 1 }
 dbg_macro = { level = "allow", priority = 1 }
 decimal_literal_representation = { level = "allow", priority = 1 }
@@ -84,6 +109,7 @@ else_if_without_else = { level = "allow", priority = 1 }
 exhaustive_enums = { level = "allow", priority = 1 }
 exhaustive_structs = { level = "allow", priority = 1 }
 expect_used = { level = "allow", priority = 1 }
+field_scoped_visibility_modifiers = { level = "allow", priority = 1 }
 float_arithmetic = { level = "allow", priority = 1 }
 float_cmp_const = { level = "allow", priority = 1 }
 if_then_some_else_none = { level = "allow", priority = 1 }
@@ -95,6 +121,7 @@ integer_division_remainder_used = { level = "allow", priority = 1 }
 iter_over_hash_type = { level = "allow", priority = 1 }
 little_endian_bytes = { level = "allow", priority = 1 }
 map_err_ignore = { level = "allow", priority = 1 }
+map_with_unused_argument_over_ranges = { level = "allow", priority = 1 }
 min_ident_chars = { level = "allow", priority = 1 }
 missing_assert_message = { level = "allow", priority = 1 }
 missing_asserts_for_indexing = { level = "allow", priority = 1 }
@@ -108,11 +135,14 @@ non_ascii_literal = { level = "allow", priority = 1 }
 panic = { level = "allow", priority = 1 }
 partial_pub_fields = { level = "allow", priority = 1 }
 pattern_type_mismatch = { level = "allow", priority = 1 }
+precedence_bits = { level = "allow", priority = 1 }
 print_stderr = { level = "allow", priority = 1 }
 print_stdout = { level = "allow", priority = 1 }
 pub_use = { level = "allow", priority = 1 }
 pub_with_shorthand = { level = "allow", priority = 1 }
 question_mark_used = { level = "allow", priority = 1 }
+redundant_test_prefix = { level = "allow", priority = 1 }
+renamed_function_params = { level = "allow", priority = 1 }
 same_name_method = { level = "allow", priority = 1 }
 semicolon_outside_block = { level = "allow", priority = 1 }
 separated_literal_suffix = { level = "allow", priority = 1 }
@@ -130,44 +160,15 @@ undocumented_unsafe_blocks = { level = "allow", priority = 1 }
 unnecessary_safety_comment = { level = "allow", priority = 1 }
 unreachable = { level = "allow", priority = 1 }
 unseparated_literal_suffix = { level = "allow", priority = 1 }
+unused_trait_names = { level = "allow", priority = 1 }
 unwrap_in_result = { level = "allow", priority = 1 }
 unwrap_used = { level = "allow", priority = 1 }
 use_debug = { level = "allow", priority = 1 }
-wildcard_enum_match_arm = { level = "allow", priority = 1 }
-renamed_function_params = { level = "allow", priority = 1 }
-allow_attributes_without_reason = { level = "allow", priority = 1 }
-allow_attributes = { level = "allow", priority = 1 }
-cfg_not_test = { level = "allow", priority = 1 }
-field_scoped_visibility_modifiers = { level = "allow", priority = 1 }
-unused_trait_names = { level = "allow", priority = 1 }
 used_underscore_items = { level = "allow", priority = 1 }
-arbitrary_source_item_ordering = { level = "allow", priority = 1 }
-map_with_unused_argument_over_ranges = { level = "allow", priority = 1 }
-precedence_bits = { level = "allow", priority = 1 }
-redundant_test_prefix = { level = "allow", priority = 1 }
-# nursery-lints:
-branches_sharing_code = { level = "allow", priority = 1 }
-cognitive_complexity = { level = "allow", priority = 1 }
-derive_partial_eq_without_eq = { level = "allow", priority = 1 }
-empty_line_after_doc_comments = { level = "allow", priority = 1 }
-fallible_impl_from = { level = "allow", priority = 1 }
-imprecise_flops = { level = "allow", priority = 1 }
-missing_const_for_fn = { level = "allow", priority = 1 }
-nonstandard_macro_braces = { level = "allow", priority = 1 }
-option_if_let_else = { level = "allow", priority = 1 }
-suboptimal_flops = { level = "allow", priority = 1 }
-suspicious_operation_groupings = { level = "allow", priority = 1 }
-use_self = { level = "allow", priority = 1 }
-while_float = { level = "allow", priority = 1 }
-too_long_first_doc_paragraph = { level = "allow", priority = 1 }
-# cargo-lints:
-cargo_common_metadata = { level = "allow", priority = 1 }
+wildcard_enum_match_arm = { level = "allow", priority = 1 }
 # style-lints:
 doc_lazy_continuation = { level = "allow", priority = 1 }
-needless_return = { level = "allow", priority = 1 }
 doc_overindented_list_items = { level = "allow", priority = 1 }
-needless_range_loop = { level = "allow", priority = 1 }
 doc_paragraphs_missing_punctuation = { level = "allow", priority = 1 }
-# complexity-lints
-precedence = { level = "allow", priority = 1 }
-manual_div_ceil = { level = "allow", priority = 1 }
+needless_range_loop = { level = "allow", priority = 1 }
+needless_return = { level = "allow", priority = 1 }
