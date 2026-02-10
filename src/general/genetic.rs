@@ -10,7 +10,7 @@ use std::fmt::Debug;
 /// It is generic over:
 /// * Eval, which could be a float, or any other totally ordered type, so that we can rank solutions to our problem
 /// * Rng: a random number generator (could be thread rng, etc.)
-pub trait Chromosome<Rng: rand::Rng, Eval> {
+pub trait Chromosome<Rng: rand::RngExt, Eval> {
     /// Mutates this Chromosome, changing its genes
     fn mutate(&mut self, rng: &mut Rng);
 
@@ -22,7 +22,7 @@ pub trait Chromosome<Rng: rand::Rng, Eval> {
     fn fitness(&self) -> Eval;
 }
 
-pub trait SelectionStrategy<Rng: rand::Rng> {
+pub trait SelectionStrategy<Rng: rand::RngExt> {
     fn new(rng: Rng) -> Self;
 
     /// Selects a portion of the population for reproduction
@@ -37,10 +37,10 @@ pub trait SelectionStrategy<Rng: rand::Rng> {
 /// A roulette wheel selection strategy
 /// https://en.wikipedia.org/wiki/Fitness_proportionate_selection
 #[allow(dead_code)]
-pub struct RouletteWheel<Rng: rand::Rng> {
+pub struct RouletteWheel<Rng: rand::RngExt> {
     rng: Rng,
 }
-impl<Rng: rand::Rng> SelectionStrategy<Rng> for RouletteWheel<Rng> {
+impl<Rng: rand::RngExt> SelectionStrategy<Rng> for RouletteWheel<Rng> {
     fn new(rng: Rng) -> Self {
         Self { rng }
     }
@@ -86,10 +86,10 @@ impl<Rng: rand::Rng> SelectionStrategy<Rng> for RouletteWheel<Rng> {
 }
 
 #[allow(dead_code)]
-pub struct Tournament<const K: usize, Rng: rand::Rng> {
+pub struct Tournament<const K: usize, Rng: rand::RngExt> {
     rng: Rng,
 }
-impl<const K: usize, Rng: rand::Rng> SelectionStrategy<Rng> for Tournament<K, Rng> {
+impl<const K: usize, Rng: rand::RngExt> SelectionStrategy<Rng> for Tournament<K, Rng> {
     fn new(rng: Rng) -> Self {
         Self { rng }
     }
@@ -118,7 +118,7 @@ impl<const K: usize, Rng: rand::Rng> SelectionStrategy<Rng> for Tournament<K, Rn
 
 type Comparator<T> = Box<dyn FnMut(&T, &T) -> Ordering>;
 pub struct GeneticAlgorithm<
-    Rng: rand::Rng,
+    Rng: rand::RngExt,
     Eval: PartialOrd,
     C: Chromosome<Rng, Eval>,
     Selection: SelectionStrategy<Rng>,
@@ -140,7 +140,7 @@ pub struct GenericAlgorithmParams {
 }
 
 impl<
-        Rng: rand::Rng,
+        Rng: rand::RngExt,
         Eval: Into<f64> + PartialOrd + Debug,
         C: Chromosome<Rng, Eval> + Clone + Debug,
         Selection: SelectionStrategy<Rng>,
@@ -222,7 +222,7 @@ mod tests {
         Tournament,
     };
     use rand::rngs::ThreadRng;
-    use rand::{rng, Rng};
+    use rand::{rng, RngExt};
     use std::collections::HashMap;
     use std::fmt::{Debug, Formatter};
     use std::ops::RangeInclusive;

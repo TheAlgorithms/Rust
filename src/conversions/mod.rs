@@ -21,7 +21,7 @@ mod rgb_hsv_conversion;
 mod roman_numerals;
 mod speed;
 mod temperature;
-mod time_units;
+mod time;
 mod volume;
 mod weight;
 
@@ -50,6 +50,6 @@ pub use self::rgb_hsv_conversion::{hsv_to_rgb, rgb_to_hsv, ColorError, Hsv, Rgb}
 pub use self::roman_numerals::{int_to_roman, roman_to_int};
 pub use self::speed::{convert_speed, SpeedUnit};
 pub use self::temperature::{convert_temperature, TemperatureUnit};
-pub use self::time_units::convert_time;
+pub use self::time::convert_time;
 pub use self::volume::{convert_volume, VolumeUnit};
 pub use self::weight::{convert_weight, WeightUnit};
