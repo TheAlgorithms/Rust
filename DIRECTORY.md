@@ -41,6 +41,7 @@
     * [Base16](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base16.rs)
     * [Base32](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base32.rs)
     * [Base64](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base64.rs)
+    * [Base85](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/base85.rs)
     * [Blake2B](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/blake2b.rs)
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
     * [Chacha](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/chacha.rs)
