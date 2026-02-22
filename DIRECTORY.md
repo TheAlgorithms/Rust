@@ -149,12 +149,13 @@
     * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * Financial
-    * [Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/present_value.rs)
+    * [Compound Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/compound_interest.rs)
+    * [Equated Monthly Installments](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/equated_monthly_installments.rs)
+    * [Finance Ratios](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/finance_ratios.rs)
     * [Net Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv.rs)
     * [NPV Sensitivity](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv_sensitivity.rs)
-    * [Compound Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/compound_interest.rs)
     * [Payback Period](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/payback.rs)
-    * [Finance Ratios](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/finance_ratios.rs)
+    * [Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/present_value.rs)
     * [Treynor Ratio](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/treynor_ratio.rs)
   * General
     * [Convex Hull](https://github.com/TheAlgorithms/Rust/blob/master/src/general/convex_hull.rs)
