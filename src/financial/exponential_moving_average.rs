@@ -73,7 +73,7 @@ mod tests {
     #[test]
     fn test_basic_ema() {
         let prices = vec![2.0, 5.0, 3.0, 8.2, 6.0, 9.0, 10.0];
-        let expected = vec![2.0, 3.5, 3.25, 5.725, 5.8625, 7.43125, 8.715625];
+        let expected = [2.0, 3.5, 3.25, 5.725, 5.8625, 7.43125, 8.715625];
         let result: Vec<f64> = exponential_moving_average(prices.into_iter(), 3)
             .unwrap()
             .collect();
@@ -109,10 +109,10 @@ mod tests {
     #[test]
     fn test_empty_prices() {
         let prices: Vec<f64> = vec![];
-        let result: Vec<f64> = exponential_moving_average(prices.into_iter(), 3)
+        assert!(exponential_moving_average(prices.into_iter(), 3)
             .unwrap()
-            .collect();
-        assert!(result.is_empty());
+            .next()
+            .is_none());
     }
 
     #[test]
