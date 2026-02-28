@@ -151,6 +151,7 @@
   * Financial
     * [Compound Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/compound_interest.rs)
     * [Equated Monthly Installments](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/equated_monthly_installments.rs)
+    * [Exponential Moving Average](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/exponential_moving_average.rs)
     * [Finance Ratios](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/finance_ratios.rs)
     * [Net Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv.rs)
     * [NPV Sensitivity](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv_sensitivity.rs)
