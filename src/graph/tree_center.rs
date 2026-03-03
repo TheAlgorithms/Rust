@@ -197,7 +197,7 @@ mod tests {
     }
 
     #[test]
-    fn test_bi_star_tree() {
+    fn test_double_star_tree() {
         let mut tree = UndirectedGraph::new();
         let expected = vec!["0".to_string(), "1".to_string()];
 
@@ -253,7 +253,7 @@ mod tests {
     }
 
     #[test]
-    fn test_bi_weighted_tree() {
+    fn test_double_star_weighted_tree() {
         let mut tree = UndirectedGraph::new();
         let expected = vec!["1".to_string()];
 
