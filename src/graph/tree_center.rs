@@ -1,3 +1,22 @@
+//! Finds the center of a weighted tree using two depth-first searches (DFS).
+//!
+//! The algorithm works as follows:
+//!
+//! 1. Perform a first DFS to compute, for each node, the maximum distance
+//!    to any descendant in its subtree (i.e., the deepest node below it).
+//!
+//! 2. Perform a second DFS to compute, for each node, the maximum distance
+//!    to nodes outside its subtree (i.e., through its parent and other branches).
+//!
+//! For each vertex, the farthest node in the tree is either:
+//! - a descendant in its own subtree, or
+//! - a node reached by going up to its parent and then down another branch.
+//!
+//! The eccentricity of each node is the maximum of these two values.
+//! The center of the tree is the node that minimizes this eccentricity.
+//!
+//! This implementation works for weighted trees.
+
 use std::collections::HashMap;
 
 use crate::data_structures::{graph::Graph, UndirectedGraph};
