@@ -30,16 +30,11 @@ fn merge<T: Ord + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T> {
     let mut left_iter = left.into_iter().peekable();
     let mut right_iter = right.into_iter().peekable();
 
-    loop {
-        match (left_iter.peek(), right_iter.peek()) {
-            (Some(l), Some(r)) => {
-                if l <= r {
-                    merged.push(left_iter.next().unwrap());
-                } else {
-                    merged.push(right_iter.next().unwrap());
-                }
-            }
-            _ => break,
+    while let (Some(l), Some(r)) = (left_iter.peek(), right_iter.peek()) {
+        if l <= r {
+            merged.push(left_iter.next().unwrap());
+        } else {
+            merged.push(right_iter.next().unwrap());
         }
     }
 
