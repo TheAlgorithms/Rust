@@ -149,7 +149,7 @@ mod tests {
 
         // Standard cases
         assert!(
-            (compound_interest(10000.0, 0.05, 3.0).unwrap() - 1576.250_000_000_001_4).abs()
+            (compound_interest(10000.0, 0.05, 3.0).unwrap() - 1_576.250_000_000_001_4).abs()
                 < EPSILON
         );
         assert!(
@@ -183,7 +183,9 @@ mod tests {
         const EPSILON: f64 = 1e-9;
 
         // Standard cases
-        assert!((apr_interest(10000.0, 0.05, 3.0).unwrap() - 1618.223_072_263_547).abs() < EPSILON);
+        assert!(
+            (apr_interest(10000.0, 0.05, 3.0).unwrap() - 1_618.223_072_263_547).abs() < EPSILON
+        );
         assert!(
             (apr_interest(10000.0, 0.05, 1.0).unwrap() - 512.674_964_674_473_2).abs() < EPSILON
         );
