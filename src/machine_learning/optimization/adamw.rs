@@ -142,7 +142,7 @@ mod tests {
     #[test]
     fn test_adamw_step_iteratively_until_convergence() {
         let gradients = vec![1.0, 2.0, 3.0, 4.0];
-        
+
         // High learning rate and weight decay to force massive movement quickly
         let mut optimizer = AdamW::new(Some(0.1), None, None, Some(0.01), 4);
         let mut model_params = vec![5.0; 4];
@@ -151,7 +151,7 @@ mod tests {
             optimizer.step(&mut model_params, &gradients);
         }
 
-        // Because the gradient is constantly pushing positive, and the weight decay 
+        // Because the gradient is constantly pushing positive, and the weight decay
         // is pushing towards zero, the parameters should be pushed negatively from 5.0
         // and eventually find a stable equilibrium.
         assert!(model_params[0] < 5.0);
