@@ -39,17 +39,12 @@ fn merge<T: Ord + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T> {
                     merged.push(right_iter.next().unwrap());
                 }
             }
-            (Some(_), None) => {
-                merged.extend(left_iter);
-                break;
-            }
-            (None, Some(_)) => {
-                merged.extend(right_iter);
-                break;
-            }
-            (None, None) => break,
+            _ => break,
         }
     }
+
+    merged.extend(left_iter);
+    merged.extend(right_iter);
 
     merged
 }
