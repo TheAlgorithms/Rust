@@ -237,6 +237,7 @@
       * [Negative Log Likelihood](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/loss_function/negative_log_likelihood.rs)
     * Optimization
       * [Adam](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adam.rs)
+      * [AdamW](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/adamw.rs)
       * [Gradient Descent](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/gradient_descent.rs)
       * [Momentum](https://github.com/TheAlgorithms/Rust/blob/master/src/machine_learning/optimization/momentum.rs)
   * Math
