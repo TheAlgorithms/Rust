@@ -149,10 +149,10 @@
     * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * Financial
-    * [Compound Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/compound_interest.rs)
     * [Equated Monthly Installments](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/equated_monthly_installments.rs)
     * [Exponential Moving Average](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/exponential_moving_average.rs)
     * [Finance Ratios](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/finance_ratios.rs)
+    * [Interest](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/interest.rs)
     * [Net Present Value](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv.rs)
     * [NPV Sensitivity](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/npv_sensitivity.rs)
     * [Payback Period](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/payback.rs)
