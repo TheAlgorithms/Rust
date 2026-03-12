@@ -1,3 +1,4 @@
+mod depreciation;
 mod equated_monthly_installments;
 mod exponential_moving_average;
 mod finance_ratios;
@@ -8,6 +9,10 @@ mod payback;
 mod present_value;
 mod treynor_ratio;
 
+pub use self::depreciation::{
+    diminishing_balance_depreciation, double_declining_balance_depreciation,
+    straight_line_depreciation, sum_of_years_digits_depreciation, units_of_production_depreciation,
+};
 pub use self::equated_monthly_installments::equated_monthly_installments;
 pub use self::exponential_moving_average::exponential_moving_average;
 pub use self::finance_ratios::{
