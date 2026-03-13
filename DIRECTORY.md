@@ -149,6 +149,7 @@
     * [Trapped Rainwater](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/trapped_rainwater.rs)
     * [Word Break](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/word_break.rs)
   * Financial
+    * [Depreciation](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/depreciation.rs)
     * [Equated Monthly Installments](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/equated_monthly_installments.rs)
     * [Exponential Moving Average](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/exponential_moving_average.rs)
     * [Finance Ratios](https://github.com/TheAlgorithms/Rust/blob/master/src/financial/finance_ratios.rs)
