@@ -50,7 +50,7 @@ pub fn binary_count_trailing_zeros_bitwise(num: u64) -> u32 {
     }
 
     let rightmost_set_bit = num & (num.wrapping_neg());
-    63 - rightmost_set_bit.leading_zeros()
+    rightmost_set_bit.ilog2()
 }
 
 #[cfg(test)]
