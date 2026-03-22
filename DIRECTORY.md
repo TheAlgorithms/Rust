@@ -69,6 +69,7 @@
     * [Huffman Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/huffman_encoding.rs)
     * [LZ77](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/lz77.rs)
     * [Move to Front](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/move_to_front.rs)
+    * [Peak Signal-to-Noise Ratio](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/peak_signal_to_noise_ratio.rs)
     * [Run Length Encoding](https://github.com/TheAlgorithms/Rust/blob/master/src/compression/run_length_encoding.rs)
   * Conversions
     * [Binary to Decimal](https://github.com/TheAlgorithms/Rust/blob/master/src/conversions/binary_to_decimal.rs)
