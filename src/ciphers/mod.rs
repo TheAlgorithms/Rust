@@ -19,6 +19,7 @@ mod rail_fence;
 mod rot13;
 mod rsa_cipher;
 mod salsa;
+mod sha1;
 mod sha256;
 mod sha3;
 mod tea;
@@ -53,6 +54,7 @@ pub use self::rsa_cipher::{
     decrypt, decrypt_text, encrypt, encrypt_text, generate_keypair, PrivateKey, PublicKey,
 };
 pub use self::salsa::salsa20;
+pub use self::sha1::sha1;
 pub use self::sha256::SHA256;
 pub use self::sha3::{sha3_224, sha3_256, sha3_384, sha3_512};
 pub use self::tea::{tea_decrypt, tea_encrypt};
