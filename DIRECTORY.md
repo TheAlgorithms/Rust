@@ -55,7 +55,7 @@
     * [ROT13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rot13.rs)
     * [RSA Cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/rsa_cipher.rs)
     * [Salsa](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/salsa.rs)
-    * [SHA-256](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/sha256.rs)
+    * [SHA-2](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/sha2.rs)
     * [SHA-3](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/sha3.rs)
     * [Tea](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/tea.rs)
     * [Theoretical ROT13](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/theoretical_rot13.rs)
