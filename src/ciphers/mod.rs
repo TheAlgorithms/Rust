@@ -19,7 +19,7 @@ mod rail_fence;
 mod rot13;
 mod rsa_cipher;
 mod salsa;
-mod sha256;
+mod sha2;
 mod sha3;
 mod tea;
 mod theoretical_rot13;
@@ -41,8 +41,7 @@ pub use self::blake2b::blake2b;
 pub use self::caesar::caesar;
 pub use self::chacha::chacha20;
 pub use self::diffie_hellman::DiffieHellman;
-pub use self::hashing_traits::Hasher;
-pub use self::hashing_traits::HMAC;
+pub use self::hashing_traits::{Hasher, HMAC};
 pub use self::hill_cipher::HillCipher;
 pub use self::kernighan::kernighan;
 pub use self::morse_code::{decode, encode};
@@ -53,7 +52,7 @@ pub use self::rsa_cipher::{
     decrypt, decrypt_text, encrypt, encrypt_text, generate_keypair, PrivateKey, PublicKey,
 };
 pub use self::salsa::salsa20;
-pub use self::sha256::SHA256;
+pub use self::sha2::{sha224, sha256, sha384, sha512, sha512_224, sha512_256};
 pub use self::sha3::{sha3_224, sha3_256, sha3_384, sha3_512};
 pub use self::tea::{tea_decrypt, tea_encrypt};
 pub use self::theoretical_rot13::theoretical_rot13;
