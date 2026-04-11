@@ -214,6 +214,7 @@
     * [Stable Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/stable_matching.rs)
   * Hashing
     * [Blake2B](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/blake2b.rs)
+    * [Fletcher](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/fletcher.rs)
     * [Hashing Traits](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/hashing_traits.rs)
     * [MD5](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/md5.rs)
     * [SHA-1](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/sha1.rs)
