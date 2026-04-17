@@ -26,9 +26,9 @@ mod radix_sort;
 mod selection_sort;
 mod shell_sort;
 mod sleep_sort;
-#[cfg(test)]
 mod sort_utils;
 mod stooge_sort;
+mod strand_sort;
 mod tim_sort;
 mod tree_sort;
 mod wave_sort;
@@ -65,6 +65,7 @@ pub use self::selection_sort::selection_sort;
 pub use self::shell_sort::shell_sort;
 pub use self::sleep_sort::sleep_sort;
 pub use self::stooge_sort::stooge_sort;
+pub use self::strand_sort::strand_sort;
 pub use self::tim_sort::tim_sort;
 pub use self::tree_sort::tree_sort;
 pub use self::wave_sort::wave_sort;
