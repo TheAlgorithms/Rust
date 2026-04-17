@@ -25,6 +25,7 @@ mod prufer_code;
 mod strongly_connected_components;
 mod tarjans_ssc;
 mod topological_sort;
+mod tree_center;
 mod two_satisfiability;
 
 pub use self::ant_colony_optimization::ant_colony_optimization;
@@ -54,4 +55,5 @@ pub use self::prufer_code::{prufer_decode, prufer_encode};
 pub use self::strongly_connected_components::StronglyConnectedComponents;
 pub use self::tarjans_ssc::tarjan_scc;
 pub use self::topological_sort::topological_sort;
+pub use self::tree_center::tree_center;
 pub use self::two_satisfiability::solve_two_satisfiability;
