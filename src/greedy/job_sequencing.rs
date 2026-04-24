@@ -11,12 +11,14 @@
 //! 3. Return the sequence of scheduled jobs and the total profit earned.
 //!
 //! # Complexity
-//! - Time:  O(n²) — for each of the n jobs we scan backwards through up to n slots.
-//! - Space: O(n)  — slot array proportional to the maximum deadline.
+//! - Time:  O(n·D) — for each of the n jobs we may scan backwards through up to D slots,
+//!   where D is the maximum deadline.
+//! - Space: O(min(n, D)) — slot array is capped at the number of jobs, since at most
+//!   n jobs can ever be scheduled regardless of how large D is.
 //!
 //! # References
 //! - Cormen et al., *Introduction to Algorithms*, 4th ed., §16.5
-//! - <https://en.wikipedia.org/wiki/Job-shop_scheduling>
+//! - <https://en.wikipedia.org/wiki/Optimal_job_scheduling>
 
 /// A single job described by a name, a deadline (1-indexed, in time units),
 /// and the profit earned if the job is completed on time.
@@ -85,20 +87,26 @@ pub fn schedule_jobs(mut jobs: Vec<Job>) -> ScheduleResult {
     // Step 1 – sort jobs by profit, highest first.
     jobs.sort_unstable_by(|a, b| b.profit.cmp(&a.profit));
 
-    // Step 2 – allocate one slot per time-unit up to the maximum deadline.
+    // Step 2 – allocate slots.
+    // At most n jobs can ever be scheduled, so cap the slot count at jobs.len()
+    // to avoid huge allocations when max_deadline is large.
     let max_deadline = jobs.iter().map(|j| j.deadline).max().unwrap_or(0);
+    let num_slots = max_deadline.min(jobs.len());
+
     // slots[i] holds the name of the job assigned to time-slot (i + 1),
     // or None if the slot is still free.
-    let mut slots: Vec<Option<String>> = vec![None; max_deadline];
+    let mut slots: Vec<Option<String>> = vec![None; num_slots];
 
     let mut total_profit: u64 = 0;
 
-    for job in &jobs {
+    // Consume jobs by value to move names directly into slots (no clone needed).
+    for job in jobs.into_iter() {
         // Find the latest free slot at or before this job's deadline.
         // Slots are 1-indexed in the problem but 0-indexed in our Vec.
-        let deadline_idx = job.deadline; // exclusive upper bound for the range
-        if let Some(slot) = (0..deadline_idx).rev().find(|&s| slots[s].is_none()) {
-            slots[slot] = Some(job.name.clone());
+        // Also bound the search to num_slots to stay within the allocated range.
+        let deadline_bound = job.deadline.min(num_slots);
+        if let Some(slot) = (0..deadline_bound).rev().find(|&s| slots[s].is_none()) {
+            slots[slot] = Some(job.name);
             total_profit += job.profit;
         }
         // If no free slot is found the job is skipped (greedy choice).
@@ -205,8 +213,8 @@ mod tests {
         assert_eq!(result.job_sequence.len(), 3);
     }
 
-    /// A large deadline value — verifies that the slot array is sized correctly
-    /// and that jobs close to the deadline are still placed properly.
+    /// A large deadline value — verifies that the slot array is capped at
+    /// jobs.len() and no unnecessary allocation occurs.
     #[test]
     fn test_large_deadline() {
         let jobs = vec![Job::new("Big", 100, 500), Job::new("Small", 1, 1)];
@@ -214,7 +222,7 @@ mod tests {
         // Both jobs should be scheduled.
         assert_eq!(result.total_profit, 501);
         assert_eq!(result.job_sequence.len(), 2);
-        // "Small" is in slot 1, "Big" somewhere ≤ 100.
+        // "Small" is in slot 1, "Big" in slot 2 (capped to num_slots = 2).
         assert_eq!(result.job_sequence[0], "Small");
     }
 
