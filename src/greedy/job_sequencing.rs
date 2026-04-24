@@ -100,7 +100,7 @@ pub fn schedule_jobs(mut jobs: Vec<Job>) -> ScheduleResult {
     let mut total_profit: u64 = 0;
 
     // Consume jobs by value to move names directly into slots (no clone needed).
-    for job in jobs.into_iter() {
+    for job in jobs {
         // Find the latest free slot at or before this job's deadline.
         // Slots are 1-indexed in the problem but 0-indexed in our Vec.
         // Also bound the search to num_slots to stay within the allocated range.
