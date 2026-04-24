@@ -209,6 +209,7 @@
     * [Topological Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/topological_sort.rs)
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * Greedy
+    * [Job Sequencing](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/job_sequencing.rs)
     * [Minimum Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/minimum_coin_changes.rs)
     * [Smallest Range](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/smallest_range.rs)
     * [Stable Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/stable_matching.rs)
