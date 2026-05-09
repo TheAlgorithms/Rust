@@ -209,11 +209,13 @@
     * [Topological Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/topological_sort.rs)
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * Greedy
+    * [Job Sequencing](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/job_sequencing.rs)
     * [Minimum Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/minimum_coin_changes.rs)
     * [Smallest Range](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/smallest_range.rs)
     * [Stable Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/stable_matching.rs)
   * Hashing
     * [Blake2B](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/blake2b.rs)
+    * [Fletcher](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/fletcher.rs)
     * [Hashing Traits](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/hashing_traits.rs)
     * [MD5](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/md5.rs)
     * [SHA-1](https://github.com/TheAlgorithms/Rust/blob/master/src/hashing/sha1.rs)
@@ -386,6 +388,7 @@
     * [Sleep Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/sleep_sort.rs)
     * [Sort Utils](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/sort_utils.rs)
     * [Stooge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/stooge_sort.rs)
+    * [Strand Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/strand_sort.rs)
     * [Tim Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tim_sort.rs)
     * [Tree Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tree_sort.rs)
     * [Wave Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wave_sort.rs)
