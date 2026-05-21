@@ -85,7 +85,7 @@ pub fn schedule_jobs(mut jobs: Vec<Job>) -> ScheduleResult {
     }
 
     // Step 1 – sort jobs by profit, highest first.
-    jobs.sort_unstable_by(|a, b| b.profit.cmp(&a.profit));
+    jobs.sort_unstable_by_key(|a| std::cmp::Reverse(a.profit));
 
     // Step 2 – allocate slots.
     // At most n jobs can ever be scheduled, so cap the slot count at jobs.len()

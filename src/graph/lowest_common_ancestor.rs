@@ -205,7 +205,7 @@ mod tests {
             }
         }
         let mut offline_answers = offline.answer_queries(1, &tree);
-        offline_answers.sort_unstable_by(|a1, a2| a1.query_id.cmp(&a2.query_id));
+        offline_answers.sort_unstable_by_key(|a| a.query_id);
         assert_eq!(offline_answers, online_answers);
     }
 }

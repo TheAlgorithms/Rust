@@ -26,7 +26,7 @@ pub fn inv_burrows_wheeler_transform<T: AsRef<str>>(input: (T, usize)) -> String
         table.push((i, input.0.as_ref().chars().nth(i).unwrap()));
     }
 
-    table.sort_by(|a, b| a.1.cmp(&b.1));
+    table.sort_by_key(|a| a.1);
 
     let mut decoded = String::new();
     let mut idx = input.1;
