@@ -54,8 +54,7 @@ pub fn manacher(s: String) -> String {
         radius += 1;
         // 2: Checking palindrome.
         // Need to care about overflow usize.
-        while i >= radius && i + radius <= chars.len() - 1 && chars[i - radius] == chars[i + radius]
-        {
+        while i >= radius && i + radius < chars.len() && chars[i - radius] == chars[i + radius] {
             length_of_palindrome[i] += 2;
             radius += 1;
         }
