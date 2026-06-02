@@ -1,5 +1,4 @@
 use std::cmp::Ordering;
-use std::ops::Deref;
 
 /// This struct implements as Binary Search Tree (BST), which is a
 /// simple data structure for storing sorted data
@@ -38,29 +37,29 @@ where
     /// tree, and false otherwise
     pub fn search(&self, value: &T) -> bool {
         match &self.value {
-            Some(key) => {
-                match key.cmp(value) {
-                    Ordering::Equal => {
-                        // key == value
-                        true
-                    }
-                    Ordering::Greater => {
-                        // key > value
-                        match &self.left {
-                            Some(node) => node.search(value),
-                            None => false,
-                        }
-                    }
-                    Ordering::Less => {
-                        // key < value
-                        match &self.right {
-                            Some(node) => node.search(value),
-                            None => false,
-                        }
+            // empty tree
+            None => false,
+            // non-empty tree
+            Some(key) => match value.cmp(key) {
+                // target == root's key
+                Ordering::Equal => true,
+                // target < root's key
+                Ordering::Less => {
+                    if let Some(node) = &self.left {
+                        node.search(value)
+                    } else {
+                        false
                     }
                 }
-            }
-            None => false,
+                // target > root's key
+                Ordering::Greater => {
+                    if let Some(node) = &self.right {
+                        node.search(value)
+                    } else {
+                        false
+                    }
+                }
+            },
         }
     }
 
@@ -112,67 +111,68 @@ where
     /// Returns the largest value in this tree smaller than value
     pub fn floor(&self, value: &T) -> Option<&T> {
         match &self.value {
-            Some(key) => {
-                match key.cmp(value) {
-                    Ordering::Greater => {
-                        // key > value
-                        match &self.left {
-                            Some(node) => node.floor(value),
-                            None => None,
-                        }
-                    }
-                    Ordering::Less => {
-                        // key < value
-                        match &self.right {
-                            Some(node) => {
-                                let val = node.floor(value);
-                                match val {
-                                    Some(_) => val,
-                                    None => Some(key),
-                                }
-                            }
-                            None => Some(key),
-                        }
-                    }
-                    Ordering::Equal => Some(key),
-                }
-            }
+            // empty tree
             None => None,
+            // non-empty tree
+            Some(key) => match value.cmp(key) {
+                // value == root's key
+                Ordering::Equal => Some(key),
+                // value < root's key
+                Ordering::Less => {
+                    if let Some(node) = &self.left {
+                        node.floor(value)
+                    } else {
+                        None
+                    }
+                }
+                // value > root's key
+                Ordering::Greater => match &self.right {
+                    // right child is None
+                    None => Some(key),
+                    // right child is not None
+                    Some(node) => {
+                        let val = node.floor(value);
+                        match val {
+                            None => Some(key),
+                            Some(_) => val,
+                        }
+                    }
+                },
+            },
         }
     }
 
     /// Returns the smallest value in this tree larger than value
     pub fn ceil(&self, value: &T) -> Option<&T> {
         match &self.value {
-            Some(key) => {
-                match key.cmp(value) {
-                    Ordering::Less => {
-                        // key < value
-                        match &self.right {
-                            Some(node) => node.ceil(value),
-                            None => None,
-                        }
-                    }
-                    Ordering::Greater => {
-                        // key > value
-                        match &self.left {
-                            Some(node) => {
-                                let val = node.ceil(value);
-                                match val {
-                                    Some(_) => val,
-                                    None => Some(key),
-                                }
-                            }
-                            None => Some(key),
-                        }
-                    }
-                    Ordering::Equal => {
-                        // key == value
-                        Some(key)
+            // empty tree
+            None => None,
+            // non-empty tree
+            Some(key) => match value.cmp(key) {
+                // value == root's key
+                Ordering::Equal => Some(key),
+                // value > root's key
+                Ordering::Greater => {
+                    if let Some(node) = &self.right {
+                        node.ceil(value)
+                    } else {
+                        None
                     }
                 }
-            }
-            None => None,
+                // value < root's key
+                Ordering::Less => match &self.left {
+                    // left child is None
+                    None => Some(key),
+                    // left child is not None
+                    Some(node) => {
+                        let val = node.ceil(value);
+                        match val {
+                            None => Some(key),
+                            Some(_) => val,
+                        }
+                    }
+                },
+            },
         }
     }
 }
@@ -208,15 +208,15 @@ where
     type Item = &'a T;
 
     fn next(&mut self) -> Option<&'a T> {
-        if self.stack.is_empty() {
-            None
-        } else {
-            let node = self.stack.pop().unwrap();
-            if let Some(right_node) = &node.right {
-                self.stack.push(right_node.deref());
-                self.stack_push_left();
+        match self.stack.pop() {
+            None => None,
+            Some(node) => {
+                if let Some(right_node) = &node.right {
+                    self.stack.push(right_node);
+                    self.stack_push_left();
+                }
+                node.value.as_ref()
             }
-            node.value.as_ref()
         }
     }
 }
@@ -250,6 +250,13 @@ mod test {
         );
         assert!(!tree.search(&"only a sith deals in absolutes"));
         assert!(!tree.search(&"you underestimate my power"));
+        assert!(!tree.search(&"apple pie"));
+
+        let empty_tree = BinarySearchTree::<i32>::new();
+        assert!(!empty_tree.search(&12));
+        assert!(!empty_tree.search(&-5));
+        assert!(!empty_tree.search(&0));
+        assert!(!empty_tree.search(&5));
     }
 
     #[test]
@@ -316,6 +323,10 @@ mod test {
             "your move"
         );
         assert!(tree.ceil(&"your new empire").is_none());
+
+        let empty_tree = BinarySearchTree::<i32>::new();
+        assert!(empty_tree.floor(&12).is_none());
+        assert!(empty_tree.ceil(&12).is_none());
     }
 
     #[test]
