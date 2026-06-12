@@ -390,6 +390,7 @@
     * [Stooge Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/stooge_sort.rs)
     * [Strand Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/strand_sort.rs)
     * [Tim Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tim_sort.rs)
+    * [Tournament Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tournament_sort.rs)
     * [Tree Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/tree_sort.rs)
     * [Wave Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wave_sort.rs)
     * [Wiggle Sort](https://github.com/TheAlgorithms/Rust/blob/master/src/sorting/wiggle_sort.rs)
