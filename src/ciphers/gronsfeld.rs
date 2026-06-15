@@ -2,8 +2,8 @@
 //!
 //! # Algorithm
 //!
-//! A variant of the Vigenere cipher where the key is a sequence of digits (0–9).
-//! Each alphabetic character in the plaintext is shifted forward (encrypt) or
+//! A variant of the Vigenère cipher where the key is a sequence of digits (0–9).
+//! Each ASCII alphabetic character in the plaintext is shifted forward (encrypt) or
 //! backward (decrypt) by the value of the corresponding key digit, cycling
 //! through the key. Non-alphabetic characters are passed through unchanged.
 
