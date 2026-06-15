@@ -186,7 +186,7 @@ mod tests {
 
     #[test]
     fn roundtrip_with_unicode_passthrough() {
-        let plain = "Rust 2024";
+        let plain = "Rust ⏳ 2024";
         let key = "42";
         let encrypted = gronsfeld_encrypt(plain, key).unwrap();
         assert_eq!(gronsfeld_decrypt(&encrypted, key).unwrap(), plain);
