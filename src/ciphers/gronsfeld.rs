@@ -16,8 +16,12 @@ fn validate_key(key: &str) -> Result<Vec<u8>, &'static str> {
     if key.is_empty() {
         return Err(ERR_EMPTY_KEY);
     }
-    key.chars()
-        .map(|c| c.to_digit(10).map(|d| d as u8).ok_or(ERR_INVALID_KEY))
+
+    key.bytes()
+        .map(|b| match b {
+            b'0'..=b'9' => Ok(b - b'0'),
+            _ => Err(ERR_INVALID_KEY),
+        })
         .collect()
 }
 
