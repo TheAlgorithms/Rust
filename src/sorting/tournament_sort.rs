@@ -5,7 +5,7 @@
 ///
 /// Time complexity is `O(n log n)`, where `n` is the number of elements.
 /// Space complexity is `O(n)`.
-pub fn tournament_sort(arr: &[i32]) -> Vec<i32> {
+pub fn tournament_sort<T: Ord + Clone>(arr: &[T]) -> Vec<T> {
     let mut arr = arr.to_vec();
     let n = arr.len();
     let mut tree_size = 1;
@@ -14,40 +14,49 @@ pub fn tournament_sort(arr: &[i32]) -> Vec<i32> {
         tree_size <<= 1;
     }
 
-    let mut tree: Vec<i32> = vec![0; 2 * tree_size];
+    let mut tree: Vec<Option<T>> = vec![None; 2 * tree_size];
 
     for i in 0..tree_size {
         if i < n {
-            tree[tree_size + i] = arr[i];
+            tree[tree_size + i] = Some(arr[i].clone());
         } else {
-            tree[tree_size + i] = i32::MAX;
+            tree[tree_size + i] = None;
         }
     }
 
     for i in (1..tree_size).rev() {
-        tree[i] = tree[2 * i].min(tree[2 * i + 1]);
+        tree[i] = min_opt(&tree[2 * i], &tree[2 * i + 1]);
     }
 
     for i in 0..n {
-        let min = tree[1];
-        arr[i] = min;
+        let min = tree[1].clone().unwrap();
+        arr[i] = min.clone();
 
         let mut pos = 1;
         while pos < tree_size {
-            if tree[2 * pos] == min {
+            if tree[2 * pos].as_ref() == Some(&min) {
                 pos *= 2;
             } else {
                 pos = 2 * pos + 1;
             }
         }
 
-        tree[pos] = i32::MAX;
+        tree[pos] = None;
         while pos > 1 {
             pos >>= 1;
-            tree[pos] = tree[2 * pos].min(tree[2 * pos + 1]);
+            tree[pos] = min_opt(&tree[2 * pos], &tree[2 * pos + 1]);
         }
     }
     arr
+}
+
+fn min_opt<T: Ord + Clone>(a: &Option<T>, b: &Option<T>) -> Option<T> {
+    match (a, b) {
+        (Some(x), Some(y)) => Some(if x <= y { x.clone() } else { y.clone() }),
+        (Some(x), None) => Some(x.clone()),
+        (None, Some(y)) => Some(y.clone()),
+        (None, None) => None,
+    }
 }
 
 #[cfg(test)]
@@ -95,6 +104,6 @@ mod test {
     fn repeated_elements() {
         let arr = vec![42, 42, 42, 42];
         let res = tournament_sort(&arr);
-        assert!(is_sorted(&res) && have_same_elements(&res, &arr));
+        assert_eq!(res, { let mut expected = arr.clone(); expected.sort(); expected });
     }
 }
