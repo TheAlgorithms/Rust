@@ -32,12 +32,13 @@ where
     }
 
     for i in 0..n {
-        let min = tree[1].clone().unwrap();
-        arr[i] = min.clone();
+        let min = tree[1].as_ref().unwrap().clone();
+        arr[i] = min;
+        let min_ref = &arr[i];
 
         let mut pos = 1;
         while pos < tree_size {
-            if tree[2 * pos].as_ref() == Some(&min) {
+            if tree[2 * pos].as_ref() == Some(min_ref) {
                 pos *= 2;
             } else {
                 pos = 2 * pos + 1;
