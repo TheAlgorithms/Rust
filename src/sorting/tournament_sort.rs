@@ -5,7 +5,10 @@
 ///
 /// Time complexity is `O(n log n)`, where `n` is the number of elements.
 /// Space complexity is `O(n)`.
-pub fn tournament_sort<T: Ord + Clone>(arr: &[T]) -> Vec<T> {
+pub fn tournament_sort<T>(arr: &[T]) -> Vec<T>
+where
+    T: Ord + Clone,
+{
     let mut arr = arr.to_vec();
     let n = arr.len();
     let mut tree_size = 1;
@@ -50,7 +53,10 @@ pub fn tournament_sort<T: Ord + Clone>(arr: &[T]) -> Vec<T> {
     arr
 }
 
-fn min_opt<T: Ord + Clone>(a: &Option<T>, b: &Option<T>) -> Option<T> {
+fn min_opt<T>(a: &Option<T>, b: &Option<T>) -> Option<T>
+where
+    T: Ord + Clone,
+{
     match (a, b) {
         (Some(x), Some(y)) => Some(if x <= y { x.clone() } else { y.clone() }),
         (Some(x), None) => Some(x.clone()),
@@ -104,6 +110,6 @@ mod test {
     fn repeated_elements() {
         let arr = vec![42, 42, 42, 42];
         let res = tournament_sort(&arr);
-        assert_eq!(res, { let mut expected = arr.clone(); expected.sort(); expected });
+        assert_eq!(&res, &arr);
     }
 }
