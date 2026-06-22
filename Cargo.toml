@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 
+[[bin]]
+name = "run-algorithms"
+path = "src/utils/run-algorithms.rs"
+
 [dependencies]
 nalgebra = "0.34.0"
 ndarray = "0.17.2"

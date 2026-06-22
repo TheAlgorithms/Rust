@@ -1,9 +1,12 @@
 
 /target
 **/*.rs.bk
+# Cargo.lock
 
-/target
-**/*.rs.bk
-Cargo.lock
+# IDE
 /.idea/
 .vscode
+
+# macOS:
+.DS_Store
+src/.DS_Store
