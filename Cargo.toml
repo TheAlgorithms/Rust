@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 
+[[bin]]
+name = "run-algorithms"
+path = "src/utils/run-algorithms.rs"
+
 [dependencies]
 nalgebra = "0.34.0"
 ndarray = "0.17.2"
@@ -108,6 +112,7 @@ deref_by_slicing = { level = "allow", priority = 1 }
 else_if_without_else = { level = "allow", priority = 1 }
 exhaustive_enums = { level = "allow", priority = 1 }
 exhaustive_structs = { level = "allow", priority = 1 }
+exit = { level = "allow", priority = 1 }
 expect_used = { level = "allow", priority = 1 }
 field_scoped_visibility_modifiers = { level = "allow", priority = 1 }
 float_arithmetic = { level = "allow", priority = 1 }
@@ -170,6 +175,5 @@ needless_for_each = { level = "allow", priority = 1 }
 # style-lints:
 doc_lazy_continuation = { level = "allow", priority = 1 }
 doc_overindented_list_items = { level = "allow", priority = 1 }
-doc_paragraphs_missing_punctuation = { level = "allow", priority = 1 }
 needless_range_loop = { level = "allow", priority = 1 }
 needless_return = { level = "allow", priority = 1 }

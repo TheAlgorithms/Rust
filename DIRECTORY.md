@@ -45,6 +45,7 @@
     * [Caesar](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/caesar.rs)
     * [Chacha](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/chacha.rs)
     * [Diffie-Hellman](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/diffie_hellman.rs)
+    * [Gronsfeld cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/gronsfeld.rs)
     * [Hill Cipher](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/hill_cipher.rs)
     * [Kernighan](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/kernighan.rs)
     * [Morse Code](https://github.com/TheAlgorithms/Rust/blob/master/src/ciphers/morse_code.rs)
@@ -109,9 +110,10 @@
       * [Bloom Filter](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/bloom_filter.rs)
       * [Count Min Sketch](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/probabilistic/count_min_sketch.rs)
     * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
-    * [Range Minimum Query](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/range_minimum_query.rs)
+    * [Range Minimum Query](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/skip_list.rs)
     * [RB Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/rb_tree.rs)
     * [Segment Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree.rs)
+    * [Skip list](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree_recursive.rs)
     * [Segment Tree Recursive](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/segment_tree_recursive.rs)
     * [Stack Using Singly Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/stack_using_singly_linked_list.rs)
     * [Treap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/treap.rs)
@@ -210,7 +212,7 @@
     * [Two Satisfiability](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/two_satisfiability.rs)
   * Greedy
     * [Job Sequencing](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/job_sequencing.rs)
-    * [Minimum Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/minimum_coin_changes.rs)
+    * [Minimum Coin Change](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/minimum_coin_change.rs)
     * [Smallest Range](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/smallest_range.rs)
     * [Stable Matching](https://github.com/TheAlgorithms/Rust/blob/master/src/greedy/stable_matching.rs)
   * Hashing
