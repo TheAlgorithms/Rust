@@ -123,27 +123,15 @@ mod tests {
     /// Assert that every node's rank is within `epsilon` of `expected`.
     fn assert_ranks_close(ranks: &HashMap<String, f64>, expected: &[(&str, f64)], epsilon: f64) {
         for (node, exp) in expected {
-            let got = ranks
-                .get(*node)
-                .unwrap_or_else(|| panic!("Node '{}' missing from result", node));
-            assert!(
-                (got - exp).abs() < epsilon,
-                "Node '{}': expected ≈{:.6}, got {:.6}",
-                node,
-                exp,
-                got
-            );
+            let got = ranks[*node]; // Indexing panics automatically if the node is missing
+            assert!((got - exp).abs() < epsilon);
         }
     }
 
     /// All ranks must sum to 1.0 (within tolerance).
     fn assert_sum_to_one(ranks: &HashMap<String, f64>, epsilon: f64) {
         let total: f64 = ranks.values().sum();
-        assert!(
-            (total - 1.0).abs() < epsilon,
-            "Ranks do not sum to 1.0: sum = {:.8}",
-            total
-        );
+        assert!((total - 1.0).abs() < epsilon);
     }
 
     // -----------------------------------------------------------------------
@@ -154,7 +142,7 @@ mod tests {
     fn test_empty_graph() {
         let graph: HashMap<String, Vec<String>> = HashMap::new();
         let ranks = page_rank(&graph, 0.85, 100, 1e-5);
-        assert!(ranks.is_empty(), "Empty graph should return empty ranks");
+        assert!(ranks.is_empty());
     }
 
     // -----------------------------------------------------------------------
@@ -253,13 +241,7 @@ mod tests {
         // Hub must have strictly higher rank than any spoke
         let hub_rank = ranks["Hub"];
         for spoke in &["A", "B", "C"] {
-            assert!(
-                hub_rank > ranks[*spoke],
-                "Hub rank ({}) should exceed spoke '{}' rank ({})",
-                hub_rank,
-                spoke,
-                ranks[*spoke]
-            );
+            assert!(hub_rank > ranks[*spoke]);
         }
     }
 
@@ -283,10 +265,7 @@ mod tests {
         assert_sum_to_one(&ranks, 1e-4);
 
         // With PageRank's dangling-node redistribution D should accumulate most rank
-        assert!(
-            ranks["D"] > ranks["A"],
-            "Sink node D should rank higher than source A"
-        );
+        assert!(ranks["D"] > ranks["A"]);
     }
 
     // -----------------------------------------------------------------------
@@ -308,12 +287,12 @@ mod tests {
 
         // B is a dangling node and appears only as a destination,
         // so it must still be included.
-        assert_eq!(ranks.len(), 4, "All 4 nodes should be present");
+        assert_eq!(ranks.len(), 4);
         assert_sum_to_one(&ranks, 1e-4);
 
         // Sanity: no rank is zero or negative
-        for (node, &rank) in &ranks {
-            assert!(rank > 0.0, "Node '{}' has non-positive rank {}", node, rank);
+        for &rank in ranks.values() {
+            assert!(rank > 0.0);
         }
     }
 
@@ -350,18 +329,8 @@ mod tests {
         // C receives flow from both A (half) and B (all of B).
         // A receives flow only from C.
         // Correct order: C > A > B
-        assert!(
-            ranks["C"] > ranks["A"],
-            "C should rank above A: C={:.4}, A={:.4}",
-            ranks["C"],
-            ranks["A"]
-        );
-        assert!(
-            ranks["A"] > ranks["B"],
-            "A should rank above B: A={:.4}, B={:.4}",
-            ranks["A"],
-            ranks["B"]
-        );
+        assert!(ranks["C"] > ranks["A"]);
+        assert!(ranks["A"] > ranks["B"]);
 
         // Analytically solved values (d=0.85, N=3):
         // PR(A) = 0.3878, PR(B) = 0.2148, PR(C) = 0.3974
@@ -435,13 +404,8 @@ mod tests {
         assert_eq!(ranks.len(), 3);
         let expected = 1.0 / 3.0;
         for i in 1..=3 {
-            assert!(
-                (ranks[&i] - expected).abs() < 1e-4,
-                "Node {}: expected {:.4}, got {:.4}",
-                i,
-                expected,
-                ranks[&i]
-            );
+            let rank = ranks[&i];
+            assert!((rank - expected).abs() < 1e-4);
         }
     }
 
@@ -462,12 +426,7 @@ mod tests {
 
         for node in &["A", "B", "C"] {
             let diff = (ranks_full[*node] - ranks_few[*node]).abs();
-            assert!(
-                diff < 0.005,
-                "Node '{}' diverges too much after 10 iters: diff = {:.6}",
-                node,
-                diff
-            );
+            assert!(diff < 0.005);
         }
     }
 
@@ -484,15 +443,9 @@ mod tests {
 
         let ranks = page_rank(&graph, 0.85, 100, 1e-5);
 
-        assert!(ranks.contains_key("A"), "A must be in result");
-        assert!(
-            ranks.contains_key("B"),
-            "B must be in result even though it has no outgoing edges"
-        );
-        assert!(
-            ranks.contains_key("C"),
-            "C must be in result even though it has no outgoing edges"
-        );
+        assert!(ranks.contains_key("A"));
+        assert!(ranks.contains_key("B"));
+        assert!(ranks.contains_key("C"));
         assert_sum_to_one(&ranks, 1e-4);
     }
 
@@ -527,6 +480,7 @@ mod tests {
         );
         assert_sum_to_one(&ranks, 1e-4);
     }
+
     // -----------------------------------------------------------------------
     // 16. Pure duplicate edges cancel out — result identical to single edge
     //     A→[B,B] is equivalent to A→[B]: both halves of A's rank flow to B.
@@ -548,13 +502,7 @@ mod tests {
 
         for node in &["A", "B"] {
             let diff = (ranks_single[*node] - ranks_dup[*node]).abs();
-            assert!(
-                diff < 1e-4,
-                "Node '{}': duplicate edges changed rank — single={:.6}, dup={:.6}",
-                node,
-                ranks_single[*node],
-                ranks_dup[*node]
-            );
+            assert!(diff < 1e-4);
         }
     }
 
@@ -577,14 +525,7 @@ mod tests {
         let ranks = page_rank(&graph, 0.85, 100, 1e-6);
 
         assert_sum_to_one(&ranks, 1e-4);
-
-        // After deduplication A→[B,C] with equal weight, so B and C must be equal
-        assert!(
-            (ranks["B"] - ranks["C"]).abs() < 1e-4,
-            "B and C should have equal rank after dedup: B={:.6}, C={:.6}",
-            ranks["B"],
-            ranks["C"]
-        );
+        assert!((ranks["B"] - ranks["C"]).abs() < 1e-4);
     }
 
     // -----------------------------------------------------------------------
@@ -608,13 +549,7 @@ mod tests {
 
         for node in &["A", "B"] {
             let diff = (ranks_dup[*node] - ranks_clean[*node]).abs();
-            assert!(
-                diff < 1e-4,
-                "Node '{}': self-loop duplicate skewed rank — dup={:.6}, clean={:.6}",
-                node,
-                ranks_dup[*node],
-                ranks_clean[*node]
-            );
+            assert!(diff < 1e-4);
         }
     }
 }
