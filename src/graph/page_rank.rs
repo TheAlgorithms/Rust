@@ -8,7 +8,7 @@ use std::hash::Hash;
 ///
 /// # Parameters
 /// * `graph` - The adjacency list of the graph.
-/// * `damping_factor` - The probability that a surfer continues clicking links should be in betwen 0 and 1 (typically 0.85).
+/// * `damping_factor` - The probability that a surfer continues clicking links should be in bettwen 0 and 1 (typically 0.85).
 /// * `max_iterations` - The maximum number of iterations to perform (typically 100).
 /// * `convergence_threshold` - The L1 difference threshold to stop iterations early (typically 1e-5).
 pub fn page_rank<Node: Hash + Eq + Clone>(
@@ -17,12 +17,22 @@ pub fn page_rank<Node: Hash + Eq + Clone>(
     max_iterations: usize,
     convergence_threshold: f64,
 ) -> HashMap<Node, f64> {
+    assert!(
+        damping_factor.is_finite() && (0.0..=1.0).contains(&damping_factor),
+        "damping_factor must be a finite value in [0, 1]"
+    );
+    assert!(
+        convergence_threshold.is_finite() && convergence_threshold >= 0.0,
+        "convergence_threshold must be a finite, non-negative value"
+    );
+
     if graph.is_empty() {
         return HashMap::new();
     }
 
     // Collect all unique nodes present as either a source or a destination
     let mut all_nodes = HashSet::new();
+
     for (src, dests) in graph {
         all_nodes.insert(src.clone());
         for dest in dests {
@@ -180,7 +190,7 @@ mod tests {
 
     // -----------------------------------------------------------------------
     // 4. Circular graph (A→B→C→A) — symmetry
-    //    Already present in the original file; extended with sum check.
+    //    Symmetry check: all ranks should converge to 1/3.
     // -----------------------------------------------------------------------
 
     #[test]
@@ -220,9 +230,9 @@ mod tests {
     }
 
     // -----------------------------------------------------------------------
-    // 6. Star graph — hub receives all rank
-    //    Spokes A, B, C all point to Hub.  Hub is a dangling node.
-    //    Expected: Hub collects the redistributed mass and ends up highest.
+    // 6. Star graph — hub receives the highest rank
+    //    Spokes A, B, C all point to Hub. Hub is a dangling node.
+    //    Expected: Hub collects redistributed mass and ends up highest.
     // -----------------------------------------------------------------------
 
     #[test]
@@ -246,9 +256,9 @@ mod tests {
     }
 
     // -----------------------------------------------------------------------
-    // 7. Linear chain — rank should decrease along the chain
-    //    A → B → C → D  (all dangling except the last which is also dangling)
-    //    Nodes further down get more incoming flow; D has no outbound links.
+    // 7. Linear chain — sink accumulates the highest rank
+    //    A → B → C → D  (D is a sink / dangling node)
+    //    Nodes further down get more incoming flow; dangling mass is redistributed.
     // -----------------------------------------------------------------------
 
     #[test]
@@ -311,7 +321,7 @@ mod tests {
     //    PR(B) = 0.05 + 0.85 * PR(A)/2
     //    PR(C) = 0.05 + 0.85 * (PR(A)/2 + PR(B)/1)
     //
-    //    Solving: PR(A) ≈ 0.4828, PR(B) ≈ 0.2552, PR(C) ≈ 0.2620
+    //    Solving: PR(A) ≈ 0.3878, PR(B) ≈ 0.2148, PR(C) ≈ 0.3974
     //    (normalised so they sum to 1)
     // -----------------------------------------------------------------------
 
