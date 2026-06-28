@@ -18,8 +18,8 @@ pub fn page_rank<Node: Hash + Eq + Clone>(
     convergence_threshold: f64,
 ) -> HashMap<Node, f64> {
     assert!(
-        damping_factor.is_finite() && (0.0..=1.0).contains(&damping_factor),
-        "damping_factor must be a finite value in [0, 1]"
+        damping_factor.is_finite() && damping_factor >= 0.0 && damping_factor < 1.0,
+        "damping_factor must be a finite value in (0, 1)"
     );
     assert!(
         convergence_threshold.is_finite() && convergence_threshold >= 0.0,
@@ -60,17 +60,18 @@ pub fn page_rank<Node: Hash + Eq + Clone>(
 
     for (src, dests) in graph {
         // Deduplicate destinations so multi-edges don't skew rank distribution
-        let unique_dests: Vec<&Node> = {
-            let mut seen = HashSet::new();
-            dests.iter().filter(|d| seen.insert(*d)).collect()
-        };
+        let mut seen = HashSet::new();
+        let mut out_degree = 0usize;
 
-        out_degrees.insert(src.clone(), unique_dests.len());
-        for dest in unique_dests {
-            if let Some(incoming) = incoming_edges.get_mut(dest) {
-                incoming.push(src.clone());
+        for dest in dests {
+            if seen.insert(dest) {
+                out_degree += 1;
+                if let Some(incoming) = incoming_edges.get_mut(dest) {
+                    incoming.push(src.clone());
+                }
             }
         }
+        out_degrees.insert(src.clone(), out_degree);
     }
 
     // Dangling nodes are those with zero out-degree
