@@ -60,17 +60,19 @@ pub fn page_rank<Node: Hash + Eq + Clone>(
 
     for (src, dests) in graph {
         // Deduplicate destinations so multi-edges don't skew rank distribution
-        let unique_dests: Vec<&Node> = {
-            let mut seen = HashSet::new();
-            dests.iter().filter(|d| seen.insert(*d)).collect()
-        };
+        let mut seen = HashSet::new();
+        let mut out_degree = 0usize;
 
-        out_degrees.insert(src.clone(), unique_dests.len());
-        for dest in unique_dests {
-            if let Some(incoming) = incoming_edges.get_mut(dest) {
-                incoming.push(src.clone());
+        for dest in dests {
+            if seen.insert(dest) {
+                out_degree += 1;
+                if let Some(incoming) = incoming_edges.get_mut(dest) {
+                    incoming.push(src.clone());
+                }
             }
         }
+
+        out_degrees.insert(src.clone(), out_degree);
     }
 
     // Dangling nodes are those with zero out-degree
