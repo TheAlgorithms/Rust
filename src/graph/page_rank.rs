@@ -8,7 +8,7 @@ use std::hash::Hash;
 ///
 /// # Parameters
 /// * `graph` - The adjacency list of the graph.
-/// * `damping_factor` - The probability that a surfer continues clicking links should be in bettwen 0 and 1 (typically 0.85).
+/// * `damping_factor` - The probability that a surfer continues clicking links should be between 0 and 1 (typically 0.85).
 /// * `max_iterations` - The maximum number of iterations to perform (typically 100).
 /// * `convergence_threshold` - The L1 difference threshold to stop iterations early (typically 1e-5).
 pub fn page_rank<Node: Hash + Eq + Clone>(
