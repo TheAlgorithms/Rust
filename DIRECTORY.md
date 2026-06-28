@@ -202,6 +202,7 @@
     * [Lee Breadth First Search](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lee_breadth_first_search.rs)
     * [Lowest Common Ancestor](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/lowest_common_ancestor.rs)
     * [Minimum Spanning Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/minimum_spanning_tree.rs)
+    * [Page Rank](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/page_rank.rs)
     * [Prim](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prim.rs)
     * [Prufer Code](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/prufer_code.rs)
     * [Strongly Connected Components](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/strongly_connected_components.rs)
