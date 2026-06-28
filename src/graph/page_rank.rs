@@ -19,7 +19,7 @@ pub fn page_rank<Node: Hash + Eq + Clone>(
 ) -> HashMap<Node, f64> {
     assert!(
         damping_factor.is_finite() && damping_factor >= 0.0 && damping_factor < 1.0,
-        "damping_factor must be a finite value in (0, 1)"
+        "damping_factor must be a finite value in [0, 1)"
     );
     assert!(
         convergence_threshold.is_finite() && convergence_threshold >= 0.0,
