@@ -67,6 +67,7 @@ struct SingleBinaryBloomFilter {
 }
 
 /// Given a value and a hash function, compute the hash and return the bit mask
+#[allow(dead_code)]
 fn mask_128<T: Hash>(hasher: &mut DefaultHasher, item: T) -> u128 {
     item.hash(hasher);
     let idx = (hasher.finish() % 128) as u32;

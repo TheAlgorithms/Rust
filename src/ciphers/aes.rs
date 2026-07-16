@@ -434,7 +434,7 @@ fn transpose_block(block: &mut [u8]) {
 }
 
 fn bytes_to_word(bytes: &[Byte]) -> Word {
-    assert!(bytes.len() == AES_WORD_SIZE);
+    assert_eq!(bytes.len(), AES_WORD_SIZE);
     let mut word = 0;
     for (i, &byte) in bytes.iter().enumerate() {
         word |= (byte as Word) << (8 * i);

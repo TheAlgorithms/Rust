@@ -264,7 +264,7 @@ fn h2b(h: &[u8], n: usize) -> Vec<bool> {
         }
     }
 
-    assert!(bits.len() == h.len() * U8BITS);
+    assert_eq!(bits.len(), h.len() * U8BITS);
 
     bits.truncate(n);
     bits

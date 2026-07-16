@@ -9,11 +9,8 @@ pub fn binary_to_decimal(binary: &str) -> Option<u128> {
     for bit in binary.chars().rev() {
         match bit {
             '1' => {
-                if let Some(sum) = num.checked_add(&idx_val) {
-                    num = sum;
-                } else {
-                    return None;
-                }
+                let sum = num.checked_add(&idx_val)?;
+                num = sum;
             }
             '0' => {}
             _ => return None,

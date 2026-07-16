@@ -241,7 +241,7 @@ mod tests {
         g.print_matching();
         assert_eq!(g.mt2[1], 1);
         for i in 2..g.mt2.len() {
-            assert!(g.mt2[i] == -1);
+            assert_eq!(g.mt2[i], -1);
         }
     }
     #[test]
@@ -264,7 +264,7 @@ mod tests {
         g.print_matching();
         assert_eq!(g.mt2[1], 1);
         for i in 2..g.mt2.len() {
-            assert!(g.mt2[i] == -1);
+            assert_eq!(g.mt2[i], -1);
         }
     }
 }

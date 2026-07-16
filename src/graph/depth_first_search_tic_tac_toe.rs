@@ -313,7 +313,7 @@ fn append_playaction(
 
         //No change hence append only
         (_, _, _) => {
-            assert!(play_actions.side == appendee.side);
+            assert_eq!(play_actions.side, appendee.side);
             play_actions.positions.push(appendee.position);
         }
     }

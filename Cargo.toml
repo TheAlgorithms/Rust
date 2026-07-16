@@ -167,6 +167,8 @@ use_debug = { level = "allow", priority = 1 }
 used_underscore_items = { level = "allow", priority = 1 }
 wildcard_enum_match_arm = { level = "allow", priority = 1 }
 needless_for_each = { level = "allow", priority = 1 }
+inline_modules = { level = "allow", priority = 1 }
+inline_trait_bounds = { level = "allow", priority = 1 }
 # style-lints:
 doc_lazy_continuation = { level = "allow", priority = 1 }
 doc_overindented_list_items = { level = "allow", priority = 1 }

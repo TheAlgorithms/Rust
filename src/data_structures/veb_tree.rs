@@ -256,11 +256,11 @@ mod test {
         elements.sort();
         elements.dedup();
         for (i, element) in tree.iter().enumerate() {
-            assert!(elements[i] == element);
+            assert_eq!(elements[i], element);
         }
         for i in 1..elements.len() {
-            assert!(tree.succ(elements[i - 1]) == Some(elements[i]));
-            assert!(tree.pred(elements[i]) == Some(elements[i - 1]));
+            assert_eq!(tree.succ(elements[i - 1]), Some(elements[i]));
+            assert_eq!(tree.pred(elements[i]), Some(elements[i - 1]));
         }
     }
 
