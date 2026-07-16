@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["Anshul Malik <malikanshul29@gmail.com>"]
 
 [dependencies]
-nalgebra = "0.34.0"
+nalgebra = "0.35.0"
 ndarray = "0.17.2"
 num-bigint = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
