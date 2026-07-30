@@ -1,3 +1,10 @@
+// [Aho-Corasick Algorithm](./aho_corasick.rs)
+// at https://github.com/TheAlgorithms/Rust/blob/master/src/string/aho_corasick.rs
+// https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm
+// A string-searching algorithm invented by Alfred V. Aho and Margaret J. Corasick in 1975.[1] 
+// A kind of dictionary-matching algorithm that locates elements of a finite set of strings 
+// (the "dictionary") within an input text. It matches all strings simultaneously.
+
 use std::cell::RefCell;
 use std::collections::BTreeMap;
 use std::collections::VecDeque;
