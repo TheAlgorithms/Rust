@@ -19,7 +19,8 @@ pub fn wave_sort<T: Ord>(arr: &mut [T]) {
     let n = arr.len();
     arr.sort();
 
-    for i in (0..n - 1).step_by(2) {
+    // `saturating_sub` keeps an empty slice from underflowing to `usize::MAX`.
+    for i in (0..n.saturating_sub(1)).step_by(2) {
         arr.swap(i, i + 1);
     }
 }
@@ -66,5 +67,19 @@ mod tests {
         wave_sort(&mut array);
         let expected = vec![10, 5, 20, 15, 25];
         assert_eq!(&array, &expected);
+    }
+
+    #[test]
+    fn empty() {
+        let mut array: Vec<i32> = vec![];
+        wave_sort(&mut array);
+        assert!(array.is_empty());
+    }
+
+    #[test]
+    fn one_element() {
+        let mut array = vec![42];
+        wave_sort(&mut array);
+        assert_eq!(&array, &[42]);
     }
 }

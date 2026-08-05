@@ -4,13 +4,8 @@ use std::time::{SystemTime, UNIX_EPOCH};
 const DEFAULT: u64 = 4294967296;
 
 fn is_sorted<T: Ord>(arr: &[T], len: usize) -> bool {
-    for i in 0..len - 1 {
-        if arr[i] > arr[i + 1] {
-            return false;
-        }
-    }
-
-    true
+    // `windows` yields nothing below two elements, where `0..len - 1` underflowed.
+    arr[..len].windows(2).all(|pair| pair[0] <= pair[1])
 }
 
 #[cfg(target_pointer_width = "64")]
@@ -69,5 +64,19 @@ mod tests {
         for i in 0..arr.len() - 1 {
             assert!(arr[i] <= arr[i + 1]);
         }
+    }
+
+    #[test]
+    fn empty() {
+        let mut arr: Vec<i32> = vec![];
+        bogo_sort(&mut arr);
+        assert!(arr.is_empty());
+    }
+
+    #[test]
+    fn one_element() {
+        let mut arr = [7];
+        bogo_sort(&mut arr);
+        assert_eq!(&arr, &[7]);
     }
 }
