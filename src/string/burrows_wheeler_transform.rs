@@ -1,17 +1,30 @@
+//! Burrows-Wheeler transform.
+//!
+//! The transform sorts every rotation of the input and emits the last character
+//! of each. Inversion relies on that rotation order being *the same total order*
+//! the inverse uses to sort the encoded characters, so both directions here order
+//! by `char` (equivalently, by code point).
+//!
+//! Wikipedia reference: <https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform>
+
+/// Returns the transformed string together with the row index of the original input.
 pub fn burrows_wheeler_transform(input: &str) -> (String, usize) {
-    let len = input.len();
+    // Rotate over `char`s: slicing `&str` by an arbitrary index splits multi-byte
+    // characters and panics.
+    let chars: Vec<char> = input.chars().collect();
+    let len = chars.len();
 
     let mut table = Vec::<String>::with_capacity(len);
     for i in 0..len {
-        table.push(input[i..].to_owned() + &input[..i]);
+        table.push(chars[i..].iter().chain(&chars[..i]).collect());
     }
-    table.sort_by_key(|a| a.to_lowercase());
+    table.sort();
 
     let mut encoded = String::new();
     let mut index: usize = 0;
     for (i, item) in table.iter().enumerate().take(len) {
         encoded.push(item.chars().last().unwrap());
-        if item.eq(&input) {
+        if item == input {
             index = i;
         }
     }
@@ -19,13 +32,14 @@ pub fn burrows_wheeler_transform(input: &str) -> (String, usize) {
     (encoded, index)
 }
 
+/// Reconstructs the original string from a transform and its row index.
 pub fn inv_burrows_wheeler_transform<T: AsRef<str>>(input: (T, usize)) -> String {
-    let len = input.0.as_ref().len();
-    let mut table = Vec::<(usize, char)>::with_capacity(len);
-    for i in 0..len {
-        table.push((i, input.0.as_ref().chars().nth(i).unwrap()));
-    }
+    let chars: Vec<char> = input.0.as_ref().chars().collect();
+    let len = chars.len();
 
+    // `sort_by_key` is stable, which is what keeps equal characters in their
+    // original relative order — the property the reconstruction walk depends on.
+    let mut table: Vec<(usize, char)> = chars.into_iter().enumerate().collect();
     table.sort_by_key(|a| a.1);
 
     let mut decoded = String::new();
@@ -113,5 +127,61 @@ mod tests {
             inv_burrows_wheeler_transform(burrows_wheeler_transform("")),
             ""
         );
+    }
+
+    /// Regression: the forward transform sorted rotations case-insensitively
+    /// while the inverse sorted characters by code point, so any string mixing
+    /// cases round-tripped to garbage ("Hello" came back as "elloe").
+    #[test]
+    fn mixed_case() {
+        for text in [
+            "Hello",
+            "Mississippi",
+            "AaAa",
+            "Test",
+            "aAbB",
+            "Rust Lang",
+            "The Algorithms",
+        ] {
+            assert_eq!(
+                inv_burrows_wheeler_transform(burrows_wheeler_transform(text)),
+                text
+            );
+        }
+    }
+
+    /// Regression: rotations were built by slicing `&str` at byte offsets, which
+    /// panics as soon as an index lands inside a multi-byte character.
+    #[test]
+    fn unicode() {
+        for text in [
+            "café au lait",
+            "日本語のテキスト",
+            "naïve",
+            "ábcábc",
+            "🎉party🎉",
+            "Ünïcödé Mïx",
+        ] {
+            assert_eq!(
+                inv_burrows_wheeler_transform(burrows_wheeler_transform(text)),
+                text
+            );
+        }
+    }
+
+    #[test]
+    fn single_character() {
+        assert_eq!(burrows_wheeler_transform("a"), ("a".to_owned(), 0));
+        assert_eq!(inv_burrows_wheeler_transform(("a", 0usize)), "a");
+    }
+
+    #[test]
+    fn repeated_characters() {
+        for text in ["aaaa", "abab", "aaaab"] {
+            assert_eq!(
+                inv_burrows_wheeler_transform(burrows_wheeler_transform(text)),
+                text
+            );
+        }
     }
 }
