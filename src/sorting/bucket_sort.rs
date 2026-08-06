@@ -10,6 +10,10 @@ pub fn bucket_sort(arr: &[usize]) -> Vec<usize> {
     }
 
     let max = *arr.iter().max().unwrap();
+    if max == 0 {
+        return arr.to_vec();
+    }
+
     let len = arr.len();
     let mut buckets = vec![vec![]; len + 1];
 
@@ -83,5 +87,13 @@ mod tests {
         let cloned = arr;
         let res = bucket_sort(&arr);
         assert!(is_sorted(&res) && have_same_elements(&res, &cloned));
+    }
+
+    #[test]
+    fn all_zero_elements() {
+        let arr: [usize; 3] = [0, 0, 0];
+        let cloned = arr;
+        let res = bucket_sort(&arr);
+        assert!(is_sorted(&arr) && have_same_elements(&res, &cloned));
     }
 }
