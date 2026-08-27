@@ -124,8 +124,8 @@ fn sha256_compress(state: &mut [u32; 8], block: &[u8; 64]) {
 
 fn sha256_hash(msg: &[u8], mut state: [u32; 8]) -> [u32; 8] {
     let padded = sha256_pad(msg);
-    for chunk in padded.chunks_exact(64) {
-        sha256_compress(&mut state, chunk.try_into().unwrap());
+    for chunk in padded.as_chunks::<64>().0 {
+        sha256_compress(&mut state, chunk);
     }
     state
 }
@@ -271,8 +271,8 @@ fn sha512_compress(state: &mut [u64; 8], block: &[u8; 128]) {
 
 fn sha512_hash(msg: &[u8], mut state: [u64; 8]) -> [u64; 8] {
     let padded = sha512_pad(msg);
-    for chunk in padded.chunks_exact(128) {
-        sha512_compress(&mut state, chunk.try_into().unwrap());
+    for chunk in padded.as_chunks::<128>().0 {
+        sha512_compress(&mut state, chunk);
     }
     state
 }

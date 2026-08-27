@@ -50,7 +50,7 @@ pub fn exponential_moving_average(
                 if i == 0 {
                     stock_price
                 } else {
-                    (*moving_average + stock_price) * 0.5
+                    f64::midpoint(*moving_average, stock_price)
                 }
             } else {
                 // Apply exponential smoothing formula

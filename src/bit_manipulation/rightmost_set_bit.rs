@@ -44,7 +44,7 @@ pub fn index_of_rightmost_set_bit(num: i32) -> Result<u32, String> {
     }
 
     // Isolate the rightmost set bit using n & -n
-    let rightmost_bit = num & -num;
+    let rightmost_bit = num.isolate_lowest_one();
 
     // Calculate position: log2(rightmost_bit) + 1
     // We use trailing_zeros which gives us the 0-based position
@@ -72,7 +72,7 @@ pub fn index_of_rightmost_set_bit_log(num: i32) -> Result<u32, String> {
     }
 
     // Isolate the rightmost set bit
-    let rightmost_bit = num & -num;
+    let rightmost_bit = num.isolate_lowest_one();
 
     // Use f64 log2 and convert to position
     let position = (rightmost_bit as f64).log2() as u32 + 1;

@@ -47,7 +47,7 @@ pub fn md5(input: &[u8]) -> [u8; 16] {
     msg.extend_from_slice(&bit_len.to_le_bytes());
 
     // --- Processing: 512-bit (64-byte) chunks ---
-    for chunk in msg.chunks_exact(64) {
+    for chunk in msg.as_chunks::<64>().0 {
         // Break chunk into 16 little-endian 32-bit words
         let mut m = [0u32; 16];
         for (i, word) in m.iter_mut().enumerate() {

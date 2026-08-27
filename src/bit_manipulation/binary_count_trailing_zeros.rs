@@ -49,7 +49,7 @@ pub fn binary_count_trailing_zeros_bitwise(num: u64) -> u32 {
         return 0;
     }
 
-    let rightmost_set_bit = num & (num.wrapping_neg());
+    let rightmost_set_bit = num.isolate_lowest_one();
     rightmost_set_bit.ilog2()
 }
 

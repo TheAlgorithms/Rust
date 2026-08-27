@@ -9,7 +9,7 @@ where
             let left_side = a + (delta * trapezoid as f64);
             let right_side = left_side + delta;
 
-            0.5 * (f(left_side) + f(right_side)) * delta
+            f64::midpoint(f(left_side), f(right_side)) * delta
         })
         .sum()
 }
