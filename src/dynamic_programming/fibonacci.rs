@@ -193,7 +193,7 @@ pub fn binary_lifting_fibonacci(n: u32) -> u128 {
     // the state always stores F(k), F(k+1) for some k, initially F(0), F(1)
     let mut state = (0u128, 1u128);
 
-    for i in (0..u32::BITS - n.leading_zeros()).rev() {
+    for i in (0..n.bit_width()).rev() {
         // compute F(2k), F(2k+1) from F(k), F(k+1)
         state = (
             state.0 * (2 * state.1 - state.0),
