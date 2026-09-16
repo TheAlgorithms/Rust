@@ -2,17 +2,10 @@
 // The idea is to check for each number in the range [N, 1], and print the Kth number that divides N completely.
 
 pub fn kth_factor(n: i32, k: i32) -> i32 {
-    let mut factors: Vec<i32> = Vec::new();
-    let k = (k as usize) - 1;
-    for i in 1..=n {
-        if n % i == 0 {
-            factors.push(i);
-        }
-        if let Some(number) = factors.get(k) {
-            return *number;
-        }
-    }
-    -1
+    (1..=n)
+        .filter(|&i| n % i == 0)
+        .nth(k as usize - 1)
+        .unwrap_or(-1)
 }
 
 #[cfg(test)]
