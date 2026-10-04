@@ -266,6 +266,11 @@ mod tests {
                 left.then(right)
             });
             let calls_after_build = calls.get();
+            assert_eq!(
+                tree.query(values.len()..values.len()),
+                Err(SegmentTreeError::InvalidRange)
+            );
+            assert_eq!(calls.get(), calls_after_build);
             for (index, value) in values.iter().enumerate() {
                 assert_eq!(tree.query(index..index), Ok(None));
                 assert_eq!(calls.get(), calls_after_build);
