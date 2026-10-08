@@ -24,7 +24,6 @@
 //! ```
 
 use ndarray::{Array1, Array2};
-use std::f64;
 
 /// Kernel types supported by the SVC
 #[derive(Debug, Clone)]

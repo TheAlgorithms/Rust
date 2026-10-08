@@ -72,9 +72,8 @@ pub fn big_miller_rabin(number_ref: &BigUint, bases: &[u64]) -> u64 {
             panic!("0 is invalid input for Miller-Rabin. 0 is not prime by definition, but has no witness");
         } else if number.eq(&BigUint::from(2u32)) || number.eq(&BigUint::from(3u32)) {
             return 0;
-        } else {
-            return number.to_u64().unwrap();
         }
+        return number.to_u64().unwrap();
     }
 
     if let Some(num) = number.to_u64() {
