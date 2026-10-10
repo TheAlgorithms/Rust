@@ -1,4 +1,10 @@
 pub fn comb_sort<T: Ord>(arr: &mut [T]) {
+    // `gap` is clamped to at least 1 below, so `arr.len() - gap` would underflow
+    // on an empty slice.
+    if arr.len() < 2 {
+        return;
+    }
+
     let mut gap = arr.len();
     let shrink = 1.3;
     let mut sorted = false;
@@ -50,5 +56,21 @@ mod tests {
         let cloned = ve3.clone();
         comb_sort(&mut ve3);
         assert!(is_sorted(&ve3) && have_same_elements(&ve3, &cloned));
+    }
+
+    #[test]
+    fn empty() {
+        let mut ve4: Vec<u8> = vec![];
+        let cloned = ve4.clone();
+        comb_sort(&mut ve4);
+        assert!(is_sorted(&ve4) && have_same_elements(&ve4, &cloned));
+    }
+
+    #[test]
+    fn one_element() {
+        let mut ve5 = vec![3];
+        let cloned = ve5.clone();
+        comb_sort(&mut ve5);
+        assert!(is_sorted(&ve5) && have_same_elements(&ve5, &cloned));
     }
 }

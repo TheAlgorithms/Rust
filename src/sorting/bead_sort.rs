@@ -1,6 +1,11 @@
 //Bead sort only works for sequences of non-negative integers.
 //https://en.wikipedia.org/wiki/Bead_sort
 pub fn bead_sort(a: &mut [usize]) {
+    // An empty slice has no maximum to seed the bead grid with.
+    if a.is_empty() {
+        return;
+    }
+
     // Find the maximum element
     let mut max = a[0];
     (1..a.len()).for_each(|i| {
@@ -55,5 +60,29 @@ mod tests {
         let cloned = ve2;
         bead_sort(&mut ve2);
         assert!(is_sorted(&ve2) && have_same_elements(&ve2, &cloned));
+    }
+
+    #[test]
+    fn empty() {
+        let mut ve3: Vec<usize> = vec![];
+        let cloned = ve3.clone();
+        bead_sort(&mut ve3);
+        assert!(is_sorted(&ve3) && have_same_elements(&ve3, &cloned));
+    }
+
+    #[test]
+    fn one_element() {
+        let mut ve4: [usize; 1] = [4];
+        let cloned = ve4;
+        bead_sort(&mut ve4);
+        assert!(is_sorted(&ve4) && have_same_elements(&ve4, &cloned));
+    }
+
+    #[test]
+    fn all_zeroes() {
+        let mut ve5: [usize; 3] = [0, 0, 0];
+        let cloned = ve5;
+        bead_sort(&mut ve5);
+        assert!(is_sorted(&ve5) && have_same_elements(&ve5, &cloned));
     }
 }
