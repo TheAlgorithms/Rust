@@ -221,4 +221,11 @@ mod tests {
 
         assert_eq!(root, Some(1.0));
     }
+
+    #[test]
+    fn finds_root_at_midpoint() {
+        let root = bisection(|x| x - 1.0, 0.0, 2.0, 1e-6, 100);
+
+        assert_eq!(root, Some(1.0));
+    }
 }
