@@ -13,7 +13,7 @@ macro_rules! hex_uint {
  * This implementation is based on RFC8439.
  * Note that the Big Integer library we are using may not be suitable for
  * cryptographic applications due to non constant time operations.
-*/
+ */
 pub struct Poly1305 {
     p: BigUint,
     r: BigUint,
