@@ -262,7 +262,7 @@ impl DiffieHellman {
             .unwrap_or_else(|_| BigUint::parse_bytes(b"0", 16).unwrap());
 
         // Check if the other public key is valid based on NIST SP800-56
-        if BigUint::from(2_u8) <= key
+        BigUint::from(2_u8) <= key
             && key <= &self.prime - BigUint::from(2_u8)
             && !key
                 .modpow(
@@ -270,10 +270,6 @@ impl DiffieHellman {
                     &self.prime,
                 )
                 .is_zero()
-        {
-            return true;
-        }
-        false
     }
 
     /// Generate the shared key
