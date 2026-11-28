@@ -24,6 +24,14 @@ use num_traits::FromPrimitive;
 ///
 /// Returns the binomial coefficient C(n, k) as a BigInt.
 pub fn binom(n: u64, k: u64) -> BigInt {
+    // C(n, k) = 0 for k > n. Without this guard the loop below evaluates
+    // `n - i` for i > n, which is invalid for u64: a debug build panics with
+    // "attempt to subtract with overflow", and a release build silently wraps
+    // to 18446744073709551615 and returns garbage instead of 0.
+    if k > n {
+        return BigInt::from(0);
+    }
+
     let mut res = BigInt::from_u64(1).unwrap();
     for i in 0..k {
         res = (res * BigInt::from_u64(n - i).unwrap()) / BigInt::from_u64(i + 1).unwrap();
@@ -71,5 +79,13 @@ mod tests {
     fn test_binom_random_3() {
         // Random test case 3
         assert_eq!(binom(20, 10), BigInt::from(184_756));
+    }
+
+    #[test]
+    fn test_binom_k_greater_than_n() {
+        // C(n, k) = 0 for k > n. Before the guard these two calls underflowed
+        // u64: a debug build panicked, a release build returned garbage.
+        assert_eq!(binom(0, 2), BigInt::from(0));
+        assert_eq!(binom(5, 7), BigInt::from(0));
     }
 }
