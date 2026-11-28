@@ -61,6 +61,10 @@ pub fn ipv4_to_decimal(ipv4_address: &str) -> Result<u32, Ipv4Error> {
     let mut decimal_ipv4: u32 = 0;
 
     for octet_str in octets {
+        // Rust's integer parser accepts a leading '+', which is not a valid IPv4 octet.
+        if octet_str.is_empty() || !octet_str.bytes().all(|b| b.is_ascii_digit()) {
+            return Err(Ipv4Error::ParseError);
+        }
         let octet: u32 = octet_str.parse()?;
 
         if octet > 255 {
@@ -97,6 +101,9 @@ pub fn alt_ipv4_to_decimal(ipv4_address: &str) -> Result<u32, Ipv4Error> {
     let hex_string: String = octets
         .iter()
         .map(|octet| {
+            if octet.is_empty() || !octet.bytes().all(|b| b.is_ascii_digit()) {
+                return Err(Ipv4Error::ParseError);
+            }
             let num: u32 = octet.parse().map_err(|_| Ipv4Error::ParseError)?;
             if num > 255 {
                 return Err(Ipv4Error::InvalidOctet(num));
@@ -174,6 +181,9 @@ mod tests {
     fn test_ipv4_to_decimal_parse_error() {
         assert_eq!(ipv4_to_decimal("192.168.0.abc"), Err(Ipv4Error::ParseError));
         assert_eq!(ipv4_to_decimal("a.b.c.d"), Err(Ipv4Error::ParseError));
+        // u32::from_str accepts a leading '+', but IPv4 octets must be digits only.
+        assert_eq!(ipv4_to_decimal("192.168.0.+1"), Err(Ipv4Error::ParseError));
+        assert_eq!(ipv4_to_decimal("192.168.+0.1"), Err(Ipv4Error::ParseError));
     }
 
     #[test]
@@ -193,6 +203,10 @@ mod tests {
         assert_eq!(
             alt_ipv4_to_decimal("10.0.0.256"),
             Err(Ipv4Error::InvalidOctet(256))
+        );
+        assert_eq!(
+            alt_ipv4_to_decimal("192.168.0.+1"),
+            Err(Ipv4Error::ParseError)
         );
     }
 
